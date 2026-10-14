@@ -92,8 +92,14 @@
       margin: 0;
     }
     @media (max-width: 900px) {
-      .editorial-split { grid-template-columns: 1fr; }
-      .rituals-grid { grid-template-columns: 1fr; }
+      .editorial-split { grid-template-columns: 1fr; gap: 32px; }
+      .editorial-img { height: 320px; }
+      .rituals-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    }
+    @media (max-width: 600px) {
+      .editorial-img { height: 260px; }
+      .rituals-grid { grid-template-columns: 1fr; gap: 16px; }
+      .ritual-step-card { padding: 24px 20px; }
     }
   </style>
 

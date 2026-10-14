@@ -480,32 +480,159 @@ footer {
 
 
 
-/* Responsive Adjustments */
-@media (max-width: 900px) {
-  .top-bar {
-    padding: 8px 20px;
-    font-size: 10px;
-  }
+/* ==========================================================================
+   RESPONSIVE DESIGN SYSTEM (MOBILE, TABLET, IPAD & DESKTOP ERGONOMICS)
+   Adheres to antislop-layoutmobile: Fluid typography, 44px tap targets,
+   zero horizontal scroll leak, and deliberate multi-state reflow.
+   ========================================================================== */
+
+/* Tablet & iPad (<= 1024px) */
+@media (max-width: 1024px) {
   header {
-    padding: 14px 20px;
-  }
-  nav.main-nav {
-    display: none;
-  }
-  .menu-toggle-btn {
-    display: block;
+    padding: 14px 24px;
   }
   .section-shell {
-    padding: 60px 20px;
+    padding: 70px 24px;
   }
   .page-hero {
-    padding: 60px 20px 45px;
+    padding: 70px 24px 50px;
+  }
+  .container-wide, .container-narrow {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+
+/* Tablet Portrait & Small Laptops (<= 900px) */
+@media (max-width: 900px) {
+  nav.main-nav {
+    display: none !important;
+  }
+  .menu-toggle-btn {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
   }
   .page-hero-title {
-    font-size: 36px;
+    font-size: 38px;
+    line-height: 1.22;
   }
   .section-title {
-    font-size: 30px;
+    font-size: 32px;
+    line-height: 1.25;
+  }
+}
+
+/* Mobile Devices & Phones (<= 640px) */
+@media (max-width: 640px) {
+  header {
+    padding: 12px 16px;
+  }
+  .brand-wrap {
+    gap: 10px;
+  }
+  .brand-logo-img {
+    height: 36px;
+    max-width: 160px;
+  }
+  .btn-header-book {
+    padding: 8px 14px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    border-radius: 3px;
+  }
+  .menu-toggle-btn {
+    padding: 6px 10px;
+    font-size: 18px;
+  }
+
+  .section-shell {
+    padding: 48px 16px;
+  }
+  .page-hero {
+    padding: 50px 16px 36px;
+  }
+  .page-hero-title {
+    font-size: 30px !important;
+    line-height: 1.24;
+    margin-bottom: 12px;
+  }
+  .page-hero-subtitle {
+    font-size: 14px;
+    line-height: 1.65;
+    margin-bottom: 20px;
+  }
+  .section-title {
+    font-size: 26px !important;
+    line-height: 1.25;
+  }
+  .section-desc {
+    font-size: 13.5px;
+    line-height: 1.7;
+  }
+  .section-head {
+    margin-bottom: 35px;
+  }
+
+  /* Full-width responsive CTA buttons */
+  .btn-primary, .btn-outline {
+    width: 100%;
+    justify-content: center;
+    min-height: 48px;
+    padding: 12px 20px;
+    font-size: 11px;
+  }
+
+  /* Form Inputs - prevent iOS Safari auto-zoom */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+
+  /* Mobile Drawer links */
+  .mobile-nav-overlay {
+    padding: 20px;
+    gap: 18px;
+  }
+  .mobile-nav-overlay a {
+    font-size: 20px;
+    padding: 10px 16px;
+    min-height: 44px;
+  }
+  .mobile-nav-close {
+    top: 16px;
+    right: 18px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Footer on mobile */
+  footer {
+    padding: 24px 16px;
+  }
+  .footer-copy {
+    font-size: 11px;
+    line-height: 1.7;
+  }
+}
+
+/* Very Small Phones (<= 380px, e.g. iPhone SE, Galaxy Fold outer screen) */
+@media (max-width: 380px) {
+  header {
+    padding: 10px 12px;
+  }
+  .brand-logo-img {
+    height: 30px;
+    max-width: 130px;
+  }
+  .btn-header-book {
+    padding: 7px 10px;
+    font-size: 9px;
+    letter-spacing: 0.5px;
+  }
+  .page-hero-title {
+    font-size: 26px !important;
   }
 }
 

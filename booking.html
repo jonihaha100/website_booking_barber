@@ -3,15 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
   <title>Reserve Appointment | Greenwood Barbers &bull; Kota Baru Parahyangan</title>
   <meta name="description" content="Elevated Truefitt & Hill Chicago booking workflow for Greenwood Barbers Kota Baru Parahyangan. Select signature rituals, in-chair add-ons, take-home apothecary products, master barber, schedule, and cashless payment.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/greenwood.css?v=20261014_2">
+  <link rel="stylesheet" href="assets/greenwood.css">
 
   <style>
     :root {
@@ -60,30 +57,28 @@
     }
     .booking-eyebrow {
       font-size: 11px;
-      letter-spacing: 2.8px;
+      letter-spacing: 3px;
       text-transform: uppercase;
-      color: var(--color-gold-bright);
-      font-weight: 600;
-      margin-bottom: 12px;
+      color: var(--color-gold);
+      font-weight: 700;
+      margin-bottom: 8px;
       display: inline-block;
     }
     .booking-main-title {
       font-family: var(--font-serif);
-      font-size: 42px;
-      font-weight: 400;
-      line-height: 1.18;
-      letter-spacing: 0.3px;
+      font-size: 36px;
+      font-weight: 500;
+      letter-spacing: 2px;
       color: #ffffff;
-      text-transform: none;
-      margin-bottom: 12px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
     }
     .booking-main-desc {
-      font-size: 15.5px;
-      color: rgba(247, 242, 231, 0.82);
+      font-size: 14px;
+      color: var(--text-muted);
       max-width: 680px;
       margin: 0 auto;
-      line-height: 1.75;
-      font-weight: 300;
+      line-height: 1.6;
     }
 
     /* ==========================================================================
@@ -177,19 +172,18 @@
        2. TOP NOTICES & LOCATION SELECTOR
        ========================================================================== */
     .executive-policy-banner {
-      background: linear-gradient(165deg, rgba(197, 155, 72, 0.08) 0%, rgba(10, 31, 21, 0.85) 100%);
-      border: 1px solid rgba(197, 155, 72, 0.2);
+      background: rgba(197, 155, 72, 0.08);
+      border: 1px solid var(--color-gold-hairline);
       border-left: 3px solid var(--color-gold);
-      padding: 16px 22px;
-      margin-bottom: 18px;
+      padding: 14px 20px;
+      margin-bottom: 16px;
       font-size: 13px;
       line-height: 1.55;
       color: #d1d8d3;
       display: flex;
       align-items: center;
       gap: 14px;
-      border-radius: 8px;
-      box-shadow: 0 6px 20px -6px rgba(0, 0, 0, 0.6);
+      border-radius: 2px;
     }
     .policy-icon {
       color: var(--color-gold-bright);
@@ -198,16 +192,15 @@
     }
 
     .location-selector-bar {
-      background: linear-gradient(165deg, rgba(10, 31, 21, 0.85) 0%, rgba(5, 17, 11, 0.95) 100%);
-      border: 1px solid rgba(197, 155, 72, 0.16);
-      padding: 16px 24px;
-      margin-bottom: 28px;
+      background: var(--bg-surface);
+      border: 1px solid var(--color-gold-hairline);
+      padding: 14px 20px;
+      margin-bottom: 30px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      border-radius: 8px;
-      box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.6), inset 0 1px 0 0 rgba(226, 190, 108, 0.12);
+      border-radius: 2px;
     }
     .location-label {
       font-size: 13px;
@@ -243,7 +236,7 @@
     .booking-grid {
       display: grid;
       grid-template-columns: 1fr 390px;
-      gap: 20px;
+      gap: 32px;
       align-items: start;
     }
 
@@ -262,12 +255,11 @@
 
     /* Categories & Service Accordions */
     .catalogue-category {
-      background: linear-gradient(165deg, rgba(10, 31, 21, 0.85) 0%, rgba(5, 17, 11, 0.95) 100%);
-      border: 1px solid rgba(197, 155, 72, 0.16);
+      background: var(--bg-surface);
+      border: 1px solid var(--color-gold-hairline);
       margin-bottom: 22px;
-      border-radius: 8px;
+      border-radius: 2px;
       overflow: hidden;
-      box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.7), inset 0 1px 0 0 rgba(226, 190, 108, 0.12);
     }
     .category-header {
       background: rgba(3, 12, 8, 0.85);
@@ -290,11 +282,11 @@
     }
     .category-title {
       font-family: var(--font-serif);
-      font-size: 20px;
-      letter-spacing: 0.4px;
+      font-size: 18px;
+      letter-spacing: 1px;
       color: #ffffff;
-      font-weight: 500;
-      text-transform: none;
+      font-weight: 600;
+      text-transform: uppercase;
     }
     .category-count {
       font-size: 11px;
@@ -578,18 +570,17 @@
     .dossier-sticky-panel {
       position: sticky;
       top: 96px;
-      background: linear-gradient(165deg, rgba(10, 31, 21, 0.85) 0%, rgba(5, 17, 11, 0.95) 100%);
-      border: 1px solid rgba(197, 155, 72, 0.16);
-      border-radius: 8px;
+      background: var(--bg-surface);
+      border: 1px solid var(--color-gold-hairline);
+      border-radius: 2px;
       padding: 24px;
-      box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.7), inset 0 1px 0 0 rgba(226, 190, 108, 0.12);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
     }
     .dossier-panel-title {
       font-family: var(--font-serif);
-      font-size: 21px;
-      letter-spacing: 0.4px;
-      font-weight: 500;
-      text-transform: none;
+      font-size: 20px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
       color: #ffffff;
       margin-bottom: 4px;
       display: flex;
@@ -748,18 +739,16 @@
        5. STEP 2: DATE & TIME PICKER (Schedule)
        ========================================================================== */
     .schedule-panel {
-      background: linear-gradient(165deg, rgba(10, 31, 21, 0.85) 0%, rgba(5, 17, 11, 0.95) 100%);
-      border: 1px solid rgba(197, 155, 72, 0.16);
+      background: var(--bg-surface);
+      border: 1px solid var(--color-gold-hairline);
       padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.7), inset 0 1px 0 0 rgba(226, 190, 108, 0.12);
+      border-radius: 2px;
     }
     .panel-section-title {
       font-family: var(--font-serif);
-      font-size: 24px;
-      letter-spacing: 0.4px;
-      font-weight: 500;
-      text-transform: none;
+      font-size: 22px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
       color: #ffffff;
       margin-bottom: 8px;
     }
@@ -1131,11 +1120,10 @@
        6. STEP 3: PAYMENT & CONFIRMATION
        ========================================================================== */
     .payment-panel {
-      background: linear-gradient(165deg, rgba(10, 31, 21, 0.85) 0%, rgba(5, 17, 11, 0.95) 100%);
-      border: 1px solid rgba(197, 155, 72, 0.16);
+      background: var(--bg-surface);
+      border: 1px solid var(--color-gold-hairline);
       padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.7), inset 0 1px 0 0 rgba(226, 190, 108, 0.12);
+      border-radius: 2px;
     }
     .form-row-2 {
       display: grid;
@@ -1322,7 +1310,7 @@
       width: 100%;
     }
 
-    /* Responsive */
+    /* Responsive Ergonomics */
     @media (max-width: 992px) {
       .booking-grid {
         grid-template-columns: 1fr;
@@ -1349,12 +1337,57 @@
       }
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 640px) {
+      .booking-wrapper {
+        padding: 20px 14px 60px;
+      }
+      .booking-main-title {
+        font-size: 26px;
+        line-height: 1.25;
+      }
+      .chicago-stepper {
+        padding: 0;
+        margin-bottom: 20px;
+      }
+      .step-circle {
+        width: 30px;
+        height: 30px;
+        font-size: 11px;
+        margin-bottom: 4px;
+      }
+      .step-text {
+        font-size: 10px;
+        line-height: 1.25;
+        text-align: center;
+        max-width: 90px;
+      }
       .date-strip {
-        grid-template-columns: repeat(2, 1fr);
+        display: flex;
+        overflow-x: auto;
+        gap: 8px;
+        padding-bottom: 8px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+      }
+      .date-card-btn {
+        min-width: 68px;
+        flex-shrink: 0;
+        scroll-snap-align: start;
+        padding: 10px 4px;
       }
       .slots-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+      .slot-pill-btn {
+        min-height: 48px;
+        padding: 8px 4px;
+      }
+      .slot-time-text {
+        font-size: 12.5px;
+      }
+      .slot-status-badge {
+        font-size: 8.5px;
       }
       .form-row-2 {
         grid-template-columns: 1fr;
@@ -1362,23 +1395,43 @@
       .service-row {
         grid-template-columns: 1fr;
       }
+      .form-input-custom, select.form-input-custom, textarea.form-input-custom {
+        font-size: 16px !important;
+        min-height: 44px;
+      }
       .staff-picker-popover {
         position: fixed;
         top: 50% !important;
         left: 50% !important;
         transform: translate(-50%, -50%) !important;
-        width: 90vw;
+        width: 92vw;
         max-width: 340px;
       }
       .waitlist-banner-card {
         flex-direction: column;
         align-items: stretch;
+        padding: 16px;
       }
       .btn-join-waitlist-trigger {
         justify-content: center;
+        min-height: 44px;
       }
       .slots-legend-bar {
-        gap: 12px;
+        gap: 10px;
+        font-size: 11px;
+        padding: 10px 14px;
+      }
+      .info-modal-card, .waitlist-modal-card {
+        padding: 22px 16px;
+        width: 94vw;
+        max-height: 88vh;
+        overflow-y: auto;
+      }
+      .waitlist-modal-title {
+        font-size: 20px;
+      }
+      .btn-dossier-action {
+        min-height: 48px;
       }
     }
   </style>
@@ -1387,12 +1440,14 @@
 
   <!-- LUXURY MULTI-PAGE NAVIGATION BAR -->
   <header>
-    <a href="index.html" class="brand-wrap">
+    <a href="home.html" class="brand-wrap">
       <img src="assets/greenwood_logo_transparent.png" alt="Greenwood Barbers" class="brand-logo-img">
     </a>
 
     <nav class="main-nav" aria-label="Main navigation">
-      <a href="index.html">Home</a>
+      <a href="home.html">Home</a>
+      <a href="experience.html">The Experience</a>
+      <a href="services.html">Services</a>
       <a href="parlour.html">The Parlour</a>
       <a href="booking.html" class="active">Book Appointment</a>
     </nav>
@@ -1406,7 +1461,9 @@
   <!-- MOBILE NAV OVERLAY -->
   <div class="mobile-nav-overlay" id="mobileNavOverlay">
     <button class="mobile-nav-close" onclick="closeMobileNav()" aria-label="Close menu">&times;</button>
-    <a href="index.html" onclick="closeMobileNav()">Home</a>
+    <a href="home.html" onclick="closeMobileNav()">Home</a>
+    <a href="experience.html" onclick="closeMobileNav()">The Experience</a>
+    <a href="services.html" onclick="closeMobileNav()">Services</a>
     <a href="parlour.html" onclick="closeMobileNav()">The Parlour</a>
     <a href="booking.html" class="active" onclick="closeMobileNav()">Book Appointment</a>
     <a href="booking.html" class="btn-primary" style="margin-top: 16px;" onclick="closeMobileNav()">Reserve Appointment</a>
@@ -1415,7 +1472,7 @@
   <main class="booking-wrapper">
     <!-- Header -->
     <div class="booking-header">
-      <span class="booking-eyebrow">Haute Barbering &bull; Kota Baru Parahyangan</span>
+      <span class="booking-eyebrow">Truefitt &amp; Hill Chicago Stepped Architecture</span>
       <h1 class="booking-main-title">Gentlemen's Appointment Suite</h1>
       <p class="booking-main-desc">
         Select your ritual, tailor in-chair treatments &amp; Mayfair apothecary formulations, assign your certified bladesmith, and secure your chair at Ruko PancaTengah, Kota Baru Parahyangan.
@@ -1445,16 +1502,20 @@
 
     <!-- 2. APPOINTMENT POLICY BANNER & LOCATION SELECTOR -->
     <div class="executive-policy-banner">
+      <span class="policy-icon">&#9432;</span>
       <div>
         <strong>Appointment Integrity Protocol:</strong> No show and cancellations within 6 hours of an appointment will incur fees implemented at the full service price to ensure the integrity of our master bladesmiths' schedule and dedicated chair time.
       </div>
     </div>
 
     <div class="location-selector-bar">
-      <span class="location-label">Appointment Location</span>
-      <div style="font-size: 12.5px; font-weight: 600; color: var(--color-gold-bright); letter-spacing: 0.5px;">
-        Greenwood Barbers &bull; Ruko PancaTengah, Kota Baru Parahyangan (7 mins from Whoosh Padalarang)
-      </div>
+      <span class="location-label">
+        <span>&#128205;</span> Which location?
+      </span>
+      <select class="location-select-custom" id="parlourLocationSelect">
+        <option value="kbp" selected>Greenwood Barbers &bull; Ruko PancaTengah, Kota Baru Parahyangan (7 mins from Whoosh)</option>
+        <option value="senopati" disabled>Senopati Suite &bull; South Jakarta (Flagship Private Suite - Opening Q2 2027)</option>
+      </select>
     </div>
 
     <!-- 3. MAIN WORKSPACE GRID -->
@@ -1620,7 +1681,7 @@
                     <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('restoration')" aria-label="Service Details">i</button>
                   </div>
                   <p class="service-snippet">
-                    Unhurried two-hour master retreat: The Session, traditional wet shave, botanical trichology scalp therapy, cranial acupressure, and single-malt lounge service.
+                    Unhurried two-hour master retreat: The Session, traditional wet shave, Davines purifying scalp therapy, cranial acupressure, and single-malt lounge service.
                   </p>
                 </div>
                 <div class="service-action-col">
@@ -1792,17 +1853,17 @@
                 </div>
               </div>
 
-              <!-- Service 7: The Scalp Treatment -->
+              <!-- Service 7: The Scalp Treatment (Davines) -->
               <div class="service-row" data-id="serv-scalp-treatment">
                 <div class="service-info-col">
                   <div class="service-headline">
-                    <span class="service-name">3 The Scalp Treatment &bull; Botanical Trichology</span>
+                    <span class="service-name">3 The Scalp Treatment (Davines Purifying)</span>
                     <span class="service-price">Rp 250,000</span>
                     <span class="service-duration-badge">45 Mins</span>
                     <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('scalp-treatment')" aria-label="Service Details">i</button>
                   </div>
                   <p class="service-snippet">
-                    Clinical dermato-trichology therapy. Detoxing hair follicles of sebum and atmospheric pollution, microcirculation stimulation, and revitalizing scalp rebalancing.
+                    Clinical dermato-cosmetic therapy from Davines Naturaltech. Detoxing hair follicles of sebum and atmospheric pollution, microcirculation stimulation, and rebalancing.
                   </p>
                 </div>
                 <div class="service-action-col">
@@ -1815,20 +1876,20 @@
                       <button type="button" class="popover-close" onclick="closeStaffPicker('serv-scalp-treatment')">&times;</button>
                     </div>
                     <div class="staff-options-list">
-                      <div class="staff-option-row" onclick="addItemToDossier('serv-scalp-treatment', 'The Scalp Treatment', 250000, 45, 'Farhan Akbar', 'Scalp Sculptor', 'assets/barber_farhan.jpg')">
+                      <div class="staff-option-row" onclick="addItemToDossier('serv-scalp-treatment', 'The Scalp Treatment (Davines)', 250000, 45, 'Farhan Akbar', 'Scalp Sculptor', 'assets/barber_farhan.jpg')">
                         <img src="assets/barber_farhan.jpg" alt="Farhan Akbar" class="staff-avatar-thumb">
                         <div class="staff-meta">
                           <span class="staff-name">Farhan Akbar</span>
                           <span class="staff-role-sub">Scalp Sculptor &bull; 7 Yrs</span>
-                          <span class="staff-bio-snippet">Botanical trichology protocol and detoxifying meridian acupressure.</span>
+                          <span class="staff-bio-snippet">Davines Naturaltech formulation protocol and detoxifying acupressure.</span>
                         </div>
                       </div>
-                      <div class="staff-option-row" onclick="addItemToDossier('serv-scalp-treatment', 'The Scalp Treatment', 250000, 45, 'Any Staff', 'Certified Master', 'assets/greenwood_monogram_cropped.png')">
+                      <div class="staff-option-row" onclick="addItemToDossier('serv-scalp-treatment', 'The Scalp Treatment (Davines)', 250000, 45, 'Any Staff', 'Certified Master', 'assets/greenwood_monogram_cropped.png')">
                         <div class="staff-avatar-any">&#10022;</div>
                         <div class="staff-meta">
                           <span class="staff-name">Any Staff</span>
                           <span class="staff-role-sub">Certified Bladesmith Pool</span>
-                          <span class="staff-bio-snippet">Botanical trichology scalp balancing therapy.</span>
+                          <span class="staff-bio-snippet">Davines botanical scalp balancing therapy.</span>
                         </div>
                       </div>
                     </div>
@@ -1846,7 +1907,7 @@
                     <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('session-scalp')" aria-label="Service Details">i</button>
                   </div>
                   <p class="service-snippet">
-                    Comprehensive 90-minute pairing: 45-minute Session haircut combined with intensive botanical scalp restorative therapy (component value Rp 470,000).
+                    Comprehensive 90-minute pairing: 45-minute Session haircut combined with intensive Davines scalp restorative therapy (component value Rp 470,000).
                   </p>
                 </div>
                 <div class="service-action-col">
@@ -1938,7 +1999,7 @@
               <div class="service-row" data-id="addon-scalp">
                 <div class="service-info-col">
                   <div class="service-headline">
-                    <span class="service-name">3 Scalp Purifying Therapy Add-on</span>
+                    <span class="service-name">3 Scalp Purifying Davines Add-on</span>
                     <span class="service-price">+Rp 165,000</span>
                     <span class="service-duration-badge">+35 Mins</span>
                     <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('addon-scalp')" aria-label="Details">i</button>
@@ -2116,7 +2177,7 @@
             <!-- Time Slots Clusters -->
             <div class="slots-cluster">
               <div class="slots-cluster-header">
-                Morning Sessions (10:00 &ndash; 12:00 WIB)
+                <span>&#9728;</span> Morning Sessions (10:00 &ndash; 12:00 WIB)
               </div>
               <div class="slots-grid">
                 <button type="button" class="slot-pill-btn" onclick="selectTimeSlot('10:00')">
@@ -2129,7 +2190,7 @@
                 </button>
                 <button type="button" class="slot-pill-btn booked" onclick="handleBookedSlotClick('11:30', '12:15')" title="5/5 Master Chairs Committed &bull; Click to join Priority Waitlist">
                   <span class="slot-time-text">11:30 WIB</span>
-                  <span class="slot-status-badge badge-soldout">FULL (5/5)</span>
+                  <span class="slot-status-badge badge-soldout">&#128274; FULL (5/5)</span>
                 </button>
                 <button type="button" class="slot-pill-btn" onclick="selectTimeSlot('12:15')">
                   <span class="slot-time-text">12:15 WIB</span>
@@ -2140,7 +2201,7 @@
 
             <div class="slots-cluster">
               <div class="slots-cluster-header">
-                Afternoon Sessions (13:00 &ndash; 17:00 WIB)
+                <span>&#9733;</span> Afternoon Sessions (13:00 &ndash; 17:00 WIB)
               </div>
               <div class="slots-grid">
                 <button type="button" class="slot-pill-btn" onclick="selectTimeSlot('13:00')">
@@ -2149,7 +2210,7 @@
                 </button>
                 <button type="button" class="slot-pill-btn booked" onclick="handleBookedSlotClick('13:45', '14:30')" title="5/5 Master Chairs Committed &bull; Click to join Priority Waitlist">
                   <span class="slot-time-text">13:45 WIB</span>
-                  <span class="slot-status-badge badge-soldout">FULL (5/5)</span>
+                  <span class="slot-status-badge badge-soldout">&#128274; FULL (5/5)</span>
                 </button>
                 <button type="button" class="slot-pill-btn active" onclick="selectTimeSlot('14:30')">
                   <span class="slot-time-text">14:30 WIB</span>
@@ -2157,7 +2218,7 @@
                 </button>
                 <button type="button" class="slot-pill-btn booked" onclick="handleBookedSlotClick('15:15', '16:00')" title="5/5 Master Chairs Committed &bull; Click to join Priority Waitlist">
                   <span class="slot-time-text">15:15 WIB</span>
-                  <span class="slot-status-badge badge-soldout">FULL (5/5)</span>
+                  <span class="slot-status-badge badge-soldout">&#128274; FULL (5/5)</span>
                 </button>
                 <button type="button" class="slot-pill-btn" onclick="selectTimeSlot('16:00')">
                   <span class="slot-time-text">16:00 WIB</span>
@@ -2176,7 +2237,7 @@
 
             <div class="slots-cluster">
               <div class="slots-cluster-header">
-                Evening Sessions (18:00 &ndash; 21:00 WIB)
+                <span>&#9790;</span> Evening Sessions (18:00 &ndash; 21:00 WIB)
               </div>
               <div class="slots-grid">
                 <button type="button" class="slot-pill-btn" onclick="selectTimeSlot('18:00')">
@@ -2185,7 +2246,7 @@
                 </button>
                 <button type="button" class="slot-pill-btn booked" onclick="handleBookedSlotClick('18:45', '19:30')" title="5/5 Master Chairs Committed &bull; Click to join Priority Waitlist">
                   <span class="slot-time-text">18:45 WIB</span>
-                  <span class="slot-status-badge badge-soldout">FULL (5/5)</span>
+                  <span class="slot-status-badge badge-soldout">&#128274; FULL (5/5)</span>
                 </button>
                 <button type="button" class="slot-pill-btn" onclick="selectTimeSlot('19:30')">
                   <span class="slot-time-text">19:30 WIB</span>
@@ -2202,14 +2263,14 @@
             <div class="waitlist-banner-card">
               <div class="waitlist-banner-info">
                 <div class="waitlist-banner-title">
-                  High-Demand Standby Protocol &bull; 6-Hour Release Window
+                  <span>&#9201;</span> High-Demand Standby Protocol &bull; 6-Hour Release Window
                 </div>
                 <div class="waitlist-banner-desc">
                   All 5 master stations at Kota Baru Parahyangan operate at high utilization. When prime sessions are fully committed, any chair released due to schedule adjustment (up to 6 hours prior) is automatically reallocated to our Priority Waitlist in strict chronological order.
                 </div>
               </div>
               <button type="button" class="btn-join-waitlist-trigger" onclick="openWaitlistModal()">
-                Join Priority Waitlist
+                <span>&#10022;</span> Join Priority Waitlist
               </button>
             </div>
 
@@ -2269,14 +2330,17 @@
               <label class="form-label-custom" style="margin-top: 14px; display: block;">Select Cashless Settlement Gateway</label>
               <div class="payment-options-grid">
                 <div class="payment-method-card active" onclick="selectPaymentMethod('qris', this)">
+                  <span class="pm-icon">&#9638;</span>
                   <span class="pm-name">QRIS Instant</span>
                   <span class="pm-desc">BCA, Mandiri, GoPay, OVO</span>
                 </div>
                 <div class="payment-method-card" onclick="selectPaymentMethod('transfer', this)">
+                  <span class="pm-icon">&#127974;</span>
                   <span class="pm-name">Bank Mandiri VA</span>
                   <span class="pm-desc">Virtual Account &amp; Transfer</span>
                 </div>
                 <div class="payment-method-card" onclick="selectPaymentMethod('edc', this)">
+                  <span class="pm-icon">&#128179;</span>
                   <span class="pm-name">In-Parlour EDC</span>
                   <span class="pm-desc">Visa, Mastercard, Debit</span>
                 </div>
@@ -2516,7 +2580,7 @@
         steps: [
           "Full 45-minute The Session with lead master barber.",
           "Ceremonial Hot Towel Straight Razor Wet Shave (35 minutes).",
-          "Botanical Scalp Purifying &amp; Balancing treatment (25 minutes).",
+          "Davines Naturaltech Scalp Purifying &amp; Balancing treatment (25 minutes).",
           "Cranial, neck, and shoulder meridian acupressure massage (15 minutes).",
           "Cold linen face seal and complimentary single-malt Scotch in the private lounge."
         ]
@@ -2554,14 +2618,14 @@
         ]
       },
       'scalp-treatment': {
-        title: "The Scalp Treatment (Botanical Trichology)",
+        title: "The Scalp Treatment (Davines Purifying)",
         meta: "45 Minutes &bull; Rp 250,000 &bull; Dermato-Cosmetic Therapy",
         steps: [
-          "Application of botanical purifying formula with dandelion phytoceuticals.",
+          "Application of Davines Naturaltech Purifying Gel with dandelion phytoceuticals.",
           "Micro-enzymatic exfoliation to eliminate stubborn sebum and environmental pollution.",
           "Deep scalp massage stimulating microcapillary circulation.",
           "Nutritive rinse with ozone-filtered pure water.",
-          "Energizing botanical follicle tonic application."
+          "Davines Energizing Anti-Hairloss tonic application."
         ]
       },
       'session-scalp': {
@@ -2569,7 +2633,7 @@
         meta: "90 Minutes &bull; Rp 420,000 &bull; Haircut &amp; Scalp Pairing",
         steps: [
           "Complete 6-step The Session haircut (45 minutes).",
-          "Intensive botanical scalp therapy (45 minutes).",
+          "Intensive Davines Naturaltech scalp therapy (45 minutes).",
           "Thorough cranial, cervical, and shoulder relaxation massage."
         ]
       },
@@ -2740,7 +2804,7 @@
         totalDuration += item.duration;
         totalPrice += item.price;
 
-        const staffLabel = item.duration > 0 ? `Barber: ${item.staffName}` : `${item.staffName}`;
+        const staffLabel = item.duration > 0 ? `<span>&#9986;</span> Barber: ${item.staffName}` : `<span>&#128230;</span> ${item.staffName}`;
         const durationText = item.duration > 0 ? `${item.duration} mins &bull; ` : '';
 
         return `
@@ -3129,17 +3193,6 @@ _Kindly confirm my private chair reservation. Thank you._`;
     function closeMobileNav() {
       document.getElementById('mobileNavOverlay').classList.remove('active');
     }
-
-    // Aggressive DOM Purge: Instantly delete any cached 'The Experience' nodes
-    (function purgeLingering() {
-      document.querySelectorAll('a').forEach(function(el) {
-        var h = el.getAttribute('href') || '';
-        var t = (el.textContent || '').trim().toUpperCase();
-        if (h.includes('experience') || t.includes('EXPERIENCE')) {
-          el.remove();
-        }
-      });
-    })();
   </script>
 </body>
 </html>

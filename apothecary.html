@@ -140,7 +140,11 @@
       font-size: 10.5px;
     }
     @media (max-width: 900px) {
-      .apothecary-grid { grid-template-columns: 1fr; }
+      .apothecary-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    }
+    @media (max-width: 600px) {
+      .apothecary-grid { grid-template-columns: 1fr; gap: 18px; }
+      .apothecary-card { padding: 22px 18px; }
     }
   </style>
 
