@@ -258,19 +258,21 @@
       background: var(--bg-surface);
       border: 1px solid var(--color-gold-hairline);
       margin-bottom: 22px;
-      border-radius: 2px;
+      border-radius: 4px;
       overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     }
     .category-header {
-      background: rgba(3, 12, 8, 0.85);
+      background: rgba(3, 12, 8, 0.92);
       border-bottom: 1px solid var(--color-gold-hairline);
-      padding: 15px 20px;
+      padding: 16px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
       user-select: none;
       transition: background 0.25s ease;
+      gap: 12px;
     }
     .category-header:hover {
       background: rgba(197, 155, 72, 0.08);
@@ -279,34 +281,54 @@
       display: flex;
       align-items: center;
       gap: 12px;
+      flex: 1;
+      min-width: 0;
+      flex-wrap: wrap;
     }
     .category-title {
       font-family: var(--font-serif);
-      font-size: 18px;
-      letter-spacing: 1px;
+      font-size: 17.5px;
+      letter-spacing: 0.8px;
       color: #ffffff;
       font-weight: 600;
       text-transform: uppercase;
+      line-height: 1.3;
+      margin: 0;
     }
     .category-count {
-      font-size: 11px;
+      font-size: 10px;
       letter-spacing: 1px;
-      color: var(--color-gold);
+      color: var(--color-gold-bright);
       background: rgba(197, 155, 72, 0.12);
-      border: 1px solid rgba(197, 155, 72, 0.3);
-      padding: 2px 8px;
-      border-radius: 10px;
+      border: 1px solid rgba(197, 155, 72, 0.35);
+      padding: 3px 9px;
+      border-radius: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
     .category-toggle-arrow {
       color: var(--color-gold);
-      font-size: 13px;
-      transition: transform 0.3s ease;
+      font-size: 12px;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(197, 155, 72, 0.08);
+      border: 1px solid rgba(197, 155, 72, 0.25);
+      border-radius: 50%;
+      flex-shrink: 0;
+      transition: transform 0.3s ease, background 0.2s ease;
     }
     .catalogue-category.collapsed .category-toggle-arrow {
       transform: rotate(-90deg);
     }
     .category-items-list {
-      padding: 6px 0;
+      padding: 4px 0;
       display: flex;
       flex-direction: column;
     }
@@ -314,13 +336,13 @@
       display: none;
     }
 
-    /* Service Row */
+    /* Service Row (Symmetrical & Aligned Card Architecture) */
     .service-row {
       padding: 18px 20px;
       border-bottom: 1px solid rgba(197, 155, 72, 0.12);
       display: grid;
       grid-template-columns: 1fr auto;
-      gap: 16px;
+      gap: 20px;
       align-items: center;
       position: relative;
       transition: background 0.25s ease;
@@ -335,13 +357,33 @@
     .service-info-col {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 6px;
+      min-width: 0;
     }
-    .service-headline {
+    .service-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .service-title-wrap {
       display: flex;
       align-items: center;
       gap: 10px;
-      flex-wrap: wrap;
+      flex: 1;
+      min-width: 0;
+    }
+    .service-idx-badge {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--color-gold);
+      background: rgba(197, 155, 72, 0.1);
+      border: 1px solid rgba(197, 155, 72, 0.32);
+      padding: 2px 7px;
+      border-radius: 3px;
+      flex-shrink: 0;
     }
     .service-name {
       font-family: var(--font-serif);
@@ -349,28 +391,17 @@
       font-weight: 600;
       color: #ffffff;
       letter-spacing: 0.5px;
-    }
-    .service-price {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--color-gold-bright);
-    }
-    .service-duration-badge {
-      font-size: 11px;
-      color: var(--text-muted);
-      background: rgba(255, 255, 255, 0.06);
-      padding: 2px 7px;
-      border-radius: 2px;
-      letter-spacing: 0.5px;
+      line-height: 1.3;
+      margin: 0;
     }
     .btn-info-tooltip {
-      background: none;
+      background: rgba(197, 155, 72, 0.08);
       border: 1px solid rgba(197, 155, 72, 0.35);
       color: var(--color-gold);
-      width: 18px;
-      height: 18px;
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
-      font-size: 10px;
+      font-size: 11px;
       font-family: var(--font-serif);
       font-style: italic;
       font-weight: 700;
@@ -378,40 +409,75 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
       transition: all 0.2s ease;
     }
     .btn-info-tooltip:hover {
       background: var(--color-gold);
       color: #020704;
       border-color: var(--color-gold);
+      box-shadow: 0 0 10px rgba(197, 155, 72, 0.4);
     }
     .service-snippet {
-      font-size: 12.5px;
+      font-size: 13px;
       color: var(--text-muted);
-      line-height: 1.5;
+      line-height: 1.55;
+      margin: 0;
     }
 
-    /* Action: Dropdown Button & Popover */
+    /* Action Column (Price & Button) */
     .service-action-col {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
       position: relative;
+      flex-shrink: 0;
     }
+    .service-meta-price-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .service-price {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-gold-bright);
+      letter-spacing: 0.5px;
+    }
+    .service-duration-badge {
+      font-size: 11px;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 3px 8px;
+      border-radius: 3px;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
     .btn-add-chicago {
       background: linear-gradient(135deg, var(--color-gold) 0%, #aa8237 100%);
       color: #020704;
       border: 1px solid var(--color-gold-bright);
       padding: 9px 18px;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
-      letter-spacing: 1px;
+      letter-spacing: 0.8px;
       text-transform: uppercase;
       border-radius: 2px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      gap: 7px;
       transition: all 0.25s ease;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
       white-space: nowrap;
+      min-height: 40px;
     }
     .btn-add-chicago:hover {
       background: var(--color-gold-bright);
@@ -421,6 +487,32 @@
     .btn-add-chicago .arrow-down {
       font-size: 9px;
       transition: transform 0.2s ease;
+    }
+
+    .btn-add-product {
+      background: rgba(197, 155, 72, 0.12);
+      color: var(--color-gold-bright);
+      border: 1px solid rgba(197, 155, 72, 0.4);
+      padding: 9px 16px;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      border-radius: 2px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+      min-height: 40px;
+    }
+    .btn-add-product:hover {
+      background: var(--color-gold);
+      color: #020704;
+      border-color: var(--color-gold-bright);
+      box-shadow: 0 0 14px rgba(197, 155, 72, 0.4);
     }
 
     /* Elevated Floating Staff Picker Popover */
@@ -1392,8 +1484,70 @@
       .form-row-2 {
         grid-template-columns: 1fr;
       }
+      /* Mobile Category & Service Alignment (Sejajar & Rapi) */
+      .category-header {
+        padding: 14px 15px;
+        gap: 10px;
+      }
+      .category-title-wrap {
+        gap: 5px 10px;
+      }
+      .category-title {
+        font-size: 14.5px !important;
+        letter-spacing: 0.5px;
+      }
+      .category-count {
+        font-size: 9px !important;
+        padding: 2px 7px;
+      }
+      .category-toggle-arrow {
+        width: 28px;
+        height: 28px;
+        font-size: 10px;
+      }
       .service-row {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px 14px;
+      }
+      .service-name {
+        font-size: 15px !important;
+      }
+      .service-idx-badge {
+        font-size: 9px;
+        padding: 1px 5px;
+      }
+      .service-snippet {
+        font-size: 12px;
+        line-height: 1.5;
+      }
+      .service-action-col {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding-top: 10px;
+        border-top: 1px dashed rgba(197, 155, 72, 0.18);
+        gap: 10px;
+      }
+      .service-meta-price-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .service-price {
+        font-size: 14px;
+      }
+      .service-duration-badge {
+        font-size: 10px;
+        padding: 2px 6px;
+      }
+      .btn-add-chicago, .btn-add-product {
+        padding: 8px 14px;
+        font-size: 10.5px;
+        min-height: 38px;
       }
       .form-input-custom, select.form-input-custom, textarea.form-input-custom {
         font-size: 16px !important;
@@ -1432,6 +1586,21 @@
       }
       .btn-dossier-action {
         min-height: 48px;
+      }
+    }
+    @media (max-width: 360px) {
+      .service-action-col {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+      .service-meta-price-row {
+        justify-content: space-between;
+        width: 100%;
+      }
+      .btn-add-chicago, .btn-add-product {
+        width: 100%;
+        justify-content: center;
       }
     }
   </style>
@@ -1536,7 +1705,7 @@
             <div class="category-header" onclick="toggleCategory(this)">
               <div class="category-title-wrap">
                 <span class="category-title">1. Signature Rituals &amp; Haircuts</span>
-                <span class="category-count">4 Treatments</span>
+                <span class="category-count"><span>&#9733;</span> 4 Treatments</span>
               </div>
               <span class="category-toggle-arrow">&#9660;</span>
             </div>
@@ -1545,19 +1714,24 @@
               <!-- Service 1: The Session -->
               <div class="service-row" data-id="serv-the-session">
                 <div class="service-info-col">
-                  <div class="service-headline">
-                    <span class="service-name">1 The Session &bull; Six Codified Steps</span>
-                    <span class="service-price">Rp 220,000</span>
-                    <span class="service-duration-badge">45 Mins</span>
-                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('the-session')" aria-label="Service Details">i</button>
+                  <div class="service-header-row">
+                    <div class="service-title-wrap">
+                      <span class="service-idx-badge">01</span>
+                      <h3 class="service-name">The Session &bull; Six Codified Steps</h3>
+                    </div>
+                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('the-session')" aria-label="Service Details" title="View Ritual Details">i</button>
                   </div>
                   <p class="service-snippet">
                     Anatomical cranial consultation, botanical wash, precision shear &amp; clipper cut, straight-razor detailing (ears, nose &amp; brows), lavender hot towel wrap, and matte pomade dressing.
                   </p>
                 </div>
                 <div class="service-action-col">
+                  <div class="service-meta-price-row">
+                    <span class="service-price">Rp 220,000</span>
+                    <span class="service-duration-badge">&#9201; 45 Mins</span>
+                  </div>
                   <button type="button" class="btn-add-chicago" onclick="toggleStaffPicker('serv-the-session', event)">
-                    Add <span class="arrow-down">&#9660;</span>
+                    Add Barber <span class="arrow-down">&#9660;</span>
                   </button>
                   <!-- Floating Staff Picker -->
                   <div class="staff-picker-popover" id="popover-serv-the-session">
@@ -1622,19 +1796,24 @@
               <!-- Service 2: The Session & Shave -->
               <div class="service-row" data-id="serv-session-shave">
                 <div class="service-info-col">
-                  <div class="service-headline">
-                    <span class="service-name">2 The Session &amp; Traditional Shave</span>
-                    <span class="service-price">Rp 325,000</span>
-                    <span class="service-duration-badge">75 Mins</span>
-                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('session-shave')" aria-label="Service Details">i</button>
+                  <div class="service-header-row">
+                    <div class="service-title-wrap">
+                      <span class="service-idx-badge">02</span>
+                      <h3 class="service-name">The Session &amp; Traditional Shave</h3>
+                    </div>
+                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('session-shave')" aria-label="Service Details" title="View Ritual Details">i</button>
                   </div>
                   <p class="service-snippet">
                     Flagship combined experience: 45-minute Session paired with ceremonial hot towel straight-razor shave. Component value Rp 380,000, unified tariff of Rp 325,000.
                   </p>
                 </div>
                 <div class="service-action-col">
+                  <div class="service-meta-price-row">
+                    <span class="service-price">Rp 325,000</span>
+                    <span class="service-duration-badge">&#9201; 75 Mins</span>
+                  </div>
                   <button type="button" class="btn-add-chicago" onclick="toggleStaffPicker('serv-session-shave', event)">
-                    Add <span class="arrow-down">&#9660;</span>
+                    Add Barber <span class="arrow-down">&#9660;</span>
                   </button>
                   <div class="staff-picker-popover" id="popover-serv-session-shave">
                     <div class="popover-header">
@@ -1674,19 +1853,24 @@
               <!-- Service 3: The Restoration -->
               <div class="service-row" data-id="serv-restoration">
                 <div class="service-info-col">
-                  <div class="service-headline">
-                    <span class="service-name">3 The Restoration (Royal Grand Experience)</span>
-                    <span class="service-price">Rp 550,000</span>
-                    <span class="service-duration-badge">120 Mins</span>
-                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('restoration')" aria-label="Service Details">i</button>
+                  <div class="service-header-row">
+                    <div class="service-title-wrap">
+                      <span class="service-idx-badge">03</span>
+                      <h3 class="service-name">The Restoration (Royal Grand Experience)</h3>
+                    </div>
+                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('restoration')" aria-label="Service Details" title="View Ritual Details">i</button>
                   </div>
                   <p class="service-snippet">
                     Unhurried two-hour master retreat: The Session, traditional wet shave, Davines purifying scalp therapy, cranial acupressure, and single-malt lounge service.
                   </p>
                 </div>
                 <div class="service-action-col">
+                  <div class="service-meta-price-row">
+                    <span class="service-price">Rp 550,000</span>
+                    <span class="service-duration-badge">&#9201; 120 Mins</span>
+                  </div>
                   <button type="button" class="btn-add-chicago" onclick="toggleStaffPicker('serv-restoration', event)">
-                    Add <span class="arrow-down">&#9660;</span>
+                    Add Barber <span class="arrow-down">&#9660;</span>
                   </button>
                   <div class="staff-picker-popover" id="popover-serv-restoration">
                     <div class="popover-header">
@@ -1718,19 +1902,24 @@
               <!-- Service 4: The Detail -->
               <div class="service-row" data-id="serv-detail">
                 <div class="service-info-col">
-                  <div class="service-headline">
-                    <span class="service-name">4 The Detail &bull; Neck &amp; Beard Outline</span>
-                    <span class="service-price">Rp 75,000</span>
-                    <span class="service-duration-badge">20 Mins</span>
-                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('detail')" aria-label="Service Details">i</button>
+                  <div class="service-header-row">
+                    <div class="service-title-wrap">
+                      <span class="service-idx-badge">04</span>
+                      <h3 class="service-name">The Detail &bull; Neck &amp; Beard Outline</h3>
+                    </div>
+                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('detail')" aria-label="Service Details" title="View Ritual Details">i</button>
                   </div>
                   <p class="service-snippet">
                     Interim razor contouring along the neckline, sideburns, and beard perimeter with warm lather between scheduled haircut appointments.
                   </p>
                 </div>
                 <div class="service-action-col">
+                  <div class="service-meta-price-row">
+                    <span class="service-price">Rp 75,000</span>
+                    <span class="service-duration-badge">&#9201; 20 Mins</span>
+                  </div>
                   <button type="button" class="btn-add-chicago" onclick="toggleStaffPicker('serv-detail', event)">
-                    Add <span class="arrow-down">&#9660;</span>
+                    Add Barber <span class="arrow-down">&#9660;</span>
                   </button>
                   <div class="staff-picker-popover" id="popover-serv-detail">
                     <div class="popover-header">
@@ -1759,7 +1948,7 @@
             <div class="category-header" onclick="toggleCategory(this)">
               <div class="category-title-wrap">
                 <span class="category-title">2. Combos &amp; Scalp Treatments</span>
-                <span class="category-count">4 Treatments</span>
+                <span class="category-count"><span>&#9733;</span> 4 Treatments</span>
               </div>
               <span class="category-toggle-arrow">&#9660;</span>
             </div>
@@ -1768,19 +1957,24 @@
               <!-- Service 5: Traditional Hot Towel Wet Shave -->
               <div class="service-row" data-id="serv-hot-shave">
                 <div class="service-info-col">
-                  <div class="service-headline">
-                    <span class="service-name">1 Traditional Hot Towel Wet Shave</span>
-                    <span class="service-price">Rp 160,000</span>
-                    <span class="service-duration-badge">30 Mins</span>
-                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('hot-shave')" aria-label="Service Details">i</button>
+                  <div class="service-header-row">
+                    <div class="service-title-wrap">
+                      <span class="service-idx-badge">01</span>
+                      <h3 class="service-name">Traditional Hot Towel Wet Shave</h3>
+                    </div>
+                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('hot-shave')" aria-label="Service Details" title="View Ritual Details">i</button>
                   </div>
                   <p class="service-snippet">
                     Classical Mayfair straight-razor shave with sandalwood essential oil steam compress, silvertip badger lather, and single-use Solingen surgical blade.
                   </p>
                 </div>
                 <div class="service-action-col">
+                  <div class="service-meta-price-row">
+                    <span class="service-price">Rp 160,000</span>
+                    <span class="service-duration-badge">&#9201; 30 Mins</span>
+                  </div>
                   <button type="button" class="btn-add-chicago" onclick="toggleStaffPicker('serv-hot-shave', event)">
-                    Add <span class="arrow-down">&#9660;</span>
+                    Add Barber <span class="arrow-down">&#9660;</span>
                   </button>
                   <div class="staff-picker-popover" id="popover-serv-hot-shave">
                     <div class="popover-header">
@@ -1812,19 +2006,24 @@
               <!-- Service 6: The Hair Spa & Scalp Massage -->
               <div class="service-row" data-id="serv-hair-spa">
                 <div class="service-info-col">
-                  <div class="service-headline">
-                    <span class="service-name">2 The Hair Spa &amp; Scalp Massage</span>
-                    <span class="service-price">Rp 200,000</span>
-                    <span class="service-duration-badge">40 Mins</span>
-                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('hair-spa')" aria-label="Service Details">i</button>
+                  <div class="service-header-row">
+                    <div class="service-title-wrap">
+                      <span class="service-idx-badge">02</span>
+                      <h3 class="service-name">The Hair Spa &amp; Scalp Massage</h3>
+                    </div>
+                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('hair-spa')" aria-label="Service Details" title="View Ritual Details">i</button>
                   </div>
                   <p class="service-snippet">
                     Rp 5,000/minute (11% below competitor tariffs). Botanical root nutrient masque, 20-minute cranial meridian acupressure, and cooling steam compress.
                   </p>
                 </div>
                 <div class="service-action-col">
+                  <div class="service-meta-price-row">
+                    <span class="service-price">Rp 200,000</span>
+                    <span class="service-duration-badge">&#9201; 40 Mins</span>
+                  </div>
                   <button type="button" class="btn-add-chicago" onclick="toggleStaffPicker('serv-hair-spa', event)">
-                    Add <span class="arrow-down">&#9660;</span>
+                    Add Barber <span class="arrow-down">&#9660;</span>
                   </button>
                   <div class="staff-picker-popover" id="popover-serv-hair-spa">
                     <div class="popover-header">
@@ -1856,19 +2055,24 @@
               <!-- Service 7: The Scalp Treatment (Davines) -->
               <div class="service-row" data-id="serv-scalp-treatment">
                 <div class="service-info-col">
-                  <div class="service-headline">
-                    <span class="service-name">3 The Scalp Treatment (Davines Purifying)</span>
-                    <span class="service-price">Rp 250,000</span>
-                    <span class="service-duration-badge">45 Mins</span>
-                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('scalp-treatment')" aria-label="Service Details">i</button>
+                  <div class="service-header-row">
+                    <div class="service-title-wrap">
+                      <span class="service-idx-badge">03</span>
+                      <h3 class="service-name">The Scalp Treatment (Davines Purifying)</h3>
+                    </div>
+                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('scalp-treatment')" aria-label="Service Details" title="View Ritual Details">i</button>
                   </div>
                   <p class="service-snippet">
                     Clinical dermato-cosmetic therapy from Davines Naturaltech. Detoxing hair follicles of sebum and atmospheric pollution, microcirculation stimulation, and rebalancing.
                   </p>
                 </div>
                 <div class="service-action-col">
+                  <div class="service-meta-price-row">
+                    <span class="service-price">Rp 250,000</span>
+                    <span class="service-duration-badge">&#9201; 45 Mins</span>
+                  </div>
                   <button type="button" class="btn-add-chicago" onclick="toggleStaffPicker('serv-scalp-treatment', event)">
-                    Add <span class="arrow-down">&#9660;</span>
+                    Add Barber <span class="arrow-down">&#9660;</span>
                   </button>
                   <div class="staff-picker-popover" id="popover-serv-scalp-treatment">
                     <div class="popover-header">
@@ -1900,19 +2104,24 @@
               <!-- Service 8: The Session & Scalp Treatment -->
               <div class="service-row" data-id="serv-session-scalp">
                 <div class="service-info-col">
-                  <div class="service-headline">
-                    <span class="service-name">4 The Session &amp; Scalp Treatment</span>
-                    <span class="service-price">Rp 420,000</span>
-                    <span class="service-duration-badge">90 Mins</span>
-                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('session-scalp')" aria-label="Service Details">i</button>
+                  <div class="service-header-row">
+                    <div class="service-title-wrap">
+                      <span class="service-idx-badge">04</span>
+                      <h3 class="service-name">The Session &amp; Scalp Treatment</h3>
+                    </div>
+                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('session-scalp')" aria-label="Service Details" title="View Ritual Details">i</button>
                   </div>
                   <p class="service-snippet">
                     Comprehensive 90-minute pairing: 45-minute Session haircut combined with intensive Davines scalp restorative therapy (component value Rp 470,000).
                   </p>
                 </div>
                 <div class="service-action-col">
+                  <div class="service-meta-price-row">
+                    <span class="service-price">Rp 420,000</span>
+                    <span class="service-duration-badge">&#9201; 90 Mins</span>
+                  </div>
                   <button type="button" class="btn-add-chicago" onclick="toggleStaffPicker('serv-session-scalp', event)">
-                    Add <span class="arrow-down">&#9660;</span>
+                    Add Barber <span class="arrow-down">&#9660;</span>
                   </button>
                   <div class="staff-picker-popover" id="popover-serv-session-scalp">
                     <div class="popover-header">
@@ -1949,7 +2158,7 @@
             <div class="category-header" onclick="toggleCategory(this)">
               <div class="category-title-wrap">
                 <span class="category-title">3. In-Chair Add-Ons (Truefitt 65% Rule)</span>
-                <span class="category-count">3 Add-Ons</span>
+                <span class="category-count"><span>&#10022;</span> 3 Add-Ons</span>
               </div>
               <span class="category-toggle-arrow">&#9660;</span>
             </div>
@@ -1958,17 +2167,22 @@
               <!-- Add-On 1 -->
               <div class="service-row" data-id="addon-shave">
                 <div class="service-info-col">
-                  <div class="service-headline">
-                    <span class="service-name">1 In-Chair Hot Towel Shave Add-on</span>
-                    <span class="service-price">+Rp 105,000</span>
-                    <span class="service-duration-badge">+30 Mins</span>
-                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('addon-shave')" aria-label="Details">i</button>
+                  <div class="service-header-row">
+                    <div class="service-title-wrap">
+                      <span class="service-idx-badge">01</span>
+                      <h3 class="service-name">In-Chair Hot Towel Shave Add-on</h3>
+                    </div>
+                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('addon-shave')" aria-label="Details" title="View Add-on Details">i</button>
                   </div>
                   <p class="service-snippet">
                     Added directly in-chair during The Session. Truefitt &amp; Hill 65% ratio of standalone shave (Rp 160,000 &rarr; Rp 105,000).
                   </p>
                 </div>
                 <div class="service-action-col">
+                  <div class="service-meta-price-row">
+                    <span class="service-price">+Rp 105,000</span>
+                    <span class="service-duration-badge">&#9201; +30 Mins</span>
+                  </div>
                   <button type="button" class="btn-add-product" onclick="addItemToDossier('addon-shave', 'In-Chair Shave Add-on', 105000, 30, 'Same Barber', 'In-Chair Protocol', 'assets/greenwood_monogram_cropped.png')">
                     + Add to Chair
                   </button>
@@ -1978,17 +2192,22 @@
               <!-- Add-On 2 -->
               <div class="service-row" data-id="addon-spa">
                 <div class="service-info-col">
-                  <div class="service-headline">
-                    <span class="service-name">2 Botanical Hair Spa Add-on</span>
-                    <span class="service-price">+Rp 130,000</span>
-                    <span class="service-duration-badge">+30 Mins</span>
-                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('addon-spa')" aria-label="Details">i</button>
+                  <div class="service-header-row">
+                    <div class="service-title-wrap">
+                      <span class="service-idx-badge">02</span>
+                      <h3 class="service-name">Botanical Hair Spa Add-on</h3>
+                    </div>
+                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('addon-spa')" aria-label="Details" title="View Add-on Details">i</button>
                   </div>
                   <p class="service-snippet">
                     Root nourishment and cranial acupressure during the secondary wash rinse. (65% ratio of Rp 200,000 &rarr; Rp 130,000).
                   </p>
                 </div>
                 <div class="service-action-col">
+                  <div class="service-meta-price-row">
+                    <span class="service-price">+Rp 130,000</span>
+                    <span class="service-duration-badge">&#9201; +30 Mins</span>
+                  </div>
                   <button type="button" class="btn-add-product" onclick="addItemToDossier('addon-spa', 'Hair Spa Add-on', 130000, 30, 'Same Barber', 'In-Chair Protocol', 'assets/greenwood_monogram_cropped.png')">
                     + Add to Chair
                   </button>
@@ -1998,17 +2217,22 @@
               <!-- Add-On 3 -->
               <div class="service-row" data-id="addon-scalp">
                 <div class="service-info-col">
-                  <div class="service-headline">
-                    <span class="service-name">3 Scalp Purifying Davines Add-on</span>
-                    <span class="service-price">+Rp 165,000</span>
-                    <span class="service-duration-badge">+35 Mins</span>
-                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('addon-scalp')" aria-label="Details">i</button>
+                  <div class="service-header-row">
+                    <div class="service-title-wrap">
+                      <span class="service-idx-badge">03</span>
+                      <h3 class="service-name">Scalp Purifying Davines Add-on</h3>
+                    </div>
+                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('addon-scalp')" aria-label="Details" title="View Add-on Details">i</button>
                   </div>
                   <p class="service-snippet">
                     Deep scalp exfoliation and microcirculation boost prior to haircutting. (65% ratio of Rp 250,000 &rarr; Rp 165,000).
                   </p>
                 </div>
                 <div class="service-action-col">
+                  <div class="service-meta-price-row">
+                    <span class="service-price">+Rp 165,000</span>
+                    <span class="service-duration-badge">&#9201; +35 Mins</span>
+                  </div>
                   <button type="button" class="btn-add-product" onclick="addItemToDossier('addon-scalp', 'Scalp Purifying Add-on', 165000, 35, 'Same Barber', 'In-Chair Protocol', 'assets/greenwood_monogram_cropped.png')">
                     + Add to Chair
                   </button>
@@ -2023,7 +2247,7 @@
             <div class="category-header" onclick="toggleCategory(this)">
               <div class="category-title-wrap">
                 <span class="category-title">4. Take-Home Mayfair Apothecary Products</span>
-                <span class="category-count">6 Formulations</span>
+                <span class="category-count"><span>&#128230;</span> 6 Formulations</span>
               </div>
               <span class="category-toggle-arrow">&#9660;</span>
             </div>
@@ -2032,17 +2256,22 @@
               <!-- Product 1 -->
               <div class="service-row" data-id="prod-cream">
                 <div class="service-info-col">
-                  <div class="service-headline">
-                    <span class="service-name">1 Mayfair Sandalwood Shaving Cream (190g Tub)</span>
-                    <span class="service-price">Rp 220,000</span>
-                    <span class="service-duration-badge">Take-Home</span>
-                    <button type="button" class="btn-info-tooltip" onclick="openProductInfo('cream')" aria-label="Product Details">i</button>
+                  <div class="service-header-row">
+                    <div class="service-title-wrap">
+                      <span class="service-idx-badge">01</span>
+                      <h3 class="service-name">Mayfair Sandalwood Shaving Cream (190g Tub)</h3>
+                    </div>
+                    <button type="button" class="btn-info-tooltip" onclick="openProductInfo('cream')" aria-label="Product Details" title="View Formulation Details">i</button>
                   </div>
                   <p class="service-snippet">
                     Concentrated English shaving cream with pure Mysore sandalwood oil. Dense protective lather for 100+ home shaving rituals.
                   </p>
                 </div>
                 <div class="service-action-col">
+                  <div class="service-meta-price-row">
+                    <span class="service-price">Rp 220,000</span>
+                    <span class="service-duration-badge">&#128230; Take-Home</span>
+                  </div>
                   <button type="button" class="btn-add-product" onclick="addItemToDossier('prod-cream', 'Sandalwood Shaving Cream (190g)', 220000, 0, 'Apothecary Parcel', 'Take-Home Product', 'assets/product_shaving_cream.jpg')">
                     + Add to Bag
                   </button>
@@ -2052,17 +2281,22 @@
               <!-- Product 2 -->
               <div class="service-row" data-id="prod-oil">
                 <div class="service-info-col">
-                  <div class="service-headline">
-                    <span class="service-name">2 Botanical Pre-Shave Glaze Oil (60ml Bottle)</span>
-                    <span class="service-price">Rp 175,000</span>
-                    <span class="service-duration-badge">Take-Home</span>
-                    <button type="button" class="btn-info-tooltip" onclick="openProductInfo('oil')" aria-label="Product Details">i</button>
+                  <div class="service-header-row">
+                    <div class="service-title-wrap">
+                      <span class="service-idx-badge">02</span>
+                      <h3 class="service-name">Botanical Pre-Shave Glaze Oil (60ml Bottle)</h3>
+                    </div>
+                    <button type="button" class="btn-info-tooltip" onclick="openProductInfo('oil')" aria-label="Product Details" title="View Formulation Details">i</button>
                   </div>
                   <p class="service-snippet">
                     Botanical jojoba and sweet almond barrier oil to soften coarse beard follicles and eliminate blade tug.
                   </p>
                 </div>
                 <div class="service-action-col">
+                  <div class="service-meta-price-row">
+                    <span class="service-price">Rp 175,000</span>
+                    <span class="service-duration-badge">&#128230; Take-Home</span>
+                  </div>
                   <button type="button" class="btn-add-product" onclick="addItemToDossier('prod-oil', 'Pre-Shave Glaze Oil (60ml)', 175000, 0, 'Apothecary Parcel', 'Take-Home Product', 'assets/product_pre_shave.jpg')">
                     + Add to Bag
                   </button>
@@ -2072,17 +2306,22 @@
               <!-- Product 3 -->
               <div class="service-row" data-id="prod-balm">
                 <div class="service-info-col">
-                  <div class="service-headline">
-                    <span class="service-name">3 Post-Shave Soothing Relief Balm (100ml)</span>
-                    <span class="service-price">Rp 185,000</span>
-                    <span class="service-duration-badge">Take-Home</span>
-                    <button type="button" class="btn-info-tooltip" onclick="openProductInfo('balm')" aria-label="Product Details">i</button>
+                  <div class="service-header-row">
+                    <div class="service-title-wrap">
+                      <span class="service-idx-badge">03</span>
+                      <h3 class="service-name">Post-Shave Soothing Relief Balm (100ml)</h3>
+                    </div>
+                    <button type="button" class="btn-info-tooltip" onclick="openProductInfo('balm')" aria-label="Product Details" title="View Formulation Details">i</button>
                   </div>
                   <p class="service-snippet">
                     Alcohol-free calming balm with organic aloe vera, chamomile, and vitamin E to restore dermal hydration.
                   </p>
                 </div>
                 <div class="service-action-col">
+                  <div class="service-meta-price-row">
+                    <span class="service-price">Rp 185,000</span>
+                    <span class="service-duration-badge">&#128230; Take-Home</span>
+                  </div>
                   <button type="button" class="btn-add-product" onclick="addItemToDossier('prod-balm', 'Post-Shave Balm (100ml)', 185000, 0, 'Apothecary Parcel', 'Take-Home Product', 'assets/greenwood_monogram_cropped.png')">
                     + Add to Bag
                   </button>
@@ -2092,17 +2331,22 @@
               <!-- Product 4 -->
               <div class="service-row" data-id="prod-tonic">
                 <div class="service-info-col">
-                  <div class="service-headline">
-                    <span class="service-name">4 Botanical Scalp &amp; Hair Tonic (150ml)</span>
-                    <span class="service-price">Rp 195,000</span>
-                    <span class="service-duration-badge">Take-Home</span>
-                    <button type="button" class="btn-info-tooltip" onclick="openProductInfo('tonic')" aria-label="Product Details">i</button>
+                  <div class="service-header-row">
+                    <div class="service-title-wrap">
+                      <span class="service-idx-badge">04</span>
+                      <h3 class="service-name">Botanical Scalp &amp; Hair Tonic (150ml)</h3>
+                    </div>
+                    <button type="button" class="btn-info-tooltip" onclick="openProductInfo('tonic')" aria-label="Product Details" title="View Formulation Details">i</button>
                   </div>
                   <p class="service-snippet">
                     Invigorating daily scalp tonic with wild rosemary, peppermint, and witch hazel to energize hair roots.
                   </p>
                 </div>
                 <div class="service-action-col">
+                  <div class="service-meta-price-row">
+                    <span class="service-price">Rp 195,000</span>
+                    <span class="service-duration-badge">&#128230; Take-Home</span>
+                  </div>
                   <button type="button" class="btn-add-product" onclick="addItemToDossier('prod-tonic', 'Scalp Tonic (150ml)', 195000, 0, 'Apothecary Parcel', 'Take-Home Product', 'assets/greenwood_monogram_cropped.png')">
                     + Add to Bag
                   </button>
@@ -2112,17 +2356,22 @@
               <!-- Product 5 -->
               <div class="service-row" data-id="prod-pomade">
                 <div class="service-info-col">
-                  <div class="service-headline">
-                    <span class="service-name">5 Classic Matte Dressing Pomade (100g)</span>
-                    <span class="service-price">Rp 160,000</span>
-                    <span class="service-duration-badge">Take-Home</span>
-                    <button type="button" class="btn-info-tooltip" onclick="openProductInfo('pomade')" aria-label="Product Details">i</button>
+                  <div class="service-header-row">
+                    <div class="service-title-wrap">
+                      <span class="service-idx-badge">05</span>
+                      <h3 class="service-name">Classic Matte Dressing Pomade (100g)</h3>
+                    </div>
+                    <button type="button" class="btn-info-tooltip" onclick="openProductInfo('pomade')" aria-label="Product Details" title="View Formulation Details">i</button>
                   </div>
                   <p class="service-snippet">
                     Water-soluble pomade offering strong pliable hold and sophisticated natural matte finish with zero residue.
                   </p>
                 </div>
                 <div class="service-action-col">
+                  <div class="service-meta-price-row">
+                    <span class="service-price">Rp 160,000</span>
+                    <span class="service-duration-badge">&#128230; Take-Home</span>
+                  </div>
                   <button type="button" class="btn-add-product" onclick="addItemToDossier('prod-pomade', 'Matte Dressing Pomade (100g)', 160000, 0, 'Apothecary Parcel', 'Take-Home Product', 'assets/greenwood_monogram_cropped.png')">
                     + Add to Bag
                   </button>
@@ -2132,17 +2381,22 @@
               <!-- Product 6 -->
               <div class="service-row" data-id="prod-brush">
                 <div class="service-info-col">
-                  <div class="service-headline">
-                    <span class="service-name">6 Handcrafted Silvertip Badger Shaving Brush</span>
-                    <span class="service-price">Rp 350,000</span>
-                    <span class="service-duration-badge">Take-Home</span>
-                    <button type="button" class="btn-info-tooltip" onclick="openProductInfo('brush')" aria-label="Product Details">i</button>
+                  <div class="service-header-row">
+                    <div class="service-title-wrap">
+                      <span class="service-idx-badge">06</span>
+                      <h3 class="service-name">Handcrafted Silvertip Badger Shaving Brush</h3>
+                    </div>
+                    <button type="button" class="btn-info-tooltip" onclick="openProductInfo('brush')" aria-label="Product Details" title="View Formulation Details">i</button>
                   </div>
                   <p class="service-snippet">
                     Handmade shaving brush with 100% genuine silvertip badger bristles and turned solid walnut handle engraved with the Greenwood crest.
                   </p>
                 </div>
                 <div class="service-action-col">
+                  <div class="service-meta-price-row">
+                    <span class="service-price">Rp 350,000</span>
+                    <span class="service-duration-badge">&#128230; Take-Home</span>
+                  </div>
                   <button type="button" class="btn-add-product" onclick="addItemToDossier('prod-brush', 'Silvertip Badger Brush', 350000, 0, 'Apothecary Parcel', 'Take-Home Tool', 'assets/product_brush.jpg')">
                     + Add to Bag
                   </button>
