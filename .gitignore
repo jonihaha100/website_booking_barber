@@ -1,0 +1,15 @@
+# OS Clutter
+.DS_Store
+Thumbs.db
+
+# Zip Archives (Client deliverables)
+*.zip
+
+# Local Deployment & Temporary Folders
+.netlify/
+public/
+anti-slop/
+
+# Node / Scratch
+node_modules/
+scratch/

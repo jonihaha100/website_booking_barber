@@ -1,0 +1,517 @@
+/* ==========================================================================
+   GREENWOOD BARBERS • MASTER LUXURY DESIGN SYSTEM
+   Royal Mayfair British Heritage & Barberia Indonesia Standard
+   ========================================================================== */
+
+:root {
+  /* Approved Model No. 1 Royal Mayfair Color Palette */
+  --bg-obsidian: #030c08;
+  --bg-forest: #06150e;
+  --bg-card: #091c13;
+  --bg-card-hover: #0e2b1d;
+  --bg-card-selected: #113525;
+  --bg-input: #041009;
+
+  --color-brand-emerald: #063827;
+  --color-gold: #c59b48;
+  --color-gold-bright: #e2be6c;
+  --color-gold-hairline: rgba(197, 155, 72, 0.16);
+  --color-gold-soft: rgba(197, 155, 72, 0.08);
+
+  --text-white: #ffffff;
+  --text-cream: #f7f2e7;
+  --text-muted: #beb5a5;
+
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold-bright) !important;
+  outline-offset: 3px !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-obsidian);
+  color: var(--text-cream);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Ambient Spotlight Glow */
+#spotlightGlow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(197, 155, 72, 0.035) 0%, rgba(6, 56, 39, 0.05) 45%, transparent 70%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+/* Elements removed as requested by user */
+.top-bar, .brand-tagline {
+  display: none !important;
+}
+
+/* ==========================================================================
+   NAVIGATION BAR (LUXURY MULTI-PAGE ARCHITECTURE)
+   ========================================================================== */
+header {
+  position: sticky;
+  top: 0;
+  background-color: rgba(3, 12, 8, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--color-gold-hairline);
+  padding: 16px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 50;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.brand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+}
+
+.brand-logo-img {
+  height: 44px;
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
+  display: block;
+}
+
+nav.main-nav {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+
+nav.main-nav a {
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-cream);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 6px 0;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+nav.main-nav a:hover {
+  color: var(--color-gold-bright);
+}
+
+nav.main-nav a.active {
+  color: var(--color-gold-bright);
+}
+
+nav.main-nav a.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-gold-bright);
+  box-shadow: 0 0 8px rgba(226, 190, 108, 0.6);
+}
+
+/* STRICT RULE: Never render any Experience link anywhere in nav or drawer */
+nav.main-nav a[href*="experience"],
+.mobile-nav-overlay a[href*="experience"],
+a.nav-experience-link {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  left: -9999px !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.header-cta-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.btn-header-book {
+  background: linear-gradient(135deg, var(--color-gold) 0%, #9a7428 100%);
+  color: #030c08;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 10px 22px;
+  border-radius: 4px;
+  text-decoration: none;
+  border: 1px solid var(--color-gold-bright);
+  box-shadow: 0 4px 14px rgba(197, 155, 72, 0.25);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.btn-header-book:hover {
+  background: linear-gradient(135deg, var(--color-gold-bright) 0%, var(--color-gold) 100%);
+  box-shadow: 0 6px 20px rgba(197, 155, 72, 0.45);
+  transform: translateY(-1px);
+}
+
+.menu-toggle-btn {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--color-gold-hairline);
+  color: var(--color-gold-bright);
+  font-size: 20px;
+  padding: 6px 12px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+/* Mobile Nav Drawer */
+.mobile-nav-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(3, 12, 8, 0.98);
+  backdrop-filter: blur(20px);
+  z-index: 100;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 22px;
+}
+
+.mobile-nav-overlay.active {
+  display: flex;
+}
+
+.mobile-nav-overlay a {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  color: var(--text-cream);
+  text-decoration: none;
+  letter-spacing: 1.5px;
+  transition: color 0.2s ease;
+}
+
+.mobile-nav-overlay a.active,
+.mobile-nav-overlay a:hover {
+  color: var(--color-gold-bright);
+}
+
+.mobile-nav-close {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  background: transparent;
+  border: none;
+  color: var(--color-gold);
+  font-size: 32px;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   PAGE HERO / MASTHEAD (PATEK PHILIPPE QUALITY & WORKMANSHIP TONE)
+   ========================================================================== */
+.page-hero {
+  position: relative;
+  background: radial-gradient(circle at 50% 20%, #082417 0%, var(--bg-obsidian) 70%);
+  border-bottom: 1px solid var(--color-gold-hairline);
+  padding: 85px 40px 65px;
+  text-align: center;
+}
+
+.page-hero-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.breadcrumbs {
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+
+.breadcrumbs a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumbs a:hover {
+  color: var(--color-gold-bright);
+}
+
+.breadcrumbs span.current {
+  color: var(--color-gold-bright);
+  font-weight: 700;
+}
+
+.page-eyebrow {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 2.8px;
+  text-transform: uppercase;
+  color: var(--color-gold-bright);
+  font-weight: 600;
+  margin-bottom: 16px;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.page-hero-title {
+  font-family: var(--font-serif);
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 1.18;
+  color: var(--text-white);
+  margin-bottom: 16px;
+  letter-spacing: 0.3px;
+  text-transform: none;
+}
+
+.page-hero-subtitle {
+  font-family: var(--font-sans);
+  font-size: 15.5px;
+  color: rgba(247, 242, 231, 0.82);
+  line-height: 1.75;
+  max-width: 680px;
+  margin: 0 auto 24px;
+  font-weight: 300;
+}
+
+.page-hero-divider {
+  width: 60px;
+  height: 1px;
+  background: var(--color-gold);
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   BUTTONS & GENERAL COMPONENTS
+   ========================================================================== */
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-gold) 0%, #9a7428 100%);
+  color: #030c08;
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 13px 28px;
+  border-radius: 4px;
+  text-decoration: none;
+  border: 1px solid var(--color-gold-bright);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 18px rgba(197, 155, 72, 0.28);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--color-gold-bright) 0%, var(--color-gold) 100%);
+  box-shadow: 0 6px 26px rgba(197, 155, 72, 0.48);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background: rgba(3, 12, 8, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--text-cream);
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 13px 28px;
+  border-radius: 4px;
+  text-decoration: none;
+  border: 1px solid rgba(197, 155, 72, 0.28);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-outline:hover {
+  border-color: var(--color-gold-bright);
+  color: var(--color-gold-bright);
+  background: rgba(197, 155, 72, 0.12);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(197, 155, 72, 0.2);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-gold-bright);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: gap 0.2s ease, color 0.2s ease;
+}
+
+.btn-ghost:hover {
+  color: #ffffff;
+  gap: 10px;
+}
+
+/* Section Shell */
+.section-shell {
+  padding: 90px 40px;
+  position: relative;
+  z-index: 2;
+}
+
+.container-narrow {
+  max-width: 1060px;
+  margin: 0 auto;
+}
+
+.container-wide {
+  max-width: 1260px;
+  margin: 0 auto;
+}
+
+.section-head {
+  text-align: center;
+  margin-bottom: 55px;
+}
+
+.section-head-left {
+  text-align: left;
+  margin-bottom: 45px;
+}
+
+.section-eyebrow {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  font-weight: 700;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: 40px;
+  font-weight: 500;
+  color: var(--text-white);
+  line-height: 1.25;
+  margin-bottom: 14px;
+}
+
+.section-desc {
+  font-size: 15px;
+  color: var(--text-muted);
+  max-width: 680px;
+  margin: 0 auto;
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+/* ==========================================================================
+   FOOTER (MINIMAL ROYAL MAYFAIR CONCIERGE & COPYRIGHT STRIP)
+   ========================================================================== */
+footer {
+  background: #020704;
+  border-top: 1px solid var(--color-gold-hairline);
+  padding: 20px 24px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.footer-copy {
+  font-size: 11.5px;
+  color: #8c8273;
+  max-width: 900px;
+  margin: 0 auto;
+  line-height: 1.8;
+  font-weight: 300;
+  letter-spacing: 0.2px;
+}
+
+
+
+
+/* Responsive Adjustments */
+@media (max-width: 900px) {
+  .top-bar {
+    padding: 8px 20px;
+    font-size: 10px;
+  }
+  header {
+    padding: 14px 20px;
+  }
+  nav.main-nav {
+    display: none;
+  }
+  .menu-toggle-btn {
+    display: block;
+  }
+  .section-shell {
+    padding: 60px 20px;
+  }
+  .page-hero {
+    padding: 60px 20px 45px;
+  }
+  .page-hero-title {
+    font-size: 36px;
+  }
+  .section-title {
+    font-size: 30px;
+  }
+}
+
+/* User directive: Temporarily hide Services links, hero actions, and menu display */
+a[href*="services.html"],
+#tabServ,
+.nav-services-item {
+  display: none !important;
+}

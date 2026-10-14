@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Mayfair Grooming Apothecary | Greenwood Barbers &bull; Kota Baru Parahyangan</title>
+  <meta name="description" content="Authentic luxury grooming formulations at Greenwood Barbers Kota Baru Parahyangan. Mayfair sandalwood shaving cream, silvertip badger brush, and pre-shave glaze.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/greenwood.css">
+
+  <style>
+    .apothecary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .apothecary-card {
+      background: var(--bg-card);
+      border: 1px solid var(--color-gold-hairline);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .apothecary-card:hover {
+      border-color: var(--color-gold);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7);
+    }
+    .apothecary-media {
+      position: relative;
+      height: 240px;
+      overflow: hidden;
+      background: #020704;
+    }
+    .apothecary-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .apothecary-card:hover .apothecary-img {
+      transform: scale(1.05);
+    }
+    .apothecary-tag {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(3, 12, 8, 0.9);
+      border: 1px solid var(--color-gold);
+      color: var(--color-gold-bright);
+      font-size: 9.5px;
+      letter-spacing: 1.5px;
+      padding: 3px 8px;
+      font-weight: 700;
+    }
+    .apothecary-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .apothecary-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+    .apothecary-title {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      color: #ffffff;
+      font-weight: 600;
+    }
+    .apothecary-price {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      color: var(--color-gold-bright);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .apothecary-size {
+      font-size: 10.5px;
+      letter-spacing: 1.5px;
+      color: var(--color-gold);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .apothecary-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 14px;
+      font-weight: 300;
+      flex-grow: 1;
+    }
+    .apothecary-notes {
+      font-size: 12px;
+      color: var(--text-cream);
+      margin-bottom: 20px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(197, 155, 72, 0.15);
+    }
+    .apothecary-notes strong {
+      color: var(--color-gold);
+    }
+    .apothecary-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: auto;
+    }
+    .apothecary-actions a {
+      flex: 1;
+      text-align: center;
+      padding: 10px 12px;
+      font-size: 10.5px;
+    }
+    @media (max-width: 900px) {
+      .apothecary-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+
+</head>
+<body>
+  <!-- LUXURY MULTI-PAGE NAVIGATION BAR -->
+  <header>
+    <a href="home.html" class="brand-wrap">
+      <img src="assets/greenwood_logo_transparent.png" alt="Greenwood Barbers" class="brand-logo-img">
+    </a>
+
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="home.html" class="">Home</a>
+      <a href="experience.html" class="">The Experience</a>
+      <a href="services.html" class="">Services</a>
+      <a href="parlour.html" class="">The Parlour</a>
+      <a href="booking.html" class="">Book Appointment</a>
+    </nav>
+
+    <div class="header-cta-group">
+      <a href="booking.html" class="btn-header-book">Reserve a Chair</a>
+      <button class="menu-toggle-btn" onclick="toggleMobileNav()" aria-label="Toggle navigation menu">&#9776;</button>
+    </div>
+  </header>
+
+  <!-- MOBILE NAV OVERLAY -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay">
+    <button class="mobile-nav-close" onclick="closeMobileNav()" aria-label="Close menu">&times;</button>
+    <a href="home.html" class="" onclick="closeMobileNav()">Home</a>
+    <a href="experience.html" class="" onclick="closeMobileNav()">The Experience</a>
+    <a href="services.html" class="" onclick="closeMobileNav()">Services</a>
+    <a href="parlour.html" class="" onclick="closeMobileNav()">The Parlour</a>
+    <a href="booking.html" class="" onclick="closeMobileNav()">Book Appointment</a>
+    <a href="booking.html" class="btn-primary" style="margin-top: 16px;" onclick="closeMobileNav()">Reserve Appointment</a>
+  </div>
+
+<main>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <div class="breadcrumbs"><a href="home.html">Home</a> &bull; <span class="current">Apothecary</span></div>
+      <div class="page-eyebrow">HERITAGE GROOMING ESSENTIALS &bull; DISCIPLINED PRICE RATIOS</div>
+      <h1 class="page-hero-title">Bespoke Grooming Apothecary</h1>
+      <p class="page-hero-subtitle">
+        Authentic grooming formulations derived from Mayfair &amp; St. James's heritage. Disciplined pricing anchored to Rp 220,000 (equivalent to 1x The Session) without arbitrary markups.
+      </p>
+      <div class="page-hero-divider"></div>
+    </div>
+  </section>
+
+  <!-- 6 BESPOKE PRODUCTS COLLECTION (COMPETITOR PRICING) -->
+  <section class="section-shell">
+    <div class="container-wide">
+      <div class="section-head">
+        <span class="section-eyebrow">CHAIR ADD-ONS &amp; TAKE-HOME APOTHECARY</span>
+        <h2 class="section-title">The Connoisseur's Grooming Cabinet</h2>
+        <p class="section-desc">Add directly to your chair reservation, or order via WhatsApp Concierge for direct doorstep delivery.</p>
+      </div>
+
+      <div class="apothecary-grid">
+        <!-- Product 1: Shaving Cream Tub -->
+        <article class="apothecary-card">
+          <div class="apothecary-media">
+            <img src="assets/product_shaving_cream.jpg" alt="Mayfair Sandalwood Shaving Cream" class="apothecary-img">
+            <span class="apothecary-tag">100% ANCHOR RATIO</span>
+          </div>
+          <div class="apothecary-body">
+            <div class="apothecary-top">
+              <h2 class="apothecary-title">Mayfair Sandalwood Shaving Cream</h2>
+              <span class="apothecary-price">Rp 220,000</span>
+            </div>
+            <div class="apothecary-size">190G TUB &bull; GLYCERINE BASED &bull; MYSORE WOOD</div>
+            <p class="apothecary-desc">
+              Rich, dense cushioning lather infused with pure Mysore sandalwood essential oil and vegetable glycerine. Anchored at the equivalent of one Session (Rp 220,000), honoring the Truefitt &amp; Hill discipline where one shaving cream tub equals one haircut session.
+            </p>
+            <div class="apothecary-notes"><strong>Notes:</strong> Mysore Sandalwood, Bergamot, Tonka Bean, Lavender</div>
+            <div class="apothecary-actions">
+              <a href="booking.html?addon=prod-cream" class="btn-primary">Add to Chair &rarr;</a>
+              <a href="https://wa.me/6281288997721?text=Hello%20Greenwood%20Barbers,%20I%20would%20like%20to%20order%20the%20Mayfair%20Sandalwood%20Shaving%20Cream%20(Rp%20220,000)." target="_blank" rel="noopener" class="btn-outline">Order WhatsApp</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Product 2: Botanical Pre-Shave Glaze Oil -->
+        <article class="apothecary-card">
+          <div class="apothecary-media">
+            <img src="assets/product_pre_shave.jpg" alt="Botanical Pre-Shave Glaze Oil" class="apothecary-img">
+            <span class="apothecary-tag">ESSENTIAL PREP</span>
+          </div>
+          <div class="apothecary-body">
+            <div class="apothecary-top">
+              <h2 class="apothecary-title">Botanical Pre-Shave Glaze Oil</h2>
+              <span class="apothecary-price">Rp 175,000</span>
+            </div>
+            <div class="apothecary-size">60ML DROPPER &bull; COLD-PRESSED BOTANICALS</div>
+            <p class="apothecary-desc">
+              Organic blend of golden jojoba, sweet almond, and vitamin E oil. Creates an invisible dermal shield, softens coarse beard follicles, and ensures frictionless razor glide without razor burn.
+            </p>
+            <div class="apothecary-notes"><strong>Notes:</strong> Sweet Almond, Jojoba, Vitamin E, Roman Chamomile</div>
+            <div class="apothecary-actions">
+              <a href="booking.html?addon=prod-oil" class="btn-primary">Add to Chair &rarr;</a>
+              <a href="https://wa.me/6281288997721?text=Hello%20Greenwood%20Barbers,%20I%20would%20like%20to%20order%20the%20Botanical%20Pre-Shave%20Glaze%20Oil%20(Rp%20175,000)." target="_blank" rel="noopener" class="btn-outline">Order WhatsApp</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Product 3: Silvertip Badger Shaving Brush -->
+        <article class="apothecary-card">
+          <div class="apothecary-media">
+            <img src="assets/product_brush.jpg" alt="Silvertip Badger Shaving Brush" class="apothecary-img">
+            <span class="apothecary-tag">HANDMADE TOOL</span>
+          </div>
+          <div class="apothecary-body">
+            <div class="apothecary-top">
+              <h2 class="apothecary-title">Silvertip Badger Shaving Brush</h2>
+              <span class="apothecary-price">Rp 350,000</span>
+            </div>
+            <div class="apothecary-size">HAND-TURNED WALNUT WOOD &bull; 24MM KNOT</div>
+            <p class="apothecary-desc">
+              Hand-graded silvertip badger bristles offering unparalleled hot-water retention and velvety lather creation. Solid hand-turned walnut handle engraved with the Greenwood crest.
+            </p>
+            <div class="apothecary-notes"><strong>Materials:</strong> 100% Genuine Silvertip Badger Hair, Solid Walnut Wood</div>
+            <div class="apothecary-actions">
+              <a href="booking.html?addon=prod-brush" class="btn-primary">Add to Chair &rarr;</a>
+              <a href="https://wa.me/6281288997721?text=Hello%20Greenwood%20Barbers,%20I%20would%20like%20to%20order%20the%20Silvertip%20Badger%20Shaving%20Brush%20(Rp%20350,000)." target="_blank" rel="noopener" class="btn-outline">Order WhatsApp</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Product 4: Post-Shave Soothing Relief Balm -->
+        <article class="apothecary-card">
+          <div class="apothecary-media">
+            <img src="assets/greenwood_monogram_cropped.png" alt="Post-Shave Soothing Relief Balm" class="apothecary-img" style="object-fit:contain; padding:24px;">
+            <span class="apothecary-tag">ZERO ALCOHOL</span>
+          </div>
+          <div class="apothecary-body">
+            <div class="apothecary-top">
+              <h2 class="apothecary-title">Post-Shave Soothing Relief Balm</h2>
+              <span class="apothecary-price">Rp 185,000</span>
+            </div>
+            <div class="apothecary-size">100ML BOTTLE &bull; DERMAL RESTORATIVE</div>
+            <p class="apothecary-desc">
+              Alcohol-free soothing emulsion formulated with organic witch hazel, aloe vera, and Atlas cedarwood. Eliminates post-shave irritation instantly and locks in natural dermal moisture.
+            </p>
+            <div class="apothecary-notes"><strong>Notes:</strong> Atlas Cedarwood, Italian Bergamot, Aloe Vera, Witch Hazel</div>
+            <div class="apothecary-actions">
+              <a href="booking.html?addon=prod-balm" class="btn-primary">Add to Chair &rarr;</a>
+              <a href="https://wa.me/6281288997721?text=Hello%20Greenwood%20Barbers,%20I%20would%20like%20to%20order%20the%20Post-Shave%20Soothing%20Relief%20Balm%20(Rp%20185,000)." target="_blank" rel="noopener" class="btn-outline">Order WhatsApp</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Product 5: Botanical Scalp & Hair Tonic -->
+        <article class="apothecary-card">
+          <div class="apothecary-media">
+            <img src="assets/greenwood_monogram_cropped.png" alt="Botanical Scalp & Hair Tonic" class="apothecary-img" style="object-fit:contain; padding:24px;">
+            <span class="apothecary-tag">FOLLICLE ENERGIZER</span>
+          </div>
+          <div class="apothecary-body">
+            <div class="apothecary-top">
+              <h2 class="apothecary-title">Botanical Scalp &amp; Hair Tonic</h2>
+              <span class="apothecary-price">Rp 195,000</span>
+            </div>
+            <div class="apothecary-size">150ML BOTTLE &bull; ROSEMARY &amp; TEA TREE</div>
+            <p class="apothecary-desc">
+              Invigorating daily scalp lotion infused with organic rosemary, peppermint, and natural menthol. Cleanses pores, stimulates microcirculation, and provides lasting oil-free freshness.
+            </p>
+            <div class="apothecary-notes"><strong>Notes:</strong> Wild Rosemary, Peppermint, Camphor, Witch Hazel</div>
+            <div class="apothecary-actions">
+              <a href="booking.html?addon=prod-tonic" class="btn-primary">Add to Chair &rarr;</a>
+              <a href="https://wa.me/6281288997721?text=Hello%20Greenwood%20Barbers,%20I%20would%20like%20to%20order%20the%20Botanical%20Scalp%20Tonic%20(Rp%20195,000)." target="_blank" rel="noopener" class="btn-outline">Order WhatsApp</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Product 6: Classic Matte Dressing Pomade -->
+        <article class="apothecary-card">
+          <div class="apothecary-media">
+            <img src="assets/greenwood_monogram_cropped.png" alt="Classic Matte Dressing Pomade" class="apothecary-img" style="object-fit:contain; padding:24px;">
+            <span class="apothecary-tag">WATER SOLUBLE</span>
+          </div>
+          <div class="apothecary-body">
+            <div class="apothecary-top">
+              <h2 class="apothecary-title">Classic Matte Dressing Pomade</h2>
+              <span class="apothecary-price">Rp 160,000</span>
+            </div>
+            <div class="apothecary-size">100G TIN &bull; HIGH HOLD &bull; NATURAL MATTE</div>
+            <p class="apothecary-desc">
+              Bespoke water-soluble styling pomade offering strong all-day pliable hold with a sophisticated non-greasy matte finish. Rinses effortlessly with pure water without buildup.
+            </p>
+            <div class="apothecary-notes"><strong>Notes:</strong> Amber Resin, Sweet Tobacco, Oakmoss, Leather</div>
+            <div class="apothecary-actions">
+              <a href="booking.html?addon=prod-pomade" class="btn-primary">Add to Chair &rarr;</a>
+              <a href="https://wa.me/6281288997721?text=Hello%20Greenwood%20Barbers,%20I%20would%20like%20to%20order%20the%20Classic%20Matte%20Dressing%20Pomade%20(Rp%20160,000)." target="_blank" rel="noopener" class="btn-outline">Order WhatsApp</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+  <!-- MINIMAL ROYAL MAYFAIR FOOTER -->
+  <footer>
+    <div class="footer-copy">
+      &copy; 2026 Greenwood Barbers. All rights reserved. Ruko PancaTengah, Kota Baru Parahyangan, West Bandung. Direct Concierge Hotline: +62 812-8899-7721 &bull; info@greenwoodbarbers.com.
+    </div>
+  </footer>
+  <!-- SHARED SPOTLIGHT MOUSE EFFECT & SCRIPTS -->
+  <div id="spotlightGlow"></div>
+
+  <script>
+    const glow = document.getElementById('spotlightGlow');
+    window.addEventListener('mousemove', (e) => {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+    });
+
+    function toggleMobileNav() {
+      document.getElementById('mobileNavOverlay').classList.toggle('active');
+    }
+    function closeMobileNav() {
+      document.getElementById('mobileNavOverlay').classList.remove('active');
+    }
+  </script>
+
+
+</body>
+</html>

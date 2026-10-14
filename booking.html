@@ -1,0 +1,3145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Reserve Appointment | Greenwood Barbers &bull; Kota Baru Parahyangan</title>
+  <meta name="description" content="Elevated Truefitt & Hill Chicago booking workflow for Greenwood Barbers Kota Baru Parahyangan. Select signature rituals, in-chair add-ons, take-home apothecary products, master barber, schedule, and cashless payment.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/greenwood.css?v=20261014_2">
+
+  <style>
+    :root {
+      --bg-darkest: #020704;
+      --bg-surface: #06150f;
+      --bg-surface-elevated: #092017;
+      --bg-card: rgba(6, 21, 14, 0.75);
+      --color-gold: #c59b48;
+      --color-gold-bright: #e5c178;
+      --color-gold-hairline: rgba(197, 155, 72, 0.28);
+      --text-main: #f5f5f0;
+      --text-muted: #9ea9a2;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg-darkest);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Container */
+    .booking-wrapper {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 36px 24px 80px;
+      width: 100%;
+    }
+
+    /* Page Header */
+    .booking-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .booking-eyebrow {
+      font-size: 11px;
+      letter-spacing: 2.8px;
+      text-transform: uppercase;
+      color: var(--color-gold-bright);
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+    .booking-main-title {
+      font-family: var(--font-serif);
+      font-size: 42px;
+      font-weight: 400;
+      line-height: 1.18;
+      letter-spacing: 0.3px;
+      color: #ffffff;
+      text-transform: none;
+      margin-bottom: 12px;
+    }
+    .booking-main-desc {
+      font-size: 15.5px;
+      color: rgba(247, 242, 231, 0.82);
+      max-width: 680px;
+      margin: 0 auto;
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    /* ==========================================================================
+       1. TOP STEPPER (Elevated Truefitt Chicago Progress Bar)
+       ========================================================================== */
+    .chicago-stepper {
+      position: relative;
+      margin-bottom: 28px;
+      padding: 0 10px;
+    }
+    .chicago-track {
+      position: absolute;
+      top: 18px;
+      left: 12%;
+      right: 12%;
+      height: 2px;
+      background: rgba(197, 155, 72, 0.2);
+      z-index: 1;
+    }
+    .chicago-track-progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--color-gold), var(--color-gold-bright));
+      width: 0%;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .chicago-steps {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      z-index: 2;
+    }
+    .chicago-step-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: inherit;
+      font: inherit;
+      padding: 0 8px;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+    .step-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #020704;
+      border: 2px solid rgba(197, 155, 72, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 0 4px #020704;
+    }
+    .chicago-step-item.active .step-circle {
+      background: var(--color-gold);
+      border-color: var(--color-gold-bright);
+      color: #020704;
+      box-shadow: 0 0 16px rgba(197, 155, 72, 0.5), 0 0 0 4px #020704;
+    }
+    .chicago-step-item.completed .step-circle {
+      background: rgba(197, 155, 72, 0.2);
+      border-color: var(--color-gold);
+      color: var(--color-gold-bright);
+    }
+    .step-text {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      transition: color 0.3s ease;
+    }
+    .chicago-step-item.active .step-text {
+      color: var(--color-gold-bright);
+      font-weight: 700;
+    }
+    .chicago-step-item.completed .step-text {
+      color: #ffffff;
+    }
+
+    /* ==========================================================================
+       2. TOP NOTICES & LOCATION SELECTOR
+       ========================================================================== */
+    .executive-policy-banner {
+      background: linear-gradient(165deg, rgba(197, 155, 72, 0.08) 0%, rgba(10, 31, 21, 0.85) 100%);
+      border: 1px solid rgba(197, 155, 72, 0.2);
+      border-left: 3px solid var(--color-gold);
+      padding: 16px 22px;
+      margin-bottom: 18px;
+      font-size: 13px;
+      line-height: 1.55;
+      color: #d1d8d3;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-radius: 8px;
+      box-shadow: 0 6px 20px -6px rgba(0, 0, 0, 0.6);
+    }
+    .policy-icon {
+      color: var(--color-gold-bright);
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .location-selector-bar {
+      background: linear-gradient(165deg, rgba(10, 31, 21, 0.85) 0%, rgba(5, 17, 11, 0.95) 100%);
+      border: 1px solid rgba(197, 155, 72, 0.16);
+      padding: 16px 24px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.6), inset 0 1px 0 0 rgba(226, 190, 108, 0.12);
+    }
+    .location-label {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .location-select-custom {
+      background: #020704;
+      border: 1px solid var(--color-gold-hairline);
+      color: var(--color-gold-bright);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 2px;
+      outline: none;
+      cursor: pointer;
+      min-width: 380px;
+      transition: border-color 0.25s ease;
+    }
+    .location-select-custom:focus {
+      border-color: var(--color-gold);
+    }
+
+    /* ==========================================================================
+       3. TWO-COLUMN SPLIT WORKSPACE
+       ========================================================================== */
+    .booking-grid {
+      display: grid;
+      grid-template-columns: 1fr 390px;
+      gap: 20px;
+      align-items: start;
+    }
+
+    /* Left Column: Flow Panels */
+    .flow-panel {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .flow-panel.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Categories & Service Accordions */
+    .catalogue-category {
+      background: linear-gradient(165deg, rgba(10, 31, 21, 0.85) 0%, rgba(5, 17, 11, 0.95) 100%);
+      border: 1px solid rgba(197, 155, 72, 0.16);
+      margin-bottom: 22px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.7), inset 0 1px 0 0 rgba(226, 190, 108, 0.12);
+    }
+    .category-header {
+      background: rgba(3, 12, 8, 0.85);
+      border-bottom: 1px solid var(--color-gold-hairline);
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.25s ease;
+    }
+    .category-header:hover {
+      background: rgba(197, 155, 72, 0.08);
+    }
+    .category-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .category-title {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      letter-spacing: 0.4px;
+      color: #ffffff;
+      font-weight: 500;
+      text-transform: none;
+    }
+    .category-count {
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: var(--color-gold);
+      background: rgba(197, 155, 72, 0.12);
+      border: 1px solid rgba(197, 155, 72, 0.3);
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+    .category-toggle-arrow {
+      color: var(--color-gold);
+      font-size: 13px;
+      transition: transform 0.3s ease;
+    }
+    .catalogue-category.collapsed .category-toggle-arrow {
+      transform: rotate(-90deg);
+    }
+    .category-items-list {
+      padding: 6px 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .catalogue-category.collapsed .category-items-list {
+      display: none;
+    }
+
+    /* Service Row */
+    .service-row {
+      padding: 18px 20px;
+      border-bottom: 1px solid rgba(197, 155, 72, 0.12);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+      position: relative;
+      transition: background 0.25s ease;
+    }
+    .service-row:last-child {
+      border-bottom: none;
+    }
+    .service-row:hover {
+      background: rgba(197, 155, 72, 0.04);
+    }
+
+    .service-info-col {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .service-headline {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .service-name {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      font-weight: 600;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+    .service-price {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-gold-bright);
+    }
+    .service-duration-badge {
+      font-size: 11px;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.06);
+      padding: 2px 7px;
+      border-radius: 2px;
+      letter-spacing: 0.5px;
+    }
+    .btn-info-tooltip {
+      background: none;
+      border: 1px solid rgba(197, 155, 72, 0.35);
+      color: var(--color-gold);
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      font-size: 10px;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .btn-info-tooltip:hover {
+      background: var(--color-gold);
+      color: #020704;
+      border-color: var(--color-gold);
+    }
+    .service-snippet {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Action: Dropdown Button & Popover */
+    .service-action-col {
+      position: relative;
+    }
+    .btn-add-chicago {
+      background: linear-gradient(135deg, var(--color-gold) 0%, #aa8237 100%);
+      color: #020704;
+      border: 1px solid var(--color-gold-bright);
+      padding: 9px 18px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-radius: 2px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+      white-space: nowrap;
+    }
+    .btn-add-chicago:hover {
+      background: var(--color-gold-bright);
+      box-shadow: 0 0 18px rgba(197, 155, 72, 0.6);
+      transform: translateY(-1px);
+    }
+    .btn-add-chicago .arrow-down {
+      font-size: 9px;
+      transition: transform 0.2s ease;
+    }
+
+    /* Elevated Floating Staff Picker Popover */
+    .staff-picker-popover {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 320px;
+      background: #04100b;
+      border: 1px solid var(--color-gold);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85), 0 0 20px rgba(197, 155, 72, 0.25);
+      border-radius: 3px;
+      z-index: 100;
+      display: none;
+      animation: popoverFade 0.2s ease-out;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .staff-picker-popover.open {
+      display: block;
+    }
+    @keyframes popoverFade {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .popover-header {
+      background: rgba(197, 155, 72, 0.12);
+      border-bottom: 1px solid var(--color-gold-hairline);
+      padding: 10px 14px;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--color-gold-bright);
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .popover-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+    }
+    .popover-close:hover {
+      color: #ffffff;
+    }
+    .staff-options-list {
+      max-height: 320px;
+      overflow-y: auto;
+    }
+    .staff-option-row {
+      padding: 12px 14px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      border-bottom: 1px solid rgba(197, 155, 72, 0.1);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .staff-option-row:last-child {
+      border-bottom: none;
+    }
+    .staff-option-row:hover {
+      background: rgba(197, 155, 72, 0.12);
+    }
+    .staff-avatar-thumb {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid var(--color-gold);
+      flex-shrink: 0;
+    }
+    .staff-avatar-any {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(197, 155, 72, 0.15);
+      border: 1.5px dashed var(--color-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--color-gold-bright);
+      flex-shrink: 0;
+    }
+    .staff-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      overflow: hidden;
+    }
+    .staff-name {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      font-weight: 600;
+      color: #ffffff;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    .staff-role-sub {
+      font-size: 11px;
+      color: var(--color-gold);
+      font-weight: 600;
+    }
+    .staff-bio-snippet {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      line-height: 1.35;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Product Add Button */
+    .btn-add-product {
+      background: transparent;
+      color: var(--color-gold-bright);
+      border: 1px solid var(--color-gold);
+      padding: 9px 18px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border-radius: 2px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+    }
+    .btn-add-product:hover {
+      background: var(--color-gold);
+      color: #020704;
+      box-shadow: 0 0 16px rgba(197, 155, 72, 0.4);
+    }
+
+    /* ==========================================================================
+       4. RIGHT COLUMN: STICKY "YOUR APPOINTMENTS" (Elevated Dossier)
+       ========================================================================== */
+    .dossier-sticky-panel {
+      position: sticky;
+      top: 96px;
+      background: linear-gradient(165deg, rgba(10, 31, 21, 0.85) 0%, rgba(5, 17, 11, 0.95) 100%);
+      border: 1px solid rgba(197, 155, 72, 0.16);
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.7), inset 0 1px 0 0 rgba(226, 190, 108, 0.12);
+    }
+    .dossier-panel-title {
+      font-family: var(--font-serif);
+      font-size: 21px;
+      letter-spacing: 0.4px;
+      font-weight: 500;
+      text-transform: none;
+      color: #ffffff;
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .dossier-location-badge {
+      font-size: 11px;
+      color: var(--color-gold);
+      letter-spacing: 0.5px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--color-gold-hairline);
+      display: block;
+    }
+
+    /* Selected Items List */
+    .dossier-cart-list {
+      min-height: 120px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .dossier-empty-state {
+      padding: 32px 16px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.6;
+      border: 1px dashed rgba(197, 155, 72, 0.2);
+      border-radius: 2px;
+    }
+
+    .dossier-cart-item {
+      background: #020704;
+      border: 1px solid rgba(197, 155, 72, 0.2);
+      padding: 12px 14px;
+      border-radius: 2px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+      animation: fadeIn 0.25s ease;
+    }
+    .dossier-item-title {
+      font-family: var(--font-serif);
+      font-size: 14.5px;
+      color: #ffffff;
+      font-weight: 600;
+    }
+    .dossier-item-staff {
+      font-size: 11px;
+      color: var(--color-gold);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 2px;
+    }
+    .dossier-item-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .dossier-item-price {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--color-gold-bright);
+      text-align: right;
+    }
+    .btn-dossier-remove {
+      background: none;
+      border: none;
+      color: #7a827e;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 4px;
+      text-align: right;
+      display: block;
+      transition: color 0.2s ease;
+    }
+    .btn-dossier-remove:hover {
+      color: #ff6b6b;
+    }
+
+    /* Dossier Tally Calculations */
+    .dossier-tally-box {
+      border-top: 1px solid var(--color-gold-hairline);
+      padding-top: 16px;
+      margin-bottom: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .tally-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+    .tally-row.grand-total {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(197, 155, 72, 0.25);
+    }
+    .tally-row.grand-total .val-gold {
+      color: var(--color-gold-bright);
+      font-family: var(--font-serif);
+      font-size: 19px;
+    }
+
+    /* Primary CTA Button */
+    .btn-dossier-action {
+      width: 100%;
+      background: var(--color-gold);
+      color: #020704;
+      border: 1px solid var(--color-gold-bright);
+      padding: 14px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    }
+    .btn-dossier-action:hover:not(:disabled) {
+      background: var(--color-gold-bright);
+      box-shadow: 0 0 24px rgba(197, 155, 72, 0.6);
+      transform: translateY(-2px);
+    }
+    .btn-dossier-action:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      background: #2a3530;
+      border-color: #3b4742;
+      color: #7b8580;
+    }
+
+    .dossier-disclaimer {
+      margin-top: 14px;
+      font-size: 10.5px;
+      color: #7a827e;
+      text-align: center;
+      line-height: 1.45;
+    }
+
+    /* ==========================================================================
+       5. STEP 2: DATE & TIME PICKER (Schedule)
+       ========================================================================== */
+    .schedule-panel {
+      background: linear-gradient(165deg, rgba(10, 31, 21, 0.85) 0%, rgba(5, 17, 11, 0.95) 100%);
+      border: 1px solid rgba(197, 155, 72, 0.16);
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.7), inset 0 1px 0 0 rgba(226, 190, 108, 0.12);
+    }
+    .panel-section-title {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      letter-spacing: 0.4px;
+      font-weight: 500;
+      text-transform: none;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+    .panel-section-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    /* 14-Day Date Carousel */
+    .date-strip {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+    .date-card-btn {
+      background: #020704;
+      border: 1px solid rgba(197, 155, 72, 0.2);
+      padding: 12px 6px;
+      border-radius: 2px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .date-card-btn:hover {
+      border-color: var(--color-gold);
+      background: rgba(197, 155, 72, 0.08);
+    }
+    .date-card-btn.active {
+      background: var(--color-gold);
+      border-color: var(--color-gold-bright);
+      box-shadow: 0 0 16px rgba(197, 155, 72, 0.4);
+    }
+    .date-day-name {
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+    .date-card-btn.active .date-day-name {
+      color: #020704;
+    }
+    .date-num {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .date-card-btn.active .date-num {
+      color: #020704;
+    }
+    .date-month-name {
+      font-size: 9.5px;
+      letter-spacing: 0.5px;
+      color: var(--color-gold);
+      text-transform: uppercase;
+    }
+    .date-card-btn.active .date-month-name {
+      color: #020704;
+    }
+
+    /* Slot Clusters */
+    .slots-cluster {
+      margin-bottom: 24px;
+    }
+    .slots-cluster-header {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--color-gold-bright);
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    /* Slots Availability Legend */
+    .slots-legend-bar {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 12px 18px;
+      background: #020704;
+      border: 1px solid var(--color-gold-hairline);
+      border-radius: 2px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .legend-dot.dot-available {
+      background: #22c55e;
+      box-shadow: 0 0 6px rgba(34, 197, 94, 0.6);
+    }
+    .legend-dot.dot-selected {
+      background: var(--color-gold-bright);
+      box-shadow: 0 0 6px rgba(229, 193, 120, 0.8);
+    }
+    .legend-dot.dot-booked {
+      background: #ef4444;
+      box-shadow: 0 0 6px rgba(239, 68, 68, 0.6);
+    }
+
+    .slots-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .slot-pill-btn {
+      background: #020704;
+      border: 1px solid rgba(197, 155, 72, 0.25);
+      color: #ffffff;
+      padding: 9px 8px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      border-radius: 2px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      min-height: 54px;
+    }
+    .slot-pill-btn:hover {
+      border-color: var(--color-gold);
+      background: rgba(197, 155, 72, 0.1);
+    }
+    .slot-pill-btn.active {
+      background: var(--color-gold);
+      border-color: var(--color-gold-bright);
+      color: #020704;
+      font-weight: 700;
+      box-shadow: 0 0 16px rgba(197, 155, 72, 0.45);
+    }
+    .slot-time-text {
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .slot-pill-btn.active .slot-time-text {
+      color: #020704;
+      font-weight: 700;
+    }
+    .slot-status-badge {
+      font-size: 9px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 2px;
+      line-height: 1.3;
+    }
+    .slot-status-badge.badge-available {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+    .slot-pill-btn.active .slot-status-badge.badge-available {
+      background: #020704;
+      color: var(--color-gold-bright);
+      border-color: #020704;
+    }
+    .slot-pill-btn.booked {
+      background: rgba(22, 12, 12, 0.7);
+      border: 1px dashed rgba(239, 68, 68, 0.4);
+      color: #8b928e;
+      cursor: pointer;
+    }
+    .slot-pill-btn.booked:hover {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: #ef4444;
+      color: #fca5a5;
+    }
+    .slot-pill-btn.booked .slot-time-text {
+      text-decoration: line-through;
+      color: #8b928e;
+    }
+    .slot-pill-btn.booked:hover .slot-time-text {
+      color: #fca5a5;
+    }
+    .slot-status-badge.badge-soldout {
+      background: rgba(239, 68, 68, 0.22);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.45);
+    }
+    .slot-pill-btn.booked:hover .slot-status-badge.badge-soldout {
+      background: rgba(239, 68, 68, 0.4);
+      color: #ffffff;
+    }
+
+    /* Waitlist Standby Protocol Banner */
+    .waitlist-banner-card {
+      background: linear-gradient(135deg, rgba(6, 21, 14, 0.95) 0%, rgba(14, 38, 28, 0.8) 100%);
+      border: 1px solid var(--color-gold-hairline);
+      border-left: 4px solid var(--color-gold);
+      border-radius: 2px;
+      padding: 20px 24px;
+      margin-top: 28px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+    .waitlist-banner-info {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .waitlist-banner-title {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      font-weight: 600;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .waitlist-banner-title span {
+      color: var(--color-gold-bright);
+    }
+    .waitlist-banner-desc {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      max-width: 620px;
+    }
+    .btn-join-waitlist-trigger {
+      background: transparent;
+      color: var(--color-gold-bright);
+      border: 1px solid var(--color-gold);
+      padding: 11px 20px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border-radius: 2px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    }
+    .btn-join-waitlist-trigger:hover {
+      background: var(--color-gold);
+      color: #020704;
+      box-shadow: 0 0 18px rgba(197, 155, 72, 0.6);
+      transform: translateY(-1px);
+    }
+
+    /* Waitlist Modal */
+    .waitlist-modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.88);
+      z-index: 1050;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .waitlist-modal-backdrop.open {
+      display: flex;
+    }
+    .waitlist-modal-card {
+      background: #04100b;
+      border: 1px solid var(--color-gold);
+      max-width: 580px;
+      width: 100%;
+      padding: 30px;
+      border-radius: 3px;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.95), 0 0 30px rgba(197, 155, 72, 0.2);
+      position: relative;
+      animation: popoverFade 0.25s ease-out;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .waitlist-modal-header {
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--color-gold-hairline);
+    }
+    .waitlist-eyebrow {
+      font-size: 10.5px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      font-weight: 700;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .waitlist-modal-title {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      color: #ffffff;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .waitlist-modal-desc {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+    .waitlist-switch-box {
+      background: rgba(197, 155, 72, 0.08);
+      border: 1px solid rgba(197, 155, 72, 0.25);
+      border-radius: 2px;
+      padding: 12px 16px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .waitlist-switch-text {
+      font-size: 12px;
+      color: #d1d8d3;
+      line-height: 1.4;
+    }
+    .btn-switch-slot-fast {
+      background: var(--color-gold);
+      color: #020704;
+      border: 1px solid var(--color-gold-bright);
+      padding: 7px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      border-radius: 2px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .btn-switch-slot-fast:hover {
+      background: var(--color-gold-bright);
+      box-shadow: 0 0 10px rgba(197, 155, 72, 0.5);
+    }
+
+    /* ==========================================================================
+       6. STEP 3: PAYMENT & CONFIRMATION
+       ========================================================================== */
+    .payment-panel {
+      background: linear-gradient(165deg, rgba(10, 31, 21, 0.85) 0%, rgba(5, 17, 11, 0.95) 100%);
+      border: 1px solid rgba(197, 155, 72, 0.16);
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.7), inset 0 1px 0 0 rgba(226, 190, 108, 0.12);
+    }
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .form-group-custom {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .form-label-custom {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .form-input-custom {
+      background: #020704;
+      border: 1px solid rgba(197, 155, 72, 0.3);
+      padding: 12px 16px;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 14px;
+      border-radius: 2px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .form-input-custom:focus {
+      border-color: var(--color-gold);
+      box-shadow: 0 0 10px rgba(197, 155, 72, 0.2);
+    }
+
+    /* Payment Cards */
+    .payment-options-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 16px 0 24px;
+    }
+    .payment-method-card {
+      background: #020704;
+      border: 1px solid rgba(197, 155, 72, 0.25);
+      padding: 16px 12px;
+      border-radius: 2px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .payment-method-card:hover {
+      border-color: var(--color-gold);
+    }
+    .payment-method-card.active {
+      border-color: var(--color-gold-bright);
+      background: rgba(197, 155, 72, 0.12);
+      box-shadow: 0 0 16px rgba(197, 155, 72, 0.3);
+    }
+    .pm-icon {
+      font-size: 20px;
+      color: var(--color-gold-bright);
+    }
+    .pm-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .pm-desc {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    /* Cash Control Guarantee Notice */
+    .cash-control-box {
+      background: rgba(197, 155, 72, 0.08);
+      border: 1px solid var(--color-gold);
+      padding: 16px 20px;
+      border-radius: 2px;
+      margin: 24px 0;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+    .guarantee-badge {
+      background: var(--color-gold);
+      color: #020704;
+      font-weight: 800;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+    .guarantee-text {
+      font-size: 12px;
+      line-height: 1.5;
+      color: #e2e8e4;
+    }
+    .guarantee-serial {
+      font-family: monospace;
+      color: var(--color-gold-bright);
+      font-weight: 700;
+    }
+
+    /* Modal / Tooltip */
+    .info-modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+    }
+    .info-modal-backdrop.open {
+      display: flex;
+    }
+    .info-modal-card {
+      background: #04100b;
+      border: 1px solid var(--color-gold);
+      max-width: 520px;
+      width: 100%;
+      padding: 28px;
+      border-radius: 3px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95);
+      position: relative;
+    }
+    .info-modal-title {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+    .info-modal-meta {
+      font-size: 12px;
+      color: var(--color-gold-bright);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--color-gold-hairline);
+    }
+    .info-modal-steps {
+      list-style: none;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .info-modal-step-item {
+      font-size: 13px;
+      color: #d1d8d3;
+      line-height: 1.5;
+      display: flex;
+      gap: 10px;
+    }
+    .step-bullet {
+      color: var(--color-gold);
+      font-weight: 700;
+    }
+    .btn-modal-close {
+      background: var(--color-gold);
+      color: #020704;
+      border: none;
+      padding: 10px 20px;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border-radius: 2px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .booking-grid {
+        grid-template-columns: 1fr;
+      }
+      .dossier-sticky-panel {
+        position: static;
+        margin-top: 30px;
+      }
+      .location-selector-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .location-select-custom {
+        min-width: 100%;
+      }
+      .date-strip {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .slots-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .payment-options-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .date-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .slots-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .form-row-2 {
+        grid-template-columns: 1fr;
+      }
+      .service-row {
+        grid-template-columns: 1fr;
+      }
+      .staff-picker-popover {
+        position: fixed;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 90vw;
+        max-width: 340px;
+      }
+      .waitlist-banner-card {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn-join-waitlist-trigger {
+        justify-content: center;
+      }
+      .slots-legend-bar {
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LUXURY MULTI-PAGE NAVIGATION BAR -->
+  <header>
+    <a href="index.html" class="brand-wrap">
+      <img src="assets/greenwood_logo_transparent.png" alt="Greenwood Barbers" class="brand-logo-img">
+    </a>
+
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="parlour.html">The Parlour</a>
+      <a href="booking.html" class="active">Book Appointment</a>
+    </nav>
+
+    <div class="header-cta-group">
+      <a href="booking.html" class="btn-header-book">Reserve a Chair</a>
+      <button class="menu-toggle-btn" onclick="toggleMobileNav()" aria-label="Toggle navigation menu">&#9776;</button>
+    </div>
+  </header>
+
+  <!-- MOBILE NAV OVERLAY -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay">
+    <button class="mobile-nav-close" onclick="closeMobileNav()" aria-label="Close menu">&times;</button>
+    <a href="index.html" onclick="closeMobileNav()">Home</a>
+    <a href="parlour.html" onclick="closeMobileNav()">The Parlour</a>
+    <a href="booking.html" class="active" onclick="closeMobileNav()">Book Appointment</a>
+    <a href="booking.html" class="btn-primary" style="margin-top: 16px;" onclick="closeMobileNav()">Reserve Appointment</a>
+  </div>
+
+  <main class="booking-wrapper">
+    <!-- Header -->
+    <div class="booking-header">
+      <span class="booking-eyebrow">Haute Barbering &bull; Kota Baru Parahyangan</span>
+      <h1 class="booking-main-title">Gentlemen's Appointment Suite</h1>
+      <p class="booking-main-desc">
+        Select your ritual, tailor in-chair treatments &amp; Mayfair apothecary formulations, assign your certified bladesmith, and secure your chair at Ruko PancaTengah, Kota Baru Parahyangan.
+      </p>
+    </div>
+
+    <!-- 1. ELEVATED TRUEFITT CHICAGO 3-STEP STEPPER -->
+    <div class="chicago-stepper" aria-label="Appointment Progress">
+      <div class="chicago-track">
+        <div class="chicago-track-progress" id="stepperProgressLine"></div>
+      </div>
+      <div class="chicago-steps">
+        <button type="button" class="chicago-step-item active" id="stepNode1" onclick="navigateToStep(1)">
+          <div class="step-circle"><span id="stepIcon1">1</span></div>
+          <span class="step-text">Select Services &amp; Products</span>
+        </button>
+        <button type="button" class="chicago-step-item" id="stepNode2" onclick="navigateToStep(2)">
+          <div class="step-circle"><span id="stepIcon2">2</span></div>
+          <span class="step-text">Date &amp; Time</span>
+        </button>
+        <button type="button" class="chicago-step-item" id="stepNode3" onclick="navigateToStep(3)">
+          <div class="step-circle"><span id="stepIcon3">3</span></div>
+          <span class="step-text">Complete Booking</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 2. APPOINTMENT POLICY BANNER & LOCATION SELECTOR -->
+    <div class="executive-policy-banner">
+      <div>
+        <strong>Appointment Integrity Protocol:</strong> No show and cancellations within 6 hours of an appointment will incur fees implemented at the full service price to ensure the integrity of our master bladesmiths' schedule and dedicated chair time.
+      </div>
+    </div>
+
+    <div class="location-selector-bar">
+      <span class="location-label">Appointment Location</span>
+      <div style="font-size: 12.5px; font-weight: 600; color: var(--color-gold-bright); letter-spacing: 0.5px;">
+        Greenwood Barbers &bull; Ruko PancaTengah, Kota Baru Parahyangan (7 mins from Whoosh Padalarang)
+      </div>
+    </div>
+
+    <!-- 3. MAIN WORKSPACE GRID -->
+    <div class="booking-grid">
+
+      <!-- ====================================================================
+           LEFT COLUMN: STEP PANELS
+           ==================================================================== -->
+      <div class="flow-panels-container">
+
+        <!-- ------------------------------------------------------------------
+             PANEL 1: SELECT SERVICES & PRODUCTS
+             ------------------------------------------------------------------ -->
+        <div class="flow-panel active" id="panelStep1">
+
+          <!-- Category 1: Signature Rituals & Haircuts -->
+          <div class="catalogue-category">
+            <div class="category-header" onclick="toggleCategory(this)">
+              <div class="category-title-wrap">
+                <span class="category-title">1. Signature Rituals &amp; Haircuts</span>
+                <span class="category-count">4 Treatments</span>
+              </div>
+              <span class="category-toggle-arrow">&#9660;</span>
+            </div>
+            <div class="category-items-list">
+
+              <!-- Service 1: The Session -->
+              <div class="service-row" data-id="serv-the-session">
+                <div class="service-info-col">
+                  <div class="service-headline">
+                    <span class="service-name">1 The Session &bull; Six Codified Steps</span>
+                    <span class="service-price">Rp 220,000</span>
+                    <span class="service-duration-badge">45 Mins</span>
+                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('the-session')" aria-label="Service Details">i</button>
+                  </div>
+                  <p class="service-snippet">
+                    Anatomical cranial consultation, botanical wash, precision shear &amp; clipper cut, straight-razor detailing (ears, nose &amp; brows), lavender hot towel wrap, and matte pomade dressing.
+                  </p>
+                </div>
+                <div class="service-action-col">
+                  <button type="button" class="btn-add-chicago" onclick="toggleStaffPicker('serv-the-session', event)">
+                    Add <span class="arrow-down">&#9660;</span>
+                  </button>
+                  <!-- Floating Staff Picker -->
+                  <div class="staff-picker-popover" id="popover-serv-the-session">
+                    <div class="popover-header">
+                      <span>Select Master Barber</span>
+                      <button type="button" class="popover-close" onclick="closeStaffPicker('serv-the-session')">&times;</button>
+                    </div>
+                    <div class="staff-options-list">
+                      <div class="staff-option-row" onclick="addItemToDossier('serv-the-session', 'The Session', 220000, 45, 'Any Staff', 'First Available Master', 'assets/greenwood_monogram_cropped.png')">
+                        <div class="staff-avatar-any">&#10022;</div>
+                        <div class="staff-meta">
+                          <span class="staff-name">Any Staff</span>
+                          <span class="staff-role-sub">Certified Bladesmith Pool</span>
+                          <span class="staff-bio-snippet">Book this ritual with any available certified master bladesmith.</span>
+                        </div>
+                      </div>
+                      <div class="staff-option-row" onclick="addItemToDossier('serv-the-session', 'The Session', 220000, 45, 'Bramantyo', 'Head of Barbering (14 yrs exp)', 'assets/barber_bramantyo.jpg')">
+                        <img src="assets/barber_bramantyo.jpg" alt="Bramantyo" class="staff-avatar-thumb">
+                        <div class="staff-meta">
+                          <span class="staff-name">Bramantyo</span>
+                          <span class="staff-role-sub">Head of Barbering &bull; 14 Yrs</span>
+                          <span class="staff-bio-snippet">Savile Row precision, straight-razor discipline, and bespoke cranial geometry.</span>
+                        </div>
+                      </div>
+                      <div class="staff-option-row" onclick="addItemToDossier('serv-the-session', 'The Session', 220000, 45, 'Rian Pratama', 'Senior Scissor Artisan (9 yrs exp)', 'assets/barber_rian.jpg')">
+                        <img src="assets/barber_rian.jpg" alt="Rian Pratama" class="staff-avatar-thumb">
+                        <div class="staff-meta">
+                          <span class="staff-name">Rian Pratama</span>
+                          <span class="staff-role-sub">Senior Scissor Artisan &bull; 9 Yrs</span>
+                          <span class="staff-bio-snippet">Master of textured layers, weight balance, and unhurried shear craftsmanship.</span>
+                        </div>
+                      </div>
+                      <div class="staff-option-row" onclick="addItemToDossier('serv-the-session', 'The Session', 220000, 45, 'Dimas Setiawan', 'Traditional Wet Shave Specialist (8 yrs exp)', 'assets/barber_dimas.jpg')">
+                        <img src="assets/barber_dimas.jpg" alt="Dimas Setiawan" class="staff-avatar-thumb">
+                        <div class="staff-meta">
+                          <span class="staff-name">Dimas Setiawan</span>
+                          <span class="staff-role-sub">Shave Specialist &bull; 8 Yrs</span>
+                          <span class="staff-bio-snippet">Hot-towel multi-layering, badger lathering, and delicate blade control.</span>
+                        </div>
+                      </div>
+                      <div class="staff-option-row" onclick="addItemToDossier('serv-the-session', 'The Session', 220000, 45, 'Farhan Akbar', 'Scalp Sculptor (7 yrs exp)', 'assets/barber_farhan.jpg')">
+                        <img src="assets/barber_farhan.jpg" alt="Farhan Akbar" class="staff-avatar-thumb">
+                        <div class="staff-meta">
+                          <span class="staff-name">Farhan Akbar</span>
+                          <span class="staff-role-sub">Scalp Sculptor &bull; 7 Yrs</span>
+                          <span class="staff-bio-snippet">Acupressure meridian massage, follicle stimulation, and beard architecture.</span>
+                        </div>
+                      </div>
+                      <div class="staff-option-row" onclick="addItemToDossier('serv-the-session', 'The Session', 220000, 45, 'Aldi Maulana', 'Precision Taper Stylist (6 yrs exp)', 'assets/barber_aldi.jpg')">
+                        <img src="assets/barber_aldi.jpg" alt="Aldi Maulana" class="staff-avatar-thumb">
+                        <div class="staff-meta">
+                          <span class="staff-name">Aldi Maulana</span>
+                          <span class="staff-role-sub">Taper Stylist &bull; 6 Yrs</span>
+                          <span class="staff-bio-snippet">Modern low-contrast tapers, sharp razor perimeter lines, and contemporary grooming.</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Service 2: The Session & Shave -->
+              <div class="service-row" data-id="serv-session-shave">
+                <div class="service-info-col">
+                  <div class="service-headline">
+                    <span class="service-name">2 The Session &amp; Traditional Shave</span>
+                    <span class="service-price">Rp 325,000</span>
+                    <span class="service-duration-badge">75 Mins</span>
+                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('session-shave')" aria-label="Service Details">i</button>
+                  </div>
+                  <p class="service-snippet">
+                    Flagship combined experience: 45-minute Session paired with ceremonial hot towel straight-razor shave. Component value Rp 380,000, unified tariff of Rp 325,000.
+                  </p>
+                </div>
+                <div class="service-action-col">
+                  <button type="button" class="btn-add-chicago" onclick="toggleStaffPicker('serv-session-shave', event)">
+                    Add <span class="arrow-down">&#9660;</span>
+                  </button>
+                  <div class="staff-picker-popover" id="popover-serv-session-shave">
+                    <div class="popover-header">
+                      <span>Select Master Barber</span>
+                      <button type="button" class="popover-close" onclick="closeStaffPicker('serv-session-shave')">&times;</button>
+                    </div>
+                    <div class="staff-options-list">
+                      <div class="staff-option-row" onclick="addItemToDossier('serv-session-shave', 'The Session & Shave', 325000, 75, 'Any Staff', 'First Available Master', 'assets/greenwood_monogram_cropped.png')">
+                        <div class="staff-avatar-any">&#10022;</div>
+                        <div class="staff-meta">
+                          <span class="staff-name">Any Staff</span>
+                          <span class="staff-role-sub">Certified Bladesmith Pool</span>
+                          <span class="staff-bio-snippet">Available master bladesmith for complete haircut &amp; wet shave ritual.</span>
+                        </div>
+                      </div>
+                      <div class="staff-option-row" onclick="addItemToDossier('serv-session-shave', 'The Session & Shave', 325000, 75, 'Bramantyo', 'Head of Barbering', 'assets/barber_bramantyo.jpg')">
+                        <img src="assets/barber_bramantyo.jpg" alt="Bramantyo" class="staff-avatar-thumb">
+                        <div class="staff-meta">
+                          <span class="staff-name">Bramantyo</span>
+                          <span class="staff-role-sub">Head of Barbering &bull; 14 Yrs</span>
+                          <span class="staff-bio-snippet">Full mastery over both bespoke shear sculpting and ceremonial straight-razor gliding.</span>
+                        </div>
+                      </div>
+                      <div class="staff-option-row" onclick="addItemToDossier('serv-session-shave', 'The Session & Shave', 325000, 75, 'Dimas Setiawan', 'Shave Specialist', 'assets/barber_dimas.jpg')">
+                        <img src="assets/barber_dimas.jpg" alt="Dimas Setiawan" class="staff-avatar-thumb">
+                        <div class="staff-meta">
+                          <span class="staff-name">Dimas Setiawan</span>
+                          <span class="staff-role-sub">Shave Specialist &bull; 8 Yrs</span>
+                          <span class="staff-bio-snippet">Triple-towel temperature modulation with organic sandalwood glaze.</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Service 3: The Restoration -->
+              <div class="service-row" data-id="serv-restoration">
+                <div class="service-info-col">
+                  <div class="service-headline">
+                    <span class="service-name">3 The Restoration (Royal Grand Experience)</span>
+                    <span class="service-price">Rp 550,000</span>
+                    <span class="service-duration-badge">120 Mins</span>
+                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('restoration')" aria-label="Service Details">i</button>
+                  </div>
+                  <p class="service-snippet">
+                    Unhurried two-hour master retreat: The Session, traditional wet shave, botanical trichology scalp therapy, cranial acupressure, and single-malt lounge service.
+                  </p>
+                </div>
+                <div class="service-action-col">
+                  <button type="button" class="btn-add-chicago" onclick="toggleStaffPicker('serv-restoration', event)">
+                    Add <span class="arrow-down">&#9660;</span>
+                  </button>
+                  <div class="staff-picker-popover" id="popover-serv-restoration">
+                    <div class="popover-header">
+                      <span>Select Master Barber</span>
+                      <button type="button" class="popover-close" onclick="closeStaffPicker('serv-restoration')">&times;</button>
+                    </div>
+                    <div class="staff-options-list">
+                      <div class="staff-option-row" onclick="addItemToDossier('serv-restoration', 'The Restoration', 550000, 120, 'Bramantyo', 'Head of Barbering', 'assets/barber_bramantyo.jpg')">
+                        <img src="assets/barber_bramantyo.jpg" alt="Bramantyo" class="staff-avatar-thumb">
+                        <div class="staff-meta">
+                          <span class="staff-name">Bramantyo</span>
+                          <span class="staff-role-sub">Head of Barbering &bull; 14 Yrs</span>
+                          <span class="staff-bio-snippet">Lead master bladesmith for the unhurried 120-minute Royal Grand immersion.</span>
+                        </div>
+                      </div>
+                      <div class="staff-option-row" onclick="addItemToDossier('serv-restoration', 'The Restoration', 550000, 120, 'Any Staff', 'Certified Master', 'assets/greenwood_monogram_cropped.png')">
+                        <div class="staff-avatar-any">&#10022;</div>
+                        <div class="staff-meta">
+                          <span class="staff-name">Any Master</span>
+                          <span class="staff-role-sub">Certified Senior Bladesmith</span>
+                          <span class="staff-bio-snippet">First available senior artisan for complete 2-hour restoration.</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Service 4: The Detail -->
+              <div class="service-row" data-id="serv-detail">
+                <div class="service-info-col">
+                  <div class="service-headline">
+                    <span class="service-name">4 The Detail &bull; Neck &amp; Beard Outline</span>
+                    <span class="service-price">Rp 75,000</span>
+                    <span class="service-duration-badge">20 Mins</span>
+                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('detail')" aria-label="Service Details">i</button>
+                  </div>
+                  <p class="service-snippet">
+                    Interim razor contouring along the neckline, sideburns, and beard perimeter with warm lather between scheduled haircut appointments.
+                  </p>
+                </div>
+                <div class="service-action-col">
+                  <button type="button" class="btn-add-chicago" onclick="toggleStaffPicker('serv-detail', event)">
+                    Add <span class="arrow-down">&#9660;</span>
+                  </button>
+                  <div class="staff-picker-popover" id="popover-serv-detail">
+                    <div class="popover-header">
+                      <span>Select Master Barber</span>
+                      <button type="button" class="popover-close" onclick="closeStaffPicker('serv-detail')">&times;</button>
+                    </div>
+                    <div class="staff-options-list">
+                      <div class="staff-option-row" onclick="addItemToDossier('serv-detail', 'The Detail', 75000, 20, 'Any Staff', 'Any Bladesmith', 'assets/greenwood_monogram_cropped.png')">
+                        <div class="staff-avatar-any">&#10022;</div>
+                        <div class="staff-meta">
+                          <span class="staff-name">Any Staff</span>
+                          <span class="staff-role-sub">Certified Bladesmith Pool</span>
+                          <span class="staff-bio-snippet">Quick 20-minute perimeter detail with straight-edge razor.</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Category 2: Combos & Scalp Treatments -->
+          <div class="catalogue-category">
+            <div class="category-header" onclick="toggleCategory(this)">
+              <div class="category-title-wrap">
+                <span class="category-title">2. Combos &amp; Scalp Treatments</span>
+                <span class="category-count">4 Treatments</span>
+              </div>
+              <span class="category-toggle-arrow">&#9660;</span>
+            </div>
+            <div class="category-items-list">
+
+              <!-- Service 5: Traditional Hot Towel Wet Shave -->
+              <div class="service-row" data-id="serv-hot-shave">
+                <div class="service-info-col">
+                  <div class="service-headline">
+                    <span class="service-name">1 Traditional Hot Towel Wet Shave</span>
+                    <span class="service-price">Rp 160,000</span>
+                    <span class="service-duration-badge">30 Mins</span>
+                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('hot-shave')" aria-label="Service Details">i</button>
+                  </div>
+                  <p class="service-snippet">
+                    Classical Mayfair straight-razor shave with sandalwood essential oil steam compress, silvertip badger lather, and single-use Solingen surgical blade.
+                  </p>
+                </div>
+                <div class="service-action-col">
+                  <button type="button" class="btn-add-chicago" onclick="toggleStaffPicker('serv-hot-shave', event)">
+                    Add <span class="arrow-down">&#9660;</span>
+                  </button>
+                  <div class="staff-picker-popover" id="popover-serv-hot-shave">
+                    <div class="popover-header">
+                      <span>Select Master Barber</span>
+                      <button type="button" class="popover-close" onclick="closeStaffPicker('serv-hot-shave')">&times;</button>
+                    </div>
+                    <div class="staff-options-list">
+                      <div class="staff-option-row" onclick="addItemToDossier('serv-hot-shave', 'Traditional Wet Shave', 160000, 30, 'Dimas Setiawan', 'Shave Specialist', 'assets/barber_dimas.jpg')">
+                        <img src="assets/barber_dimas.jpg" alt="Dimas Setiawan" class="staff-avatar-thumb">
+                        <div class="staff-meta">
+                          <span class="staff-name">Dimas Setiawan</span>
+                          <span class="staff-role-sub">Shave Specialist &bull; 8 Yrs</span>
+                          <span class="staff-bio-snippet">Master of hot-towel compression and frictionless blade glide.</span>
+                        </div>
+                      </div>
+                      <div class="staff-option-row" onclick="addItemToDossier('serv-hot-shave', 'Traditional Wet Shave', 160000, 30, 'Any Staff', 'Certified Master', 'assets/greenwood_monogram_cropped.png')">
+                        <div class="staff-avatar-any">&#10022;</div>
+                        <div class="staff-meta">
+                          <span class="staff-name">Any Staff</span>
+                          <span class="staff-role-sub">Certified Bladesmith Pool</span>
+                          <span class="staff-bio-snippet">Book traditional wet shave with any available bladesmith.</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Service 6: The Hair Spa & Scalp Massage -->
+              <div class="service-row" data-id="serv-hair-spa">
+                <div class="service-info-col">
+                  <div class="service-headline">
+                    <span class="service-name">2 The Hair Spa &amp; Scalp Massage</span>
+                    <span class="service-price">Rp 200,000</span>
+                    <span class="service-duration-badge">40 Mins</span>
+                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('hair-spa')" aria-label="Service Details">i</button>
+                  </div>
+                  <p class="service-snippet">
+                    Rp 5,000/minute (11% below competitor tariffs). Botanical root nutrient masque, 20-minute cranial meridian acupressure, and cooling steam compress.
+                  </p>
+                </div>
+                <div class="service-action-col">
+                  <button type="button" class="btn-add-chicago" onclick="toggleStaffPicker('serv-hair-spa', event)">
+                    Add <span class="arrow-down">&#9660;</span>
+                  </button>
+                  <div class="staff-picker-popover" id="popover-serv-hair-spa">
+                    <div class="popover-header">
+                      <span>Select Master Barber</span>
+                      <button type="button" class="popover-close" onclick="closeStaffPicker('serv-hair-spa')">&times;</button>
+                    </div>
+                    <div class="staff-options-list">
+                      <div class="staff-option-row" onclick="addItemToDossier('serv-hair-spa', 'The Hair Spa', 200000, 40, 'Farhan Akbar', 'Scalp Sculptor', 'assets/barber_farhan.jpg')">
+                        <img src="assets/barber_farhan.jpg" alt="Farhan Akbar" class="staff-avatar-thumb">
+                        <div class="staff-meta">
+                          <span class="staff-name">Farhan Akbar</span>
+                          <span class="staff-role-sub">Scalp Sculptor &bull; 7 Yrs</span>
+                          <span class="staff-bio-snippet">Meridian acupressure specialist for tension release and follicle renewal.</span>
+                        </div>
+                      </div>
+                      <div class="staff-option-row" onclick="addItemToDossier('serv-hair-spa', 'The Hair Spa', 200000, 40, 'Any Staff', 'Certified Master', 'assets/greenwood_monogram_cropped.png')">
+                        <div class="staff-avatar-any">&#10022;</div>
+                        <div class="staff-meta">
+                          <span class="staff-name">Any Staff</span>
+                          <span class="staff-role-sub">Certified Bladesmith Pool</span>
+                          <span class="staff-bio-snippet">40-minute hair spa and revitalizing scalp massage.</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Service 7: The Scalp Treatment -->
+              <div class="service-row" data-id="serv-scalp-treatment">
+                <div class="service-info-col">
+                  <div class="service-headline">
+                    <span class="service-name">3 The Scalp Treatment &bull; Botanical Trichology</span>
+                    <span class="service-price">Rp 250,000</span>
+                    <span class="service-duration-badge">45 Mins</span>
+                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('scalp-treatment')" aria-label="Service Details">i</button>
+                  </div>
+                  <p class="service-snippet">
+                    Clinical dermato-trichology therapy. Detoxing hair follicles of sebum and atmospheric pollution, microcirculation stimulation, and revitalizing scalp rebalancing.
+                  </p>
+                </div>
+                <div class="service-action-col">
+                  <button type="button" class="btn-add-chicago" onclick="toggleStaffPicker('serv-scalp-treatment', event)">
+                    Add <span class="arrow-down">&#9660;</span>
+                  </button>
+                  <div class="staff-picker-popover" id="popover-serv-scalp-treatment">
+                    <div class="popover-header">
+                      <span>Select Master Barber</span>
+                      <button type="button" class="popover-close" onclick="closeStaffPicker('serv-scalp-treatment')">&times;</button>
+                    </div>
+                    <div class="staff-options-list">
+                      <div class="staff-option-row" onclick="addItemToDossier('serv-scalp-treatment', 'The Scalp Treatment', 250000, 45, 'Farhan Akbar', 'Scalp Sculptor', 'assets/barber_farhan.jpg')">
+                        <img src="assets/barber_farhan.jpg" alt="Farhan Akbar" class="staff-avatar-thumb">
+                        <div class="staff-meta">
+                          <span class="staff-name">Farhan Akbar</span>
+                          <span class="staff-role-sub">Scalp Sculptor &bull; 7 Yrs</span>
+                          <span class="staff-bio-snippet">Botanical trichology protocol and detoxifying meridian acupressure.</span>
+                        </div>
+                      </div>
+                      <div class="staff-option-row" onclick="addItemToDossier('serv-scalp-treatment', 'The Scalp Treatment', 250000, 45, 'Any Staff', 'Certified Master', 'assets/greenwood_monogram_cropped.png')">
+                        <div class="staff-avatar-any">&#10022;</div>
+                        <div class="staff-meta">
+                          <span class="staff-name">Any Staff</span>
+                          <span class="staff-role-sub">Certified Bladesmith Pool</span>
+                          <span class="staff-bio-snippet">Botanical trichology scalp balancing therapy.</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Service 8: The Session & Scalp Treatment -->
+              <div class="service-row" data-id="serv-session-scalp">
+                <div class="service-info-col">
+                  <div class="service-headline">
+                    <span class="service-name">4 The Session &amp; Scalp Treatment</span>
+                    <span class="service-price">Rp 420,000</span>
+                    <span class="service-duration-badge">90 Mins</span>
+                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('session-scalp')" aria-label="Service Details">i</button>
+                  </div>
+                  <p class="service-snippet">
+                    Comprehensive 90-minute pairing: 45-minute Session haircut combined with intensive botanical scalp restorative therapy (component value Rp 470,000).
+                  </p>
+                </div>
+                <div class="service-action-col">
+                  <button type="button" class="btn-add-chicago" onclick="toggleStaffPicker('serv-session-scalp', event)">
+                    Add <span class="arrow-down">&#9660;</span>
+                  </button>
+                  <div class="staff-picker-popover" id="popover-serv-session-scalp">
+                    <div class="popover-header">
+                      <span>Select Master Barber</span>
+                      <button type="button" class="popover-close" onclick="closeStaffPicker('serv-session-scalp')">&times;</button>
+                    </div>
+                    <div class="staff-options-list">
+                      <div class="staff-option-row" onclick="addItemToDossier('serv-session-scalp', 'The Session & Scalp Treatment', 420000, 90, 'Bramantyo', 'Head of Barbering', 'assets/barber_bramantyo.jpg')">
+                        <img src="assets/barber_bramantyo.jpg" alt="Bramantyo" class="staff-avatar-thumb">
+                        <div class="staff-meta">
+                          <span class="staff-name">Bramantyo</span>
+                          <span class="staff-role-sub">Head of Barbering &bull; 14 Yrs</span>
+                          <span class="staff-bio-snippet">Complete 90-minute bespoke transformation with scalp health ritual.</span>
+                        </div>
+                      </div>
+                      <div class="staff-option-row" onclick="addItemToDossier('serv-session-scalp', 'The Session & Scalp Treatment', 420000, 90, 'Any Staff', 'Certified Master', 'assets/greenwood_monogram_cropped.png')">
+                        <div class="staff-avatar-any">&#10022;</div>
+                        <div class="staff-meta">
+                          <span class="staff-name">Any Staff</span>
+                          <span class="staff-role-sub">Certified Bladesmith Pool</span>
+                          <span class="staff-bio-snippet">90-minute haircut and scalp purifying session.</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Category 3: In-Chair Add-Ons (Truefitt 65% Rule) -->
+          <div class="catalogue-category">
+            <div class="category-header" onclick="toggleCategory(this)">
+              <div class="category-title-wrap">
+                <span class="category-title">3. In-Chair Add-Ons (Truefitt 65% Rule)</span>
+                <span class="category-count">3 Add-Ons</span>
+              </div>
+              <span class="category-toggle-arrow">&#9660;</span>
+            </div>
+            <div class="category-items-list">
+
+              <!-- Add-On 1 -->
+              <div class="service-row" data-id="addon-shave">
+                <div class="service-info-col">
+                  <div class="service-headline">
+                    <span class="service-name">1 In-Chair Hot Towel Shave Add-on</span>
+                    <span class="service-price">+Rp 105,000</span>
+                    <span class="service-duration-badge">+30 Mins</span>
+                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('addon-shave')" aria-label="Details">i</button>
+                  </div>
+                  <p class="service-snippet">
+                    Added directly in-chair during The Session. Truefitt &amp; Hill 65% ratio of standalone shave (Rp 160,000 &rarr; Rp 105,000).
+                  </p>
+                </div>
+                <div class="service-action-col">
+                  <button type="button" class="btn-add-product" onclick="addItemToDossier('addon-shave', 'In-Chair Shave Add-on', 105000, 30, 'Same Barber', 'In-Chair Protocol', 'assets/greenwood_monogram_cropped.png')">
+                    + Add to Chair
+                  </button>
+                </div>
+              </div>
+
+              <!-- Add-On 2 -->
+              <div class="service-row" data-id="addon-spa">
+                <div class="service-info-col">
+                  <div class="service-headline">
+                    <span class="service-name">2 Botanical Hair Spa Add-on</span>
+                    <span class="service-price">+Rp 130,000</span>
+                    <span class="service-duration-badge">+30 Mins</span>
+                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('addon-spa')" aria-label="Details">i</button>
+                  </div>
+                  <p class="service-snippet">
+                    Root nourishment and cranial acupressure during the secondary wash rinse. (65% ratio of Rp 200,000 &rarr; Rp 130,000).
+                  </p>
+                </div>
+                <div class="service-action-col">
+                  <button type="button" class="btn-add-product" onclick="addItemToDossier('addon-spa', 'Hair Spa Add-on', 130000, 30, 'Same Barber', 'In-Chair Protocol', 'assets/greenwood_monogram_cropped.png')">
+                    + Add to Chair
+                  </button>
+                </div>
+              </div>
+
+              <!-- Add-On 3 -->
+              <div class="service-row" data-id="addon-scalp">
+                <div class="service-info-col">
+                  <div class="service-headline">
+                    <span class="service-name">3 Scalp Purifying Therapy Add-on</span>
+                    <span class="service-price">+Rp 165,000</span>
+                    <span class="service-duration-badge">+35 Mins</span>
+                    <button type="button" class="btn-info-tooltip" onclick="openServiceInfo('addon-scalp')" aria-label="Details">i</button>
+                  </div>
+                  <p class="service-snippet">
+                    Deep scalp exfoliation and microcirculation boost prior to haircutting. (65% ratio of Rp 250,000 &rarr; Rp 165,000).
+                  </p>
+                </div>
+                <div class="service-action-col">
+                  <button type="button" class="btn-add-product" onclick="addItemToDossier('addon-scalp', 'Scalp Purifying Add-on', 165000, 35, 'Same Barber', 'In-Chair Protocol', 'assets/greenwood_monogram_cropped.png')">
+                    + Add to Chair
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Category 4: Take-Home Mayfair Apothecary Products -->
+          <div class="catalogue-category">
+            <div class="category-header" onclick="toggleCategory(this)">
+              <div class="category-title-wrap">
+                <span class="category-title">4. Take-Home Mayfair Apothecary Products</span>
+                <span class="category-count">6 Formulations</span>
+              </div>
+              <span class="category-toggle-arrow">&#9660;</span>
+            </div>
+            <div class="category-items-list">
+
+              <!-- Product 1 -->
+              <div class="service-row" data-id="prod-cream">
+                <div class="service-info-col">
+                  <div class="service-headline">
+                    <span class="service-name">1 Mayfair Sandalwood Shaving Cream (190g Tub)</span>
+                    <span class="service-price">Rp 220,000</span>
+                    <span class="service-duration-badge">Take-Home</span>
+                    <button type="button" class="btn-info-tooltip" onclick="openProductInfo('cream')" aria-label="Product Details">i</button>
+                  </div>
+                  <p class="service-snippet">
+                    Concentrated English shaving cream with pure Mysore sandalwood oil. Dense protective lather for 100+ home shaving rituals.
+                  </p>
+                </div>
+                <div class="service-action-col">
+                  <button type="button" class="btn-add-product" onclick="addItemToDossier('prod-cream', 'Sandalwood Shaving Cream (190g)', 220000, 0, 'Apothecary Parcel', 'Take-Home Product', 'assets/product_shaving_cream.jpg')">
+                    + Add to Bag
+                  </button>
+                </div>
+              </div>
+
+              <!-- Product 2 -->
+              <div class="service-row" data-id="prod-oil">
+                <div class="service-info-col">
+                  <div class="service-headline">
+                    <span class="service-name">2 Botanical Pre-Shave Glaze Oil (60ml Bottle)</span>
+                    <span class="service-price">Rp 175,000</span>
+                    <span class="service-duration-badge">Take-Home</span>
+                    <button type="button" class="btn-info-tooltip" onclick="openProductInfo('oil')" aria-label="Product Details">i</button>
+                  </div>
+                  <p class="service-snippet">
+                    Botanical jojoba and sweet almond barrier oil to soften coarse beard follicles and eliminate blade tug.
+                  </p>
+                </div>
+                <div class="service-action-col">
+                  <button type="button" class="btn-add-product" onclick="addItemToDossier('prod-oil', 'Pre-Shave Glaze Oil (60ml)', 175000, 0, 'Apothecary Parcel', 'Take-Home Product', 'assets/product_pre_shave.jpg')">
+                    + Add to Bag
+                  </button>
+                </div>
+              </div>
+
+              <!-- Product 3 -->
+              <div class="service-row" data-id="prod-balm">
+                <div class="service-info-col">
+                  <div class="service-headline">
+                    <span class="service-name">3 Post-Shave Soothing Relief Balm (100ml)</span>
+                    <span class="service-price">Rp 185,000</span>
+                    <span class="service-duration-badge">Take-Home</span>
+                    <button type="button" class="btn-info-tooltip" onclick="openProductInfo('balm')" aria-label="Product Details">i</button>
+                  </div>
+                  <p class="service-snippet">
+                    Alcohol-free calming balm with organic aloe vera, chamomile, and vitamin E to restore dermal hydration.
+                  </p>
+                </div>
+                <div class="service-action-col">
+                  <button type="button" class="btn-add-product" onclick="addItemToDossier('prod-balm', 'Post-Shave Balm (100ml)', 185000, 0, 'Apothecary Parcel', 'Take-Home Product', 'assets/greenwood_monogram_cropped.png')">
+                    + Add to Bag
+                  </button>
+                </div>
+              </div>
+
+              <!-- Product 4 -->
+              <div class="service-row" data-id="prod-tonic">
+                <div class="service-info-col">
+                  <div class="service-headline">
+                    <span class="service-name">4 Botanical Scalp &amp; Hair Tonic (150ml)</span>
+                    <span class="service-price">Rp 195,000</span>
+                    <span class="service-duration-badge">Take-Home</span>
+                    <button type="button" class="btn-info-tooltip" onclick="openProductInfo('tonic')" aria-label="Product Details">i</button>
+                  </div>
+                  <p class="service-snippet">
+                    Invigorating daily scalp tonic with wild rosemary, peppermint, and witch hazel to energize hair roots.
+                  </p>
+                </div>
+                <div class="service-action-col">
+                  <button type="button" class="btn-add-product" onclick="addItemToDossier('prod-tonic', 'Scalp Tonic (150ml)', 195000, 0, 'Apothecary Parcel', 'Take-Home Product', 'assets/greenwood_monogram_cropped.png')">
+                    + Add to Bag
+                  </button>
+                </div>
+              </div>
+
+              <!-- Product 5 -->
+              <div class="service-row" data-id="prod-pomade">
+                <div class="service-info-col">
+                  <div class="service-headline">
+                    <span class="service-name">5 Classic Matte Dressing Pomade (100g)</span>
+                    <span class="service-price">Rp 160,000</span>
+                    <span class="service-duration-badge">Take-Home</span>
+                    <button type="button" class="btn-info-tooltip" onclick="openProductInfo('pomade')" aria-label="Product Details">i</button>
+                  </div>
+                  <p class="service-snippet">
+                    Water-soluble pomade offering strong pliable hold and sophisticated natural matte finish with zero residue.
+                  </p>
+                </div>
+                <div class="service-action-col">
+                  <button type="button" class="btn-add-product" onclick="addItemToDossier('prod-pomade', 'Matte Dressing Pomade (100g)', 160000, 0, 'Apothecary Parcel', 'Take-Home Product', 'assets/greenwood_monogram_cropped.png')">
+                    + Add to Bag
+                  </button>
+                </div>
+              </div>
+
+              <!-- Product 6 -->
+              <div class="service-row" data-id="prod-brush">
+                <div class="service-info-col">
+                  <div class="service-headline">
+                    <span class="service-name">6 Handcrafted Silvertip Badger Shaving Brush</span>
+                    <span class="service-price">Rp 350,000</span>
+                    <span class="service-duration-badge">Take-Home</span>
+                    <button type="button" class="btn-info-tooltip" onclick="openProductInfo('brush')" aria-label="Product Details">i</button>
+                  </div>
+                  <p class="service-snippet">
+                    Handmade shaving brush with 100% genuine silvertip badger bristles and turned solid walnut handle engraved with the Greenwood crest.
+                  </p>
+                </div>
+                <div class="service-action-col">
+                  <button type="button" class="btn-add-product" onclick="addItemToDossier('prod-brush', 'Silvertip Badger Brush', 350000, 0, 'Apothecary Parcel', 'Take-Home Tool', 'assets/product_brush.jpg')">
+                    + Add to Bag
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ------------------------------------------------------------------
+             PANEL 2: DATE & TIME (Schedule)
+             ------------------------------------------------------------------ -->
+        <div class="flow-panel" id="panelStep2">
+          <div class="schedule-panel">
+            <h2 class="panel-section-title">Select Appointment Schedule</h2>
+            <p class="panel-section-sub">Choose your preferred date and private chair time at Ruko PancaTengah, Kota Baru Parahyangan.</p>
+
+            <!-- 14-Day Date Carousel -->
+            <div class="date-strip" id="datePickerCarousel">
+              <!-- Dynamically populated by JS -->
+            </div>
+
+            <!-- Availability Status Legend -->
+            <div class="slots-legend-bar">
+              <span class="legend-item"><span class="legend-dot dot-available"></span> Available (Open Chair)</span>
+              <span class="legend-item"><span class="legend-dot dot-selected"></span> Your Selection</span>
+              <span class="legend-item"><span class="legend-dot dot-booked"></span> Fully Committed (5/5 Chairs &bull; Waitlist)</span>
+            </div>
+
+            <!-- Time Slots Clusters -->
+            <div class="slots-cluster">
+              <div class="slots-cluster-header">
+                Morning Sessions (10:00 &ndash; 12:00 WIB)
+              </div>
+              <div class="slots-grid">
+                <button type="button" class="slot-pill-btn" onclick="selectTimeSlot('10:00')">
+                  <span class="slot-time-text">10:00 WIB</span>
+                  <span class="slot-status-badge badge-available">Open</span>
+                </button>
+                <button type="button" class="slot-pill-btn" onclick="selectTimeSlot('10:45')">
+                  <span class="slot-time-text">10:45 WIB</span>
+                  <span class="slot-status-badge badge-available">Open</span>
+                </button>
+                <button type="button" class="slot-pill-btn booked" onclick="handleBookedSlotClick('11:30', '12:15')" title="5/5 Master Chairs Committed &bull; Click to join Priority Waitlist">
+                  <span class="slot-time-text">11:30 WIB</span>
+                  <span class="slot-status-badge badge-soldout">FULL (5/5)</span>
+                </button>
+                <button type="button" class="slot-pill-btn" onclick="selectTimeSlot('12:15')">
+                  <span class="slot-time-text">12:15 WIB</span>
+                  <span class="slot-status-badge badge-available">Open</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="slots-cluster">
+              <div class="slots-cluster-header">
+                Afternoon Sessions (13:00 &ndash; 17:00 WIB)
+              </div>
+              <div class="slots-grid">
+                <button type="button" class="slot-pill-btn" onclick="selectTimeSlot('13:00')">
+                  <span class="slot-time-text">13:00 WIB</span>
+                  <span class="slot-status-badge badge-available">Open</span>
+                </button>
+                <button type="button" class="slot-pill-btn booked" onclick="handleBookedSlotClick('13:45', '14:30')" title="5/5 Master Chairs Committed &bull; Click to join Priority Waitlist">
+                  <span class="slot-time-text">13:45 WIB</span>
+                  <span class="slot-status-badge badge-soldout">FULL (5/5)</span>
+                </button>
+                <button type="button" class="slot-pill-btn active" onclick="selectTimeSlot('14:30')">
+                  <span class="slot-time-text">14:30 WIB</span>
+                  <span class="slot-status-badge badge-available">Selected</span>
+                </button>
+                <button type="button" class="slot-pill-btn booked" onclick="handleBookedSlotClick('15:15', '16:00')" title="5/5 Master Chairs Committed &bull; Click to join Priority Waitlist">
+                  <span class="slot-time-text">15:15 WIB</span>
+                  <span class="slot-status-badge badge-soldout">FULL (5/5)</span>
+                </button>
+                <button type="button" class="slot-pill-btn" onclick="selectTimeSlot('16:00')">
+                  <span class="slot-time-text">16:00 WIB</span>
+                  <span class="slot-status-badge badge-available">Open</span>
+                </button>
+                <button type="button" class="slot-pill-btn" onclick="selectTimeSlot('16:45')">
+                  <span class="slot-time-text">16:45 WIB</span>
+                  <span class="slot-status-badge badge-available">Open</span>
+                </button>
+                <button type="button" class="slot-pill-btn" onclick="selectTimeSlot('17:15')">
+                  <span class="slot-time-text">17:15 WIB</span>
+                  <span class="slot-status-badge badge-available">Open</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="slots-cluster">
+              <div class="slots-cluster-header">
+                Evening Sessions (18:00 &ndash; 21:00 WIB)
+              </div>
+              <div class="slots-grid">
+                <button type="button" class="slot-pill-btn" onclick="selectTimeSlot('18:00')">
+                  <span class="slot-time-text">18:00 WIB</span>
+                  <span class="slot-status-badge badge-available">Open</span>
+                </button>
+                <button type="button" class="slot-pill-btn booked" onclick="handleBookedSlotClick('18:45', '19:30')" title="5/5 Master Chairs Committed &bull; Click to join Priority Waitlist">
+                  <span class="slot-time-text">18:45 WIB</span>
+                  <span class="slot-status-badge badge-soldout">FULL (5/5)</span>
+                </button>
+                <button type="button" class="slot-pill-btn" onclick="selectTimeSlot('19:30')">
+                  <span class="slot-time-text">19:30 WIB</span>
+                  <span class="slot-status-badge badge-available">Open</span>
+                </button>
+                <button type="button" class="slot-pill-btn" onclick="selectTimeSlot('20:15')">
+                  <span class="slot-time-text">20:15 WIB</span>
+                  <span class="slot-status-badge badge-available">Open</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- High-Demand Standby Protocol Banner -->
+            <div class="waitlist-banner-card">
+              <div class="waitlist-banner-info">
+                <div class="waitlist-banner-title">
+                  High-Demand Standby Protocol &bull; 6-Hour Release Window
+                </div>
+                <div class="waitlist-banner-desc">
+                  All 5 master stations at Kota Baru Parahyangan operate at high utilization. When prime sessions are fully committed, any chair released due to schedule adjustment (up to 6 hours prior) is automatically reallocated to our Priority Waitlist in strict chronological order.
+                </div>
+              </div>
+              <button type="button" class="btn-join-waitlist-trigger" onclick="openWaitlistModal()">
+                Join Priority Waitlist
+              </button>
+            </div>
+
+            <div style="display: flex; gap: 12px; margin-top: 30px;">
+              <button type="button" class="btn-dossier-action" style="background: transparent; color: #ffffff; border-color: var(--color-gold-hairline);" onclick="navigateToStep(1)">
+                &larr; Back to Services
+              </button>
+              <button type="button" class="btn-dossier-action" onclick="navigateToStep(3)">
+                Continue to Complete Booking &rarr;
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ------------------------------------------------------------------
+             PANEL 3: COMPLETE BOOKING & PAYMENT
+             ------------------------------------------------------------------ -->
+        <div class="flow-panel" id="panelStep3">
+          <div class="payment-panel">
+            <h2 class="panel-section-title">Guest Credentials &amp; Settlement</h2>
+            <p class="panel-section-sub">Please complete your guest card. A direct reservation voucher will be generated and dispatched to our Front Desk Concierge.</p>
+
+            <form id="bookingSubmissionForm" onsubmit="handleFormSubmission(event)">
+              <div class="form-row-2">
+                <div class="form-group-custom">
+                  <label class="form-label-custom" for="clientFullName">Full Name *</label>
+                  <input type="text" id="clientFullName" class="form-input-custom" placeholder="e.g. Raden Syamhari Abidin" required>
+                </div>
+                <div class="form-group-custom">
+                  <label class="form-label-custom" for="clientWhatsApp">WhatsApp Phone *</label>
+                  <input type="tel" id="clientWhatsApp" class="form-input-custom" placeholder="e.g. 0812-8899-7721" required>
+                </div>
+              </div>
+
+              <div class="form-row-2">
+                <div class="form-group-custom">
+                  <label class="form-label-custom" for="clientEmail">Email Address</label>
+                  <input type="email" id="clientEmail" class="form-input-custom" placeholder="name@domain.com">
+                </div>
+                <div class="form-group-custom">
+                  <label class="form-label-custom" for="clientBeverage">Complimentary Lounge Drink</label>
+                  <select id="clientBeverage" class="form-input-custom">
+                    <option value="Single Malt Scotch Whisky">Single Malt Scotch Whisky</option>
+                    <option value="Double Espresso">Double Espresso &bull; Aceh Gayo</option>
+                    <option value="Earl Grey Tea">Earl Grey Tea &bull; Fortnum &amp; Mason</option>
+                    <option value="Sparkling Water">San Pellegrino Sparkling Mineral Water</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group-custom">
+                <label class="form-label-custom" for="clientNotes">Special Preferences / Requests</label>
+                <textarea id="clientNotes" class="form-input-custom" rows="2" placeholder="e.g. Sensitive neck skin, prefer low taper, take-home products gift wrapped"></textarea>
+              </div>
+
+              <!-- Payment Method Selector -->
+              <label class="form-label-custom" style="margin-top: 14px; display: block;">Select Cashless Settlement Gateway</label>
+              <div class="payment-options-grid">
+                <div class="payment-method-card active" onclick="selectPaymentMethod('qris', this)">
+                  <span class="pm-name">QRIS Instant</span>
+                  <span class="pm-desc">BCA, Mandiri, GoPay, OVO</span>
+                </div>
+                <div class="payment-method-card" onclick="selectPaymentMethod('transfer', this)">
+                  <span class="pm-name">Bank Mandiri VA</span>
+                  <span class="pm-desc">Virtual Account &amp; Transfer</span>
+                </div>
+                <div class="payment-method-card" onclick="selectPaymentMethod('edc', this)">
+                  <span class="pm-name">In-Parlour EDC</span>
+                  <span class="pm-desc">Visa, Mastercard, Debit</span>
+                </div>
+              </div>
+
+              <!-- Cash Control Receipt Guarantee Callout -->
+              <div class="cash-control-box">
+                <span class="guarantee-badge">RECEIPT GUARANTEE</span>
+                <div class="guarantee-text">
+                  <strong>Cash Control Policy:</strong> <em>"A FREE HAIRCUT whenever you do not receive a proper receipt from us."</em><br>
+                  Official Registered Receipt Serial: <span class="guarantee-serial" id="autoReceiptSerial">GW-KBP-2026-8821</span>.
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 12px; margin-top: 24px;">
+                <button type="button" class="btn-dossier-action" style="background: transparent; color: #ffffff; border-color: var(--color-gold-hairline);" onclick="navigateToStep(2)">
+                  &larr; Back to Schedule
+                </button>
+                <button type="submit" class="btn-dossier-action">
+                  Confirm Reservation &amp; Dispatch to WhatsApp &rarr;
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ====================================================================
+           RIGHT COLUMN: STICKY "YOUR APPOINTMENTS" (Elevated Dossier Cart)
+           ==================================================================== -->
+      <aside class="dossier-sticky-panel">
+        <h2 class="dossier-panel-title">
+          <span>Your Appointments</span>
+          <span style="font-size: 13px; color: var(--color-gold); font-family: var(--font-sans);" id="dossierItemCountBadge">0 Items</span>
+        </h2>
+        <span class="dossier-location-badge" id="dossierLocationName">
+          &bull; Ruko PancaTengah, Kota Baru Parahyangan
+        </span>
+
+        <!-- Cart List -->
+        <div class="dossier-cart-list" id="dossierCartContainer">
+          <div class="dossier-empty-state" id="dossierEmptyMsg">
+            Select a service or product on the left to begin your bespoke dossier.
+          </div>
+        </div>
+
+        <!-- Tally Calculations -->
+        <div class="dossier-tally-box">
+          <div class="tally-row">
+            <span>Seat Duration</span>
+            <span id="dossierTotalDuration">0 Mins</span>
+          </div>
+          <div class="tally-row">
+            <span>Selected Date</span>
+            <span id="dossierDateDisplay">Tomorrow, 14 Oct</span>
+          </div>
+          <div class="tally-row">
+            <span>Selected Time</span>
+            <span id="dossierTimeDisplay">14:30 WIB</span>
+          </div>
+          <div class="tally-row grand-total">
+            <span>Total Investment</span>
+            <span class="val-gold" id="dossierTotalPrice">Rp 0</span>
+          </div>
+        </div>
+
+        <!-- Dynamic Context Action Button -->
+        <button type="button" class="btn-dossier-action" id="btnMainDossierAction" onclick="handleDossierCtaClick()" disabled>
+          Select a Service to Continue &rarr;
+        </button>
+
+        <p class="dossier-disclaimer">
+          All appointments adhere to strict British Mayfair sanitization and unhurried craftsmanship discipline.
+        </p>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- ========================================================================
+       MODAL: SERVICE & PRODUCT DETAIL
+       ======================================================================== -->
+  <div class="info-modal-backdrop" id="infoModalBackdrop" onclick="closeInfoModal(event)">
+    <div class="info-modal-card" id="infoModalCard">
+      <h3 class="info-modal-title" id="modalServiceTitle">The Session</h3>
+      <div class="info-modal-meta" id="modalServiceMeta">45 Minutes &bull; Rp 220,000 &bull; Six Codified Steps</div>
+      <ul class="info-modal-steps" id="modalServiceStepsList">
+        <!-- Injected by JS -->
+      </ul>
+      <button type="button" class="btn-modal-close" onclick="closeInfoModalDirect()">Understood &bull; Close Dossier</button>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: PRIORITY WAITLIST (6-Hour Cancellation Protocol)
+       ======================================================================== -->
+  <div class="waitlist-modal-backdrop" id="waitlistModalBackdrop" onclick="closeWaitlistModal(event)">
+    <div class="waitlist-modal-card" id="waitlistModalCard">
+      <div class="waitlist-modal-header">
+        <span class="waitlist-eyebrow">Greenwood Concierge &bull; Priority Protocol</span>
+        <h3 class="waitlist-modal-title">Join Priority Standby Waitlist</h3>
+        <p class="waitlist-modal-desc">
+          All 5 master chairs are currently committed for this slot. Should a client reschedule under our 6-hour policy, our front desk concierge contacts you immediately via WhatsApp.
+        </p>
+      </div>
+
+      <!-- Dynamic Switch Box (Shown when user clicks a booked slot) -->
+      <div class="waitlist-switch-box" id="waitlistSwitchNoticeBox" style="display: none;">
+        <div class="waitlist-switch-text" id="waitlistSwitchText">
+          <strong>Selected slot is fully committed (5/5).</strong><br>
+          Next open opening: <span id="waitlistSuggestedSlotName" style="color: var(--color-gold-bright); font-weight: 700;">12:15 WIB</span>.
+        </div>
+        <button type="button" class="btn-switch-slot-fast" id="btnFastSwitchSlot" onclick="confirmSwitchToSlot()">
+          Switch to Open Slot &rarr;
+        </button>
+      </div>
+
+      <form id="waitlistSubmissionForm" onsubmit="dispatchWaitlistRequest(event)">
+        <div class="form-row-2">
+          <div class="form-group-custom">
+            <label class="form-label-custom" for="wlTargetDate">Target Date</label>
+            <input type="text" id="wlTargetDate" class="form-input-custom" readonly>
+          </div>
+          <div class="form-group-custom">
+            <label class="form-label-custom" for="wlTargetTime">Desired Session Time *</label>
+            <select id="wlTargetTime" class="form-input-custom" required>
+              <option value="11:30 WIB">11:30 WIB (Morning Peak &bull; 5/5 Full)</option>
+              <option value="13:45 WIB">13:45 WIB (Afternoon Peak &bull; 5/5 Full)</option>
+              <option value="15:15 WIB">15:15 WIB (Afternoon Peak &bull; 5/5 Full)</option>
+              <option value="18:45 WIB">18:45 WIB (Evening Peak &bull; 5/5 Full)</option>
+              <option value="Any Morning Slot (10:00 - 12:00 WIB)">Any Morning Slot (10:00 - 12:00 WIB)</option>
+              <option value="Any Afternoon Slot (13:00 - 17:00 WIB)">Any Afternoon Slot (13:00 - 17:00 WIB)</option>
+              <option value="Any Evening Slot (18:00 - 21:00 WIB)">Any Evening Slot (18:00 - 21:00 WIB)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group-custom">
+            <label class="form-label-custom" for="wlMasterBarber">Preferred Master Barber</label>
+            <select id="wlMasterBarber" class="form-input-custom">
+              <option value="Any Available Master">Any First Available Master (Fastest)</option>
+              <option value="Bramantyo (Head of Barbering)">Bramantyo &bull; Head of Barbering</option>
+              <option value="Dimas Setiawan (Shave Specialist)">Dimas Setiawan &bull; Shave Specialist</option>
+              <option value="Farhan Akbar (Scalp Sculptor)">Farhan Akbar &bull; Scalp Sculptor</option>
+              <option value="Ilham Pratama (Fade Architect)">Ilham Pratama &bull; Fade Architect</option>
+              <option value="Reza Fahlevi (Beard Stylist)">Reza Fahlevi &bull; Beard Stylist</option>
+            </select>
+          </div>
+          <div class="form-group-custom">
+            <label class="form-label-custom" for="wlTreatment">Requested Ritual</label>
+            <select id="wlTreatment" class="form-input-custom">
+              <option value="The Session (45 Mins)">The Session &bull; Rp 220,000 (45 Mins)</option>
+              <option value="The Session & Shave (75 Mins)">The Session &amp; Shave &bull; Rp 325,000 (75 Mins)</option>
+              <option value="Traditional Wet Shave (30 Mins)">Traditional Wet Shave &bull; Rp 160,000 (30 Mins)</option>
+              <option value="The Restoration (120 Mins)">The Restoration &bull; Rp 550,000 (120 Mins)</option>
+              <option value="The Session & Scalp Treatment (90 Mins)">The Session &amp; Scalp Treatment &bull; Rp 420,000 (90 Mins)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group-custom">
+            <label class="form-label-custom" for="wlFullName">Full Name *</label>
+            <input type="text" id="wlFullName" class="form-input-custom" placeholder="e.g. Raden Syamhari Abidin" required>
+          </div>
+          <div class="form-group-custom">
+            <label class="form-label-custom" for="wlWhatsApp">WhatsApp Phone *</label>
+            <input type="tel" id="wlWhatsApp" class="form-input-custom" placeholder="e.g. 0812-8899-7721" required>
+          </div>
+        </div>
+
+        <div class="form-group-custom">
+          <label class="form-label-custom" for="wlStandbyNotes">Notice Availability &amp; Special Preferences</label>
+          <input type="text" id="wlStandbyNotes" class="form-input-custom" placeholder="e.g. Can arrive on 45 minutes notice, low skin taper preferred">
+        </div>
+
+        <div style="display: flex; gap: 12px; margin-top: 22px;">
+          <button type="button" class="btn-modal-close" style="background: transparent; color: #ffffff; border: 1px solid var(--color-gold-hairline); width: auto; padding: 12px 18px;" onclick="closeWaitlistModalDirect()">
+            Cancel
+          </button>
+          <button type="submit" class="btn-dossier-action" style="flex: 1;">
+            Dispatch Priority Standby to Concierge &rarr;
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MINIMAL ROYAL MAYFAIR FOOTER -->
+  <footer>
+    <div class="footer-copy">
+      &copy; 2026 Greenwood Barbers. All rights reserved. Ruko PancaTengah, Kota Baru Parahyangan, West Bandung. Direct Concierge Hotline: +62 812-8899-7721 &bull; info@greenwoodbarbers.com.
+    </div>
+  </footer>
+
+  <!-- SHARED SPOTLIGHT MOUSE EFFECT -->
+  <div id="spotlightGlow"></div>
+
+  <script>
+    // State Management
+    let currentStep = 1;
+    let cart = [];
+    let selectedDate = { day: 'Wed', date: '14', month: 'Oct 2026', full: 'Wednesday, 14 October 2026' };
+    let selectedTime = '14:30 WIB';
+    let selectedPayment = 'qris';
+
+    // Service Tooltip Database (100% ENGLISH)
+    const serviceDetails = {
+      'the-session': {
+        title: "The Session &bull; Six Codified Steps",
+        meta: "45 Minutes &bull; Rp 220,000 &bull; Rp 4,889 / Min",
+        steps: [
+          "1. Comprehensive Cranial Consultation: Anatomical analysis of skull shape, growth whorls, and facial hair density.",
+          "2. Pre-Cut Botanical Scalp Cleansing: Refreshing wash with tea-tree and rosemary essential oil shampoos.",
+          "3. Precision Shear &amp; Clipper Architecture: Unhurried Japanese shear work combined with graded clipper contours.",
+          "4. Straight-Razor Perimeter Detailing: Clean surgical razor finish on neckline, sideburns, nose, and eyebrow arches.",
+          "5. Herbal Hot-Towel Compression: Steaming towel infusion steeped in organic lavender and sandalwood oils.",
+          "6. Bespoke Dressing &amp; Escort to Door: Final styling with Mayfair matte pomade and guest escorted to the door."
+        ]
+      },
+      'session-shave': {
+        title: "The Session &amp; Traditional Hot Towel Shave",
+        meta: "75 Minutes &bull; Rp 325,000 &bull; ~10% Below Component Total",
+        steps: [
+          "Complete 6-step The Session haircut appointment (45 Minutes).",
+          "Application of Botanical Pre-Shave Glaze Oil to soften coarse beard cuticles.",
+          "Warm whipped Mysore sandalwood lather using genuine Silvertip Badger hair.",
+          "Dual-direction straight razor glide (with and cross-grain) for flawless smoothness.",
+          "Cold towel pore sealing and Post-Shave Soothing Relief Balm finish."
+        ]
+      },
+      'restoration': {
+        title: "The Restoration &bull; Royal Grand Immersion",
+        meta: "120 Minutes &bull; Rp 550,000 &bull; Two-Hour Master Retreat",
+        steps: [
+          "Full 45-minute The Session with lead master barber.",
+          "Ceremonial Hot Towel Straight Razor Wet Shave (35 minutes).",
+          "Botanical Scalp Purifying &amp; Balancing treatment (25 minutes).",
+          "Cranial, neck, and shoulder meridian acupressure massage (15 minutes).",
+          "Cold linen face seal and complimentary single-malt Scotch in the private lounge."
+        ]
+      },
+      'detail': {
+        title: "The Detail &bull; Neck &amp; Beard Outline",
+        meta: "20 Minutes &bull; Rp 75,000 &bull; Maintenance Ritual",
+        steps: [
+          "Inspection of neckline growth perimeter and beard contour lines.",
+          "Targeted warm lather application along hairline borders.",
+          "Surgical straight-edge blade detailing for razor-sharp edge definition.",
+          "Cold linen compress and soothing antiseptic splash."
+        ]
+      },
+      'hot-shave': {
+        title: "Traditional Hot Towel Wet Shave",
+        meta: "30 Minutes &bull; Rp 160,000 &bull; Standalone Shave",
+        steps: [
+          "First steaming towel wrap to open facial pores and relax facial muscles.",
+          "Pre-Shave Botanical Essential Glaze Oil barrier application.",
+          "Rich whipped Mysore Sandalwood lather with genuine badger brush.",
+          "Surgical single-edge straight razor shave with fresh sterile blade per guest.",
+          "Cold linen compress and alcohol-free Post-Shave soothing balm."
+        ]
+      },
+      'hair-spa': {
+        title: "The Hair Spa &amp; Scalp Massage",
+        meta: "40 Minutes &bull; Rp 200,000 &bull; Rp 5,000 / Min (11% Below Competitors)",
+        steps: [
+          "Dermal scalp hydration and follicle diagnostic assessment.",
+          "Application of botanical amino-acid protein masque.",
+          "20-minute cranial and neck meridian acupressure massage.",
+          "Herbal steam infusion for deep follicle nutrient penetration.",
+          "Cooling filtered rinse and stimulating tonic mist."
+        ]
+      },
+      'scalp-treatment': {
+        title: "The Scalp Treatment (Botanical Trichology)",
+        meta: "45 Minutes &bull; Rp 250,000 &bull; Dermato-Cosmetic Therapy",
+        steps: [
+          "Application of botanical purifying formula with dandelion phytoceuticals.",
+          "Micro-enzymatic exfoliation to eliminate stubborn sebum and environmental pollution.",
+          "Deep scalp massage stimulating microcapillary circulation.",
+          "Nutritive rinse with ozone-filtered pure water.",
+          "Energizing botanical follicle tonic application."
+        ]
+      },
+      'session-scalp': {
+        title: "The Session &amp; Scalp Treatment",
+        meta: "90 Minutes &bull; Rp 420,000 &bull; Haircut &amp; Scalp Pairing",
+        steps: [
+          "Complete 6-step The Session haircut (45 minutes).",
+          "Intensive botanical scalp therapy (45 minutes).",
+          "Thorough cranial, cervical, and shoulder relaxation massage."
+        ]
+      },
+      'addon-shave': {
+        title: "In-Chair Hot Towel Shave Add-on",
+        meta: "+30 Minutes &bull; +Rp 105,000 &bull; Truefitt 65% Formula",
+        steps: [
+          "Performed seamlessly in the same chair during The Session.",
+          "Guest remains seated without interruption prior to the final hot towel wrap."
+        ]
+      },
+      'addon-spa': {
+        title: "Botanical Hair Spa Add-on",
+        meta: "+30 Minutes &bull; +Rp 130,000 &bull; Truefitt 65% Formula",
+        steps: [
+          "Instant root nutrition masque during the secondary rinse in the wash lounge."
+        ]
+      },
+      'addon-scalp': {
+        title: "Scalp Purifying Add-on",
+        meta: "+35 Minutes &bull; +Rp 165,000 &bull; Truefitt 65% Formula",
+        steps: [
+          "Express scalp detox and microcirculation boost prior to haircutting."
+        ]
+      }
+    };
+
+    const productDetails = {
+      'cream': {
+        title: "Mayfair Sandalwood Shaving Cream (190g Tub)",
+        meta: "Rp 220,000 &bull; Concentrated English Shaving Cream",
+        steps: [
+          "Formulated with pure Mysore sandalwood oil and vegetable glycerine.",
+          "Generates dense protective cushion lather that prevents irritation and razor burn.",
+          "A hazelnut-sized portion creates abundant lather for 100+ shaves."
+        ]
+      },
+      'oil': {
+        title: "Botanical Pre-Shave Glaze Oil (60ml Bottle)",
+        meta: "Rp 175,000 &bull; Micro-Glaze Barrier Oil",
+        steps: [
+          "Cold-pressed organic blend: Golden Jojoba, Sweet Almond, Avocado, and Borage oils.",
+          "Ensures the razor glides effortlessly without friction on sensitive skin."
+        ]
+      },
+      'balm': {
+        title: "Post-Shave Soothing Relief Balm (100ml)",
+        meta: "Rp 185,000 &bull; Alcohol-Free Hydrating Emulsion",
+        steps: [
+          "100% alcohol-free soothing formula that never stings.",
+          "Enriched with organic aloe vera, witch hazel, and chamomile to soothe redness."
+        ]
+      },
+      'tonic': {
+        title: "Botanical Scalp &amp; Hair Tonic (150ml)",
+        meta: "Rp 195,000 &bull; Stimulating Herbal Tonic",
+        steps: [
+          "Organic rosemary extract, peppermint oil, and menthol to refresh the scalp daily.",
+          "Strengthens hair roots and keeps the scalp invigorated and oil-free."
+        ]
+      },
+      'pomade': {
+        title: "Classic Matte Dressing Pomade (100g)",
+        meta: "Rp 160,000 &bull; High Hold &bull; Low Sheen",
+        steps: [
+          "Water-soluble formula providing strong yet pliable, non-greasy all-day hold.",
+          "Sophisticated woody amber scent; washes clean with a single water rinse."
+        ]
+      },
+      'brush': {
+        title: "Handcrafted Silvertip Badger Shaving Brush",
+        meta: "Rp 350,000 &bull; Genuine Silvertip Hair",
+        steps: [
+          "Highest grade Silvertip badger hair for optimal hot water retention.",
+          "Turned solid walnut wood handle engraved with the Greenwood insignia."
+        ]
+      }
+    };
+
+    // Category Toggle Function
+    function toggleCategory(headerEl) {
+      const cat = headerEl.closest('.catalogue-category');
+      cat.classList.toggle('collapsed');
+    }
+
+    // Toggle Staff Picker Popover
+    function toggleStaffPicker(serviceId, event) {
+      event.stopPropagation();
+      document.querySelectorAll('.staff-picker-popover').forEach(p => p.classList.remove('open'));
+      const popover = document.getElementById('popover-' + serviceId);
+      if (popover) {
+        popover.classList.toggle('open');
+      }
+    }
+
+    function closeStaffPicker(serviceId) {
+      const popover = document.getElementById('popover-' + serviceId);
+      if (popover) popover.classList.remove('open');
+    }
+
+    // Close popovers on outer click
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.service-action-col')) {
+        document.querySelectorAll('.staff-picker-popover').forEach(p => p.classList.remove('open'));
+      }
+    });
+
+    // Add Item to Dossier Cart
+    function addItemToDossier(id, title, price, duration, staffName, staffRole, avatarUrl) {
+      document.querySelectorAll('.staff-picker-popover').forEach(p => p.classList.remove('open'));
+
+      const cartItem = {
+        uniqueId: id + '-' + Date.now(),
+        id: id,
+        title: title,
+        price: price,
+        duration: duration,
+        staffName: staffName,
+        staffRole: staffRole,
+        avatarUrl: avatarUrl
+      };
+
+      cart.push(cartItem);
+      renderDossierCart();
+
+      // Subtle pulse feedback
+      const btnCta = document.getElementById('btnMainDossierAction');
+      btnCta.style.transform = 'scale(1.03)';
+      setTimeout(() => btnCta.style.transform = 'scale(1)', 200);
+    }
+
+    function removeItemFromDossier(uniqueId) {
+      cart = cart.filter(item => item.uniqueId !== uniqueId);
+      renderDossierCart();
+    }
+
+    function formatRupiah(number) {
+      return 'Rp ' + number.toLocaleString('id-ID');
+    }
+
+    // Render Cart in Right Dossier
+    function renderDossierCart() {
+      const container = document.getElementById('dossierCartContainer');
+      const countBadge = document.getElementById('dossierItemCountBadge');
+      const durationEl = document.getElementById('dossierTotalDuration');
+      const priceEl = document.getElementById('dossierTotalPrice');
+      const ctaBtn = document.getElementById('btnMainDossierAction');
+
+      countBadge.textContent = `${cart.length} Item${cart.length !== 1 ? 's' : ''}`;
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="dossier-empty-state" id="dossierEmptyMsg">
+            Select a service or product on the left to begin your bespoke dossier.
+          </div>
+        `;
+        durationEl.textContent = '0 Mins';
+        priceEl.textContent = 'Rp 0';
+        ctaBtn.disabled = true;
+        ctaBtn.innerHTML = 'Select a Service to Continue &rarr;';
+        return;
+      }
+
+      let totalDuration = 0;
+      let totalPrice = 0;
+
+      container.innerHTML = cart.map(item => {
+        totalDuration += item.duration;
+        totalPrice += item.price;
+
+        const staffLabel = item.duration > 0 ? `Barber: ${item.staffName}` : `${item.staffName}`;
+        const durationText = item.duration > 0 ? `${item.duration} mins &bull; ` : '';
+
+        return `
+          <div class="dossier-cart-item">
+            <div>
+              <div class="dossier-item-title">${item.title}</div>
+              <div class="dossier-item-staff">${staffLabel}</div>
+              <div class="dossier-item-meta">${durationText}${formatRupiah(item.price)}</div>
+            </div>
+            <div>
+              <div class="dossier-item-price">${formatRupiah(item.price)}</div>
+              <button type="button" class="btn-dossier-remove" onclick="removeItemFromDossier('${item.uniqueId}')" title="Remove">&times;</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      durationEl.textContent = `${totalDuration} Mins`;
+      priceEl.textContent = formatRupiah(totalPrice);
+      ctaBtn.disabled = false;
+
+      // Update CTA text based on current step
+      if (currentStep === 1) {
+        ctaBtn.innerHTML = `Proceed to Date &amp; Time (${cart.length}) &rarr;`;
+      } else if (currentStep === 2) {
+        ctaBtn.innerHTML = `Proceed to Complete Booking &rarr;`;
+      } else if (currentStep === 3) {
+        ctaBtn.innerHTML = `Confirm &amp; WhatsApp Dispatch &rarr;`;
+      }
+    }
+
+    // Stepper Navigation
+    function navigateToStep(step) {
+      if (step > 1 && cart.length === 0) {
+        alert("Please select at least one treatment or product before proceeding.");
+        return;
+      }
+
+      currentStep = step;
+
+      // Update Stepper Visuals
+      for (let i = 1; i <= 3; i++) {
+        const node = document.getElementById('stepNode' + i);
+        const icon = document.getElementById('stepIcon' + i);
+        node.classList.remove('active', 'completed');
+
+        if (i < step) {
+          node.classList.add('completed');
+          icon.innerHTML = '&#10003;';
+        } else if (i === step) {
+          node.classList.add('active');
+          icon.textContent = i;
+        } else {
+          icon.textContent = i;
+        }
+      }
+
+      // Progress Line Width
+      const progressLine = document.getElementById('stepperProgressLine');
+      if (step === 1) progressLine.style.width = '0%';
+      if (step === 2) progressLine.style.width = '50%';
+      if (step === 3) progressLine.style.width = '100%';
+
+      // Show Active Panel
+      document.querySelectorAll('.flow-panel').forEach(p => p.classList.remove('active'));
+      const activePanel = document.getElementById('panelStep' + step);
+      if (activePanel) activePanel.classList.add('active');
+
+      // Update Right Dossier CTA
+      renderDossierCart();
+
+      // Scroll smoothly to top of workspace
+      window.scrollTo({ top: document.querySelector('.chicago-stepper').offsetTop - 30, behavior: 'smooth' });
+    }
+
+    function handleDossierCtaClick() {
+      if (currentStep === 1) {
+        navigateToStep(2);
+      } else if (currentStep === 2) {
+        navigateToStep(3);
+      } else if (currentStep === 3) {
+        document.getElementById('bookingSubmissionForm').requestSubmit();
+      }
+    }
+
+    // Populate 14-Day Carousel
+    function initDateCarousel() {
+      const carousel = document.getElementById('datePickerCarousel');
+      const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const today = new Date();
+
+      let html = '';
+      for (let i = 0; i < 7; i++) {
+        const d = new Date(today);
+        d.setDate(today.getDate() + i + 1); // Starting tomorrow
+
+        const dayName = days[d.getDay()];
+        const dateNum = d.getDate();
+        const monthName = months[d.getMonth()];
+        const isDefault = i === 0;
+
+        html += `
+          <div class="date-card-btn ${isDefault ? 'active' : ''}" onclick="selectDate('${dayName}', '${dateNum}', '${monthName}', this)">
+            <span class="date-day-name">${dayName}</span>
+            <span class="date-num">${dateNum}</span>
+            <span class="date-month-name">${monthName}</span>
+          </div>
+        `;
+      }
+      carousel.innerHTML = html;
+    }
+
+    function selectDate(day, date, month, el) {
+      document.querySelectorAll('.date-card-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      selectedDate = { day, date, month, full: `${day}, ${date} ${month} 2026` };
+      document.getElementById('dossierDateDisplay').textContent = `${day}, ${date} ${month}`;
+    }
+
+    let suggestedSlotToSwitch = '12:15';
+
+    function selectTimeSlot(timeStr) {
+      document.querySelectorAll('.slot-pill-btn').forEach(b => {
+        b.classList.remove('active');
+        if (!b.classList.contains('booked')) {
+          const badge = b.querySelector('.slot-status-badge');
+          if (badge) {
+            badge.className = 'slot-status-badge badge-available';
+            badge.textContent = 'Open';
+          }
+        }
+      });
+
+      const buttons = Array.from(document.querySelectorAll('.slot-pill-btn:not(.booked)'));
+      const targetBtn = buttons.find(b => b.textContent.includes(timeStr));
+      if (targetBtn) {
+        targetBtn.classList.add('active');
+        const badge = targetBtn.querySelector('.slot-status-badge');
+        if (badge) {
+          badge.textContent = 'Selected';
+        }
+      }
+
+      selectedTime = timeStr + ' WIB';
+      document.getElementById('dossierTimeDisplay').textContent = selectedTime;
+    }
+
+    // Booked Slot & Priority Waitlist Handlers
+    function handleBookedSlotClick(bookedTime, nextAvailableTime) {
+      suggestedSlotToSwitch = nextAvailableTime;
+      const modal = document.getElementById('waitlistModalBackdrop');
+      const switchBox = document.getElementById('waitlistSwitchNoticeBox');
+      const suggestedLabel = document.getElementById('waitlistSuggestedSlotName');
+      const timeSelect = document.getElementById('wlTargetTime');
+
+      suggestedLabel.textContent = nextAvailableTime + ' WIB';
+      switchBox.style.display = 'flex';
+
+      // Set date & preselect target booked time in select
+      document.getElementById('wlTargetDate').value = selectedDate.full;
+      
+      const foundOption = Array.from(timeSelect.options).find(opt => opt.value.includes(bookedTime));
+      if (foundOption) {
+        timeSelect.value = foundOption.value;
+      }
+
+      // Prefill guest name/phone if already filled in step 3
+      const nameInput = document.getElementById('clientFullName');
+      const phoneInput = document.getElementById('clientWhatsApp');
+      if (nameInput && nameInput.value) document.getElementById('wlFullName').value = nameInput.value;
+      if (phoneInput && phoneInput.value) document.getElementById('wlWhatsApp').value = phoneInput.value;
+
+      modal.classList.add('open');
+    }
+
+    function openWaitlistModal(prefillTime) {
+      const modal = document.getElementById('waitlistModalBackdrop');
+      const switchBox = document.getElementById('waitlistSwitchNoticeBox');
+      switchBox.style.display = 'none';
+
+      document.getElementById('wlTargetDate').value = selectedDate.full;
+
+      if (prefillTime) {
+        const timeSelect = document.getElementById('wlTargetTime');
+        const found = Array.from(timeSelect.options).find(opt => opt.value.includes(prefillTime));
+        if (found) timeSelect.value = found.value;
+      }
+
+      // Prefill from Step 3 if guest already entered info
+      const nameInput = document.getElementById('clientFullName');
+      const phoneInput = document.getElementById('clientWhatsApp');
+      if (nameInput && nameInput.value) document.getElementById('wlFullName').value = nameInput.value;
+      if (phoneInput && phoneInput.value) document.getElementById('wlWhatsApp').value = phoneInput.value;
+
+      modal.classList.add('open');
+    }
+
+    function closeWaitlistModal(e) {
+      if (e.target.id === 'waitlistModalBackdrop') {
+        document.getElementById('waitlistModalBackdrop').classList.remove('open');
+      }
+    }
+    function closeWaitlistModalDirect() {
+      document.getElementById('waitlistModalBackdrop').classList.remove('open');
+    }
+
+    function confirmSwitchToSlot() {
+      if (suggestedSlotToSwitch) {
+        selectTimeSlot(suggestedSlotToSwitch);
+        closeWaitlistModalDirect();
+      }
+    }
+
+    function dispatchWaitlistRequest(e) {
+      e.preventDefault();
+      const date = document.getElementById('wlTargetDate').value;
+      const time = document.getElementById('wlTargetTime').value;
+      const barber = document.getElementById('wlMasterBarber').value;
+      const treatment = document.getElementById('wlTreatment').value;
+      const name = document.getElementById('wlFullName').value.trim();
+      const phone = document.getElementById('wlWhatsApp').value.trim();
+      const notes = document.getElementById('wlStandbyNotes').value.trim();
+
+      if (!name || !phone) {
+        alert("Please enter your full name and WhatsApp phone number.");
+        return;
+      }
+
+      const waMessage = 
+`*GREENWOOD BARBERS — PRIORITY WAITLIST STANDBY REQUEST*
+----------------------------------------
+*Location:* Ruko PancaTengah, Kota Baru Parahyangan
+*Target Date:* ${date}
+*Target Session Time:* ${time}
+*Preferred Barber:* ${barber}
+*Requested Treatment:* ${treatment}
+----------------------------------------
+*Guest Standby Card:*
+- Full Name: ${name}
+- WhatsApp Contact: ${phone}
+- Availability / Notes: ${notes || 'Available on short notice upon seat release'}
+----------------------------------------
+*Standby Agreement:* I request priority notification if a chair opens under the 6-hour release window.
+_Kindly confirm my position on the standby register._`;
+
+      const encoded = encodeURIComponent(waMessage);
+      const waUrl = `https://wa.me/6281288997721?text=${encoded}`;
+
+      window.open(waUrl, '_blank');
+      closeWaitlistModalDirect();
+      alert("Your Priority Standby Request has been dispatched to our concierge via WhatsApp.");
+    }
+
+    function selectPaymentMethod(method, el) {
+      document.querySelectorAll('.payment-method-card').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      selectedPayment = method;
+    }
+
+    // Service Tooltip Modal
+    function openServiceInfo(key) {
+      const data = serviceDetails[key];
+      if (!data) return;
+      document.getElementById('modalServiceTitle').innerHTML = data.title;
+      document.getElementById('modalServiceMeta').innerHTML = data.meta;
+      document.getElementById('modalServiceStepsList').innerHTML = data.steps.map(s => `
+        <li class="info-modal-step-item">
+          <span class="step-bullet">&bull;</span>
+          <span>${s}</span>
+        </li>
+      `).join('');
+      document.getElementById('infoModalBackdrop').classList.add('open');
+    }
+
+    function openProductInfo(key) {
+      const data = productDetails[key];
+      if (!data) return;
+      document.getElementById('modalServiceTitle').innerHTML = data.title;
+      document.getElementById('modalServiceMeta').innerHTML = data.meta;
+      document.getElementById('modalServiceStepsList').innerHTML = data.steps.map(s => `
+        <li class="info-modal-step-item">
+          <span class="step-bullet">&bull;</span>
+          <span>${s}</span>
+        </li>
+      `).join('');
+      document.getElementById('infoModalBackdrop').classList.add('open');
+    }
+
+    function closeInfoModal(e) {
+      if (e.target.id === 'infoModalBackdrop') {
+        document.getElementById('infoModalBackdrop').classList.remove('open');
+      }
+    }
+    function closeInfoModalDirect() {
+      document.getElementById('infoModalBackdrop').classList.remove('open');
+    }
+
+    // Form Submission & WhatsApp Launch (100% ENGLISH)
+    function handleFormSubmission(e) {
+      e.preventDefault();
+      const name = document.getElementById('clientFullName').value.trim();
+      const phone = document.getElementById('clientWhatsApp').value.trim();
+      const email = document.getElementById('clientEmail').value.trim();
+      const drink = document.getElementById('clientBeverage').value;
+      const notes = document.getElementById('clientNotes').value.trim();
+      const receiptCode = document.getElementById('autoReceiptSerial').textContent;
+
+      if (!name || !phone) {
+        alert("Please enter your full name and WhatsApp contact number.");
+        return;
+      }
+
+      // Calculate totals
+      let totalDuration = 0;
+      let totalPrice = 0;
+      const itemsListText = cart.map((c, i) => {
+        totalDuration += c.duration;
+        totalPrice += c.price;
+        return `${i + 1}. ${c.title} (${c.staffName}) - ${formatRupiah(c.price)}`;
+      }).join('\n');
+
+      const waMessage = 
+`*GREENWOOD BARBERS RESERVATION — TRUEFITT CHICAGO PROTOCOL*
+----------------------------------------
+*Receipt Serial Code:* ${receiptCode}
+*Location:* Ruko PancaTengah, Kota Baru Parahyangan
+*Schedule:* ${selectedDate.full} @ ${selectedTime}
+*Total Chair Duration:* ${totalDuration} Minutes
+*Payment Gateway:* ${selectedPayment.toUpperCase()} (Cashless Guaranteed)
+
+*Selected Treatments & Formulations:*
+${itemsListText}
+
+*Total Investment:* ${formatRupiah(totalPrice)}
+----------------------------------------
+*Guest Card:*
+- Full Name: ${name}
+- WhatsApp: ${phone}
+- Email: ${email || '-'}
+- Lounge Drink: ${drink}
+- Special Requests: ${notes || '-'}
+----------------------------------------
+_Kindly confirm my private chair reservation. Thank you._`;
+
+      const encodedMsg = encodeURIComponent(waMessage);
+      const waUrl = `https://wa.me/6281288997721?text=${encodedMsg}`;
+
+      // Open WhatsApp Dispatch
+      window.open(waUrl, '_blank');
+    }
+
+    // Initialize on Load
+    window.addEventListener('DOMContentLoaded', () => {
+      initDateCarousel();
+
+      // Check if URL has ?service= or ?addon=
+      const params = new URLSearchParams(window.location.search);
+      const preselect = params.get('service') || params.get('addon');
+      if (preselect === 'the-session') {
+        addItemToDossier('serv-the-session', 'The Session', 220000, 45, 'Any Staff', 'First Available Master', 'assets/greenwood_monogram_cropped.png');
+      } else if (preselect === 'shave') {
+        addItemToDossier('serv-hot-shave', 'Traditional Wet Shave', 160000, 30, 'Dimas Setiawan', 'Shave Specialist', 'assets/barber_dimas.jpg');
+      } else if (preselect === 'combo') {
+        addItemToDossier('serv-session-shave', 'The Session & Shave', 325000, 75, 'Bramantyo', 'Head of Barbering', 'assets/barber_bramantyo.jpg');
+      } else {
+        // Default preselect The Session so cart has instant feedback
+        addItemToDossier('serv-the-session', 'The Session', 220000, 45, 'Any Staff', 'First Available Master', 'assets/greenwood_monogram_cropped.png');
+      }
+
+      // Generate random receipt serial
+      const randomSerial = 'GW-KBP-2026-' + Math.floor(1000 + Math.random() * 9000);
+      document.getElementById('autoReceiptSerial').textContent = randomSerial;
+    });
+
+    // Spotlight glow
+    const glow = document.getElementById('spotlightGlow');
+    window.addEventListener('mousemove', (e) => {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+    });
+
+    function toggleMobileNav() {
+      document.getElementById('mobileNavOverlay').classList.toggle('active');
+    }
+    function closeMobileNav() {
+      document.getElementById('mobileNavOverlay').classList.remove('active');
+    }
+
+    // Aggressive DOM Purge: Instantly delete any cached 'The Experience' nodes
+    (function purgeLingering() {
+      document.querySelectorAll('a').forEach(function(el) {
+        var h = el.getAttribute('href') || '';
+        var t = (el.textContent || '').trim().toUpperCase();
+        if (h.includes('experience') || t.includes('EXPERIENCE')) {
+          el.remove();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

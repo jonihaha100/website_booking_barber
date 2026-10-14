@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>The Parlour • Location Dossier | Greenwood Barbers • Kota Baru Parahyangan</title>
+  <meta name="description" content="Visit Greenwood Barbers sanctuary at Ruko PancaTengah, Kota Baru Parahyangan, West Bandung. 7 minutes from Whoosh Padalarang.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/greenwood.css?v=20261014_2">
+
+  <style>
+    .parlour-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    /* Luxury Information Table Card (Exact Shape & Styling from Book Appointment) */
+    .parlour-table-card {
+      background: linear-gradient(165deg, rgba(10, 31, 21, 0.85) 0%, rgba(5, 17, 11, 0.95) 100%);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(197, 155, 72, 0.16);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.7), inset 0 1px 0 0 rgba(226, 190, 108, 0.12);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+    }
+    .parlour-table-card:hover {
+      border-color: rgba(226, 190, 108, 0.35);
+      box-shadow: 0 14px 40px -8px rgba(0, 0, 0, 0.85), inset 0 1px 0 0 rgba(226, 190, 108, 0.2);
+    }
+
+    /* Top Photo Wrap with Seamless Vignette */
+    .parlour-media-wrap {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+      background: #020704;
+    }
+    .parlour-media-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(3, 12, 8, 0) 0%, rgba(5, 17, 11, 0.35) 55%, rgba(6, 21, 14, 0.95) 100%);
+      pointer-events: none;
+    }
+    .parlour-media-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .parlour-table-card:hover .parlour-media-img {
+      transform: scale(1.03);
+    }
+
+    .parlour-media-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(3, 12, 8, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(226, 190, 108, 0.45);
+      color: #e2be6c;
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 700;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+      z-index: 2;
+    }
+
+    /* Card Header Bar - Exact Match to Book Appointment Category Header */
+    .table-box-header {
+      background: rgba(3, 12, 8, 0.88);
+      border-bottom: 1px solid var(--color-gold-hairline);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    .table-box-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .table-box-title {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      letter-spacing: 0.4px;
+      color: #ffffff;
+      font-weight: 500;
+      text-transform: none;
+      margin: 0;
+    }
+    .table-box-badge {
+      font-size: 10.5px;
+      letter-spacing: 1px;
+      color: var(--color-gold);
+      background: rgba(197, 155, 72, 0.12);
+      border: 1px solid rgba(197, 155, 72, 0.3);
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    /* Table Editorial Intro Box */
+    .table-box-intro {
+      padding: 20px 24px 16px;
+      font-size: 13.5px;
+      color: rgba(247, 242, 231, 0.8);
+      line-height: 1.65;
+      font-weight: 300;
+      border-bottom: 1px solid rgba(197, 155, 72, 0.12);
+      background: rgba(197, 155, 72, 0.02);
+    }
+
+    /* Table Rows - Structured Like Service Rows in Book Appointment */
+    .table-rows-list {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .info-table-row {
+      padding: 18px 24px;
+      border-bottom: 1px solid rgba(197, 155, 72, 0.12);
+      display: grid;
+      grid-template-columns: 190px 1fr;
+      gap: 18px;
+      align-items: baseline;
+      transition: background 0.25s ease;
+    }
+    .info-table-row:last-child {
+      border-bottom: none;
+    }
+    .info-table-row:hover {
+      background: rgba(197, 155, 72, 0.05);
+    }
+
+    .info-row-label {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--color-gold-bright);
+      line-height: 1.4;
+    }
+    .info-row-content {
+      font-size: 13.5px;
+      color: #ffffff;
+      line-height: 1.55;
+    }
+    .info-row-content strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+    .info-row-content p {
+      margin: 4px 0 0;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .info-row-content a {
+      color: var(--color-gold-bright);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .info-row-content a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    /* Card Bottom Action Bar */
+    .table-box-actions {
+      padding: 20px 24px;
+      background: rgba(3, 12, 8, 0.6);
+      border-top: 1px solid rgba(197, 155, 72, 0.12);
+      margin-top: auto;
+    }
+
+    @media (max-width: 900px) {
+      .parlour-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .info-table-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 16px 20px;
+      }
+    }
+  </style>
+
+</head>
+<body>
+  <!-- LUXURY MULTI-PAGE NAVIGATION BAR -->
+  <header>
+    <a href="index.html" class="brand-wrap">
+      <img src="assets/greenwood_logo_transparent.png" alt="Greenwood Barbers" class="brand-logo-img">
+    </a>
+
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html" class="">Home</a>
+      <a href="parlour.html" class="active">The Parlour</a>
+      <a href="booking.html" class="">Book Appointment</a>
+    </nav>
+
+    <div class="header-cta-group">
+      <a href="booking.html" class="btn-header-book">Reserve a Chair</a>
+      <button class="menu-toggle-btn" onclick="toggleMobileNav()" aria-label="Toggle navigation menu">&#9776;</button>
+    </div>
+  </header>
+
+  <!-- MOBILE NAV OVERLAY -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay">
+    <button class="mobile-nav-close" onclick="closeMobileNav()" aria-label="Close menu">&times;</button>
+    <a href="index.html" class="" onclick="closeMobileNav()">Home</a>
+    <a href="parlour.html" class="active" onclick="closeMobileNav()">The Parlour</a>
+    <a href="booking.html" class="" onclick="closeMobileNav()">Book Appointment</a>
+    <a href="booking.html" class="btn-primary" style="margin-top: 16px;" onclick="closeMobileNav()">Reserve Appointment</a>
+  </div>
+
+<main>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <div class="breadcrumbs"><a href="index.html">Home</a> &bull; <span class="current">The Parlour</span></div>
+      <div class="page-eyebrow">SANCTUARY DOSSIER &bull; KOTA BARU PARAHYANGAN</div>
+      <h1 class="page-hero-title">The Parlour &amp; Location Dossier</h1>
+      <p class="page-hero-subtitle">
+        Nestled in Ruko PancaTengah, Kota Baru Parahyangan. An unhurried gentlemen's haven designed for residents, executives, and commuters via Whoosh Padalarang.
+      </p>
+      <div class="page-hero-divider"></div>
+    </div>
+  </section>
+
+  <!-- PARLOUR ARCHITECTURE & AMENITIES TABLES -->
+  <section class="section-shell">
+    <div class="container-wide">
+      <div class="parlour-grid">
+
+        <!-- Left Box: Establishment Blueprint Information Table -->
+        <article class="parlour-table-card">
+          <!-- Photo Banner with Luxury Seal -->
+          <div class="parlour-media-wrap">
+            <img src="assets/parlour_real_sanctuary.jpg?v=2" alt="Greenwood Barbers Authentic Sanctuary Interior Kota Baru Parahyangan" class="parlour-media-img" style="object-position: center 40%;" loading="eager" decoding="async">
+            <span class="parlour-media-badge">FLAGSHIP SANCTUARY &bull; KOTA BARU PARAHYANGAN</span>
+          </div>
+
+          <!-- Table Header Bar (Exact match to Book Appointment category header) -->
+          <div class="table-box-header">
+            <div class="table-box-title-wrap">
+              <h2 class="table-box-title">Establishment Blueprint</h2>
+            </div>
+            <span class="table-box-badge">4 PROTOCOLS</span>
+          </div>
+
+          <!-- Editorial Intro Note -->
+          <div class="table-box-intro">
+            Greenwood Barbers Kota Baru Parahyangan was established to provide discerning gentlemen with an authentic British grooming experience—unhurried discipline, surgical razor sharpness, and acoustic tranquility without the need to travel into downtown Jakarta.
+          </div>
+
+          <!-- Information Table Rows -->
+          <div class="table-rows-list">
+            <div class="info-table-row">
+              <div class="info-row-label">Civic Address</div>
+              <div class="info-row-content">
+                <strong>Ruko PancaTengah, Kota Baru Parahyangan</strong>
+                <p>Padalarang, West Bandung Regency, West Java 40553</p>
+              </div>
+            </div>
+
+            <div class="info-table-row">
+              <div class="info-row-label">Operating Hours</div>
+              <div class="info-row-content">
+                <strong>Monday &ndash; Sunday: 10:00 &ndash; 22:00 WIB</strong>
+                <p>Strict By Appointment &bull; Guaranteed chair seating without unmanaged waiting queues.</p>
+              </div>
+            </div>
+
+            <div class="info-table-row">
+              <div class="info-row-label">Concierge Desk</div>
+              <div class="info-row-content">
+                <strong><a href="tel:+6281288997721">+62 812-8899-7721</a></strong> &bull; <a href="mailto:info@greenwoodbarbers.com">info@greenwoodbarbers.com</a>
+                <p>Direct WhatsApp reservation &amp; personalized master barber allocation desk.</p>
+              </div>
+            </div>
+
+            <div class="info-table-row">
+              <div class="info-row-label">Cashless &amp; Policy</div>
+              <div class="info-row-content">
+                <strong>QRIS, Debit, Credit Card &amp; Bank Transfer</strong>
+                <p><strong>Receipt Guarantee:</strong> A complimentary haircut whenever you do not receive an official registered electronic register receipt.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Bottom Action -->
+          <div class="table-box-actions">
+            <a href="booking.html" class="btn-primary" style="width: 100%; justify-content: center; text-align: center;">Reserve Chair Seating &rarr;</a>
+          </div>
+        </article>
+
+        <!-- Right Box: Strategic Transit & Amenities Information Table -->
+        <article class="parlour-table-card">
+          <!-- Table Header Bar -->
+          <div class="table-box-header">
+            <div class="table-box-title-wrap">
+              <h2 class="table-box-title">Strategic Transit &amp; Amenities</h2>
+            </div>
+            <span class="table-box-badge">WHOOSH HUB</span>
+          </div>
+
+          <!-- Editorial Intro Note -->
+          <div class="table-box-intro">
+            Strategically positioned at the gateway of Kota Baru Parahyangan, just 7 minutes from the Whoosh High-Speed Rail hub. Created for regional residents, visiting executives, and daily Jakarta&ndash;Bandung commuters.
+          </div>
+
+          <!-- Transit & Amenities Table Rows -->
+          <div class="table-rows-list">
+            <div class="info-table-row">
+              <div class="info-row-label">High-Speed Rail</div>
+              <div class="info-row-content">
+                <strong>7 Minutes from Whoosh Padalarang Station</strong>
+                <p>28-minute express link to/from Halim Jakarta. Ideal for executive appointments before meetings or upon returning.</p>
+              </div>
+            </div>
+
+            <div class="info-table-row">
+              <div class="info-row-label">Highway Access</div>
+              <div class="info-row-content">
+                <strong>Direct Padalarang Timur Tollway</strong>
+                <p>Effortless ingress and egress via the primary Kota Baru Parahyangan arterial boulevard.</p>
+              </div>
+            </div>
+
+            <div class="info-table-row">
+              <div class="info-row-label">Dedicated Parking</div>
+              <div class="info-row-content">
+                <strong>Executive Parking directly in front of Parlour</strong>
+                <p>Spacious, secure dedicated bay parking with on-site building security personnel.</p>
+              </div>
+            </div>
+
+            <div class="info-table-row">
+              <div class="info-row-label">Private Hospitality</div>
+              <div class="info-row-content">
+                <strong>Private Audio Zoning &amp; Complimentary Beverage</strong>
+                <p>Curated acoustic dampening, single-malt pour, Sumatran drip coffee, and chilled sparkling water.</p>
+              </div>
+            </div>
+
+            <div class="info-table-row">
+              <div class="info-row-label">Master Stations</div>
+              <div class="info-row-content">
+                <strong>Takara Belmont Apollo II Heavy Hydraulic Chairs</strong>
+                <p>Full recline capability for hot towel shaves and cranial massage rituals with maximum spinal support.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Bottom Action -->
+          <div class="table-box-actions">
+            <a href="https://maps.google.com/?q=Kota+Baru+Parahyangan+Padalarang" target="_blank" rel="noopener" class="btn-outline" style="width: 100%; justify-content: center; text-align: center; display: inline-flex;">Open in Google Maps &nearr;</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+  <!-- MINIMAL ROYAL MAYFAIR FOOTER -->
+  <footer>
+    <div class="footer-copy">
+      &copy; 2026 Greenwood Barbers. All rights reserved. Ruko PancaTengah, Kota Baru Parahyangan, West Bandung. Direct Concierge Hotline: +62 812-8899-7721 &bull; info@greenwoodbarbers.com.
+    </div>
+  </footer>
+  <!-- SHARED SPOTLIGHT MOUSE EFFECT & SCRIPTS -->
+  <div id="spotlightGlow"></div>
+
+  <script>
+    const glow = document.getElementById('spotlightGlow');
+    window.addEventListener('mousemove', (e) => {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+    });
+
+    function toggleMobileNav() {
+      document.getElementById('mobileNavOverlay').classList.toggle('active');
+    }
+    function closeMobileNav() {
+      document.getElementById('mobileNavOverlay').classList.remove('active');
+    }
+
+    // Aggressive DOM Purge: Instantly delete any cached 'The Experience' nodes
+    (function purgeLingering() {
+      document.querySelectorAll('a').forEach(function(el) {
+        var h = el.getAttribute('href') || '';
+        var t = (el.textContent || '').trim().toUpperCase();
+        if (h.includes('experience') || t.includes('EXPERIENCE')) {
+          el.remove();
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>

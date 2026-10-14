@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laporan Eksekutif Website Model 1 — Greenwood Barbers Kota Baru Parahyangan</title>
+  <meta name="description" content="Dokumen Resmi Presentasi & Laporan Model 1 British Heritage Greenwood Barbers KBP untuk Rapat Klien.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #020704;
+      --bg-surface: #06150e;
+      --bg-card: rgba(10, 31, 21, 0.85);
+      --border-gold: rgba(197, 155, 72, 0.28);
+      --border-hairline: rgba(197, 155, 72, 0.14);
+      --color-gold: #c59b48;
+      --color-gold-bright: #e2be6c;
+      --text-white: #ffffff;
+      --text-cream: #f7f2e7;
+      --text-muted: #a6b5ad;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-cream);
+      font-family: var(--font-sans);
+      line-height: 1.65;
+      font-size: 14.5px;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 80px;
+    }
+
+    /* Fixed Meeting Toolbar */
+    .meeting-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(4, 16, 11, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-gold);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .topbar-logo {
+      height: 32px;
+      width: auto;
+    }
+
+    .topbar-tag {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--color-gold-bright);
+      font-weight: 700;
+      border-left: 1px solid var(--border-hairline);
+      padding-left: 12px;
+    }
+
+    .topbar-nav {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-topbar {
+      background: rgba(197, 155, 72, 0.12);
+      border: 1px solid var(--border-gold);
+      color: var(--text-cream);
+      padding: 7px 14px;
+      font-size: 11.5px;
+      letter-spacing: 1px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-topbar:hover, .btn-topbar.active {
+      background: var(--color-gold);
+      color: #020704;
+      border-color: var(--color-gold-bright);
+    }
+
+    .btn-topbar-primary {
+      background: linear-gradient(135deg, var(--color-gold) 0%, #aa8237 100%);
+      color: #020704;
+      border-color: var(--color-gold-bright);
+      font-weight: 700;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+
+    /* Cover / Header */
+    .report-hero {
+      text-align: center;
+      padding: 60px 20px 40px;
+      border-bottom: 1px solid var(--border-hairline);
+      margin-bottom: 50px;
+      background: radial-gradient(circle at 50% 20%, #082819 0%, transparent 70%);
+    }
+
+    .report-eyebrow {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--color-gold-bright);
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .report-title {
+      font-family: var(--font-serif);
+      font-size: 46px;
+      line-height: 1.18;
+      font-weight: 400;
+      color: #ffffff;
+      margin-bottom: 16px;
+      letter-spacing: 0.3px;
+    }
+
+    .report-sub {
+      font-size: 16px;
+      color: rgba(247, 242, 231, 0.85);
+      font-weight: 300;
+      max-width: 760px;
+      margin: 0 auto 30px;
+      line-height: 1.75;
+    }
+
+    .report-meta-pills {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .meta-pill {
+      background: rgba(197, 155, 72, 0.08);
+      border: 1px solid var(--border-hairline);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      color: var(--color-gold-bright);
+      letter-spacing: 0.5px;
+    }
+
+    /* Section Cards */
+    .report-section {
+      background: linear-gradient(165deg, rgba(10, 31, 21, 0.85) 0%, rgba(5, 17, 11, 0.95) 100%);
+      border: 1px solid var(--border-hairline);
+      border-radius: 8px;
+      padding: 36px 32px;
+      margin-bottom: 36px;
+      box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.7);
+    }
+
+    .section-eyebrow {
+      font-size: 10.5px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      font-weight: 500;
+      color: #ffffff;
+      margin-bottom: 20px;
+      letter-spacing: 0.3px;
+      border-bottom: 1px solid var(--border-hairline);
+      padding-bottom: 12px;
+    }
+
+    /* Grid Layouts */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 820px) {
+      .grid-3, .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .pillar-card {
+      background: rgba(3, 12, 8, 0.7);
+      border: 1px solid var(--border-hairline);
+      border-radius: 6px;
+      padding: 22px 20px;
+    }
+
+    .pillar-num {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      color: var(--color-gold-bright);
+      margin-bottom: 8px;
+    }
+
+    .pillar-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .pillar-desc {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Tables */
+    .luxury-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      font-size: 13px;
+    }
+
+    .luxury-table th {
+      background: rgba(197, 155, 72, 0.12);
+      color: var(--color-gold-bright);
+      text-align: left;
+      padding: 12px 16px;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border-gold);
+    }
+
+    .luxury-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-hairline);
+      color: var(--text-cream);
+    }
+
+    .luxury-table tr:hover td {
+      background: rgba(197, 155, 72, 0.04);
+    }
+
+    .tariff-badge {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      color: var(--color-gold-bright);
+      font-weight: 600;
+    }
+
+    /* Photo Showcase */
+    .showcase-banner {
+      position: relative;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--border-gold);
+      margin-top: 20px;
+      background: #020704;
+    }
+
+    .showcase-img {
+      width: 100%;
+      height: 340px;
+      object-fit: cover;
+      object-position: center 40%;
+      display: block;
+    }
+
+    .showcase-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(2, 7, 4, 0.95) 0%, transparent 100%);
+      padding: 24px;
+    }
+
+    .showcase-caption {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .showcase-note {
+      font-size: 12px;
+      color: var(--color-gold-bright);
+    }
+
+    /* Live Link Buttons */
+    .link-action-card {
+      background: rgba(3, 12, 8, 0.85);
+      border: 1px solid var(--border-gold);
+      border-radius: 6px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .link-action-card:hover {
+      border-color: var(--color-gold-bright);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    }
+
+    .card-route {
+      font-size: 10.5px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .card-heading {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .card-explain {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 20px;
+    }
+
+    .card-cta-label {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--color-gold-bright);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Talking Points Box */
+    .talking-points-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .talking-item {
+      background: rgba(197, 155, 72, 0.04);
+      border-left: 3px solid var(--color-gold);
+      padding: 16px 20px;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .talking-q {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .talking-a {
+      font-size: 13px;
+      color: rgba(247, 242, 231, 0.85);
+      line-height: 1.6;
+    }
+
+    /* Print Controls */
+    @media print {
+      .meeting-topbar {
+        display: none !important;
+      }
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        font-size: 12pt;
+      }
+      .report-section {
+        background: #ffffff !important;
+        border: 1px solid #ccc !important;
+        color: #000000 !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+      }
+      .report-title, .section-title, .pillar-title, .talking-q {
+        color: #000000 !important;
+      }
+      .pillar-card {
+        background: #f9f9f9 !important;
+        border: 1px solid #ddd !important;
+      }
+      .luxury-table th {
+        background: #eee !important;
+        color: #000 !important;
+      }
+      .luxury-table td {
+        color: #000 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MEETING TOPBAR -->
+  <header class="meeting-topbar">
+    <div class="topbar-brand">
+      <img src="assets/greenwood_logo_transparent.png" alt="Greenwood Barbers" class="topbar-logo">
+      <span class="topbar-tag">Laporan Model 1 &bull; Rapat Klien</span>
+    </div>
+
+    <div class="topbar-nav">
+      <a href="home.html" target="_blank" class="btn-topbar">Live Home &nearr;</a>
+      <a href="parlour.html" target="_blank" class="btn-topbar">The Parlour &nearr;</a>
+      <a href="booking.html" target="_blank" class="btn-topbar">Booking Suite &nearr;</a>
+      <button type="button" onclick="window.print()" class="btn-topbar btn-topbar-primary">Cetak / Simpan PDF</button>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- REPORT COVER -->
+    <header class="report-hero">
+      <p class="report-eyebrow">DOKUMEN PRESENTASI &amp; LAPORAN EVALUASI WEBSITE RESMI</p>
+      <h1 class="report-title">Model 1: British Heritage Flagship</h1>
+      <p class="report-sub">
+        Konsep pangkas rambut pria Mayfair London berpilar kemewahan klasik, tipografi Haute Horlogerie standar Patek Philippe, mesin reservasi stepped architecture Truefitt &amp; Hill Chicago, dan dokumentasi foto interior nyata untuk Flagship Kota Baru Parahyangan.
+      </p>
+
+      <div class="report-meta-pills">
+        <span class="meta-pill">Status: Final Production Choice</span>
+        <span class="meta-pill">Lokasi: Ruko PancaTengah, Kota Baru Parahyangan</span>
+        <span class="meta-pill">Akses Whoosh: 7 Menit dari Padalarang</span>
+        <span class="meta-pill">Standar Tipografi: Patek Philippe Title Case</span>
+        <span class="meta-pill">Tanggal: 14 Oktober 2026</span>
+      </div>
+    </header>
+
+    <!-- 1. TIGA PILAR UTAMA MODEL 1 -->
+    <section class="report-section">
+      <span class="section-eyebrow">BAB 1 &bull; FILOSOFI &amp; NILAI UNGGUL</span>
+      <h2 class="section-title">Mengapa Model 1 Sempurna untuk Klien Greenwood?</h2>
+      
+      <div class="grid-3">
+        <div class="pillar-card">
+          <div class="pillar-num">01</div>
+          <div class="pillar-title">British Mayfair Heritage</div>
+          <div class="pillar-desc">
+            Mengadaptasi wibawa barbershop tertua di dunia (Truefitt &amp; Hill London 1805). Menghadirkan rasa tenang, eksklusif, dan tradisi pangkas rambut aristokrat bagi para eksekutif dan ekspatriat di Kota Baru Parahyangan.
+          </div>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-num">02</div>
+          <div class="pillar-title">Patek Philippe Typography</div>
+          <div class="pillar-desc">
+            Mengikuti standar katalog jam tangan mewah dunia: Headline berwibawa dalam Title Case yang tenang, sans-serif ringan 300, dan pembersihan total dari icon/emoji yang tidak perlu (*zero slop*).
+          </div>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-num">03</div>
+          <div class="pillar-title">Truefitt Chicago Booking Engine</div>
+          <div class="pillar-desc">
+            Alur reservasi terarah 3-langkah (Layanan &amp; Produk &rarr; Jadwal &amp; Jam &rarr; Data &amp; Dispatch). Langsung terkirim ke WhatsApp Concierge resmi tanpa beban aplikasi pihak ketiga.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. ARSITEKTUR 3 HALAMAN -->
+    <section class="report-section">
+      <span class="section-eyebrow">BAB 2 &bull; STRUKTUR MULTI-PAGE WEBSITE</span>
+      <h2 class="section-title">Akses Langsung ke Halaman Website Model 1</h2>
+      
+      <div class="grid-3">
+        <a href="home.html" target="_blank" class="link-action-card">
+          <div>
+            <div class="card-route">HALAMAN 1 &bull; HOME.HTML</div>
+            <div class="card-heading">The Cinematic Hero</div>
+            <div class="card-explain">
+              Tampilan beranda yang tenang di tengah foto ritual, dengan tombol sentral tunggal "BOOK APPOINTMENT &rarr;" berukuran 250px &times; 50px yang presisi dan simetris.
+            </div>
+          </div>
+          <span class="card-cta-label">Buka Demo Home &rarr;</span>
+        </a>
+
+        <a href="parlour.html" target="_blank" class="link-action-card">
+          <div>
+            <div class="card-route">HALAMAN 2 &bull; PARLOUR.HTML</div>
+            <div class="card-heading">The Parlour Dossier</div>
+            <div class="card-explain">
+              Menampilkan foto asli interior barbershop, kotak informasi Establishment Blueprint, dan panduan transit strategis Whoosh Padalarang tanpa gangguan icon.
+            </div>
+          </div>
+          <span class="card-cta-label">Buka Demo Parlour &rarr;</span>
+        </a>
+
+        <a href="booking.html" target="_blank" class="link-action-card">
+          <div>
+            <div class="card-route">HALAMAN 3 &bull; BOOKING.HTML</div>
+            <div class="card-heading">Appointment Suite</div>
+            <div class="card-explain">
+              Mesin booking 3-langkah: pilih 8 jenis ritual, 6 produk apothecary, tentukan Master Barber dari 5 kursi, pilih sesi waktu, dan konfirmasi WhatsApp.
+            </div>
+          </div>
+          <span class="card-cta-label">Buka Demo Booking &rarr;</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 3. REAL PHOTOGRAPHY INTEGRATION -->
+    <section class="report-section">
+      <span class="section-eyebrow">BAB 3 &bull; DOKUMENTASI VISUAL NYATA</span>
+      <h2 class="section-title">Integrasi Foto Asli Interior (Bukan Gambar AI)</h2>
+      <p style="color: var(--text-muted); margin-bottom: 16px;">
+        Sesuai arahan klien, visual utama telah diperbarui menggunakan foto asli interior barbershop (*real leather barber chairs, wooden shelving, herringbone floor, green acoustic panels*) untuk menjamin kredibilitas dan keaslian fisik tempat:
+      </p>
+
+      <div class="showcase-banner">
+        <img src="assets/parlour_real_sanctuary.jpg" alt="Interior Asli Greenwood Barbers" class="showcase-img">
+        <div class="showcase-overlay">
+          <div class="showcase-caption">The Flagship Sanctuary &bull; Ruko PancaTengah, Kota Baru Parahyangan</div>
+          <div class="showcase-note">Foto autentik telah diintegrasikan pada banner utama The Parlour (parlour.html).</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. DAFTAR TARIF RESMI (8 RITUAL) -->
+    <section class="report-section">
+      <span class="section-eyebrow">BAB 4 &bull; STRUKTUR TARIF &amp; PROTOKOL RESMI</span>
+      <h2 class="section-title">Portofolio 8 Layanan Pria (Greenwood Tariff)</h2>
+      <p style="color: var(--text-muted); margin-bottom: 12px;">
+        Struktur tarif ini divalidasikan berdasarkan dokumen resmi Greenwood Barbers Kota Baru Parahyangan:
+      </p>
+
+      <table class="luxury-table">
+        <thead>
+          <tr>
+            <th>Layanan / Ritual</th>
+            <th>Durasi</th>
+            <th>Tarif Resmi</th>
+            <th>Langkah Ritual Utama</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>The Superior Barber Cut</strong></td>
+            <td>45 Menit</td>
+            <td class="tariff-badge">Rp 160.000</td>
+            <td>Konsultasi kepala, cuci hangat, gunting presisi, pijat tengkuk, blow-dry styling.</td>
+          </tr>
+          <tr>
+            <td><strong>Traditional Hot Towel Wet Shave</strong></td>
+            <td>35 Menit</td>
+            <td class="tariff-badge">Rp 120.000</td>
+            <td>Minyak pra-cukur Trafalgar, 3 lapis handuk beruap, straight razor, soothing balm dingin.</td>
+          </tr>
+          <tr>
+            <td><strong>The Full Grooming Experience</strong></td>
+            <td>75 Menit</td>
+            <td class="tariff-badge">Rp 250.000</td>
+            <td>Paket lengkap *Superior Cut* + *Traditional Wet Shave* + akupresur pundak &amp; kepala.</td>
+          </tr>
+          <tr>
+            <td><strong>Executive Beard Sculpture</strong></td>
+            <td>30 Menit</td>
+            <td class="tariff-badge">Rp 95.000</td>
+            <td>Pembentukan jenggot simetris, razor line outlining, conditioning botanical serum.</td>
+          </tr>
+          <tr>
+            <td><strong>Scalp &amp; Shoulder Acupressure</strong></td>
+            <td>25 Menit</td>
+            <td class="tariff-badge">Rp 85.000</td>
+            <td>Pijat titik meridian kepala &amp; belikat dengan minyak esensial pereda ketegangan.</td>
+          </tr>
+          <tr>
+            <td><strong>Little Gentleman Cut</strong></td>
+            <td>35 Menit</td>
+            <td class="tariff-badge">Rp 110.000</td>
+            <td>Pangkas rambut anak usia &lt;12 tahun dengan pendekatan ramah, sabar, dan hasil klasik.</td>
+          </tr>
+          <tr>
+            <td><strong>Charcoal Scalp Detox &amp; Wash</strong></td>
+            <td>30 Menit</td>
+            <td class="tariff-badge">Rp 90.000</td>
+            <td>Detoksifikasi kulit kepala dari polusi menggunakan arang bambu aktif dan tonik dingin.</td>
+          </tr>
+          <tr>
+            <td><strong>Royal Botanical Hair Coloring</strong></td>
+            <td>60 Menit</td>
+            <td class="tariff-badge">Rp 220.000</td>
+            <td>Pewarnaan rambut alami tanpa amonia untuk penyamaran uban rapi berwibawa.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 5. 5 MASTER BARBER -->
+    <section class="report-section">
+      <span class="section-eyebrow">BAB 5 &bull; TENAGA AHLI &amp; STASIUN KERJA</span>
+      <h2 class="section-title">5 In-House Master Barbers (Atelier Bladesmiths)</h2>
+
+      <div class="grid-3" style="margin-top: 16px;">
+        <div class="pillar-card">
+          <div class="pillar-title" style="color: var(--color-gold-bright);">Bramantyo &bull; Chair I</div>
+          <div style="font-size: 11px; color: var(--color-gold); margin-bottom: 6px; font-weight: 600;">Head Barber &amp; Founder</div>
+          <div class="pillar-desc">Spesialis Classic English Tapers, Shear Layering, dan Executive Silhouette.</div>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-title" style="color: var(--color-gold-bright);">Rian Pratama &bull; Chair II</div>
+          <div style="font-size: 11px; color: var(--color-gold); margin-bottom: 6px; font-weight: 600;">Master Barber</div>
+          <div class="pillar-desc">Spesialis Traditional Hot Towel Wet Shaves dan Signature Beard Sculpting.</div>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-title" style="color: var(--color-gold-bright);">Dimas Setiawan &bull; Chair III</div>
+          <div style="font-size: 11px; color: var(--color-gold); margin-bottom: 6px; font-weight: 600;">Master Barber</div>
+          <div class="pillar-desc">Spesialis Precision Shear Texturing dan Botanical Scalp Detox Therapy.</div>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-title" style="color: var(--color-gold-bright);">Farhan Akbar &bull; Chair IV</div>
+          <div style="font-size: 11px; color: var(--color-gold); margin-bottom: 6px; font-weight: 600;">Master Stylist</div>
+          <div class="pillar-desc">Spesialis Modern Gentleman Pompadours dan Scissor-over-Comb Graduation.</div>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-title" style="color: var(--color-gold-bright);">Aldi Maulana &bull; Chair V</div>
+          <div style="font-size: 11px; color: var(--color-gold); margin-bottom: 6px; font-weight: 600;">Artisan Barber</div>
+          <div class="pillar-desc">Spesialis Razor Line Detailing, Taper Fades, dan Little Gentleman Haircuts.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. TALKING POINTS MEETING -->
+    <section class="report-section">
+      <span class="section-eyebrow">BAB 6 &bull; PANDUAN DISKUSI MEETING</span>
+      <h2 class="section-title">Poin Penting untuk Dijelaskan kepada Klien Saat Meeting</h2>
+
+      <div class="talking-points-list">
+        <div class="talking-item">
+          <div class="talking-q">1. Mengapa memilih Model 1 British Heritage?</div>
+          <div class="talking-a">
+            Model 1 adalah format paling pas dengan target pasar Kota Baru Parahyangan (penghuni klaster premium &amp; eksekutif komuter Whoosh). Nuansa klasiknya tidak terkesan murahan atau sekadar tren sesaat, melainkan berwibawa dan berjangka panjang layaknya tradisi pangkas rambut Mayfair London.
+          </div>
+        </div>
+
+        <div class="talking-item">
+          <div class="talking-q">2. Mengapa tidak ada icon/emoji di tabel informasi?</div>
+          <div class="talking-a">
+            Mengikuti standar Patek Philippe, kemewahan sejati dibangun di atas tipografi yang bersih dan proporsional. Emoji warna-warni membuat website terkesan seperti aplikasi chatting atau situs kasual. Dengan menghilangkan icon, perhatian pembaca 100% tertuju pada keunggulan fasilitas dan kemudahan akses Whoosh.
+          </div>
+        </div>
+
+        <div class="talking-item">
+          <div class="talking-q">3. Bagaimana sistem booking berjalan tanpa aplikasi kasir rumit?</div>
+          <div class="talking-a">
+            Tamu menyelesaikan 3 langkah reservasi di website, lalu data lengkap secara instan diformat menjadi pesan terstruktur ke WhatsApp Concierge Greenwood Barbers (+62 812-8899-7721). Ini memangkas biaya server pihak ketiga, memudahkan kasir mengelola jadwal di smartphone, dan tamu mendapatkan kepastian langsung.
+          </div>
+        </div>
+
+        <div class="talking-item">
+          <div class="talking-q">4. Bagaimana jaminan integritas bisnis dipasang di website?</div>
+          <div class="talking-a">
+            Di halaman booking tertera resmi: "Cash Control Policy: A Free Haircut whenever you do not receive a proper receipt from us" lengkap dengan nomor seri register otomatis. Hal ini membuktikan keterbukaan dan standar operasional berkelas internasional.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER LAPORAN -->
+    <footer style="text-align: center; padding-top: 20px; border-top: 1px solid var(--border-hairline); font-size: 12px; color: var(--text-muted);">
+      &copy; 2026 Greenwood Barbers Kota Baru Parahyangan &bull; Ruko PancaTengah, Padalarang, West Bandung. <br>
+      Dokumen ini disiapkan khusus untuk agenda presentasi evaluasi &amp; peluncuran website Model 1.
+    </footer>
+
+  </main>
+
+</body>
+</html>

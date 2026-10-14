@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Greenwood Barbers | Master Figma Showcase Hub & Client Feedback (Clean, Simple & Elegant)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --figma-bg: #020906;
+      --figma-panel: #06150f;
+      --figma-border: rgba(181, 141, 61, 0.3);
+      --brand-green: #063827;
+      --brand-gold: #b58d3d;
+      --brand-gold-bright: #d6b05e;
+      --text-main: #ffffff;
+      --text-muted: #b3a99b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--brand-gold-bright);
+      outline-offset: 2px;
+    }
+
+    body {
+      background-color: var(--figma-bg);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Figma Control Toolbar */
+    .figma-toolbar {
+      background: var(--figma-panel);
+      border-bottom: 2px solid var(--brand-gold);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      z-index: 100;
+    }
+
+    .brand-id {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-crest-small {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--brand-gold);
+      border-radius: 4px;
+      object-fit: cover;
+      display: block;
+      background: var(--brand-green);
+    }
+    .brand-name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+    .brand-badge {
+      font-size: 11px;
+      background: rgba(173, 131, 48, 0.2);
+      color: var(--brand-gold-bright);
+      border: 1px solid var(--brand-gold);
+      padding: 2px 8px;
+      border-radius: 2px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    /* Model Switcher Buttons */
+    .model-selector {
+      display: flex;
+      background: #0a1e15;
+      border: 1px solid var(--figma-border);
+      border-radius: 6px;
+      padding: 3px;
+      gap: 4px;
+    }
+    .model-btn {
+      background: transparent;
+      color: var(--text-muted);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .model-btn:hover {
+      color: #fff;
+    }
+    .model-btn.active {
+      background: var(--brand-green);
+      color: #fff;
+      border: 1px solid var(--brand-gold);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+
+    /* View Mode Switcher */
+    .view-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .view-btn {
+      background: #0a1e15;
+      color: var(--text-muted);
+      border: 1px solid var(--figma-border);
+      padding: 7px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .view-btn:hover {
+      color: #fff;
+      border-color: var(--brand-gold);
+    }
+    .view-btn.active {
+      background: var(--brand-green);
+      color: #fff;
+      border-color: var(--brand-gold);
+    }
+
+    .btn-feedback-trigger {
+      background: linear-gradient(135deg, var(--brand-gold) 0%, var(--brand-gold-bright) 100%);
+      color: #031c12;
+      border: 1px solid #f3e6c8;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(173, 131, 48, 0.35);
+      transition: all 0.2s;
+    }
+    .btn-feedback-trigger:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(173, 131, 48, 0.5);
+    }
+
+    .btn-zip-download {
+      background: #0a4430;
+      color: #fff;
+      border: 1px solid var(--brand-gold);
+      padding: 7px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-zip-download:hover {
+      background: var(--brand-gold);
+      color: #0a1e15;
+    }
+
+    /* Main Workspace Canvas */
+    .workspace-area {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #020906;
+      position: relative;
+      overflow: auto;
+      padding: 16px;
+    }
+
+    /* Viewport: Desktop Full */
+    .viewport-desktop {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #fff;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+    }
+
+    /* Viewport: Mobile Simulator Container */
+    .mobile-simulator-container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      max-width: 100%;
+      z-index: 10;
+    }
+    .mobile-device-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #06150f;
+      border: 1px solid var(--figma-border);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 11px;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+    }
+    .device-preset-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+    .device-preset-btn:hover {
+      color: #fff;
+    }
+    .device-preset-btn.active {
+      background: var(--brand-green);
+      color: #fff;
+      border-color: var(--brand-gold);
+    }
+
+    .viewport-mobile-wrapper {
+      width: 390px;
+      max-width: calc(100vw - 24px);
+      height: 820px;
+      max-height: calc(100vh - 160px);
+      border: 8px solid #05291d;
+      border-radius: 38px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.9);
+      position: relative;
+      background: #000;
+      overflow: hidden;
+      flex-shrink: 0;
+      transition: width 0.25s ease, height 0.25s ease;
+    }
+    .mobile-notch {
+      position: absolute;
+      top: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 86px;
+      height: 8px;
+      background: #05291d;
+      border-radius: 6px;
+      z-index: 10;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+    .viewport-mobile {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #000;
+    }
+
+    /* Viewport: Figma Multi-Frame Canvas */
+    .canvas-artboard-board {
+      display: none;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      padding: 30px;
+    }
+    .artboard-row {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+      margin-bottom: 50px;
+    }
+    .artboard-card {
+      background: #05291d;
+      border: 1px solid var(--brand-gold);
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    }
+    .artboard-header {
+      background: #031e15;
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--figma-border);
+      font-size: 13px;
+      color: #cbdad3;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      letter-spacing: 0.5px;
+    }
+    .artboard-badge {
+      background: var(--brand-gold);
+      color: #031c12;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 2px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+    .artboard-iframe {
+      border: none;
+      background: #fff;
+    }
+
+    /* Token Drawer Modal */
+    .token-modal {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 380px;
+      background: #05291d;
+      border: 2px solid var(--brand-gold);
+      border-radius: 8px;
+      padding: 22px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.85);
+      z-index: 200;
+      display: none;
+    }
+    .token-modal.active {
+      display: block;
+    }
+    .token-swatch {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 12px;
+    }
+    .swatch-color {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      border: 1px solid #777;
+    }
+
+    /* Client Feedback Modal Overlay */
+    .feedback-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 300;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .feedback-modal-overlay.active {
+      display: flex;
+    }
+    .feedback-modal-card {
+      background: #ffffff;
+      color: #0f172a;
+      border: 2px solid var(--brand-gold);
+      border-radius: 8px;
+      max-width: 680px;
+      width: 100%;
+      padding: 34px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9);
+    }
+    .feedback-head {
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 18px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .feedback-head h3 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 28px;
+      color: var(--brand-green);
+      font-weight: 700;
+      line-height: 1.1;
+    }
+    .form-group-feedback {
+      margin-bottom: 20px;
+    }
+    .form-group-feedback label {
+      font-size: 14px;
+      font-weight: 700;
+      color: #334155;
+      display: block;
+      margin-bottom: 8px;
+    }
+    .star-rating-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .star-btn {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      padding: 8px 14px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #475569;
+    }
+    .star-btn.active {
+      background: #053827;
+      color: #ffffff;
+      border-color: #053827;
+    }
+    .concept-select-card {
+      border: 2px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s;
+    }
+    .concept-select-card.selected {
+      border-color: #053827;
+      background: #ecfdf5;
+    }
+
+    /* Responsive Hub Breakpoints */
+    @media (max-width: 1024px) {
+      body {
+        height: auto;
+        min-height: 100vh;
+        overflow-y: auto;
+      }
+      .figma-toolbar {
+        padding: 10px 14px;
+        gap: 10px;
+      }
+      .brand-name {
+        font-size: 15px;
+      }
+      .model-selector {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .model-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+        white-space: nowrap;
+        flex: 0 0 auto;
+      }
+      .view-controls {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 4px;
+      }
+      .view-btn, .btn-feedback-trigger, .btn-zip-download {
+        white-space: nowrap;
+        flex: 0 0 auto;
+      }
+      .workspace-area {
+        min-height: 720px;
+        padding: 10px;
+      }
+      .artboard-row {
+        flex-direction: column;
+      }
+      .artboard-card, .artboard-iframe {
+        width: 100% !important;
+      }
+    }
+
+    /* Multi-Page Architecture Strip */
+    .page-switcher-strip {
+      background: #040e09;
+      border-bottom: 1px solid var(--brand-gold);
+      padding: 8px 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      z-index: 99;
+    }
+    .strip-label {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      font-weight: 800;
+      color: var(--brand-gold-bright);
+      margin-right: 6px;
+    }
+    .page-tab-btn {
+      background: #071911;
+      color: var(--text-muted);
+      border: 1px solid rgba(197, 155, 72, 0.25);
+      padding: 6px 14px;
+      border-radius: 3px;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+    }
+    .page-tab-btn:hover {
+      color: #fff;
+      border-color: var(--brand-gold);
+      background: #0c2b1d;
+    }
+    .page-tab-btn.active {
+      background: var(--brand-green);
+      color: var(--brand-gold-bright);
+      border-color: var(--brand-gold-bright);
+      font-weight: 700;
+      box-shadow: 0 0 10px rgba(197, 155, 72, 0.25);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Figma Studio Toolbar -->
+  <header class="figma-toolbar">
+    <div class="brand-id">
+      <img src="assets/greenwood_logo.png" alt="Greenwood Barbers Crest" class="brand-crest-small">
+      <div>
+        <div class="brand-name">Greenwood Barbers &bull; Clean, Simple &amp; Elegant Showcase</div>
+        <div style="font-size: 11px; color: var(--text-muted);">
+          Truefitt &amp; Hill Reference &bull; 5 Master Barbers &bull; Deep Emerald #053827 &bull; Antique Gold #ad8330
+        </div>
+      </div>
+      <span class="brand-badge">LUXURY SPEC</span>
+    </div>
+
+    <!-- 3 Figma Model Switcher -->
+    <div class="model-selector">
+      <button type="button" class="model-btn active" id="btnModel1" onclick="switchModel(1)">
+        <span>Model 1: British Heritage Flagship (Patek Craft &bull; Barberia &bull; Truefitt Chicago)</span>
+      </button>
+      <button type="button" class="model-btn" id="btnModel2" onclick="switchModel(2)">
+        <span>Model 2: The Velvet Noir Atelier (Architectural Minimalist)</span>
+      </button>
+      <button type="button" class="model-btn" id="btnModel3" onclick="switchModel(3)">
+        <span>Model 3: The St. James's Private Suite &amp; Apothecary (Warm Amber)</span>
+      </button>
+    </div>
+
+    <!-- Responsive Viewport Modes -->
+    <div class="view-controls">
+      <button type="button" class="view-btn active" id="viewModeDesktop" onclick="setViewMode('desktop')">
+        🖥️ Desktop (1440)
+      </button>
+      <button type="button" class="view-btn" id="viewModeMobile" onclick="setViewMode('mobile')">
+        📱 Mobile (390)
+      </button>
+      <button type="button" class="view-btn" id="viewModeCanvas" onclick="setViewMode('canvas')">
+        🎨 3-Model Canvas
+      </button>
+      <button type="button" class="view-btn" onclick="toggleTokens()">
+        💎 Tokens
+      </button>
+      <a href="CLIENT_REVIEW_GUIDE.html" target="_blank" rel="noopener noreferrer" class="view-btn">
+        📄 Review Guide
+      </a>
+      <a href="greenwood_barbers_client_preview.zip" download class="btn-zip-download">
+        📦 Download ZIP
+      </a>
+      <button type="button" class="btn-feedback-trigger" onclick="openFeedbackModal()">
+        ⭐ Client Feedback
+      </button>
+      <a id="btnExternalTab" href="FIGMA_MODEL_1_BRITISH_HERITAGE.html" target="_blank" rel="noopener noreferrer" class="view-btn">
+        Open Tab &nearr;
+      </a>
+    </div>
+  </header>
+
+  <!-- Dedicated Multi-Page Site Navigation Strip -->
+  <nav class="page-switcher-strip" aria-label="Multi-Page Website Navigation">
+    <span class="strip-label">&#127963; MULTI-PAGE SUITE:</span>
+    <button type="button" class="page-tab-btn active" id="tabHome" onclick="loadPage('home.html', this)">Home (Grand Foyer)</button>
+    <button type="button" class="page-tab-btn" id="tabExp" onclick="loadPage('experience.html', this)">The Experience &amp; Rituals</button>
+    <button type="button" class="page-tab-btn" id="tabServ" onclick="loadPage('services.html', this)">Services Tariff (8 Treatments)</button>
+    <button type="button" class="page-tab-btn" id="tabBarb" onclick="loadPage('barbers.html', this)">Master Barbers (5 Artisans)</button>
+    <button type="button" class="page-tab-btn" id="tabApoth" onclick="loadPage('apothecary.html', this)">Mayfair Apothecary (6 Products)</button>
+    <button type="button" class="page-tab-btn" id="tabParl" onclick="loadPage('parlour.html', this)">The Parlour &amp; Kota Baru Parahyangan</button>
+    <button type="button" class="page-tab-btn" id="tabBook" onclick="loadPage('booking.html', this)">Book Appointment (Automated Engine)</button>
+  </nav>
+
+  <!-- Interactive Workspace -->
+  <main class="workspace-area">
+    <!-- Desktop Full Frame -->
+    <iframe id="desktopFrame" class="viewport-desktop" src="FIGMA_MODEL_1_BRITISH_HERITAGE.html"></iframe>
+
+    <!-- Mobile Frame & Device Presets -->
+    <div id="mobileSimulatorContainer" class="mobile-simulator-container" style="display: none;">
+      <div class="mobile-device-bar">
+        <span style="font-weight:700; color:var(--brand-gold-bright);">Device Size:</span>
+        <button type="button" class="device-preset-btn active" id="btnPreset390" onclick="setDevicePreset(390, 844, this)">iPhone 14 (390px)</button>
+        <button type="button" class="device-preset-btn" id="btnPreset375" onclick="setDevicePreset(375, 812, this)">Compact SE (375px)</button>
+        <button type="button" class="device-preset-btn" id="btnPreset360" onclick="setDevicePreset(360, 780, this)">Android (360px)</button>
+        <button type="button" class="device-preset-btn" id="btnPreset768" onclick="setDevicePreset(768, 960, this)">iPad Mini (768px)</button>
+      </div>
+      <div id="mobileWrapper" class="viewport-mobile-wrapper">
+        <div class="mobile-notch"></div>
+        <iframe id="mobileFrame" class="viewport-mobile" src="FIGMA_MODEL_1_BRITISH_HERITAGE.html"></iframe>
+      </div>
+    </div>
+
+    <!-- Figma Multi-Frame Canvas Artboard View -->
+    <div id="canvasBoard" class="canvas-artboard-board">
+      <div style="margin-bottom: 24px;">
+        <h2 style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 26px; font-weight: 700; margin-bottom: 4px; color: var(--brand-gold-bright);">
+          Figma Multi-Frame Canvas (Clean, Simple &amp; Elegant Models)
+        </h2>
+        <p style="font-size: 13px; color: var(--text-muted);">
+          Each model strictly adheres to Truefitt &amp; Hill's clean, simple, and elegant standard. Test the live booking engine on each frame.
+        </p>
+      </div>
+
+      <div class="artboard-row">
+        <!-- Model 1 Artboard -->
+        <div class="artboard-card">
+          <div class="artboard-header">
+            <span><strong>Model 1: British Heritage Flagship (Final Selection)</strong> (Truefitt &amp; Hill Centered Stacked Header &bull; Punchy Tariff &bull; Store Dossier)</span>
+            <span class="artboard-badge">SELECTED PRODUCTION MODEL</span>
+          </div>
+          <iframe class="artboard-iframe" style="width: 580px; height: 800px;" src="FIGMA_MODEL_1_BRITISH_HERITAGE.html"></iframe>
+        </div>
+
+        <!-- Model 2 Artboard -->
+        <div class="artboard-card">
+          <div class="artboard-header">
+            <span><strong>Model 2: Velvet Emerald Noir</strong> (Approved Reference &bull; Architectural Luxury Night Clubroom)</span>
+            <span class="artboard-badge">FRAME 2</span>
+          </div>
+          <iframe class="artboard-iframe" style="width: 580px; height: 800px;" src="FIGMA_MODEL_2_MODERN_NOIR.html"></iframe>
+        </div>
+
+        <!-- Model 3 Artboard -->
+        <div class="artboard-card">
+          <div class="artboard-header">
+            <span><strong>Model 3: The Mayfair Private Suite</strong> (Executive Grooming Lounge &bull; Clean Aligned Menu &bull; Acoustic Privacy)</span>
+            <span class="artboard-badge">FRAME 3</span>
+          </div>
+          <iframe class="artboard-iframe" style="width: 580px; height: 800px;" src="FIGMA_MODEL_3_ARTISANAL_AMBER.html"></iframe>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Design Tokens Floating Modal -->
+  <div class="token-modal" id="tokenDrawer" role="region" aria-label="Luxury Brand Design Tokens">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+      <h3 style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px; font-weight: 700; color: var(--brand-gold-bright); text-transform: uppercase;">
+        Luxury Brand Design Tokens
+      </h3>
+      <button type="button" aria-label="Close Design Tokens" style="background: none; border: none; color: #fff; cursor: pointer; font-size: 18px;" onclick="toggleTokens()">&times;</button>
+    </div>
+    
+    <div style="font-size: 12px; color: #cbdad3; margin-bottom: 12px;">Colors &amp; Typography (Truefitt &amp; Hill Luxury Standard):</div>
+    
+    <div class="token-swatch">
+      <div class="swatch-color" style="background: #053827;"></div>
+      <div><strong>#053827</strong> - Deep Emerald Green (Primary Brand)</div>
+    </div>
+    <div class="token-swatch">
+      <div class="swatch-color" style="background: #031c14;"></div>
+      <div><strong>#031c14</strong> - Velvet Noir Emerald (Dark Contrast)</div>
+    </div>
+    <div class="token-swatch">
+      <div class="swatch-color" style="background: #ad8330;"></div>
+      <div><strong>#ad8330</strong> - Gray-Orange / Antique Ochre Gold (Headings &amp; Accents)</div>
+    </div>
+    <div class="token-swatch">
+      <div class="swatch-color" style="background: #cda34b;"></div>
+      <div><strong>#cda34b</strong> - Bright Gold Accent (Buttons &amp; Highlights)</div>
+    </div>
+    <div class="token-swatch">
+      <div class="swatch-color" style="background: #ffffff;"></div>
+      <div><strong>#ffffff</strong> - Clean White Canvas (Airy Whitespace)</div>
+    </div>
+
+    <div style="border-top: 1px solid var(--brand-gold); padding-top: 12px; margin-top: 12px; font-size: 11px; color: #a3c2b6;">
+      Typography: <strong>Cormorant Garamond</strong> (Headings) + <strong>Plus Jakarta Sans</strong> (Body)<br>
+      Staff: <strong>5 Master Barbers</strong> (Bramantyo, Rian Pratama, Dimas Setiawan, Farhan Akbar, Aldi Maulana)<br>
+      PRD Specification: 100% Customer Booking &bull; Zero Admin Screens (WhatsApp Cashier Only)
+    </div>
+  </div>
+
+  <!-- Client Feedback Modal -->
+  <div class="feedback-modal-overlay" id="feedbackModal" role="dialog" aria-modal="true" aria-labelledby="feedbackModalTitle">
+    <div class="feedback-modal-card">
+      <div class="feedback-head">
+        <div>
+          <h3 id="feedbackModalTitle">Client Feedback &amp; Design Evaluation</h3>
+          <p style="font-size: 14px; color: #64748b; margin-top: 4px;">
+             Greenwood Barbers &bull; 3 Clean, Simple &amp; Elegant Concepts Evaluation
+          </p>
+        </div>
+        <button type="button" aria-label="Close Feedback Modal" style="background: none; border: none; font-size: 24px; color: #64748b; cursor: pointer;" onclick="closeFeedbackModal()">&times;</button>
+      </div>
+
+      <div id="feedbackSuccessNotice" style="display:none; background:#ecfdf5; border:1px solid #053827; color:#053827; padding:16px; border-radius:6px; margin-bottom:16px; font-size:14px; line-height:1.5;">
+        <strong>Thank you, <span id="savedReviewer"></span>!</strong> Your evaluation has been saved locally.
+        <div style="font-size:12px; margin-top:4px; color:#1e3a2e;">
+          Preferred Choice: <span id="savedConcept"></span> &bull; Luxury Rating: <span id="savedLux"></span>/5 &bull; UX Usability: <span id="savedUx"></span>/5
+        </div>
+      </div>
+
+      <form id="feedbackForm" onsubmit="submitClientFeedback(event)">
+        <div class="form-group-feedback">
+          <label>Your Name / Representative:</label>
+          <input type="text" id="clientReviewerName" class="star-btn" style="width: 100%; height: 44px; text-align: left; background: #fff;" placeholder="e.g. Greenwood Barbers Owner" required>
+        </div>
+
+        <div class="form-group-feedback">
+          <label>1. Which of the 3 clean concepts best represents Greenwood Barbers?</label>
+          <div class="concept-select-card selected" id="cChoice1" onclick="selectConceptFeedback(1)">
+            <input type="radio" name="preferredConcept" value="Model 1: St. James's Royal Heritage" checked>
+            <div>
+              <div style="font-weight: 700;">Model 1: St. James's Royal Heritage (Split Hero &amp; Tariff Gazette)</div>
+              <div style="font-size: 13px; color: #64748b;">Split hero with live Parlor Chair ledger, 2-column engraved Mayfair Tariff Gazette, 5 Master Chairs (I to V), British grooming etiquette.</div>
+            </div>
+          </div>
+          <div class="concept-select-card" id="cChoice2" onclick="selectConceptFeedback(2)">
+            <input type="radio" name="preferredConcept" value="Model 2: Velvet Emerald Noir">
+            <div>
+              <div style="font-weight: 700;">Model 2: Velvet Emerald Noir (Approved Reference)</div>
+              <div style="font-size: 13px; color: #64748b;">Architectural luxury night canvas, deep emerald backdrop, sleek compact treatment cards, private night clubroom ambiance.</div>
+            </div>
+          </div>
+          <div class="concept-select-card" id="cChoice3" onclick="selectConceptFeedback(3)">
+            <input type="radio" name="preferredConcept" value="Model 3: The Mayfair Private Suite">
+            <div>
+              <div style="font-weight: 700;">Model 3: The Mayfair Private Suite (Executive Grooming Lounge)</div>
+              <div style="font-size: 13px; color: #64748b;">Panoramic executive masthead, clean aligned 2-column menu, 5 master barbers atelier, unhurried concierge reservation, acoustic privacy.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group-feedback">
+          <label>2. Rating for Clean, Simple &amp; Elegant Aesthetics:</label>
+          <div class="star-rating-row" id="luxuryRatingRow">
+            <button type="button" class="star-btn" onclick="setRating('luxury', 1)">1 ★</button>
+            <button type="button" class="star-btn" onclick="setRating('luxury', 2)">2 ★</button>
+            <button type="button" class="star-btn" onclick="setRating('luxury', 3)">3 ★</button>
+            <button type="button" class="star-btn" onclick="setRating('luxury', 4)">4 ★</button>
+            <button type="button" class="star-btn active" onclick="setRating('luxury', 5)">5 ★ Clean &amp; Elegant</button>
+          </div>
+        </div>
+
+        <div class="form-group-feedback">
+          <label>3. Rating for 4-Step Booking Engine (Usability &amp; High-Contrast Readability):</label>
+          <div class="star-rating-row" id="uxRatingRow">
+            <button type="button" class="star-btn" onclick="setRating('ux', 1)">1 ★</button>
+            <button type="button" class="star-btn" onclick="setRating('ux', 2)">2 ★</button>
+            <button type="button" class="star-btn" onclick="setRating('ux', 3)">3 ★</button>
+            <button type="button" class="star-btn" onclick="setRating('ux', 4)">4 ★</button>
+            <button type="button" class="star-btn active" onclick="setRating('ux', 5)">5 ★ Highly Intuitive</button>
+          </div>
+        </div>
+
+        <div class="form-group-feedback">
+          <label>Additional Feedback or Specific Adjustments:</label>
+          <textarea id="feedbackNotes" rows="4" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 4px; padding: 12px; font-family: inherit; font-size: 14px;" placeholder="Enter notes or specific preferences..."></textarea>
+        </div>
+
+        <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px;">
+          <button type="button" class="view-btn" style="color: #64748b; border-color: #cbd5e1;" onclick="closeFeedbackModal()">Cancel</button>
+          <button type="submit" class="btn-feedback-trigger">Submit Client Evaluation &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const models = {
+      1: {
+        file: 'FIGMA_MODEL_1_BRITISH_HERITAGE.html',
+        name: "Model 1: British Heritage Flagship (Patek Craft • Barberia • Truefitt Chicago Standards)",
+        desc: "Chosen Production Design. Patek Philippe craftsmanship copywriting, Barberia Indonesia parlour structure, Truefitt & Hill Chicago products, 5 master barbers, 3 session bands, transparent payment & automated notifications (Email, Google Calendar, WhatsApp Admin)"
+      },
+      2: {
+        file: 'FIGMA_MODEL_2_MODERN_NOIR.html',
+        name: "Model 2: The Velvet Noir Atelier (Architectural Minimalist)",
+        desc: "Contemporary architectural luxury, full-width cinematic hero with quick-booking bar, horizontal treatment list, high-contrast monochrome-to-color portraits"
+      },
+      3: {
+        file: 'FIGMA_MODEL_3_ARTISANAL_AMBER.html',
+        name: "Model 3: The St. James's Private Suite & Apothecary (Warm Amber)",
+        desc: "Warm dark mahogany & amber gold palette, executive private suite comfort pillars, botanical formulary portfolios with brass brackets, categorized day-part scheduler"
+      }
+    };
+
+    let activeModelId = 1;
+    let currentViewMode = 'desktop';
+    let ratings = { luxury: 5, ux: 5 };
+
+    function loadPage(pageUrl, btn) {
+      document.querySelectorAll('.page-tab-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      document.getElementById('desktopFrame').src = pageUrl;
+      document.getElementById('mobileFrame').src = pageUrl;
+      document.getElementById('btnExternalTab').href = pageUrl;
+    }
+
+    function switchModel(id) {
+      activeModelId = id;
+      const model = models[id];
+
+      // Update button highlights
+      document.querySelectorAll('.model-btn').forEach((btn, idx) => {
+        btn.classList.toggle('active', idx + 1 === id);
+      });
+
+      // Update iframes
+      document.getElementById('desktopFrame').src = model.file;
+      document.getElementById('mobileFrame').src = model.file;
+      document.getElementById('btnExternalTab').href = model.file;
+    }
+
+    function setViewMode(mode) {
+      currentViewMode = mode;
+      
+      document.getElementById('viewModeDesktop').classList.toggle('active', mode === 'desktop');
+      document.getElementById('viewModeMobile').classList.toggle('active', mode === 'mobile');
+      document.getElementById('viewModeCanvas').classList.toggle('active', mode === 'canvas');
+
+      const desktop = document.getElementById('desktopFrame');
+      const mobileSim = document.getElementById('mobileSimulatorContainer');
+      const canvasBoard = document.getElementById('canvasBoard');
+
+      if (mode === 'desktop') {
+        desktop.style.display = 'block';
+        mobileSim.style.display = 'none';
+        canvasBoard.style.display = 'none';
+      } else if (mode === 'mobile') {
+        desktop.style.display = 'none';
+        mobileSim.style.display = 'flex';
+        canvasBoard.style.display = 'none';
+      } else if (mode === 'canvas') {
+        desktop.style.display = 'none';
+        mobileSim.style.display = 'none';
+        canvasBoard.style.display = 'block';
+      }
+    }
+
+    function setDevicePreset(w, h, btn) {
+      const wrap = document.getElementById('mobileWrapper');
+      wrap.style.width = w + 'px';
+      wrap.style.height = h + 'px';
+      document.querySelectorAll('.device-preset-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+    }
+
+    function toggleTokens() {
+      const drawer = document.getElementById('tokenDrawer');
+      drawer.classList.toggle('active');
+    }
+
+    function openFeedbackModal() {
+      document.getElementById('feedbackModal').classList.add('active');
+    }
+
+    function closeFeedbackModal() {
+      document.getElementById('feedbackModal').classList.remove('active');
+    }
+
+    function selectConceptFeedback(id) {
+      document.querySelectorAll('.concept-select-card').forEach((card, idx) => {
+        const isSel = idx + 1 === id;
+        card.classList.toggle('selected', isSel);
+        card.querySelector('input').checked = isSel;
+      });
+    }
+
+    function setRating(category, val) {
+      ratings[category] = val;
+      const row = category === 'luxury' ? document.getElementById('luxuryRatingRow') : document.getElementById('uxRatingRow');
+      row.querySelectorAll('.star-btn').forEach((btn, idx) => {
+        btn.classList.toggle('active', idx + 1 === val);
+      });
+    }
+
+    function submitClientFeedback(e) {
+      e.preventDefault();
+      const reviewer = document.getElementById('clientReviewerName').value.trim();
+      const preferred = document.querySelector('input[name="preferredConcept"]:checked').value;
+      const notes = document.getElementById('feedbackNotes').value.trim();
+
+      const feedbackData = {
+        reviewer,
+        preferredConcept: preferred,
+        luxuryRating: ratings.luxury,
+        uxRating: ratings.ux,
+        notes: notes || "No additional comments",
+        timestamp: new Date().toISOString()
+      };
+
+      // Store in localStorage
+      let feedbacks = JSON.parse(localStorage.getItem('greenwood_client_feedbacks') || '[]');
+      feedbacks.push(feedbackData);
+      localStorage.setItem('greenwood_client_feedbacks', JSON.stringify(feedbacks));
+
+      // Non-blocking notification banner inside modal
+      const notice = document.getElementById('feedbackSuccessNotice');
+      if (notice) {
+        document.getElementById('savedReviewer').textContent = reviewer;
+        document.getElementById('savedConcept').textContent = preferred;
+        document.getElementById('savedLux').textContent = ratings.luxury;
+        document.getElementById('savedUx').textContent = ratings.ux;
+        notice.style.display = 'block';
+        setTimeout(() => {
+          notice.style.display = 'none';
+          closeFeedbackModal();
+          document.getElementById('feedbackForm').reset();
+        }, 2200);
+      } else {
+        closeFeedbackModal();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeFeedbackModal();
+        const drawer = document.getElementById('tokenDrawer');
+        if (drawer) drawer.classList.remove('active');
+      }
+    });
+  </script>
+</body>
+</html>
