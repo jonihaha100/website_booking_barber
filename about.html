@@ -837,17 +837,6 @@
     function closeMobileNav() {
       document.getElementById('mobileNavOverlay').classList.remove('active');
     }
-
-    // Purge lingering experience links if any
-    (function purgeLingering() {
-      document.querySelectorAll('a').forEach(function(el) {
-        var h = el.getAttribute('href') || '';
-        var t = (el.textContent || '').trim().toUpperCase();
-        if (h.includes('experience') || t.includes('EXPERIENCE')) {
-          el.remove();
-        }
-      });
-    })();
   </script>
 
 </body>

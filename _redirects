@@ -1,4 +1,6 @@
 /home.html  /index.html  301
 /home       /index.html  301
+/about      /about.html    200
 /parlour    /parlour.html  200
 /booking    /booking.html  200
+

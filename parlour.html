@@ -424,17 +424,6 @@
     function closeMobileNav() {
       document.getElementById('mobileNavOverlay').classList.remove('active');
     }
-
-    // Aggressive DOM Purge: Instantly delete any cached 'The Experience' nodes
-    (function purgeLingering() {
-      document.querySelectorAll('a').forEach(function(el) {
-        var h = el.getAttribute('href') || '';
-        var t = (el.textContent || '').trim().toUpperCase();
-        if (h.includes('experience') || t.includes('EXPERIENCE')) {
-          el.remove();
-        }
-      });
-    })();
   </script>
 
 </body>
