@@ -3076,7 +3076,7 @@
     // =========================================================================
     // STEP NAVIGATION (PAGES 1, 2, 3, 4)
     // =========================================================================
-    function navigateToStep(step) {
+    function navigateToStep(step, shouldScroll = true) {
       if (step > 1 && cart.length === 0) {
         alert("Please select at least one ritual or product before proceeding.");
         return;
@@ -3120,9 +3120,9 @@
       // Update Right Dossier CTA
       renderDossierCart();
 
-      // Scroll smoothly to top of workspace
+      // Scroll smoothly to top of workspace if user navigated
       const stepperEl = document.querySelector('.chicago-stepper');
-      if (stepperEl) {
+      if (stepperEl && shouldScroll) {
         window.scrollTo({ top: stepperEl.offsetTop - 24, behavior: 'smooth' });
       }
     }
@@ -3498,6 +3498,12 @@ _Kindly confirm my private chair reservation. Thank you._`;
       // Generate random receipt serial
       const randomSerial = 'GW-KBP-2026-' + Math.floor(1000 + Math.random() * 9000);
       document.getElementById('autoReceiptSerial').textContent = randomSerial;
+
+      // Support ?step= URL parameter for direct navigation/preview
+      const stepParam = parseInt(params.get('step'));
+      if (stepParam >= 1 && stepParam <= 4) {
+        navigateToStep(stepParam, false);
+      }
     });
 
     // Shared Spotlight Glow
