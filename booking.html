@@ -1590,6 +1590,7 @@
 
     <nav class="main-nav" aria-label="Main navigation">
       <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
       <a href="parlour.html">The Parlour</a>
       <a href="booking.html" class="active">Book Appointment</a>
     </nav>
@@ -1604,6 +1605,7 @@
   <div class="mobile-nav-overlay" id="mobileNavOverlay">
     <button class="mobile-nav-close" onclick="closeMobileNav()" aria-label="Close menu">&times;</button>
     <a href="index.html" onclick="closeMobileNav()">Home</a>
+    <a href="about.html" onclick="closeMobileNav()">About Us</a>
     <a href="parlour.html" onclick="closeMobileNav()">The Parlour</a>
     <a href="booking.html" class="active" onclick="closeMobileNav()">Book Appointment</a>
     <a href="booking.html" class="btn-primary" style="margin-top: 16px;" onclick="closeMobileNav()">Reserve Appointment</a>
@@ -2510,8 +2512,8 @@
                 </div>
                 <div class="payment-method-card" onclick="selectPaymentMethod('transfer', this)">
                   <span class="pm-icon">&#127974;</span>
-                  <span class="pm-name">Bank Mandiri VA</span>
-                  <span class="pm-desc">Virtual Account &amp; Transfer</span>
+                  <span class="pm-name">Bank Transfer</span>
+                  <span class="pm-desc">BCA, Mandiri, BNI &amp; Major Banks</span>
                 </div>
                 <div class="payment-method-card" onclick="selectPaymentMethod('edc', this)">
                   <span class="pm-icon">&#128179;</span>
@@ -3387,6 +3389,13 @@
 
       const barberName = selectedBarber ? selectedBarber.name : 'Master Bramantyo';
 
+      let paymentGatewayLabel = 'QRIS INSTANT (BCA, Mandiri, GoPay, OVO)';
+      if (selectedPayment === 'transfer') {
+        paymentGatewayLabel = 'BANK TRANSFER (BCA, Mandiri, BNI & Major Banks)';
+      } else if (selectedPayment === 'edc') {
+        paymentGatewayLabel = 'IN-PARLOUR EDC (Visa, Mastercard, Debit)';
+      }
+
       const waMessage = 
 `*GREENWOOD BARBERS RESERVATION CONFIRMATION*
 ----------------------------------------
@@ -3395,7 +3404,7 @@
 *Master Barber:* ${barberName}
 *Schedule:* ${selectedDate.full} @ ${selectedTime}
 *Total Chair Duration:* ${totalDuration} Minutes
-*Payment Gateway:* ${selectedPayment.toUpperCase()} (Cashless Guaranteed)
+*Payment Gateway:* ${paymentGatewayLabel} (Cashless Guaranteed)
 
 *Selected Treatments & Formulations:*
 ${itemsListText}

@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>About Us • Our Heritage &amp; Craft | Greenwood Barbers • Kota Baru Parahyangan</title>
+  <meta name="description" content="Discover Greenwood Barbers: An authentic British Mayfair grooming sanctuary in Kota Baru Parahyangan, West Bandung. Unhurried 45-60 minute chair rituals, surgical sterilization, and bespoke gentlemen's hospitality.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/greenwood.css?v=20261015_1">
+
+  <style>
+    /* Editorial Layout & Custom Styling for About Page */
+    .about-hero {
+      position: relative;
+      padding: 90px 24px 60px;
+      text-align: center;
+      background: radial-gradient(circle at 50% 10%, rgba(10, 31, 21, 0.6) 0%, rgba(2, 7, 4, 0.98) 80%);
+      border-bottom: 1px solid var(--color-gold-hairline);
+      overflow: hidden;
+    }
+    .about-hero-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+    .about-hero-badge {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 2.8px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--color-gold-bright);
+      margin-bottom: 16px;
+      padding: 5px 16px;
+      background: rgba(197, 155, 72, 0.08);
+      border: 1px solid rgba(197, 155, 72, 0.3);
+      border-radius: 20px;
+    }
+    .about-hero-title {
+      font-family: var(--font-serif);
+      font-size: 44px;
+      font-weight: 400;
+      color: #ffffff;
+      line-height: 1.25;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+    .about-hero-lead {
+      font-size: 15.5px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      font-weight: 300;
+      max-width: 720px;
+      margin: 0 auto 30px;
+    }
+
+    /* Narrative Split Section (Heritage Story) */
+    .about-narrative-section {
+      padding: 70px 24px;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .about-split-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .narrative-text-col h2 {
+      font-family: var(--font-serif);
+      font-size: 34px;
+      font-weight: 500;
+      color: #ffffff;
+      margin-bottom: 20px;
+      line-height: 1.3;
+    }
+    .narrative-text-col p {
+      font-size: 14.5px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 18px;
+      font-weight: 300;
+    }
+    .narrative-quote-box {
+      margin: 28px 0;
+      padding: 20px 24px;
+      background: rgba(10, 31, 21, 0.6);
+      border-left: 3px solid var(--color-gold);
+      border-radius: 0 6px 6px 0;
+      font-family: var(--font-serif);
+      font-size: 18px;
+      font-style: italic;
+      color: var(--color-gold-bright);
+      line-height: 1.6;
+    }
+
+    .narrative-media-col {
+      position: relative;
+    }
+    .narrative-img-frame {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--color-gold-hairline);
+      box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(226, 190, 108, 0.15);
+    }
+    .narrative-img-frame img {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .narrative-img-frame:hover img {
+      transform: scale(1.02);
+    }
+    .narrative-badge-floating {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(3, 12, 8, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--color-gold);
+      padding: 12px 18px;
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .narrative-badge-floating span:first-child {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      font-weight: 700;
+    }
+    .narrative-badge-floating span:last-child {
+      font-size: 13px;
+      color: #ffffff;
+      font-family: var(--font-serif);
+    }
+
+    /* 4 Core Pillars Grid */
+    .pillars-section {
+      padding: 60px 24px;
+      background: linear-gradient(180deg, rgba(2, 7, 4, 0.95) 0%, rgba(6, 21, 14, 0.8) 50%, rgba(2, 7, 4, 0.95) 100%);
+      border-top: 1px solid var(--color-gold-hairline);
+      border-bottom: 1px solid var(--color-gold-hairline);
+    }
+    .section-header-centered {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 46px;
+    }
+    .section-eyebrow {
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--color-gold-bright);
+      margin-bottom: 12px;
+      display: block;
+    }
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 34px;
+      font-weight: 500;
+      color: #ffffff;
+      line-height: 1.3;
+      margin-bottom: 14px;
+    }
+    .section-desc {
+      font-size: 14.5px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .pillar-card {
+      background: linear-gradient(165deg, rgba(10, 31, 21, 0.75) 0%, rgba(5, 17, 11, 0.95) 100%);
+      border: 1px solid rgba(197, 155, 72, 0.16);
+      border-radius: 8px;
+      padding: 28px 22px;
+      box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.7);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+    }
+    .pillar-card:hover {
+      border-color: var(--color-gold);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px -10px rgba(197, 155, 72, 0.2);
+    }
+    .pillar-num {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      color: var(--color-gold);
+      margin-bottom: 14px;
+      font-weight: 600;
+      line-height: 1;
+    }
+    .pillar-title {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      color: #ffffff;
+      margin-bottom: 12px;
+      line-height: 1.35;
+      font-weight: 500;
+    }
+    .pillar-text {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      font-weight: 300;
+      flex-grow: 1;
+    }
+
+    /* 6 Codified Steps Table */
+    .ritual-section {
+      padding: 70px 24px;
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+    .steps-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .step-editorial-card {
+      background: linear-gradient(165deg, rgba(10, 31, 21, 0.8) 0%, rgba(5, 17, 11, 0.95) 100%);
+      border: 1px solid rgba(197, 155, 72, 0.16);
+      border-radius: 8px;
+      padding: 22px 28px;
+      display: grid;
+      grid-template-columns: 80px 1.4fr 2fr;
+      align-items: center;
+      gap: 24px;
+      transition: all 0.25s ease;
+    }
+    .step-editorial-card:hover {
+      border-color: rgba(226, 190, 108, 0.35);
+      background: rgba(197, 155, 72, 0.04);
+    }
+    .step-seq {
+      font-family: var(--font-serif);
+      font-size: 30px;
+      color: var(--color-gold);
+      font-weight: 600;
+    }
+    .step-name-col h4 {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      color: #ffffff;
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+    .step-name-col span {
+      font-size: 11px;
+      letter-spacing: 1.2px;
+      color: var(--color-gold);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .step-desc-col {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* Master Barbers Preview Strip */
+    .barbers-about-section {
+      padding: 60px 24px;
+      background: linear-gradient(180deg, rgba(2, 7, 4, 0.98) 0%, rgba(5, 17, 11, 0.85) 100%);
+      border-top: 1px solid var(--color-gold-hairline);
+    }
+    .barbers-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .barber-preview-card {
+      background: rgba(10, 31, 21, 0.7);
+      border: 1px solid rgba(197, 155, 72, 0.14);
+      border-radius: 6px;
+      overflow: hidden;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    .barber-preview-card:hover {
+      border-color: var(--color-gold);
+      transform: translateY(-3px);
+    }
+    .barber-preview-img-wrap {
+      width: 100%;
+      height: 190px;
+      overflow: hidden;
+      background: #020704;
+    }
+    .barber-preview-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .barber-preview-card:hover img {
+      transform: scale(1.04);
+    }
+    .barber-preview-body {
+      padding: 14px 10px;
+    }
+    .barber-preview-name {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: #ffffff;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .barber-preview-chair {
+      font-size: 10.5px;
+      color: var(--color-gold);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    /* Location & Sanctuary Callout */
+    .sanctuary-feature {
+      padding: 70px 24px;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .sanctuary-box {
+      background: linear-gradient(135deg, rgba(10, 31, 21, 0.9) 0%, rgba(5, 17, 11, 0.98) 100%);
+      border: 1px solid var(--color-gold);
+      border-radius: 8px;
+      padding: 44px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 36px;
+      align-items: center;
+      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(226, 190, 108, 0.2);
+    }
+    .sanctuary-info h3 {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      color: #ffffff;
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+    .sanctuary-info p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 22px;
+      font-weight: 300;
+    }
+    .sanctuary-stats {
+      display: flex;
+      gap: 28px;
+      margin-bottom: 26px;
+      flex-wrap: wrap;
+    }
+    .stat-pill {
+      display: flex;
+      flex-direction: column;
+    }
+    .stat-val {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      color: var(--color-gold-bright);
+      font-weight: 700;
+    }
+    .stat-lbl {
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: #beb5a5;
+      text-transform: uppercase;
+    }
+    .sanctuary-media img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid var(--color-gold-hairline);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Cash Control Guarantee Notice */
+    .cash-guarantee-block {
+      max-width: 900px;
+      margin: 20px auto 60px;
+      padding: 24px 30px;
+      background: rgba(10, 31, 21, 0.75);
+      border: 1px dashed var(--color-gold);
+      border-radius: 6px;
+      text-align: center;
+    }
+    .cash-guarantee-badge {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 2.2px;
+      color: var(--color-gold);
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .cash-guarantee-quote {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      color: #ffffff;
+      margin-bottom: 8px;
+      font-style: italic;
+    }
+    .cash-guarantee-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Final CTA Bar */
+    .about-cta-bar {
+      text-align: center;
+      padding: 50px 24px 80px;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .about-split-grid {
+        grid-template-columns: 1fr;
+      }
+      .pillars-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .barbers-preview-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .sanctuary-box {
+        grid-template-columns: 1fr;
+      }
+      .step-editorial-card {
+        grid-template-columns: 60px 1fr;
+      }
+      .step-desc-col {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .about-hero-title {
+        font-size: 30px;
+      }
+      .pillars-grid {
+        grid-template-columns: 1fr;
+      }
+      .barbers-preview-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .narrative-img-frame img {
+        height: 320px;
+      }
+      .sanctuary-box {
+        padding: 26px 20px;
+      }
+      .step-editorial-card {
+        padding: 16px;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LUXURY MULTI-PAGE NAVIGATION BAR -->
+  <header>
+    <a href="index.html" class="brand-wrap">
+      <img src="assets/greenwood_logo_transparent.png" alt="Greenwood Barbers" class="brand-logo-img">
+    </a>
+
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html" class="active">About Us</a>
+      <a href="parlour.html">The Parlour</a>
+      <a href="booking.html">Book Appointment</a>
+    </nav>
+
+    <div class="header-cta-group">
+      <a href="booking.html" class="btn-header-book">Reserve a Chair</a>
+      <button class="menu-toggle-btn" onclick="toggleMobileNav()" aria-label="Toggle navigation menu">&#9776;</button>
+    </div>
+  </header>
+
+  <!-- MOBILE NAV OVERLAY -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay">
+    <button class="mobile-nav-close" onclick="closeMobileNav()" aria-label="Close menu">&times;</button>
+    <a href="index.html" onclick="closeMobileNav()">Home</a>
+    <a href="about.html" class="active" onclick="closeMobileNav()">About Us</a>
+    <a href="parlour.html" onclick="closeMobileNav()">The Parlour</a>
+    <a href="booking.html" onclick="closeMobileNav()">Book Appointment</a>
+    <a href="booking.html" class="btn-primary" style="margin-top: 16px;" onclick="closeMobileNav()">Reserve Appointment</a>
+  </div>
+
+  <main>
+
+    <!-- 1. EDITORIAL HERO -->
+    <section class="about-hero">
+      <div class="about-hero-inner">
+        <span class="about-hero-badge">Our Genesis &bull; British Mayfair Tradition</span>
+        <h1 class="about-hero-title">Where Timeless English Grooming Meets Modern Solingen Precision</h1>
+        <p class="about-hero-lead">
+          Greenwood Barbers was established as an acoustic sanctuary for gentlemen in Kota Baru Parahyangan. 
+          Dedicated to unhurried time, surgical discipline, noble botanical formulas, and private lounge hospitality.
+        </p>
+        <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+          <a href="booking.html" class="btn-primary">Reserve Your Chair &rarr;</a>
+          <a href="parlour.html" class="btn-secondary" style="border-color: var(--color-gold); color: var(--color-gold);">Visit The Parlour</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. NARRATIVE HERITAGE SPLIT SECTION -->
+    <section class="about-narrative-section">
+      <div class="about-split-grid">
+        <div class="narrative-text-col">
+          <span class="section-eyebrow">The Greenwood Philosophy</span>
+          <h2>A Sanctuary from Urban Haste in Kota Baru Parahyangan</h2>
+          <p>
+            In an era where modern grooming has succumbed to rushed, 15-minute conveyor-belt haircuts, Greenwood Barbers returns to the golden age of London’s Mayfair barbering guilds.
+          </p>
+          <p>
+            Founded at Ruko PancaTengah in the prestigious lakeside township of Kota Baru Parahyangan, West Bandung, our parlour was conceived not merely as a barbershop, but as a gentleman’s restorative retreat. Here, time slows down.
+          </p>
+          <div class="narrative-quote-box">
+            &ldquo;We measure our work not by the volume of chairs turned, but by the inalterable precision of each cut and the peace of mind restored to the gentleman sitting within.&rdquo;
+          </div>
+          <p>
+            Every appointment is conducted on Japanese Takara Belmont Apollo II hydraulic thrones. Every razor stroke is executed with single-use surgical Solingen carbon steel. And every visit is accompanied by quiet acoustic seclusion, with zero unsolicited noise.
+          </p>
+        </div>
+
+        <div class="narrative-media-col">
+          <div class="narrative-img-frame">
+            <img src="assets/hero_barbershop.jpg" alt="Greenwood Barbers Interior &amp; Belmont Chairs">
+            <div class="narrative-badge-floating">
+              <span>Mayfair Inspired &bull; Kota Baru Parahyangan</span>
+              <span>Dedicated 45&ndash;60 Min Chair Time</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. THE 4 CORE PILLARS OF GREENWOOD -->
+    <section class="pillars-section">
+      <div class="section-header-centered">
+        <span class="section-eyebrow">Our Unwavering Standards</span>
+        <h2 class="section-title">The Four Pillars of the Greenwood Discipline</h2>
+        <p class="section-desc">
+          Four non-negotiable commitments that govern every master cut, wet shave, and guest interaction at our parlour.
+        </p>
+      </div>
+
+      <div class="pillars-grid">
+        <div class="pillar-card">
+          <div class="pillar-num">01</div>
+          <h3 class="pillar-title">Unhurried Sacred Time</h3>
+          <p class="pillar-text">
+            Each gentleman is allocated 45 to 60 dedicated minutes. We never rush a scissor taper or ceremonial straight-razor stroke to accommodate walk-ins. Your chair reservation is strictly yours.
+          </p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-num">02</div>
+          <h3 class="pillar-title">Surgical Hygiene Protocol</h3>
+          <p class="pillar-text">
+            German Solingen shears, Japanese combs, and clippers undergo medical-grade autoclaving and certified UV sterilization before every service. Shaving blades are single-use and disposed in front of you.
+          </p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-num">03</div>
+          <h3 class="pillar-title">Noble Botanical Formulations</h3>
+          <p class="pillar-text">
+            Zero harsh synthetic alcohols. We exclusively infuse organic cold-pressed jojoba oils, Tuscan sandalwood, Sicilian bergamot, natural camphor, and restorative steamed eucalyptus linens.
+          </p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-num">04</div>
+          <h3 class="pillar-title">Executive Seclusion &amp; Lounge</h3>
+          <p class="pillar-text">
+            Enjoy our private Chesterfield leather salon, acoustic soundproofing, and complimentary single-malt scotch, double espresso Aceh Gayo, or Fortnum &amp; Mason royal tea while you unwind.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. THE 6 CODIFIED STEPS OF THE GREENWOOD RITUAL -->
+    <section class="ritual-section">
+      <div class="section-header-centered">
+        <span class="section-eyebrow">Ceremonial Execution</span>
+        <h2 class="section-title">The 6 Codified Steps of Every Cut &amp; Shave</h2>
+        <p class="section-desc">
+          Rooted in British horological discipline and Truefitt protocols, our ritual follows a meticulous sequential rhythm.
+        </p>
+      </div>
+
+      <div class="steps-container">
+        <div class="step-editorial-card">
+          <div class="step-seq">I</div>
+          <div class="step-name-col">
+            <h4>Master Consultation</h4>
+            <span>Step 01 &bull; Cranial Assessment</span>
+          </div>
+          <div class="step-desc-col">
+            Your master barber analyzes bone structure, crown whorl direction, hair density, and lifestyle requirements before a single scissor touches your hair.
+          </div>
+        </div>
+
+        <div class="step-editorial-card">
+          <div class="step-seq">II</div>
+          <div class="step-name-col">
+            <h4>Botanical Steamed Linen</h4>
+            <span>Step 02 &bull; Whisker Softening</span>
+          </div>
+          <div class="step-desc-col">
+            Application of 75&deg;C organic eucalyptus steamed linen wrap to open pores, soften stubborn follicle cuticles, and initiate deep cranial relaxation.
+          </div>
+        </div>
+
+        <div class="step-editorial-card">
+          <div class="step-seq">III</div>
+          <div class="step-name-col">
+            <h4>Solingen Scissor &amp; Razor Craft</h4>
+            <span>Step 03 &bull; Architectural Taper</span>
+          </div>
+          <div class="step-desc-col">
+            Shear-over-comb discipline and single-stroke straight razor perimeter sculpting, achieving smooth seamless weight transitions tailored to your head profile.
+          </div>
+        </div>
+
+        <div class="step-editorial-card">
+          <div class="step-seq">IV</div>
+          <div class="step-name-col">
+            <h4>Cranial Acupressure Massage</h4>
+            <span>Step 04 &bull; Restorative Relief</span>
+          </div>
+          <div class="step-desc-col">
+            A targeted 5-point scalp, neck, and shoulder acupressure sequence to release accumulated workday tension and stimulate healthy follicle micro-circulation.
+          </div>
+        </div>
+
+        <div class="step-editorial-card">
+          <div class="step-seq">V</div>
+          <div class="step-name-col">
+            <h4>Chilled Towel &amp; Witch Hazel</h4>
+            <span>Step 05 &bull; Pore Closure</span>
+          </div>
+          <div class="step-desc-col">
+            Chilled alabaster linen infused with natural witch hazel and tea tree tonic to seal skin pores, eradicate micro-irritation, and restore optimal epidermal balance.
+          </div>
+        </div>
+
+        <div class="step-editorial-card">
+          <div class="step-seq">VI</div>
+          <div class="step-name-col">
+            <h4>Bespoke Matte Styling</h4>
+            <span>Step 06 &bull; Scent Seal</span>
+          </div>
+          <div class="step-desc-col">
+            Blow-dried with precision airflow and finished with natural kaolin matte pomade, sealed with our signature sandalwood and bergamot gentleman's hair mist.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. THE MASTER BARBERS GUILD -->
+    <section class="barbers-about-section">
+      <div class="section-header-centered">
+        <span class="section-eyebrow">Artisan Guild</span>
+        <h2 class="section-title">Meet Our Master Bladesmiths</h2>
+        <p class="section-desc">
+          Five veteran barbers rigorously trained in Mayfair shear geometry, hot-linen straight-razor shaving, and client discretion.
+        </p>
+      </div>
+
+      <div class="barbers-preview-grid">
+        <div class="barber-preview-card">
+          <div class="barber-preview-img-wrap">
+            <img src="assets/barber_bramantyo.jpg" alt="Master Bramantyo Wardhana">
+          </div>
+          <div class="barber-preview-body">
+            <h4 class="barber-preview-name">Bramantyo W.</h4>
+            <span class="barber-preview-chair">Chair I &bull; Lead Bladesmith</span>
+          </div>
+        </div>
+
+        <div class="barber-preview-card">
+          <div class="barber-preview-img-wrap">
+            <img src="assets/barber_rian.jpg" alt="Master Rian Pratama">
+          </div>
+          <div class="barber-preview-body">
+            <h4 class="barber-preview-name">Rian Pratama</h4>
+            <span class="barber-preview-chair">Chair II &bull; Scissor Architect</span>
+          </div>
+        </div>
+
+        <div class="barber-preview-card">
+          <div class="barber-preview-img-wrap">
+            <img src="assets/barber_dimas.jpg" alt="Master Dimas Setiawan">
+          </div>
+          <div class="barber-preview-body">
+            <h4 class="barber-preview-name">Dimas Setiawan</h4>
+            <span class="barber-preview-chair">Chair III &bull; Razor Specialist</span>
+          </div>
+        </div>
+
+        <div class="barber-preview-card">
+          <div class="barber-preview-img-wrap">
+            <img src="assets/barber_farhan.jpg" alt="Master Farhan Akbar">
+          </div>
+          <div class="barber-preview-body">
+            <h4 class="barber-preview-name">Farhan Akbar</h4>
+            <span class="barber-preview-chair">Chair IV &bull; Beard Sculptor</span>
+          </div>
+        </div>
+
+        <div class="barber-preview-card">
+          <div class="barber-preview-img-wrap">
+            <img src="assets/barber_aldi.jpg" alt="Master Aldi Maulana">
+          </div>
+          <div class="barber-preview-body">
+            <h4 class="barber-preview-name">Aldi Maulana</h4>
+            <span class="barber-preview-chair">Chair V &bull; Junior Artisan</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. THE SANCTUARY AT KOTA BARU PARAHYANGAN -->
+    <section class="sanctuary-feature">
+      <div class="sanctuary-box">
+        <div class="sanctuary-info">
+          <span class="section-eyebrow">Strategic Location &bull; West Bandung</span>
+          <h3>The KBP Sanctuary: 7 Minutes from Whoosh Padalarang</h3>
+          <p>
+            Situated in the upscale commercial strip of Ruko PancaTengah, Greenwood Barbers provides seamless accessibility for residents of Kota Baru Parahyangan and executive travelers arriving via the Whoosh High-Speed Rail.
+          </p>
+
+          <div class="sanctuary-stats">
+            <div class="stat-pill">
+              <span class="stat-val">7 Min</span>
+              <span class="stat-lbl">From Whoosh Station</span>
+            </div>
+            <div class="stat-pill">
+              <span class="stat-val">5 Chairs</span>
+              <span class="stat-lbl">Private Belmont Apollo II</span>
+            </div>
+            <div class="stat-pill">
+              <span class="stat-val">100%</span>
+              <span class="stat-lbl">Cashless &amp; Guaranteed</span>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <a href="parlour.html" class="btn-primary">View Parlour Dossier &amp; Map &rarr;</a>
+            <a href="https://wa.me/6281288997721" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="border-color: var(--color-gold); color: #ffffff;">Contact Concierge</a>
+          </div>
+        </div>
+
+        <div class="sanctuary-media">
+          <img src="assets/sanctuary_lounge.jpg" alt="Greenwood Barbers Executive Lounge &amp; Chesterfield Sofas">
+        </div>
+      </div>
+
+      <!-- Cash Control Receipt Guarantee Policy Callout -->
+      <div class="cash-guarantee-block">
+        <span class="cash-guarantee-badge">CASH CONTROL POLICY &bull; RECEIPT GUARANTEE</span>
+        <div class="cash-guarantee-quote">&ldquo;A FREE HAIRCUT whenever you do not receive a proper receipt from us.&rdquo;</div>
+        <p class="cash-guarantee-sub">
+          We maintain absolute financial and operational transparency. All settlements are strictly cashless through QRIS Instant, Bank Transfer (BCA, Mandiri, BNI &amp; Major Banks), or In-Parlour EDC. Every gentleman receives a registered receipt serial code.
+        </p>
+      </div>
+
+      <!-- Action Reservation Bar -->
+      <div class="about-cta-bar">
+        <span class="section-eyebrow">Gentlemen's Reservation</span>
+        <h2 class="section-title">Secure Your Private Grooming Session</h2>
+        <p class="section-desc" style="max-width: 600px; margin: 0 auto 24px;">
+          Choose your ritual, select your preferred master bladesmith, pick your date and hour, and receive instant confirmation via WhatsApp concierge.
+        </p>
+        <a href="booking.html" class="btn-primary" style="padding: 16px 36px; font-size: 12px; letter-spacing: 2px;">
+          BOOK APPOINTMENT NOW &rarr;
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MINIMAL ROYAL MAYFAIR FOOTER -->
+  <footer>
+    <div class="footer-copy">
+      &copy; 2026 Greenwood Barbers. All rights reserved. Ruko PancaTengah, Kota Baru Parahyangan, West Bandung. Direct Concierge Hotline: +62 812-8899-7721 &bull; info@greenwoodbarbers.com.
+    </div>
+  </footer>
+
+  <!-- SHARED SPOTLIGHT MOUSE EFFECT & SCRIPTS -->
+  <div id="spotlightGlow"></div>
+
+  <script>
+    const glow = document.getElementById('spotlightGlow');
+    window.addEventListener('mousemove', (e) => {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+    });
+
+    function toggleMobileNav() {
+      document.getElementById('mobileNavOverlay').classList.toggle('active');
+    }
+    function closeMobileNav() {
+      document.getElementById('mobileNavOverlay').classList.remove('active');
+    }
+
+    // Purge lingering experience links if any
+    (function purgeLingering() {
+      document.querySelectorAll('a').forEach(function(el) {
+        var h = el.getAttribute('href') || '';
+        var t = (el.textContent || '').trim().toUpperCase();
+        if (h.includes('experience') || t.includes('EXPERIENCE')) {
+          el.remove();
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>
