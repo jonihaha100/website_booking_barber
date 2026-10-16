@@ -214,103 +214,222 @@
       .info-table-row {
         padding: 14px 16px;
       }
-    /* Photo Gallery Section */
-    .parlour-gallery-section {
-      padding: 60px 0 80px;
-      border-top: 1px solid var(--color-gold-hairline);
-      margin-top: 60px;
     }
+
+    /* ==========================================================================
+       PHOTO GALLERY COMPONENT (PRD Requirement 3.2 - Sanctuary Visual Dossier)
+       ========================================================================== */
+    .parlour-gallery-section {
+      padding: 70px 40px 90px;
+      border-top: 1px solid var(--color-gold-hairline);
+      background: radial-gradient(circle at 50% 0%, rgba(6, 40, 26, 0.35) 0%, rgba(3, 12, 8, 0.95) 75%);
+      position: relative;
+      z-index: 2;
+    }
+
     .gallery-header-block {
       text-align: center;
-      max-width: 680px;
-      margin: 0 auto 40px;
+      max-width: 760px;
+      margin: 0 auto 44px;
     }
+
     .gallery-eyebrow {
       font-size: 11px;
       letter-spacing: 2.8px;
       text-transform: uppercase;
       color: var(--color-gold-bright);
       font-weight: 700;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
       display: inline-block;
     }
+
     .gallery-title {
       font-family: var(--font-serif);
-      font-size: 32px;
+      font-size: 38px;
       color: #ffffff;
-      margin: 0 0 12px;
+      margin: 0 0 14px;
       letter-spacing: 0.5px;
+      line-height: 1.25;
+      font-weight: 500;
     }
+
     .gallery-desc {
-      font-size: 14px;
+      font-size: 14.5px;
       color: var(--text-muted);
-      line-height: 1.6;
-      margin: 0;
+      line-height: 1.65;
+      margin: 0 auto;
+      font-weight: 300;
     }
+
+    .gallery-divider {
+      width: 48px;
+      height: 1px;
+      background: var(--color-gold);
+      margin: 18px auto 0;
+      opacity: 0.7;
+    }
+
     .parlour-gallery-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: 24px;
     }
+
     .gallery-card {
-      background: rgba(10, 31, 21, 0.6);
-      border: 1px solid rgba(197, 155, 72, 0.16);
+      background: linear-gradient(165deg, rgba(10, 31, 21, 0.75) 0%, rgba(5, 17, 11, 0.92) 100%);
+      border: 1px solid rgba(197, 155, 72, 0.18);
       border-radius: 6px;
       overflow: hidden;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
       display: flex;
       flex-direction: column;
+      box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.6);
     }
+
     .gallery-card:hover {
-      border-color: rgba(226, 190, 108, 0.4);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+      border-color: rgba(226, 190, 108, 0.45);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(226, 190, 108, 0.15);
     }
+
     .gallery-thumb-wrap {
-      height: 220px;
-      overflow: hidden;
       position: relative;
+      width: 100%;
+      height: 230px;
+      overflow: hidden;
       background: #020704;
     }
+
+    .gallery-thumb-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(3, 12, 8, 0) 55%, rgba(3, 12, 8, 0.8) 100%);
+      pointer-events: none;
+    }
+
     .gallery-thumb {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.5s ease;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
     .gallery-card:hover .gallery-thumb {
-      transform: scale(1.04);
+      transform: scale(1.05);
     }
+
     .gallery-card-body {
-      padding: 16px 20px;
-      background: rgba(3, 12, 8, 0.85);
-      border-top: 1px solid rgba(197, 155, 72, 0.1);
+      padding: 18px 22px 20px;
+      background: rgba(3, 12, 8, 0.88);
+      border-top: 1px solid rgba(197, 155, 72, 0.12);
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
     }
+
+    .gallery-card-badge {
+      font-size: 9.5px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      font-weight: 700;
+      margin-bottom: 6px;
+      display: inline-block;
+    }
+
     .gallery-card-title {
       font-family: var(--font-serif);
-      font-size: 17px;
+      font-size: 18px;
       color: #ffffff;
-      margin: 0 0 4px;
+      margin: 0 0 6px;
       font-weight: 500;
+      line-height: 1.35;
     }
+
     .gallery-card-sub {
-      font-size: 12px;
+      font-size: 12.5px;
       color: var(--text-muted);
       margin: 0;
-      line-height: 1.4;
+      line-height: 1.55;
+      font-weight: 300;
     }
-    @media (max-width: 900px) {
+
+    /* Bottom Sanctuary CTA Strip */
+    .gallery-bottom-cta {
+      margin-top: 48px;
+      padding: 32px 36px;
+      background: linear-gradient(135deg, rgba(10, 31, 21, 0.85) 0%, rgba(5, 17, 11, 0.95) 100%);
+      border: 1px solid rgba(197, 155, 72, 0.25);
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .gallery-cta-text h3 {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      color: #ffffff;
+      margin: 0 0 6px;
+      font-weight: 500;
+    }
+
+    .gallery-cta-text p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .gallery-cta-actions {
+      display: flex;
+      gap: 14px;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 960px) {
       .parlour-gallery-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+      .gallery-bottom-cta {
+        flex-direction: column;
+        text-align: center;
+        padding: 28px 24px;
+      }
+      .gallery-cta-actions {
+        width: 100%;
+        justify-content: center;
       }
     }
-    @media (max-width: 580px) {
+
+    @media (max-width: 600px) {
+      .parlour-gallery-section {
+        padding: 50px 20px 70px;
+      }
       .parlour-gallery-grid {
         grid-template-columns: 1fr;
+        gap: 18px;
       }
       .gallery-thumb-wrap {
-        height: 200px;
+        height: 210px;
+      }
+      .gallery-title {
+        font-size: 28px;
+      }
+      .gallery-cta-actions {
+        flex-direction: column;
+        width: 100%;
+      }
+      .gallery-cta-actions a {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
       }
     }
   </style>
@@ -485,85 +604,106 @@
         </article>
 
       </div>
+    </div>
+  </section>
 
-      <!-- PHOTO GALLERY COMPONENT (PRD Requirement 3.2) -->
-      <section class="parlour-gallery-section">
-        <div class="gallery-header-block">
-          <span class="gallery-eyebrow">Visual Dossier &bull; Sanctuary Atmosphere</span>
-          <h2 class="gallery-title">The Greenwood Atmosphere &amp; Interior</h2>
-          <p class="gallery-desc">
-            A visual overview of our acoustic grooming sanctuary, Belmont Apollo II thrones, and disciplined Mayfair barbering craft at Kota Baru Parahyangan.
-          </p>
-        </div>
+  <!-- PHOTO GALLERY COMPONENT (PRD Requirement 3.2: Sanctuary Atmosphere & Interior) -->
+  <section class="parlour-gallery-section">
+    <div class="container-wide">
+      <div class="gallery-header-block">
+        <span class="gallery-eyebrow">Visual Dossier &bull; Sanctuary Atmosphere</span>
+        <h2 class="gallery-title">The Greenwood Atmosphere &amp; Interior</h2>
+        <p class="gallery-desc">
+          An intimate glance inside our acoustic grooming sanctuary, Takara Belmont Apollo II workstations, and disciplined Mayfair barbering craft at Kota Baru Parahyangan.
+        </p>
+        <div class="gallery-divider"></div>
+      </div>
 
-        <div class="parlour-gallery-grid">
-          <!-- Gallery 1 -->
-          <div class="gallery-card">
-            <div class="gallery-thumb-wrap">
-              <img src="assets/parlour_real_sanctuary.jpg" alt="Authentic Sanctuary Workstations" class="gallery-thumb" loading="lazy">
-            </div>
-            <div class="gallery-card-body">
-              <h3 class="gallery-card-title">Belmont Hydraulic Stations</h3>
-              <p class="gallery-card-sub">Private workstation zoning with ergonomic spinal support.</p>
-            </div>
+      <div class="parlour-gallery-grid">
+        <!-- Gallery Card 1 -->
+        <div class="gallery-card">
+          <div class="gallery-thumb-wrap">
+            <img src="assets/parlour_real_sanctuary.jpg" alt="Authentic Sanctuary Workstations" class="gallery-thumb" loading="lazy">
           </div>
-
-          <!-- Gallery 2 -->
-          <div class="gallery-card">
-            <div class="gallery-thumb-wrap">
-              <img src="assets/sanctuary_lounge.jpg" alt="Executive Chesterfield Lounge" class="gallery-thumb" loading="lazy">
-            </div>
-            <div class="gallery-card-body">
-              <h3 class="gallery-card-title">Chesterfield Executive Lounge</h3>
-              <p class="gallery-card-sub">Acoustic dampening, curated reading, and lounge hospitality.</p>
-            </div>
-          </div>
-
-          <!-- Gallery 3 -->
-          <div class="gallery-card">
-            <div class="gallery-thumb-wrap">
-              <img src="assets/home_hero_ritual.jpg" alt="Mayfair Grooming Ritual" class="gallery-thumb" loading="lazy">
-            </div>
-            <div class="gallery-card-body">
-              <h3 class="gallery-card-title">Steamed Eucalyptus Linens</h3>
-              <p class="gallery-card-sub">Hot herbal towel wraps to open cuticles and relieve stress.</p>
-            </div>
-          </div>
-
-          <!-- Gallery 4 -->
-          <div class="gallery-card">
-            <div class="gallery-thumb-wrap">
-              <img src="assets/tools_artisan.jpg" alt="Solingen Carbon Steel Shears" class="gallery-thumb" loading="lazy">
-            </div>
-            <div class="gallery-card-body">
-              <h3 class="gallery-card-title">Autoclaved Solingen Steel</h3>
-              <p class="gallery-card-sub">German carbon-steel shears and hospital-grade UV sterilization.</p>
-            </div>
-          </div>
-
-          <!-- Gallery 5 -->
-          <div class="gallery-card">
-            <div class="gallery-thumb-wrap">
-              <img src="assets/service_haircut.jpg" alt="Precision Haircut Architecture" class="gallery-thumb" loading="lazy">
-            </div>
-            <div class="gallery-card-body">
-              <h3 class="gallery-card-title">Architectural Scissor Geometry</h3>
-              <p class="gallery-card-sub">Unhurried 45-minute taper tailored to individual bone structure.</p>
-            </div>
-          </div>
-
-          <!-- Gallery 6 -->
-          <div class="gallery-card">
-            <div class="gallery-thumb-wrap">
-              <img src="assets/service_shave.jpg" alt="Traditional Straight Razor Wet Shave" class="gallery-thumb" loading="lazy">
-            </div>
-            <div class="gallery-card-body">
-              <h3 class="gallery-card-title">Ceremonial Straight Razor</h3>
-              <p class="gallery-card-sub">Single-use surgical blades and soothing sandalwood balm finish.</p>
-            </div>
+          <div class="gallery-card-body">
+            <span class="gallery-card-badge">STATION ZERO 01</span>
+            <h3 class="gallery-card-title">Belmont Hydraulic Stations</h3>
+            <p class="gallery-card-sub">Private workstation zoning with ergonomic spinal support and acoustic partition seclusion.</p>
           </div>
         </div>
-      </section>
+
+        <!-- Gallery Card 2 -->
+        <div class="gallery-card">
+          <div class="gallery-thumb-wrap">
+            <img src="assets/sanctuary_lounge.jpg" alt="Executive Chesterfield Lounge" class="gallery-thumb" loading="lazy">
+          </div>
+          <div class="gallery-card-body">
+            <span class="gallery-card-badge">THE RETREAT</span>
+            <h3 class="gallery-card-title">Chesterfield Executive Lounge</h3>
+            <p class="gallery-card-sub">Acoustic dampening, curated heritage reading, and discreet lounge hospitality.</p>
+          </div>
+        </div>
+
+        <!-- Gallery Card 3 -->
+        <div class="gallery-card">
+          <div class="gallery-thumb-wrap">
+            <img src="assets/hero_barbershop.jpg" alt="Kota Baru Parahyangan Parlour Ambiance" class="gallery-thumb" loading="lazy">
+          </div>
+          <div class="gallery-card-body">
+            <span class="gallery-card-badge">HAVEN &bull; KBP</span>
+            <h3 class="gallery-card-title">Sanctuary Spatial Ambiance</h3>
+            <p class="gallery-card-sub">Warm amber lighting and British heritage woodwork situated at Ruko PancaTengah.</p>
+          </div>
+        </div>
+
+        <!-- Gallery Card 4 -->
+        <div class="gallery-card">
+          <div class="gallery-thumb-wrap">
+            <img src="assets/tools_artisan.jpg" alt="Autoclaved Solingen Carbon Steel Shears" class="gallery-thumb" loading="lazy">
+          </div>
+          <div class="gallery-card-body">
+            <span class="gallery-card-badge">SURGICAL DISCIPLINE</span>
+            <h3 class="gallery-card-title">Autoclaved Solingen Steel</h3>
+            <p class="gallery-card-sub">German carbon-steel shears, individual UV disinfection, and medical hygiene standard.</p>
+          </div>
+        </div>
+
+        <!-- Gallery Card 5 -->
+        <div class="gallery-card">
+          <div class="gallery-thumb-wrap">
+            <img src="assets/service_haircut.jpg" alt="Architectural Scissor Geometry" class="gallery-thumb" loading="lazy">
+          </div>
+          <div class="gallery-card-body">
+            <span class="gallery-card-badge">HAIRCUT ARCHITECTURE</span>
+            <h3 class="gallery-card-title">Architectural Scissor Taper</h3>
+            <p class="gallery-card-sub">Unhurried 45-minute taper tailored precisely to individual cranial and bone profile.</p>
+          </div>
+        </div>
+
+        <!-- Gallery Card 6 -->
+        <div class="gallery-card">
+          <div class="gallery-thumb-wrap">
+            <img src="assets/service_shave.jpg" alt="Traditional Straight Razor Wet Shave" class="gallery-thumb" loading="lazy">
+          </div>
+          <div class="gallery-card-body">
+            <span class="gallery-card-badge">RITUAL SHAVING</span>
+            <h3 class="gallery-card-title">Ceremonial Straight Razor</h3>
+            <p class="gallery-card-sub">Single-use surgical blades, steamed eucalyptus towels, and soothing sandalwood balm finish.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Reservation Callout -->
+      <div class="gallery-bottom-cta">
+        <div class="gallery-cta-text">
+          <h3>Reserve Your Chair at The Parlour</h3>
+          <p>Experience disciplined Mayfair grooming in Kota Baru Parahyangan. Strict by-appointment reservations guarantee zero waiting time.</p>
+        </div>
+        <div class="gallery-cta-actions">
+          <a href="booking.html" class="btn-primary">Reserve Appointment &rarr;</a>
+          <a href="https://maps.google.com/?q=Kota+Baru+Parahyangan+Padalarang" target="_blank" rel="noopener" class="btn-outline">Open in Maps &nearr;</a>
+        </div>
+      </div>
 
     </div>
   </section>
