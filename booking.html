@@ -427,6 +427,14 @@
       gap: 16px;
       flex-wrap: wrap;
     }
+    .pass-brand-logo {
+      height: 32px;
+      width: auto;
+      max-width: 170px;
+      object-fit: contain;
+      margin-bottom: 6px;
+      display: block;
+    }
     .pass-type {
       font-size: 10px;
       letter-spacing: 2px;
@@ -476,6 +484,28 @@
       border-bottom: none;
       padding-top: 14px;
       font-size: 15px;
+    }
+    .pass-footer {
+      background: rgba(3, 12, 8, 0.95);
+      border-top: 1px dashed rgba(197, 155, 72, 0.2);
+      padding: 16px 24px;
+      text-align: center;
+    }
+    .pass-footer-notice {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 6px;
+      font-weight: 300;
+    }
+    .pass-footer-notice strong {
+      color: var(--color-gold-bright);
+      font-weight: 600;
+    }
+    .pass-footer-meta {
+      font-size: 10.5px;
+      color: rgba(190, 181, 165, 0.7);
+      letter-spacing: 0.5px;
     }
     .success-actions-row {
       display: flex;
@@ -1853,6 +1883,264 @@
         border-top: 1px dashed rgba(197, 155, 72, 0.18);
       }
     }
+
+    /* ==========================================================================
+       OFFICIAL PRINT & PDF OUTPUT STYLESHEET (A4 Single-Page Voucher Standard)
+       ========================================================================== */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 10mm 15mm;
+      }
+
+      /* 1. Global Reset for Printing */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box !important;
+        text-shadow: none !important;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+      }
+
+      html, body {
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        color: #111111 !important;
+        font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+        font-size: 13px !important;
+        line-height: 1.5 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      /* 2. Hide ALL website chrome, headers, steppers, footers, forms, and interactive buttons */
+      header,
+      footer,
+      nav,
+      .main-nav,
+      .brand-wrap,
+      .header-cta-group,
+      .mobile-nav-overlay,
+      .menu-toggle-btn,
+      .page-hero,
+      .breadcrumbs,
+      .page-eyebrow,
+      .booking-header,
+      .booking-main-title,
+      .booking-subtitle,
+      .chicago-stepper,
+      .panel-header-block,
+      #confirmationReviewCard,
+      #bookingSubmissionForm,
+      .flow-panel:not(#panelStep4),
+      #panelStep1,
+      #panelStep2,
+      #panelStep3,
+      .success-actions-row,
+      .success-seal-wrap,
+      .success-title,
+      .success-sub,
+      .info-modal-backdrop,
+      #spotlightGlow {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+      }
+
+      /* 3. Container resets */
+      main,
+      .booking-wrapper,
+      .booking-grid,
+      .flow-panels-container,
+      #panelStep4,
+      .payment-panel,
+      #bookingSuccessScreen {
+        display: block !important;
+        background: transparent !important;
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+
+      /* 4. Luxury Pass Card - Single Page A4 Guarantee */
+      .official-pass-card {
+        display: block !important;
+        max-width: 660px !important;
+        margin: 8px auto 0 !important;
+        background: #ffffff !important;
+        border: 2px solid #063827 !important;
+        border-radius: 8px !important;
+        overflow: hidden !important;
+        box-shadow: none !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        page-break-after: avoid !important;
+      }
+
+      .pass-header {
+        background: #063827 !important;
+        color: #ffffff !important;
+        border-bottom: 2px solid #c59b48 !important;
+        padding: 16px 24px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 16px !important;
+        flex-wrap: nowrap !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .pass-brand-logo {
+        display: block !important;
+        height: 36px !important;
+        width: auto !important;
+        margin-bottom: 6px !important;
+      }
+
+      .conf-code-label {
+        font-size: 9.5px !important;
+        letter-spacing: 1.8px !important;
+        color: #e2be6c !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        display: block !important;
+      }
+
+      .pass-type {
+        font-size: 11px !important;
+        letter-spacing: 2.2px !important;
+        color: #ffffff !important;
+        font-weight: 800 !important;
+        text-transform: uppercase !important;
+        display: block !important;
+        margin-top: 3px !important;
+      }
+
+      .pass-code-block {
+        text-align: right !important;
+        flex-shrink: 0 !important;
+      }
+
+      .pass-code-label {
+        font-size: 9px !important;
+        letter-spacing: 1.5px !important;
+        color: rgba(255, 255, 255, 0.8) !important;
+        text-transform: uppercase !important;
+        display: block !important;
+      }
+
+      .pass-code-val {
+        font-family: 'Cormorant Garamond', Georgia, serif !important;
+        font-size: 24px !important;
+        color: #e2be6c !important;
+        font-weight: 700 !important;
+        letter-spacing: 1.5px !important;
+        display: block !important;
+      }
+
+      .pass-body {
+        padding: 16px 24px 12px !important;
+        background: #ffffff !important;
+      }
+
+      .pass-row {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 8px 0 !important;
+        border-bottom: 1px solid #e5dec9 !important;
+        font-size: 13px !important;
+      }
+
+      .pass-label {
+        color: #555044 !important;
+        font-size: 11.5px !important;
+        font-weight: 600 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.8px !important;
+      }
+
+      .pass-val {
+        color: #111111 !important;
+        font-weight: 700 !important;
+        font-size: 13.5px !important;
+        text-align: right !important;
+      }
+
+      .pass-val strong {
+        color: #111111 !important;
+        font-weight: 700 !important;
+      }
+
+      .pass-total-row {
+        background: #f7f3e8 !important;
+        border: 1.5px solid #c59b48 !important;
+        border-radius: 6px !important;
+        padding: 11px 18px !important;
+        margin-top: 12px !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .pass-total-label {
+        color: #063827 !important;
+        font-size: 12px !important;
+        font-weight: 800 !important;
+        letter-spacing: 1.2px !important;
+        text-transform: uppercase !important;
+      }
+
+      .pass-total-val {
+        color: #063827 !important;
+        font-size: 20px !important;
+        font-weight: 800 !important;
+      }
+
+      .pass-footer {
+        background: #fdfbf7 !important;
+        border-top: 1px dashed #c59b48 !important;
+        padding: 12px 22px !important;
+        text-align: center !important;
+        font-size: 11px !important;
+        color: #4a453d !important;
+        line-height: 1.5 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .pass-footer-notice {
+        font-size: 11px !important;
+        color: #4a453d !important;
+        margin-bottom: 5px !important;
+        line-height: 1.4 !important;
+      }
+
+      .pass-footer-notice strong {
+        color: #063827 !important;
+      }
+
+      .pass-footer-meta {
+        font-size: 9.5px !important;
+        letter-spacing: 0.8px !important;
+        color: #7a7265 !important;
+        text-transform: uppercase !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -2514,7 +2802,8 @@
               <!-- Official Reservation Pass Card -->
               <div class="official-pass-card">
                 <div class="pass-header">
-                  <div>
+                  <div class="pass-header-brand">
+                    <img src="assets/greenwood_logo_transparent.png" alt="Greenwood Barbers" class="pass-brand-logo">
                     <span class="conf-code-label">GREENWOOD BARBERS &bull; PRIVATE CHAIR PASS</span>
                     <span class="pass-type">OFFICIAL RESERVATION PASS</span>
                   </div>
@@ -2557,11 +2846,24 @@
                     <strong class="pass-total-val" id="successTotal">Rp 0</strong>
                   </div>
                 </div>
+                <div class="pass-footer">
+                  <div class="pass-footer-notice">
+                    <strong>Sanctuary Arrival Notice:</strong>
+                    Please present this official booking pass or reservation reference code upon arrival at Ruko PancaTengah, Kota Baru Parahyangan. Strictly by appointment to guarantee an unhurried chair experience with zero waiting queue.
+                  </div>
+                  <div class="pass-footer-meta">
+                    <span>Direct Concierge Hotline: +62 812-8899-7721</span>
+                    <span>&bull;</span>
+                    <span>info@greenwoodbarbers.com</span>
+                    <span>&bull;</span>
+                    <span>Padalarang, West Bandung</span>
+                  </div>
+                </div>
               </div>
 
               <!-- Action Buttons -->
               <div class="success-actions-row">
-                <button type="button" class="btn-dossier-action" onclick="window.print()" style="flex: 1; min-width: 170px; background: transparent; color: #ffffff; border: 1px solid var(--color-gold);">
+                <button type="button" class="btn-dossier-action" onclick="printPass()" style="flex: 1; min-width: 170px; background: transparent; color: #ffffff; border: 1px solid var(--color-gold);">
                   <span>&#128424;</span> Print / Save Pass
                 </button>
                 <button type="button" class="btn-dossier-action" onclick="resetBookingFlow()" style="flex: 1; min-width: 190px;">
@@ -3072,13 +3374,20 @@
       if (reviewCard) reviewCard.style.display = 'none';
       if (successScreen) {
         successScreen.style.display = 'block';
+        document.body.classList.add('has-confirmed-pass');
         successScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
 
       // NOTE: Strictly adheres to PRD: No redirect to wa.me or WhatsApp Web is executed!
     }
 
+    function printPass() {
+      document.body.classList.add('has-confirmed-pass');
+      window.print();
+    }
+
     function resetBookingFlow() {
+      document.body.classList.remove('has-confirmed-pass');
       // Clear form
       const form = document.getElementById('bookingSubmissionForm');
       if (form) form.reset();

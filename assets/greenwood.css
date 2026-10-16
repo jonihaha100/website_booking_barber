@@ -477,8 +477,15 @@ footer {
   letter-spacing: 0.2px;
 }
 
-
-
+/* ==========================================================================
+   GLOBAL PRINT CLEANUP
+   ========================================================================== */
+@media print {
+  header, footer, nav, .main-nav, .brand-wrap, .header-cta-group, .menu-toggle-btn, .mobile-nav-overlay, #spotlightGlow {
+    display: none !important;
+    visibility: hidden !important;
+  }
+}
 
 /* ==========================================================================
    RESPONSIVE DESIGN SYSTEM (MOBILE, TABLET, IPAD & DESKTOP ERGONOMICS)
