@@ -214,8 +214,103 @@
       .info-table-row {
         padding: 14px 16px;
       }
-      .table-box-actions {
-        padding: 14px 16px;
+    /* Photo Gallery Section */
+    .parlour-gallery-section {
+      padding: 60px 0 80px;
+      border-top: 1px solid var(--color-gold-hairline);
+      margin-top: 60px;
+    }
+    .gallery-header-block {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 40px;
+    }
+    .gallery-eyebrow {
+      font-size: 11px;
+      letter-spacing: 2.8px;
+      text-transform: uppercase;
+      color: var(--color-gold-bright);
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+    .gallery-title {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      color: #ffffff;
+      margin: 0 0 12px;
+      letter-spacing: 0.5px;
+    }
+    .gallery-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+    .parlour-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .gallery-card {
+      background: rgba(10, 31, 21, 0.6);
+      border: 1px solid rgba(197, 155, 72, 0.16);
+      border-radius: 6px;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+    }
+    .gallery-card:hover {
+      border-color: rgba(226, 190, 108, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    }
+    .gallery-thumb-wrap {
+      height: 220px;
+      overflow: hidden;
+      position: relative;
+      background: #020704;
+    }
+    .gallery-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .gallery-card:hover .gallery-thumb {
+      transform: scale(1.04);
+    }
+    .gallery-card-body {
+      padding: 16px 20px;
+      background: rgba(3, 12, 8, 0.85);
+      border-top: 1px solid rgba(197, 155, 72, 0.1);
+    }
+    .gallery-card-title {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      color: #ffffff;
+      margin: 0 0 4px;
+      font-weight: 500;
+    }
+    .gallery-card-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin: 0;
+      line-height: 1.4;
+    }
+    @media (max-width: 900px) {
+      .parlour-gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 580px) {
+      .parlour-gallery-grid {
+        grid-template-columns: 1fr;
+      }
+      .gallery-thumb-wrap {
+        height: 200px;
       }
     }
   </style>
@@ -279,7 +374,7 @@
             <span class="parlour-media-badge">FLAGSHIP SANCTUARY &bull; KOTA BARU PARAHYANGAN</span>
           </div>
 
-          <!-- Table Header Bar (Exact match to Book Appointment category header) -->
+          <!-- Table Header Bar -->
           <div class="table-box-header">
             <div class="table-box-title-wrap">
               <h2 class="table-box-title">Establishment Blueprint</h2>
@@ -289,10 +384,10 @@
 
           <!-- Editorial Intro Note -->
           <div class="table-box-intro">
-            Greenwood Barbers Kota Baru Parahyangan was established to provide discerning gentlemen with an authentic British grooming experience—unhurried discipline, surgical razor sharpness, and acoustic tranquility without the need to travel into downtown Jakarta.
+            A quiet gentlemen's haven in Kota Baru Parahyangan: unhurried chair time, surgical hygiene discipline, and acoustic seclusion.
           </div>
 
-          <!-- Information Table Rows -->
+          <!-- Information Table Rows (Condensed & Scannable) -->
           <div class="table-rows-list">
             <div class="info-table-row">
               <div class="info-row-label">Civic Address</div>
@@ -306,7 +401,7 @@
               <div class="info-row-label">Operating Hours</div>
               <div class="info-row-content">
                 <strong>Monday &ndash; Sunday: 10:00 &ndash; 22:00 WIB</strong>
-                <p>Strict By Appointment &bull; Guaranteed chair seating without unmanaged waiting queues.</p>
+                <p>Strict by appointment &bull; Guaranteed chair seating, zero waiting queue.</p>
               </div>
             </div>
 
@@ -314,15 +409,15 @@
               <div class="info-row-label">Concierge Desk</div>
               <div class="info-row-content">
                 <strong><a href="tel:+6281288997721">+62 812-8899-7721</a></strong> &bull; <a href="mailto:info@greenwoodbarbers.com">info@greenwoodbarbers.com</a>
-                <p>Direct WhatsApp reservation &amp; personalized master barber allocation desk.</p>
+                <p>Direct WhatsApp reservation &amp; personalized barber allocation.</p>
               </div>
             </div>
 
             <div class="info-table-row">
-              <div class="info-row-label">Cashless &amp; Policy</div>
+              <div class="info-row-label">Settlement</div>
               <div class="info-row-content">
-                <strong>QRIS, Debit, Credit Card &amp; Bank Transfer</strong>
-                <p><strong>Receipt Guarantee:</strong> A complimentary haircut whenever you do not receive an official registered electronic register receipt.</p>
+                <strong>QRIS, Bank Transfer &amp; In-Parlour EDC</strong>
+                <p>100% cashless transactions with registered electronic receipts.</p>
               </div>
             </div>
           </div>
@@ -345,16 +440,16 @@
 
           <!-- Editorial Intro Note -->
           <div class="table-box-intro">
-            Strategically positioned at the gateway of Kota Baru Parahyangan, just 7 minutes from the Whoosh High-Speed Rail hub. Created for regional residents, visiting executives, and daily Jakarta&ndash;Bandung commuters.
+            Strategically located at the gateway of Kota Baru Parahyangan, just 7 minutes from Whoosh High-Speed Rail.
           </div>
 
-          <!-- Transit & Amenities Table Rows -->
+          <!-- Transit & Amenities Table Rows (Condensed & Scannable) -->
           <div class="table-rows-list">
             <div class="info-table-row">
               <div class="info-row-label">High-Speed Rail</div>
               <div class="info-row-content">
-                <strong>7 Minutes from Whoosh Padalarang Station</strong>
-                <p>28-minute express link to/from Halim Jakarta. Ideal for executive appointments before meetings or upon returning.</p>
+                <strong>7 Minutes from Whoosh Padalarang</strong>
+                <p>28-minute express link to/from Halim Jakarta.</p>
               </div>
             </div>
 
@@ -362,31 +457,23 @@
               <div class="info-row-label">Highway Access</div>
               <div class="info-row-content">
                 <strong>Direct Padalarang Timur Tollway</strong>
-                <p>Effortless ingress and egress via the primary Kota Baru Parahyangan arterial boulevard.</p>
+                <p>Effortless access via Kota Baru Parahyangan main boulevard.</p>
               </div>
             </div>
 
             <div class="info-table-row">
               <div class="info-row-label">Dedicated Parking</div>
               <div class="info-row-content">
-                <strong>Executive Parking directly in front of Parlour</strong>
-                <p>Spacious, secure dedicated bay parking with on-site building security personnel.</p>
+                <strong>Private Executive Parking Bays</strong>
+                <p>Spacious bays directly in front of parlour with on-site security.</p>
               </div>
             </div>
 
             <div class="info-table-row">
-              <div class="info-row-label">Private Hospitality</div>
+              <div class="info-row-label">Chairs &amp; Comfort</div>
               <div class="info-row-content">
-                <strong>Private Audio Zoning &amp; Complimentary Beverage</strong>
-                <p>Curated acoustic dampening, single-malt pour, Sumatran drip coffee, and chilled sparkling water.</p>
-              </div>
-            </div>
-
-            <div class="info-table-row">
-              <div class="info-row-label">Master Stations</div>
-              <div class="info-row-content">
-                <strong>Takara Belmont Apollo II Heavy Hydraulic Chairs</strong>
-                <p>Full recline capability for hot towel shaves and cranial massage rituals with maximum spinal support.</p>
+                <strong>Takara Belmont Apollo II Hydraulic Chairs</strong>
+                <p>Full ergonomic recline for cuts, shaves, and scalp massage.</p>
               </div>
             </div>
           </div>
@@ -398,6 +485,86 @@
         </article>
 
       </div>
+
+      <!-- PHOTO GALLERY COMPONENT (PRD Requirement 3.2) -->
+      <section class="parlour-gallery-section">
+        <div class="gallery-header-block">
+          <span class="gallery-eyebrow">Visual Dossier &bull; Sanctuary Atmosphere</span>
+          <h2 class="gallery-title">The Greenwood Atmosphere &amp; Interior</h2>
+          <p class="gallery-desc">
+            A visual overview of our acoustic grooming sanctuary, Belmont Apollo II thrones, and disciplined Mayfair barbering craft at Kota Baru Parahyangan.
+          </p>
+        </div>
+
+        <div class="parlour-gallery-grid">
+          <!-- Gallery 1 -->
+          <div class="gallery-card">
+            <div class="gallery-thumb-wrap">
+              <img src="assets/parlour_real_sanctuary.jpg" alt="Authentic Sanctuary Workstations" class="gallery-thumb" loading="lazy">
+            </div>
+            <div class="gallery-card-body">
+              <h3 class="gallery-card-title">Belmont Hydraulic Stations</h3>
+              <p class="gallery-card-sub">Private workstation zoning with ergonomic spinal support.</p>
+            </div>
+          </div>
+
+          <!-- Gallery 2 -->
+          <div class="gallery-card">
+            <div class="gallery-thumb-wrap">
+              <img src="assets/sanctuary_lounge.jpg" alt="Executive Chesterfield Lounge" class="gallery-thumb" loading="lazy">
+            </div>
+            <div class="gallery-card-body">
+              <h3 class="gallery-card-title">Chesterfield Executive Lounge</h3>
+              <p class="gallery-card-sub">Acoustic dampening, curated reading, and lounge hospitality.</p>
+            </div>
+          </div>
+
+          <!-- Gallery 3 -->
+          <div class="gallery-card">
+            <div class="gallery-thumb-wrap">
+              <img src="assets/home_hero_ritual.jpg" alt="Mayfair Grooming Ritual" class="gallery-thumb" loading="lazy">
+            </div>
+            <div class="gallery-card-body">
+              <h3 class="gallery-card-title">Steamed Eucalyptus Linens</h3>
+              <p class="gallery-card-sub">Hot herbal towel wraps to open cuticles and relieve stress.</p>
+            </div>
+          </div>
+
+          <!-- Gallery 4 -->
+          <div class="gallery-card">
+            <div class="gallery-thumb-wrap">
+              <img src="assets/tools_artisan.jpg" alt="Solingen Carbon Steel Shears" class="gallery-thumb" loading="lazy">
+            </div>
+            <div class="gallery-card-body">
+              <h3 class="gallery-card-title">Autoclaved Solingen Steel</h3>
+              <p class="gallery-card-sub">German carbon-steel shears and hospital-grade UV sterilization.</p>
+            </div>
+          </div>
+
+          <!-- Gallery 5 -->
+          <div class="gallery-card">
+            <div class="gallery-thumb-wrap">
+              <img src="assets/service_haircut.jpg" alt="Precision Haircut Architecture" class="gallery-thumb" loading="lazy">
+            </div>
+            <div class="gallery-card-body">
+              <h3 class="gallery-card-title">Architectural Scissor Geometry</h3>
+              <p class="gallery-card-sub">Unhurried 45-minute taper tailored to individual bone structure.</p>
+            </div>
+          </div>
+
+          <!-- Gallery 6 -->
+          <div class="gallery-card">
+            <div class="gallery-thumb-wrap">
+              <img src="assets/service_shave.jpg" alt="Traditional Straight Razor Wet Shave" class="gallery-thumb" loading="lazy">
+            </div>
+            <div class="gallery-card-body">
+              <h3 class="gallery-card-title">Ceremonial Straight Razor</h3>
+              <p class="gallery-card-sub">Single-use surgical blades and soothing sandalwood balm finish.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
   </section>
 
