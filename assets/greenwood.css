@@ -4,23 +4,28 @@
    ========================================================================== */
 
 :root {
-  /* Approved Model No. 1 Royal Mayfair Color Palette */
+  /* Canonical 5-Color Palette per Client PRD */
+  --bg-dark: #030c08;
   --bg-obsidian: #030c08;
   --bg-forest: #06150e;
   --bg-card: #091c13;
+  --card-bg: #091c13;
+  --card-border: rgba(197, 155, 72, 0.22);
   --bg-card-hover: #0e2b1d;
   --bg-card-selected: #113525;
-  --bg-input: #041009;
+  --bg-input: #020704;
 
-  --color-brand-emerald: #063827;
   --color-gold: #c59b48;
+  --accent-gold: #c59b48;
   --color-gold-bright: #e2be6c;
-  --color-gold-hairline: rgba(197, 155, 72, 0.16);
+  --accent-gold-bright: #e2be6c;
+  --color-gold-hairline: rgba(197, 155, 72, 0.18);
   --color-gold-soft: rgba(197, 155, 72, 0.08);
 
   --text-white: #ffffff;
-  --text-cream: #f7f2e7;
-  --text-muted: #beb5a5;
+  --text-main: #f5f4ef;
+  --text-cream: #f5f4ef;
+  --text-muted: #c2cac3; /* High contrast >= 4.5:1 against dark bg */
 
   --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
@@ -33,7 +38,7 @@
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-gold-bright) !important;
+  outline: 2px solid var(--accent-gold-bright) !important;
   outline-offset: 3px !important;
 }
 
@@ -42,10 +47,10 @@ html {
 }
 
 body {
-  background-color: var(--bg-obsidian);
-  color: var(--text-cream);
+  background-color: var(--bg-dark);
+  color: var(--text-main);
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;

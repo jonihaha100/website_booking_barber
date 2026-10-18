@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <title>Contact Us &bull; Kontak &amp; Lokasi | Greenwood Barbers &bull; Kota Baru Parahyangan</title>
+  <meta name="description" content="Kunjungi Greenwood Barbers di Ruko PancaTengah, Kota Baru Parahyangan, Padalarang, Bandung Barat. 7 menit dari Stasiun Whoosh Padalarang. Reservasi dan hubungi kami langsung via WhatsApp.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/greenwood.css?v=20261018_1">
+  <script src="assets/config.js?v=20261018_1"></script>
+
+  <style>
+    :root {
+      --bg-dark: #030c08;
+      --card-bg: #091c13;
+      --card-border: rgba(197, 155, 72, 0.22);
+      --text-main: #f5f4ef;
+      --text-muted: #c2cac3;
+      --accent-gold: #c59b48;
+      --accent-gold-bright: #e2be6c;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .contact-hero {
+      position: relative;
+      padding: 70px 24px 45px;
+      text-align: center;
+      background: radial-gradient(circle at 50% 20%, rgba(10, 35, 23, 0.6) 0%, var(--bg-dark) 75%);
+      border-bottom: 1px solid var(--card-border);
+    }
+    .contact-hero-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .contact-hero-eyebrow {
+      font-size: 11.5px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent-gold-bright);
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+    .contact-hero-title {
+      font-family: var(--font-serif);
+      font-size: 44px;
+      font-weight: 500;
+      color: #ffffff;
+      line-height: 1.22;
+      margin-bottom: 14px;
+    }
+    .contact-hero-sub {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 620px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Container */
+    .contact-container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 50px 24px 80px;
+    }
+
+    /* Quick Action Bar */
+    .contact-quick-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-bottom: 45px;
+    }
+    .quick-action-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 24px 22px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      text-decoration: none;
+      color: var(--text-main);
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+    .quick-action-card:hover {
+      border-color: var(--accent-gold-bright);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    }
+    .quick-icon-circle {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(197, 155, 72, 0.12);
+      border: 1px solid var(--accent-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: var(--accent-gold-bright);
+      flex-shrink: 0;
+    }
+    .quick-info-title {
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .quick-info-val {
+      font-size: 17px;
+      font-weight: 600;
+      color: #ffffff;
+      word-break: break-word;
+    }
+    .quick-info-sub {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* Split Grid for Details & Map */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+      margin-bottom: 55px;
+    }
+
+    .contact-panel {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 32px 28px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    }
+    .panel-heading {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      color: #ffffff;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .info-list-group {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+    .info-row {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .info-row-icon {
+      font-size: 20px;
+      color: var(--accent-gold-bright);
+      width: 28px;
+      text-align: center;
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+    .info-row-content {
+      flex: 1;
+    }
+    .info-row-label {
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .info-row-text {
+      font-size: 16px;
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+    .info-badge-closed {
+      display: inline-block;
+      background: rgba(220, 53, 69, 0.2);
+      border: 1px solid rgba(220, 53, 69, 0.5);
+      color: #ff8b94;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 4px;
+      margin-left: 8px;
+      letter-spacing: 1px;
+    }
+    .info-badge-open {
+      display: inline-block;
+      background: rgba(40, 167, 69, 0.2);
+      border: 1px solid rgba(40, 167, 69, 0.5);
+      color: #85e396;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 4px;
+      margin-left: 8px;
+      letter-spacing: 1px;
+    }
+
+    /* Map Box */
+    .map-wrap {
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      background: #020704;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 420px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    }
+    .map-iframe {
+      width: 100%;
+      height: 340px;
+      border: none;
+      filter: contrast(1.05) saturate(1.1);
+    }
+    .map-action-bar {
+      padding: 16px 20px;
+      background: rgba(5, 17, 11, 0.95);
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .map-action-text {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    .btn-maps-link {
+      background: var(--accent-gold);
+      color: #030c08;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 10px 18px;
+      border-radius: 4px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-maps-link:hover {
+      background: var(--accent-gold-bright);
+      transform: translateY(-1px);
+    }
+
+    /* Photo Gallery Section */
+    .gallery-section {
+      margin-top: 40px;
+    }
+    .gallery-heading-wrap {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .gallery-title {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+    .gallery-sub {
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+    .store-photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .store-photo-card {
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      background: #020704;
+      position: relative;
+      aspect-ratio: 4 / 3;
+    }
+    .store-photo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .store-photo-card:hover .store-photo-img {
+      transform: scale(1.04);
+    }
+    .store-photo-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 12px 14px;
+      background: linear-gradient(to top, rgba(3, 12, 8, 0.95) 0%, transparent 100%);
+      font-size: 13px;
+      color: #ffffff;
+      font-weight: 500;
+    }
+
+    /* Booking CTA Banner */
+    .contact-cta-banner {
+      background: linear-gradient(135deg, rgba(10, 35, 23, 0.9) 0%, rgba(3, 12, 8, 0.95) 100%);
+      border: 1px solid var(--accent-gold);
+      border-radius: 8px;
+      padding: 36px 30px;
+      text-align: center;
+      margin-top: 60px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
+    }
+    .contact-cta-title {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+    .contact-cta-desc {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 24px;
+    }
+    .btn-cta-large {
+      background: linear-gradient(135deg, var(--accent-gold) 0%, #9a7428 100%);
+      color: #030c08;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 14px 34px;
+      border-radius: 4px;
+      text-decoration: none;
+      display: inline-block;
+      border: 1px solid var(--accent-gold-bright);
+      box-shadow: 0 4px 18px rgba(197, 155, 72, 0.35);
+      transition: all 0.3s ease;
+    }
+    .btn-cta-large:hover {
+      background: linear-gradient(135deg, var(--accent-gold-bright) 0%, var(--accent-gold) 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 26px rgba(197, 155, 72, 0.55);
+    }
+
+    @media (max-width: 860px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      .contact-hero-title {
+        font-size: 34px;
+      }
+      .map-wrap {
+        min-height: 380px;
+      }
+    }
+    @media (max-width: 540px) {
+      .contact-hero {
+        padding: 50px 16px 35px;
+      }
+      .contact-hero-title {
+        font-size: 28px;
+      }
+      .contact-container {
+        padding: 30px 16px 60px;
+      }
+      .contact-panel {
+        padding: 24px 18px;
+      }
+      .quick-action-card {
+        padding: 18px 16px;
+      }
+      .map-action-bar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .btn-maps-link {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION BAR -->
+  <header>
+    <a href="index.html" class="brand-wrap">
+      <img src="assets/greenwood_logo_transparent.png" alt="Greenwood Barbers" class="brand-logo-img">
+    </a>
+
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html" class="active">Contact Us</a>
+      <a href="booking.html">Book Appointment</a>
+    </nav>
+
+    <div class="header-cta-group">
+      <a href="booking.html" class="btn-header-book">Reserve a Chair</a>
+      <button class="menu-toggle-btn" onclick="toggleMobileNav()" aria-label="Toggle navigation menu">&#9776;</button>
+    </div>
+  </header>
+
+  <!-- MOBILE NAV OVERLAY -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay">
+    <button class="mobile-nav-close" onclick="closeMobileNav()" aria-label="Close menu">&times;</button>
+    <a href="index.html" onclick="closeMobileNav()">Home</a>
+    <a href="about.html" onclick="closeMobileNav()">About Us</a>
+    <a href="contact.html" class="active" onclick="closeMobileNav()">Contact Us</a>
+    <a href="booking.html" onclick="closeMobileNav()">Book Appointment</a>
+    <a href="booking.html" class="btn-primary" style="margin-top: 16px;" onclick="closeMobileNav()">Reserve Appointment</a>
+  </div>
+
+  <main>
+    <!-- HERO -->
+    <section class="contact-hero">
+      <div class="contact-hero-inner">
+        <span class="contact-hero-eyebrow">Hubungi Kami &bull; Kota Baru Parahyangan</span>
+        <h1 class="contact-hero-title">Kontak &amp; Lokasi Toko</h1>
+        <p class="contact-hero-sub">
+          Layanan pangkas rambut pria profesional dan perawatan tubuh yang nyaman di Kota Baru Parahyangan. Silakan hubungi kami untuk informasi atau konsultasi.
+        </p>
+      </div>
+    </section>
+
+    <!-- CONTENT CONTAINER -->
+    <div class="contact-container">
+
+      <!-- QUICK ACTION CARDS -->
+      <div class="contact-quick-bar">
+        <!-- WhatsApp Direct -->
+        <a href="https://wa.me/6282123456789?text=Halo%20Greenwood%20Barbers,%20saya%20ingin%20bertanya%20mengenai%20layanan..." target="_blank" rel="noopener" class="quick-action-card">
+          <div class="quick-icon-circle">&#128172;</div>
+          <div>
+            <div class="quick-info-title">WhatsApp Resmi</div>
+            <div class="quick-info-val">+62 821-2345-6789</div>
+            <div class="quick-info-sub">Chat langsung untuk tanya jawab cepat &rarr;</div>
+          </div>
+        </a>
+
+        <!-- Telephone -->
+        <a href="tel:+6282123456789" class="quick-action-card">
+          <div class="quick-icon-circle">&#128222;</div>
+          <div>
+            <div class="quick-info-title">Telepon Toko</div>
+            <div class="quick-info-val">+62 821-2345-6789</div>
+            <div class="quick-info-sub">Hubungi langsung via telepon &rarr;</div>
+          </div>
+        </a>
+
+        <!-- Email -->
+        <a href="mailto:contact@greenwoodbarbers.com" class="quick-action-card">
+          <div class="quick-icon-circle">&#9993;</div>
+          <div>
+            <div class="quick-info-title">Email Resmi</div>
+            <div class="quick-info-val">contact@greenwoodbarbers.com</div>
+            <div class="quick-info-sub">Untuk pertanyaan &amp; kerja sama &rarr;</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- MAIN SPLIT: STORE DETAILS & GOOGLE MAPS -->
+      <div class="contact-grid">
+
+        <!-- Left: Information Panel -->
+        <div class="contact-panel">
+          <h2 class="panel-heading">
+            <span>Informasi Toko</span>
+            <span style="font-size: 14px; font-family: var(--font-sans); color: var(--accent-gold-bright); font-weight: 600;">KBP Padalarang</span>
+          </h2>
+
+          <div class="info-list-group">
+            <!-- Address -->
+            <div class="info-row">
+              <div class="info-row-icon">&#128205;</div>
+              <div class="info-row-content">
+                <div class="info-row-label">Alamat Lengkap</div>
+                <div class="info-row-text">
+                  <strong>Greenwood Barbers</strong><br>
+                  Ruko PancaTengah Blok B No. 08<br>
+                  Kota Baru Parahyangan, Padalarang<br>
+                  Kabupaten Bandung Barat 40553
+                </div>
+              </div>
+            </div>
+
+            <!-- Operating Hours (Tuesday Closed explicitly highlighted) -->
+            <div class="info-row">
+              <div class="info-row-icon">&#9200;</div>
+              <div class="info-row-content">
+                <div class="info-row-label">Jam Operasional (10 Jam / Hari)</div>
+                <div class="info-row-text">
+                  <div style="margin-bottom: 6px;">
+                    <strong>Rabu &ndash; Senin:</strong> 10:00 &ndash; 20:00 WIB
+                    <span class="info-badge-open">Buka</span>
+                  </div>
+                  <div>
+                    <strong>Selasa:</strong> Libur Mingguan
+                    <span class="info-badge-closed">TUTUP</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Parking & Accessibility -->
+            <div class="info-row">
+              <div class="info-row-icon">&#128663;</div>
+              <div class="info-row-content">
+                <div class="info-row-label">Akses &amp; Parkir</div>
+                <div class="info-row-text">
+                  7 menit dari Stasiun Kereta Cepat Whoosh Padalarang dan 5 menit dari Exit Tol Padalarang. Area parkir mobil &amp; motor luas, aman, dan tepat di depan lokasi toko.
+                </div>
+              </div>
+            </div>
+
+            <!-- Payment Methods Note -->
+            <div class="info-row">
+              <div class="info-row-icon">&#128179;</div>
+              <div class="info-row-content">
+                <div class="info-row-label">Metode Pembayaran</div>
+                <div class="info-row-text">
+                  <strong>Pembayaran di tempat:</strong> QRIS (BCA, Mandiri, GoPay, OVO), kartu debit, dan kartu kredit.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Interactive Google Maps Embed -->
+        <div class="map-wrap">
+          <iframe 
+            class="map-iframe"
+            title="Lokasi Greenwood Barbers Kota Baru Parahyangan"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15844.629559384877!2d107.47250644498305!3d-6.871758509012351!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e37bb033481b%3A0xe54fb9e2c6501a35!2sKota%20Baru%20Parahyangan!5e0!3m2!1sid!2sid!4v1729240000000!5m2!1sid!2sid" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+          <div class="map-action-bar">
+            <span class="map-action-text">&#128205; Ruko PancaTengah, Kota Baru Parahyangan</span>
+            <a href="https://maps.google.com/?q=Kota+Baru+Parahyangan+Padalarang" target="_blank" rel="noopener" class="btn-maps-link">
+              <span>Buka di Google Maps</span> &nearr;
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- STORE PHOTOS GALLERY -->
+      <section class="gallery-section">
+        <div class="gallery-heading-wrap">
+          <h2 class="gallery-title">Suasana Toko Kami</h2>
+          <p class="gallery-sub">Ruang pangkas yang nyaman, bersih, dan privat untuk waktu santai Anda.</p>
+        </div>
+        <div class="store-photo-grid">
+          <div class="store-photo-card">
+            <img src="assets/hero_barbershop.jpg" alt="Kursi Barbershop Greenwood" class="store-photo-img" loading="lazy">
+            <div class="store-photo-caption">Kursi Pangkas Nyaman &amp; Ergonomis</div>
+          </div>
+          <div class="store-photo-card">
+            <img src="assets/parlour_real_sanctuary.jpg" alt="Ruang Tunggu Santai" class="store-photo-img" loading="lazy">
+            <div class="store-photo-caption">Lounge &amp; Ruang Tunggu Nyaman</div>
+          </div>
+          <div class="store-photo-card">
+            <img src="assets/service_haircut.jpg" alt="Layanan Haircut Presisi" class="store-photo-img" loading="lazy">
+            <div class="store-photo-caption">Layanan Pangkas Presisi</div>
+          </div>
+          <div class="store-photo-card">
+            <img src="assets/service_shave.jpg" alt="Traditional Hot Towel Shave" class="store-photo-img" loading="lazy">
+            <div class="store-photo-caption">Traditional Hot Towel Shave</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BOOKING CTA BANNER -->
+      <div class="contact-cta-banner">
+        <h2 class="contact-cta-title">Ingin Jadwalkan Kunjungan?</h2>
+        <p class="contact-cta-desc">
+          Pesan kursi Anda secara online untuk menikmati layanan tanpa antre. Pilih paket layanan, pilih barber favorit, dan tentukan waktu yang sesuai.
+        </p>
+        <a href="booking.html" class="btn-cta-large">Reservasi Kursi Sekarang &rarr;</a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-copy">
+      &copy; 2026 Greenwood Barbers. All rights reserved. Ruko PancaTengah, Kota Baru Parahyangan, Padalarang, Bandung Barat.<br>
+      WhatsApp: +62 821-2345-6789 &bull; Email: contact@greenwoodbarbers.com &bull; Buka Rabu&ndash;Senin 10:00&ndash;20:00 WIB (Selasa TUTUP).
+    </div>
+  </footer>
+
+  <div id="spotlightGlow"></div>
+
+  <script>
+    const glow = document.getElementById('spotlightGlow');
+    if (glow) {
+      window.addEventListener('mousemove', (e) => {
+        glow.style.left = e.clientX + 'px';
+        glow.style.top = e.clientY + 'px';
+      });
+    }
+
+    function toggleMobileNav() {
+      const nav = document.getElementById('mobileNavOverlay');
+      if (nav) nav.classList.toggle('active');
+    }
+    function closeMobileNav() {
+      const nav = document.getElementById('mobileNavOverlay');
+      if (nav) nav.classList.remove('active');
+    }
+  </script>
+</body>
+</html>

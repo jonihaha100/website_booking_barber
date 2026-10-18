@@ -1,6 +1,7 @@
-/home.html  /index.html  301
-/home       /index.html  301
-/about      /about.html    200
-/parlour    /parlour.html  200
-/booking    /booking.html  200
-
+/home.html   /index.html    301
+/home        /index.html    301
+/parlour     /contact.html  301
+/parlour.html /contact.html 301
+/about       /about.html    200
+/contact     /contact.html  200
+/booking     /booking.html  200
