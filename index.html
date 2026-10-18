@@ -306,7 +306,7 @@
       top: 14px;
       left: 14px;
       background: rgba(3, 12, 8, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.55);
       color: #ffffff;
       font-size: 10.5px;
       letter-spacing: 1.5px;
@@ -323,7 +323,11 @@
       border: 1.5px solid var(--accent-gold);
       color: var(--accent-gold-bright);
       background: rgba(3, 12, 8, 0.9);
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6), 0 0 12px rgba(197, 155, 72, 0.35);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6), 0 0 14px rgba(197, 155, 72, 0.35);
+    }
+    .package-card-featured {
+      border-color: rgba(197, 155, 72, 0.55);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(197, 155, 72, 0.12);
     }
     .pkg-card-body {
       padding: 26px 24px;
@@ -640,9 +644,9 @@
         </article>
 
         <!-- Package 2: Signature Grooming -->
-        <article class="package-visual-card">
+        <article class="package-visual-card package-card-featured">
           <div class="pkg-card-media">
-            <span class="pkg-media-badge">Most Popular</span>
+            <span class="pkg-media-badge pkg-media-badge-popular">Most Popular</span>
             <img src="assets/real_beard_grooming.jpg?v=20261018_real2" alt="The Signature Grooming Ritual" class="pkg-card-img" loading="lazy">
           </div>
           <div class="pkg-card-body">
