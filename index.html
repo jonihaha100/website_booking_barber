@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <title>Greenwood Barbers &bull; Kota Baru Parahyangan | Pangkas Rambut Pria &amp; Grooming</title>
-  <meta name="description" content="Greenwood Barbers di Kota Baru Parahyangan, Bandung Barat. Layanan pangkas rambut pria presisi, hot towel shave, scalp treatment, dan reservasi online tanpa antre.">
+  <meta name="description" content="Greenwood Barbers di Kota Baru Parahyangan, Bandung Barat. Layanan pangkas rambut pria presisi, hot towel shave, dan reservasi online tanpa antre.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/greenwood.css?v=20261018_1">
-  <script src="assets/config.js?v=20261018_1"></script>
+  <link rel="stylesheet" href="assets/greenwood.css?v=20261018_3">
+  <script src="assets/config.js?v=20261018_3"></script>
 
   <style>
     :root {
@@ -21,6 +21,8 @@
       --text-muted: #c2cac3;
       --accent-gold: #c59b48;
       --accent-gold-bright: #e2be6c;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     }
 
     body {
@@ -29,19 +31,23 @@
       font-family: var(--font-sans);
       font-size: 16px;
       line-height: 1.7;
+      overflow-x: hidden;
     }
 
-    /* Cinematic Hero */
+    /* 1. CINEMATIC LUXURY HERO (DEAD-CENTER IN THE MIDDLE OF PHOTO) */
     .home-hero {
       position: relative;
-      min-height: 80vh;
+      height: calc(100vh - 76px);
+      min-height: 540px;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 60px 24px;
-      background: #020704;
+      padding: 30px 24px;
       overflow: hidden;
+      background: #020704;
+      border-bottom: 1px solid var(--card-border);
     }
     .home-hero-bg {
       position: absolute;
@@ -55,52 +61,55 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: brightness(0.42) saturate(1.1);
+      filter: saturate(1.08) contrast(1.05);
     }
     .home-hero-vignette {
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 50% 50%, rgba(2, 7, 4, 0.3) 0%, rgba(2, 7, 4, 0.85) 80%, rgba(2, 7, 4, 1) 100%);
+      background:
+        radial-gradient(circle at 50% 50%, rgba(2, 7, 4, 0.48) 0%, rgba(2, 7, 4, 0.76) 65%, rgba(2, 7, 4, 0.98) 100%),
+        linear-gradient(to right, rgba(2, 7, 4, 0.92) 0%, rgba(2, 7, 4, 0.5) 20%, transparent 40%, transparent 60%, rgba(2, 7, 4, 0.5) 80%, rgba(2, 7, 4, 0.92) 100%);
+      pointer-events: none;
     }
-
     .home-hero-content {
       position: relative;
       z-index: 2;
-      max-width: 840px;
+      max-width: 860px;
       margin: 0 auto;
-      animation: fadeInHero 0.9s ease-out;
+      animation: fadeInHero 1s ease-out;
     }
     @keyframes fadeInHero {
-      from { opacity: 0; transform: translateY(16px); }
+      from { opacity: 0; transform: translateY(14px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     .hero-eyebrow {
-      font-size: 12px;
-      letter-spacing: 3px;
+      font-size: 11.5px;
+      letter-spacing: 2.8px;
       text-transform: uppercase;
       color: var(--accent-gold-bright);
       font-weight: 700;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       display: inline-block;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
     }
     .hero-title {
       font-family: var(--font-serif);
-      font-size: 48px;
+      font-size: 46px;
       font-weight: 400;
       color: #ffffff;
       line-height: 1.2;
-      margin-bottom: 18px;
-      text-shadow: 0 4px 20px rgba(0,0,0,0.9);
+      margin: 0 auto 16px;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
+      max-width: 820px;
     }
     .hero-subtitle {
-      font-size: 16.5px;
-      color: rgba(245, 244, 239, 0.9);
-      max-width: 620px;
-      margin: 0 auto 32px;
+      font-size: 16px;
+      font-weight: 300;
       line-height: 1.75;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+      color: rgba(245, 244, 239, 0.88);
+      max-width: 640px;
+      margin: 0 auto 30px;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
     }
     .hero-actions {
       display: flex;
@@ -108,249 +117,294 @@
       justify-content: center;
       flex-wrap: wrap;
     }
-    .btn-hero-book {
-      background: linear-gradient(135deg, var(--accent-gold) 0%, #9a7428 100%);
-      color: #030c08;
-      font-size: 12.5px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      font-weight: 700;
-      padding: 14px 32px;
-      border-radius: 4px;
-      text-decoration: none;
+    .btn-hero-primary {
+      height: 50px;
+      min-width: 240px;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      border: 1px solid var(--accent-gold-bright);
-      box-shadow: 0 6px 20px rgba(197, 155, 72, 0.35);
-      transition: all 0.3s ease;
-    }
-    .btn-hero-book:hover {
-      background: linear-gradient(135deg, var(--accent-gold-bright) 0%, var(--accent-gold) 100%);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(197, 155, 72, 0.55);
-    }
-    .btn-hero-contact {
-      background: rgba(10, 31, 21, 0.85);
-      color: #ffffff;
-      font-size: 12.5px;
+      justify-content: center;
+      padding: 0 24px;
+      font-size: 12px;
       letter-spacing: 2px;
       text-transform: uppercase;
       font-weight: 700;
-      padding: 14px 28px;
-      border-radius: 4px;
       text-decoration: none;
-      border: 1px solid var(--card-border);
+      border-radius: 4px;
+      background: linear-gradient(135deg, var(--accent-gold) 0%, #9a7428 100%);
+      color: #030c08;
+      border: 1px solid var(--accent-gold-bright);
+      box-shadow: 0 4px 20px rgba(197, 155, 72, 0.4);
       transition: all 0.3s ease;
     }
-    .btn-hero-contact:hover {
+    .btn-hero-primary:hover {
+      background: linear-gradient(135deg, var(--accent-gold-bright) 0%, var(--accent-gold) 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 26px rgba(197, 155, 72, 0.6);
+    }
+    .btn-hero-secondary {
+      height: 50px;
+      min-width: 200px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 22px;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 4px;
+      background: rgba(10, 31, 21, 0.85);
+      color: #ffffff;
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+    }
+    .btn-hero-secondary:hover {
       border-color: var(--accent-gold-bright);
       color: var(--accent-gold-bright);
       transform: translateY(-2px);
     }
 
-    /* Section Styling */
-    .section-wrap {
-      padding: 70px 24px;
+    /* SECTION CONTAINERS (SPACIOUS & UNHURRIED) */
+    .home-section {
+      padding: 85px 24px;
       max-width: 1140px;
       margin: 0 auto;
     }
-    .section-header {
+    .section-header-center {
       text-align: center;
-      margin-bottom: 45px;
+      margin-bottom: 50px;
     }
-    .section-eyebrow-text {
+    .section-eyebrow {
       font-size: 11.5px;
       letter-spacing: 2.5px;
       text-transform: uppercase;
       color: var(--accent-gold-bright);
       font-weight: 700;
-      margin-bottom: 8px;
-      display: block;
+      margin-bottom: 10px;
+      display: inline-block;
     }
-    .section-main-title {
+    .section-heading {
       font-family: var(--font-serif);
-      font-size: 36px;
+      font-size: 38px;
+      font-weight: 500;
       color: #ffffff;
+      line-height: 1.25;
       margin-bottom: 12px;
     }
-    .section-sub-text {
+    .section-subheading {
       font-size: 16px;
       color: var(--text-muted);
       max-width: 600px;
       margin: 0 auto;
+      line-height: 1.7;
     }
 
-    /* Package Cards Grid */
-    .packages-grid {
+    /* 2. PAKET UTAMA DENGAN FOTO ASLI (Point 17: FOTO + 3-4 PAKET + HARGA) */
+    .packages-visual-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 22px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 26px;
     }
-    .package-card {
+    .package-visual-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 8px;
-      padding: 28px 24px;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
       transition: all 0.3s ease;
-      position: relative;
     }
-    .package-card:hover {
+    .package-visual-card:hover {
       border-color: var(--accent-gold-bright);
       transform: translateY(-4px);
-      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
     }
-    .package-badge {
+    .pkg-card-media {
+      position: relative;
+      height: 210px;
+      overflow: hidden;
+      background: #020704;
+    }
+    .pkg-card-media::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(9, 28, 19, 0.95) 0%, rgba(9, 28, 19, 0.2) 60%, transparent 100%);
+      pointer-events: none;
+    }
+    .pkg-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .package-visual-card:hover .pkg-card-img {
+      transform: scale(1.05);
+    }
+    .pkg-media-badge {
       position: absolute;
       top: 14px;
-      right: 14px;
-      background: rgba(197, 155, 72, 0.15);
-      border: 1px solid rgba(197, 155, 72, 0.4);
+      left: 14px;
+      background: rgba(3, 12, 8, 0.85);
+      border: 1px solid var(--accent-gold);
       color: var(--accent-gold-bright);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 1px;
+      font-size: 10.5px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
-      padding: 3px 10px;
-      border-radius: 12px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 14px;
+      z-index: 2;
     }
-    .package-name {
+    .pkg-card-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .pkg-card-title {
       font-family: var(--font-serif);
       font-size: 24px;
       color: #ffffff;
       margin-bottom: 8px;
-      padding-right: 60px;
     }
-    .package-meta {
+    .pkg-price-row {
       display: flex;
       align-items: baseline;
       gap: 10px;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
-    .package-price {
-      font-size: 20px;
+    .pkg-price-text {
+      font-size: 22px;
       font-weight: 700;
       color: var(--accent-gold-bright);
     }
-    .package-duration {
-      font-size: 13.5px;
+    .pkg-dur-text {
+      font-size: 14px;
       color: var(--text-muted);
     }
-    .package-desc {
+    .pkg-card-desc {
       font-size: 14.5px;
       color: var(--text-muted);
       line-height: 1.65;
       margin-bottom: 22px;
       flex: 1;
     }
-    .btn-card-book {
+    .btn-card-reserve {
       background: transparent;
       border: 1px solid var(--accent-gold);
       color: #ffffff;
-      font-size: 11.5px;
+      font-size: 12px;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       font-weight: 700;
-      padding: 10px 18px;
+      padding: 12px 20px;
       border-radius: 4px;
       text-decoration: none;
       text-align: center;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
     }
-    .btn-card-book:hover {
+    .btn-card-reserve:hover {
       background: var(--accent-gold);
       color: #030c08;
     }
 
-    /* Reasons / Features Grid */
-    .features-grid {
+    /* 3. ALASAN MEMILIH GREENWOOD (Point 17: ALASAN SINGKAT & ELEGAN) */
+    .reasons-section {
+      background: rgba(9, 28, 19, 0.4);
+      border-top: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+      padding: 80px 24px;
+    }
+    .reasons-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
+      gap: 24px;
+      max-width: 1140px;
+      margin: 0 auto;
     }
-    .feature-card {
+    .reason-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 8px;
-      padding: 26px 22px;
-      text-align: left;
+      padding: 30px 24px;
+      transition: all 0.3s ease;
     }
-    .feature-icon {
+    .reason-card:hover {
+      border-color: var(--accent-gold-bright);
+      transform: translateY(-3px);
+    }
+    .reason-num {
+      font-family: var(--font-serif);
       font-size: 26px;
       color: var(--accent-gold-bright);
       margin-bottom: 12px;
+      font-weight: 700;
     }
-    .feature-title {
+    .reason-title {
       font-family: var(--font-serif);
-      font-size: 20px;
+      font-size: 22px;
       color: #ffffff;
       margin-bottom: 8px;
     }
-    .feature-desc {
-      font-size: 14px;
+    .reason-text {
+      font-size: 14.5px;
       color: var(--text-muted);
-      line-height: 1.6;
+      line-height: 1.65;
     }
 
-    /* Store Info Strip */
-    .store-info-strip {
-      background: linear-gradient(135deg, rgba(10, 35, 23, 0.8) 0%, rgba(5, 17, 11, 0.95) 100%);
-      border: 1px solid var(--card-border);
+    /* 4. JAM BUKA & FINAL BOOKING CTA */
+    .cta-banner-strip {
+      background: linear-gradient(135deg, rgba(14, 43, 29, 0.95) 0%, rgba(3, 12, 8, 0.98) 100%);
+      border: 1px solid var(--accent-gold);
       border-radius: 8px;
-      padding: 32px 28px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 24px;
-      margin-top: 50px;
+      padding: 44px 32px;
+      text-align: center;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+      margin-top: 60px;
     }
-    .store-strip-col {
-      flex: 1;
-      min-width: 240px;
-    }
-    .strip-label {
-      font-size: 11px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--accent-gold-bright);
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-    .strip-val {
-      font-size: 16px;
+    .cta-banner-title {
+      font-family: var(--font-serif);
+      font-size: 34px;
       color: #ffffff;
-      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    .cta-banner-sub {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 26px;
+    }
+    .cta-hours-badge {
+      display: inline-block;
+      background: rgba(3, 12, 8, 0.7);
+      border: 1px solid var(--card-border);
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 13.5px;
+      color: #ffffff;
+      margin-bottom: 24px;
     }
 
     @media (max-width: 768px) {
       .hero-title {
-        font-size: 34px;
+        font-size: 32px;
       }
-      .section-main-title {
-        font-size: 28px;
+      .section-heading {
+        font-size: 30px;
       }
-      .section-wrap {
-        padding: 50px 16px;
+      .home-section {
+        padding: 55px 16px;
       }
-      .store-info-strip {
-        flex-direction: column;
-        align-items: flex-start;
+      .reasons-section {
+        padding: 55px 16px;
       }
-    }
-    @media (max-width: 480px) {
-      .hero-title {
-        font-size: 28px;
-      }
-      .hero-subtitle {
-        font-size: 15px;
-      }
-      .btn-hero-book, .btn-hero-contact {
+      .btn-hero-primary, .btn-hero-secondary {
         width: 100%;
-        justify-content: center;
+        min-width: unset;
       }
     }
   </style>
@@ -387,146 +441,153 @@
   </div>
 
   <main>
-    <!-- HERO SECTION -->
+
+    <!-- 1. CINEMATIC LUXURY HERO -->
     <section class="home-hero">
       <div class="home-hero-bg">
-        <img src="assets/home_hero_ritual.jpg" alt="Greenwood Barbers Ritual" class="home-hero-img">
+        <img src="assets/home_hero_ritual.jpg" alt="Greenwood Barbers Grooming Ritual" class="home-hero-img">
         <div class="home-hero-vignette"></div>
       </div>
 
       <div class="home-hero-content">
         <span class="hero-eyebrow">Kota Baru Parahyangan &bull; Bandung Barat</span>
-        <h1 class="hero-title">Layanan Pangkas Rambut Pria Profesional</h1>
+        <h1 class="hero-title">Layanan Pangkas Rambut Pria &amp; Grooming Klasik</h1>
         <p class="hero-subtitle">
-          Nikmati potongan rambut presisi, traditional hot towel shave, dan perawatan relaksasi di lingkungan yang tenang dan nyaman.
+          Potongan rambut presisi, traditional hot towel shave, dan suasana pangkas yang tenang tanpa rasa terburu-buru.
         </p>
         <div class="hero-actions">
-          <a href="booking.html" class="btn-hero-book">Pesan Kursi Sekarang &rarr;</a>
-          <a href="contact.html" class="btn-hero-contact">Kontak &amp; Lokasi</a>
+          <a href="booking.html" class="btn-hero-primary">Pesan Kursi Sekarang &rarr;</a>
+          <a href="contact.html" class="btn-hero-secondary">Kontak &amp; Lokasi</a>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 1: PAKET LAYANAN UNGGULAN -->
-    <section class="section-wrap">
-      <div class="section-header">
-        <span class="section-eyebrow-text">Menu &amp; Perawatan Pilihan</span>
-        <h2 class="section-main-title">Paket Layanan Kami</h2>
+    <!-- 2. PAKET UTAMA DENGAN FOTO ASLI (Point 17 Feedback) -->
+    <section class="home-section">
+      <div class="section-header-center">
+        <span class="section-eyebrow">Pilihan Layanan Unggulan</span>
+        <h2 class="section-heading">Paket Perawatan Kami</h2>
         <p class="section-sub-text">
-          Pilihan paket terpadu untuk hasil maksimal tanpa perlu bingung memilih terpisah.
+          Pilihan paket terpadu untuk kerapian maksimal, dikerjakan dengan ketelitian oleh tim barber berpengalaman.
         </p>
       </div>
 
-      <div class="packages-grid">
-        <!-- Paket 1 -->
-        <div class="package-card">
-          <span class="package-badge">Dasar</span>
-          <h3 class="package-name">Classic Haircut &amp; Styling</h3>
-          <div class="package-meta">
-            <span class="package-price">Rp 110.000</span>
-            <span class="package-duration">&bull; 45 Menit</span>
-          </div>
-          <p class="package-desc">
-            Konsultasi gaya rambut, cuci rambut relaksasi, gunting presisi, dan styling profesional.
-          </p>
-          <a href="booking.html?pkg=pkg-classic" class="btn-card-book">Pesan Paket Ini &rarr;</a>
-        </div>
+      <div class="packages-visual-grid">
 
-        <!-- Paket 2 -->
-        <div class="package-card">
-          <span class="package-badge" style="border-color: var(--accent-gold); color: #ffffff;">Populer</span>
-          <h3 class="package-name">Paket Signature Grooming</h3>
-          <div class="package-meta">
-            <span class="package-price">Rp 150.000</span>
-            <span class="package-duration">&bull; 60 Menit</span>
+        <!-- Paket 1: Classic Haircut -->
+        <article class="package-visual-card">
+          <div class="pkg-card-media">
+            <span class="pkg-media-badge">Layanan Dasar</span>
+            <img src="assets/service_haircut.jpg" alt="Classic Haircut &amp; Styling" class="pkg-card-img" loading="lazy">
           </div>
-          <p class="package-desc">
-            Haircut lengkap ditambah pijat kepala &amp; leher relaksasi serta kompres handuk hangat aromaterapi.
-          </p>
-          <a href="booking.html?pkg=pkg-signature" class="btn-card-book">Pesan Paket Ini &rarr;</a>
-        </div>
+          <div class="pkg-card-body">
+            <h3 class="pkg-card-title">Classic Haircut &amp; Styling</h3>
+            <div class="pkg-price-row">
+              <span class="pkg-price-text">Rp 110.000</span>
+              <span class="pkg-dur-text">&bull; 45 Menit</span>
+            </div>
+            <p class="pkg-card-desc">
+              Konsultasi bentuk wajah, cuci rambut herbal yang segar, pangkas presisi teknik scissor &amp; clipper, dan styling akhir.
+            </p>
+            <a href="booking.html?pkg=pkg-classic" class="btn-card-reserve">Pesan Paket Ini &rarr;</a>
+          </div>
+        </article>
 
-        <!-- Paket 3 -->
-        <div class="package-card">
-          <span class="package-badge">Lengkap</span>
-          <h3 class="package-name">Paket Executive Complete</h3>
-          <div class="package-meta">
-            <span class="package-price">Rp 210.000</span>
-            <span class="package-duration">&bull; 75 Menit</span>
+        <!-- Paket 2: Signature Grooming -->
+        <article class="package-visual-card">
+          <div class="pkg-card-media">
+            <span class="pkg-media-badge" style="border-color: var(--accent-gold-bright); color: #ffffff;">Paling Populer</span>
+            <img src="assets/gallery_haircut_style.jpg" alt="Paket Signature Grooming" class="pkg-card-img" loading="lazy">
           </div>
-          <p class="package-desc">
-            Haircut, kompres handuk hangat, traditional hot towel shave / beard trim, dan pijat relaksasi.
-          </p>
-          <a href="booking.html?pkg=pkg-executive" class="btn-card-book">Pesan Paket Ini &rarr;</a>
-        </div>
+          <div class="pkg-card-body">
+            <h3 class="pkg-card-title">Paket Signature Grooming</h3>
+            <div class="pkg-price-row">
+              <span class="pkg-price-text">Rp 150.000</span>
+              <span class="pkg-dur-text">&bull; 60 Menit</span>
+            </div>
+            <p class="pkg-card-desc">
+              Classic Haircut lengkap ditambah pijat relaksasi kepala, leher, dan bahu, serta kompres handuk hangat aromaterapi.
+            </p>
+            <a href="booking.html?pkg=pkg-signature" class="btn-card-reserve">Pesan Paket Ini &rarr;</a>
+          </div>
+        </article>
 
-        <!-- Paket 4 -->
-        <div class="package-card">
-          <span class="package-badge">Menyeluruh</span>
-          <h3 class="package-name">Paket Royal Treatment</h3>
-          <div class="package-meta">
-            <span class="package-price">Rp 270.000</span>
-            <span class="package-duration">&bull; 90 Menit</span>
+        <!-- Paket 3: Executive Complete -->
+        <article class="package-visual-card">
+          <div class="pkg-card-media">
+            <span class="pkg-media-badge">Lengkap &amp; Shave</span>
+            <img src="assets/service_shave.jpg" alt="Paket Executive Complete" class="pkg-card-img" loading="lazy">
           </div>
-          <p class="package-desc">
-            Perawatan menyeluruh: Haircut, hot towel shave, pembersihan kulit kepala (scalp detox), dan pijat relaksasi.
-          </p>
-          <a href="booking.html?pkg=pkg-royal" class="btn-card-book">Pesan Paket Ini &rarr;</a>
-        </div>
+          <div class="pkg-card-body">
+            <h3 class="pkg-card-title">Paket Executive Complete</h3>
+            <div class="pkg-price-row">
+              <span class="pkg-price-text">Rp 210.000</span>
+              <span class="pkg-dur-text">&bull; 75 Menit</span>
+            </div>
+            <p class="pkg-card-desc">
+              Haircut presisi, kompres handuk hangat, traditional hot towel shave / perapian janggut, dan pijat relaksasi.
+            </p>
+            <a href="booking.html?pkg=pkg-executive" class="btn-card-reserve">Pesan Paket Ini &rarr;</a>
+          </div>
+        </article>
+
       </div>
     </section>
 
-    <!-- SECTION 2: MENGAPA GREENWOOD BARBERS -->
-    <section class="section-wrap" style="background: rgba(4, 16, 10, 0.4); border-radius: 8px;">
-      <div class="section-header">
-        <span class="section-eyebrow-text">Kenyamanan Anda</span>
-        <h2 class="section-main-title">Mengapa Memilih Greenwood Barbers?</h2>
+    <!-- 3. ALASAN MEMILIH GREENWOOD (Point 17 Feedback) -->
+    <section class="reasons-section">
+      <div class="section-header-center">
+        <span class="section-eyebrow">Nilai Pelayanan</span>
+        <h2 class="section-heading">Mengapa Greenwood Barbers?</h2>
         <p class="section-sub-text">
-          Pengalaman pangkas rambut yang dirancang khusus untuk kenyamanan dan ketenangan Anda.
+          Standar kenyamanan dan ketelitian yang kami jaga untuk setiap pelanggan.
         </p>
       </div>
 
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">&#9986;</div>
-          <h3 class="feature-title">Barber Berpengalaman</h3>
-          <p class="feature-desc">Tim barber terampil dengan teknik gunting dan fade presisi sesuai bentuk kepala dan jenis rambut Anda.</p>
+      <div class="reasons-grid">
+        <div class="reason-card">
+          <div class="reason-num">01</div>
+          <h3 class="reason-title">Barber Berpengalaman</h3>
+          <p class="reason-text">
+            Dikerjakan oleh barber profesional yang memahami anatomi kepala, pola tumbuh rambut, dan teknik gunting presisi.
+          </p>
         </div>
 
-        <div class="feature-card">
-          <div class="feature-icon">&#9200;</div>
-          <h3 class="feature-title">Waktu Cukup &amp; Tenang</h3>
-          <p class="feature-desc">Setiap sesi diberikan durasi yang cukup sehingga pengerjaan rapi dan tidak terburu-buru.</p>
+        <div class="reason-card">
+          <div class="reason-num">02</div>
+          <h3 class="reason-title">Waktu Cukup &amp; Tenang</h3>
+          <p class="reason-text">
+            Alokasi waktu 45 hingga 75 menit untuk setiap sesi. Kami tidak memburu waktu agar hasil potongan rapi maksimal.
+          </p>
         </div>
 
-        <div class="feature-card">
-          <div class="feature-icon">&#128197;</div>
-          <h3 class="feature-title">Booking Tanpa Antre</h3>
-          <p class="feature-desc">Sistem reservasi online yang pasti. Datang tepat waktu dan kursi pangkas langsung siap untuk Anda.</p>
+        <div class="reason-card">
+          <div class="reason-num">03</div>
+          <h3 class="reason-title">Reservasi Pasti Tanpa Antre</h3>
+          <p class="reason-text">
+            Sistem booking online yang real-time. Jam yang Anda pilih terkunci khusus untuk Anda, siap saat Anda tiba.
+          </p>
         </div>
 
-        <div class="feature-card">
-          <div class="feature-icon">&#128205;</div>
-          <h3 class="feature-title">Lokasi Nyaman di KBP</h3>
-          <p class="feature-desc">Terletak di Ruko PancaTengah, Kota Baru Parahyangan. Akses mudah, parkir luas, dan suasana sejuk.</p>
+        <div class="reason-card">
+          <div class="reason-num">04</div>
+          <h3 class="reason-title">Lokasi Nyaman di KBP</h3>
+          <p class="reason-text">
+            Berada di Ruko PancaTengah, Kota Baru Parahyangan. Suasana sejuk, parkir tepat di depan toko, 7 menit dari Stasiun Whoosh.
+          </p>
         </div>
       </div>
 
-      <!-- Store Info Strip -->
-      <div class="store-info-strip">
-        <div class="store-strip-col">
-          <div class="strip-label">Jam Operasional (10 Jam / Hari)</div>
-          <div class="strip-val">Rabu &ndash; Senin: 10:00 &ndash; 20:00 WIB</div>
-          <div style="font-size: 13px; color: #ff8b94; margin-top: 3px; font-weight: 600;">Selasa: TUTUP (Libur Mingguan)</div>
+      <!-- Jam Buka & Final CTA Banner -->
+      <div class="cta-banner-strip" style="max-width: 1140px; margin: 55px auto 0;">
+        <div class="cta-hours-badge">
+          Rabu &ndash; Senin: 10:00 &ndash; 20:00 WIB &bull; <strong style="color: #ff8b94;">Selasa: TUTUP</strong>
         </div>
-        <div class="store-strip-col">
-          <div class="strip-label">Lokasi Toko</div>
-          <div class="strip-val">Ruko PancaTengah, Kota Baru Parahyangan</div>
-          <div style="font-size: 13px; color: var(--text-muted); margin-top: 3px;">7 menit dari Stasiun Whoosh Padalarang</div>
-        </div>
-        <div>
-          <a href="contact.html" class="btn-card-book" style="display: inline-block;">Lihat Peta &amp; Kontak &rarr;</a>
-        </div>
+        <h2 class="cta-banner-title">Siap Merapikan Penampilan Anda?</h2>
+        <p class="cta-banner-sub">
+          Pesan jadwal kunjungan Anda sekarang secara online. Pembayaran dilakukan langsung di tempat saat kunjungan.
+        </p>
+        <a href="booking.html" class="btn-hero-primary" style="display: inline-flex;">Reservasi Kursi Sekarang &rarr;</a>
       </div>
     </section>
 
