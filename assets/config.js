@@ -1,46 +1,46 @@
 /**
  * GREENWOOD BARBERS — MASTER CONFIGURATION & DATA STORE
- * Kota Baru Parahyangan, Padalarang, Bandung Barat
- * Terpusat untuk jam operasional, kontak, paket layanan, barber, dan sistem booking.
+ * Kota Baru Parahyangan, Padalarang, West Bandung
+ * Centralized business hours, contacts, grooming packages, master barbers, and booking engine.
  */
 
 const GREENWOOD_CONFIG = {
-  // 1. INFORMASI TOKO & KONTAK RESMI
+  // 1. BRAND INFORMATION & OFFICIAL CONTACTS
   brand: {
     name: "Greenwood Barbers",
     tagline: "The Gentlemen's Grooming Sanctuary",
     location: "Ruko PancaTengah, Kota Baru Parahyangan",
-    city: "Padalarang, Kabupaten Bandung Barat 40553",
-    fullAddress: "Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, Bandung Barat 40553",
-    whatsappNumber: "6282123456789", // Format internasional tanpa tanda +
+    city: "Padalarang, West Bandung Regency 40553",
+    fullAddress: "Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, West Bandung 40553",
+    whatsappNumber: "6282123456789", // International format without +
     whatsappDisplay: "+62 821-2345-6789",
     phoneDisplay: "+62 821-2345-6789",
     email: "contact@greenwoodbarbers.com",
     mapsUrl: "https://maps.google.com/?q=Kota+Baru+Parahyangan+Padalarang",
     mapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15844.629559384877!2d107.47250644498305!3d-6.871758509012351!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e37bb033481b%3A0xe54fb9e2c6501a35!2sKota%20Baru%20Parahyangan!5e0!3m2!1sid!2sid!4v1729240000000!5m2!1sid!2sid",
-    parkingInfo: "7 menit dari Stasiun Kereta Cepat Whoosh Padalarang & Gerbang Tol Padalarang. Parkir mobil & motor luas dan aman tepat di depan toko.",
-    paymentNotice: "Pembayaran di tempat: QRIS, debit, dan kartu kredit.",
-    cancellationNotice: "Mohon kabari kami minimal 3 jam sebelumnya jika berhalangan."
+    parkingInfo: "7 minutes from Whoosh High-Speed Rail Padalarang Station & Padalarang Toll Gate. Ample complimentary private parking right in front of the parlour.",
+    paymentNotice: "Payment on-site upon arrival: Cash, QRIS, and major Debit/Credit Cards accepted.",
+    cancellationNotice: "Kindly advise our concierge at least 3 hours prior if you need to reschedule."
   },
 
-  // 2. JAM OPERASIONAL (10 Jam per hari, SELASA TUTUP)
+  // 2. OPERATING HOURS (10 Hours Daily • TUESDAY CLOSED)
   hours: {
     openTime: "10:00",
     closeTime: "20:00",
     openHour: 10,
     closeHour: 20,
-    closedDays: [2], // 0: Minggu, 1: Senin, 2: Selasa (TUTUP), 3: Rabu, 4: Kamis, 5: Jumat, 6: Sabtu
-    closedDayName: "Selasa",
+    closedDays: [2], // 0: Sun, 1: Mon, 2: Tue (CLOSED), 3: Wed, 4: Thu, 5: Fri, 6: Sat
+    closedDayName: "Tuesday",
     dailySlots: [
       "10:00", "10:45", "11:30", "12:15", "13:00", 
       "13:45", "14:30", "15:15", "16:00", "16:45", 
       "17:30", "18:15", "19:00"
     ],
-    scheduleText: "Rabu &ndash; Senin: 10:00 &ndash; 20:00 WIB &bull; Selasa: TUTUP"
+    scheduleText: "Wednesday &ndash; Monday: 10:00 &ndash; 20:00 WIB &bull; Tuesday: CLOSED"
   },
 
-  // 3. DAFTAR PAKET UTAMA (PILIHAN TUNGGAL / RADIO BUTTON)
-  // Komponen dasar: 'haircut', 'wash', 'styling', 'massage', 'shave', 'scalp', 'coloring'
+  // 3. CURATED SIGNATURE RITUALS (SINGLE SELECTION)
+  // Base components: 'haircut', 'wash', 'styling', 'massage', 'shave', 'scalp', 'coloring'
   packages: [
     {
       id: "pkg-classic",
@@ -48,69 +48,70 @@ const GREENWOOD_CONFIG = {
       duration: 45,
       price: 110000,
       components: ["haircut", "wash", "styling"],
-      badge: "Layanan Dasar",
-      summary: "Konsultasi gaya rambut, cuci rambut relaksasi, gunting presisi, dan styling profesional.",
+      badge: "Essential Ritual",
+      summary: "Bespoke cranial consultation, botanical hair wash, precision shear & clipper cut, razor detailing, and executive finish.",
       steps: [
-        "Konsultasi bentuk wajah dan arah pertumbuhan rambut.",
-        "Cuci rambut dengan sampo herbal yang menyegarkan.",
-        "Pemotongan rambut presisi dengan teknik scissor & clipper.",
-        "Pembersihan garis rambut leher dan cambang.",
-        "Pengeringan dan penataan rambut (styling pomade/matte paste)."
+        "Consultation on cranial anatomy and natural growth patterns.",
+        "Botanical scalp wash with invigorating herbal extracts.",
+        "Precision scissor and clipper craftsmanship tailored to facial contours.",
+        "Straight-razor detailing of the neckline and sideburn perimeters.",
+        "Blow-dry styling with artisan matte paste or natural pomade."
       ]
     },
     {
       id: "pkg-signature",
-      name: "Paket Signature Grooming",
+      name: "The Signature Grooming Ritual",
       duration: 60,
       price: 150000,
       components: ["haircut", "wash", "styling", "massage"],
-      badge: "Paling Populer",
-      summary: "Haircut lengkap ditambah pijat kepala & leher relaksasi serta kompres handuk hangat aromaterapi.",
+      badge: "Most Popular",
+      summary: "Complete Classic Cut paired with therapeutic head & neck acupressure and aromatherapy lavender hot-linen wrap.",
       steps: [
-        "Semua langkah Classic Haircut & Styling lengkap.",
-        "Kompres handuk hangat aromaterapi lavender untuk membuka pori dan relaksasi.",
-        "Pijat relaksasi kepala, tengkuk, dan bahu untuk meredakan ketegangan.",
-        "Aplikasi hair tonic rosemary untuk menyegarkan kulit kepala.",
-        "Finishing styling dengan produk pilihan."
+        "Complete Classic Haircut & Styling ritual.",
+        "Ceremonial lavender aromatherapy hot-linen compress to open pores and induce tranquility.",
+        "Restorative head, neck, and shoulder acupressure massage.",
+        "Invigorating rosemary follicle stimulation tonic.",
+        "Executive styling finish with premium grooming pomade."
       ]
     },
     {
       id: "pkg-executive",
-      name: "Paket Executive Complete",
+      name: "The Executive Complete Ritual",
       duration: 75,
       price: 210000,
       components: ["haircut", "wash", "styling", "massage", "shave"],
-      badge: "Rekomendasi Utama",
-      summary: "Haircut, kompres handuk hangat, traditional hot towel shave / beard trim, dan pijat relaksasi.",
+      badge: "Curated Recommendation",
+      summary: "Bespoke Haircut, hot-towel straight-razor shave or beard contouring, and neck relaxation therapy.",
       steps: [
-        "Konsultasi lengkap rambut dan bentuk janggut/kumis.",
-        "Gunting rambut presisi dan cuci rambut relaksasi.",
-        "Pre-shave oil dan busa cukur hangat dengan kuas silvertip.",
-        "Traditional hot towel wet shave dengan pisau cukur satu kali pakai.",
-        "Pijat kepala, tengkuk, dan bahu yang menenangkan.",
-        "Cold towel penutup pori, aftershave balm, dan styling rambut."
+        "Comprehensive consultation on cranial silhouette and beard contouring.",
+        "Precision haircut ritual and restorative hair wash.",
+        "Pre-shave botanical oils and warm lather whipped with silvertip brush.",
+        "Traditional hot-linen straight-razor wet shave with surgical carbon steel.",
+        "Soothing cervical and temple acupressure massage.",
+        "Pore-tightening cold towel wrap, post-shave balm, and executive styling."
       ]
     },
     {
       id: "pkg-royal",
-      name: "Paket Royal Treatment",
+      name: "The Royal Treatment Immersion",
       duration: 90,
       price: 270000,
       components: ["haircut", "wash", "styling", "massage", "shave", "scalp"],
-      badge: "Perawatan Menyeluruh",
-      summary: "Perawatan total: Haircut, hot towel shave, pembersihan mendalam kulit kepala (scalp detox), dan pijat relaksasi.",
+      badge: "Comprehensive Immersion",
+      summary: "The complete immersion: Bespoke Haircut, traditional hot-linen shave, deep purifying scalp detox, and full upper-body relaxation.",
       steps: [
-        "Pemeriksaan menyeluruh kulit kepala dan pola rambut.",
-        "Perawatan scalp detox untuk membersihkan ketombe dan sisa minyak berlebih.",
-        "Haircut presisi disesuaikan dengan kontur wajah.",
-        "Traditional wet shave dengan handuk hangat aromaterapi.",
-        "Pijat relaksasi menyeluruh (kepala, leher, dan bahu).",
-        "Tonic nutrisi folikel, kompres dingin penutup, dan styling akhir."
+        "Comprehensive scalp dermis examination and follicle analysis.",
+        "Botanical scalp detox scrub removing sebum accumulation and dead cells.",
+        "Precision scissor cut sculpted to facial proportions.",
+        "Ceremonial wet shave with essential oil hot-linen towels.",
+        "Deep restorative head, cervical, and shoulder acupressure.",
+        "Nutritive dermal tonic, ice-cold pore seal, and bespoke styling finish."
       ]
     }
   ],
 
-  // 4. DAFTAR ADD-ON (Hanya bisa dipilih jika komponennya BELUM ada di paket yang dipilih)
+  // 4. A LA CARTE GROOMING ADD-ONS
+  // Can only be selected if the component is NOT already included in the selected package
   addons: [
     {
       id: "addon-shave",
@@ -118,7 +119,7 @@ const GREENWOOD_CONFIG = {
       duration: 30,
       price: 70000,
       component: "shave",
-      summary: "Cukur janggut/kumis rapi dengan handuk hangat, busa lembut, dan aftershave balm."
+      summary: "Ceremonial straight-razor shave with warm lather, hot-linen wrap, and restorative aftershave balm."
     },
     {
       id: "addon-massage",
@@ -126,68 +127,68 @@ const GREENWOOD_CONFIG = {
       duration: 20,
       price: 45000,
       component: "massage",
-      summary: "Pijat tambahan area kepala, tengkuk, dan bahu untuk melepas lelah."
+      summary: "Targeted acupressure across temples, neck, and shoulder blades to dissolve muscular fatigue."
     },
     {
       id: "addon-scalp",
-      name: "Scalp Treatment & Detox",
+      name: "Scalp Treatment & Detox Therapy",
       duration: 25,
       price: 65000,
       component: "scalp",
-      summary: "Eksfoliasi dan pembersihan kulit kepala dari minyak berlebih serta ketombe."
+      summary: "Deep botanical dermis purification removing excess sebum, flaking, and environmental impurities."
     },
     {
       id: "addon-color",
-      name: "Natural Hair Grey Blending",
+      name: "Natural Grey Blending & Camouflage",
       duration: 35,
       price: 90000,
       component: "coloring",
-      summary: "Pewarnaan natural hitam/cokelat gelap untuk menyamarkan uban dengan rapi."
+      summary: "Discreet demi-permanent toning formulation for an organic, refined, and youthful salt-and-pepper look."
     }
   ],
 
-  // 5. DAFTAR BARBER
+  // 5. MASTER BARBERS ROSTER
   barbers: [
     {
       id: "any",
       name: "Any Available Barber",
-      role: "Barber Pertama yang Tersedia",
-      badge: "Rekomendasi • Waktu Paling Fleksibel",
+      role: "First Available Senior Barber",
+      badge: "Recommended • Maximum Schedule Flexibility",
       avatarUrl: "assets/greenwood_monogram_cropped.png"
     },
     {
       id: "bramantyo",
       name: "Bramantyo",
       role: "Senior Barber",
-      badge: "Klasik & Scissor Work",
+      badge: "Classic Scissor & Scissor-Over-Comb",
       avatarUrl: "assets/barber_bramantyo.jpg"
     },
     {
       id: "rian",
       name: "Rian Pratama",
       role: "Senior Barber",
-      badge: "Precision Fade & Taper",
+      badge: "Precision Fade & Taper Specialist",
       avatarUrl: "assets/barber_rian.jpg"
     },
     {
       id: "dimas",
       name: "Dimas Setiawan",
       role: "Senior Barber",
-      badge: "Traditional Wet Shave",
+      badge: "Traditional Hot-Towel Wet Shave",
       avatarUrl: "assets/barber_dimas.jpg"
     },
     {
       id: "farhan",
       name: "Farhan Akbar",
       role: "Barber",
-      badge: "Modern Texture & Styling",
+      badge: "Contemporary Texture & Styling",
       avatarUrl: "assets/barber_farhan.jpg"
     },
     {
       id: "aldi",
       name: "Aldi Maulana",
       role: "Barber",
-      badge: "Beard Sculpting & Beard Care",
+      badge: "Beard Sculpting & Perimeter Detailing",
       avatarUrl: "assets/barber_aldi.jpg"
     }
   ]
@@ -201,7 +202,7 @@ const GreenwoodBookingStore = {
 
   _memoryBookings: null,
 
-  // Ambil semua booking yang tersimpan
+  // Retrieve all stored bookings
   getBookings: function() {
     try {
       if (typeof localStorage !== 'undefined') {
@@ -215,13 +216,13 @@ const GreenwoodBookingStore = {
     } catch (e) {
       console.warn("Error reading bookings from localStorage:", e);
     }
-    // Seed data awal yang realistis agar toko terasa aktif dan teruji
+    // Seed initial realistic appointments so schedule availability is authentic
     const seed = this.getSeedBookings();
     this.saveBookings(seed);
     return seed;
   },
 
-  // Simpan array booking
+  // Save bookings array
   saveBookings: function(bookings) {
     this._memoryBookings = bookings;
     try {
@@ -233,7 +234,7 @@ const GreenwoodBookingStore = {
     }
   },
 
-  // Tambahkan booking baru
+  // Add new confirmed booking
   addBooking: function(bookingData) {
     const list = this.getBookings();
     list.push(bookingData);
@@ -241,7 +242,7 @@ const GreenwoodBookingStore = {
     return bookingData;
   },
 
-  // Generate kode booking unik & realistis: GWB-YYMMDD-XXXX
+  // Generate realistic official booking code: GWB-YYMMDD-XXXX
   generateBookingCode: function(dateStr) {
     const now = new Date();
     const yy = String(now.getFullYear()).slice(-2);
@@ -251,34 +252,33 @@ const GreenwoodBookingStore = {
     return `GWB-${yy}${mm}${dd}-${randomHex}`;
   },
 
-  // Cek apakah slot waktu tertentu pada tanggal & barber tertentu tersedia
-  // Mengakomodasi durasi layanan total!
+  // Verify availability for date, time slot, duration, and barber
   isSlotAvailable: function(dateKey, timeSlotStr, totalDurationMinutes, barberId) {
-    // 1. Cek jam tutup toko (20:00). Jika waktu mulai + durasi melebihi 20:00, tidak boleh
+    // 1. Check closing time (20:00). If start + duration exceeds 20:00, slot is unavailable
     const [startH, startM] = timeSlotStr.split(':').map(Number);
     const startMinutesFromMidnight = startH * 60 + startM;
     const endMinutesFromMidnight = startMinutesFromMidnight + totalDurationMinutes;
     const closingMinutes = GREENWOOD_CONFIG.hours.closeHour * 60; // 20:00 = 1200 mins
 
     if (endMinutesFromMidnight > closingMinutes) {
-      return false; // Melebihi jam operasional toko
+      return false; // Exceeds parlour closing time
     }
 
     const bookings = this.getBookings();
     const activeBarbers = GREENWOOD_CONFIG.barbers.filter(b => b.id !== 'any').map(b => b.id);
 
-    // Ambil semua booking di tanggal tersebut
+    // Bookings on target date
     const dayBookings = bookings.filter(b => b.dateKey === dateKey);
 
     if (barberId && barberId !== 'any') {
-      // Untuk barber spesifik: Cek bentrok waktu dengan booking lain yang melibatkan barber ini
+      // Specific barber: Check for overlapping bookings
       for (const b of dayBookings) {
         if (b.barberId === barberId || b.assignedBarberId === barberId) {
           const [bStartH, bStartM] = b.timeSlot.split(':').map(Number);
           const bStart = bStartH * 60 + bStartM;
           const bEnd = bStart + (b.totalDuration || 45);
 
-          // Bentrok jika interval waktu tumpang tindih
+          // Conflict if time intervals overlap
           if (startMinutesFromMidnight < bEnd && endMinutesFromMidnight > bStart) {
             return false;
           }
@@ -286,8 +286,7 @@ const GreenwoodBookingStore = {
       }
       return true;
     } else {
-      // Untuk "Any Available Barber": Cek apakah setidaknya ADA SATU barber dari 5 barber yang bebas
-      // pada seluruh rentang durasi ini
+      // "Any Available Barber": Check if AT LEAST ONE barber is free across the entire duration
       let availableBarberCount = 0;
       for (const bId of activeBarbers) {
         let isBarberFree = true;
@@ -310,12 +309,11 @@ const GreenwoodBookingStore = {
     }
   },
 
-  // Seed awal untuk demonstrasi slot real
+  // Seed sample appointments
   getSeedBookings: function() {
     const today = new Date();
     const formatDateKey = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 
-    // Contoh: Besok jam 11:30 dan 15:15 ada booking
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
     const dateKeyTomorrow = formatDateKey(tomorrow);
@@ -330,7 +328,7 @@ const GreenwoodBookingStore = {
         totalDuration: 60,
         barberId: "bramantyo",
         assignedBarberId: "bramantyo",
-        packageName: "Paket Signature Grooming",
+        packageName: "The Signature Grooming Ritual",
         totalPrice: 150000,
         timestamp: Date.now() - 3600000
       },
@@ -343,7 +341,7 @@ const GreenwoodBookingStore = {
         totalDuration: 75,
         barberId: "dimas",
         assignedBarberId: "dimas",
-        packageName: "Paket Executive Complete",
+        packageName: "The Executive Complete Ritual",
         totalPrice: 210000,
         timestamp: Date.now() - 7200000
       }
@@ -351,7 +349,7 @@ const GreenwoodBookingStore = {
   }
 };
 
-// Export ke global window dan module.exports agar dapat diakses di mana pun
+// Export to global window and module.exports
 if (typeof window !== 'undefined') {
   window.GREENWOOD_CONFIG = GREENWOOD_CONFIG;
   window.GreenwoodBookingStore = GreenwoodBookingStore;

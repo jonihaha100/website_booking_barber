@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <title>Reservasi Online &bull; Pesan Kursi | Greenwood Barbers &bull; Kota Baru Parahyangan</title>
-  <meta name="description" content="Reservasi online pangkas rambut pria di Greenwood Barbers Kota Baru Parahyangan. Pilih paket layanan, tentukan barber & jadwal, konfirmasi instan tanpa antre.">
+  <title>Reserve Appointment &bull; Greenwood Barbers &bull; Kota Baru Parahyangan</title>
+  <meta name="description" content="Bespoke online reservation for Greenwood Barbers Kota Baru Parahyangan. Select signature grooming rituals, choose your artisan & schedule, and receive instant pass.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -1104,43 +1104,43 @@
 
     <!-- COMPACT BOOKING HEADER -->
     <div class="booking-header">
-      <span class="booking-eyebrow">Reservasi Online &bull; Kota Baru Parahyangan</span>
-      <h1 class="booking-title">Pesan Kursi Anda</h1>
+      <span class="booking-eyebrow">Gentlemen's Appointment Suite &bull; Kota Baru Parahyangan</span>
+      <h1 class="booking-title">Reserve Your Private Chair</h1>
       <p class="booking-sub">
-        Pilih paket layanan, tentukan barber &amp; jadwal, dan konfirmasi reservasi Anda tanpa antre.
+        Select your grooming ritual, assign your preferred artisan, and receive your confirmed pass without waiting.
       </p>
     </div>
 
     <!-- 3-STEP PROGRESS BAR (Point 5) -->
-    <div class="stepper-3" aria-label="Alur Reservasi">
+    <div class="stepper-3" aria-label="Appointment Progress">
       <div class="stepper-track">
         <div class="stepper-progress" id="stepperProgressLine"></div>
       </div>
       <button type="button" class="step-item active" id="stepNode1" onclick="navigateToStep(1)">
         <div class="step-circle"><span id="stepIcon1">1</span></div>
-        <span class="step-label">1. Pilih Layanan</span>
+        <span class="step-label">1. Select Ritual</span>
       </button>
       <button type="button" class="step-item" id="stepNode2" onclick="navigateToStep(2)">
         <div class="step-circle"><span id="stepIcon2">2</span></div>
-        <span class="step-label">2. Barber &amp; Jadwal</span>
+        <span class="step-label">2. Barber &amp; Schedule</span>
       </button>
       <button type="button" class="step-item" id="stepNode3" onclick="navigateToStep(3)">
         <div class="step-circle"><span id="stepIcon3">3</span></div>
-        <span class="step-label">3. Data Diri &amp; Konfirmasi</span>
+        <span class="step-label">3. Details &amp; Confirmation</span>
       </button>
     </div>
 
     <!-- ========================================================================
-         STEP 1: PILIH LAYANAN (PAKET SINGLE-SELECT & ADD-ONS WITH BLOCKING)
+         STEP 1: SELECT RITUAL (SINGLE-SELECT & ADD-ONS WITH BLOCKING)
          ======================================================================== -->
     <div class="flow-panel active" id="panelStep1">
       <div class="panel-card">
         <div class="panel-header-row">
-          <h2 class="panel-title">Pilih Paket Layanan</h2>
-          <span class="panel-badge">Langkah 1 dari 3</span>
+          <h2 class="panel-title">Choose Your Grooming Ritual</h2>
+          <span class="panel-badge">Step 1 of 3</span>
         </div>
         <p style="font-size: 14.5px; color: var(--text-muted); margin-bottom: 20px;">
-          Pilih satu paket utama di bawah ini. Anda dapat menambahkan perawatan add-on opsional setelahnya.
+          Select one signature package below. Complementary a la carte add-ons may be appended afterward.
         </p>
 
         <!-- Radio Selection for Packages -->
@@ -1150,8 +1150,8 @@
 
         <!-- Add-on List with Conflict Blocking -->
         <div class="addons-heading">
-          <span>Perawatan Tambahan (Add-on Opsional)</span>
-          <span class="addons-sub-note">Layanan yang sudah termasuk dalam paket akan dinonaktifkan</span>
+          <span>A La Carte Grooming Add-ons</span>
+          <span class="addons-sub-note">Services already included in your chosen ritual are automatically disabled</span>
         </div>
         <div id="addonListContainer">
           <!-- Dynamically populated from GREENWOOD_CONFIG.addons -->
@@ -1160,26 +1160,26 @@
         <!-- Step 1 Navigation Action -->
         <div class="step-actions-row">
           <button type="button" class="btn-step-next" onclick="navigateToStep(2)">
-            Lanjut ke Pilih Barber &amp; Jadwal (Langkah 2) &rarr;
+            Proceed to Barber &amp; Schedule (Step 2) &rarr;
           </button>
         </div>
       </div>
     </div>
 
     <!-- ========================================================================
-         STEP 2: BARBER & JADWAL (DIGABUNG DALAM SATU STEP! Point 5, 8, 9)
+         STEP 2: BARBER & SCHEDULE (CONSOLIDATED STEP)
          ======================================================================== -->
     <div class="flow-panel" id="panelStep2">
       <div class="panel-card">
         <div class="panel-header-row">
-          <h2 class="panel-title">Pilih Barber &amp; Waktu</h2>
-          <span class="panel-badge">Langkah 2 dari 3</span>
+          <h2 class="panel-title">Select Barber &amp; Schedule</h2>
+          <span class="panel-badge">Step 2 of 3</span>
         </div>
 
-        <!-- Part A: Pilih Barber -->
+        <!-- Part A: Choose Barber -->
         <div style="margin-bottom: 24px;">
           <div style="font-size: 15px; font-weight: 700; color: #ffffff; margin-bottom: 10px;">
-            1. Tentukan Barber Pilihan Anda
+            1. Choose Your Preferred Artisan
           </div>
 
           <!-- Banner: Any Available Barber (Recommended Default) -->
@@ -1189,13 +1189,13 @@
             </div>
             <div class="barber-any-info">
               <div class="barber-any-title">Any Available Barber</div>
-              <div class="barber-any-desc">Rekomendasi terbaik &bull; Barber pertama yang tersedia sesuai jadwal pilihan Anda.</div>
+              <div class="barber-any-desc">First available senior barber suited to your selected schedule. Recommended for flexibility.</div>
             </div>
             <div class="barber-check-icon">&#10003;</div>
           </div>
 
           <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
-            Atau pilih barber spesifik:
+            Or select a dedicated barber:
           </div>
 
           <!-- 5 Individual Barbers Grid -->
@@ -1206,32 +1206,32 @@
 
         <hr style="border: none; border-top: 1px solid var(--card-border); margin: 26px 0;">
 
-        <!-- Part B: Pilih Tanggal (14 Hari, Selasa Tutup, No Auto-Selection) -->
+        <!-- Part B: Choose Date (14 Days, Tuesday Closed) -->
         <div>
           <div class="cal-section-header">
-            <span>2. Tentukan Tanggal &amp; Waktu Kunjungan</span>
-            <span class="cal-closed-notice">&#9888; Selasa Libur Mingguan</span>
+            <span>2. Select Date &amp; Appointment Time</span>
+            <span class="cal-closed-notice">&#9888; Tuesday Weekly Closure</span>
           </div>
           <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 14px;">
-            Silakan klik salah satu tanggal yang tersedia dalam 14 hari ke depan:
+            Please click any available date within our 14-day booking window:
           </p>
 
           <div class="calendar-strip-wrap">
-            <button type="button" class="btn-cal-nav" id="btnCalPrev" onclick="navigateCalendarWeek(-1)" aria-label="Minggu Sebelumnya">&larr;</button>
+            <button type="button" class="btn-cal-nav" id="btnCalPrev" onclick="navigateCalendarWeek(-1)" aria-label="Previous Week">&larr;</button>
             <div class="date-grid-scroll" id="calendarDaysStrip">
               <!-- Dynamically populated 7 days at a time -->
             </div>
-            <button type="button" class="btn-cal-nav" id="btnCalNext" onclick="navigateCalendarWeek(1)" aria-label="Minggu Berikutnya">&rarr;</button>
+            <button type="button" class="btn-cal-nav" id="btnCalNext" onclick="navigateCalendarWeek(1)" aria-label="Next Week">&rarr;</button>
           </div>
           <div style="font-size: 12px; color: var(--text-muted); text-align: center; margin-bottom: 20px;" id="calendarWeekCaption">
-            Menampilkan Minggu 1 dari 2
+            Showing Week 1 of 2 (14 Days Available)
           </div>
 
           <!-- Part C: Single Grid of Available Time Slots -->
           <div class="slots-container" id="slotsSectionWrapper">
             <div class="slots-header-row">
-              <span class="slots-title" id="selectedDateTitle">Pilih Jam yang Tersedia</span>
-              <span class="slots-legend">Durasi: <strong id="totalDurationBadge">45 Menit</strong></span>
+              <span class="slots-title" id="selectedDateTitle">Available Time Slots</span>
+              <span class="slots-legend">Duration: <strong id="totalDurationBadge">45 Mins</strong></span>
             </div>
             <div class="time-grid-single" id="timeSlotsGridContainer">
               <!-- Dynamically populated available slots -->
@@ -1242,93 +1242,93 @@
         <!-- Step 2 Navigation Actions -->
         <div class="step-actions-row">
           <button type="button" class="btn-step-back" onclick="navigateToStep(1)">
-            &larr; Kembali ke Layanan
+            &larr; Back to Rituals
           </button>
           <button type="button" class="btn-step-next" onclick="navigateToStep(3)">
-            Lanjut ke Data Diri &amp; Konfirmasi &rarr;
+            Proceed to Details &amp; Confirmation &rarr;
           </button>
         </div>
       </div>
     </div>
 
     <!-- ========================================================================
-         STEP 3: DATA DIRI & KONFIRMASI (Point 10, 14: ONE-LINE SUMMARY + FORM)
+         STEP 3: GUEST DETAILS & CONFIRMATION
          ======================================================================== -->
     <div class="flow-panel" id="panelStep3">
       <div class="panel-card" id="step3FormWrapper">
         <div class="panel-header-row">
-          <h2 class="panel-title">Data Diri &amp; Konfirmasi</h2>
-          <span class="panel-badge">Langkah 3 dari 3</span>
+          <h2 class="panel-title">Guest Details &amp; Confirmation</h2>
+          <span class="panel-badge">Step 3 of 3</span>
         </div>
 
-        <!-- SATU BARIS RINGKASAN JELAS (Point 10, 14) -->
+        <!-- ONE-LINE SUMMARY BAR -->
         <div class="one-line-summary-bar">
           <div>
             <div style="font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-gold); font-weight: 700; margin-bottom: 2px;">
-              Ringkasan Reservasi
+              Reservation Summary
             </div>
             <div class="summary-text-main" id="oneLineSummaryText">
-              Paket Signature Grooming &bull; Any Available Barber &bull; Pilih Jadwal
+              The Signature Grooming Ritual &bull; Any Available Barber &bull; Select Schedule
             </div>
           </div>
           <div class="summary-price-highlight" id="oneLineTotalPrice">
-            Rp 150.000
+            Rp 150,000
           </div>
         </div>
 
-        <!-- Formulir Data Diri -->
+        <!-- Guest Details Form -->
         <form id="bookingFinalForm" onsubmit="handleBookingSubmission(event)">
           <div class="form-grid-2">
             <div class="form-group">
-              <label class="form-label" for="guestName">Nama Lengkap *</label>
-              <input type="text" id="guestName" class="form-input" placeholder="e.g. Raden Syamhari Abidin" required>
+              <label class="form-label" for="guestName">Full Name *</label>
+              <input type="text" id="guestName" class="form-input" placeholder="e.g. Jonathan Bramantyo" required>
             </div>
             <div class="form-group">
-              <label class="form-label" for="guestPhone">Nomor WhatsApp *</label>
-              <input type="tel" id="guestPhone" class="form-input" placeholder="e.g. 0812-8899-7721" required>
+              <label class="form-label" for="guestPhone">WhatsApp / Mobile Number *</label>
+              <input type="tel" id="guestPhone" class="form-input" placeholder="e.g. +62 812-8899-7721" required>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="guestEmail">Email (Opsional)</label>
-            <input type="email" id="guestEmail" class="form-input" placeholder="nama@email.com">
+            <label class="form-label" for="guestEmail">Email Address (Optional)</label>
+            <input type="email" id="guestEmail" class="form-input" placeholder="client@example.com">
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="guestNotes">Catatan Tambahan (Opsional)</label>
-            <textarea id="guestNotes" class="form-input" rows="2" placeholder="e.g. Preferensi gaya rambut, kulit sensitif, atau permintaan khusus"></textarea>
+            <label class="form-label" for="guestNotes">Special Requests / Hair Preferences (Optional)</label>
+            <textarea id="guestNotes" class="form-input" rows="2" placeholder="e.g. Scissor-taper preference, sensitive skin, or beverage requests"></textarea>
           </div>
 
-          <!-- Note: On-site payment & cancellation reminder (Point 2) -->
+          <!-- Note: On-site payment & cancellation reminder -->
           <div class="form-note-box">
-            <strong>Catatan Pembayaran &amp; Kehadiran:</strong><br>
-            &bull; Pembayaran dilakukan langsung di tempat saat kunjungan (QRIS, debit, kartu kredit, tunai).<br>
-            &bull; Mohon kabari kami minimal 3 jam sebelumnya jika berhalangan agar slot kursi dapat dialihkan.
+            <strong>Payment &amp; Attendance Protocol:</strong><br>
+            &bull; Payment is settled on-site upon arrival (Cash, QRIS, Debit, Credit Cards). No upfront online fee.<br>
+            &bull; Kindly advise our concierge at least 3 hours prior if you need to reschedule.
           </div>
 
           <!-- Submit Buttons -->
           <div class="step-actions-row">
             <button type="button" class="btn-step-back" onclick="navigateToStep(2)">
-              &larr; Ubah Jadwal / Barber
+              &larr; Change Barber / Time
             </button>
             <button type="submit" class="btn-step-next" id="btnSubmitBooking">
-              Konfirmasi Reservasi Sekarang &rarr;
+              Confirm Reservation &amp; Generate Pass &rarr;
             </button>
           </div>
         </form>
       </div>
 
       <!-- ======================================================================
-           IN-APP CONFIRMED PASS (TANPA REDIRECT WA, REAL PERSISTENCE)
+           IN-APP CONFIRMED PASS (DIRECT SCREEN, NO EXTERNAL REDIRECT)
            ====================================================================== -->
       <div id="confirmedPassScreen" style="display: none;">
         <div style="text-align: center; margin-bottom: 24px;">
           <div style="width: 56px; height: 56px; border-radius: 50%; background: rgba(40, 167, 69, 0.2); border: 2px solid #85e396; color: #85e396; display: flex; align-items: center; justify-content: center; font-size: 26px; margin: 0 auto 14px;">
             &#10003;
           </div>
-          <h2 style="font-family: var(--font-serif); font-size: 34px; color: #ffffff; margin-bottom: 6px;">Reservasi Anda Berhasil Terkonfirmasi!</h2>
+          <h2 style="font-family: var(--font-serif); font-size: 34px; color: #ffffff; margin-bottom: 6px;">Your Appointment is Confirmed!</h2>
           <p style="font-size: 15px; color: var(--text-muted); max-width: 600px; margin: 0 auto;">
-            Data reservasi Anda telah tercatat pada sistem toko. Silakan simpan atau tunjukkan kode booking ini saat tiba di parlour kami.
+            Your reservation is officially recorded in our parlour ledger. Please save or present this official pass upon arrival.
           </p>
         </div>
 
@@ -1343,46 +1343,46 @@
 
           <div class="pass-content-grid">
             <div>
-              <div class="pass-item-label">Nama Tamu</div>
+              <div class="pass-item-label">Guest Name</div>
               <div class="pass-item-val" id="passGuestName">-</div>
             </div>
             <div>
-              <div class="pass-item-label">Nomor WhatsApp</div>
+              <div class="pass-item-label">WhatsApp / Contact</div>
               <div class="pass-item-val" id="passGuestPhone">-</div>
             </div>
             <div>
-              <div class="pass-item-label">Barber Ditugaskan</div>
+              <div class="pass-item-label">Assigned Artisan</div>
               <div class="pass-item-val" id="passBarberName">-</div>
             </div>
             <div>
-              <div class="pass-item-label">Hari &amp; Jam Kunjungan</div>
+              <div class="pass-item-label">Date &amp; Time</div>
               <div class="pass-item-val" id="passScheduleTime">-</div>
             </div>
             <div>
-              <div class="pass-item-label">Paket &amp; Layanan</div>
+              <div class="pass-item-label">Selected Rituals</div>
               <div class="pass-item-val" id="passServicesList">-</div>
             </div>
             <div>
-              <div class="pass-item-label">Estimasi Total Biaya</div>
+              <div class="pass-item-label">Total Amount Due</div>
               <div class="pass-item-val" style="color: var(--accent-gold-bright); font-size: 18px;" id="passTotalPrice">-</div>
             </div>
           </div>
 
           <div class="pass-footer-strip">
-            <strong>Lokasi:</strong> Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang.<br>
-            <strong>Pembayaran:</strong> Dilakukan di tempat (QRIS, Debit, Kartu Kredit). Tidak ada biaya tambahan di muka.<br>
-            <strong>Bantuan:</strong> Hubungi WhatsApp Concierge resmi di +62 821-2345-6789 jika butuh bantuan atau penyesuaian jadwal.
+            <strong>Location:</strong> Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, West Bandung.<br>
+            <strong>Settlement:</strong> Settled on-site upon arrival (Cash, QRIS, Debit, Credit Card). No upfront deposit.<br>
+            <strong>Concierge:</strong> Reach our official concierge via WhatsApp at +62 821-2345-6789 for schedule adjustments.
           </div>
 
           <div class="pass-actions-bar">
             <button type="button" class="btn-step-next" onclick="window.print()" style="flex: 1; min-width: 170px;">
-              &#128424; Cetak / Simpan PDF
+              &#128424; Print / Save PDF Pass
             </button>
             <button type="button" class="btn-step-back" onclick="resetBookingSession()" style="flex: 1; min-width: 170px;">
-              + Buat Booking Baru
+              + Book Another Appointment
             </button>
             <a href="index.html" class="btn-step-back" style="flex: 1; min-width: 150px; text-decoration: none; text-align: center;">
-              Kembali ke Beranda &rarr;
+              Return to Home &rarr;
             </a>
           </div>
         </div>
@@ -1393,24 +1393,24 @@
   </main>
 
   <!-- ==========================================================================
-       MODAL: DETAIL LANGKAH PAKET
+       MODAL: RITUAL STEP DETAILS
        ========================================================================== -->
   <div class="info-modal-backdrop" id="pkgInfoModal" onclick="closePkgModal(event)">
     <div class="info-modal-box">
-      <h3 class="info-modal-title" id="modalPkgTitle">Detail Paket</h3>
-      <div class="info-modal-meta" id="modalPkgMeta">45 Menit &bull; Rp 110.000</div>
+      <h3 class="info-modal-title" id="modalPkgTitle">Ritual Details</h3>
+      <div class="info-modal-meta" id="modalPkgMeta">45 Mins &bull; Rp 110,000</div>
       <ul class="info-steps-list" id="modalPkgStepsList">
         <!-- Injected dynamically -->
       </ul>
-      <button type="button" class="btn-modal-close" onclick="closePkgModalDirect()">Tutup Detail</button>
+      <button type="button" class="btn-modal-close" onclick="closePkgModalDirect()">Close Details</button>
     </div>
   </div>
 
   <!-- FOOTER -->
   <footer>
     <div class="footer-copy">
-      &copy; 2026 Greenwood Barbers. All rights reserved. Ruko PancaTengah, Kota Baru Parahyangan, Padalarang, Bandung Barat.<br>
-      WhatsApp: +62 821-2345-6789 &bull; Email: contact@greenwoodbarbers.com &bull; Buka Rabu&ndash;Senin 10:00&ndash;20:00 WIB (Selasa TUTUP).
+      &copy; 2026 Greenwood Barbers. All rights reserved. Ruko PancaTengah, Kota Baru Parahyangan, Padalarang, West Bandung.<br>
+      Direct Concierge Hotline: +62 821-2345-6789 &bull; Email: contact@greenwoodbarbers.com &bull; Open Wednesday&ndash;Monday 10:00&ndash;20:00 WIB (Tuesday: CLOSED).
     </div>
   </footer>
 
@@ -1430,17 +1430,17 @@
     let calendarDays = [];
     let calendarWeekOffset = 0; // 0: Week 1, 1: Week 2
 
-    // Helper Format Rupiah
+    // Helper Format Currency
     function formatRupiah(num) {
-      return "Rp " + Number(num).toLocaleString('id-ID');
+      return "Rp " + Number(num).toLocaleString('en-US');
     }
 
-    // 1. Inisialisasi Paket & Addon (Step 1)
+    // 1. Initialize Packages & Add-ons (Step 1)
     function initServices() {
-      // Set default package (Paket Signature)
-      selectedPackage = GREENWOOD_CONFIG.packages[1]; // Paket Signature
+      // Set default package (Signature Ritual)
+      selectedPackage = GREENWOOD_CONFIG.packages[1];
 
-      // Render Paket Radio
+      // Render Package Cards
       const pkgContainer = document.getElementById('packageListContainer');
       pkgContainer.innerHTML = GREENWOOD_CONFIG.packages.map(pkg => {
         const isSelected = selectedPackage.id === pkg.id;
@@ -1450,13 +1450,13 @@
               <div class="pkg-title-row">
                 <span class="pkg-name">${pkg.name}</span>
                 <span class="pkg-badge-pill">${pkg.badge}</span>
-                <button type="button" class="btn-pkg-info" onclick="openPackageDetails('${pkg.id}', event)" title="Lihat rincian langkah">i</button>
+                <button type="button" class="btn-pkg-info" onclick="openPackageDetails('${pkg.id}', event)" title="View step-by-step ritual details">i</button>
               </div>
               <div class="pkg-desc-snippet">${pkg.summary}</div>
             </div>
             <div class="pkg-price-col">
               <div class="pkg-price-val">${formatRupiah(pkg.price)}</div>
-              <div class="pkg-duration-val">${pkg.duration} Menit</div>
+              <div class="pkg-duration-val">${pkg.duration} Mins</div>
             </div>
             <div class="pkg-radio-indicator"></div>
           </div>
@@ -1466,7 +1466,7 @@
       renderAddons();
     }
 
-    // Pilih Paket Utama
+    // Select Signature Package
     function selectPackage(pkgId) {
       selectedPackage = GREENWOOD_CONFIG.packages.find(p => p.id === pkgId);
       
@@ -1475,8 +1475,7 @@
       const activeCard = document.getElementById(`pkgCard-${pkgId}`);
       if (activeCard) activeCard.classList.add('selected');
 
-      // ATURAN PAKET (Point 7, 9): Re-evaluasi add-ons
-      // Jika add-on yang sebelumnya dicentang ternyata sudah termasuk dalam paket baru, lepaskan centangnya!
+      // Re-evaluate add-ons: If previously selected add-on is now included, deselect it
       selectedAddons = selectedAddons.filter(addon => {
         return !selectedPackage.components.includes(addon.component);
       });
@@ -1485,7 +1484,7 @@
       updateBookingCalculations();
     }
 
-    // Render Add-ons dengan Status Disabled jika sudah termasuk dalam paket
+    // Render Add-ons with Disabled status if already included
     function renderAddons() {
       const addonContainer = document.getElementById('addonListContainer');
       if (!addonContainer || !selectedPackage) return;
@@ -1496,17 +1495,17 @@
 
         if (isIncludedInPkg) {
           return `
-            <div class="addon-card disabled" title="Perawatan ini sudah termasuk dalam ${selectedPackage.name}">
+            <div class="addon-card disabled" title="This treatment is already included in ${selectedPackage.name}">
               <div class="addon-info-left">
                 <div class="addon-title-row">
                   <span class="addon-name">${addon.name}</span>
-                  <span class="addon-included-badge">&#10003; Sudah termasuk dalam ${selectedPackage.name}</span>
+                  <span class="addon-included-badge">&#10003; Included in ${selectedPackage.name}</span>
                 </div>
                 <div class="addon-desc">${addon.summary}</div>
               </div>
               <div class="addon-price-col">
                 <div class="addon-price-val" style="color: var(--text-muted);">&mdash;</div>
-                <div class="addon-dur-val">${addon.duration} Menit</div>
+                <div class="addon-dur-val">${addon.duration} Mins</div>
               </div>
             </div>
           `;
@@ -1521,7 +1520,7 @@
               </div>
               <div class="addon-price-col">
                 <div class="addon-price-val">+ ${formatRupiah(addon.price)}</div>
-                <div class="addon-dur-val">+ ${addon.duration} Menit</div>
+                <div class="addon-dur-val">+ ${addon.duration} Mins</div>
               </div>
               <div class="addon-checkbox">${isSelected ? '&#10003;' : ''}</div>
             </div>
@@ -1546,7 +1545,7 @@
       updateBookingCalculations();
     }
 
-    // Hitung Total Durasi & Total Harga
+    // Calculate Total Duration & Price
     function getTotalDuration() {
       const pkgDur = selectedPackage ? selectedPackage.duration : 45;
       const addDur = selectedAddons.reduce((sum, a) => sum + a.duration, 0);
@@ -1563,7 +1562,7 @@
       const totalPrc = getTotalPrice();
 
       const durBadge = document.getElementById('totalDurationBadge');
-      if (durBadge) durBadge.textContent = `${totalDur} Menit`;
+      if (durBadge) durBadge.textContent = `${totalDur} Mins`;
 
       // Update One Line Summary (Step 3)
       const barber = GREENWOOD_CONFIG.barbers.find(b => b.id === selectedBarberId);
@@ -1573,8 +1572,8 @@
         ? ` + ${selectedAddons.map(a => a.name).join(', ')}` 
         : '';
       let schedText = selectedDateObj && selectedTimeSlot 
-        ? `${selectedDateObj.dayName}, ${selectedDateObj.dayNum} ${selectedDateObj.monthName} @ ${selectedTimeSlot} WIB`
-        : 'Pilih Jadwal di Langkah 2';
+        ? `${selectedDateObj.dayName}, ${selectedDateObj.monthName} ${selectedDateObj.dayNum} @ ${selectedTimeSlot} WIB`
+        : 'Select Schedule in Step 2';
 
       const summaryTextEl = document.getElementById('oneLineSummaryText');
       if (summaryTextEl) {
@@ -1586,13 +1585,13 @@
         summaryPriceEl.textContent = formatRupiah(totalPrc);
       }
 
-      // Re-render time slots jika tanggal sedang terpilih
+      // Re-render time slots if date is selected
       if (selectedDateObj) {
         renderTimeSlots();
       }
     }
 
-    // 2. Inisialisasi Barbers (Step 2)
+    // 2. Initialize Barbers (Step 2)
     function initBarbers() {
       const barberGrid = document.getElementById('barberGridContainer');
       const individualBarbers = GREENWOOD_CONFIG.barbers.filter(b => b.id !== 'any');
@@ -1611,11 +1610,10 @@
       }).join('');
     }
 
-    // Pilih Barber (Bug centang diperbaiki secara tuntas! Point 8, 11)
+    // Select Barber
     function selectBarber(barberId) {
       selectedBarberId = barberId;
 
-      // Hapus kelas selected dari semua kartu barber
       document.querySelectorAll('.barber-select-card').forEach(c => c.classList.remove('selected'));
       const anyBanner = document.getElementById('barberCard-any');
       if (anyBanner) anyBanner.classList.remove('selected');
@@ -1630,20 +1628,20 @@
       updateBookingCalculations();
     }
 
-    // 3. Inisialisasi 14-Day Calendar (Step 2)
+    // 3. Initialize 14-Day Calendar (Step 2)
     function initCalendar() {
-      const days = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
-      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+      const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
       const today = new Date();
 
       calendarDays = [];
-      // Buat 14 hari mulai besok (Point 9, 12)
+      // Generate 14 days starting tomorrow
       for (let i = 1; i <= 14; i++) {
         const d = new Date(today);
         d.setDate(today.getDate() + i);
 
-        const dayOfWeek = d.getDay(); // 2 adalah Selasa
-        const isTuesday = (dayOfWeek === 2); // Toko TUTUP Selasa (Point 3, 5)
+        const dayOfWeek = d.getDay(); // 2 is Tuesday
+        const isTuesday = (dayOfWeek === 2); // Tuesday CLOSED
 
         calendarDays.push({
           dateObj: d,
@@ -1657,7 +1655,6 @@
         });
       }
 
-      // Default: TIDAK ADA tanggal yang dipilih otomatis (Point 12)
       selectedDateObj = null;
       selectedTimeSlot = null;
 
@@ -1675,10 +1672,10 @@
         const isSelected = selectedDateObj && (selectedDateObj.dateKey === d.dateKey);
         if (d.isClosed) {
           return `
-            <div class="date-card-btn closed" title="Toko Tutup Setiap Hari Selasa">
+            <div class="date-card-btn closed" title="Parlour Closed Every Tuesday">
               <span class="date-day-name">${d.dayName}</span>
               <span class="date-num">${d.dayNum}</span>
-              <span class="date-closed-badge">Tutup</span>
+              <span class="date-closed-badge">Closed</span>
             </div>
           `;
         } else {
@@ -1700,8 +1697,8 @@
       const caption = document.getElementById('calendarWeekCaption');
       if (caption) {
         caption.textContent = calendarWeekOffset === 0 
-          ? 'Menampilkan Minggu 1 dari 2 (14 Hari Tersedia)' 
-          : 'Menampilkan Minggu 2 dari 2 (14 Hari Tersedia)';
+          ? 'Showing Week 1 of 2 (14 Days Available)' 
+          : 'Showing Week 2 of 2 (14 Days Available)';
       }
     }
 
@@ -1715,19 +1712,19 @@
       if (!dayData || dayData.isClosed) return;
 
       selectedDateObj = dayData;
-      selectedTimeSlot = null; // Reset time slot saat tanggal berubah
+      selectedTimeSlot = null;
       renderCalendarWeek();
 
       const titleEl = document.getElementById('selectedDateTitle');
       if (titleEl) {
-        titleEl.textContent = `Jam Tersedia: ${dayData.dayName}, ${dayData.dayNum} ${dayData.monthName} ${dayData.year}`;
+        titleEl.textContent = `Available Hours: ${dayData.dayName}, ${dayData.monthName} ${dayData.dayNum}, ${dayData.year}`;
       }
 
       renderTimeSlots();
       updateBookingCalculations();
     }
 
-    // 4. Render Time Slots (Berdasarkan Durasi & Ketersediaan Real dari Storage!)
+    // 4. Render Time Slots
     function renderTimeSlots() {
       const container = document.getElementById('timeSlotsGridContainer');
       if (!container) return;
@@ -1735,7 +1732,7 @@
       if (!selectedDateObj) {
         container.innerHTML = `
           <div style="grid-column: 1 / -1; text-align: center; padding: 24px; color: var(--text-muted); font-size: 14px;">
-            Silakan pilih tanggal kunjungan di atas terlebih dahulu untuk melihat jam yang tersedia.
+            Please select an appointment date above to view available time slots.
           </div>
         `;
         return;
@@ -1745,7 +1742,6 @@
       const dailySlots = GREENWOOD_CONFIG.hours.dailySlots;
 
       container.innerHTML = dailySlots.map(timeStr => {
-        // Cek ketersediaan via BookingStore engine
         const isFree = GreenwoodBookingStore.isSlotAvailable(
           selectedDateObj.dateKey,
           timeStr,
@@ -1757,7 +1753,7 @@
 
         if (!isFree) {
           return `
-            <button type="button" class="slot-btn booked" disabled title="Slot jam ini sudah terisi penuh atau melebihi jam operasional">
+            <button type="button" class="slot-btn booked" disabled title="This slot is fully reserved or beyond operating hours">
               ${timeStr}
             </button>
           `;
@@ -1777,34 +1773,30 @@
       updateBookingCalculations();
     }
 
-    // 5. Navigasi Antar Step
+    // 5. Navigate Between Steps
     function navigateToStep(stepNum) {
-      // Validasi sebelum pindah ke Step 2
       if (stepNum > 1 && !selectedPackage) {
-        alert("Silakan pilih salah satu paket layanan terlebih dahulu.");
+        alert("Please select a signature grooming ritual first.");
         return;
       }
 
-      // Validasi sebelum pindah ke Step 3
       if (stepNum > 2) {
         if (!selectedDateObj) {
-          alert("Silakan pilih tanggal kunjungan Anda.");
+          alert("Please select your appointment date.");
           return;
         }
         if (!selectedTimeSlot) {
-          alert("Silakan pilih jam kunjungan yang tersedia.");
+          alert("Please select an available time slot.");
           return;
         }
       }
 
       currentStep = stepNum;
 
-      // Update Panels Visibility
       document.querySelectorAll('.flow-panel').forEach(p => p.classList.remove('active'));
       const targetPanel = document.getElementById(`panelStep${stepNum}`);
       if (targetPanel) targetPanel.classList.add('active');
 
-      // Update Stepper Line & Nodes
       document.querySelectorAll('.step-item').forEach((item, idx) => {
         const itemStep = idx + 1;
         item.classList.remove('active', 'completed');
@@ -1823,14 +1815,13 @@
 
       updateBookingCalculations();
 
-      // Scroll halus ke atas area booking
       const mainWrapper = document.querySelector('.booking-wrapper');
       if (mainWrapper) {
         mainWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
 
-    // 6. Handle Booking Submission & Real Persistence (Point 1, 2, 3)
+    // 6. Handle Booking Submission & Real Persistence
     function handleBookingSubmission(e) {
       e.preventDefault();
 
@@ -1840,12 +1831,12 @@
       const notes = document.getElementById('guestNotes').value.trim();
 
       if (!name || !phone) {
-        alert("Mohon masukkan nama lengkap dan nomor WhatsApp aktif Anda.");
+        alert("Please provide your full name and active WhatsApp / mobile number.");
         return;
       }
 
       if (!selectedPackage || !selectedDateObj || !selectedTimeSlot) {
-        alert("Data pemesanan belum lengkap. Mohon periksa kembali layanan dan jadwal Anda.");
+        alert("Booking details incomplete. Please review your selected ritual and schedule.");
         navigateToStep(2);
         return;
       }
@@ -1854,10 +1845,8 @@
       const totalPrc = getTotalPrice();
       const bookingCode = GreenwoodBookingStore.generateBookingCode(selectedDateObj.dateKey);
 
-      // Tentukan barber yang bertugas
       let assignedBarber = GREENWOOD_CONFIG.barbers.find(b => b.id === selectedBarberId);
       if (selectedBarberId === 'any') {
-        // Concierge assignment logic: Pilih salah satu barber yang sedang bebas
         const activeBarbers = GREENWOOD_CONFIG.barbers.filter(b => b.id !== 'any');
         for (const b of activeBarbers) {
           if (GreenwoodBookingStore.isSlotAvailable(selectedDateObj.dateKey, selectedTimeSlot, totalDur, b.id)) {
@@ -1874,7 +1863,7 @@
         guestEmail: email,
         guestNotes: notes,
         dateKey: selectedDateObj.dateKey,
-        dayFull: `${selectedDateObj.dayName}, ${selectedDateObj.dayNum} ${selectedDateObj.monthName} ${selectedDateObj.year}`,
+        dayFull: `${selectedDateObj.dayName}, ${selectedDateObj.monthName} ${selectedDateObj.dayNum}, ${selectedDateObj.year}`,
         timeSlot: selectedTimeSlot,
         totalDuration: totalDur,
         totalPrice: totalPrc,
@@ -1887,10 +1876,10 @@
         timestamp: Date.now()
       };
 
-      // SIMPAN DATA REAL KE LOCALSTORAGE & KUNCI SLOT (Point 1 & 3)
+      // Save to localStorage store
       GreenwoodBookingStore.addBooking(bookingRecord);
 
-      // Tampilkan Hasil di Confirmed Pass Screen (Point 2: Langsung di website TANPA redirect WA!)
+      // Populate Confirmed Pass Screen
       document.getElementById('passCodeVal').textContent = bookingCode;
       document.getElementById('passGuestName').textContent = name;
       document.getElementById('passGuestPhone').textContent = phone;
@@ -1904,7 +1893,7 @@
       document.getElementById('passServicesList').textContent = servicesListText;
       document.getElementById('passTotalPrice').textContent = formatRupiah(totalPrc);
 
-      // Sembunyikan form dan tampilkan pass
+      // Hide form and show pass
       document.getElementById('step3FormWrapper').style.display = 'none';
       const passScreen = document.getElementById('confirmedPassScreen');
       passScreen.style.display = 'block';
@@ -1913,7 +1902,6 @@
 
     // Reset Booking Session
     function resetBookingSession() {
-      // Reset form
       const form = document.getElementById('bookingFinalForm');
       if (form) form.reset();
 
@@ -1931,7 +1919,7 @@
       if (!pkg) return;
 
       document.getElementById('modalPkgTitle').textContent = pkg.name;
-      document.getElementById('modalPkgMeta').textContent = `${pkg.duration} Menit &bull; ${formatRupiah(pkg.price)} &bull; ${pkg.badge}`;
+      document.getElementById('modalPkgMeta').textContent = `${pkg.duration} Mins &bull; ${formatRupiah(pkg.price)} &bull; ${pkg.badge}`;
       document.getElementById('modalPkgStepsList').innerHTML = pkg.steps.map(s => `
         <li class="info-step-item">
           <span style="color: var(--accent-gold-bright); font-weight: 700;">&bull;</span>
