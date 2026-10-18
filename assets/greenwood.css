@@ -254,7 +254,7 @@ a.nav-experience-link {
    ========================================================================== */
 .page-hero {
   position: relative;
-  background: radial-gradient(circle at 50% 20%, #082417 0%, var(--bg-obsidian) 70%);
+  background: radial-gradient(circle at 50% 25%, #053827 0%, #032419 60%, var(--bg-obsidian) 100%);
   border-bottom: 1px solid var(--color-gold-hairline);
   padding: 85px 40px 65px;
   text-align: center;
