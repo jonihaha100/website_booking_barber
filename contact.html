@@ -282,19 +282,37 @@
       gap: 16px;
     }
     .store-photo-card {
-      border-radius: 6px;
+      border-radius: 8px;
       overflow: hidden;
       border: 1px solid var(--card-border);
       background: #020704;
       position: relative;
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 16 / 11;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s ease;
+    }
+    .store-photo-card:hover {
+      border-color: var(--accent-gold-bright);
+      transform: translateY(-2px);
     }
     .store-photo-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.5s ease;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .store-photo-card:nth-child(1) .store-photo-img {
+      object-position: center 25%;
+    }
+    .store-photo-card:nth-child(2) .store-photo-img {
+      object-position: center center;
+    }
+    .store-photo-card:nth-child(3) .store-photo-img {
+      object-position: center 10%;
+    }
+    .store-photo-card:nth-child(4) .store-photo-img {
+      object-position: center 18%;
     }
     .store-photo-card:hover .store-photo-img {
       transform: scale(1.04);
@@ -304,11 +322,15 @@
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 12px 14px;
-      background: linear-gradient(to top, rgba(3, 12, 8, 0.95) 0%, transparent 100%);
+      padding: 10px 14px;
+      background: linear-gradient(to top, rgba(2, 7, 4, 0.92) 0%, rgba(2, 7, 4, 0.4) 60%, transparent 100%);
       font-size: 13px;
       color: #ffffff;
-      font-weight: 500;
+      font-weight: 600;
+      line-height: 1.35;
+      hyphens: none;
+      word-break: normal;
+      white-space: normal;
     }
 
     /* Booking CTA Banner */
@@ -537,20 +559,20 @@
         </div>
         <div class="store-photo-grid">
           <div class="store-photo-card">
-            <img src="assets/real_beard_grooming.jpg?v=20261018_real2" alt="Ergonomic Hydraulic Grooming Thrones" class="store-photo-img" loading="lazy">
-            <div class="store-photo-caption">Ergonomic Hydraulic Grooming Thrones</div>
+            <img src="assets/hero_barbershop.jpg?v=20261018_neat" alt="Ergonomic Hydraulic Grooming Thrones" class="store-photo-img" loading="lazy">
+            <div class="store-photo-caption">Ergonomic Hydraulic Thrones</div>
           </div>
           <div class="store-photo-card">
-            <img src="assets/parlour_real_sanctuary.jpg?v=20261018_real2" alt="Gentlemen's Acoustic Lounge" class="store-photo-img" loading="lazy">
+            <img src="assets/parlour_real_sanctuary.jpg?v=20261018_neat" alt="Gentlemen's Acoustic Lounge" class="store-photo-img" loading="lazy">
             <div class="store-photo-caption">Gentlemen's Acoustic Lounge</div>
           </div>
           <div class="store-photo-card">
-            <img src="assets/real_haircut_taper.jpg?v=20261018_real2" alt="Precision Clipper &amp; Taper Craftsmanship" class="store-photo-img" loading="lazy">
-            <div class="store-photo-caption">Precision Clipper &amp; Taper Craftsmanship</div>
+            <img src="assets/real_haircut_taper.jpg?v=20261018_neat" alt="Precision Clipper &amp; Taper Craftsmanship" class="store-photo-img" loading="lazy">
+            <div class="store-photo-caption">Precision Clipper &amp; Taper</div>
           </div>
           <div class="store-photo-card">
-            <img src="assets/real_suit_shave.jpg?v=20261018_real2" alt="Ceremonial Hot-Linen Traditional Shave" class="store-photo-img" loading="lazy">
-            <div class="store-photo-caption">Ceremonial Hot-Linen Traditional Shave</div>
+            <img src="assets/real_suit_shave.jpg?v=20261018_neat" alt="Traditional Hot-Linen Straight Razor Shave" class="store-photo-img" loading="lazy">
+            <div class="store-photo-caption">Traditional Hot-Linen Shave</div>
           </div>
         </div>
       </section>
