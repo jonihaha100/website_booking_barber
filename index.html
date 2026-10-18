@@ -236,7 +236,7 @@
       font-family: var(--font-serif);
       font-size: 38px;
       font-weight: 500;
-      color: #b8b0a2;
+      color: #dfbe6f;
       line-height: 1.25;
       margin-bottom: 12px;
       -webkit-font-smoothing: antialiased;
@@ -325,8 +325,13 @@
     .pkg-card-title {
       font-family: var(--font-serif);
       font-size: 24px;
-      color: var(--text-main);
+      color: #dfbe6f; /* Matched to logo antique gold and hero section text */
       margin-bottom: 8px;
+      transition: color 0.2s ease, text-shadow 0.2s ease;
+    }
+    .package-visual-card:hover .pkg-card-title {
+      color: var(--accent-gold-bright);
+      text-shadow: 0 0 12px rgba(226, 190, 108, 0.4);
     }
     .pkg-price-row {
       display: flex;
@@ -404,7 +409,7 @@
     .reason-title {
       font-family: var(--font-serif);
       font-size: 22px;
-      color: var(--text-main);
+      color: #dfbe6f;
       margin-bottom: 8px;
     }
     .reason-text {
