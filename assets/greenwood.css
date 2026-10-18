@@ -17,8 +17,8 @@
 
   --color-gold: #c59b48;
   --accent-gold: #c59b48;
-  --color-gold-bright: #e2be6c;
-  --accent-gold-bright: #e2be6c;
+  --color-gold-bright: #c59b48;
+  --accent-gold-bright: #c59b48;
   --color-gold-hairline: rgba(197, 155, 72, 0.18);
   --color-gold-soft: rgba(197, 155, 72, 0.08);
 
@@ -129,13 +129,13 @@ nav.main-nav a {
 }
 
 nav.main-nav a:hover {
-  color: var(--color-gold-bright);
-  text-shadow: 0 0 10px rgba(226, 190, 108, 0.45);
+  color: var(--color-gold);
+  text-shadow: 0 0 10px rgba(197, 155, 72, 0.45);
 }
 
 nav.main-nav a.active {
-  color: var(--color-gold-bright);
-  text-shadow: 0 0 10px rgba(226, 190, 108, 0.45);
+  color: var(--color-gold);
+  text-shadow: 0 0 10px rgba(197, 155, 72, 0.45);
 }
 
 nav.main-nav a.active::after {
@@ -145,8 +145,8 @@ nav.main-nav a.active::after {
   left: 0;
   width: 100%;
   height: 2px;
-  background-color: var(--color-gold-bright);
-  box-shadow: 0 0 8px rgba(226, 190, 108, 0.6);
+  background-color: var(--color-gold);
+  box-shadow: 0 0 8px rgba(197, 155, 72, 0.6);
 }
 
 /* STRICT RULE: Never render any Experience link anywhere in nav or drawer */
@@ -237,8 +237,8 @@ a.nav-experience-link {
 
 .mobile-nav-overlay a.active,
 .mobile-nav-overlay a:hover {
-  color: var(--color-gold-bright);
-  text-shadow: 0 0 12px rgba(226, 190, 108, 0.5);
+  color: var(--color-gold);
+  text-shadow: 0 0 12px rgba(197, 155, 72, 0.5);
 }
 
 .mobile-nav-close {
