@@ -65,12 +65,13 @@
     }
     .clean-hero-img {
       height: 100%;
-      width: 100%;
+      width: auto;
       max-width: 100%;
-      object-fit: cover;
-      object-position: center 32%;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
       display: block;
       image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
       filter: saturate(1.05) contrast(1.04);
     }
     .clean-hero-vignette {
@@ -548,7 +549,7 @@
     <!-- 1. HAUTE CINEMATIC HERO (MATCHING USER UPLOADED PHOTO: THE SIGNATURE GROOMING RITUAL) -->
     <section class="clean-home-hero" id="hero">
       <div class="clean-hero-bg">
-        <img src="assets/real_beard_grooming.jpg?v=20261018_v3" alt="The Signature Grooming Ritual at Greenwood Barbers" class="clean-hero-img">
+        <img src="assets/home_hero_ritual.jpg" alt="The Signature Grooming Ritual at Greenwood Barbers" class="clean-hero-img">
         <div class="clean-hero-vignette"></div>
       </div>
       
