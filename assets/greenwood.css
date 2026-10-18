@@ -102,11 +102,16 @@ header {
 }
 
 .brand-logo-img {
-  height: 44px;
-  width: auto;
+  height: 48px;
+  width: 195px;
   max-width: 220px;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 4px;
+  border: 1px solid rgba(197, 155, 72, 0.35);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
   display: block;
+  background-color: #053827;
 }
 
 nav.main-nav {
@@ -548,7 +553,8 @@ footer {
     gap: 10px;
   }
   .brand-logo-img {
-    height: 36px;
+    height: 38px;
+    width: 155px;
     max-width: 160px;
   }
   .btn-header-book {
@@ -637,7 +643,8 @@ footer {
     padding: 10px 12px;
   }
   .brand-logo-img {
-    height: 30px;
+    height: 32px;
+    width: 130px;
     max-width: 130px;
   }
   .btn-header-book {
