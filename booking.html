@@ -508,11 +508,15 @@
       background: rgba(3, 12, 8, 0.6);
       border: 1px solid var(--card-border);
       border-radius: 8px;
-      padding: 14px 10px;
+      padding: 16px 10px 14px;
       text-align: center;
       cursor: pointer;
       position: relative;
       transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
     .barber-select-card:hover {
       border-color: rgba(197, 155, 72, 0.5);
@@ -541,14 +545,11 @@
       object-fit: cover;
     }
     .barber-name-text {
-      font-size: 14px;
+      font-size: 14.5px;
       font-weight: 700;
       color: #ffffff;
-      margin-bottom: 2px;
-    }
-    .barber-role-text {
-      font-size: 12px;
-      color: var(--text-muted);
+      margin-bottom: 0;
+      line-height: 1.35;
     }
     .barber-mini-check {
       position: absolute;
@@ -1606,7 +1607,6 @@
               <img src="${barber.avatarUrl}" alt="${barber.name}" class="barber-avatar-img">
             </div>
             <div class="barber-name-text">${barber.name}</div>
-            <div class="barber-role-text">${barber.badge}</div>
           </div>
         `;
       }).join('');
