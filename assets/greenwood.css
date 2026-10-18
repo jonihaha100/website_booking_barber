@@ -22,10 +22,10 @@
   --color-gold-hairline: rgba(197, 155, 72, 0.18);
   --color-gold-soft: rgba(197, 155, 72, 0.08);
 
-  --text-white: #ffffff;
-  --text-main: #f5f4ef;
-  --text-cream: #f5f4ef;
-  --text-muted: #c2cac3; /* High contrast >= 4.5:1 against dark bg */
+  --text-white: #b8b0a2;
+  --text-main: #b8b0a2;
+  --text-cream: #b8b0a2;
+  --text-muted: #828f86; /* Dimmed calming sage-grey */
 
   --font-serif: 'Lora', Georgia, 'Times New Roman', serif;
   --font-sans: 'Open Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -315,7 +315,7 @@ a.nav-experience-link {
 .page-hero-subtitle {
   font-family: var(--font-sans);
   font-size: 15.5px;
-  color: rgba(247, 242, 231, 0.82);
+  color: var(--text-muted);
   line-height: 1.75;
   max-width: 680px;
   margin: 0 auto 24px;
