@@ -120,20 +120,22 @@ nav.main-nav a {
   font-size: 11.5px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--text-cream);
+  color: var(--color-gold);
   text-decoration: none;
   font-weight: 600;
   padding: 6px 0;
   position: relative;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
 }
 
 nav.main-nav a:hover {
   color: var(--color-gold-bright);
+  text-shadow: 0 0 10px rgba(226, 190, 108, 0.45);
 }
 
 nav.main-nav a.active {
   color: var(--color-gold-bright);
+  text-shadow: 0 0 10px rgba(226, 190, 108, 0.45);
 }
 
 nav.main-nav a.active::after {
@@ -227,15 +229,16 @@ a.nav-experience-link {
 .mobile-nav-overlay a {
   font-family: var(--font-serif);
   font-size: 24px;
-  color: var(--text-cream);
+  color: var(--color-gold);
   text-decoration: none;
   letter-spacing: 1.5px;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
 }
 
 .mobile-nav-overlay a.active,
 .mobile-nav-overlay a:hover {
   color: var(--color-gold-bright);
+  text-shadow: 0 0 12px rgba(226, 190, 108, 0.5);
 }
 
 .mobile-nav-close {
@@ -254,7 +257,7 @@ a.nav-experience-link {
    ========================================================================== */
 .page-hero {
   position: relative;
-  background: radial-gradient(circle at 50% 25%, #053827 0%, #032419 60%, var(--bg-obsidian) 100%);
+  background: radial-gradient(circle at 50% 20%, #082417 0%, var(--bg-obsidian) 70%);
   border-bottom: 1px solid var(--color-gold-hairline);
   padding: 85px 40px 65px;
   text-align: center;
