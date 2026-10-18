@@ -115,13 +115,20 @@
       border-radius: 8px;
       overflow: hidden;
       border: 1px solid var(--card-border);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
+      background: #020704;
     }
     .about-media img {
       width: 100%;
-      height: auto;
+      height: 100%;
+      max-height: 540px;
       display: block;
       object-fit: cover;
+      object-position: center top;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .about-media:hover img {
+      transform: scale(1.02);
     }
 
     /* 3 Core Values */
@@ -293,7 +300,7 @@
         </div>
 
         <div class="about-media">
-          <img src="assets/hero_barbershop.jpg" alt="Greenwood Barbers Interior &amp; Grooming Chairs" loading="lazy">
+          <img src="assets/about_master_barber.jpg" alt="Master Barber Craftsmanship &amp; Precision Shears • Greenwood Barbers" loading="lazy">
         </div>
       </div>
 
