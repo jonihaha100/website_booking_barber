@@ -739,29 +739,72 @@
     /* -------------------------------------------------------------------------
        STEP 3: DATA DIRI & KONFIRMASI (Point 10, 14: ONE-LINE SUMMARY + FORM)
        ------------------------------------------------------------------------- */
+    .reservation-summary-card,
     .one-line-summary-bar {
       background: linear-gradient(135deg, rgba(14, 43, 29, 0.95) 0%, rgba(6, 21, 14, 0.95) 100%);
       border: 1px solid var(--accent-gold);
       border-radius: 6px;
-      padding: 16px 20px;
+      padding: 18px 22px;
       margin-bottom: 24px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+    }
+    .summary-card-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid rgba(197, 155, 72, 0.25);
     }
-    .summary-text-main {
-      font-size: 16px;
+    .summary-card-eyebrow {
+      font-size: 11.5px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent-gold);
       font-weight: 700;
-      color: var(--text-main);
-      line-height: 1.5;
     }
     .summary-price-highlight {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 800;
       color: var(--accent-gold-bright);
       white-space: nowrap;
+    }
+    .summary-details-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .summary-detail-row {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      font-size: 14.5px;
+      line-height: 1.5;
+    }
+    .summary-detail-label {
+      color: var(--accent-gold);
+      font-weight: 700;
+      min-width: 195px;
+      flex-shrink: 0;
+      letter-spacing: 0.3px;
+    }
+    .summary-detail-val {
+      color: var(--text-main);
+      font-weight: 600;
+      flex: 1;
+      word-break: break-word;
+    }
+    @media (max-width: 600px) {
+      .summary-detail-row {
+        flex-direction: column;
+        gap: 2px;
+      }
+      .summary-detail-label {
+        min-width: unset;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
     }
 
     /* Form Fields */
@@ -1396,19 +1439,28 @@
           <span class="panel-badge">Step 4 of 4</span>
         </div>
 
-        <!-- ONE-LINE SUMMARY BAR -->
-        <div class="one-line-summary-bar">
-          <div>
-            <div style="font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-gold); font-weight: 700; margin-bottom: 2px;">
-              Reservation Summary
+        <!-- STRUCTURED RESERVATION SUMMARY (CLIENT FEEDBACK: STACKED LAYOUT) -->
+        <div class="reservation-summary-card">
+          <div class="summary-card-header">
+            <span class="summary-card-eyebrow">Reservation Summary</span>
+            <span class="summary-price-highlight" id="oneLineTotalPrice">Rp 150,000</span>
+          </div>
+          <div class="summary-details-list">
+            <div class="summary-detail-row">
+              <span class="summary-detail-label">Treatment:</span>
+              <span class="summary-detail-val" id="summaryValTreatment">The Signature Grooming Ritual</span>
             </div>
-            <div class="summary-text-main" id="oneLineSummaryText">
-              The Signature Grooming Ritual &bull; Any Available Barber &bull; Select Schedule
+            <div class="summary-detail-row">
+              <span class="summary-detail-label">Barber:</span>
+              <span class="summary-detail-val" id="summaryValBarber">Any Available Barber</span>
+            </div>
+            <div class="summary-detail-row">
+              <span class="summary-detail-label">Day &amp; Time for relaxation:</span>
+              <span class="summary-detail-val" id="summaryValSchedule">Select Schedule in Step 3</span>
             </div>
           </div>
-          <div class="summary-price-highlight" id="oneLineTotalPrice">
-            Rp 150,000
-          </div>
+          <!-- Hidden compatibility element for any legacy references -->
+          <span id="oneLineSummaryText" style="display: none;"></span>
         </div>
 
         <!-- Guest Details Form -->
@@ -1475,19 +1527,19 @@
               <div class="pass-item-val" id="passGuestName">-</div>
             </div>
             <div>
-              <div class="pass-item-label">WhatsApp / Contact</div>
+              <div class="pass-item-label">WhatsApp Contact</div>
               <div class="pass-item-val" id="passGuestPhone">-</div>
             </div>
             <div>
-              <div class="pass-item-label">Assigned Artisan</div>
+              <div class="pass-item-label">Barber</div>
               <div class="pass-item-val" id="passBarberName">-</div>
             </div>
             <div>
-              <div class="pass-item-label">Date &amp; Time</div>
+              <div class="pass-item-label">Day &amp; Time for relaxation</div>
               <div class="pass-item-val" id="passScheduleTime">-</div>
             </div>
             <div>
-              <div class="pass-item-label">Selected Rituals</div>
+              <div class="pass-item-label">Treatment</div>
               <div class="pass-item-val" id="passServicesList">-</div>
             </div>
             <div>
@@ -1505,19 +1557,23 @@
             Official Reservation Pass &bull; Greenwood Barbers Kota Baru Parahyangan &bull; Authorized by Concierge
           </div>
 
-          <div class="pass-actions-bar">
-            <button type="button" class="btn-step-next" onclick="printReservationPass()" style="flex: 1; min-width: 170px;">
-              &#128424; Print / Save PDF Pass
-            </button>
-            <a id="btnPassWhatsAppDirect" href="#" target="_blank" rel="noopener" class="btn-step-next" style="flex: 1; min-width: 190px; background: #25d366; border-color: #20ba5a; color: #030c08; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
-              <span>&#128242; WhatsApp Confirmation</span>
+          <!-- CLIENT FEEDBACK: REMOVE PDF & MAKE WHATSAPP CONFIRMATION PRIMARY -->
+          <div class="pass-actions-bar" style="display: flex; flex-direction: column; gap: 12px; margin-top: 24px;">
+            <a id="btnPassWhatsAppDirect" href="#" target="_blank" rel="noopener" class="btn-step-next" style="width: 100%; padding: 16px 24px; font-size: 15px; background: #25d366; border-color: #20ba5a; color: #030c08; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-weight: 800; letter-spacing: 1.5px; border-radius: 6px; box-shadow: 0 4px 18px rgba(37, 211, 102, 0.4); text-transform: uppercase;">
+              <span style="font-size: 20px;">&#128242;</span>
+              <span>Open WhatsApp Confirmation</span>
             </a>
-            <button type="button" class="btn-step-back" onclick="resetBookingSession()" style="flex: 1; min-width: 170px;">
-              + Book Another Appointment
-            </button>
-            <a href="index.html" class="btn-step-back" style="flex: 1; min-width: 150px; text-decoration: none; text-align: center;">
-              Return to Home &rarr;
-            </a>
+            <div style="font-size: 13px; color: var(--text-muted); text-align: center; margin-top: -2px; margin-bottom: 6px;">
+              Tip: Screenshot this pass for your records, or verify your reservation anytime with our concierge via WhatsApp.
+            </div>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; width: 100%;">
+              <button type="button" class="btn-step-back" onclick="resetBookingSession()" style="flex: 1; min-width: 160px;">
+                + Book Another Appointment
+              </button>
+              <a href="index.html" class="btn-step-back" style="flex: 1; min-width: 150px; text-decoration: none; text-align: center;">
+                Return to Home &rarr;
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -1698,7 +1754,7 @@
       const durBadge = document.getElementById('totalDurationBadge');
       if (durBadge) durBadge.textContent = `${totalDur} Mins`;
 
-      // Update One Line Summary (Step 3)
+      // Update Structured Reservation Summary (Step 4 - Client Feedback: Stacked Layout)
       const barber = GREENWOOD_CONFIG.barbers.find(b => b.id === selectedBarberId);
       const barberName = barber ? barber.name : "Any Available Barber";
       
@@ -1707,11 +1763,24 @@
         : '';
       let schedText = selectedDateObj && selectedTimeSlot 
         ? `${selectedDateObj.dayName}, ${selectedDateObj.monthName} ${selectedDateObj.dayNum} @ ${selectedTimeSlot} WIB`
-        : 'Select Schedule in Step 2';
+        : 'Select Schedule in Step 3';
+
+      const valTreatment = document.getElementById('summaryValTreatment');
+      if (valTreatment) {
+        valTreatment.textContent = `${selectedPackage ? selectedPackage.name : 'Select Treatment'}${addonText}`;
+      }
+      const valBarber = document.getElementById('summaryValBarber');
+      if (valBarber) {
+        valBarber.textContent = barberName;
+      }
+      const valSchedule = document.getElementById('summaryValSchedule');
+      if (valSchedule) {
+        valSchedule.textContent = schedText;
+      }
 
       const summaryTextEl = document.getElementById('oneLineSummaryText');
       if (summaryTextEl) {
-        summaryTextEl.textContent = `${selectedPackage.name}${addonText} &bull; ${barberName} &bull; ${schedText}`;
+        summaryTextEl.textContent = `${selectedPackage ? selectedPackage.name : ''}${addonText} • ${barberName} • ${schedText}`;
       }
 
       const summaryPriceEl = document.getElementById('oneLineTotalPrice');
@@ -2035,10 +2104,11 @@
         `Total Amount Due: ${formatRupiah(totalPrc)}\n\n` +
         `Our private chair is reserved exclusively for your session. Reach our concierge desk directly at +62 821-2345-6789 for any schedule assistance.`;
 
-      // Direct WhatsApp link on the pass
+      // Direct WhatsApp link on the pass (Client Feedback: Auto WhatsApp Confirmation Only)
+      const waUrl = `https://wa.me/6282123456789?text=${encodeURIComponent(waConfirmationText)}`;
       const waBtn = document.getElementById('btnPassWhatsAppDirect');
       if (waBtn) {
-        waBtn.href = `https://wa.me/6282123456789?text=${encodeURIComponent(waConfirmationText)}`;
+        waBtn.href = waUrl;
       }
 
       // Backend Webhook Trigger (Netlify serverless function)
@@ -2070,6 +2140,15 @@
       const passScreen = document.getElementById('confirmedPassScreen');
       passScreen.style.display = 'block';
       passScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // Automatically trigger WhatsApp confirmation for immediate seamless booking
+      setTimeout(() => {
+        try {
+          window.open(waUrl, '_blank');
+        } catch (popupErr) {
+          // If browser popup blocker intercepts, the user still sees the prominent green button
+        }
+      }, 400);
     }
 
     // Reset Booking Session
