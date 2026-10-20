@@ -2163,28 +2163,6 @@
       navigateToStep(1);
     }
 
-    // Print or Save as PDF Reservation Pass
-    function printReservationPass() {
-      const passScreen = document.getElementById('confirmedPassScreen');
-      if (!passScreen || passScreen.style.display === 'none') {
-        alert("Please complete your reservation details in Step 4 first to generate your official pass.");
-        navigateToStep(4);
-        return;
-      }
-
-      // Check if browser supports printing
-      if (typeof window.print !== 'function') {
-        alert("Pencetakan otomatis memerlukan browser standar (seperti Chrome atau Safari). Silakan ambil tangkapan layar (screenshot) pass ini atau simpan konfirmasi via WhatsApp.");
-        return;
-      }
-
-      try {
-        window.print();
-      } catch (err) {
-        console.error("Print pass error:", err);
-        alert("Tidak dapat membuka dialog cetak. Silakan ambil tangkapan layar (screenshot) pass ini atau gunakan konfirmasi WhatsApp.");
-      }
-    }
 
     // Package Step Details Modal
     function openPackageDetails(pkgId, e) {
