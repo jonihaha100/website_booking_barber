@@ -37,12 +37,34 @@
 
     .about-hero {
       position: relative;
-      padding: 70px 24px 45px;
+      padding: 95px 24px 65px;
       text-align: center;
-      background: radial-gradient(circle at 50% 20%, rgba(10, 35, 23, 0.6) 0%, var(--bg-dark) 75%);
+      background: #020704;
       border-bottom: 1px solid var(--card-border);
+      overflow: hidden;
+    }
+    .about-hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .about-hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      opacity: 0.35;
+      filter: saturate(1.1) contrast(1.05);
+    }
+    .about-hero-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(2, 7, 4, 0.45) 0%, rgba(2, 7, 4, 0.88) 75%, #020704 100%);
+      pointer-events: none;
     }
     .about-hero-inner {
+      position: relative;
+      z-index: 2;
       max-width: 800px;
       margin: 0 auto;
     }
@@ -248,11 +270,10 @@
       <a href="index.html">Home</a>
       <a href="about.html" class="active">About Us</a>
       <a href="contact.html">Contact Us</a>
-      <a href="booking.html">Book Appointment</a>
     </nav>
 
     <div class="header-cta-group">
-      <a href="booking.html" class="btn-header-book">Reserve a Chair</a>
+      <a href="booking.html" class="btn-header-book">RESERVE A CHAIR</a>
       <button class="menu-toggle-btn" onclick="toggleMobileNav()" aria-label="Toggle navigation menu">&#9776;</button>
     </div>
   </header>
@@ -263,18 +284,21 @@
     <a href="index.html" onclick="closeMobileNav()">Home</a>
     <a href="about.html" class="active" onclick="closeMobileNav()">About Us</a>
     <a href="contact.html" onclick="closeMobileNav()">Contact Us</a>
-    <a href="booking.html" onclick="closeMobileNav()">Book Appointment</a>
-    <a href="booking.html" class="btn-primary" style="margin-top: 16px;" onclick="closeMobileNav()">Reserve Appointment</a>
+    <a href="booking.html" class="btn-primary" style="margin-top: 16px;" onclick="closeMobileNav()">RESERVE A CHAIR</a>
   </div>
 
   <main>
     <!-- HERO -->
     <section class="about-hero">
+      <div class="about-hero-bg">
+        <img src="assets/hero_barbershop.jpg" alt="Greenwood Barbers Parlour Stations" loading="eager">
+        <div class="about-hero-vignette"></div>
+      </div>
       <div class="about-hero-inner">
-        <span class="about-hero-eyebrow">Our Heritage &amp; Ethos</span>
-        <h1 class="about-hero-title">Where Timeless English Grooming Meets Solingen Precision</h1>
+        <span class="about-hero-eyebrow">Our Heritage &amp; Craft</span>
+        <h1 class="about-hero-title">Bandung's Gentleman Sanctuary</h1>
         <p class="about-hero-sub">
-          Greenwood Barbers was established as an acoustic sanctuary for gentlemen in Kota Baru Parahyangan. Dedicated to unhurried time, surgical discipline, noble botanical formulas, and bespoke hospitality.
+          An unhurried retreat in Kota Baru Parahyangan dedicated to classical scissor craft, surgical hygiene, and bespoke Mayfair hospitality.
         </p>
       </div>
     </section>
@@ -285,18 +309,15 @@
       <!-- NARRATIVE SPLIT -->
       <div class="about-split">
         <div class="about-content">
-          <h2>A Sanctuary from Urban Haste in Kota Baru Parahyangan</h2>
+          <h2>A Sanctuary from Urban Haste</h2>
           <p>
-            In an era where modern grooming has succumbed to rushed, 15-minute conveyor-belt haircuts, Greenwood Barbers returns to the golden age of London’s Mayfair barbering traditions.
-          </p>
-          <p>
-            Founded at Ruko PancaTengah in the prestigious lakeside township of Kota Baru Parahyangan, West Bandung, our parlour was conceived not merely as a barbershop, but as a gentleman’s restorative retreat. Here, time slows down.
+            Founded at Ruko PancaTengah, Greenwood Barbers returns to London’s Mayfair barbering traditions. Every appointment provides an unhurried restorative retreat away from urban haste.
           </p>
           <div class="about-quote">
-            &ldquo;We measure our work not by the volume of chairs turned, but by the inalterable precision of each cut and the peace of mind restored to the gentleman sitting within.&rdquo;
+            &ldquo;We measure our craft not by chairs turned, but by inalterable precision and peace of mind.&rdquo;
           </div>
           <p>
-            Every appointment is conducted with dedicated 45 to 75-minute chair allocations. Every razor stroke is executed with single-use surgical Solingen carbon steel. And every visit is accompanied by quiet acoustic seclusion, with zero unsolicited noise.
+            With dedicated chair allocations, surgical single-use Solingen blades, and quiet acoustic seclusion, your visit is uncompromised.
           </p>
         </div>
 
@@ -316,7 +337,7 @@
           <div class="value-num">01</div>
           <h3 class="value-title">Unhurried Dedicated Time</h3>
           <p class="value-text">
-            Every gentleman receives an unhurried 45 to 75-minute chair allocation. Our senior artisans work with calm deliberate precision, ensuring immaculate execution without rushing.
+            Dedicated 45 to 75-minute chair allocations. Our senior artisans work with calm deliberate precision without rushing.
           </p>
         </div>
 
@@ -324,7 +345,7 @@
           <div class="value-num">02</div>
           <h3 class="value-title">Surgical Discipline &amp; Hygiene</h3>
           <p class="value-text">
-            Cleanliness is our foundational creed. Shears, combs, and clippers undergo medical-grade sterilization between each client. Straight-razor blades are strictly single-use.
+            Medical-grade sterilization for shears and instruments between clients. Straight-razor blades are strictly single-use.
           </p>
         </div>
 
@@ -332,16 +353,9 @@
           <div class="value-num">03</div>
           <h3 class="value-title">Acoustic Seclusion &amp; Comfort</h3>
           <p class="value-text">
-            Immerse yourself in cool air-conditioned comfort, curated low-decibel acoustic ambiance, ergonomic leather hydraulic chairs, and fresh artisanal hot refreshments.
+            Air-conditioned comfort, curated low-decibel acoustic ambiance, ergonomic hydraulic chairs, and artisan hot refreshments.
           </p>
         </div>
-      </div>
-
-      <!-- CTA -->
-      <div class="about-cta">
-        <h2>Ready to Refine Your Distinction?</h2>
-        <p>Reserve your private chair and preferred artisan online to ensure your appointment is prepared and waiting precisely upon your arrival.</p>
-        <a href="booking.html" class="btn-about-book">Reserve Your Chair Now &rarr;</a>
       </div>
 
     </div>

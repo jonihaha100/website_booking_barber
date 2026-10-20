@@ -5,3 +5,4 @@
 /about       /about.html    200
 /contact     /contact.html  200
 /booking     /booking.html  200
+/api/whatsapp-notify  /.netlify/functions/whatsapp-notify  200

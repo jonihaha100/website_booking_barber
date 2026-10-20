@@ -177,17 +177,15 @@
       flex-wrap: wrap;
     }
 
-    .btn-clean-reserve,
-    .btn-clean-secondary {
+    .btn-clean-reserve {
       height: 50px;
       width: 250px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 0 20px;
-      font-size: 11px;
-      letter-spacing: 2.2px;
-      text-indent: 2.2px;
+      padding: 0 24px;
+      font-size: 11.5px;
+      letter-spacing: 2px;
       text-transform: uppercase;
       font-weight: 700;
       text-decoration: none;
@@ -196,21 +194,17 @@
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       text-align: center;
       white-space: nowrap;
-      background: linear-gradient(165deg, rgba(10, 31, 21, 0.9) 0%, rgba(5, 17, 11, 0.98) 100%);
-      color: var(--accent-gold-bright);
-      border: 1px solid var(--accent-gold);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      box-shadow: 0 4px 22px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(226, 190, 108, 0.2);
+      background: linear-gradient(135deg, var(--accent-gold) 0%, #9a7428 100%);
+      color: #030c08;
+      border: 1px solid var(--accent-gold-bright);
+      box-shadow: 0 4px 18px rgba(197, 155, 72, 0.35);
     }
 
-    .btn-clean-reserve:hover,
-    .btn-clean-secondary:hover {
-      background: linear-gradient(135deg, rgba(197, 155, 72, 0.25) 0%, rgba(10, 31, 21, 0.98) 100%);
-      border-color: var(--accent-gold);
-      color: var(--accent-gold);
-      box-shadow: 0 0 26px rgba(197, 155, 72, 0.55), inset 0 1px 0 rgba(197, 155, 72, 0.35);
+    .btn-clean-reserve:hover {
+      background: linear-gradient(135deg, var(--accent-gold-bright) 0%, var(--accent-gold) 100%);
       transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(197, 155, 72, 0.55);
+      color: #030c08;
     }
 
     /* SECTION CONTAINERS (SPACIOUS & UNHURRIED) */
@@ -393,9 +387,9 @@
       min-height: 72px; /* Aligns all reserve buttons to the exact same baseline */
     }
     .btn-card-reserve {
-      background: linear-gradient(165deg, rgba(10, 31, 21, 0.9) 0%, rgba(5, 17, 11, 0.98) 100%);
-      border: 1px solid rgba(197, 155, 72, 0.45);
-      color: var(--accent-gold-bright);
+      background: linear-gradient(135deg, var(--accent-gold) 0%, #9a7428 100%);
+      border: 1px solid var(--accent-gold-bright);
+      color: #030c08;
       font-size: 11.5px;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -404,12 +398,12 @@
       border-radius: 4px;
       text-decoration: none;
       text-align: center;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(197, 155, 72, 0.15);
+      box-shadow: 0 4px 14px rgba(197, 155, 72, 0.25);
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: block;
     }
     .btn-card-reserve:hover {
-      background: linear-gradient(135deg, var(--accent-gold) 0%, #9a7428 100%);
-      border-color: var(--accent-gold-bright);
+      background: linear-gradient(135deg, var(--accent-gold-bright) 0%, var(--accent-gold) 100%);
       color: #030c08;
       box-shadow: 0 6px 20px rgba(197, 155, 72, 0.45);
       transform: translateY(-1px);
@@ -571,11 +565,10 @@
       <a href="index.html" class="active">Home</a>
       <a href="about.html">About Us</a>
       <a href="contact.html">Contact Us</a>
-      <a href="booking.html">Book Appointment</a>
     </nav>
 
     <div class="header-cta-group">
-      <a href="booking.html" class="btn-header-book">Reserve a Chair</a>
+      <a href="booking.html" class="btn-header-book">RESERVE A CHAIR</a>
       <button class="menu-toggle-btn" onclick="toggleMobileNav()" aria-label="Toggle navigation menu">&#9776;</button>
     </div>
   </header>
@@ -586,39 +579,36 @@
     <a href="index.html" class="active" onclick="closeMobileNav()">Home</a>
     <a href="about.html" onclick="closeMobileNav()">About Us</a>
     <a href="contact.html" onclick="closeMobileNav()">Contact Us</a>
-    <a href="booking.html" onclick="closeMobileNav()">Book Appointment</a>
-    <a href="booking.html" class="btn-primary" style="margin-top: 16px;" onclick="closeMobileNav()">Reserve Appointment</a>
+    <a href="booking.html" class="btn-primary" style="margin-top: 16px;" onclick="closeMobileNav()">RESERVE A CHAIR</a>
   </div>
 
   <main>
 
-    <!-- 1. HAUTE CINEMATIC HERO (MATCHING USER UPLOADED PHOTO: THE SIGNATURE GROOMING RITUAL) -->
+    <!-- 1. HAUTE CINEMATIC HERO -->
     <section class="clean-home-hero" id="hero">
       <div class="clean-hero-bg">
-        <img src="assets/home_hero_ritual.jpg" alt="The Signature Grooming Ritual at Greenwood Barbers" class="clean-hero-img">
+        <img src="assets/home_hero_ritual_hd.jpg" alt="Greenwood Barbers Kota Baru Parahyangan" class="clean-hero-img">
         <div class="clean-hero-vignette"></div>
       </div>
       
       <div class="clean-hero-content">
-        <div class="clean-hero-badge">MOST POPULAR</div>
-        <p class="clean-hero-eyebrow">The Signature Grooming Experience &bull; Kota Baru Parahyangan</p>
-        <h1 class="clean-hero-title">The Signature Grooming Ritual</h1>
-        <p class="clean-hero-subtitle">Complete Classic Haircut paired with precision beard sculpting, therapeutic head, neck &amp; shoulder acupressure, alongside an aromatherapy lavender hot-linen compress.</p>
+        <div class="clean-hero-badge">KOTA BARU PARAHYANGAN</div>
+        <h1 class="clean-hero-title">Bandung's First Gentleman's Retreat</h1>
+        <p class="clean-hero-subtitle">Experience men's grooming like never before.</p>
         
         <div class="clean-hero-actions">
-          <a href="booking.html?pkg=pkg-signature" class="btn-clean-reserve">RESERVE THIS RITUAL &rarr;</a>
-          <a href="#packages" class="btn-clean-secondary">EXPLORE ALL RITUALS &darr;</a>
+          <a href="booking.html" class="btn-clean-reserve">RESERVE A CHAIR &rarr;</a>
         </div>
       </div>
     </section>
 
-    <!-- 2. CURATED SIGNATURE RITUALS (Point 17 Feedback) -->
+    <!-- 2. CURATED SIGNATURE RITUALS -->
     <section class="home-section" id="packages">
       <div class="section-header-center">
         <span class="section-eyebrow">Curated Service Offerings</span>
         <h2 class="section-heading">Signature Grooming Rituals</h2>
         <p class="section-sub-text">
-          Distinctive single-price rituals performed with surgical precision and unhurried craftsmanship by senior barbers.
+          Distinctive single-price rituals performed with surgical precision and unhurried craftsmanship.
         </p>
       </div>
 
@@ -637,9 +627,9 @@
               <span class="pkg-dur-badge">45 Mins</span>
             </div>
             <p class="pkg-card-desc">
-              Bespoke cranial consultation, botanical hair wash, precision scissor and clipper craftsmanship, razor neck detailing, and executive styling finish.
+              Bespoke cranial consultation, botanical hair wash, precision scissor craft, razor neck detailing, and executive styling.
             </p>
-            <a href="booking.html?pkg=pkg-classic" class="btn-card-reserve">SELECT RITUAL &rarr;</a>
+            <a href="booking.html?pkg=pkg-classic" class="btn-card-reserve">RESERVE A CHAIR</a>
           </div>
         </article>
 
@@ -656,9 +646,9 @@
               <span class="pkg-dur-badge">60 Mins</span>
             </div>
             <p class="pkg-card-desc">
-              Complete Classic Haircut paired with therapeutic head, neck, and shoulder acupressure, alongside an aromatherapy lavender hot-linen compress.
+              Complete haircut paired with therapeutic head &amp; shoulder acupressure, alongside an aromatherapy lavender hot-linen compress.
             </p>
-            <a href="booking.html?pkg=pkg-signature" class="btn-card-reserve">SELECT RITUAL &rarr;</a>
+            <a href="booking.html?pkg=pkg-signature" class="btn-card-reserve">RESERVE A CHAIR</a>
           </div>
         </article>
 
@@ -675,69 +665,12 @@
               <span class="pkg-dur-badge">75 Mins</span>
             </div>
             <p class="pkg-card-desc">
-              Precision scissor haircut, pre-shave oils, ceremonial hot-linen straight-razor shave or beard sculpting, and neck acupressure therapy.
+              Precision scissor haircut, ceremonial hot-linen straight-razor shave or beard sculpting, and restorative neck acupressure therapy.
             </p>
-            <a href="booking.html?pkg=pkg-executive" class="btn-card-reserve">SELECT RITUAL &rarr;</a>
+            <a href="booking.html?pkg=pkg-executive" class="btn-card-reserve">RESERVE A CHAIR</a>
           </div>
         </article>
 
-      </div>
-    </section>
-
-    <!-- 3. THE GREENWOOD DISTINCTION (Point 17 Feedback) -->
-    <section class="reasons-section">
-      <div class="section-header-center">
-        <span class="section-eyebrow">The Greenwood Standard</span>
-        <h2 class="section-heading">Why Discerning Gentlemen Choose Greenwood</h2>
-        <p class="section-sub-text">
-          Uncompromising standards of personal comfort, surgical discipline, and unhurried time.
-        </p>
-      </div>
-
-      <div class="reasons-grid">
-        <div class="reason-card">
-          <div class="reason-num">01</div>
-          <h3 class="reason-title">Master Scissor Artisans</h3>
-          <p class="reason-text">
-            Conducted exclusively by seasoned barbers who master anatomical cranial silhouettes, growth patterns, and classical scissor craft.
-          </p>
-        </div>
-
-        <div class="reason-card">
-          <div class="reason-num">02</div>
-          <h3 class="reason-title">Unhurried Acoustic Seclusion</h3>
-          <p class="reason-text">
-            Dedicated 45 to 90-minute chair allocations. We refuse rushed conveyor-belt cuts, ensuring genuine tranquility and unhurried seclusion.
-          </p>
-        </div>
-
-        <div class="reason-card">
-          <div class="reason-num">03</div>
-          <h3 class="reason-title">Strict Reserved Seating</h3>
-          <p class="reason-text">
-            Seamless real-time calendar reservations. Your dedicated chair and barber are prepared and waiting precisely at your booked hour without waiting in line.
-          </p>
-        </div>
-
-        <div class="reason-card">
-          <div class="reason-num">04</div>
-          <h3 class="reason-title">Privileged Lakeside Setting</h3>
-          <p class="reason-text">
-            Situated at Ruko PancaTengah, Kota Baru Parahyangan. Ample private parking right outside, 7 minutes from Whoosh High-Speed Rail Station.
-          </p>
-        </div>
-      </div>
-
-      <!-- Opening Hours & Final CTA Banner -->
-      <div class="cta-banner-strip" style="max-width: 1140px; margin: 55px auto 0;">
-        <div class="cta-hours-badge">
-          Wednesday &ndash; Monday: 10:00 &ndash; 20:00 WIB &bull; <strong style="color: #ff8b94;">Tuesday: CLOSED</strong>
-        </div>
-        <h2 class="cta-banner-title">Ready to Refine Your Distinction?</h2>
-        <p class="cta-banner-sub">
-          Reserve your private appointment online in under two minutes.
-        </p>
-        <a href="booking.html" class="btn-clean-reserve" style="width: auto; min-width: 260px; padding: 0 32px; display: inline-flex;">Reserve Your Chair Now &rarr;</a>
       </div>
     </section>
 

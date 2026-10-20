@@ -88,8 +88,8 @@
       line-height: 1.6;
     }
 
-    /* 2. STREAMLINED 3-STEP PROGRESS BAR (Point 5) */
-    .stepper-3 {
+    /* 2. STREAMLINED 4-STEP PROGRESS BAR */
+    .stepper-4, .stepper-3 {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -988,53 +988,114 @@
       width: 100%;
     }
 
-    /* Print Single Page A4 optimization */
+    /* EXCLUSIVE LUXURY PRINT STYLING (A4 SINGLE PAGE APPOINTMENT PASS) */
     @media print {
       @page {
         size: A4 portrait;
-        margin: 8mm 10mm;
+        margin: 12mm 15mm;
+      }
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
       body {
         background: #ffffff !important;
-        color: #000000 !important;
+        color: #111111 !important;
+        font-family: 'Open Sans', Arial, sans-serif !important;
       }
-      header, footer, .booking-header, .stepper-3, #panelStep1, #panelStep2, #step3FormWrapper, .pass-actions-bar, #spotlightGlow {
+      header, footer, .booking-header, .stepper-4, .stepper-3, #panelStep1, #panelStep2, #panelStep3, #panelStep4, #step3FormWrapper, .pass-actions-bar, #spotlightGlow, .mobile-nav-overlay {
         display: none !important;
       }
       .booking-wrapper {
         padding: 0 !important;
+        margin: 0 !important;
         max-width: 100% !important;
       }
       #confirmedPassScreen {
         display: block !important;
       }
       .confirmed-pass-card {
-        border: 2px solid #000000 !important;
+        border: 2px solid #1a3325 !important;
+        border-radius: 8px !important;
         background: #ffffff !important;
-        color: #000000 !important;
+        color: #111111 !important;
         box-shadow: none !important;
+        overflow: hidden !important;
       }
-      .pass-top-bar, .pass-footer-strip {
-        background: #f0f0f0 !important;
-        border-color: #cccccc !important;
-        color: #000000 !important;
+      .pass-top-bar {
+        background: #091c13 !important;
+        color: #f5f4ef !important;
+        padding: 22px 26px !important;
+        border-bottom: 3px solid #c59b48 !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
       }
-      .pass-brand-title, .pass-item-val {
-        color: #000000 !important;
+      .pass-brand-title {
+        color: #ffffff !important;
+        font-family: 'Lora', Georgia, serif !important;
+        font-size: 22px !important;
+        font-weight: 700 !important;
+        letter-spacing: 2px !important;
       }
       .pass-code-pill {
-        background: #e0e0e0 !important;
-        border-color: #000000 !important;
-        color: #000000 !important;
+        background: #c59b48 !important;
+        border: 1px solid #9a7428 !important;
+        color: #030c08 !important;
+        font-weight: 800 !important;
+        font-size: 13px !important;
+        padding: 6px 14px !important;
+        border-radius: 4px !important;
+        letter-spacing: 1.5px !important;
+      }
+      .pass-content-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 16px 24px !important;
+        padding: 24px !important;
+        background: #fbfbf9 !important;
+        border-bottom: 1px dashed #d0d0c8 !important;
       }
       .pass-item-label {
-        color: #555555 !important;
+        color: #666666 !important;
+        font-size: 11px !important;
+        text-transform: uppercase !important;
+        letter-spacing: 1.5px !important;
+        margin-bottom: 4px !important;
+      }
+      .pass-item-val {
+        color: #111111 !important;
+        font-size: 14.5px !important;
+        font-weight: 600 !important;
+      }
+      .pass-footer-strip {
+        background: #ffffff !important;
+        color: #444444 !important;
+        padding: 18px 24px !important;
+        font-size: 12px !important;
+        line-height: 1.6 !important;
+        border-top: none !important;
       }
     }
 
     @media (max-width: 680px) {
       .booking-title {
         font-size: 30px;
+      }
+      .stepper-4 .step-label, .stepper-3 .step-label {
+        font-size: 10px;
+        letter-spacing: 0;
+      }
+      .stepper-4 .step-circle, .stepper-3 .step-circle {
+        width: 32px;
+        height: 32px;
+        font-size: 13px;
+        margin-bottom: 4px;
+      }
+      .stepper-track {
+        top: 16px;
+        left: 20px;
+        right: 20px;
       }
       .panel-card {
         padding: 22px 16px;
@@ -1084,11 +1145,10 @@
       <a href="index.html">Home</a>
       <a href="about.html">About Us</a>
       <a href="contact.html">Contact Us</a>
-      <a href="booking.html" class="active">Book Appointment</a>
     </nav>
 
     <div class="header-cta-group">
-      <a href="booking.html" class="btn-header-book">Reserve a Chair</a>
+      <a href="booking.html" class="btn-header-book">RESERVE A CHAIR</a>
       <button class="menu-toggle-btn" onclick="toggleMobileNav()" aria-label="Toggle navigation menu">&#9776;</button>
     </div>
   </header>
@@ -1099,8 +1159,7 @@
     <a href="index.html" onclick="closeMobileNav()">Home</a>
     <a href="about.html" onclick="closeMobileNav()">About Us</a>
     <a href="contact.html" onclick="closeMobileNav()">Contact Us</a>
-    <a href="booking.html" class="active" onclick="closeMobileNav()">Book Appointment</a>
-    <a href="booking.html" class="btn-primary" style="margin-top: 16px;" onclick="closeMobileNav()">Reserve Appointment</a>
+    <a href="booking.html" class="btn-primary" style="margin-top: 16px; background: linear-gradient(135deg, var(--accent-gold) 0%, #9a7428 100%); color: #030c08; font-weight: 700; border: 1px solid var(--accent-gold);" onclick="closeMobileNav()">RESERVE A CHAIR</a>
   </div>
 
   <main class="booking-wrapper">
@@ -1110,12 +1169,12 @@
       <span class="booking-eyebrow">Gentlemen's Appointment Suite &bull; Kota Baru Parahyangan</span>
       <h1 class="booking-title">Reserve Your Private Chair</h1>
       <p class="booking-sub">
-        Select your grooming ritual, assign your preferred artisan, and receive your confirmed pass without waiting.
+        Select your grooming ritual, choose your artisan, and confirm your dedicated schedule without queues.
       </p>
     </div>
 
-    <!-- 3-STEP PROGRESS BAR (Point 5) -->
-    <div class="stepper-3" aria-label="Appointment Progress">
+    <!-- 4-STEP PROGRESS BAR -->
+    <div class="stepper-4" aria-label="Appointment Progress">
       <div class="stepper-track">
         <div class="stepper-progress" id="stepperProgressLine"></div>
       </div>
@@ -1125,11 +1184,15 @@
       </button>
       <button type="button" class="step-item" id="stepNode2" onclick="navigateToStep(2)">
         <div class="step-circle"><span id="stepIcon2">2</span></div>
-        <span class="step-label">2. Barber &amp; Schedule</span>
+        <span class="step-label">2. Select Barber</span>
       </button>
       <button type="button" class="step-item" id="stepNode3" onclick="navigateToStep(3)">
         <div class="step-circle"><span id="stepIcon3">3</span></div>
-        <span class="step-label">3. Details &amp; Confirmation</span>
+        <span class="step-label">3. Date &amp; Time</span>
+      </button>
+      <button type="button" class="step-item" id="stepNode4" onclick="navigateToStep(4)">
+        <div class="step-circle"><span id="stepIcon4">4</span></div>
+        <span class="step-label">4. Details &amp; Pass</span>
       </button>
     </div>
 
@@ -1140,7 +1203,7 @@
       <div class="panel-card">
         <div class="panel-header-row">
           <h2 class="panel-title">Choose Your Grooming Ritual</h2>
-          <span class="panel-badge">Step 1 of 3</span>
+          <span class="panel-badge">Step 1 of 4</span>
         </div>
         <p style="font-size: 14.5px; color: var(--text-muted); margin-bottom: 20px;">
           Select one signature package below. Complementary a la carte add-ons may be appended afterward.
@@ -1163,83 +1226,45 @@
         <!-- Step 1 Navigation Action -->
         <div class="step-actions-row">
           <button type="button" class="btn-step-next" onclick="navigateToStep(2)">
-            Proceed to Barber &amp; Schedule (Step 2) &rarr;
+            Proceed to Select Barber (Step 2) &rarr;
           </button>
         </div>
       </div>
     </div>
 
     <!-- ========================================================================
-         STEP 2: BARBER & SCHEDULE (CONSOLIDATED STEP)
+         STEP 2: SELECT BARBER (DEDICATED STEP)
          ======================================================================== -->
     <div class="flow-panel" id="panelStep2">
       <div class="panel-card">
         <div class="panel-header-row">
-          <h2 class="panel-title">Select Barber &amp; Schedule</h2>
-          <span class="panel-badge">Step 2 of 3</span>
+          <h2 class="panel-title">Select Your Artisan Barber</h2>
+          <span class="panel-badge">Step 2 of 4</span>
         </div>
 
-        <!-- Part A: Choose Barber -->
-        <div style="margin-bottom: 24px;">
-          <div style="font-size: 15px; font-weight: 700; color: var(--text-main); margin-bottom: 10px;">
-            1. Choose Your Preferred Artisan
-          </div>
+        <p style="font-size: 14.5px; color: var(--text-muted); margin-bottom: 18px;">
+          Choose your preferred artisan or select Any Available Barber for maximum schedule flexibility.
+        </p>
 
-          <!-- Banner: Any Available Barber (Recommended Default) -->
-          <div class="barber-any-banner selected" id="barberCard-any" onclick="selectBarber('any')">
-            <div class="barber-any-img-wrap">
-              <img src="assets/greenwood_monogram_cropped.png" alt="Any Available Barber" class="barber-any-img">
-            </div>
-            <div class="barber-any-info">
-              <div class="barber-any-title">Any Available Barber</div>
-              <div class="barber-any-desc">First available senior barber suited to your selected schedule. Recommended for flexibility.</div>
-            </div>
-            <div class="barber-check-icon">&#10003;</div>
+        <!-- Banner: Any Available Barber (Recommended Default at Top) -->
+        <div class="barber-any-banner selected" id="barberCard-any" onclick="selectBarber('any')">
+          <div class="barber-any-img-wrap">
+            <img src="assets/greenwood_monogram_cropped.png" alt="Any Available Barber" class="barber-any-img">
           </div>
-
-          <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
-            Or select a dedicated barber:
+          <div class="barber-any-info">
+            <div class="barber-any-title">Any Available Barber (Default)</div>
+            <div class="barber-any-desc">First available senior barber suited to your selected schedule. Recommended for flexibility.</div>
           </div>
-
-          <!-- 5 Individual Barbers Grid -->
-          <div class="barbers-grid" id="barberGridContainer">
-            <!-- Dynamically populated from GREENWOOD_CONFIG.barbers -->
-          </div>
+          <div class="barber-check-icon">&#10003;</div>
         </div>
 
-        <hr style="border: none; border-top: 1px solid var(--card-border); margin: 26px 0;">
+        <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
+          Or select a dedicated barber:
+        </div>
 
-        <!-- Part B: Choose Date (14 Days, Tuesday Closed) -->
-        <div>
-          <div class="cal-section-header">
-            <span>2. Select Date &amp; Appointment Time</span>
-            <span class="cal-closed-notice">&#9888; Tuesday Weekly Closure</span>
-          </div>
-          <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 14px;">
-            Please click any available date within our 14-day booking window:
-          </p>
-
-          <div class="calendar-strip-wrap">
-            <button type="button" class="btn-cal-nav" id="btnCalPrev" onclick="navigateCalendarWeek(-1)" aria-label="Previous Week">&larr;</button>
-            <div class="date-grid-scroll" id="calendarDaysStrip">
-              <!-- Dynamically populated 7 days at a time -->
-            </div>
-            <button type="button" class="btn-cal-nav" id="btnCalNext" onclick="navigateCalendarWeek(1)" aria-label="Next Week">&rarr;</button>
-          </div>
-          <div style="font-size: 12px; color: var(--text-muted); text-align: center; margin-bottom: 20px;" id="calendarWeekCaption">
-            Showing Week 1 of 2 (14 Days Available)
-          </div>
-
-          <!-- Part C: Single Grid of Available Time Slots -->
-          <div class="slots-container" id="slotsSectionWrapper">
-            <div class="slots-header-row">
-              <span class="slots-title" id="selectedDateTitle">Available Time Slots</span>
-              <span class="slots-legend">Duration: <strong id="totalDurationBadge">45 Mins</strong></span>
-            </div>
-            <div class="time-grid-single" id="timeSlotsGridContainer">
-              <!-- Dynamically populated available slots -->
-            </div>
-          </div>
+        <!-- 5 Individual Barbers Grid -->
+        <div class="barbers-grid" id="barberGridContainer">
+          <!-- Dynamically populated from GREENWOOD_CONFIG.barbers -->
         </div>
 
         <!-- Step 2 Navigation Actions -->
@@ -1248,20 +1273,72 @@
             &larr; Back to Rituals
           </button>
           <button type="button" class="btn-step-next" onclick="navigateToStep(3)">
-            Proceed to Details &amp; Confirmation &rarr;
+            Proceed to Date &amp; Time (Step 3) &rarr;
           </button>
         </div>
       </div>
     </div>
 
     <!-- ========================================================================
-         STEP 3: GUEST DETAILS & CONFIRMATION
+         STEP 3: DATE & TIME (DEDICATED STEP)
          ======================================================================== -->
     <div class="flow-panel" id="panelStep3">
+      <div class="panel-card">
+        <div class="panel-header-row">
+          <h2 class="panel-title">Select Date &amp; Appointment Time</h2>
+          <span class="panel-badge">Step 3 of 4</span>
+        </div>
+
+        <div class="cal-section-header">
+          <span>Choose Your Date</span>
+          <span class="cal-closed-notice">&#9888; Tuesday Weekly Closure</span>
+        </div>
+        <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 14px;">
+          Please click any available date within our 14-day booking window:
+        </p>
+
+        <div class="calendar-strip-wrap">
+          <button type="button" class="btn-cal-nav" id="btnCalPrev" onclick="navigateCalendarWeek(-1)" aria-label="Previous Week">&larr;</button>
+          <div class="date-grid-scroll" id="calendarDaysStrip">
+            <!-- Dynamically populated 7 days at a time -->
+          </div>
+          <button type="button" class="btn-cal-nav" id="btnCalNext" onclick="navigateCalendarWeek(1)" aria-label="Next Week">&rarr;</button>
+        </div>
+        <div style="font-size: 12px; color: var(--text-muted); text-align: center; margin-bottom: 24px;" id="calendarWeekCaption">
+          Showing Week 1 of 2 (14 Days Available)
+        </div>
+
+        <!-- Single Grid of Available Time Slots -->
+        <div class="slots-container" id="slotsSectionWrapper">
+          <div class="slots-header-row">
+            <span class="slots-title" id="selectedDateTitle">Available Time Slots</span>
+            <span class="slots-legend">Duration: <strong id="totalDurationBadge">45 Mins</strong></span>
+          </div>
+          <div class="time-grid-single" id="timeSlotsGridContainer">
+            <!-- Dynamically populated available slots -->
+          </div>
+        </div>
+
+        <!-- Step 3 Navigation Actions -->
+        <div class="step-actions-row">
+          <button type="button" class="btn-step-back" onclick="navigateToStep(2)">
+            &larr; Back to Barber
+          </button>
+          <button type="button" class="btn-step-next" onclick="navigateToStep(4)">
+            Proceed to Details &amp; Confirmation (Step 4) &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================================
+         STEP 4: GUEST DETAILS & CONFIRMATION
+         ======================================================================== -->
+    <div class="flow-panel" id="panelStep4">
       <div class="panel-card" id="step3FormWrapper">
         <div class="panel-header-row">
           <h2 class="panel-title">Guest Details &amp; Confirmation</h2>
-          <span class="panel-badge">Step 3 of 3</span>
+          <span class="panel-badge">Step 4 of 4</span>
         </div>
 
         <!-- ONE-LINE SUMMARY BAR -->
@@ -1302,11 +1379,10 @@
             <textarea id="guestNotes" class="form-input" rows="2" placeholder="e.g. Scissor-taper preference, sensitive skin, or beverage requests"></textarea>
           </div>
 
-
           <!-- Submit Buttons -->
           <div class="step-actions-row">
-            <button type="button" class="btn-step-back" onclick="navigateToStep(2)">
-              &larr; Change Barber / Time
+            <button type="button" class="btn-step-back" onclick="navigateToStep(3)">
+              &larr; Change Schedule (Step 3)
             </button>
             <button type="submit" class="btn-step-next" id="btnSubmitBooking">
               Confirm Reservation &amp; Generate Pass &rarr;
@@ -1374,6 +1450,9 @@
             <button type="button" class="btn-step-next" onclick="window.print()" style="flex: 1; min-width: 170px;">
               &#128424; Print / Save PDF Pass
             </button>
+            <a id="btnPassWhatsAppDirect" href="#" target="_blank" rel="noopener" class="btn-step-next" style="flex: 1; min-width: 190px; background: #25d366; border-color: #20ba5a; color: #030c08; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
+              <span>&#128242; WhatsApp Confirmation</span>
+            </a>
             <button type="button" class="btn-step-back" onclick="resetBookingSession()" style="flex: 1; min-width: 170px;">
               + Book Another Appointment
             </button>
@@ -1768,14 +1847,14 @@
       updateBookingCalculations();
     }
 
-    // 5. Navigate Between Steps
+    // 5. Navigate Between Steps (4-Step Flow)
     function navigateToStep(stepNum) {
       if (stepNum > 1 && !selectedPackage) {
         alert("Please select a signature grooming ritual first.");
         return;
       }
 
-      if (stepNum > 2) {
+      if (stepNum > 3) {
         if (!selectedDateObj) {
           alert("Please select your appointment date.");
           return;
@@ -1804,7 +1883,7 @@
 
       const progressLine = document.getElementById('stepperProgressLine');
       if (progressLine) {
-        const pct = ((currentStep - 1) / 2) * 100;
+        const pct = ((currentStep - 1) / 3) * 100;
         progressLine.style.width = `${pct}%`;
       }
 
@@ -1832,7 +1911,7 @@
 
       if (!selectedPackage || !selectedDateObj || !selectedTimeSlot) {
         alert("Booking details incomplete. Please review your selected ritual and schedule.");
-        navigateToStep(2);
+        navigateToStep(3);
         return;
       }
 
@@ -1887,6 +1966,45 @@
       }
       document.getElementById('passServicesList').textContent = servicesListText;
       document.getElementById('passTotalPrice').textContent = formatRupiah(totalPrc);
+
+      // Prepare WhatsApp automated confirmation message
+      const waConfirmationText = 
+        `Welcome Mr. ${name},\n\n` +
+        `Your appointment at Greenwood Barbers is confirmed for ${servicesListText} with ${assignedBarber ? assignedBarber.name : "Any Available Barber"} on ${bookingRecord.dayFull} at ${selectedTimeSlot} WIB.\n\n` +
+        `Reservation Pass: ${bookingCode}\n` +
+        `Location: Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan\n` +
+        `Total Amount Due: ${formatRupiah(totalPrc)}\n\n` +
+        `Our private chair is reserved exclusively for your session. Reach our concierge desk directly at +62 821-2345-6789 for any schedule assistance.`;
+
+      // Direct WhatsApp link on the pass
+      const waBtn = document.getElementById('btnPassWhatsAppDirect');
+      if (waBtn) {
+        waBtn.href = `https://wa.me/6282123456789?text=${encodeURIComponent(waConfirmationText)}`;
+      }
+
+      // Backend Webhook Trigger (Netlify serverless function)
+      try {
+        fetch('/.netlify/functions/whatsapp-notify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            bookingCode: bookingCode,
+            guestName: name,
+            guestPhone: phone,
+            guestEmail: email,
+            guestNotes: notes,
+            serviceName: servicesListText,
+            barberName: assignedBarber ? assignedBarber.name : "Any Available Barber",
+            schedule: `${bookingRecord.dayFull} @ ${selectedTimeSlot} WIB`,
+            totalPrice: formatRupiah(totalPrc),
+            message: waConfirmationText
+          })
+        }).catch(() => {
+          // Graceful fallback for offline / static hosting
+        });
+      } catch (err) {
+        // Quiet fallback
+      }
 
       // Hide form and show pass
       document.getElementById('step3FormWrapper').style.display = 'none';

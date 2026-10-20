@@ -37,14 +37,55 @@
 
     .contact-hero {
       position: relative;
-      padding: 70px 24px 45px;
+      padding: 95px 24px 65px;
       text-align: center;
-      background: radial-gradient(circle at 50% 20%, rgba(10, 35, 23, 0.6) 0%, var(--bg-dark) 75%);
+      background: #020704;
       border-bottom: 1px solid var(--card-border);
+      overflow: hidden;
+    }
+    .contact-hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .contact-hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 35%;
+      opacity: 0.35;
+      filter: saturate(1.1) contrast(1.05);
+    }
+    .contact-hero-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(2, 7, 4, 0.45) 0%, rgba(2, 7, 4, 0.88) 75%, #020704 100%);
+      pointer-events: none;
     }
     .contact-hero-inner {
+      position: relative;
+      z-index: 2;
       max-width: 800px;
       margin: 0 auto;
+    }
+    .contact-location-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 24px;
+      border-radius: 999px;
+      border: 2px solid var(--accent-gold);
+      background: rgba(2, 7, 4, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: var(--accent-gold);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 16px rgba(197, 155, 72, 0.25);
     }
     .contact-hero-eyebrow {
       font-size: 11.5px;
@@ -430,11 +471,10 @@
       <a href="index.html">Home</a>
       <a href="about.html">About Us</a>
       <a href="contact.html" class="active">Contact Us</a>
-      <a href="booking.html">Book Appointment</a>
     </nav>
 
     <div class="header-cta-group">
-      <a href="booking.html" class="btn-header-book">Reserve a Chair</a>
+      <a href="booking.html" class="btn-header-book">RESERVE A CHAIR</a>
       <button class="menu-toggle-btn" onclick="toggleMobileNav()" aria-label="Toggle navigation menu">&#9776;</button>
     </div>
   </header>
@@ -445,18 +485,22 @@
     <a href="index.html" onclick="closeMobileNav()">Home</a>
     <a href="about.html" onclick="closeMobileNav()">About Us</a>
     <a href="contact.html" class="active" onclick="closeMobileNav()">Contact Us</a>
-    <a href="booking.html" onclick="closeMobileNav()">Book Appointment</a>
-    <a href="booking.html" class="btn-primary" style="margin-top: 16px;" onclick="closeMobileNav()">Reserve Appointment</a>
+    <a href="booking.html" class="btn-primary" style="margin-top: 16px; background: linear-gradient(135deg, var(--accent-gold) 0%, #9a7428 100%); color: #030c08; font-weight: 700; border: 1px solid var(--accent-gold);" onclick="closeMobileNav()">RESERVE A CHAIR</a>
   </div>
 
   <main>
     <!-- HERO -->
     <section class="contact-hero">
+      <div class="contact-hero-bg">
+        <img src="assets/sanctuary_lounge.jpg" alt="Greenwood Barbers Reception Sanctuary" loading="eager">
+      </div>
+      <div class="contact-hero-vignette"></div>
       <div class="contact-hero-inner">
-        <span class="contact-hero-eyebrow">Location Dossier &bull; Kota Baru Parahyangan</span>
-        <h1 class="contact-hero-title">The Sanctuary &bull; Location &amp; Concierge</h1>
+        <div class="contact-location-badge">KOTA BARU PARAHYANGAN</div>
+        <h1 class="contact-hero-title">Sanctuary Concierge &amp; Coordinates</h1>
         <p class="contact-hero-sub">
-          A discreet British Mayfair grooming parlour situated at Ruko PancaTengah, Kota Baru Parahyangan. Reach our concierge desk directly for inquiries, navigation, or private appointments.
+          Discreet British Mayfair grooming parlour situated at Ruko PancaTengah.<br>
+          Direct concierge desk for inquiries, navigation, or private appointments.
         </p>
       </div>
     </section>
@@ -553,41 +597,6 @@
           </div>
         </div>
 
-      </div>
-
-      <!-- STORE PHOTOS GALLERY -->
-      <section class="gallery-section">
-        <div class="gallery-heading-wrap">
-          <h2 class="gallery-title">Sanctuary Interior Gallery</h2>
-          <p class="gallery-sub">Acoustic seclusion, leather hydraulic thrones, and refined Mayfair aesthetics designed for unhurried repose.</p>
-        </div>
-        <div class="store-photo-grid">
-          <div class="store-photo-card">
-            <img src="assets/hero_barbershop.jpg?v=20261018_neat" alt="Ergonomic Hydraulic Grooming Thrones" class="store-photo-img" loading="lazy">
-            <div class="store-photo-caption">Ergonomic Hydraulic Thrones</div>
-          </div>
-          <div class="store-photo-card">
-            <img src="assets/parlour_real_sanctuary.jpg?v=20261018_neat" alt="Gentlemen's Acoustic Lounge" class="store-photo-img" loading="lazy">
-            <div class="store-photo-caption">Gentlemen's Acoustic Lounge</div>
-          </div>
-          <div class="store-photo-card">
-            <img src="assets/real_haircut_taper.jpg?v=20261018_neat" alt="Precision Clipper &amp; Taper Craftsmanship" class="store-photo-img" loading="lazy">
-            <div class="store-photo-caption">Precision Clipper &amp; Taper</div>
-          </div>
-          <div class="store-photo-card">
-            <img src="assets/real_suit_shave.jpg?v=20261018_neat" alt="Traditional Hot-Linen Straight Razor Shave" class="store-photo-img" loading="lazy">
-            <div class="store-photo-caption">Traditional Hot-Linen Shave</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- BOOKING CTA BANNER -->
-      <div class="contact-cta-banner">
-        <h2 class="contact-cta-title">Ready to Experience the Distinction?</h2>
-        <p class="contact-cta-desc">
-          Reserve your private appointment online in under two minutes. Real-time calendar availability ensures your dedicated chair and barber are prepared and waiting without queues.
-        </p>
-        <a href="booking.html" class="btn-cta-large">Reserve Your Chair Now &rarr;</a>
       </div>
 
     </div>
