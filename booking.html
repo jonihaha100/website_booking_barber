@@ -1472,7 +1472,7 @@
             </div>
             <div class="form-group">
               <label class="form-label" for="guestPhone">WhatsApp / Mobile Number *</label>
-              <input type="tel" id="guestPhone" class="form-input" placeholder="e.g. +62 812-8899-7721" required>
+              <input type="tel" id="guestPhone" class="form-input" placeholder="e.g. 0812-xxxx-xxxx" required>
             </div>
           </div>
 
@@ -1503,12 +1503,17 @@
            ====================================================================== -->
       <div id="confirmedPassScreen" style="display: none;">
         <div class="pass-screen-header" style="text-align: center; margin-bottom: 24px;">
-          <div style="width: 56px; height: 56px; border-radius: 50%; background: rgba(40, 167, 69, 0.2); border: 2px solid #85e396; color: #85e396; display: flex; align-items: center; justify-content: center; font-size: 26px; margin: 0 auto 14px;">
+          <div style="width: 60px; height: 60px; border-radius: 50%; background: rgba(32, 201, 151, 0.15); border: 2px solid #20c997; color: #20c997; display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto 14px;">
             &#10003;
           </div>
-          <h2 style="font-family: var(--font-serif); font-size: 34px; color: var(--text-main); margin-bottom: 6px;">Your Appointment is Confirmed!</h2>
-          <p style="font-size: 15px; color: var(--text-muted); max-width: 600px; margin: 0 auto;">
-            Your reservation is officially recorded in our parlour ledger. Please save or present this official pass upon arrival.
+          <div style="display: inline-block; padding: 4px 14px; border-radius: 20px; background: rgba(197, 155, 72, 0.12); border: 1px solid var(--accent-gold); color: var(--accent-gold-bright); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; margin-bottom: 12px;">
+            Reservasi Berhasil Diterima &bull; Greenwood Barbers
+          </div>
+          <h2 style="font-family: var(--font-serif); font-size: 32px; color: var(--text-main); margin-bottom: 8px;">
+            Booking Anda Sudah Kami Terima!
+          </h2>
+          <p style="font-size: 15px; color: var(--text-muted); max-width: 600px; margin: 0 auto 12px; line-height: 1.7;">
+            Kursi dan Master Barber telah disiapkan khusus untuk Anda. <strong style="color: var(--accent-gold-bright);">Anda cukup datang langsung ke ruko kami sesuai jadwal yang dipilih.</strong>
           </p>
         </div>
 
@@ -1531,53 +1536,72 @@
               <div class="pass-item-val" id="passGuestPhone">-</div>
             </div>
             <div>
-              <div class="pass-item-label">Barber</div>
+              <div class="pass-item-label">Master Barber</div>
               <div class="pass-item-val" id="passBarberName">-</div>
             </div>
             <div>
-              <div class="pass-item-label">Day &amp; Time for relaxation</div>
+              <div class="pass-item-label">Jadwal Sesi</div>
               <div class="pass-item-val" id="passScheduleTime">-</div>
             </div>
             <div>
-              <div class="pass-item-label">Treatment</div>
+              <div class="pass-item-label">Layanan / Ritual</div>
               <div class="pass-item-val" id="passServicesList">-</div>
             </div>
             <div>
-              <div class="pass-item-label">Total Amount Due</div>
+              <div class="pass-item-label">Total Biaya (Bayar di Tempat)</div>
               <div class="pass-item-val" style="color: var(--accent-gold-bright); font-size: 18px;" id="passTotalPrice">-</div>
             </div>
           </div>
 
-          <div class="pass-footer-strip">
-            <strong>Location:</strong> Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, West Bandung.<br>
-            <strong>Concierge:</strong> Reach our official concierge via WhatsApp at +62 821-2345-6789 for schedule adjustments.
+          <!-- PANDUAN KEDATANGAN RINGKAS -->
+          <div style="background: rgba(197, 155, 72, 0.08); border: 1px solid rgba(197, 155, 72, 0.22); border-radius: 8px; padding: 14px 18px; margin: 20px 0 16px; text-align: left; font-size: 13.5px; line-height: 1.6;">
+            <div style="color: var(--accent-gold); font-weight: 700; margin-bottom: 6px; font-size: 13px; letter-spacing: 1px; text-transform: uppercase;">
+              &#128205; Panduan Kedatangan:
+            </div>
+            <div style="color: var(--text-main); margin-bottom: 4px;">
+              &bull; <strong>Lokasi:</strong> Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, West Bandung (Tersedia parkir khusus luas di depan ruko).
+            </div>
+            <div style="color: var(--text-main); margin-bottom: 4px;">
+              &bull; <strong>Waktu:</strong> Mohon hadir 5–10 menit sebelum jam sesi untuk konsultasi santai.
+            </div>
+            <div style="color: var(--text-main);">
+              &bull; <strong>Pembayaran:</strong> Cash, QRIS, &amp; Kartu Debit/Kredit diterima saat selesai treatment.
+            </div>
+          </div>
+
+          <div class="pass-footer-strip" style="font-size: 12.5px; color: var(--text-muted);">
+            <strong>Concierge Hotline:</strong> +62 812-2230-2050 &bull; Buka Rabu&ndash;Senin 10:00&ndash;20:00 WIB (Selasa TUTUP).
           </div>
 
           <div class="pass-print-watermark" style="display: none;">
             Official Reservation Pass &bull; Greenwood Barbers Kota Baru Parahyangan &bull; Authorized by Concierge
           </div>
 
-          <!-- BOOKING CONFIRMATION ACTIONS (WHATSAPP + GOOGLE CALENDAR) -->
+          <!-- BOOKING CONFIRMATION ACTIONS -->
           <div class="pass-actions-bar" style="display: flex; flex-direction: column; gap: 12px; margin-top: 24px;">
-            <a id="btnPassWhatsAppDirect" href="#" target="_blank" rel="noopener" class="btn-step-next" style="width: 100%; padding: 16px 24px; font-size: 15px; background: #25d366; border-color: #20ba5a; color: #030c08; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-weight: 800; letter-spacing: 1.5px; border-radius: 6px; box-shadow: 0 4px 18px rgba(37, 211, 102, 0.4); text-transform: uppercase;">
-              <span style="font-size: 20px;">&#128242;</span>
-              <span>Open WhatsApp Confirmation</span>
-            </a>
-
-            <a id="btnPassGoogleCalDirect" href="#" target="_blank" rel="noopener" class="btn-step-next" style="width: 100%; padding: 14px 24px; font-size: 14.5px; background: #0c2b1d; border: 1.5px solid var(--accent-gold); color: var(--accent-gold-bright); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-weight: 700; letter-spacing: 1px; border-radius: 6px; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4); text-transform: uppercase;">
+            <a id="btnPassGoogleCalDirect" href="#" target="_blank" rel="noopener" class="btn-step-next" style="width: 100%; padding: 15px 24px; font-size: 14.5px; background: #0c2b1d; border: 1.5px solid var(--accent-gold); color: var(--accent-gold-bright); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-weight: 700; letter-spacing: 1px; border-radius: 6px; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4); text-transform: uppercase;">
               <span style="font-size: 18px;">&#128197;</span>
-              <span>Add to My Google Calendar</span>
+              <span>Pasang Pengingat di Google Calendar</span>
             </a>
 
-            <div style="font-size: 13px; color: var(--text-muted); text-align: center; margin-top: -2px; margin-bottom: 6px;">
-              Tip: Screenshot this pass for your records, confirm via WhatsApp, or check your Google Calendar for your automated schedule reminder.
+            <div style="font-size: 13px; color: var(--text-muted); text-align: center; margin-top: 4px;">
+              💡 <em>Tips: Cukup screenshot tiket di atas sebagai bukti reservasi Anda.</em>
             </div>
-            <div style="display: flex; gap: 12px; flex-wrap: wrap; width: 100%;">
+
+            <!-- OPTIONAL WHATSAPP CONCIERGE HELP (NOT REQUIRED FOR CONFIRMATION) -->
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px; padding: 10px 14px; text-align: center; font-size: 13px; color: var(--text-muted);">
+              Butuh ubah jadwal atau info rute lokasi? 
+              <a id="btnPassWhatsAppDirect" href="https://wa.me/6281222302050" target="_blank" rel="noopener" style="color: #25d366; text-decoration: underline; font-weight: 600; margin-left: 4px;">
+                Chat WhatsApp Concierge (+62 812-2230-2050)
+              </a>
+            </div>
+
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; width: 100%; margin-top: 8px;">
               <button type="button" class="btn-step-back" onclick="resetBookingSession()" style="flex: 1; min-width: 160px;">
-                + Book Another Appointment
+                + Buat Reservasi Lain
               </button>
               <a href="index.html" class="btn-step-back" style="flex: 1; min-width: 150px; text-decoration: none; text-align: center;">
-                Return to Home &rarr;
+                Kembali ke Beranda &rarr;
               </a>
             </div>
           </div>
@@ -1606,7 +1630,7 @@
   <footer>
     <div class="footer-copy">
       &copy; 2026 Greenwood Barbers. All rights reserved. Ruko PancaTengah, Kota Baru Parahyangan, Padalarang, West Bandung.<br>
-      Direct Concierge Hotline: +62 821-2345-6789 &bull; Email: contact@greenwoodbarbers.com &bull; Open Wednesday&ndash;Monday 10:00&ndash;20:00 WIB (Tuesday: CLOSED).
+      Direct Concierge Hotline: +62 812-2230-2050 &bull; Email: contact@greenwoodbarbers.com &bull; Open Wednesday&ndash;Monday 10:00&ndash;20:00 WIB (Tuesday: CLOSED).
     </div>
   </footer>
 
@@ -2101,17 +2125,22 @@
       document.getElementById('passServicesList').textContent = servicesListText;
       document.getElementById('passTotalPrice').textContent = formatRupiah(totalPrc);
 
-      // Prepare WhatsApp automated confirmation message
-      const waConfirmationText = 
-        `Welcome Mr. ${name},\n\n` +
-        `Your appointment at Greenwood Barbers is confirmed for ${servicesListText} with ${assignedBarber ? assignedBarber.name : "Any Available Barber"} on ${bookingRecord.dayFull} at ${selectedTimeSlot} WIB.\n\n` +
-        `Reservation Pass: ${bookingCode}\n` +
-        `Location: Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan\n` +
-        `Total Amount Due: ${formatRupiah(totalPrc)}\n\n` +
-        `Our private chair is reserved exclusively for your session. Reach our concierge desk directly at +62 821-2345-6789 for any schedule assistance.`;
+      // Concierge WhatsApp Inquiry URL (Optional helper for guest questions/reschedule)
+      const conciergePhone = (typeof GREENWOOD_CONFIG !== 'undefined' && GREENWOOD_CONFIG.brand && GREENWOOD_CONFIG.brand.whatsappNumber) 
+        ? GREENWOOD_CONFIG.brand.whatsappNumber 
+        : '6281222302050';
 
-      // Direct WhatsApp link on the pass (Client Feedback: Auto WhatsApp Confirmation Only)
-      const waUrl = `https://wa.me/6282123456789?text=${encodeURIComponent(waConfirmationText)}`;
+      const waAssistanceText = 
+        `Halo Greenwood Barbers Concierge,\n\n` +
+        `Saya telah melakukan booking melalui website:\n` +
+        `• Kode Reservasi: ${bookingCode}\n` +
+        `• Nama Tamu: ${name}\n` +
+        `• Master Barber: ${assignedBarber ? assignedBarber.name : "Any Available Barber"}\n` +
+        `• Jadwal: ${bookingRecord.dayFull} @ ${selectedTimeSlot} WIB\n` +
+        `• Layanan: ${servicesListText}\n\n` +
+        `Saya ingin menanyakan informasi / rute parlour. Terima kasih.`;
+
+      const waUrl = `https://wa.me/${conciergePhone}?text=${encodeURIComponent(waAssistanceText)}`;
       const waBtn = document.getElementById('btnPassWhatsAppDirect');
       if (waBtn) {
         waBtn.href = waUrl;
@@ -2144,7 +2173,7 @@
           `Total Amount: ${formatRupiah(totalPrc)}\n` +
           `Notes: ${notes || "None"}\n\n` +
           `Sanctuary: Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, West Bandung\n` +
-          `Concierge WhatsApp: +62 821-2345-6789`;
+          `Concierge WhatsApp: +62 812-2230-2050`;
         const gcalLocation = `Greenwood Barbers, Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, West Bandung`;
 
         const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(gcalTitle)}&dates=${gcalDates}&details=${encodeURIComponent(gcalDetails)}&location=${encodeURIComponent(gcalLocation)}`;
@@ -2199,7 +2228,7 @@
             barberName: assignedBarber ? assignedBarber.name : "Any Available Barber",
             schedule: `${bookingRecord.dayFull} @ ${selectedTimeSlot} WIB`,
             totalPrice: formatRupiah(totalPrc),
-            message: waConfirmationText
+            message: waAssistanceText
           })
         }).catch(() => {
           // Graceful fallback for offline / static hosting
@@ -2208,20 +2237,11 @@
         // Quiet fallback
       }
 
-      // Hide form and show pass
+      // Hide form and show clean confirmation notification & digital pass
       document.getElementById('step3FormWrapper').style.display = 'none';
       const passScreen = document.getElementById('confirmedPassScreen');
       passScreen.style.display = 'block';
       passScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-      // Automatically trigger WhatsApp confirmation for immediate seamless booking
-      setTimeout(() => {
-        try {
-          window.open(waUrl, '_blank');
-        } catch (popupErr) {
-          // If browser popup blocker intercepts, the user still sees the prominent green button
-        }
-      }, 400);
     }
 
     // Reset Booking Session

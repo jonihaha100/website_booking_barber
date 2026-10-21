@@ -59,7 +59,7 @@ function doPost(e) {
       "Total Biaya: " + (data.totalPrice || "-") + "\n" +
       "Catatan Khusus: " + (data.guestNotes || "Tidak ada") + "\n\n" +
       "Lokasi: Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, Bandung Barat\n" +
-      "Concierge WhatsApp: +62 821-2345-6789\n";
+      "Concierge WhatsApp: +62 812-2230-2050\n";
       
     var location = data.location || "Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, West Bandung";
 

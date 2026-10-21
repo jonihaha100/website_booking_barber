@@ -12,9 +12,9 @@ const GREENWOOD_CONFIG = {
     location: "Ruko PancaTengah, Kota Baru Parahyangan",
     city: "Padalarang, West Bandung Regency 40553",
     fullAddress: "Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, West Bandung 40553",
-    whatsappNumber: "6282123456789", // International format without +
-    whatsappDisplay: "+62 821-2345-6789",
-    phoneDisplay: "+62 821-2345-6789",
+    whatsappNumber: "6281222302050", // International format without +
+    whatsappDisplay: "+62 812-2230-2050",
+    phoneDisplay: "+62 812-2230-2050",
     email: "contact@greenwoodbarbers.com",
     mapsUrl: "https://maps.google.com/?q=Kota+Baru+Parahyangan+Padalarang",
     mapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15844.629559384877!2d107.47250644498305!3d-6.871758509012351!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e37bb033481b%3A0xe54fb9e2c6501a35!2sKota%20Baru%20Parahyangan!5e0!3m2!1sid!2sid!4v1729240000000!5m2!1sid!2sid",
