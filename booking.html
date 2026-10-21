@@ -1477,8 +1477,8 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="guestEmail">Email Address (Optional)</label>
-            <input type="email" id="guestEmail" class="form-input" placeholder="client@example.com">
+            <label class="form-label" for="guestEmail">Email Address (For Google Calendar invite &amp; schedule reminder) *</label>
+            <input type="email" id="guestEmail" class="form-input" placeholder="e.g. client@example.com" required>
           </div>
 
           <div class="form-group">
@@ -1557,14 +1557,20 @@
             Official Reservation Pass &bull; Greenwood Barbers Kota Baru Parahyangan &bull; Authorized by Concierge
           </div>
 
-          <!-- CLIENT FEEDBACK: REMOVE PDF & MAKE WHATSAPP CONFIRMATION PRIMARY -->
+          <!-- BOOKING CONFIRMATION ACTIONS (WHATSAPP + GOOGLE CALENDAR) -->
           <div class="pass-actions-bar" style="display: flex; flex-direction: column; gap: 12px; margin-top: 24px;">
             <a id="btnPassWhatsAppDirect" href="#" target="_blank" rel="noopener" class="btn-step-next" style="width: 100%; padding: 16px 24px; font-size: 15px; background: #25d366; border-color: #20ba5a; color: #030c08; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-weight: 800; letter-spacing: 1.5px; border-radius: 6px; box-shadow: 0 4px 18px rgba(37, 211, 102, 0.4); text-transform: uppercase;">
               <span style="font-size: 20px;">&#128242;</span>
               <span>Open WhatsApp Confirmation</span>
             </a>
+
+            <a id="btnPassGoogleCalDirect" href="#" target="_blank" rel="noopener" class="btn-step-next" style="width: 100%; padding: 14px 24px; font-size: 14.5px; background: #0c2b1d; border: 1.5px solid var(--accent-gold); color: var(--accent-gold-bright); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-weight: 700; letter-spacing: 1px; border-radius: 6px; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4); text-transform: uppercase;">
+              <span style="font-size: 18px;">&#128197;</span>
+              <span>Add to My Google Calendar</span>
+            </a>
+
             <div style="font-size: 13px; color: var(--text-muted); text-align: center; margin-top: -2px; margin-bottom: 6px;">
-              Tip: Screenshot this pass for your records, or verify your reservation anytime with our concierge via WhatsApp.
+              Tip: Screenshot this pass for your records, confirm via WhatsApp, or check your Google Calendar for your automated schedule reminder.
             </div>
             <div style="display: flex; gap: 12px; flex-wrap: wrap; width: 100%;">
               <button type="button" class="btn-step-back" onclick="resetBookingSession()" style="flex: 1; min-width: 160px;">
@@ -2109,6 +2115,73 @@
       const waBtn = document.getElementById('btnPassWhatsAppDirect');
       if (waBtn) {
         waBtn.href = waUrl;
+      }
+
+      // ======================================================================
+      // GOOGLE CALENDAR AUTOMATED SYNC & 1-CLICK ADD TO CALENDAR
+      // ======================================================================
+      try {
+        // Calculate UTC start and end for Google Calendar Universal Link
+        // WIB is UTC+7
+        const [y, m, d] = selectedDateObj.dateKey.split('-').map(Number);
+        const [h, min] = selectedTimeSlot.split(':').map(Number);
+        const startDate = new Date(Date.UTC(y, m - 1, d, h - 7, min, 0));
+        const endDate = new Date(startDate.getTime() + totalDur * 60 * 1000);
+        
+        const pad = (num) => String(num).padStart(2, '0');
+        const toGCalString = (dt) => 
+          `${dt.getUTCFullYear()}${pad(dt.getUTCMonth() + 1)}${pad(dt.getUTCDate())}T${pad(dt.getUTCHours())}${pad(dt.getUTCMinutes())}00Z`;
+
+        const gcalDates = `${toGCalString(startDate)}/${toGCalString(endDate)}`;
+        const gcalTitle = `Grooming Appointment • Greenwood Barbers (${servicesListText})`;
+        const gcalDetails = 
+          `Official Reservation Pass: ${bookingCode}\n` +
+          `Guest Name: ${name}\n` +
+          `WhatsApp: ${phone}\n` +
+          `Email: ${email}\n` +
+          `Assigned Barber: ${assignedBarber ? assignedBarber.name : "Any Available Barber"}\n` +
+          `Ritual: ${servicesListText}\n` +
+          `Total Amount: ${formatRupiah(totalPrc)}\n` +
+          `Notes: ${notes || "None"}\n\n` +
+          `Sanctuary: Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, West Bandung\n` +
+          `Concierge WhatsApp: +62 821-2345-6789`;
+        const gcalLocation = `Greenwood Barbers, Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, West Bandung`;
+
+        const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(gcalTitle)}&dates=${gcalDates}&details=${encodeURIComponent(gcalDetails)}&location=${encodeURIComponent(gcalLocation)}`;
+        
+        const gcalBtn = document.getElementById('btnPassGoogleCalDirect');
+        if (gcalBtn) {
+          gcalBtn.href = gcalUrl;
+        }
+
+        // Automated Google Apps Script Webhook (Creates event on Barber's Google Calendar + sends email invite to Guest)
+        const gcalWebhookUrl = (typeof GREENWOOD_CONFIG !== 'undefined' && GREENWOOD_CONFIG.googleCalendarWebhookUrl) 
+          ? GREENWOOD_CONFIG.googleCalendarWebhookUrl 
+          : '';
+
+        if (gcalWebhookUrl) {
+          fetch(gcalWebhookUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              bookingCode: bookingCode,
+              guestName: name,
+              guestPhone: phone,
+              guestEmail: email,
+              guestNotes: notes,
+              serviceName: servicesListText,
+              barberName: assignedBarber ? assignedBarber.name : "Any Available Barber",
+              dateKey: selectedDateObj.dateKey,
+              timeSlot: selectedTimeSlot,
+              totalDuration: totalDur,
+              totalPrice: formatRupiah(totalPrc),
+              location: gcalLocation
+            })
+          }).catch(() => {});
+        }
+      } catch (gcalErr) {
+        // Quiet fallback
       }
 
       // Backend Webhook Trigger (Netlify serverless function)
