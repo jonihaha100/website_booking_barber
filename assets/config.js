@@ -238,9 +238,38 @@ const GreenwoodBookingStore = {
   // Add new confirmed booking
   addBooking: function(bookingData) {
     const list = this.getBookings();
+    if (!bookingData.status) {
+      bookingData.status = "Confirmed";
+    }
     list.push(bookingData);
     this.saveBookings(list);
     return bookingData;
+  },
+
+  // Update booking status ('Confirmed', 'Completed', 'Cancelled')
+  updateStatus: function(bookingCode, status) {
+    const list = this.getBookings();
+    const item = list.find(b => b.bookingCode === bookingCode);
+    if (item) {
+      item.status = status;
+      this.saveBookings(list);
+      return true;
+    }
+    return false;
+  },
+
+  // Delete booking by code
+  deleteBooking: function(bookingCode) {
+    let list = this.getBookings();
+    const initialLen = list.length;
+    list = list.filter(b => b.bookingCode !== bookingCode);
+    this.saveBookings(list);
+    return list.length < initialLen;
+  },
+
+  // Clear all bookings
+  clearAllBookings: function() {
+    this.saveBookings([]);
   },
 
   // Generate realistic official booking code: GWB-YYMMDD-XXXX

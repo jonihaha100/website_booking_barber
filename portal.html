@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Executive Portal &bull; Greenwood Barbers Owner Access</title>
+  <link rel="icon" type="image/png" href="assets/greenwood_monogram_cropped.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/greenwood.css">
+  <script src="assets/config.js"></script>
+
+  <style>
+    :root {
+      --bg-dark: #030c08;
+      --card-bg: #091c13;
+      --card-border: rgba(197, 155, 72, 0.22);
+      --text-main: #b8b0a2;
+      --text-muted: #828f86;
+      --accent-gold: #c59b48;
+      --accent-gold-bright: #e5b95f;
+      --danger: #e06c75;
+      --success: #20c997;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Open Sans', system-ui, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* GATE SCREEN (LOGIN PIN) */
+    .gate-overlay {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at center, #071911 0%, #020704 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 20px;
+    }
+    .gate-card {
+      background: rgba(9, 28, 19, 0.85);
+      border: 1px solid var(--accent-gold);
+      border-radius: 12px;
+      padding: 40px 32px;
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(12px);
+    }
+    .gate-logo {
+      height: 48px;
+      margin-bottom: 20px;
+    }
+    .gate-title {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 24px;
+      color: #fff;
+      margin: 0 0 8px;
+    }
+    .gate-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    .pin-input-wrap {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .pin-input {
+      width: 100%;
+      background: rgba(3, 12, 8, 0.8);
+      border: 1.5px solid var(--card-border);
+      color: var(--accent-gold-bright);
+      font-size: 26px;
+      letter-spacing: 12px;
+      text-align: center;
+      padding: 12px 16px;
+      border-radius: 8px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+    .pin-input:focus {
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 15px rgba(197, 155, 72, 0.3);
+    }
+    .btn-gate-unlock {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--accent-gold) 0%, #9a7428 100%);
+      color: #030c08;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-gate-unlock:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 18px rgba(197, 155, 72, 0.4);
+    }
+    .gate-err-msg {
+      color: var(--danger);
+      font-size: 12.5px;
+      margin-top: 12px;
+      display: none;
+    }
+
+    /* TOP NAV BAR */
+    .portal-nav {
+      background: rgba(4, 15, 10, 0.95);
+      border-bottom: 1px solid var(--card-border);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+    .portal-brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .portal-logo {
+      height: 38px;
+    }
+    .portal-tagline {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .portal-user-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-portal-action {
+      background: rgba(197, 155, 72, 0.1);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .btn-portal-action:hover {
+      background: rgba(197, 155, 72, 0.2);
+      border-color: var(--accent-gold);
+      color: #fff;
+    }
+    .btn-portal-lock {
+      background: rgba(224, 108, 117, 0.12);
+      border-color: rgba(224, 108, 117, 0.4);
+      color: var(--danger);
+    }
+    .btn-portal-lock:hover {
+      background: rgba(224, 108, 117, 0.25);
+      border-color: var(--danger);
+      color: #fff;
+    }
+
+    /* MAIN CONTAINER */
+    .portal-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 60px;
+    }
+
+    /* STATS METRICS GRID */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .metric-card {
+      background: rgba(9, 28, 19, 0.7);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 20px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+    .metric-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--accent-gold);
+    }
+    .metric-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .metric-val {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+    }
+    .metric-sub {
+      font-size: 11.5px;
+      color: var(--accent-gold);
+      margin-top: 6px;
+    }
+
+    /* FILTER & TOOLBAR */
+    .toolbar-shell {
+      background: rgba(9, 28, 19, 0.6);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .filter-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      flex: 1;
+      min-width: 280px;
+    }
+    .search-input {
+      background: rgba(3, 12, 8, 0.8);
+      border: 1px solid var(--card-border);
+      color: #fff;
+      padding: 9px 14px;
+      border-radius: 6px;
+      font-size: 13.5px;
+      outline: none;
+      min-width: 220px;
+      flex: 1;
+    }
+    .search-input:focus {
+      border-color: var(--accent-gold);
+    }
+    .filter-select {
+      background: rgba(3, 12, 8, 0.8);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 9px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      outline: none;
+      cursor: pointer;
+    }
+    .toolbar-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn-gold-action {
+      background: linear-gradient(135deg, var(--accent-gold) 0%, #9a7428 100%);
+      color: #030c08;
+      font-weight: 700;
+      padding: 9px 16px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .btn-gold-action:hover {
+      box-shadow: 0 4px 14px rgba(197, 155, 72, 0.4);
+    }
+
+    /* TABLE SECTION */
+    .ledger-table-wrap {
+      background: rgba(9, 28, 19, 0.65);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      overflow-x: auto;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    }
+    table.ledger-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+      min-width: 900px;
+    }
+    table.ledger-table th {
+      background: rgba(3, 12, 8, 0.9);
+      color: var(--accent-gold);
+      font-weight: 600;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--card-border);
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+    table.ledger-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(197, 155, 72, 0.1);
+      vertical-align: middle;
+    }
+    table.ledger-table tr:hover {
+      background: rgba(197, 155, 72, 0.04);
+    }
+    .code-badge {
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent-gold-bright);
+      background: rgba(197, 155, 72, 0.12);
+      border: 1px solid rgba(197, 155, 72, 0.3);
+      padding: 3px 8px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    .guest-name-cell {
+      font-weight: 700;
+      color: #fff;
+    }
+    .guest-phone-link {
+      color: #25d366;
+      text-decoration: none;
+      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 3px;
+    }
+    .guest-phone-link:hover {
+      text-decoration: underline;
+    }
+    .status-pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .status-confirmed {
+      background: rgba(32, 201, 151, 0.15);
+      border: 1px solid var(--success);
+      color: var(--success);
+    }
+    .status-completed {
+      background: rgba(197, 155, 72, 0.2);
+      border: 1px solid var(--accent-gold);
+      color: var(--accent-gold-bright);
+    }
+    .status-cancelled {
+      background: rgba(224, 108, 117, 0.15);
+      border: 1px solid var(--danger);
+      color: var(--danger);
+    }
+
+    .btn-table-action {
+      background: transparent;
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 11.5px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      margin-right: 4px;
+    }
+    .btn-table-action:hover {
+      border-color: var(--accent-gold);
+      color: #fff;
+    }
+    .btn-table-complete:hover {
+      border-color: var(--success);
+      color: var(--success);
+    }
+    .btn-table-del:hover {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    /* MODAL POPUPS */
+    .portal-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+    .portal-modal-box {
+      background: #091c13;
+      border: 1px solid var(--accent-gold);
+      border-radius: 10px;
+      padding: 28px 24px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.8);
+    }
+    .modal-title {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 22px;
+      color: #fff;
+      margin: 0 0 16px;
+    }
+    .form-row {
+      margin-bottom: 14px;
+    }
+    .form-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .form-control {
+      width: 100%;
+      background: #030c08;
+      border: 1px solid var(--card-border);
+      color: #fff;
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 13.5px;
+      box-sizing: border-box;
+      outline: none;
+    }
+    .form-control:focus {
+      border-color: var(--accent-gold);
+    }
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .empty-state-card {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       1. SECURITY GATE (EXCLUSIVE PIN AUTHENTICATION)
+       ======================================================================== -->
+  <div class="gate-overlay" id="gateOverlay">
+    <div class="gate-card">
+      <img src="assets/greenwood_logo_transparent.png" alt="Greenwood Barbers" class="gate-logo">
+      <div style="font-size: 11px; letter-spacing: 2px; color: var(--accent-gold); text-transform: uppercase; font-weight: 700; margin-bottom: 6px;">
+        Owner Access Point
+      </div>
+      <h2 class="gate-title">Executive Ledger Portal</h2>
+      <p class="gate-desc">
+        Akses khusus pemilik Greenwood Barbers untuk mengelola seluruh data reservasi, omzet, dan buku tamu.
+      </p>
+
+      <form id="gateForm" onsubmit="handleGateUnlock(event)">
+        <div class="pin-input-wrap">
+          <input type="password" id="masterPinInput" class="pin-input" placeholder="••••" maxlength="8" autofocus required>
+        </div>
+        <button type="submit" class="btn-gate-unlock">Buka Akses Data &rarr;</button>
+        <div class="gate-err-msg" id="gateErrMsg">PIN Keamanan Salah. Silakan coba lagi.</div>
+      </form>
+
+      <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 24px;">
+        Default Master PIN: <strong>2050</strong> (Dapat diubah di dalam portal)
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       2. OWNER EXECUTIVE DASHBOARD (REVEALED AFTER PIN)
+       ======================================================================== -->
+  <div id="portalMainContent" style="display: none;">
+
+    <!-- TOP NAVIGATION -->
+    <header class="portal-nav">
+      <div class="portal-brand-wrap">
+        <img src="assets/greenwood_logo_transparent.png" alt="Greenwood Barbers" class="portal-logo">
+        <div>
+          <div style="font-weight: 700; color: #fff; font-size: 14px;">Greenwood Concierge Ledger</div>
+          <div class="portal-tagline">Flagship Kota Baru Parahyangan</div>
+        </div>
+      </div>
+      <div class="portal-user-actions">
+        <a href="index.html" class="btn-portal-action" target="_blank">
+          <span>🌐</span> Lihat Website
+        </a>
+        <button type="button" class="btn-portal-action" onclick="openPinModal()">
+          <span>🔑</span> Ubah PIN
+        </button>
+        <button type="button" class="btn-portal-action btn-portal-lock" onclick="lockPortal()">
+          <span>🔒</span> Kunci Portal
+        </button>
+      </div>
+    </header>
+
+    <main class="portal-container">
+
+      <!-- 4 REAL-TIME METRICS -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Total Reservasi</div>
+          <div class="metric-val" id="metricTotalCount">0</div>
+          <div class="metric-sub">Tercatat di Sistem</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Estimasi Omzet</div>
+          <div class="metric-val" style="color: var(--accent-gold-bright);" id="metricTotalRevenue">Rp 0</div>
+          <div class="metric-sub">Total Nilai Treatment</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Tamu Hari Ini</div>
+          <div class="metric-val" id="metricTodayCount">0</div>
+          <div class="metric-sub" id="metricTodayDate">Hari Ini</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Selesai Treatment</div>
+          <div class="metric-val" style="color: var(--success);" id="metricCompletedCount">0</div>
+          <div class="metric-sub">Layanan Tuntas</div>
+        </div>
+      </div>
+
+      <!-- TOOLBAR & FILTERS -->
+      <div class="toolbar-shell">
+        <div class="filter-group">
+          <input type="text" id="searchKeyword" class="search-input" placeholder="🔍 Cari nama tamu, no WA, kode tiket..." oninput="filterLedger()">
+          
+          <select id="filterBarberSelect" class="filter-select" onchange="filterLedger()">
+            <option value="all">Semua Barber</option>
+            <option value="bramantyo">Bramantyo</option>
+            <option value="rian">Rian Pratama</option>
+            <option value="dimas">Dimas Setiawan</option>
+            <option value="farhan">Farhan Akbar</option>
+            <option value="aldi">Aldi Maulana</option>
+          </select>
+
+          <select id="filterStatusSelect" class="filter-select" onchange="filterLedger()">
+            <option value="all">Semua Status</option>
+            <option value="Confirmed">Terkonfirmasi</option>
+            <option value="Completed">Selesai</option>
+            <option value="Cancelled">Dibatalkan</option>
+          </select>
+        </div>
+
+        <div class="toolbar-actions">
+          <button type="button" class="btn-gold-action" onclick="openWalkinModal()">
+            <span>+</span> Input Tamu Walk-In
+          </button>
+          <button type="button" class="btn-portal-action" onclick="exportLedgerCSV()">
+            <span>📥</span> Unduh Excel (CSV)
+          </button>
+          <button type="button" class="btn-portal-action" onclick="reloadLedgerData()">
+            <span>🔄</span> Refresh
+          </button>
+        </div>
+      </div>
+
+      <!-- LEDGER DATA TABLE -->
+      <div class="ledger-table-wrap">
+        <table class="ledger-table" id="ledgerTable">
+          <thead>
+            <tr>
+              <th>Kode Tiket</th>
+              <th>Nama Tamu &amp; Kontak</th>
+              <th>Master Barber</th>
+              <th>Jadwal Sesi</th>
+              <th>Layanan Treatment</th>
+              <th>Total Biaya</th>
+              <th>Status</th>
+              <th style="text-align: right;">Aksi Cepat</th>
+            </tr>
+          </thead>
+          <tbody id="ledgerTableBody">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+        <div id="emptyStateLedger" class="empty-state-card" style="display: none;">
+          <div style="font-size: 32px; margin-bottom: 10px;">📋</div>
+          <div style="font-size: 16px; font-weight: 600; color: #fff;">Belum Ada Data Tamu</div>
+          <div style="font-size: 13px; margin-top: 4px;">Data tamu yang booking dari website atau walk-in akan muncul di sini secara real-time.</div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ========================================================================
+       MODAL 1: INPUT TAMU WALK-IN (MANUAL BOOKING DI RUKO)
+       ======================================================================== -->
+  <div class="portal-modal-backdrop" id="modalWalkin">
+    <div class="portal-modal-box">
+      <h3 class="modal-title">+ Input Tamu Walk-In (Langsung di Ruko)</h3>
+      <form id="walkinForm" onsubmit="handleSaveWalkin(event)">
+        <div class="form-row">
+          <label class="form-label">Nama Tamu *</label>
+          <input type="text" id="walkinName" class="form-control" placeholder="Nama lengkap tamu" required>
+        </div>
+        <div class="form-row">
+          <label class="form-label">No. WhatsApp / HP *</label>
+          <input type="tel" id="walkinPhone" class="form-control" placeholder="08xxxxxxxxxx" required>
+        </div>
+        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div>
+            <label class="form-label">Pilih Barber *</label>
+            <select id="walkinBarber" class="form-control" required>
+              <option value="bramantyo">Bramantyo</option>
+              <option value="rian">Rian Pratama</option>
+              <option value="dimas">Dimas Setiawan</option>
+              <option value="farhan">Farhan Akbar</option>
+              <option value="aldi">Aldi Maulana</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">Jam Sesi *</label>
+            <select id="walkinTime" class="form-control" required>
+              <option value="10:00">10:00 WIB</option>
+              <option value="10:45">10:45 WIB</option>
+              <option value="11:30">11:30 WIB</option>
+              <option value="12:15">12:15 WIB</option>
+              <option value="13:00">13:00 WIB</option>
+              <option value="13:45">13:45 WIB</option>
+              <option value="14:30">14:30 WIB</option>
+              <option value="15:15">15:15 WIB</option>
+              <option value="16:00">16:00 WIB</option>
+              <option value="16:45">16:45 WIB</option>
+              <option value="17:30">17:30 WIB</option>
+              <option value="18:15">18:15 WIB</option>
+              <option value="19:00">19:00 WIB</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="form-label">Layanan / Ritual *</label>
+          <select id="walkinPackage" class="form-control" onchange="updateWalkinPrice()" required>
+            <option value="110000" data-name="The Classic Bespoke Haircut">The Classic Bespoke Haircut &bull; Rp 110.000</option>
+            <option value="150000" data-name="The Signature Grooming Ritual" selected>The Signature Grooming Ritual &bull; Rp 150.000</option>
+            <option value="210000" data-name="The Executive Complete Ritual">The Executive Complete Ritual &bull; Rp 210.000</option>
+            <option value="70000" data-name="Traditional Hot Towel Shave">Traditional Hot Towel Shave &bull; Rp 70.000</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label class="form-label">Total Tagihan (Rp)</label>
+          <input type="text" id="walkinPriceDisplay" class="form-control" value="Rp 150.000" readonly style="color: var(--accent-gold-bright); font-weight: 700;">
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-portal-action" onclick="closeWalkinModal()">Batal</button>
+          <button type="submit" class="btn-gold-action">Simpan ke Buku Tamu</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL 2: UBAH MASTER PIN
+       ======================================================================== -->
+  <div class="portal-modal-backdrop" id="modalPin">
+    <div class="portal-modal-box">
+      <h3 class="modal-title">🔑 Ubah Master PIN Keamanan</h3>
+      <form id="changePinForm" onsubmit="handleSaveNewPin(event)">
+        <div class="form-row">
+          <label class="form-label">PIN Baru (4-8 Digit Angka)</label>
+          <input type="password" id="newPinInput" class="form-control" placeholder="Contoh: 2050" required minlength="4" maxlength="8">
+        </div>
+        <div class="form-row">
+          <label class="form-label">Konfirmasi PIN Baru</label>
+          <input type="password" id="confirmPinInput" class="form-control" placeholder="Ketik ulang PIN baru" required minlength="4" maxlength="8">
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-portal-action" onclick="closePinModal()">Batal</button>
+          <button type="submit" class="btn-gold-action">Simpan PIN Baru</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    const MASTER_PIN_KEY = 'greenwood_master_pin_v1';
+    const SESSION_KEY = 'greenwood_owner_unlocked_session';
+
+    function getMasterPin() {
+      return localStorage.getItem(MASTER_PIN_KEY) || '2050';
+    }
+
+    // Check existing unlock state
+    window.addEventListener('DOMContentLoaded', () => {
+      const isUnlocked = sessionStorage.getItem(SESSION_KEY) === 'true';
+      if (isUnlocked) {
+        showPortalContent();
+      }
+    });
+
+    // Handle gate unlock
+    function handleGateUnlock(e) {
+      e.preventDefault();
+      const enteredPin = document.getElementById('masterPinInput').value.trim();
+      const correctPin = getMasterPin();
+
+      if (enteredPin === correctPin) {
+        sessionStorage.setItem(SESSION_KEY, 'true');
+        showPortalContent();
+      } else {
+        const err = document.getElementById('gateErrMsg');
+        err.style.display = 'block';
+        document.getElementById('masterPinInput').value = '';
+        setTimeout(() => { err.style.display = 'none'; }, 3000);
+      }
+    }
+
+    function showPortalContent() {
+      document.getElementById('gateOverlay').style.display = 'none';
+      document.getElementById('portalMainContent').style.display = 'block';
+      reloadLedgerData();
+    }
+
+    function lockPortal() {
+      sessionStorage.removeItem(SESSION_KEY);
+      document.getElementById('masterPinInput').value = '';
+      document.getElementById('gateOverlay').style.display = 'flex';
+      document.getElementById('portalMainContent').style.display = 'none';
+    }
+
+    // Load & Render Ledger
+    let currentBookings = [];
+
+    function reloadLedgerData() {
+      currentBookings = GreenwoodBookingStore.getBookings();
+      filterLedger();
+      updateMetrics();
+    }
+
+    function formatRupiah(num) {
+      return 'Rp ' + Number(num || 0).toLocaleString('id-ID');
+    }
+
+    function updateMetrics() {
+      const totalBookings = currentBookings.length;
+      const totalRevenue = currentBookings.reduce((sum, b) => sum + (Number(b.totalPrice) || 0), 0);
+      
+      const now = new Date();
+      const pad = (n) => String(n).padStart(2, '0');
+      const todayKey = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+
+      const todayBookings = currentBookings.filter(b => b.dateKey === todayKey);
+      const completedBookings = currentBookings.filter(b => b.status === 'Completed');
+
+      document.getElementById('metricTotalCount').textContent = totalBookings;
+      document.getElementById('metricTotalRevenue').textContent = formatRupiah(totalRevenue);
+      document.getElementById('metricTodayCount').textContent = todayBookings.length;
+      document.getElementById('metricTodayDate').textContent = `${now.toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric', month: 'short' })}`;
+      document.getElementById('metricCompletedCount').textContent = completedBookings.length;
+    }
+
+    function filterLedger() {
+      const keyword = (document.getElementById('searchKeyword').value || '').toLowerCase().trim();
+      const barberFilter = document.getElementById('filterBarberSelect').value;
+      const statusFilter = document.getElementById('filterStatusSelect').value;
+
+      const filtered = currentBookings.filter(b => {
+        const matchKeyword = 
+          (b.guestName && b.guestName.toLowerCase().includes(keyword)) ||
+          (b.bookingCode && b.bookingCode.toLowerCase().includes(keyword)) ||
+          (b.guestPhone && b.guestPhone.includes(keyword)) ||
+          (b.packageName && b.packageName.toLowerCase().includes(keyword));
+
+        const matchBarber = (barberFilter === 'all') || (b.assignedBarberId === barberFilter || b.barberId === barberFilter);
+        const matchStatus = (statusFilter === 'all') || (b.status === statusFilter);
+
+        return matchKeyword && matchBarber && matchStatus;
+      });
+
+      renderTable(filtered);
+    }
+
+    function renderTable(list) {
+      const tbody = document.getElementById('ledgerTableBody');
+      const empty = document.getElementById('emptyStateLedger');
+
+      if (!list || list.length === 0) {
+        tbody.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+      }
+
+      empty.style.display = 'none';
+
+      // Sort newest first
+      const sorted = [...list].sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+      tbody.innerHTML = sorted.map(b => {
+        const cleanPhone = (b.guestPhone || '').replace(/[^0-9]/g, '');
+        const waPhone = cleanPhone.startsWith('0') ? '62' + cleanPhone.slice(1) : cleanPhone;
+        const statusClass = b.status === 'Completed' ? 'status-completed' : (b.status === 'Cancelled' ? 'status-cancelled' : 'status-confirmed');
+        const statusLabel = b.status === 'Completed' ? 'Selesai' : (b.status === 'Cancelled' ? 'Batal' : 'Terkonfirmasi');
+
+        let addonsText = '';
+        if (b.addons && b.addons.length > 0) {
+          addonsText = `<div style="font-size: 11px; color: var(--accent-gold); margin-top: 3px;">+ ${b.addons.map(a => a.name).join(', ')}</div>`;
+        }
+
+        return `
+          <tr>
+            <td>
+              <span class="code-badge">${b.bookingCode || '-'}</span>
+              <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">
+                ${b.timestamp ? new Date(b.timestamp).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : '-'}
+              </div>
+            </td>
+            <td>
+              <div class="guest-name-cell">${b.guestName || 'VIP Guest'}</div>
+              <a href="https://wa.me/${waPhone}" target="_blank" rel="noopener" class="guest-phone-link">
+                <span>💬</span> ${b.guestPhone || '-'}
+              </a>
+              ${b.guestEmail ? `<div style="font-size: 11.5px; color: var(--text-muted);">${b.guestEmail}</div>` : ''}
+            </td>
+            <td>
+              <div style="font-weight: 600; color: #fff;">${b.assignedBarberName || b.barberName || 'Bramantyo'}</div>
+            </td>
+            <td>
+              <div style="font-weight: 600; color: #fff;">${b.timeSlot || '10:00'} WIB</div>
+              <div style="font-size: 11.5px; color: var(--text-muted);">${b.dateKey || '-'}</div>
+            </td>
+            <td>
+              <div style="font-weight: 600;">${b.packageName || b.serviceName || 'Classic Haircut'}</div>
+              ${addonsText}
+            </td>
+            <td>
+              <div style="font-weight: 700; color: var(--accent-gold-bright); font-size: 14.5px;">
+                ${formatRupiah(b.totalPrice)}
+              </div>
+            </td>
+            <td>
+              <span class="status-pill ${statusClass}">${statusLabel}</span>
+            </td>
+            <td style="text-align: right; white-space: nowrap;">
+              ${b.status !== 'Completed' ? `<button type="button" class="btn-table-action btn-table-complete" onclick="markComplete('${b.bookingCode}')" title="Tandai Selesai">&#10003; Selesai</button>` : ''}
+              <button type="button" class="btn-table-action btn-table-del" onclick="deleteBookingRow('${b.bookingCode}')" title="Hapus">&#10005;</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Action: Mark Complete
+    function markComplete(code) {
+      if (confirm(`Tandai reservasi ${code} sebagai Selesai Treatment?`)) {
+        GreenwoodBookingStore.updateStatus(code, 'Completed');
+        reloadLedgerData();
+      }
+    }
+
+    // Action: Delete Row
+    function deleteBookingRow(code) {
+      if (confirm(`Yakin ingin menghapus data booking ${code} dari buku tamu?`)) {
+        GreenwoodBookingStore.deleteBooking(code);
+        reloadLedgerData();
+      }
+    }
+
+    // Action: Export CSV
+    function exportLedgerCSV() {
+      const bookings = GreenwoodBookingStore.getBookings();
+      if (!bookings || bookings.length === 0) {
+        alert('Belum ada data untuk diunduh.');
+        return;
+      }
+
+      const headers = ['Kode Tiket', 'Nama Tamu', 'No WhatsApp', 'Email', 'Master Barber', 'Tanggal Sesi', 'Jam Sesi', 'Layanan', 'Total Biaya (Rp)', 'Status', 'Waktu Booking'];
+      
+      const rows = bookings.map(b => [
+        `"${b.bookingCode || ''}"`,
+        `"${(b.guestName || '').replace(/"/g, '""')}"`,
+        `"${b.guestPhone || ''}"`,
+        `"${b.guestEmail || ''}"`,
+        `"${b.assignedBarberName || b.barberName || ''}"`,
+        `"${b.dateKey || ''}"`,
+        `"${b.timeSlot || ''}"`,
+        `"${(b.packageName || b.serviceName || '').replace(/"/g, '""')}"`,
+        b.totalPrice || 0,
+        `"${b.status || 'Confirmed'}"`,
+        `"${b.timestamp ? new Date(b.timestamp).toISOString() : ''}"`
+      ]);
+
+      const csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', `Greenwood_Barbers_Ledger_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // Walkin Modal
+    function openWalkinModal() {
+      document.getElementById('modalWalkin').style.display = 'flex';
+    }
+    function closeWalkinModal() {
+      document.getElementById('modalWalkin').style.display = 'none';
+      document.getElementById('walkinForm').reset();
+    }
+    function updateWalkinPrice() {
+      const select = document.getElementById('walkinPackage');
+      const price = select.value;
+      document.getElementById('walkinPriceDisplay').value = formatRupiah(price);
+    }
+    function handleSaveWalkin(e) {
+      e.preventDefault();
+      const name = document.getElementById('walkinName').value.trim();
+      const phone = document.getElementById('walkinPhone').value.trim();
+      const barberId = document.getElementById('walkinBarber').value;
+      const barberName = document.getElementById('walkinBarber').options[document.getElementById('walkinBarber').selectedIndex].text;
+      const timeSlot = document.getElementById('walkinTime').value;
+      const pkgSelect = document.getElementById('walkinPackage');
+      const pkgName = pkgSelect.options[pkgSelect.selectedIndex].getAttribute('data-name');
+      const price = Number(pkgSelect.value);
+
+      const now = new Date();
+      const pad = (n) => String(n).padStart(2, '0');
+      const todayKey = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+
+      const newBooking = {
+        bookingCode: GreenwoodBookingStore.generateBookingCode(todayKey),
+        guestName: name,
+        guestPhone: phone,
+        guestEmail: '',
+        dateKey: todayKey,
+        timeSlot: timeSlot,
+        totalDuration: 45,
+        totalPrice: price,
+        barberId: barberId,
+        assignedBarberId: barberId,
+        assignedBarberName: barberName,
+        packageName: pkgName,
+        status: 'Confirmed',
+        timestamp: Date.now()
+      };
+
+      GreenwoodBookingStore.addBooking(newBooking);
+      closeWalkinModal();
+      reloadLedgerData();
+    }
+
+    // PIN Change Modal
+    function openPinModal() {
+      document.getElementById('modalPin').style.display = 'flex';
+    }
+    function closePinModal() {
+      document.getElementById('modalPin').style.display = 'none';
+      document.getElementById('changePinForm').reset();
+    }
+    function handleSaveNewPin(e) {
+      e.preventDefault();
+      const p1 = document.getElementById('newPinInput').value.trim();
+      const p2 = document.getElementById('confirmPinInput').value.trim();
+
+      if (p1 !== p2) {
+        alert('Konfirmasi PIN tidak cocok!');
+        return;
+      }
+      localStorage.setItem(MASTER_PIN_KEY, p1);
+      alert('Master PIN berhasil diperbarui!');
+      closePinModal();
+    }
+  </script>
+</body>
+</html>

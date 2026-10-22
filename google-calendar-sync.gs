@@ -81,10 +81,41 @@ function doPost(e) {
     event.addPopupReminder(30);
     event.addEmailReminder(120);
 
+    // Rekap Otomatis ke Google Sheets (Spreadsheet Database)
+    try {
+      var ss = SpreadsheetApp.getActiveSpreadsheet();
+      if (ss) {
+        var sheet = ss.getActiveSheet();
+        if (sheet.getLastRow() === 0) {
+          sheet.appendRow([
+            "Waktu Booking", "Kode Tiket", "Nama Tamu", "WhatsApp", "Email", 
+            "Master Barber", "Tanggal Sesi", "Jam Sesi", "Layanan / Ritual", "Total Tagihan", "Catatan Khusus", "Status"
+          ]);
+          sheet.getRange(1, 1, 1, 12).setFontWeight("bold").setBackground("#091c13").setFontColor("#c59b48");
+        }
+        sheet.appendRow([
+          new Date(),
+          data.bookingCode || "-",
+          data.guestName || "-",
+          data.guestPhone || "-",
+          data.guestEmail || "-",
+          data.barberName || "-",
+          data.dateKey || "-",
+          data.timeSlot || "-",
+          data.serviceName || "-",
+          data.totalPrice || "-",
+          data.guestNotes || "-",
+          "Terkonfirmasi"
+        ]);
+      }
+    } catch (sheetErr) {
+      // Quiet fallback jika Google Apps Script dijalankan standalone tanpa file Sheets
+    }
+
     return ContentService.createTextOutput(JSON.stringify({
       status: "success",
       eventId: event.getId(),
-      message: "Event successfully added to Google Calendar and invite sent to " + data.guestEmail
+      message: "Event successfully added to Google Calendar & Google Sheets for " + data.guestName
     })).setMimeType(ContentService.MimeType.JSON);
 
   } catch (error) {
