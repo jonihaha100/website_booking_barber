@@ -1356,8 +1356,13 @@
           <div class="barber-check-icon">&#10003;</div>
         </div>
 
-        <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
-          Or select a dedicated barber:
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+          <div style="font-size: 13px; color: var(--text-muted);">
+            Atau pilih Master Barber &amp; spesialisasi keahlian yang Anda inginkan:
+          </div>
+          <a href="barbers.html" target="_blank" rel="noopener" style="font-size: 12.5px; color: var(--accent-gold); text-decoration: underline; font-weight: 600;">
+            Lihat Profil &amp; Skill Lengkap &rarr;
+          </a>
         </div>
 
         <!-- 5 Individual Barbers Grid -->
@@ -1837,6 +1842,8 @@
               <img src="${barber.avatarUrl}" alt="${barber.name}" class="barber-avatar-img">
             </div>
             <div class="barber-name-text">${barber.name}</div>
+            <div style="font-size: 11px; color: var(--accent-gold); font-weight: 600; margin-top: 3px;">${barber.role}</div>
+            <div style="font-size: 10.5px; color: var(--text-muted); margin-top: 2px; line-height: 1.25;">${barber.badge}</div>
           </div>
         `;
       }).join('');
