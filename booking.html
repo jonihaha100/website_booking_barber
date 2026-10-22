@@ -2071,18 +2071,36 @@
       const notes = document.getElementById('guestNotes').value.trim();
 
       if (!name || !phone) {
-        alert("Please provide your full name and active WhatsApp / mobile number.");
+        alert("Silakan lengkapi nama lengkap dan nomor WhatsApp aktif Anda.");
+        return;
+      }
+
+      const cleanPhoneDigits = phone.replace(/[^0-9]/g, '');
+      if (cleanPhoneDigits.length < 9 || cleanPhoneDigits.length > 15) {
+        alert("Nomor WhatsApp tidak valid. Masukkan nomor WhatsApp aktif (contoh: 08123456789).");
+        return;
+      }
+
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        alert("Format email tidak valid. Silakan periksa kembali atau kosongkan.");
         return;
       }
 
       if (!selectedPackage || !selectedDateObj || !selectedTimeSlot) {
-        alert("Booking details incomplete. Please review your selected ritual and schedule.");
+        alert("Detail reservasi belum lengkap. Silakan pilih layanan dan jadwal terlebih dahulu.");
         navigateToStep(3);
         return;
       }
 
       const totalDur = getTotalDuration();
       const totalPrc = getTotalPrice();
+
+      // Real-time double-booking prevention check
+      if (!GreenwoodBookingStore.isSlotAvailable(selectedDateObj.dateKey, selectedTimeSlot, totalDur, selectedBarberId)) {
+        alert("Maaf, slot waktu " + selectedTimeSlot + " WIB pada tanggal ini baru saja terisi. Silakan pilih jam atau barber lain.");
+        navigateToStep(3);
+        return;
+      }
       const bookingCode = GreenwoodBookingStore.generateBookingCode(selectedDateObj.dateKey);
 
       let assignedBarber = GREENWOOD_CONFIG.barbers.find(b => b.id === selectedBarberId);

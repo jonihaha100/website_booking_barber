@@ -720,6 +720,16 @@
       return localStorage.getItem(MASTER_PIN_KEY) || '2050';
     }
 
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
     // Check existing unlock state
     window.addEventListener('DOMContentLoaded', () => {
       const isUnlocked = sessionStorage.getItem(SESSION_KEY) === 'true';
@@ -833,33 +843,43 @@
 
         let addonsText = '';
         if (b.addons && b.addons.length > 0) {
-          addonsText = `<div style="font-size: 11px; color: var(--accent-gold); margin-top: 3px;">+ ${b.addons.map(a => a.name).join(', ')}</div>`;
+          addonsText = `<div style="font-size: 11px; color: var(--accent-gold); margin-top: 3px;">+ ${b.addons.map(a => escapeHtml(a.name)).join(', ')}</div>`;
         }
+
+        const safeCode = escapeHtml(b.bookingCode || '-');
+        const safeName = escapeHtml(b.guestName || 'VIP Guest');
+        const safePhone = escapeHtml(b.guestPhone || '-');
+        const safeEmail = escapeHtml(b.guestEmail || '');
+        const safeBarber = escapeHtml(b.assignedBarberName || b.barberName || 'Bramantyo');
+        const safeTime = escapeHtml(b.timeSlot || '10:00');
+        const safeDate = escapeHtml(b.dateKey || '-');
+        const safePackage = escapeHtml(b.packageName || b.serviceName || 'Classic Haircut');
+        const encodedCode = encodeURIComponent(b.bookingCode || '');
 
         return `
           <tr>
             <td>
-              <span class="code-badge">${b.bookingCode || '-'}</span>
+              <span class="code-badge">${safeCode}</span>
               <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">
                 ${b.timestamp ? new Date(b.timestamp).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : '-'}
               </div>
             </td>
             <td>
-              <div class="guest-name-cell">${b.guestName || 'VIP Guest'}</div>
-              <a href="https://wa.me/${waPhone}" target="_blank" rel="noopener" class="guest-phone-link">
-                <span>💬</span> ${b.guestPhone || '-'}
+              <div class="guest-name-cell">${safeName}</div>
+              <a href="https://wa.me/${encodeURIComponent(waPhone)}" target="_blank" rel="noopener" class="guest-phone-link">
+                <span>💬</span> ${safePhone}
               </a>
-              ${b.guestEmail ? `<div style="font-size: 11.5px; color: var(--text-muted);">${b.guestEmail}</div>` : ''}
+              ${safeEmail ? `<div style="font-size: 11.5px; color: var(--text-muted);">${safeEmail}</div>` : ''}
             </td>
             <td>
-              <div style="font-weight: 600; color: #fff;">${b.assignedBarberName || b.barberName || 'Bramantyo'}</div>
+              <div style="font-weight: 600; color: #fff;">${safeBarber}</div>
             </td>
             <td>
-              <div style="font-weight: 600; color: #fff;">${b.timeSlot || '10:00'} WIB</div>
-              <div style="font-size: 11.5px; color: var(--text-muted);">${b.dateKey || '-'}</div>
+              <div style="font-weight: 600; color: #fff;">${safeTime} WIB</div>
+              <div style="font-size: 11.5px; color: var(--text-muted);">${safeDate}</div>
             </td>
             <td>
-              <div style="font-weight: 600;">${b.packageName || b.serviceName || 'Classic Haircut'}</div>
+              <div style="font-weight: 600;">${safePackage}</div>
               ${addonsText}
             </td>
             <td>
@@ -871,8 +891,8 @@
               <span class="status-pill ${statusClass}">${statusLabel}</span>
             </td>
             <td style="text-align: right; white-space: nowrap;">
-              ${b.status !== 'Completed' ? `<button type="button" class="btn-table-action btn-table-complete" onclick="markComplete('${b.bookingCode}')" title="Tandai Selesai">&#10003; Selesai</button>` : ''}
-              <button type="button" class="btn-table-action btn-table-del" onclick="deleteBookingRow('${b.bookingCode}')" title="Hapus">&#10005;</button>
+              ${b.status !== 'Completed' ? `<button type="button" class="btn-table-action btn-table-complete" onclick="markComplete(decodeURIComponent('${encodedCode}'))" title="Tandai Selesai">&#10003; Selesai</button>` : ''}
+              <button type="button" class="btn-table-action btn-table-del" onclick="deleteBookingRow(decodeURIComponent('${encodedCode}'))" title="Hapus">&#10005;</button>
             </td>
           </tr>
         `;
