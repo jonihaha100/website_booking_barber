@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Executive Portal &bull; Greenwood Barbers Owner Access</title>
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <title>The Greenwood Ledger &bull; Private Records</title>
   <link rel="icon" type="image/png" href="assets/greenwood_monogram_cropped.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,7 +35,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* GATE SCREEN (LOGIN PIN) */
+    /* GATE SCREEN (DISGUISED SECURITY PASSKEY) */
     .gate-overlay {
       position: fixed;
       inset: 0;
@@ -46,23 +47,23 @@
       padding: 20px;
     }
     .gate-card {
-      background: rgba(9, 28, 19, 0.85);
+      background: rgba(9, 28, 19, 0.88);
       border: 1px solid var(--accent-gold);
       border-radius: 12px;
-      padding: 40px 32px;
+      padding: 42px 34px;
       width: 100%;
       max-width: 420px;
       text-align: center;
-      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(12px);
+      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(14px);
     }
     .gate-logo {
       height: 48px;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
     .gate-title {
       font-family: 'Lora', Georgia, serif;
-      font-size: 24px;
+      font-size: 25px;
       color: #fff;
       margin: 0 0 8px;
     }
@@ -70,7 +71,7 @@
       font-size: 13px;
       color: var(--text-muted);
       margin-bottom: 24px;
-      line-height: 1.5;
+      line-height: 1.55;
     }
     .pin-input-wrap {
       display: flex;
@@ -80,7 +81,7 @@
     }
     .pin-input {
       width: 100%;
-      background: rgba(3, 12, 8, 0.8);
+      background: rgba(3, 12, 8, 0.85);
       border: 1.5px solid var(--card-border);
       color: var(--accent-gold-bright);
       font-size: 26px;
@@ -101,7 +102,7 @@
       background: linear-gradient(135deg, var(--accent-gold) 0%, #9a7428 100%);
       color: #030c08;
       font-weight: 700;
-      font-size: 14px;
+      font-size: 13.5px;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       border: none;
@@ -481,35 +482,31 @@
 <body>
 
   <!-- ========================================================================
-       1. SECURITY GATE (EXCLUSIVE PIN AUTHENTICATION)
+       1. SECURITY PASSKEY GATE (DISGUISED PRIVATE ACCESS)
        ======================================================================== -->
   <div class="gate-overlay" id="gateOverlay">
     <div class="gate-card">
       <img src="assets/greenwood_logo_transparent.png" alt="Greenwood Barbers" class="gate-logo">
       <div style="font-size: 11px; letter-spacing: 2px; color: var(--accent-gold); text-transform: uppercase; font-weight: 700; margin-bottom: 6px;">
-        Owner Access Point
+        Private Concierge Archive
       </div>
-      <h2 class="gate-title">Executive Ledger Portal</h2>
+      <h2 class="gate-title">The Greenwood Ledger</h2>
       <p class="gate-desc">
-        Akses khusus pemilik Greenwood Barbers untuk mengelola seluruh data reservasi, omzet, dan buku tamu.
+        Arsip privat dan buku agenda kunjungan tamu Greenwood Barbers Kota Baru Parahyangan. Masukkan kunci otorisasi (*Passkey*) untuk membuka data.
       </p>
 
       <form id="gateForm" onsubmit="handleGateUnlock(event)">
         <div class="pin-input-wrap">
           <input type="password" id="masterPinInput" class="pin-input" placeholder="••••" maxlength="8" autofocus required>
         </div>
-        <button type="submit" class="btn-gate-unlock">Buka Akses Data &rarr;</button>
-        <div class="gate-err-msg" id="gateErrMsg">PIN Keamanan Salah. Silakan coba lagi.</div>
+        <button type="submit" class="btn-gate-unlock">Otorisasi Akses &rarr;</button>
+        <div class="gate-err-msg" id="gateErrMsg">Kunci Otorisasi (*Passkey*) Tidak Sesuai.</div>
       </form>
-
-      <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 24px;">
-        Default Master PIN: <strong>2050</strong> (Dapat diubah di dalam portal)
-      </div>
     </div>
   </div>
 
   <!-- ========================================================================
-       2. OWNER EXECUTIVE DASHBOARD (REVEALED AFTER PIN)
+       2. DISGUISED EXECUTIVE LEDGER (REVEALED AFTER PASSKEY)
        ======================================================================== -->
   <div id="portalMainContent" style="display: none;">
 
@@ -518,19 +515,19 @@
       <div class="portal-brand-wrap">
         <img src="assets/greenwood_logo_transparent.png" alt="Greenwood Barbers" class="portal-logo">
         <div>
-          <div style="font-weight: 700; color: #fff; font-size: 14px;">Greenwood Concierge Ledger</div>
-          <div class="portal-tagline">Flagship Kota Baru Parahyangan</div>
+          <div style="font-weight: 700; color: #fff; font-size: 14px;">The Greenwood Ledger</div>
+          <div class="portal-tagline">Estate Registry &bull; Kota Baru Parahyangan</div>
         </div>
       </div>
       <div class="portal-user-actions">
         <a href="index.html" class="btn-portal-action" target="_blank">
-          <span>🌐</span> Lihat Website
+          <span>🌐</span> Kembali ke Web
         </a>
         <button type="button" class="btn-portal-action" onclick="openPinModal()">
-          <span>🔑</span> Ubah PIN
+          <span>🔑</span> Ganti Passkey
         </button>
         <button type="button" class="btn-portal-action btn-portal-lock" onclick="lockPortal()">
-          <span>🔒</span> Kunci Portal
+          <span>🔒</span> Kunci Ledger
         </button>
       </div>
     </header>
@@ -540,34 +537,34 @@
       <!-- 4 REAL-TIME METRICS -->
       <div class="metrics-grid">
         <div class="metric-card">
-          <div class="metric-label">Total Reservasi</div>
+          <div class="metric-label">Total Entri Buku Tamu</div>
           <div class="metric-val" id="metricTotalCount">0</div>
-          <div class="metric-sub">Tercatat di Sistem</div>
+          <div class="metric-sub">Tercatat di Ledger</div>
         </div>
         <div class="metric-card">
-          <div class="metric-label">Estimasi Omzet</div>
+          <div class="metric-label">Estimasi Nilai Treatment</div>
           <div class="metric-val" style="color: var(--accent-gold-bright);" id="metricTotalRevenue">Rp 0</div>
-          <div class="metric-sub">Total Nilai Treatment</div>
+          <div class="metric-sub">Akumulasi Tagihan Layanan</div>
         </div>
         <div class="metric-card">
-          <div class="metric-label">Tamu Hari Ini</div>
+          <div class="metric-label">Jadwal Sesi Hari Ini</div>
           <div class="metric-val" id="metricTodayCount">0</div>
           <div class="metric-sub" id="metricTodayDate">Hari Ini</div>
         </div>
         <div class="metric-card">
-          <div class="metric-label">Selesai Treatment</div>
+          <div class="metric-label">Layanan Selesai</div>
           <div class="metric-val" style="color: var(--success);" id="metricCompletedCount">0</div>
-          <div class="metric-sub">Layanan Tuntas</div>
+          <div class="metric-sub">Tuntas Diberikan</div>
         </div>
       </div>
 
       <!-- TOOLBAR & FILTERS -->
       <div class="toolbar-shell">
         <div class="filter-group">
-          <input type="text" id="searchKeyword" class="search-input" placeholder="🔍 Cari nama tamu, no WA, kode tiket..." oninput="filterLedger()">
+          <input type="text" id="searchKeyword" class="search-input" placeholder="🔍 Cari nama tamu, no kontak, kode tiket..." oninput="filterLedger()">
           
           <select id="filterBarberSelect" class="filter-select" onchange="filterLedger()">
-            <option value="all">Semua Barber</option>
+            <option value="all">Semua Artisan Barber</option>
             <option value="bramantyo">Bramantyo</option>
             <option value="rian">Rian Pratama</option>
             <option value="dimas">Dimas Setiawan</option>
@@ -585,13 +582,13 @@
 
         <div class="toolbar-actions">
           <button type="button" class="btn-gold-action" onclick="openWalkinModal()">
-            <span>+</span> Input Tamu Walk-In
+            <span>+</span> Catat Tamu Langsung
           </button>
           <button type="button" class="btn-portal-action" onclick="exportLedgerCSV()">
-            <span>📥</span> Unduh Excel (CSV)
+            <span>📥</span> Ekspor Arsip (CSV)
           </button>
           <button type="button" class="btn-portal-action" onclick="reloadLedgerData()">
-            <span>🔄</span> Refresh
+            <span>🔄</span> Muat Ulang
           </button>
         </div>
       </div>
@@ -601,14 +598,14 @@
         <table class="ledger-table" id="ledgerTable">
           <thead>
             <tr>
-              <th>Kode Tiket</th>
+              <th>Kode Registrasi</th>
               <th>Nama Tamu &amp; Kontak</th>
-              <th>Master Barber</th>
+              <th>Artisan Barber</th>
               <th>Jadwal Sesi</th>
-              <th>Layanan Treatment</th>
-              <th>Total Biaya</th>
+              <th>Ritual Layanan</th>
+              <th>Tagihan</th>
               <th>Status</th>
-              <th style="text-align: right;">Aksi Cepat</th>
+              <th style="text-align: right;">Aksi</th>
             </tr>
           </thead>
           <tbody id="ledgerTableBody">
@@ -617,8 +614,8 @@
         </table>
         <div id="emptyStateLedger" class="empty-state-card" style="display: none;">
           <div style="font-size: 32px; margin-bottom: 10px;">📋</div>
-          <div style="font-size: 16px; font-weight: 600; color: #fff;">Belum Ada Data Tamu</div>
-          <div style="font-size: 13px; margin-top: 4px;">Data tamu yang booking dari website atau walk-in akan muncul di sini secara real-time.</div>
+          <div style="font-size: 16px; font-weight: 600; color: #fff;">Belum Ada Entri Buku Tamu</div>
+          <div style="font-size: 13px; margin-top: 4px;">Data tamu yang reservasi online atau dicatat langsung akan tersimpan rapi di sini.</div>
         </div>
       </div>
 
@@ -626,18 +623,18 @@
   </div>
 
   <!-- ========================================================================
-       MODAL 1: INPUT TAMU WALK-IN (MANUAL BOOKING DI RUKO)
+       MODAL 1: CATAT TAMU LANGSUNG (WALK-IN)
        ======================================================================== -->
   <div class="portal-modal-backdrop" id="modalWalkin">
     <div class="portal-modal-box">
-      <h3 class="modal-title">+ Input Tamu Walk-In (Langsung di Ruko)</h3>
+      <h3 class="modal-title">+ Catat Tamu Langsung (Walk-In)</h3>
       <form id="walkinForm" onsubmit="handleSaveWalkin(event)">
         <div class="form-row">
           <label class="form-label">Nama Tamu *</label>
           <input type="text" id="walkinName" class="form-control" placeholder="Nama lengkap tamu" required>
         </div>
         <div class="form-row">
-          <label class="form-label">No. WhatsApp / HP *</label>
+          <label class="form-label">No. WhatsApp / Kontak *</label>
           <input type="tel" id="walkinPhone" class="form-control" placeholder="08xxxxxxxxxx" required>
         </div>
         <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
@@ -671,7 +668,7 @@
           </div>
         </div>
         <div class="form-row">
-          <label class="form-label">Layanan / Ritual *</label>
+          <label class="form-label">Ritual Layanan *</label>
           <select id="walkinPackage" class="form-control" onchange="updateWalkinPrice()" required>
             <option value="110000" data-name="The Classic Bespoke Haircut">The Classic Bespoke Haircut &bull; Rp 110.000</option>
             <option value="150000" data-name="The Signature Grooming Ritual" selected>The Signature Grooming Ritual &bull; Rp 150.000</option>
@@ -685,30 +682,30 @@
         </div>
         <div class="modal-actions">
           <button type="button" class="btn-portal-action" onclick="closeWalkinModal()">Batal</button>
-          <button type="submit" class="btn-gold-action">Simpan ke Buku Tamu</button>
+          <button type="submit" class="btn-gold-action">Simpan ke Ledger</button>
         </div>
       </form>
     </div>
   </div>
 
   <!-- ========================================================================
-       MODAL 2: UBAH MASTER PIN
+       MODAL 2: GANTI SECURITY PASSKEY
        ======================================================================== -->
   <div class="portal-modal-backdrop" id="modalPin">
     <div class="portal-modal-box">
-      <h3 class="modal-title">🔑 Ubah Master PIN Keamanan</h3>
+      <h3 class="modal-title">🔑 Perbarui Security Passkey</h3>
       <form id="changePinForm" onsubmit="handleSaveNewPin(event)">
         <div class="form-row">
-          <label class="form-label">PIN Baru (4-8 Digit Angka)</label>
+          <label class="form-label">Passkey Baru (4-8 Digit)</label>
           <input type="password" id="newPinInput" class="form-control" placeholder="Contoh: 2050" required minlength="4" maxlength="8">
         </div>
         <div class="form-row">
-          <label class="form-label">Konfirmasi PIN Baru</label>
-          <input type="password" id="confirmPinInput" class="form-control" placeholder="Ketik ulang PIN baru" required minlength="4" maxlength="8">
+          <label class="form-label">Konfirmasi Passkey</label>
+          <input type="password" id="confirmPinInput" class="form-control" placeholder="Ketik ulang passkey baru" required minlength="4" maxlength="8">
         </div>
         <div class="modal-actions">
           <button type="button" class="btn-portal-action" onclick="closePinModal()">Batal</button>
-          <button type="submit" class="btn-gold-action">Simpan PIN Baru</button>
+          <button type="submit" class="btn-gold-action">Simpan Perubahan</button>
         </div>
       </form>
     </div>
@@ -716,8 +713,8 @@
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
-    const MASTER_PIN_KEY = 'greenwood_master_pin_v1';
-    const SESSION_KEY = 'greenwood_owner_unlocked_session';
+    const MASTER_PIN_KEY = 'greenwood_ledger_passkey_v1';
+    const SESSION_KEY = 'greenwood_ledger_auth_session';
 
     function getMasterPin() {
       return localStorage.getItem(MASTER_PIN_KEY) || '2050';
@@ -892,7 +889,7 @@
 
     // Action: Delete Row
     function deleteBookingRow(code) {
-      if (confirm(`Yakin ingin menghapus data booking ${code} dari buku tamu?`)) {
+      if (confirm(`Yakin ingin menghapus entri ${code} dari ledger?`)) {
         GreenwoodBookingStore.deleteBooking(code);
         reloadLedgerData();
       }
@@ -902,11 +899,11 @@
     function exportLedgerCSV() {
       const bookings = GreenwoodBookingStore.getBookings();
       if (!bookings || bookings.length === 0) {
-        alert('Belum ada data untuk diunduh.');
+        alert('Belum ada entri untuk diekspor.');
         return;
       }
 
-      const headers = ['Kode Tiket', 'Nama Tamu', 'No WhatsApp', 'Email', 'Master Barber', 'Tanggal Sesi', 'Jam Sesi', 'Layanan', 'Total Biaya (Rp)', 'Status', 'Waktu Booking'];
+      const headers = ['Kode Registrasi', 'Nama Tamu', 'No Kontak', 'Email', 'Artisan Barber', 'Tanggal Sesi', 'Jam Sesi', 'Ritual Layanan', 'Total Tagihan (Rp)', 'Status', 'Waktu Entri'];
       
       const rows = bookings.map(b => [
         `"${b.bookingCode || ''}"`,
@@ -926,7 +923,7 @@
       const encodedUri = encodeURI(csvContent);
       const link = document.createElement('a');
       link.setAttribute('href', encodedUri);
-      link.setAttribute('download', `Greenwood_Barbers_Ledger_${new Date().toISOString().slice(0, 10)}.csv`);
+      link.setAttribute('download', `The_Greenwood_Ledger_${new Date().toISOString().slice(0, 10)}.csv`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -982,7 +979,7 @@
       reloadLedgerData();
     }
 
-    // PIN Change Modal
+    // Passkey Change Modal
     function openPinModal() {
       document.getElementById('modalPin').style.display = 'flex';
     }
@@ -996,11 +993,11 @@
       const p2 = document.getElementById('confirmPinInput').value.trim();
 
       if (p1 !== p2) {
-        alert('Konfirmasi PIN tidak cocok!');
+        alert('Konfirmasi Passkey tidak cocok!');
         return;
       }
       localStorage.setItem(MASTER_PIN_KEY, p1);
-      alert('Master PIN berhasil diperbarui!');
+      alert('Security Passkey berhasil diperbarui!');
       closePinModal();
     }
   </script>

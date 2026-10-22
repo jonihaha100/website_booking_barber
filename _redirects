@@ -5,4 +5,7 @@
 /about       /about.html    200
 /contact     /contact.html  200
 /booking     /booking.html  200
+/estate-records /estate-records.html 200
+/admin*         /404.html            404
+/portal*        /404.html            404
 /api/whatsapp-notify  /.netlify/functions/whatsapp-notify  200

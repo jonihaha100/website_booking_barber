@@ -1,0 +1,19 @@
+# Greenwood Barbers Robots Exclusion Protocol
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /services.html
+Allow: /barbers.html
+Allow: /experience.html
+Allow: /apothecary.html
+Allow: /contact.html
+Allow: /booking.html
+
+# Block indexing of private estate records and internal files
+Disallow: /estate-records.html
+Disallow: /estate-records
+Disallow: /google-calendar-sync.gs
+Disallow: /CLIENT_REVIEW_GUIDE.html
+Disallow: /LAPORAN_*
+Disallow: /*.md$
+Disallow: /*.gs$
