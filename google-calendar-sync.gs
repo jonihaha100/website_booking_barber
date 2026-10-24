@@ -112,10 +112,57 @@ function doPost(e) {
       // Quiet fallback jika Google Apps Script dijalankan standalone tanpa file Sheets
     }
 
+    // =========================================================================
+    // 5. KIRIM PESAN WHATSAPP OTOMATIS (OPSIONAL VIA GATEWAY FONNTE / WABLAS)
+    // =========================================================================
+    var waNotificationStatus = "Not configured";
+    var FONNTE_API_TOKEN = ""; // Tempelkan Token Fonnte Anda di sini jika ingin WA terkirim otomatis!
+    
+    if (FONNTE_API_TOKEN && data.guestPhone) {
+      try {
+        var cleanPhone = data.guestPhone.replace(/[^0-9]/g, "");
+        if (cleanPhone.indexOf("0") === 0) {
+          cleanPhone = "62" + cleanPhone.substring(1);
+        }
+        
+        var waMessage = 
+          "Halo *" + (data.guestName || "Bapak/Ibu") + "*,\n\n" +
+          "Reservasi Anda di *Greenwood Barbers Kota Baru Parahyangan* telah berhasil terjadwal otomatis di Google Calendar! 🏛️\n\n" +
+          "• *Kode Reservasi*: " + (data.bookingCode || "-") + "\n" +
+          "• *Ritual Layanan*: " + (data.serviceName || "-") + "\n" +
+          "• *Master Barber*: " + (data.barberName || "Bramantyo") + "\n" +
+          "• *Jadwal Sesi*: " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB\n" +
+          "• *Estimasi Total*: " + (data.totalPrice || "-") + " (Bayar di tempat)\n\n" +
+          "📍 *Lokasi Parlour*: Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan (Tersedia parkir khusus luas).\n" +
+          "✉️ *Undangan Kalender*: Mohon periksa email Anda (" + (data.guestEmail || "-") + ") dan klik *Yes* pada kartu RSVP kalender.\n\n" +
+          "Sampai jumpa di Greenwood Barbers!\n" +
+          "— _Concierge Greenwood Barbers (+62 812-2230-2050)_";
+
+        var payload = {
+          target: cleanPhone,
+          message: waMessage
+        };
+
+        var waResponse = UrlFetchApp.fetch("https://api.fonnte.com/send", {
+          method: "post",
+          headers: {
+            Authorization: FONNTE_API_TOKEN
+          },
+          payload: payload,
+          muteHttpExceptions: true
+        });
+
+        waNotificationStatus = "WhatsApp Sent (" + waResponse.getResponseCode() + ")";
+      } catch (waErr) {
+        waNotificationStatus = "WhatsApp Error: " + waErr.toString();
+      }
+    }
+
     return ContentService.createTextOutput(JSON.stringify({
       status: "success",
       eventId: event.getId(),
-      message: "Event successfully added to Google Calendar & Google Sheets for " + data.guestName
+      whatsappStatus: waNotificationStatus,
+      message: "Event successfully added to Google Calendar & email invite sent to " + (data.guestEmail || "-")
     })).setMimeType(ContentService.MimeType.JSON);
 
   } catch (error) {
