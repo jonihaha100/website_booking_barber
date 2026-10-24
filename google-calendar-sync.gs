@@ -43,13 +43,15 @@ function doPost(e) {
     var durationMins = data.totalDuration || 45;
     var endTime = new Date(startTime.getTime() + (durationMins * 60 * 1000));
     
-    // Judul & Deskripsi Event
-    var eventTitle = "Greenwood Barbers: " + (data.serviceName || "Grooming Ritual") + " - " + (data.guestName || "VIP Guest");
+    // Judul & Deskripsi Event (Gunakan Icon Pengingat / Reminder 🔔)
+    var eventTitle = "🔔 Pengingat Jadwal: Greenwood Barbers - " + (data.serviceName || "Grooming Ritual") + " (" + (data.guestName || "VIP Guest") + ")";
     
     var description = 
       "====================================\n" +
-      "GREENWOOD BARBERS • RESERVASI RESMI\n" +
+      "GREENWOOD BARBERS • PENGINGAT JADWAL\n" +
       "====================================\n" +
+      "Sesi Tatap Muka Langsung di Parlour (Bukan Pertemuan Online / Video Call)\n" +
+      "------------------------------------\n" +
       "Kode Booking: " + (data.bookingCode || "-") + "\n" +
       "Nama Tamu: " + (data.guestName || "-") + "\n" +
       "No. WhatsApp: " + (data.guestPhone || "-") + "\n" +
