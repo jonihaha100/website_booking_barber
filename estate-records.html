@@ -412,6 +412,17 @@
       border-color: var(--danger);
       color: var(--danger);
     }
+    .btn-table-wa {
+      border-color: rgba(37, 211, 102, 0.45);
+      color: #25d366;
+      background: rgba(37, 211, 102, 0.08);
+      font-weight: 600;
+    }
+    .btn-table-wa:hover {
+      border-color: #25d366;
+      background: rgba(37, 211, 102, 0.22);
+      color: #fff;
+    }
 
     /* MODAL POPUPS */
     .portal-modal-backdrop {
@@ -891,12 +902,49 @@
               <span class="status-pill ${statusClass}">${statusLabel}</span>
             </td>
             <td style="text-align: right; white-space: nowrap;">
+              <button type="button" class="btn-table-action btn-table-wa" onclick="sendWhatsAppConfirmation(decodeURIComponent('${encodedCode}'))" title="Kirim Konfirmasi WA Siap Sesi">💬 Konfirmasi WA</button>
               ${b.status !== 'Completed' ? `<button type="button" class="btn-table-action btn-table-complete" onclick="markComplete(decodeURIComponent('${encodedCode}'))" title="Tandai Selesai">&#10003; Selesai</button>` : ''}
               <button type="button" class="btn-table-action btn-table-del" onclick="deleteBookingRow(decodeURIComponent('${encodedCode}'))" title="Hapus">&#10005;</button>
             </td>
           </tr>
         `;
       }).join('');
+    }
+
+    // Action: Send Official WhatsApp Confirmation to Guest
+    function sendWhatsAppConfirmation(code) {
+      const booking = currentBookings.find(b => b.bookingCode === code);
+      if (!booking) {
+        alert('Data booking tidak ditemukan.');
+        return;
+      }
+
+      const cleanPhone = (booking.guestPhone || '').replace(/[^0-9]/g, '');
+      const waPhone = cleanPhone.startsWith('0') ? '62' + cleanPhone.slice(1) : cleanPhone;
+      const guestName = booking.guestName || 'Bapak/Ibu';
+      const barber = booking.assignedBarberName || booking.barberName || 'Bramantyo';
+      const dateStr = booking.dayFull || booking.dateKey || '-';
+      const timeStr = booking.timeSlot || '-';
+      const serviceStr = booking.packageName || booking.serviceName || 'Grooming Ritual';
+      const priceStr = formatRupiah(booking.totalPrice);
+
+      const msg = 
+        `Halo *${guestName}*,\n\n` +
+        `Kami dari *Greenwood Barbers Kota Baru Parahyangan* mengonfirmasi bahwa reservasi Anda telah *TERVERIFIKASI & SIAP*: 🏛️\n\n` +
+        `• *Kode Booking* : ${booking.bookingCode}\n` +
+        `• *Paket Layanan*: ${serviceStr}\n` +
+        `• *Master Barber*: ${barber}\n` +
+        `• *Jadwal Sesi*  : ${dateStr} @ ${timeStr} WIB\n` +
+        `• *Total Biaya*  : ${priceStr} (Bayar di tempat)\n\n` +
+        `Kursi dan perlengkapan grooming higienis Anda telah kami siapkan. Mohon tiba 5–10 menit sebelum jam sesi dimulai.\n\n` +
+        `📍 *Petunjuk Lokasi (Google Maps)*:\n` +
+        `Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan\n` +
+        `https://maps.google.com/?q=Kota+Baru+Parahyangan+Padalarang\n\n` +
+        `Sampai bertemu di parlour kami!\n` +
+        `— _Concierge Greenwood Barbers (+62 812-2230-2050)_`;
+
+      const waUrl = `https://wa.me/${encodeURIComponent(waPhone)}?text=${encodeURIComponent(msg)}`;
+      window.open(waUrl, '_blank');
     }
 
     // Action: Mark Complete
