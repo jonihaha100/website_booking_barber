@@ -29,17 +29,9 @@ function doPost(e) {
     // Ambil Kalender Utama akun Google ini
     var calendar = CalendarApp.getDefaultCalendar();
     
-    // Parse tanggal dan waktu (dateKey: YYYY-MM-DD, timeSlot: HH:mm WIB)
-    var dateParts = data.dateKey.split("-");
-    var timeParts = data.timeSlot.split(":");
-    
-    var year = parseInt(dateParts[0], 10);
-    var month = parseInt(dateParts[1], 10) - 1; // Bulan di JS dimulai dari 0 (Januari = 0)
-    var day = parseInt(dateParts[2], 10);
-    var hours = parseInt(timeParts[0], 10);
-    var minutes = parseInt(timeParts[1], 10);
-    
-    var startTime = new Date(year, month, day, hours, minutes, 0);
+    // Parse tanggal dan waktu secara presisi dalam WIB (UTC+7)
+    // Menggunakan format ISO 8601 dengan offset +07:00 menjamin jam tidak meleset karena timezone server
+    var startTime = new Date(data.dateKey + "T" + data.timeSlot + ":00+07:00");
     var durationMins = data.totalDuration || 45;
     var endTime = new Date(startTime.getTime() + (durationMins * 60 * 1000));
     
@@ -82,6 +74,35 @@ function doPost(e) {
     // Setel pengingat default 30 menit & 2 jam sebelumnya
     event.addPopupReminder(30);
     event.addEmailReminder(120);
+
+    // Kirim email konfirmasi resmi langsung ke inbox tamu via MailApp (100% pasti masuk ke inbox)
+    if (data.guestEmail && data.guestEmail.indexOf("@") !== -1) {
+      try {
+        MailApp.sendEmail({
+          to: data.guestEmail,
+          subject: "🔔 Konfirmasi Reservasi: Greenwood Barbers - " + (data.serviceName || "Grooming Ritual"),
+          htmlBody: 
+            "<div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #030c08; color: #f5f4ef; padding: 24px; border-radius: 8px; border: 1px solid #c59b48;'>" +
+              "<div style='text-align: center; margin-bottom: 20px;'>" +
+                "<h2 style='color: #c59b48; margin: 0; letter-spacing: 2px;'>GREENWOOD BARBERS</h2>" +
+                "<p style='color: #828f86; font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; margin: 4px 0 0;'>Official Reservation Confirmation</p>" +
+              "</div>" +
+              "<div style='background: #091c13; padding: 18px; border-radius: 6px; border: 1px solid rgba(197, 155, 72, 0.25); margin: 20px 0; font-size: 14px; line-height: 1.7;'>" +
+                "<p style='margin: 4px 0;'><strong>Kode Booking:</strong> <span style='color: #c59b48; font-family: monospace; font-size: 16px;'>" + (data.bookingCode || "-") + "</span></p>" +
+                "<p style='margin: 4px 0;'><strong>Nama Tamu:</strong> " + (data.guestName || "-") + "</p>" +
+                "<p style='margin: 4px 0;'><strong>Master Barber:</strong> " + (data.barberName || "-") + "</p>" +
+                "<p style='margin: 4px 0;'><strong>Jadwal Sesi:</strong> " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB</p>" +
+                "<p style='margin: 4px 0;'><strong>Ritual Layanan:</strong> " + (data.serviceName || "-") + "</p>" +
+                "<p style='margin: 4px 0; color: #e5b95f;'><strong>Total Biaya:</strong> " + (data.totalPrice || "-") + " (Bayar di tempat)</p>" +
+              "</div>" +
+              "<p style='font-size: 13px; color: #c2cac3; line-height: 1.6;'>📍 <strong>Lokasi Parlour:</strong><br>Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, West Bandung</p>" +
+              "<p style='font-size: 12px; color: #828f86; margin-top: 15px;'>Jadwal ini juga telah tercatat di Google Calendar Anda. Mohon hadir 5–10 menit sebelum jam sesi dimulai.</p>" +
+            "</div>"
+        });
+      } catch (mailErr) {
+        console.warn("MailApp error:", mailErr);
+      }
+    }
 
     // Rekap Otomatis ke Google Sheets (Spreadsheet Database)
     try {
