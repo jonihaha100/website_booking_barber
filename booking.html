@@ -1480,10 +1480,10 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="guestEmail">Alamat Email (Pengingat Google Calendar &amp; RSVP - Opsional)</label>
-            <input type="email" id="guestEmail" class="form-input" placeholder="contoh: nama.anda@gmail.com">
+            <label class="form-label" for="guestEmail">Alamat Email (Pengingat Jadwal &amp; Konfirmasi RSVP) *</label>
+            <input type="email" id="guestEmail" class="form-input" placeholder="contoh: nama.anda@gmail.com" required>
             <p style="font-size: 12px; color: var(--text-muted); margin-top: 6px; line-height: 1.5;">
-              🔔 <em>Pengingat Otomatis Google Calendar: Jadwal potong rambut akan dikirimkan ke email Anda untuk disimpan langsung di Google Calendar (Bebas Google Meet).</em>
+              🔔 <em>Pengingat Otomatis Google Calendar: Jadwal potong rambut akan langsung terpasang di kalender Google Anda dengan tombol konfirmasi kehadiran ([Yes] / [No]).</em>
             </p>
           </div>
 
@@ -1554,7 +1554,7 @@
               <div class="pass-item-val" id="passServicesList">-</div>
             </div>
             <div>
-              <div class="pass-item-label">Total Biaya (Bayar di Tempat)</div>
+              <div class="pass-item-label">Total Biaya</div>
               <div class="pass-item-val" style="color: var(--accent-gold-bright); font-size: 18px;" id="passTotalPrice">-</div>
             </div>
           </div>
@@ -1567,11 +1567,8 @@
             <div style="color: var(--text-main); margin-bottom: 4px;">
               &bull; <strong>Lokasi:</strong> Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, West Bandung (Tersedia parkir khusus luas di depan ruko).
             </div>
-            <div style="color: var(--text-main); margin-bottom: 4px;">
-              &bull; <strong>Waktu:</strong> Mohon hadir 5–10 menit sebelum jam sesi untuk konsultasi santai.
-            </div>
             <div style="color: var(--text-main);">
-              &bull; <strong>Pembayaran:</strong> Cash, QRIS, &amp; Kartu Debit/Kredit diterima saat selesai treatment.
+              &bull; <strong>Waktu:</strong> Mohon hadir 5–10 menit sebelum jam sesi untuk konsultasi santai.
             </div>
           </div>
 
@@ -1649,40 +1646,13 @@
 
             </div>
 
-            <!-- FITUR AKSI INTERAKTIF (GOOGLE CALENDAR 1-CLICK, WHATSAPP, MAPS, CETAK) -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; width: 100%;">
-              <!-- 1. Google Calendar 1-Click Sync (Bebas Google Meet) -->
-              <a id="btnPassAddToGoogleCalendar" href="#" target="_blank" rel="noopener" class="btn-step-next" style="padding: 13px 18px; font-size: 13px; background: #091c13; border: 1.5px solid var(--accent-gold); color: var(--accent-gold-bright); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-weight: 700; border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.4); text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.2s ease;">
-                <span style="font-size: 18px;">📅</span>
-                <span>Pasang di Google Calendar</span>
-              </a>
-
-              <!-- 2. WhatsApp Direct Concierge Chat -->
-              <a id="btnPassWhatsAppDirect" href="#" target="_blank" rel="noopener" class="btn-step-next" style="padding: 13px 18px; font-size: 13px; background: #0c2b1d; border: 1.5px solid #25d366; color: #25d366; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-weight: 700; border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.4); text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.2s ease;">
-                <span style="font-size: 18px;">💬</span>
-                <span>Chat WhatsApp Concierge</span>
-              </a>
-
-              <!-- 3. Google Maps Route -->
-              <a href="https://maps.google.com/?q=Kota+Baru+Parahyangan+Padalarang" target="_blank" rel="noopener" class="btn-step-back" style="padding: 13px 18px; font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-align: center; border-radius: 6px;">
-                <span style="font-size: 16px;">📍</span>
-                <span>Buka Rute Google Maps</span>
-              </a>
-
-              <!-- 4. Print / Simpan Tiket -->
-              <button type="button" class="btn-step-back" onclick="window.print()" style="padding: 13px 18px; font-size: 13px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 6px; cursor: pointer;">
-                <span style="font-size: 16px;">🖨️</span>
-                <span>Simpan / Cetak Tiket</span>
-              </button>
-            </div>
-
             <!-- Tips Screenshot -->
-            <div style="font-size: 12.5px; color: var(--text-muted); text-align: center; margin-top: 4px;">
-              💡 <em>Tips: Klik tombol di atas untuk memasang jadwal di Google Calendar Anda atau simpan tiket ini sebagai tanda kehadiran di parlour.</em>
+            <div style="font-size: 13px; color: var(--text-muted); text-align: center; margin-top: 4px;">
+              💡 <em>Tips: Cukup simpan atau screenshot tiket di atas sebagai pass bukti kedatangan Anda di parlour.</em>
             </div>
 
             <!-- Action Navigation Buttons -->
-            <div style="display: flex; gap: 12px; flex-wrap: wrap; width: 100%; margin-top: 4px;">
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; width: 100%; margin-top: 6px;">
               <button type="button" class="btn-step-back" onclick="resetBookingSession()" style="flex: 1; min-width: 160px;">
                 + Buat Reservasi Lain
               </button>
@@ -2239,12 +2209,8 @@
       if (phoneNoticeEl) phoneNoticeEl.textContent = phone;
 
       // ======================================================================
-      // VALIDASI 2: WHATSAPP DIRECT ACTION & CONCIERGE LINK
+      // VALIDASI 2: WHATSAPP DIRECT MESSAGE TEXT
       // ======================================================================
-      const conciergePhone = (typeof GREENWOOD_CONFIG !== 'undefined' && GREENWOOD_CONFIG.brand && GREENWOOD_CONFIG.brand.whatsappNumber) 
-        ? GREENWOOD_CONFIG.brand.whatsappNumber 
-        : '6281222302050';
-
       const waReminderText = 
         `🔔 *PENGINGAT JADWAL RESERVASI GREENWOOD BARBERS* 🏛️\n` +
         `_Sesi Grooming Tatap Muka di Parlour Kota Baru Parahyangan_\n\n` +
@@ -2253,63 +2219,11 @@
         `• *Paket Layanan*: ${servicesListText}\n` +
         `• *Master Barber*: ${assignedBarber ? assignedBarber.name : "Any Available Barber"}\n` +
         `• *Jadwal Sesi*  : ${bookingRecord.dayFull} @ ${selectedTimeSlot} WIB\n` +
-        `• *Total Biaya*  : ${formatRupiah(totalPrc)} (Bayar di tempat)\n\n` +
+        `• *Total Biaya*  : ${formatRupiah(totalPrc)}\n\n` +
         `📍 *Lokasi Parlour*:\n` +
         `Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan\n` +
         `https://maps.google.com/?q=Kota+Baru+Parahyangan+Padalarang\n\n` +
         `Mohon konfirmasi kesiapan kursi & barber. Terima kasih!`;
-
-      // Bind Direct WhatsApp Concierge Button on Pass Screen
-      const btnWaDirect = document.getElementById('btnPassWhatsAppDirect');
-      if (btnWaDirect) {
-        btnWaDirect.href = `https://wa.me/${conciergePhone}?text=${encodeURIComponent(waReminderText)}`;
-      }
-
-      // ======================================================================
-      // GOOGLE CALENDAR 1-CLICK INSTANT SYNC (BEBAS GOOGLE MEET)
-      // ======================================================================
-      try {
-        const calDate = selectedDateObj.dateKey.replace(/-/g, '');
-        const [timeH, timeM] = selectedTimeSlot.split(':');
-        const startCalStr = `${calDate}T${timeH}${timeM}00`;
-        
-        // Calculate End Time
-        const startMinutes = parseInt(timeH, 10) * 60 + parseInt(timeM, 10);
-        const endMinutes = startMinutes + totalDur;
-        const endH = String(Math.floor(endMinutes / 60)).padStart(2, '0');
-        const endM = String(endMinutes % 60).padStart(2, '0');
-        const endCalStr = `${calDate}T${endH}${endM}00`;
-
-        const calTitle = `💈 Sesi Parlour: Greenwood Barbers - ${servicesListText}`;
-        const calDetails = 
-          `==================================================\n` +
-          `💈 GREENWOOD BARBERS • JADWAL RESERVASI PARLOUR\n` +
-          `==================================================\n` +
-          `🏛️ SESI LAYANAN TATAP MUKA DI LOKASI (BUKAN ONLINE MEETING)\n` +
-          `--------------------------------------------------\n` +
-          `• Kode Booking : ${bookingCode}\n` +
-          `• Nama Tamu    : ${name}\n` +
-          `• Master Barber: ${assignedBarber ? assignedBarber.name : "Any Available Barber"}\n` +
-          `• Paket Layanan: ${servicesListText}\n` +
-          `• Jadwal Sesi  : ${bookingRecord.dayFull} @ ${selectedTimeSlot} WIB\n` +
-          `• Total Biaya  : ${formatRupiah(totalPrc)} (Bayar di tempat)\n` +
-          `• Catatan Tamu : ${notes || "Tidak ada"}\n\n` +
-          `📍 Lokasi Parlour:\n` +
-          `Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan\n` +
-          `https://maps.google.com/?q=Kota+Baru+Parahyangan+Padalarang\n\n` +
-          `🔔 Mohon hadir 5–10 menit sebelum jam sesi dimulai.\n` +
-          `Concierge WhatsApp: +62 812-2230-2050\n`;
-
-        const gcalLocation = `Greenwood Barbers, Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, West Bandung`;
-        const gcalDirectUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(calTitle)}&dates=${startCalStr}/${endCalStr}&ctz=Asia/Jakarta&details=${encodeURIComponent(calDetails)}&location=${encodeURIComponent(gcalLocation)}`;
-
-        const btnGcalDirect = document.getElementById('btnPassAddToGoogleCalendar');
-        if (btnGcalDirect) {
-          btnGcalDirect.href = gcalDirectUrl;
-        }
-      } catch (calErr) {
-        console.warn('GCal link generation warning:', calErr);
-      }
 
       // ======================================================================
       // BACKEND AUTOMATED SYNC (GOOGLE APPS SCRIPT WEBHOOK + FONNTE WA)

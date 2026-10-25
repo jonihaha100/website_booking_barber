@@ -49,7 +49,7 @@ function doPost(e) {
       "• Master Barber : " + (data.barberName || "Bramantyo") + "\n" +
       "• Paket Layanan : " + (data.serviceName || "-") + "\n" +
       "• Jadwal Sesi   : " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB\n" +
-      "• Total Tagihan : " + (data.totalPrice || "-") + " (Bayar di tempat)\n" +
+      "• Total Tagihan : " + (data.totalPrice || "-") + "\n" +
       "• Catatan Tamu  : " + (data.guestNotes || "Tidak ada") + "\n\n" +
       "📍 Lokasi Parlour (Buka di Google Maps):\n" +
       "Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan\n" +
@@ -120,7 +120,7 @@ function doPost(e) {
                 "<p style='margin: 4px 0;'><strong>Master Barber:</strong> " + (data.barberName || "-") + "</p>" +
                 "<p style='margin: 4px 0;'><strong>Jadwal Sesi:</strong> " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB</p>" +
                 "<p style='margin: 4px 0;'><strong>Ritual Layanan:</strong> " + (data.serviceName || "-") + "</p>" +
-                "<p style='margin: 4px 0; color: #e5b95f;'><strong>Total Biaya:</strong> " + (data.totalPrice || "-") + " (Bayar di tempat)</p>" +
+                "<p style='margin: 4px 0; color: #e5b95f;'><strong>Total Biaya:</strong> " + (data.totalPrice || "-") + "</p>" +
               "</div>" +
               "<p style='font-size: 13px; color: #c2cac3; line-height: 1.6;'>📍 <strong>Lokasi Parlour:</strong><br>Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, West Bandung</p>" +
               "<p style='font-size: 12px; color: #828f86; margin-top: 15px;'>🔔 <em>Catatan: Sesi ini adalah reservasi tatap muka langsung di parlour (Bukan pertemuan online / Google Meet). Mohon hadir 5–10 menit sebelum jam sesi dimulai.</em></p>" +
@@ -186,7 +186,7 @@ function doPost(e) {
           "• *Paket Layanan*: " + (data.serviceName || "-") + "\n" +
           "• *Master Barber*: " + (data.barberName || "Bramantyo") + "\n" +
           "• *Jadwal Sesi*  : " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB\n" +
-          "• *Total Biaya*  : " + (data.totalPrice || "-") + " (Bayar di tempat)\n\n" +
+          "• *Total Biaya*  : " + (data.totalPrice || "-") + "\n\n" +
           "📍 *Petunjuk Lokasi (Google Maps)*:\n" +
           "Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan\n" +
           "https://maps.google.com/?q=Kota+Baru+Parahyangan+Padalarang\n\n" +
