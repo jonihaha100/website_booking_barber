@@ -1606,14 +1606,20 @@
               </p>
             </div>
 
+            <!-- VALIDASI 2: WHATSAPP DIRECT REMINDER & PASS -->
+            <a id="btnPassWhatsAppGuestReminder" href="#" target="_blank" rel="noopener" class="btn-step-next" style="width: 100%; padding: 15px 22px; font-size: 14.5px; background: #0c2b1d; border: 1.5px solid #25d366; color: #25d366; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-weight: 700; letter-spacing: 0.8px; border-radius: 6px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4); text-transform: uppercase;">
+              <span style="font-size: 19px;">💬</span>
+              <span>Kirim Pengingat &amp; Tiket ke WhatsApp Concierge</span>
+            </a>
+
             <!-- Automated WhatsApp Confirmation Notice -->
             <div style="background: rgba(12, 43, 29, 0.45); border: 1px solid rgba(37, 211, 102, 0.3); border-radius: 8px; padding: 14px 18px; text-align: left; display: flex; align-items: flex-start; gap: 12px;">
               <div style="font-size: 20px; flex-shrink: 0; line-height: 1; margin-top: 2px;">
-                💬
+                🔔
               </div>
               <div style="font-size: 12.5px; color: var(--text-muted); line-height: 1.55;">
-                <strong style="color: #25d366; font-size: 13px; display: block; margin-bottom: 2px;">Konfirmasi WhatsApp Otomatis:</strong>
-                Setelah konfirmasi kalender, concierge admin Greenwood Barbers akan mengirimkan detail jadwal, rute lokasi parlour, dan nomor antrean langsung ke WhatsApp <strong id="passGuestPhoneNotice" style="color: #f5f4ef;">-</strong>.
+                <strong style="color: #25d366; font-size: 13px; display: block; margin-bottom: 2px;">Validasi Ganda (WhatsApp &amp; Kalender):</strong>
+                Kirim tiket via tombol WhatsApp di atas untuk mengonfirmasi langsung ke nomor Concierge (+62 812-2230-2050). Admin akan memastikan kursi &amp; barber Anda siap sesuai jadwal.
               </div>
             </div>
 
@@ -2177,6 +2183,31 @@
       if (emailNoticeEl) emailNoticeEl.textContent = email;
       const phoneNoticeEl = document.getElementById('passGuestPhoneNotice');
       if (phoneNoticeEl) phoneNoticeEl.textContent = phone;
+
+      // ======================================================================
+      // VALIDASI 2: WHATSAPP DIRECT REMINDER PASS
+      // ======================================================================
+      const conciergePhone = (typeof GREENWOOD_CONFIG !== 'undefined' && GREENWOOD_CONFIG.brand && GREENWOOD_CONFIG.brand.whatsappNumber) 
+        ? GREENWOOD_CONFIG.brand.whatsappNumber 
+        : '6281222302050';
+
+      const waReminderText = 
+        `Halo Greenwood Barbers Concierge, ini tiket reservasi saya: 🏛️\n\n` +
+        `• *Kode Booking* : ${bookingCode}\n` +
+        `• *Nama Tamu*   : ${name}\n` +
+        `• *Paket Layanan*: ${servicesListText}\n` +
+        `• *Master Barber*: ${assignedBarber ? assignedBarber.name : "Any Available Barber"}\n` +
+        `• *Jadwal Sesi*  : ${bookingRecord.dayFull} @ ${selectedTimeSlot} WIB\n` +
+        `• *Total Biaya*  : ${formatRupiah(totalPrc)} (Bayar di tempat)\n\n` +
+        `📍 *Lokasi Parlour*:\n` +
+        `Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan\n` +
+        `https://maps.google.com/?q=Kota+Baru+Parahyangan+Padalarang\n\n` +
+        `Mohon konfirmasi kesiapan kursi & barber. Terima kasih!`;
+
+      const waReminderBtn = document.getElementById('btnPassWhatsAppGuestReminder');
+      if (waReminderBtn) {
+        waReminderBtn.href = `https://wa.me/${conciergePhone}?text=${encodeURIComponent(waReminderText)}`;
+      }
 
       // ======================================================================
       // GOOGLE CALENDAR AUTOMATED SYNC (INVITE SENT TO GUEST EMAIL WITH RSVP)
