@@ -16,7 +16,7 @@ const GREENWOOD_CONFIG = {
     whatsappDisplay: "+62 812-2230-2050",
     phoneDisplay: "+62 812-2230-2050",
     email: "contact@greenwoodbarbers.com",
-    mapsUrl: "https://maps.app.goo.gl/srZGPoSdmcQysR2g6",
+    mapsUrl: "https://maps.google.com/?q=-6.871273,107.466664",
     mapsEmbedUrl: "https://maps.google.com/maps?q=-6.871273,107.466664&hl=en&z=17&output=embed",
     parkingInfo: "7 minutes from Whoosh High-Speed Rail Padalarang Station & Padalarang Toll Gate. Ample complimentary private parking right in front of the parlour.",
     paymentNotice: "",
