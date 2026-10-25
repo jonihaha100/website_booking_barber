@@ -79,13 +79,27 @@ function doPost(e) {
 
     // Mencegah dan menghapus Google Meet / Video Conference jika akun mengaktifkannya secara otomatis
     try {
+      var rawId = event.getId();
+      var cleanId = rawId.indexOf('@') !== -1 ? rawId.split('@')[0] : rawId;
+      
+      // 1. Coba hapus via Advanced Service jika aktif
       if (typeof Calendar !== 'undefined' && Calendar.Events) {
-        var rawId = event.getId();
-        var cleanId = rawId.indexOf('@') !== -1 ? rawId.split('@')[0] : rawId;
         Calendar.Events.patch({ conferenceData: null }, 'primary', cleanId, { conferenceDataVersion: 1 });
+      } else {
+        // 2. Hapus langsung via Google Calendar REST API menggunakan OAuth token bawaan script
+        var patchUrl = "https://www.googleapis.com/calendar/v3/calendars/primary/events/" + encodeURIComponent(cleanId) + "?conferenceDataVersion=1";
+        UrlFetchApp.fetch(patchUrl, {
+          method: "patch",
+          contentType: "application/json",
+          headers: {
+            Authorization: "Bearer " + ScriptApp.getOAuthToken()
+          },
+          payload: JSON.stringify({ conferenceData: null }),
+          muteHttpExceptions: true
+        });
       }
     } catch (confErr) {
-      // Quiet fallback jika Advanced Calendar API belum diaktifkan di tab Services
+      console.warn("Conference cleanup notice:", confErr);
     }
 
     // Kirim email konfirmasi resmi langsung ke inbox tamu via MailApp (100% pasti masuk ke inbox)
@@ -159,6 +173,8 @@ function doPost(e) {
         var cleanPhone = data.guestPhone.replace(/[^0-9]/g, "");
         if (cleanPhone.indexOf("0") === 0) {
           cleanPhone = "62" + cleanPhone.substring(1);
+        } else if (cleanPhone.indexOf("8") === 0) {
+          cleanPhone = "62" + cleanPhone;
         }
         
         var waMessage = 
@@ -174,7 +190,7 @@ function doPost(e) {
           "📍 *Petunjuk Lokasi (Google Maps)*:\n" +
           "Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan\n" +
           "https://maps.google.com/?q=Kota+Baru+Parahyangan+Padalarang\n\n" +
-          "✉️ *Google Calendar & Email*: Undangan resmi dengan alarm 30 mnt & 2 jam sebelumnya telah dikirim ke (" + (data.guestEmail || "-") + ").\n\n" +
+          "✉️ *Google Calendar & Email*: Undangan resmi sesi parlour telah dikirim ke (" + (data.guestEmail || "-") + ").\n\n" +
           "Mohon hadir 5–10 menit sebelum jam sesi dimulai. Sampai bertemu di parlour kami!\n" +
           "— _Concierge Greenwood Barbers (+62 812-2230-2050)_";
 
@@ -216,4 +232,32 @@ function doPost(e) {
 function doGet(e) {
   return ContentService.createTextOutput("Greenwood Barbers Google Calendar Sync Webhook is Active.")
     .setMimeType(ContentService.MimeType.TEXT);
+}
+
+/**
+ * FUNGSI UJI COBA LANGSUNG DI EDITOR GOOGLE APPS SCRIPT
+ * Pilih fungsi 'testRunDirectly' di atas, lalu klik tombol 'Jalankan' (Run)
+ * untuk menguji skrip tanpa error 'No payload received'.
+ */
+function testRunDirectly() {
+  var dummyEvent = {
+    postData: {
+      contents: JSON.stringify({
+        bookingCode: "GWB-TEST-APPSCRIPT",
+        guestName: "Syamhari Abidin",
+        guestPhone: "08122147734",
+        guestEmail: "jonihaha100@gmail.com",
+        serviceName: "The Signature Grooming Ritual",
+        barberName: "Bramantyo",
+        dateKey: "2026-10-27",
+        timeSlot: "14:00",
+        totalDuration: 60,
+        totalPrice: "Rp 150.000",
+        guestNotes: "Uji coba manual langsung dari Google Apps Script"
+      })
+    }
+  };
+  var output = doPost(dummyEvent);
+  Logger.log("Hasil Eksekusi Test:");
+  Logger.log(output.getContent());
 }
