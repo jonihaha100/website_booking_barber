@@ -19,7 +19,7 @@ const GREENWOOD_CONFIG = {
     mapsUrl: "https://maps.google.com/?q=Kota+Baru+Parahyangan+Padalarang",
     mapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15844.629559384877!2d107.47250644498305!3d-6.871758509012351!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e37bb033481b%3A0xe54fb9e2c6501a35!2sKota%20Baru%20Parahyangan!5e0!3m2!1sid!2sid!4v1729240000000!5m2!1sid!2sid",
     parkingInfo: "7 minutes from Whoosh High-Speed Rail Padalarang Station & Padalarang Toll Gate. Ample complimentary private parking right in front of the parlour.",
-    paymentNotice: "Payment on-site upon arrival: Cash, QRIS, and major Debit/Credit Cards accepted.",
+    paymentNotice: "",
     cancellationNotice: "Kindly advise our concierge at least 3 hours prior if you need to reschedule.",
     googleCalendarWebhookUrl: "https://script.google.com/macros/s/AKfycbwCJhZZ3dbpRXw5axASypz69qbEgxVZWUC_9g3MtiztkcLGOICVzdO396kAdmKQTFqCEQ/exec"
   },

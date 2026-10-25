@@ -167,7 +167,8 @@ function doPost(e) {
     // =========================================================================
     var waNotificationStatus = "Not configured";
     var FONNTE_API_TOKEN = "o9bqV14GRCyNLfXiRfBV"; // Token Fonnte Greenwood Barbers
-    
+    var ADMIN_PHONE = "628122147734"; // Nomor WhatsApp Pengelola / Admin Greenwood
+
     if (FONNTE_API_TOKEN && data.guestPhone) {
       try {
         var cleanPhone = data.guestPhone.replace(/[^0-9]/g, "");
@@ -194,19 +195,47 @@ function doPost(e) {
           "Mohon hadir 5–10 menit sebelum jam sesi dimulai. Sampai bertemu di parlour kami!\n" +
           "— _Concierge Greenwood Barbers (+62 812-2230-2050)_";
 
-        var payload = {
-          target: cleanPhone,
-          message: waMessage
-        };
-
+        // 1. Kirim pesan konfirmasi ke nomor tamu (Guest)
         var waResponse = UrlFetchApp.fetch("https://api.fonnte.com/send", {
           method: "post",
           headers: {
             Authorization: FONNTE_API_TOKEN
           },
-          payload: payload,
+          payload: {
+            target: cleanPhone,
+            message: waMessage
+          },
           muteHttpExceptions: true
         });
+
+        // 2. Jika tamu adalah nomor berbeda, kirim juga alert ke WhatsApp Admin / Barber
+        if (ADMIN_PHONE && cleanPhone !== ADMIN_PHONE) {
+          try {
+            var adminMessage = 
+              "🚨 *NOTIFIKASI RESERVASI BARU (ADMIN GREENWOOD)* 🏛️\n\n" +
+              "Ada reservasi baru masuk via website:\n" +
+              "• *Tamu*         : " + (data.guestName || "-") + " (" + (data.guestPhone || "-") + ")\n" +
+              "• *Kode Booking* : " + (data.bookingCode || "-") + "\n" +
+              "• *Master Barber*: " + (data.barberName || "-") + "\n" +
+              "• *Jadwal Sesi*  : " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB\n" +
+              "• *Layanan*      : " + (data.serviceName || "-") + "\n" +
+              "• *Total Biaya*  : " + (data.totalPrice || "-") + "\n" +
+              "• *Catatan*      : " + (data.guestNotes || "-") + "\n\n" +
+              "Jadwal telah otomatis tercatat di Google Calendar.";
+
+            UrlFetchApp.fetch("https://api.fonnte.com/send", {
+              method: "post",
+              headers: {
+                Authorization: FONNTE_API_TOKEN
+              },
+              payload: {
+                target: ADMIN_PHONE,
+                message: adminMessage
+              },
+              muteHttpExceptions: true
+            });
+          } catch(adminErr) {}
+        }
 
         waNotificationStatus = "WhatsApp Sent (" + waResponse.getResponseCode() + ")";
       } catch (waErr) {
