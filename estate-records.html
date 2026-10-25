@@ -378,6 +378,11 @@
       border: 1px solid var(--success);
       color: var(--success);
     }
+    .status-pending {
+      background: rgba(229, 185, 95, 0.15);
+      border: 1px solid rgba(229, 185, 95, 0.5);
+      color: #e5b95f;
+    }
     .status-completed {
       background: rgba(197, 155, 72, 0.2);
       border: 1px solid var(--accent-gold);
@@ -849,8 +854,8 @@
       tbody.innerHTML = sorted.map(b => {
         const cleanPhone = (b.guestPhone || '').replace(/[^0-9]/g, '');
         const waPhone = cleanPhone.startsWith('0') ? '62' + cleanPhone.slice(1) : cleanPhone;
-        const statusClass = b.status === 'Completed' ? 'status-completed' : (b.status === 'Cancelled' ? 'status-cancelled' : 'status-confirmed');
-        const statusLabel = b.status === 'Completed' ? 'Selesai' : (b.status === 'Cancelled' ? 'Batal' : 'Terkonfirmasi');
+        const statusClass = b.status === 'Completed' ? 'status-completed' : (b.status === 'Cancelled' ? 'status-cancelled' : (b.status === 'Confirmed' ? 'status-confirmed' : 'status-pending'));
+        const statusLabel = b.status === 'Completed' ? 'Selesai' : (b.status === 'Cancelled' ? 'Batal' : (b.status === 'Confirmed' ? 'Terkonfirmasi WA' : 'Menunggu WA'));
 
         let addonsText = '';
         if (b.addons && b.addons.length > 0) {
@@ -942,6 +947,10 @@
         `https://maps.google.com/?q=Kota+Baru+Parahyangan+Padalarang\n\n` +
         `Sampai bertemu di parlour kami!\n` +
         `— _Concierge Greenwood Barbers (+62 812-2230-2050)_`;
+
+      // Update status to Confirmed & refresh table
+      GreenwoodBookingStore.updateStatus(code, 'Confirmed');
+      reloadLedgerData();
 
       const waUrl = `https://wa.me/${encodeURIComponent(waPhone)}?text=${encodeURIComponent(msg)}`;
       window.open(waUrl, '_blank');

@@ -42,7 +42,8 @@ function doPost(e) {
       "====================================\n" +
       "GREENWOOD BARBERS • PENGINGAT JADWAL\n" +
       "====================================\n" +
-      "Sesi Tatap Muka Langsung di Parlour (Bukan Pertemuan Online / Video Call)\n" +
+      "🏛️ Sesi Tatap Muka Langsung di Parlour (Offline)\n" +
+      "TIDAK MENGGUNAKAN GOOGLE MEET / VIDEO CALL\n" +
       "------------------------------------\n" +
       "Kode Booking: " + (data.bookingCode || "-") + "\n" +
       "Nama Tamu: " + (data.guestName || "-") + "\n" +
@@ -52,7 +53,9 @@ function doPost(e) {
       "Ritual Layanan: " + (data.serviceName || "-") + "\n" +
       "Total Biaya: " + (data.totalPrice || "-") + "\n" +
       "Catatan Khusus: " + (data.guestNotes || "Tidak ada") + "\n\n" +
-      "Lokasi: Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, Bandung Barat\n" +
+      "📍 Lokasi Parlour:\n" +
+      "Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, Bandung Barat\n" +
+      "Google Maps: https://maps.google.com/?q=Kota+Baru+Parahyangan+Padalarang\n\n" +
       "Concierge WhatsApp: +62 812-2230-2050\n";
       
     var location = data.location || "Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, West Bandung";
@@ -75,17 +78,28 @@ function doPost(e) {
     event.addPopupReminder(30);
     event.addEmailReminder(120);
 
+    // Mencegah dan menghapus Google Meet / Video Conference jika akun mengaktifkannya secara otomatis
+    try {
+      if (typeof Calendar !== 'undefined' && Calendar.Events) {
+        var rawId = event.getId();
+        var cleanId = rawId.indexOf('@') !== -1 ? rawId.split('@')[0] : rawId;
+        Calendar.Events.patch({ conferenceData: null }, 'primary', cleanId, { conferenceDataVersion: 1 });
+      }
+    } catch (confErr) {
+      // Quiet fallback jika Advanced Calendar API belum diaktifkan di tab Services
+    }
+
     // Kirim email konfirmasi resmi langsung ke inbox tamu via MailApp (100% pasti masuk ke inbox)
     if (data.guestEmail && data.guestEmail.indexOf("@") !== -1) {
       try {
         MailApp.sendEmail({
           to: data.guestEmail,
-          subject: "🔔 Konfirmasi Reservasi: Greenwood Barbers - " + (data.serviceName || "Grooming Ritual"),
+          subject: "🔔 Pengingat Jadwal Reservasi: Greenwood Barbers - " + (data.serviceName || "Grooming Ritual"),
           htmlBody: 
             "<div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #030c08; color: #f5f4ef; padding: 24px; border-radius: 8px; border: 1px solid #c59b48;'>" +
               "<div style='text-align: center; margin-bottom: 20px;'>" +
                 "<h2 style='color: #c59b48; margin: 0; letter-spacing: 2px;'>GREENWOOD BARBERS</h2>" +
-                "<p style='color: #828f86; font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; margin: 4px 0 0;'>Official Reservation Confirmation</p>" +
+                "<p style='color: #828f86; font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; margin: 4px 0 0;'>Pengingat Jadwal Parlour (Tatap Muka)</p>" +
               "</div>" +
               "<div style='background: #091c13; padding: 18px; border-radius: 6px; border: 1px solid rgba(197, 155, 72, 0.25); margin: 20px 0; font-size: 14px; line-height: 1.7;'>" +
                 "<p style='margin: 4px 0;'><strong>Kode Booking:</strong> <span style='color: #c59b48; font-family: monospace; font-size: 16px;'>" + (data.bookingCode || "-") + "</span></p>" +
@@ -96,7 +110,7 @@ function doPost(e) {
                 "<p style='margin: 4px 0; color: #e5b95f;'><strong>Total Biaya:</strong> " + (data.totalPrice || "-") + " (Bayar di tempat)</p>" +
               "</div>" +
               "<p style='font-size: 13px; color: #c2cac3; line-height: 1.6;'>📍 <strong>Lokasi Parlour:</strong><br>Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, West Bandung</p>" +
-              "<p style='font-size: 12px; color: #828f86; margin-top: 15px;'>Jadwal ini juga telah tercatat di Google Calendar Anda. Mohon hadir 5–10 menit sebelum jam sesi dimulai.</p>" +
+              "<p style='font-size: 12px; color: #828f86; margin-top: 15px;'>🔔 <em>Catatan: Sesi ini adalah reservasi tatap muka langsung di parlour (Bukan pertemuan online / Google Meet). Mohon hadir 5–10 menit sebelum jam sesi dimulai.</em></p>" +
             "</div>"
         });
       } catch (mailErr) {
