@@ -35,26 +35,26 @@ function doPost(e) {
     var durationMins = data.totalDuration || 45;
     var endTime = new Date(startTime.getTime() + (durationMins * 60 * 1000));
     
-    // Judul & Deskripsi Event (Jadwal Potong Rambut di Parlour, Bukan Online Meeting)
-    var eventTitle = "💈 Sesi Parlour: Greenwood Barbers - " + (data.serviceName || "Grooming Ritual") + " (" + (data.guestName || "VIP Guest") + ")";
+    // Judul & Deskripsi Event (In-Person Grooming Session, Not an Online Meeting)
+    var eventTitle = "💈 Greenwood Barbers Session: " + (data.serviceName || "Grooming Ritual") + " - " + (data.guestName || "Guest");
     
     var description = 
       "==================================================\n" +
-      "💈 GREENWOOD BARBERS • JADWAL RESERVASI PARLOUR\n" +
+      "💈 GREENWOOD BARBERS • PARLOUR APPOINTMENT SCHEDULE\n" +
       "==================================================\n" +
-      "🏛️ SESI LAYANAN TATAP MUKA DI LOKASI (BUKAN ONLINE MEETING)\n" +
+      "🏛️ IN-PERSON PARLOUR GROOMING SESSION (NOT A VIRTUAL MEETING)\n" +
       "--------------------------------------------------\n" +
-      "• Kode Booking  : " + (data.bookingCode || "-") + "\n" +
-      "• Nama Tamu     : " + (data.guestName || "-") + "\n" +
-      "• Master Barber : " + (data.barberName || "Bramantyo") + "\n" +
-      "• Paket Layanan : " + (data.serviceName || "-") + "\n" +
-      "• Jadwal Sesi   : " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB\n" +
-      "• Total Tagihan : " + (data.totalPrice || "-") + "\n" +
-      "• Catatan Tamu  : " + (data.guestNotes || "Tidak ada") + "\n\n" +
-      "📍 Lokasi Parlour (Buka di Google Maps):\n" +
+      "• Booking Pass  : " + (data.bookingCode || "-") + "\n" +
+      "• Guest Name    : " + (data.guestName || "-") + "\n" +
+      "• Barber        : " + (data.barberName || "Bramantyo") + "\n" +
+      "• Treatment     : " + (data.serviceName || "-") + "\n" +
+      "• Schedule      : " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB\n" +
+      "• Total Amount  : " + (data.totalPrice || "-") + "\n" +
+      "• Special Notes : " + (data.guestNotes || "None") + "\n\n" +
+      "📍 Parlour Location (Open in Google Maps):\n" +
       "Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan\n" +
       "https://maps.google.com/?q=Kota+Baru+Parahyangan+Padalarang\n\n" +
-      "🔔 Mohon hadir 5–10 menit sebelum jam sesi dimulai.\n" +
+      "🔔 Please arrive 5–10 minutes prior to your allocated time.\n" +
       "Concierge WhatsApp: +62 812-2230-2050\n";
       
     var location = data.location || "Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, West Bandung";
@@ -107,23 +107,23 @@ function doPost(e) {
       try {
         MailApp.sendEmail({
           to: data.guestEmail,
-          subject: "🔔 Pengingat Jadwal Reservasi: Greenwood Barbers - " + (data.serviceName || "Grooming Ritual"),
+          subject: "🔔 Appointment Confirmation: Greenwood Barbers - " + (data.serviceName || "Grooming Ritual"),
           htmlBody: 
             "<div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #030c08; color: #f5f4ef; padding: 24px; border-radius: 8px; border: 1px solid #c59b48;'>" +
               "<div style='text-align: center; margin-bottom: 20px;'>" +
                 "<h2 style='color: #c59b48; margin: 0; letter-spacing: 2px;'>GREENWOOD BARBERS</h2>" +
-                "<p style='color: #828f86; font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; margin: 4px 0 0;'>Pengingat Jadwal Parlour (Tatap Muka)</p>" +
+                "<p style='color: #828f86; font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; margin: 4px 0 0;'>Official Parlour Appointment (In-Person)</p>" +
               "</div>" +
               "<div style='background: #091c13; padding: 18px; border-radius: 6px; border: 1px solid rgba(197, 155, 72, 0.25); margin: 20px 0; font-size: 14px; line-height: 1.7;'>" +
-                "<p style='margin: 4px 0;'><strong>Kode Booking:</strong> <span style='color: #c59b48; font-family: monospace; font-size: 16px;'>" + (data.bookingCode || "-") + "</span></p>" +
-                "<p style='margin: 4px 0;'><strong>Nama Tamu:</strong> " + (data.guestName || "-") + "</p>" +
-                "<p style='margin: 4px 0;'><strong>Master Barber:</strong> " + (data.barberName || "-") + "</p>" +
-                "<p style='margin: 4px 0;'><strong>Jadwal Sesi:</strong> " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB</p>" +
-                "<p style='margin: 4px 0;'><strong>Ritual Layanan:</strong> " + (data.serviceName || "-") + "</p>" +
-                "<p style='margin: 4px 0; color: #e5b95f;'><strong>Total Biaya:</strong> " + (data.totalPrice || "-") + "</p>" +
+                "<p style='margin: 4px 0;'><strong>Booking Pass:</strong> <span style='color: #c59b48; font-family: monospace; font-size: 16px;'>" + (data.bookingCode || "-") + "</span></p>" +
+                "<p style='margin: 4px 0;'><strong>Guest Name:</strong> " + (data.guestName || "-") + "</p>" +
+                "<p style='margin: 4px 0;'><strong>Barber:</strong> " + (data.barberName || "-") + "</p>" +
+                "<p style='margin: 4px 0;'><strong>Schedule:</strong> " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB</p>" +
+                "<p style='margin: 4px 0;'><strong>Treatment:</strong> " + (data.serviceName || "-") + "</p>" +
+                "<p style='margin: 4px 0; color: #e5b95f;'><strong>Total Amount:</strong> " + (data.totalPrice || "-") + "</p>" +
               "</div>" +
-              "<p style='font-size: 13px; color: #c2cac3; line-height: 1.6;'>📍 <strong>Lokasi Parlour:</strong><br>Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, West Bandung</p>" +
-              "<p style='font-size: 12px; color: #828f86; margin-top: 15px;'>🔔 <em>Catatan: Sesi ini adalah reservasi tatap muka langsung di parlour (Bukan pertemuan online / Google Meet). Mohon hadir 5–10 menit sebelum jam sesi dimulai.</em></p>" +
+              "<p style='font-size: 13px; color: #c2cac3; line-height: 1.6;'>📍 <strong>Parlour Location:</strong><br>Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, West Bandung</p>" +
+              "<p style='font-size: 12px; color: #828f86; margin-top: 15px;'>🔔 <em>Note: This is an exclusive in-person session at our parlour (Not an online meeting). Please arrive 5–10 minutes prior to your allocated time.</em></p>" +
             "</div>"
         });
       } catch (mailErr) {
@@ -138,8 +138,8 @@ function doPost(e) {
         var sheet = ss.getActiveSheet();
         if (sheet.getLastRow() === 0) {
           sheet.appendRow([
-            "Waktu Booking", "Kode Tiket", "Nama Tamu", "WhatsApp", "Email", 
-            "Master Barber", "Tanggal Sesi", "Jam Sesi", "Layanan / Ritual", "Total Tagihan", "Catatan Khusus", "Status"
+            "Booking Time", "Booking Pass", "Guest Name", "WhatsApp", "Email", 
+            "Barber", "Date", "Time", "Treatment", "Total Amount", "Special Notes", "Status"
           ]);
           sheet.getRange(1, 1, 1, 12).setFontWeight("bold").setBackground("#091c13").setFontColor("#c59b48");
         }
@@ -155,7 +155,7 @@ function doPost(e) {
           data.serviceName || "-",
           data.totalPrice || "-",
           data.guestNotes || "-",
-          "Terkonfirmasi"
+          "Confirmed"
         ]);
       }
     } catch (sheetErr) {
@@ -179,20 +179,20 @@ function doPost(e) {
         }
         
         var waMessage = 
-          "🔔 *PENGINGAT JADWAL RESERVASI GREENWOOD BARBERS* 🏛️\n" +
-          "_Sesi Tatap Muka di Parlour Kota Baru Parahyangan_\n\n" +
-          "Halo *" + (data.guestName || "Bapak/Ibu") + "*,\n" +
-          "Reservasi Anda telah berhasil terverifikasi & terjadwal otomatis di sistem kami: ✨\n\n" +
-          "• *Kode Booking* : " + (data.bookingCode || "-") + "\n" +
-          "• *Paket Layanan*: " + (data.serviceName || "-") + "\n" +
-          "• *Master Barber*: " + (data.barberName || "Bramantyo") + "\n" +
-          "• *Jadwal Sesi*  : " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB\n" +
-          "• *Total Biaya*  : " + (data.totalPrice || "-") + "\n\n" +
-          "📍 *Petunjuk Lokasi (Google Maps)*:\n" +
+          "🔔 *GREENWOOD BARBERS — APPOINTMENT CONFIRMATION* 🏛️\n" +
+          "_Private Grooming Session at Kota Baru Parahyangan_\n\n" +
+          "Dear *" + (data.guestName || "Distinguished Guest") + "*,\n\n" +
+          "Your grooming reservation is officially confirmed and scheduled in our system: ✨\n\n" +
+          "• *Booking Pass*  : " + (data.bookingCode || "-") + "\n" +
+          "• *Treatment*     : " + (data.serviceName || "-") + "\n" +
+          "• *Barber*        : " + (data.barberName || "Bramantyo") + "\n" +
+          "• *Schedule*      : " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB\n" +
+          "• *Total Amount*  : " + (data.totalPrice || "-") + "\n\n" +
+          "📍 *Location & Directions (Google Maps)*:\n" +
           "Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan\n" +
           "https://maps.google.com/?q=Kota+Baru+Parahyangan+Padalarang\n\n" +
-          "✉️ *Google Calendar & Email*: Undangan resmi sesi parlour telah dikirim ke (" + (data.guestEmail || "-") + ").\n\n" +
-          "Mohon hadir 5–10 menit sebelum jam sesi dimulai. Sampai bertemu di parlour kami!\n" +
+          "✉️ *Calendar & Email*: Official calendar invitation has been dispatched to (" + (data.guestEmail || "-") + ").\n\n" +
+          "Please arrive 5–10 minutes prior to your allocated session. Our chair is dedicated exclusively to you.\n\n" +
           "— _Concierge Greenwood Barbers (+62 812-2230-2050)_";
 
         // 1. Kirim pesan konfirmasi ke nomor tamu (Guest)
@@ -212,16 +212,16 @@ function doPost(e) {
         if (ADMIN_PHONE && cleanPhone !== ADMIN_PHONE) {
           try {
             var adminMessage = 
-              "🚨 *NOTIFIKASI RESERVASI BARU (ADMIN GREENWOOD)* 🏛️\n\n" +
-              "Ada reservasi baru masuk via website:\n" +
-              "• *Tamu*         : " + (data.guestName || "-") + " (" + (data.guestPhone || "-") + ")\n" +
-              "• *Kode Booking* : " + (data.bookingCode || "-") + "\n" +
-              "• *Master Barber*: " + (data.barberName || "-") + "\n" +
-              "• *Jadwal Sesi*  : " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB\n" +
-              "• *Layanan*      : " + (data.serviceName || "-") + "\n" +
-              "• *Total Biaya*  : " + (data.totalPrice || "-") + "\n" +
-              "• *Catatan*      : " + (data.guestNotes || "-") + "\n\n" +
-              "Jadwal telah otomatis tercatat di Google Calendar.";
+              "🚨 *NEW RESERVATION ALERT — GREENWOOD BARBERS* 🏛️\n\n" +
+              "A new appointment has been scheduled via website:\n" +
+              "• *Guest*         : " + (data.guestName || "-") + " (" + (data.guestPhone || "-") + ")\n" +
+              "• *Booking Pass*  : " + (data.bookingCode || "-") + "\n" +
+              "• *Barber*        : " + (data.barberName || "-") + "\n" +
+              "• *Schedule*      : " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB\n" +
+              "• *Treatment*     : " + (data.serviceName || "-") + "\n" +
+              "• *Total Amount*  : " + (data.totalPrice || "-") + "\n" +
+              "• *Notes*         : " + (data.guestNotes || "-") + "\n\n" +
+              "The session has been automatically recorded to Google Calendar.";
 
             UrlFetchApp.fetch("https://api.fonnte.com/send", {
               method: "post",
@@ -282,7 +282,7 @@ function testRunDirectly() {
         timeSlot: "14:00",
         totalDuration: 60,
         totalPrice: "Rp 150.000",
-        guestNotes: "Uji coba manual langsung dari Google Apps Script"
+        guestNotes: "Direct manual test verification from Google Apps Script"
       })
     }
   };

@@ -148,7 +148,7 @@ const GREENWOOD_CONFIG = {
     }
   ],
 
-  // 5. MASTER BARBERS ROSTER
+  // 5. BARBERS ROSTER
   barbers: [
     {
       id: "any",

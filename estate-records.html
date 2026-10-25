@@ -934,18 +934,18 @@
       const priceStr = formatRupiah(booking.totalPrice);
 
       const msg = 
-        `Halo *${guestName}*,\n\n` +
-        `Kami dari *Greenwood Barbers Kota Baru Parahyangan* mengonfirmasi bahwa reservasi Anda telah *TERVERIFIKASI & SIAP*: 🏛️\n\n` +
-        `• *Kode Booking* : ${booking.bookingCode}\n` +
-        `• *Paket Layanan*: ${serviceStr}\n` +
-        `• *Master Barber*: ${barber}\n` +
-        `• *Jadwal Sesi*  : ${dateStr} @ ${timeStr} WIB\n` +
-        `• *Total Biaya*  : ${priceStr}\n\n` +
-        `Kursi dan perlengkapan grooming higienis Anda telah kami siapkan. Mohon tiba 5–10 menit sebelum jam sesi dimulai.\n\n` +
-        `📍 *Petunjuk Lokasi (Google Maps)*:\n` +
+        `Dear *${guestName}*,\n\n` +
+        `This is *Greenwood Barbers Kota Baru Parahyangan* confirming that your private appointment is *OFFICIALLY VERIFIED & PREPARED*: 🏛️\n\n` +
+        `• *Booking Pass*  : ${booking.bookingCode}\n` +
+        `• *Treatment*     : ${serviceStr}\n` +
+        `• *Barber*        : ${barber}\n` +
+        `• *Schedule*      : ${dateStr} @ ${timeStr} WIB\n` +
+        `• *Total Price*   : ${priceStr}\n\n` +
+        `Your dedicated chair and sterilized grooming implements are ready. Please arrive 5–10 minutes prior to your allocated time.\n\n` +
+        `📍 *Location & Directions (Google Maps)*:\n` +
         `Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan\n` +
         `https://maps.google.com/?q=Kota+Baru+Parahyangan+Padalarang\n\n` +
-        `Sampai bertemu di parlour kami!\n` +
+        `We look forward to welcoming you at our parlour!\n` +
         `— _Concierge Greenwood Barbers (+62 812-2230-2050)_`;
 
       // Update status to Confirmed & refresh table
