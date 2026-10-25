@@ -150,10 +150,10 @@ function doPost(e) {
     }
 
     // =========================================================================
-    // 5. KIRIM PESAN WHATSAPP OTOMATIS (OPSIONAL VIA GATEWAY FONNTE / WABLAS)
+    // 5. KIRIM PESAN WHATSAPP OTOMATIS VIA GATEWAY FONNTE
     // =========================================================================
     var waNotificationStatus = "Not configured";
-    var FONNTE_API_TOKEN = ""; // Tempelkan Token Fonnte Anda di sini jika ingin WA terkirim otomatis!
+    var FONNTE_API_TOKEN = "o9bqV14GRCyNLfXiRfBV"; // Token Fonnte Greenwood Barbers
     
     if (FONNTE_API_TOKEN && data.guestPhone) {
       try {
@@ -163,16 +163,20 @@ function doPost(e) {
         }
         
         var waMessage = 
-          "Halo *" + (data.guestName || "Bapak/Ibu") + "*,\n\n" +
-          "Reservasi Anda di *Greenwood Barbers Kota Baru Parahyangan* telah berhasil terjadwal otomatis di Google Calendar! 🏛️\n\n" +
-          "• *Kode Reservasi*: " + (data.bookingCode || "-") + "\n" +
-          "• *Ritual Layanan*: " + (data.serviceName || "-") + "\n" +
+          "🔔 *PENGINGAT JADWAL RESERVASI GREENWOOD BARBERS* 🏛️\n" +
+          "_Sesi Tatap Muka di Parlour Kota Baru Parahyangan_\n\n" +
+          "Halo *" + (data.guestName || "Bapak/Ibu") + "*,\n" +
+          "Reservasi Anda telah berhasil terverifikasi & terjadwal otomatis di sistem kami: ✨\n\n" +
+          "• *Kode Booking* : " + (data.bookingCode || "-") + "\n" +
+          "• *Paket Layanan*: " + (data.serviceName || "-") + "\n" +
           "• *Master Barber*: " + (data.barberName || "Bramantyo") + "\n" +
-          "• *Jadwal Sesi*: " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB\n" +
-          "• *Estimasi Total*: " + (data.totalPrice || "-") + " (Bayar di tempat)\n\n" +
-          "📍 *Lokasi Parlour*: Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan (Tersedia parkir khusus luas).\n" +
-          "✉️ *Undangan Kalender*: Mohon periksa email Anda (" + (data.guestEmail || "-") + ") dan klik *Yes* pada kartu RSVP kalender.\n\n" +
-          "Sampai jumpa di Greenwood Barbers!\n" +
+          "• *Jadwal Sesi*  : " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB\n" +
+          "• *Total Biaya*  : " + (data.totalPrice || "-") + " (Bayar di tempat)\n\n" +
+          "📍 *Petunjuk Lokasi (Google Maps)*:\n" +
+          "Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan\n" +
+          "https://maps.google.com/?q=Kota+Baru+Parahyangan+Padalarang\n\n" +
+          "✉️ *Google Calendar & Email*: Undangan resmi dengan alarm 30 mnt & 2 jam sebelumnya telah dikirim ke (" + (data.guestEmail || "-") + ").\n\n" +
+          "Mohon hadir 5–10 menit sebelum jam sesi dimulai. Sampai bertemu di parlour kami!\n" +
           "— _Concierge Greenwood Barbers (+62 812-2230-2050)_";
 
         var payload = {
