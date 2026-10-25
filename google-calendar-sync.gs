@@ -53,7 +53,7 @@ function doPost(e) {
       "• Special Notes : " + (data.guestNotes || "None") + "\n\n" +
       "📍 Parlour Location (Open in Google Maps):\n" +
       "Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan\n" +
-      "https://maps.google.com/?q=-6.871273,107.466664\n\n" +
+      "https://www.google.com/maps/search/?api=1&query=Ruko+PancaTengah,+Kota+Baru+Parahyangan\n\n" +
       "🔔 Please arrive 5–10 minutes prior to your allocated time.\n" +
       "Concierge WhatsApp: +62 812-2230-2050\n";
       
@@ -190,7 +190,7 @@ function doPost(e) {
           "• *Total Amount*  : " + (data.totalPrice || "-") + "\n\n" +
           "📍 *Location & Directions (Google Maps)*:\n" +
           "Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan\n" +
-          "https://maps.google.com/?q=-6.871273,107.466664\n\n" +
+          "https://www.google.com/maps/search/?api=1&query=Ruko+PancaTengah,+Kota+Baru+Parahyangan\n\n" +
           "✉️ *Calendar & Email*: Official calendar invitation has been dispatched to (" + (data.guestEmail || "-") + ").\n\n" +
           "Please arrive 5–10 minutes prior to your allocated session. Our chair is dedicated exclusively to you.\n\n" +
           "— _Concierge Greenwood Barbers (+62 812-2230-2050)_";
