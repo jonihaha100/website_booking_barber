@@ -35,27 +35,26 @@ function doPost(e) {
     var durationMins = data.totalDuration || 45;
     var endTime = new Date(startTime.getTime() + (durationMins * 60 * 1000));
     
-    // Judul & Deskripsi Event (Gunakan Icon Pengingat / Reminder 🔔)
-    var eventTitle = "🔔 Pengingat Jadwal: Greenwood Barbers - " + (data.serviceName || "Grooming Ritual") + " (" + (data.guestName || "VIP Guest") + ")";
+    // Judul & Deskripsi Event (Jadwal Potong Rambut di Parlour, Bukan Online Meeting)
+    var eventTitle = "💈 Sesi Parlour: Greenwood Barbers - " + (data.serviceName || "Grooming Ritual") + " (" + (data.guestName || "VIP Guest") + ")";
     
     var description = 
-      "====================================\n" +
-      "GREENWOOD BARBERS • PENGINGAT JADWAL\n" +
-      "====================================\n" +
-      "🏛️ Sesi Tatap Muka Langsung di Parlour (Offline)\n" +
-      "TIDAK MENGGUNAKAN GOOGLE MEET / VIDEO CALL\n" +
-      "------------------------------------\n" +
-      "Kode Booking: " + (data.bookingCode || "-") + "\n" +
-      "Nama Tamu: " + (data.guestName || "-") + "\n" +
-      "No. WhatsApp: " + (data.guestPhone || "-") + "\n" +
-      "Email: " + (data.guestEmail || "-") + "\n" +
-      "Barber Bertugas: " + (data.barberName || "Bramantyo") + "\n" +
-      "Ritual Layanan: " + (data.serviceName || "-") + "\n" +
-      "Total Biaya: " + (data.totalPrice || "-") + "\n" +
-      "Catatan Khusus: " + (data.guestNotes || "Tidak ada") + "\n\n" +
-      "📍 Lokasi Parlour:\n" +
-      "Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, Bandung Barat\n" +
-      "Google Maps: https://maps.google.com/?q=Kota+Baru+Parahyangan+Padalarang\n\n" +
+      "==================================================\n" +
+      "💈 GREENWOOD BARBERS • JADWAL RESERVASI PARLOUR\n" +
+      "==================================================\n" +
+      "🏛️ SESI LAYANAN TATAP MUKA DI LOKASI (BUKAN ONLINE MEETING)\n" +
+      "--------------------------------------------------\n" +
+      "• Kode Booking  : " + (data.bookingCode || "-") + "\n" +
+      "• Nama Tamu     : " + (data.guestName || "-") + "\n" +
+      "• Master Barber : " + (data.barberName || "Bramantyo") + "\n" +
+      "• Paket Layanan : " + (data.serviceName || "-") + "\n" +
+      "• Jadwal Sesi   : " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB\n" +
+      "• Total Tagihan : " + (data.totalPrice || "-") + " (Bayar di tempat)\n" +
+      "• Catatan Tamu  : " + (data.guestNotes || "Tidak ada") + "\n\n" +
+      "📍 Lokasi Parlour (Buka di Google Maps):\n" +
+      "Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan\n" +
+      "https://maps.google.com/?q=Kota+Baru+Parahyangan+Padalarang\n\n" +
+      "🔔 Mohon hadir 5–10 menit sebelum jam sesi dimulai.\n" +
       "Concierge WhatsApp: +62 812-2230-2050\n";
       
     var location = data.location || "Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, West Bandung";
