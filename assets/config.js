@@ -21,7 +21,7 @@ const GREENWOOD_CONFIG = {
     parkingInfo: "7 minutes from Whoosh High-Speed Rail Padalarang Station & Padalarang Toll Gate. Ample complimentary private parking right in front of the parlour.",
     paymentNotice: "",
     cancellationNotice: "Kindly advise our concierge at least 3 hours prior if you need to reschedule.",
-    googleCalendarWebhookUrl: "https://script.google.com/macros/s/AKfycbz0dE6c_Tj5sHcwc4oEHRZwur3BMmE8XNDkmpV37XISEQ6Sdyco08AhSs9cgbWtyH0tzg/exec"
+    googleCalendarWebhookUrl: "https://script.google.com/macros/s/AKfycbwect-bFAQWQsuXbxhCGUEhUXlcs8dBnIKeKz0DsXY0bfLziMQSfV9_NJPIH58fvwH5pw/exec"
   },
 
   // 2. OPERATING HOURS (10 Hours Daily • TUESDAY CLOSED)
