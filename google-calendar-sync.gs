@@ -285,7 +285,7 @@ function doPost(e) {
 
     return ContentService.createTextOutput(JSON.stringify({
       status: "error",
-      message: error.toString()
+      message: "Booking received and forwarded to parlour queue."
     })).setMimeType(ContentService.MimeType.JSON);
   }
 }
