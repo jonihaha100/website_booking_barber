@@ -20,7 +20,7 @@
 // =========================================================================
 // Solusi 1 & 3: Notifikasi Instan & Sistem Alerting ke Telegram Pribadi Anda
 var DEV_TELEGRAM_BOT_TOKEN = "8871976803:AAHhACIfFGSzSQmzdWVulbthJ65K_7uXkhg"; // Bot @barber_greenwood_bot
-var DEV_TELEGRAM_CHAT_ID   = ""; // Masukkan Chat ID Anda (klik Start di @barber_greenwood_bot)
+var DEV_TELEGRAM_CHAT_ID   = "8678701390"; // Chat ID Syamhari Abidin
 
 // Solusi 2: Google Spreadsheet Master Backup Pribadi Anda
 // KOSONGKAN ("") jika ingin skrip OTOMATIS membuatkan file Google Sheet baru di Drive Anda!
