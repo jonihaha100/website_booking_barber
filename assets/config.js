@@ -2,23 +2,25 @@
  * GREENWOOD BARBERS — MASTER CONFIGURATION & DATA STORE
  * Kota Baru Parahyangan, Padalarang, West Bandung
  * Centralized business hours, contacts, grooming packages, master barbers, and booking engine.
+ * Rev 7 Menu & Copywriting (28 October 2026)
  */
 
 const GREENWOOD_CONFIG = {
   // 1. BRAND INFORMATION & OFFICIAL CONTACTS
   brand: {
     name: "Greenwood Barbers",
-    tagline: "The Gentlemen's Grooming Sanctuary",
+    tagline: "Bandung’s First Gentleman’s Retreat",
     location: "Ruko PancaTengah, Kota Baru Parahyangan",
     city: "Padalarang, West Bandung Regency 40553",
-    fullAddress: "Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, West Bandung 40553",
+    fullAddress: "Ruko PancaTengah, Jl. Parahyangan No.87, Kota Baru Parahyangan, Padalarang 40553",
     whatsappNumber: "6281222302050", // International format without +
     whatsappDisplay: "+62 812-2230-2050",
     phoneDisplay: "+62 812-2230-2050",
     email: "contact@greenwoodbarbers.com",
+    adminEmail: "admin@greenwood.id",
     mapsUrl: "https://www.google.com/maps/search/?api=1&query=Ruko+PancaTengah,+Kota+Baru+Parahyangan",
     mapsEmbedUrl: "https://maps.google.com/maps?q=-6.871273,107.466664&hl=en&z=17&output=embed",
-    parkingInfo: "7 minutes from Whoosh High-Speed Rail Padalarang Station & Padalarang Toll Gate. Ample complimentary private parking right in front of the parlour.",
+    parkingInfo: "7 minutes from Whoosh Padalarang and 5 minutes from the Padalarang toll exit. Free parking right in front of the door.",
     paymentNotice: "",
     cancellationNotice: "Kindly advise our concierge at least 3 hours prior if you need to reschedule.",
     googleCalendarWebhookUrl: "https://script.google.com/macros/s/AKfycbwect-bFAQWQsuXbxhCGUEhUXlcs8dBnIKeKz0DsXY0bfLziMQSfV9_NJPIH58fvwH5pw/exec"
@@ -33,163 +35,155 @@ const GREENWOOD_CONFIG = {
     closedDays: [2], // 0: Sun, 1: Mon, 2: Tue (CLOSED), 3: Wed, 4: Thu, 5: Fri, 6: Sat
     closedDayName: "Tuesday",
     dailySlots: [
-      "10:00", "10:45", "11:30", "12:15", "13:00", 
-      "13:45", "14:30", "15:15", "16:00", "16:45", 
-      "17:30", "18:15", "19:00"
+      "10:00", "10:30", "11:00", "11:30", "12:00", "12:30",
+      "13:00", "13:30", "14:00", "14:30", "15:00", "15:30",
+      "16:00", "16:30", "17:00", "17:30", "18:00", "18:25",
+      "18:45", "19:00", "19:15", "19:30"
     ],
-    scheduleText: "Wednesday &ndash; Monday: 10:00 &ndash; 20:00 WIB &bull; Tuesday: CLOSED"
+    scheduleText: "Wednesday &ndash; Monday: 10:00 &ndash; 20:00 WIB &bull; Closed Tuesdays."
   },
 
-  // 3. CURATED SIGNATURE RITUALS (SINGLE SELECTION)
-  // Base components: 'haircut', 'wash', 'styling', 'massage', 'shave', 'scalp', 'coloring'
+  // 3. REV 7 GROOMING SERVICES (SINGLE SELECTION)
+  // Components: 'haircut', 'wash', 'styling', 'massage', 'shave', 'scalp', 'mask'
   packages: [
     {
-      id: "pkg-classic",
-      name: "Classic Haircut & Styling",
+      id: "pkg-cut",
+      name: "The Cut",
       duration: 45,
-      price: 110000,
+      price: 240000,
       components: ["haircut", "wash", "styling"],
-      badge: "Essential Ritual",
-      summary: "Bespoke cranial consultation, botanical hair wash, precision shear & clipper cut, razor detailing, and executive finish.",
+      badge: "The Flagship",
+      summary: "A conversation, a proper wash, the cut, a straight-razor neckline, a hot towel and styling.",
       steps: [
-        "Consultation on cranial anatomy and natural growth patterns.",
-        "Botanical scalp wash with invigorating herbal extracts.",
-        "Precision scissor and clipper craftsmanship tailored to facial contours.",
-        "Straight-razor detailing of the neckline and sideburn perimeters.",
-        "Blow-dry styling with artisan matte paste or natural pomade."
+        "A conversation at the mirror; nothing is cut until we agree",
+        "Cold towel",
+        "Shampoo, conditioner and scalp massage",
+        "Your haircut, scissor and clipper",
+        "Hairline outlined, neck shaved with a straight razor",
+        "Ears, nose and brows",
+        "Hot towel",
+        "Neck and shoulder massage",
+        "Styled, with a quick lesson for home",
+        "Your cut saved on your guest card"
       ]
     },
     {
-      id: "pkg-signature",
-      name: "The Signature Grooming Ritual",
-      duration: 60,
-      price: 150000,
-      components: ["haircut", "wash", "styling", "massage"],
-      badge: "Most Popular",
-      summary: "Complete Classic Cut paired with therapeutic head & neck acupressure and aromatherapy lavender hot-linen wrap.",
+      id: "pkg-shave-trim",
+      name: "The Shave / Trim",
+      duration: 30,
+      price: 180000,
+      components: ["shave"],
+      badge: "Your Choice",
+      summary: "A straight-razor shave or a beard trim. Tell your barber at the mirror. Same time, same price.",
       steps: [
-        "Complete Classic Haircut & Styling ritual.",
-        "Ceremonial lavender aromatherapy hot-linen compress to open pores and induce tranquility.",
-        "Restorative head, neck, and shoulder acupressure massage.",
-        "Invigorating rosemary follicle stimulation tonic.",
-        "Executive styling finish with premium grooming pomade."
+        "Shave: hot towel · pre-shave oil · brushed lather · first pass with the grain · second pass against it · cold towel · balm · ears, nose and brows · face massage.",
+        "Trim: hot towel · trim and shape · lather · straight-razor lines on the cheeks and neck · ears, nose and brows · oil and balm"
       ]
     },
     {
-      id: "pkg-executive",
-      name: "The Executive Complete Ritual",
+      id: "pkg-cut-shave-trim",
+      name: "The Cut & Shave / Trim",
       duration: 75,
-      price: 210000,
-      components: ["haircut", "wash", "styling", "massage", "shave"],
-      badge: "Curated Recommendation",
-      summary: "Bespoke Haircut, hot-towel straight-razor shave or beard contouring, and neck relaxation therapy.",
+      price: 420000,
+      components: ["haircut", "wash", "styling", "shave", "massage"],
+      badge: "The Reset",
+      summary: "The Cut, then a shave or trim in the same chair, with a ten-minute back and shoulder massage.",
       steps: [
-        "Comprehensive consultation on cranial silhouette and beard contouring.",
-        "Precision haircut ritual and restorative hair wash.",
-        "Pre-shave botanical oils and warm lather whipped with silvertip brush.",
-        "Traditional hot-linen straight-razor wet shave with surgical carbon steel.",
-        "Soothing cervical and temple acupressure massage.",
-        "Pore-tightening cold towel wrap, post-shave balm, and executive styling."
+        "Everything in The Cut",
+        "A shave or beard trim, your choice at the mirror",
+        "A 10-minute back and shoulder massage",
+        "Styled last, so you walk out fresh"
       ]
     },
     {
-      id: "pkg-royal",
-      name: "The Royal Treatment Immersion",
-      duration: 90,
-      price: 270000,
-      components: ["haircut", "wash", "styling", "massage", "shave", "scalp"],
-      badge: "Comprehensive Immersion",
-      summary: "The complete immersion: Bespoke Haircut, traditional hot-linen shave, deep purifying scalp detox, and full upper-body relaxation.",
+      id: "pkg-ritual",
+      name: "The Ritual",
+      duration: 95,
+      price: 590000,
+      components: ["haircut", "wash", "styling", "shave", "massage", "scalp", "mask"],
+      badge: "Everything We Do",
+      summary: "The cut, a shave or trim, a steamed hair spa, and a black mask while we work on your back and shoulders.",
       steps: [
-        "Comprehensive scalp dermis examination and follicle analysis.",
-        "Botanical scalp detox scrub removing sebum accumulation and dead cells.",
-        "Precision scissor cut sculpted to facial proportions.",
-        "Ceremonial wet shave with essential oil hot-linen towels.",
-        "Deep restorative head, cervical, and shoulder acupressure.",
-        "Nutritive dermal tonic, ice-cold pore seal, and bespoke styling finish."
+        "Everything in The Cut",
+        "A shave or beard trim",
+        "Hair spa during the wash",
+        "Black mask, with a back and shoulder massage while it dries",
+        "Styled last"
       ]
     }
   ],
 
-  // 4. A LA CARTE GROOMING ADD-ONS
+  // 4. REV 7 A LA CARTE GROOMING ADD-ONS
   // Can only be selected if the component is NOT already included in the selected package
   addons: [
     {
-      id: "addon-shave",
-      name: "Traditional Hot Towel Shave",
-      duration: 30,
-      price: 70000,
-      component: "shave",
-      summary: "Ceremonial straight-razor shave with warm lather, hot-linen wrap, and restorative aftershave balm."
-    },
-    {
       id: "addon-massage",
-      name: "Extra Head & Shoulder Massage",
-      duration: 20,
-      price: 45000,
+      name: "Back & Shoulder Massage",
+      duration: 15,
+      price: 60000,
       component: "massage",
-      summary: "Targeted acupressure across temples, neck, and shoulder blades to dissolve muscular fatigue."
+      summary: "Shoulders, then upper back, then a hot towel across the neck. Fifteen minutes for the weight you carry all week."
     },
     {
-      id: "addon-scalp",
-      name: "Scalp Treatment & Detox Therapy",
-      duration: 25,
-      price: 65000,
-      component: "scalp",
-      summary: "Deep botanical dermis purification removing excess sebum, flaking, and environmental impurities."
-    },
-    {
-      id: "addon-color",
-      name: "Natural Grey Blending & Camouflage",
-      duration: 35,
+      id: "addon-mask",
+      name: "Black Mask",
+      duration: 20,
       price: 90000,
-      component: "coloring",
-      summary: "Discreet demi-permanent toning formulation for an organic, refined, and youthful salt-and-pepper look."
+      component: "mask",
+      summary: "A cleansing mask that dries while we massage your neck and shoulders, finished with a cold towel. Your face feels clean and fresh."
+    },
+    {
+      id: "addon-spa",
+      name: "Hair Spa",
+      duration: 20,
+      price: 90000,
+      component: "scalp",
+      summary: "A hair mask worked in, a scalp massage, then ten minutes of warm steam."
     }
   ],
 
-  // 5. BARBERS ROSTER
+  // 5. BARBERS ROSTER (Rev 7 Voice)
   barbers: [
     {
       id: "any",
-      name: "Any Available Barber",
+      name: "First available barber",
       role: "First Available Senior Barber",
-      badge: "Recommended • Maximum Schedule Flexibility",
+      badge: "We’ll match you with the best barber free at your time.",
       avatarUrl: "assets/greenwood_monogram_cropped.png"
     },
     {
       id: "bramantyo",
       name: "Bramantyo",
       role: "Senior Barber",
-      badge: "Classic Scissor & Scissor-Over-Comb",
+      badge: "Classic scissor cuts",
       avatarUrl: "assets/barber_bramantyo.jpg"
     },
     {
       id: "rian",
       name: "Rian Pratama",
       role: "Senior Barber",
-      badge: "Precision Fade & Taper Specialist",
+      badge: "Fades and tapers",
       avatarUrl: "assets/barber_rian.jpg"
     },
     {
       id: "dimas",
       name: "Dimas Setiawan",
       role: "Senior Barber",
-      badge: "Traditional Hot-Towel Wet Shave",
+      badge: "Hot-towel shaves",
       avatarUrl: "assets/barber_dimas.jpg"
     },
     {
       id: "farhan",
       name: "Farhan Akbar",
       role: "Barber",
-      badge: "Contemporary Texture & Styling",
+      badge: "Texture and styling",
       avatarUrl: "assets/barber_farhan.jpg"
     },
     {
       id: "aldi",
       name: "Aldi Maulana",
       role: "Barber",
-      badge: "Beard Sculpting & Perimeter Detailing",
+      badge: "Beard shaping and clean lines",
       avatarUrl: "assets/barber_aldi.jpg"
     }
   ]
@@ -217,7 +211,7 @@ const GreenwoodBookingStore = {
     } catch (e) {
       console.warn("Error reading bookings from localStorage:", e);
     }
-    // Seed initial realistic appointments so schedule availability is authentic
+    // Seed initial appointments so schedule availability is authentic
     const seed = this.getSeedBookings();
     this.saveBookings(seed);
     return seed;
@@ -238,16 +232,13 @@ const GreenwoodBookingStore = {
   // Add new confirmed booking
   addBooking: function(bookingData) {
     const list = this.getBookings();
-    if (!bookingData.status) {
-      bookingData.status = "Confirmed";
-    }
     list.push(bookingData);
     this.saveBookings(list);
-    return bookingData;
+    return true;
   },
 
-  // Update booking status ('Confirmed', 'Completed', 'Cancelled')
-  updateStatus: function(bookingCode, status) {
+  // Update booking status
+  updateBookingStatus: function(bookingCode, status) {
     const list = this.getBookings();
     const item = list.find(b => b.bookingCode === bookingCode);
     if (item) {
@@ -280,6 +271,54 @@ const GreenwoodBookingStore = {
     const dd = String(now.getDate()).padStart(2, '0');
     const randomHex = Math.floor(1000 + Math.random() * 9000);
     return `GWB-${yy}${mm}${dd}-${randomHex}`;
+  },
+
+  // Get dynamic slot list for duration (following real service length)
+  // Ensures last slot allows completion before 20:00 (e.g. 95 min ritual -> last slot 18:25)
+  getSlotsForDuration: function(totalDurationMinutes) {
+    const openH = GREENWOOD_CONFIG.hours.openHour; // 10
+    const closeH = GREENWOOD_CONFIG.hours.closeHour; // 20
+    const startMins = openH * 60; // 600
+    const endMins = closeH * 60; // 1200
+    const maxStartMins = endMins - totalDurationMinutes;
+
+    const pad = (n) => String(n).padStart(2, '0');
+    const toTimeStr = (m) => `${pad(Math.floor(m / 60))}:${pad(m % 60)}`;
+
+    let slots = [];
+    
+    // Determine natural interval based on duration
+    let step = 30;
+    if (totalDurationMinutes === 45) {
+      step = 45;
+    } else if (totalDurationMinutes === 30) {
+      step = 30;
+    } else if (totalDurationMinutes === 75) {
+      step = 75;
+    } else if (totalDurationMinutes === 95) {
+      step = 95;
+    }
+
+    let cur = startMins;
+    while (cur <= maxStartMins) {
+      slots.push(toTimeStr(cur));
+      cur += step;
+    }
+
+    // Always include the maximum latest start time if not already present
+    // For 95 min Ritual: 1200 - 95 = 1105 min (18:25 WIB)
+    const latestSlotStr = toTimeStr(maxStartMins);
+    if (!slots.includes(latestSlotStr) && maxStartMins >= startMins) {
+      slots.push(latestSlotStr);
+      // Sort chronologically
+      slots.sort((a, b) => {
+        const [ah, am] = a.split(':').map(Number);
+        const [bh, bm] = b.split(':').map(Number);
+        return (ah * 60 + am) - (bh * 60 + bm);
+      });
+    }
+
+    return slots;
   },
 
   // Verify availability for date, time slot, duration, and barber
@@ -316,7 +355,7 @@ const GreenwoodBookingStore = {
       }
       return true;
     } else {
-      // "Any Available Barber": Check if AT LEAST ONE barber is free across the entire duration
+      // "First available barber": Check if AT LEAST ONE barber is free across the entire duration
       let availableBarberCount = 0;
       for (const bId of activeBarbers) {
         let isBarberFree = true;
@@ -350,29 +389,29 @@ const GreenwoodBookingStore = {
 
     return [
       {
-        bookingCode: "GWB-261019-1284",
+        bookingCode: "GWB-261028-1284",
         guestName: "Hartono Kusumo",
         guestPhone: "081289123456",
         dateKey: dateKeyTomorrow,
         timeSlot: "11:30",
-        totalDuration: 60,
+        totalDuration: 45,
         barberId: "bramantyo",
         assignedBarberId: "bramantyo",
-        packageName: "The Signature Grooming Ritual",
-        totalPrice: 150000,
+        packageName: "The Cut",
+        totalPrice: 240000,
         timestamp: Date.now() - 3600000
       },
       {
-        bookingCode: "GWB-261019-5521",
+        bookingCode: "GWB-261028-5521",
         guestName: "Adrian Wicaksono",
         guestPhone: "081377889900",
         dateKey: dateKeyTomorrow,
-        timeSlot: "15:15",
+        timeSlot: "15:00",
         totalDuration: 75,
         barberId: "dimas",
         assignedBarberId: "dimas",
-        packageName: "The Executive Complete Ritual",
-        totalPrice: 210000,
+        packageName: "The Cut & Shave / Trim",
+        totalPrice: 420000,
         timestamp: Date.now() - 7200000
       }
     ];

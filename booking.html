@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <title>Reserve Appointment &bull; Greenwood Barbers &bull; Kota Baru Parahyangan</title>
-  <meta name="description" content="Bespoke online reservation for Greenwood Barbers Kota Baru Parahyangan. Select signature grooming rituals, choose your artisan & schedule, and receive instant pass.">
+  <title>Reserve a Chair &middot; Greenwood Barbers</title>
+  <meta name="description" content="Book your haircut or shave online in a minute. Choose your service, your barber and your time.">
   <link rel="icon" type="image/png" href="assets/greenwood_monogram_cropped.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/greenwood.css?v=20261025_v3fixed">
-  <script src="assets/config.js?v=20261025_v3fixed"></script>
+  <script src="assets/config.js?v=20261030_rev7"></script>
 
   <style>
     /* ==========================================================================
@@ -1265,10 +1265,10 @@
 
     <!-- COMPACT BOOKING HEADER -->
     <div class="booking-header">
-      <span class="booking-eyebrow">Gentlemen's Appointment Suite &bull; Kota Baru Parahyangan</span>
-      <h1 class="booking-title">Reserve Your Private Chair</h1>
+      <span class="booking-eyebrow">Reserve a Chair &bull; Kota Baru Parahyangan</span>
+      <h1 class="booking-title">Reserve your chair</h1>
       <p class="booking-sub">
-        Select your grooming ritual, choose your artisan, and confirm your dedicated schedule without queues.
+        Pick your service, your barber and your time. It takes about a minute, and your chair will be waiting.
       </p>
     </div>
 
@@ -1279,11 +1279,11 @@
       </div>
       <button type="button" class="step-item active" id="stepNode1" onclick="navigateToStep(1)">
         <div class="step-circle"><span id="stepIcon1">1</span></div>
-        <span class="step-label">1. Select Ritual</span>
+        <span class="step-label">1. Service</span>
       </button>
       <button type="button" class="step-item" id="stepNode2" onclick="navigateToStep(2)">
         <div class="step-circle"><span id="stepIcon2">2</span></div>
-        <span class="step-label">2. Select Barber</span>
+        <span class="step-label">2. Barber</span>
       </button>
       <button type="button" class="step-item" id="stepNode3" onclick="navigateToStep(3)">
         <div class="step-circle"><span id="stepIcon3">3</span></div>
@@ -1291,7 +1291,7 @@
       </button>
       <button type="button" class="step-item" id="stepNode4" onclick="navigateToStep(4)">
         <div class="step-circle"><span id="stepIcon4">4</span></div>
-        <span class="step-label">4. Details &amp; Pass</span>
+        <span class="step-label">4. Your Details</span>
       </button>
     </div>
 
@@ -1301,11 +1301,11 @@
     <div class="flow-panel active" id="panelStep1">
       <div class="panel-card">
         <div class="panel-header-row">
-          <h2 class="panel-title">Choose Your Grooming Ritual</h2>
+          <h2 class="panel-title">Choose your service</h2>
           <span class="panel-badge">Step 1 of 4</span>
         </div>
         <p style="font-size: 14.5px; color: var(--text-muted); margin-bottom: 20px;">
-          Select one signature package below. Complementary a la carte add-ons may be appended afterward.
+          Pick one. You can add a little more below.
         </p>
 
         <!-- Radio Selection for Packages -->
@@ -1313,10 +1313,15 @@
           <!-- Dynamically populated from GREENWOOD_CONFIG.packages -->
         </div>
 
+        <!-- Bundle Package Callout -->
+        <div id="cutShaveNotice" style="display: none; background: rgba(197, 155, 72, 0.1); border: 1px solid var(--accent-gold); border-radius: 6px; padding: 12px 16px; margin: 14px 0; font-size: 13.5px; color: var(--accent-gold-bright); text-align: center;">
+          Cut + Shave / Trim is our package. Same price, plus a 10-minute back and shoulder massage.
+        </div>
+
         <!-- Add-on List with Conflict Blocking -->
         <div class="addons-heading">
-          <span>A La Carte Grooming Add-ons</span>
-          <span class="addons-sub-note">Services already included in your chosen ritual are automatically disabled</span>
+          <span>Add a little more</span>
+          <span class="addons-sub-note">Anything already in your service is greyed out.</span>
         </div>
         <div id="addonListContainer">
           <!-- Dynamically populated from GREENWOOD_CONFIG.addons -->
@@ -1325,7 +1330,7 @@
         <!-- Step 1 Navigation Action -->
         <div class="step-actions-row">
           <button type="button" class="btn-step-next" onclick="navigateToStep(2)">
-            Proceed to Select Barber (Step 2) &rarr;
+            Next: choose your barber &rarr;
           </button>
         </div>
       </div>
@@ -1337,29 +1342,29 @@
     <div class="flow-panel" id="panelStep2">
       <div class="panel-card">
         <div class="panel-header-row">
-          <h2 class="panel-title">Select Your Artisan Barber</h2>
+          <h2 class="panel-title">Who would you like?</h2>
           <span class="panel-badge">Step 2 of 4</span>
         </div>
 
         <p style="font-size: 14.5px; color: var(--text-muted); margin-bottom: 18px;">
-          Choose your preferred artisan or select Any Available Barber for maximum schedule flexibility.
+          Pick your barber, or take the first available for the most times to choose from.
         </p>
 
-        <!-- Banner: Any Available Barber (Recommended Default at Top) -->
+        <!-- Banner: First available barber (Default) -->
         <div class="barber-any-banner selected" id="barberCard-any" onclick="selectBarber('any')">
           <div class="barber-any-img-wrap">
-            <img src="assets/greenwood_monogram_cropped.png" alt="Any Available Barber" class="barber-any-img">
+            <img src="assets/greenwood_monogram_cropped.png" alt="First available barber" class="barber-any-img">
           </div>
           <div class="barber-any-info">
-            <div class="barber-any-title">Any Available Barber (Default)</div>
-            <div class="barber-any-desc">First available senior barber suited to your selected schedule. Recommended for flexibility.</div>
+            <div class="barber-any-title">First available barber</div>
+            <div class="barber-any-desc">We’ll match you with the best barber free at your time.</div>
           </div>
           <div class="barber-check-icon">&#10003;</div>
         </div>
 
         <div style="margin-bottom: 12px;">
           <div style="font-size: 13px; color: var(--text-muted);">
-            Or select a dedicated Barber &amp; grooming specialization:
+            Or choose your barber:
           </div>
         </div>
 
@@ -1371,10 +1376,10 @@
         <!-- Step 2 Navigation Actions -->
         <div class="step-actions-row">
           <button type="button" class="btn-step-back" onclick="navigateToStep(1)">
-            &larr; Back to Rituals
+            &larr; Back
           </button>
           <button type="button" class="btn-step-next" onclick="navigateToStep(3)">
-            Proceed to Date &amp; Time (Step 3) &rarr;
+            Next: pick a time &rarr;
           </button>
         </div>
       </div>
@@ -1386,16 +1391,16 @@
     <div class="flow-panel" id="panelStep3">
       <div class="panel-card">
         <div class="panel-header-row">
-          <h2 class="panel-title">Select Date &amp; Appointment Time</h2>
+          <h2 class="panel-title">When suits you?</h2>
           <span class="panel-badge">Step 3 of 4</span>
         </div>
 
         <div class="cal-section-header">
-          <span>Choose Your Date</span>
-          <span class="cal-closed-notice">&#9888; Tuesday Weekly Closure</span>
+          <span>Choose a day</span>
+          <span class="cal-closed-notice">Closed on Tuesdays</span>
         </div>
         <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 14px;">
-          Please click any available date within our 14-day booking window:
+          Book any day in the next two weeks.
         </p>
 
         <div class="calendar-strip-wrap">
@@ -1406,14 +1411,14 @@
           <button type="button" class="btn-cal-nav" id="btnCalNext" onclick="navigateCalendarWeek(1)" aria-label="Next Week">&rarr;</button>
         </div>
         <div style="font-size: 12px; color: var(--text-muted); text-align: center; margin-bottom: 24px;" id="calendarWeekCaption">
-          Showing Week 1 of 2 (14 Days Available)
+          Week 1 of 2
         </div>
 
         <!-- Single Grid of Available Time Slots -->
         <div class="slots-container" id="slotsSectionWrapper">
           <div class="slots-header-row">
-            <span class="slots-title" id="selectedDateTitle">Available Time Slots</span>
-            <span class="slots-legend">Duration: <strong id="totalDurationBadge">45 Mins</strong></span>
+            <span class="slots-title" id="selectedDateTitle">Available times</span>
+            <span class="slots-legend">Your visit: <strong id="totalDurationBadge">45</strong> minutes</span>
           </div>
           <div class="time-grid-single" id="timeSlotsGridContainer">
             <!-- Dynamically populated available slots -->
@@ -1423,10 +1428,10 @@
         <!-- Step 3 Navigation Actions -->
         <div class="step-actions-row">
           <button type="button" class="btn-step-back" onclick="navigateToStep(2)">
-            &larr; Back to Barber
+            &larr; Back
           </button>
           <button type="button" class="btn-step-next" onclick="navigateToStep(4)">
-            Proceed to Details &amp; Confirmation (Step 4) &rarr;
+            Next: your details &rarr;
           </button>
         </div>
       </div>
@@ -1438,28 +1443,28 @@
     <div class="flow-panel" id="panelStep4">
       <div class="panel-card" id="step3FormWrapper">
         <div class="panel-header-row">
-          <h2 class="panel-title">Guest Details &amp; Confirmation</h2>
+          <h2 class="panel-title">Almost there</h2>
           <span class="panel-badge">Step 4 of 4</span>
         </div>
 
-        <!-- STRUCTURED RESERVATION SUMMARY (CLIENT FEEDBACK: STACKED LAYOUT) -->
+        <!-- STRUCTURED RESERVATION SUMMARY -->
         <div class="reservation-summary-card">
           <div class="summary-card-header">
-            <span class="summary-card-eyebrow">Reservation Summary</span>
-            <span class="summary-price-highlight" id="oneLineTotalPrice">Rp 150,000</span>
+            <span class="summary-card-eyebrow">Your reservation</span>
+            <span class="summary-price-highlight" id="oneLineTotalPrice">Rp 240,000</span>
           </div>
           <div class="summary-details-list">
             <div class="summary-detail-row">
-              <span class="summary-detail-label">Treatment:</span>
-              <span class="summary-detail-val" id="summaryValTreatment">The Signature Grooming Ritual</span>
+              <span class="summary-detail-label">Service:</span>
+              <span class="summary-detail-val" id="summaryValTreatment">The Cut</span>
             </div>
             <div class="summary-detail-row">
               <span class="summary-detail-label">Barber:</span>
-              <span class="summary-detail-val" id="summaryValBarber">Any Available Barber</span>
+              <span class="summary-detail-val" id="summaryValBarber">First available barber</span>
             </div>
             <div class="summary-detail-row">
-              <span class="summary-detail-label">Day &amp; Time for relaxation:</span>
-              <span class="summary-detail-val" id="summaryValSchedule">Select Schedule in Step 3</span>
+              <span class="summary-detail-label">Date &amp; time:</span>
+              <span class="summary-detail-val" id="summaryValSchedule">Pick a time in step 3</span>
             </div>
           </div>
           <!-- Hidden compatibility element for any legacy references -->
@@ -1470,35 +1475,35 @@
         <form id="bookingFinalForm" onsubmit="handleBookingSubmission(event)">
           <div class="form-grid-2">
             <div class="form-group">
-              <label class="form-label" for="guestName">Full Name *</label>
-              <input type="text" id="guestName" class="form-input" placeholder="e.g. Jonathan Bramantyo" required>
+              <label class="form-label" for="guestName">Full name *</label>
+              <input type="text" id="guestName" class="form-input" placeholder="How should we greet you?" required>
             </div>
             <div class="form-group">
-              <label class="form-label" for="guestPhone">WhatsApp / Mobile Number *</label>
+              <label class="form-label" for="guestPhone">WhatsApp number *</label>
               <input type="tel" id="guestPhone" class="form-input" placeholder="e.g. 0812-xxxx-xxxx" required>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="guestEmail">Alamat Email (Pengingat Jadwal &amp; Konfirmasi RSVP) *</label>
-            <input type="email" id="guestEmail" class="form-input" placeholder="contoh: nama.anda@gmail.com" required>
+            <label class="form-label" for="guestEmail">Email (for your calendar invite and reminders) *</label>
+            <input type="email" id="guestEmail" class="form-input" placeholder="e.g. name@gmail.com" required>
             <p style="font-size: 12px; color: var(--text-muted); margin-top: 6px; line-height: 1.5;">
-              🔔 <em>Pengingat Otomatis Google Calendar: Jadwal potong rambut akan langsung terpasang di kalender Google Anda dengan tombol konfirmasi kehadiran ([Yes] / [No]).</em>
+              🔔 <em>We’ve added your appointment to Google Calendar, with reminders 2 hours and 30 minutes before.</em>
             </p>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="guestNotes">Special Requests / Hair Preferences (Optional)</label>
-            <textarea id="guestNotes" class="form-input" rows="2" placeholder="e.g. Scissor-taper preference, sensitive skin, or beverage requests"></textarea>
+            <label class="form-label" for="guestNotes">Anything we should know? (optional)</label>
+            <textarea id="guestNotes" class="form-input" rows="2" placeholder="A style you like, a photo you’ll bring, sensitive skin…"></textarea>
           </div>
 
           <!-- Submit Buttons -->
           <div class="step-actions-row">
             <button type="button" class="btn-step-back" onclick="navigateToStep(3)">
-              &larr; Change Schedule (Step 3)
+              &larr; Change time
             </button>
             <button type="submit" class="btn-step-next" id="btnSubmitBooking">
-              Confirm Reservation &amp; Generate Pass &rarr;
+              Confirm my chair &rarr;
             </button>
           </div>
         </form>
@@ -1513,13 +1518,13 @@
             &#10003;
           </div>
           <div style="display: inline-block; padding: 4px 14px; border-radius: 20px; background: rgba(197, 155, 72, 0.12); border: 1px solid var(--accent-gold); color: var(--accent-gold-bright); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; margin-bottom: 12px;">
-            Reservation Confirmed &bull; Greenwood Barbers
+            Confirmed &bull; Greenwood Barbers
           </div>
           <h2 style="font-family: var(--font-serif); font-size: 32px; color: var(--text-main); margin-bottom: 8px;">
-            Your Appointment is Confirmed!
+            Your chair is reserved.
           </h2>
           <p style="font-size: 15px; color: var(--text-muted); max-width: 600px; margin: 0 auto 12px; line-height: 1.7;">
-            Your chair and Barber have been reserved exclusively for you. <strong style="color: var(--accent-gold-bright);">Please arrive at our parlour according to your chosen schedule.</strong>
+            Your barber will be ready for you. <strong style="color: var(--accent-gold-bright);">See you soon.</strong>
           </p>
         </div>
 
@@ -1527,18 +1532,18 @@
           <div class="pass-top-bar">
             <div>
               <div class="pass-brand-title">GREENWOOD BARBERS</div>
-              <div style="font-size: 11px; letter-spacing: 1.5px; color: var(--accent-gold); text-transform: uppercase;">Official Reservation Pass</div>
+              <div style="font-size: 11px; letter-spacing: 1.5px; color: var(--accent-gold); text-transform: uppercase;">Your Greenwood pass</div>
             </div>
-            <div class="pass-code-pill" id="passCodeVal">GWB-261018-0000</div>
+            <div class="pass-code-pill" id="passCodeVal">GWB-261028-0000</div>
           </div>
 
           <div class="pass-content-grid">
             <div>
-              <div class="pass-item-label">Guest Name</div>
+              <div class="pass-item-label">Guest</div>
               <div class="pass-item-val" id="passGuestName">-</div>
             </div>
             <div>
-              <div class="pass-item-label">WhatsApp Contact</div>
+              <div class="pass-item-label">WhatsApp</div>
               <div class="pass-item-val" id="passGuestPhone">-</div>
             </div>
             <div>
@@ -1546,15 +1551,15 @@
               <div class="pass-item-val" id="passBarberName">-</div>
             </div>
             <div>
-              <div class="pass-item-label">Session Schedule</div>
+              <div class="pass-item-label">Date &amp; time</div>
               <div class="pass-item-val" id="passScheduleTime">-</div>
             </div>
             <div>
-              <div class="pass-item-label">Treatment / Ritual</div>
+              <div class="pass-item-label">Service</div>
               <div class="pass-item-val" id="passServicesList">-</div>
             </div>
             <div>
-              <div class="pass-item-label">Total Amount</div>
+              <div class="pass-item-label">Total</div>
               <div class="pass-item-val" style="color: var(--accent-gold-bright); font-size: 18px;" id="passTotalPrice">-</div>
             </div>
           </div>
@@ -1562,25 +1567,25 @@
           <!-- ARRIVAL ADVISORY -->
           <div style="background: rgba(197, 155, 72, 0.08); border: 1px solid rgba(197, 155, 72, 0.22); border-radius: 8px; padding: 14px 18px; margin: 20px 0 16px; text-align: left; font-size: 13.5px; line-height: 1.6;">
             <div style="color: var(--accent-gold); font-weight: 700; margin-bottom: 6px; font-size: 13px; letter-spacing: 1px; text-transform: uppercase;">
-              &#128205; Arrival Advisory:
+              &#128205; Before you come
             </div>
             <div style="color: var(--text-main); margin-bottom: 4px;">
-              &bull; <strong>Location:</strong> Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, West Bandung (<a href="https://www.google.com/maps/search/?api=1&query=Ruko+PancaTengah,+Kota+Baru+Parahyangan" target="_blank" rel="noopener" style="color: var(--accent-gold-bright); text-decoration: underline;">Open in Google Maps &nearr;</a>).
+              &bull; <strong>Where:</strong> Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan. Free parking at the door. (<a href="https://www.google.com/maps/search/?api=1&query=Ruko+PancaTengah,+Kota+Baru+Parahyangan" target="_blank" rel="noopener" style="color: var(--accent-gold-bright); text-decoration: underline;">Open in Google Maps &nearr;</a>)
             </div>
             <div style="color: var(--text-main);">
-              &bull; <strong>Advisory:</strong> Please arrive 5–10 minutes prior to your allocated session for an unhurried consultation.
+              &bull; <strong>When:</strong> Come 5 to 10 minutes early. Your coffee is on us, before your time starts.
             </div>
           </div>
 
           <div class="pass-footer-strip" style="font-size: 12.5px; color: var(--text-muted);">
-            <strong>Parlour Concierge Desk:</strong> +62 812-2230-2050 &bull; Open Wednesday&ndash;Monday 10:00&ndash;20:00 WIB (Tuesday: CLOSED).
+            Questions? WhatsApp +62 812-2230-2050 &bull; Open Wednesday&ndash;Monday, 10:00&ndash;20:00
           </div>
 
           <div class="pass-print-watermark" style="display: none;">
-            Official Reservation Pass &bull; Greenwood Barbers Kota Baru Parahyangan &bull; Authorized by Concierge
+            Greenwood Barbers &bull; Kota Baru Parahyangan
           </div>
 
-          <!-- AUTOMATED CONFIRMATION & INTEGRATION STATUS (DUAL AUTOMATED VALIDATION) -->
+          <!-- AUTOMATED CONFIRMATION & INTEGRATION STATUS -->
           <div class="pass-actions-bar" style="display: flex; flex-direction: column; gap: 16px; margin-top: 24px;">
             
             <!-- Dual Validation Status Container with Live Feedback -->
@@ -1592,15 +1597,15 @@
                   <span style="font-size: 20px;">🏛️</span>
                   <div>
                     <div style="font-family: var(--font-serif); font-size: 15px; font-weight: 700; color: var(--accent-gold-bright); letter-spacing: 0.5px;">
-                      Automated Dual Confirmation System
+                      Two reminders, sent for you
                     </div>
                     <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 1px;">
-                      In-Person Parlour Grooming Session (Physical Appointment)
+                      In-person appointment
                     </div>
                   </div>
                 </div>
                 <span id="passSyncOverallBadge" style="font-size: 11px; color: #4ade80; font-weight: 700; background: rgba(74, 222, 128, 0.12); padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(74, 222, 128, 0.3); text-transform: uppercase; letter-spacing: 0.5px;">
-                  ✓ Automated Active
+                  ✓ On
                 </span>
               </div>
 
@@ -1612,14 +1617,14 @@
                 <div style="flex: 1;">
                   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
                     <div style="font-family: var(--font-serif); font-size: 14.5px; font-weight: 700; color: #f5f4ef;">
-                      Confirmation 1: Google Calendar &amp; Email Invitation
+                      Calendar invite by email
                     </div>
                     <span id="passGcalStatusBadge" style="font-size: 11px; color: #4ade80; background: rgba(74, 222, 128, 0.12); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(74, 222, 128, 0.3); font-weight: 600;">
-                      ✓ Scheduled on Calendar
+                      ✓ Added
                     </span>
                   </div>
                   <div style="font-size: 12.5px; color: var(--text-muted); line-height: 1.55; margin-top: 3px;">
-                    Your appointment has been automatically scheduled in Google Calendar for <strong id="passGuestEmailNotice" style="color: var(--accent-gold); font-weight: 600;">-</strong> with notification reminders 30 mins &amp; 2 hours prior to the session.
+                    We’ve added your appointment to Google Calendar, with reminders 2 hours and 30 minutes before.
                   </div>
                 </div>
               </div>
@@ -1632,14 +1637,14 @@
                 <div style="flex: 1;">
                   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
                     <div style="font-family: var(--font-serif); font-size: 14.5px; font-weight: 700; color: #f5f4ef;">
-                      Confirmation 2: WhatsApp Reminder &amp; Confirmation
+                      WhatsApp confirmation
                     </div>
                     <span id="passWaStatusBadge" style="font-size: 11px; color: #25d366; background: rgba(37, 211, 102, 0.12); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(37, 211, 102, 0.3); font-weight: 600;">
-                      ✓ WhatsApp Dispatched
+                      ✓ Sent
                     </span>
                   </div>
                   <div style="font-size: 12.5px; color: var(--text-muted); line-height: 1.55; margin-top: 3px;">
-                    Appointment details and chair readiness confirmation dispatched to WhatsApp (<strong id="passGuestPhoneNotice" style="color: #25d366; font-weight: 600;">-</strong>) by Greenwood Barbers Concierge (+62 812-2230-2050).
+                    Our front desk (+62 812-2230-2050) will confirm on WhatsApp. Just reply YES.
                   </div>
                 </div>
               </div>
@@ -1654,10 +1659,10 @@
             <!-- Action Navigation Buttons -->
             <div style="display: flex; gap: 12px; flex-wrap: wrap; width: 100%; margin-top: 6px;">
               <button type="button" class="btn-step-back" onclick="resetBookingSession()" style="flex: 1; min-width: 160px;">
-                + Make Another Reservation
+                + Book another chair
               </button>
               <a href="index.html" class="btn-step-back" style="flex: 1; min-width: 150px; text-decoration: none; text-align: center;">
-                Return to Home &rarr;
+                Back to home &rarr;
               </a>
             </div>
           </div>
@@ -1673,20 +1678,19 @@
        ========================================================================== -->
   <div class="info-modal-backdrop" id="pkgInfoModal" onclick="closePkgModal(event)">
     <div class="info-modal-box">
-      <h3 class="info-modal-title" id="modalPkgTitle">Ritual Details</h3>
-      <div class="info-modal-meta" id="modalPkgMeta">45 Mins &bull; Rp 110,000</div>
+      <h3 class="info-modal-title" id="modalPkgTitle">What’s included</h3>
+      <div class="info-modal-meta" id="modalPkgMeta">45 Mins &bull; Rp 240,000</div>
       <ul class="info-steps-list" id="modalPkgStepsList">
         <!-- Injected dynamically -->
       </ul>
-      <button type="button" class="btn-modal-close" onclick="closePkgModalDirect()">Close Details</button>
+      <button type="button" class="btn-modal-close" onclick="closePkgModalDirect()">Close</button>
     </div>
   </div>
 
   <!-- FOOTER -->
   <footer>
     <div class="footer-copy">
-      &copy; 2026 Greenwood Barbers. All rights reserved. Ruko PancaTengah, Kota Baru Parahyangan, Padalarang, West Bandung.<br>
-      Direct Concierge Hotline: +62 812-2230-2050 &bull; Email: contact@greenwoodbarbers.com &bull; Open Wednesday&ndash;Monday 10:00&ndash;20:00 WIB (Tuesday: CLOSED).
+      &copy; 2026 Greenwood Barbers. Ruko PancaTengah Blok B No.&nbsp;08, Kota Baru Parahyangan, Padalarang. WhatsApp +62 812-2230-2050 &middot; contact@greenwoodbarbers.com &middot; Open Wednesday&ndash;Monday, 10:00&ndash;20:00 WIB &middot; Closed Tuesdays.
     </div>
   </footer>
 
@@ -1713,8 +1717,8 @@
 
     // 1. Initialize Packages & Add-ons (Step 1)
     function initServices() {
-      // Set default package (Signature Ritual)
-      selectedPackage = GREENWOOD_CONFIG.packages[1];
+      // Set default package (The Cut)
+      selectedPackage = GREENWOOD_CONFIG.packages[0];
 
       // Render Package Cards
       const pkgContainer = document.getElementById('packageListContainer');
@@ -1726,7 +1730,7 @@
               <div class="pkg-title-row">
                 <span class="pkg-name">${pkg.name}</span>
                 <span class="pkg-badge-pill">${pkg.badge}</span>
-                <button type="button" class="btn-pkg-info" onclick="openPackageDetails('${pkg.id}', event)" title="View step-by-step ritual details">i</button>
+                <button type="button" class="btn-pkg-info" onclick="openPackageDetails('${pkg.id}', event)" title="View what’s included">i</button>
               </div>
               <div class="pkg-desc-snippet">${pkg.summary}</div>
             </div>
@@ -1744,12 +1748,23 @@
 
     // Select Signature Package
     function selectPackage(pkgId) {
+      // If guest selects The Cut and The Shave / Trim together, move them to The Cut & Shave / Trim
+      if ((selectedPackage && selectedPackage.id === 'pkg-cut' && pkgId === 'pkg-shave-trim') ||
+          (selectedPackage && selectedPackage.id === 'pkg-shave-trim' && pkgId === 'pkg-cut')) {
+        pkgId = 'pkg-cut-shave-trim';
+      }
+
       selectedPackage = GREENWOOD_CONFIG.packages.find(p => p.id === pkgId);
       
       // Update radio card UI
       document.querySelectorAll('.package-radio-card').forEach(c => c.classList.remove('selected'));
       const activeCard = document.getElementById(`pkgCard-${pkgId}`);
       if (activeCard) activeCard.classList.add('selected');
+
+      const notice = document.getElementById('cutShaveNotice');
+      if (notice) {
+        notice.style.display = (pkgId === 'pkg-cut-shave-trim') ? 'block' : 'none';
+      }
 
       // Re-evaluate add-ons: If previously selected add-on is now included, deselect it
       selectedAddons = selectedAddons.filter(addon => {
@@ -1775,7 +1790,7 @@
               <div class="addon-info-left">
                 <div class="addon-title-row">
                   <span class="addon-name">${addon.name}</span>
-                  <span class="addon-included-badge">&#10003; Included in ${selectedPackage.name}</span>
+                  <span class="addon-included-badge">&#10003; Already in your package</span>
                 </div>
                 <div class="addon-desc">${addon.summary}</div>
               </div>
@@ -1828,7 +1843,7 @@
       return pkgDur + addDur;
     }
     function getTotalPrice() {
-      const pkgPrice = selectedPackage ? selectedPackage.price : 110000;
+      const pkgPrice = selectedPackage ? selectedPackage.price : 240000;
       const addPrice = selectedAddons.reduce((sum, a) => sum + a.price, 0);
       return pkgPrice + addPrice;
     }
@@ -1838,22 +1853,22 @@
       const totalPrc = getTotalPrice();
 
       const durBadge = document.getElementById('totalDurationBadge');
-      if (durBadge) durBadge.textContent = `${totalDur} Mins`;
+      if (durBadge) durBadge.textContent = `${totalDur}`;
 
       // Update Structured Reservation Summary (Step 4 - Client Feedback: Stacked Layout)
       const barber = GREENWOOD_CONFIG.barbers.find(b => b.id === selectedBarberId);
-      const barberName = barber ? barber.name : "Any Available Barber";
+      const barberName = barber ? barber.name : "First available barber";
       
       let addonText = selectedAddons.length > 0 
         ? ` + ${selectedAddons.map(a => a.name).join(', ')}` 
         : '';
       let schedText = selectedDateObj && selectedTimeSlot 
         ? `${selectedDateObj.dayName}, ${selectedDateObj.monthName} ${selectedDateObj.dayNum} @ ${selectedTimeSlot} WIB`
-        : 'Select Schedule in Step 3';
+        : 'Pick a time in step 3';
 
       const valTreatment = document.getElementById('summaryValTreatment');
       if (valTreatment) {
-        valTreatment.textContent = `${selectedPackage ? selectedPackage.name : 'Select Treatment'}${addonText}`;
+        valTreatment.textContent = `${selectedPackage ? selectedPackage.name : 'The Cut'}${addonText}`;
       }
       const valBarber = document.getElementById('summaryValBarber');
       if (valBarber) {
@@ -2029,7 +2044,9 @@
       }
 
       const totalDur = getTotalDuration();
-      const dailySlots = GREENWOOD_CONFIG.hours.dailySlots;
+      const dailySlots = (typeof GreenwoodBookingStore !== 'undefined' && GreenwoodBookingStore.getSlotsForDuration)
+        ? GreenwoodBookingStore.getSlotsForDuration(totalDur)
+        : GREENWOOD_CONFIG.hours.dailySlots;
 
       container.innerHTML = dailySlots.map(timeStr => {
         const isFree = GreenwoodBookingStore.isSlotAvailable(
@@ -2180,7 +2197,7 @@
         addons: selectedAddons.map(a => ({ id: a.id, name: a.name, price: a.price, duration: a.duration })),
         barberId: selectedBarberId,
         assignedBarberId: assignedBarber ? assignedBarber.id : 'bramantyo',
-        assignedBarberName: assignedBarber ? assignedBarber.name : 'Bramantyo',
+        assignedBarberName: assignedBarber ? assignedBarber.name : 'First available barber',
         status: 'Pending',
         timestamp: Date.now()
       };
@@ -2192,7 +2209,7 @@
       document.getElementById('passCodeVal').textContent = bookingCode;
       document.getElementById('passGuestName').textContent = name;
       document.getElementById('passGuestPhone').textContent = phone;
-      document.getElementById('passBarberName').textContent = assignedBarber ? assignedBarber.name : "Any Available Barber";
+      document.getElementById('passBarberName').textContent = assignedBarber ? assignedBarber.name : "First available barber";
       document.getElementById('passScheduleTime').textContent = `${bookingRecord.dayFull} @ ${selectedTimeSlot} WIB`;
 
       let servicesListText = selectedPackage.name;
@@ -2355,8 +2372,8 @@
       const pkg = GREENWOOD_CONFIG.packages.find(p => p.id === pkgId);
       if (!pkg) return;
 
-      document.getElementById('modalPkgTitle').textContent = pkg.name;
-      document.getElementById('modalPkgMeta').textContent = `${pkg.duration} Mins &bull; ${formatRupiah(pkg.price)} &bull; ${pkg.badge}`;
+      document.getElementById('modalPkgTitle').textContent = "What’s included";
+      document.getElementById('modalPkgMeta').textContent = `${pkg.duration} Mins &bull; ${formatRupiah(pkg.price)}`;
       document.getElementById('modalPkgStepsList').innerHTML = pkg.steps.map(s => `
         <li class="info-step-item">
           <span style="color: var(--accent-gold-bright); font-weight: 700;">&bull;</span>
@@ -2382,11 +2399,18 @@
       initBarbers();
       initCalendar();
 
-      // Check URL parameters (e.g. ?pkg=pkg-executive)
+      // Check URL parameters (e.g. ?pkg=pkg-cut or legacy ?pkg=pkg-classic)
       const urlParams = new URLSearchParams(window.location.search);
       const pkgParam = urlParams.get('pkg');
       if (pkgParam) {
-        const found = GREENWOOD_CONFIG.packages.find(p => p.id === pkgParam);
+        const legacyMap = {
+          'pkg-classic': 'pkg-cut',
+          'pkg-signature': 'pkg-cut',
+          'pkg-executive': 'pkg-cut-shave-trim',
+          'pkg-royal': 'pkg-ritual'
+        };
+        const targetId = legacyMap[pkgParam] || pkgParam;
+        const found = GREENWOOD_CONFIG.packages.find(p => p.id === targetId);
         if (found) {
           selectPackage(found.id);
         }
