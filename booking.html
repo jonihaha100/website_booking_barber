@@ -2226,21 +2226,39 @@
       if (phoneNoticeEl) phoneNoticeEl.textContent = phone;
 
       // ======================================================================
-      // VALIDATION 2: WHATSAPP DIRECT MESSAGE TEXT
+      // VALIDATION 2: WHATSAPP DIRECT MESSAGE TEXT (CLIENT-APPROVED FEEDBACK)
       // ======================================================================
+      let endSlot = selectedTimeSlot;
+      try {
+        const parts = selectedTimeSlot.split(':').map(Number);
+        const totalEndM = parts[0] * 60 + parts[1] + totalDur;
+        const eH = String(Math.floor(totalEndM / 60)).padStart(2, '0');
+        const eM = String(totalEndM % 60).padStart(2, '0');
+        endSlot = `${eH}:${eM}`;
+      } catch(e) {}
+
+      const dayName = selectedDateObj ? selectedDateObj.dayName : '';
+      const dateFormatted = selectedDateObj ? `${selectedDateObj.monthName} ${selectedDateObj.dayNum}` : '';
+      const pkgName = selectedPackage ? selectedPackage.name : 'The Cut';
+      const addonsStr = selectedAddons.length > 0 ? selectedAddons.map(a => a.name).join(', ') : 'None';
+      const barberDisplayName = assignedBarber ? assignedBarber.name : 'Bramantyo';
+      const mapsLink = (typeof GREENWOOD_CONFIG !== 'undefined' && GREENWOOD_CONFIG.brand && GREENWOOD_CONFIG.brand.mapsUrl) 
+        ? GREENWOOD_CONFIG.brand.mapsUrl 
+        : 'https://www.google.com/maps/search/?api=1&query=Ruko+PancaTengah,+Kota+Baru+Parahyangan';
+      const totalAmountNumber = Number(totalPrc || 0).toLocaleString('id-ID');
+
       const waReminderText = 
-        `🔔 *GREENWOOD BARBERS — APPOINTMENT CONFIRMATION* 🏛️\n` +
-        `_Private In-Person Grooming Session • Kota Baru Parahyangan_\n\n` +
-        `• *Booking Pass*  : ${bookingCode}\n` +
-        `• *Guest Name*    : ${name}\n` +
-        `• *Treatment*     : ${servicesListText}\n` +
-        `• *Barber*        : ${assignedBarber ? assignedBarber.name : "Any Available Barber"}\n` +
-        `• *Schedule*      : ${bookingRecord.dayFull} @ ${selectedTimeSlot} WIB\n` +
-        `• *Total Price*   : ${formatRupiah(totalPrc)}\n\n` +
-        `📍 *Parlour Location*:\n` +
-        `Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan\n` +
-        `https://www.google.com/maps/search/?api=1&query=Ruko+PancaTengah,+Kota+Baru+Parahyangan\n\n` +
-        `Please confirm chair & barber readiness. Thank you!`;
+        `Hi ${name}, your chair at Greenwood is reserved.\n\n` +
+        `${pkgName} with ${barberDisplayName}\n` +
+        `Add-ons: ${addonsStr}\n` +
+        `${dayName}, ${dateFormatted} · ${selectedTimeSlot}–${endSlot}\n` +
+        `Total: Rp ${totalAmountNumber}\n\n` +
+        `📍 Ruko PancaTengah Blok B No. 08, KBP. Free parking at the door.\n` +
+        `${mapsLink}\n\n` +
+        `Come 5–10 minutes early; your coffee is on us. Need to change the time? Just reply here, ideally 3 hours ahead.\n\n` +
+        `Please reply YES to confirm. See you ${dayName}.\n` +
+        `— Greenwood Barbers\n` +
+        `Pass ${bookingCode}`;
 
       // ======================================================================
       // BACKEND AUTOMATED SYNC (GOOGLE APPS SCRIPT WEBHOOK + FONNTE WA)
@@ -2269,16 +2287,33 @@
 
         const gcalPayload = JSON.stringify({
           bookingCode: bookingCode,
+          pass_code: bookingCode,
           guestName: name,
+          name: name,
           guestPhone: phone,
           guestEmail: email,
           guestNotes: notes,
+          notes: notes,
+          service: pkgName,
           serviceName: servicesListText,
-          barberName: assignedBarber ? assignedBarber.name : "Any Available Barber",
-          dateKey: selectedDateObj.dateKey,
+          packageName: pkgName,
+          addons: addonsStr,
+          addonsText: addonsStr,
+          barber: barberDisplayName,
+          barberName: barberDisplayName,
+          day: dayName,
+          dayName: dayName,
+          date: dateFormatted,
+          dateFormatted: dateFormatted,
+          start: selectedTimeSlot,
           timeSlot: selectedTimeSlot,
+          end: endSlot,
+          dateKey: selectedDateObj.dateKey,
           totalDuration: totalDur,
+          total: totalAmountNumber,
           totalPrice: formatRupiah(totalPrc),
+          maps_link: mapsLink,
+          mapsLink: mapsLink,
           location: gcalLocation
         });
 

@@ -52,33 +52,57 @@ function doPost(e) {
     var calendar = CalendarApp.getDefaultCalendar();
     
     // Parse tanggal dan waktu secara presisi dalam WIB (UTC+7)
-    var startTime = new Date(data.dateKey + "T" + data.timeSlot + ":00+07:00");
+    var startTime = new Date(data.dateKey + "T" + (data.timeSlot || "10:00") + ":00+07:00");
     var durationMins = data.totalDuration || 45;
     var endTime = new Date(startTime.getTime() + (durationMins * 60 * 1000));
     
-    // Judul & Deskripsi Event (In-Person Grooming Session, Not an Online Meeting)
-    var eventTitle = "💈 Greenwood Barbers Session: " + (data.serviceName || "Grooming Ritual") + " - " + (data.guestName || "Guest");
+    // Ekstraksi komponen copywriting sesuai feedback resmi Client
+    var guestName = data.name || data.guestName || "Guest";
+    var barberName = data.barber || data.barberName || "Bramantyo";
+    var serviceName = data.service || data.packageName || (data.serviceName ? data.serviceName.split(' + ')[0] : "The Cut");
+    var addons = data.addons || data.addonsText || (data.serviceName && data.serviceName.indexOf(' + ') !== -1 ? data.serviceName.split(' + ').slice(1).join(', ') : "None");
     
+    var dayName = data.day || data.dayName || Utilities.formatDate(startTime, "Asia/Jakarta", "EEEE");
+    var dateFormatted = data.date || data.dateFormatted || Utilities.formatDate(startTime, "Asia/Jakarta", "MMM d");
+    var startFormatted = data.start || data.timeSlot || Utilities.formatDate(startTime, "Asia/Jakarta", "HH:mm");
+    var endFormatted = data.end || Utilities.formatDate(endTime, "Asia/Jakarta", "HH:mm");
+    var timeRange = startFormatted + "–" + endFormatted;
+
+    // Format angka harga bersih untuk format "Total: Rp {total}"
+    var rawTotal = data.total || data.totalPrice || "0";
+    var cleanTotal = "";
+    if (typeof rawTotal === "number") {
+      var n = (rawTotal < 1000 && rawTotal > 0) ? rawTotal * 1000 : rawTotal;
+      cleanTotal = Number(n).toLocaleString('id-ID');
+    } else {
+      var digits = String(rawTotal).replace(/[^0-9]/g, "");
+      var n = digits ? parseInt(digits, 10) : 0;
+      if (n < 1000 && n > 0) n = n * 1000;
+      cleanTotal = Number(n).toLocaleString('id-ID');
+    }
+
+    var notes = data.notes || data.guestNotes || "None";
+    var passCode = data.pass_code || data.bookingCode || "-";
+    var mapsLink = data.maps_link || data.mapsLink || "https://www.google.com/maps/search/?api=1&query=Ruko+PancaTengah,+Kota+Baru+Parahyangan";
+
+    // 1. CALENDAR EVENT TITLE (Feedback Client: "Greenwood Barbers · {service} with {barber}")
+    var eventTitle = "Greenwood Barbers · " + serviceName + " with " + barberName;
+    
+    // 2. CALENDAR / EMAIL DESCRIPTION (Feedback Client)
     var description = 
-      "==================================================\n" +
-      "💈 GREENWOOD BARBERS • PARLOUR APPOINTMENT SCHEDULE\n" +
-      "==================================================\n" +
-      "🏛️ IN-PERSON PARLOUR GROOMING SESSION (NOT A VIRTUAL MEETING)\n" +
-      "--------------------------------------------------\n" +
-      "• Booking Pass  : " + (data.bookingCode || "-") + "\n" +
-      "• Guest Name    : " + (data.guestName || "-") + "\n" +
-      "• Barber        : " + (data.barberName || "Bramantyo") + "\n" +
-      "• Treatment     : " + (data.serviceName || "-") + "\n" +
-      "• Schedule      : " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB\n" +
-      "• Total Amount  : " + (data.totalPrice || "-") + "\n" +
-      "• Special Notes : " + (data.guestNotes || "None") + "\n\n" +
-      "📍 Parlour Location (Open in Google Maps):\n" +
-      "Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan\n" +
-      "https://www.google.com/maps/search/?api=1&query=Ruko+PancaTengah,+Kota+Baru+Parahyangan\n\n" +
-      "🔔 Please arrive 5–10 minutes prior to your allocated time.\n" +
-      "Concierge WhatsApp: +62 812-2230-2050\n";
+      "Your chair is reserved.\n\n" +
+      "Service: " + serviceName + "\n" +
+      "Add-ons: " + addons + "\n" +
+      "Barber: " + barberName + "\n" +
+      "When: " + dayName + ", " + dateFormatted + ", " + timeRange + "\n" +
+      "Total: Rp " + cleanTotal + "\n" +
+      "Your note: " + notes + "\n\n" +
+      "Where: Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang. Free parking at the door.\n" +
+      "Map: " + mapsLink + "\n\n" +
+      "Come 5–10 minutes early. To change your time, WhatsApp us at +62 812-2230-2050, ideally 3 hours ahead.\n\n" +
+      "Pass " + passCode;
       
-    var location = data.location || "Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, West Bandung";
+    var location = data.location || "Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang";
 
     // Opsi Pembuatan Event (Invite Email Pelanggan & Kirim Notifikasi Kalender)
     var options = {
@@ -126,36 +150,50 @@ function doPost(e) {
       }
     }
 
-    // 3. Kirim email konfirmasi resmi langsung ke inbox tamu via MailApp
+    // 3. Kirim email konfirmasi resmi langsung ke inbox tamu via MailApp (Format Baru Sesuai Feedback)
     if (data.guestEmail && data.guestEmail.indexOf("@") !== -1) {
       try {
+        var emailSubject = "Greenwood Barbers · " + serviceName + " with " + barberName;
+        
+        var emailHtml = 
+          "<div style='font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif; max-width: 580px; margin: 0 auto; background: #030c08; color: #f5f4ef; padding: 28px 24px; border-radius: 8px; border: 1px solid #c59b48;'>" +
+            "<div style='text-align: center; margin-bottom: 22px; border-bottom: 1px solid rgba(197, 155, 72, 0.25); padding-bottom: 16px;'>" +
+              "<h2 style='color: #c59b48; margin: 0; letter-spacing: 2.5px; font-size: 18px;'>GREENWOOD BARBERS</h2>" +
+              "<p style='color: #828f86; font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; margin: 6px 0 0;'>Official Parlour Reservation</p>" +
+            "</div>" +
+            "<h3 style='color: #f5f4ef; font-size: 17px; margin: 0 0 16px 0; font-weight: 600;'>Your chair is reserved.</h3>" +
+            "<div style='background: #091c13; padding: 18px; border-radius: 6px; border: 1px solid rgba(197, 155, 72, 0.25); margin-bottom: 20px; font-size: 14px; line-height: 1.75; color: #d0d7d2;'>" +
+              "<p style='margin: 3px 0;'><strong>Service:</strong> " + serviceName + "</p>" +
+              "<p style='margin: 3px 0;'><strong>Add-ons:</strong> " + addons + "</p>" +
+              "<p style='margin: 3px 0;'><strong>Barber:</strong> " + barberName + "</p>" +
+              "<p style='margin: 3px 0;'><strong>When:</strong> " + dayName + ", " + dateFormatted + ", " + timeRange + "</p>" +
+              "<p style='margin: 3px 0; color: #e5b95f;'><strong>Total:</strong> Rp " + cleanTotal + "</p>" +
+              "<p style='margin: 3px 0;'><strong>Your note:</strong> " + notes + "</p>" +
+            "</div>" +
+            "<div style='font-size: 13px; line-height: 1.6; color: #c2cac3; margin-bottom: 18px;'>" +
+              "<p style='margin: 0 0 6px 0;'><strong>Where:</strong> Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang. Free parking at the door.</p>" +
+              "<p style='margin: 0;'><strong>Map:</strong> <a href='" + mapsLink + "' target='_blank' style='color: #e5b95f; text-decoration: underline;'>" + mapsLink + "</a></p>" +
+            "</div>" +
+            "<p style='font-size: 12.5px; color: #9aa59d; line-height: 1.55; margin: 0 0 18px 0;'>" +
+              "Come 5–10 minutes early. To change your time, WhatsApp us at <a href='https://wa.me/6281222302050' style='color: #e5b95f; text-decoration: none;'>+62 812-2230-2050</a>, ideally 3 hours ahead." +
+            "</p>" +
+            "<div style='border-top: 1px solid rgba(197, 155, 72, 0.2); padding-top: 14px; font-family: monospace; font-size: 14px; color: #e5b95f; font-weight: 600;'>" +
+              "Pass " + passCode +
+            "</div>" +
+          "</div>";
+
         MailApp.sendEmail({
           to: data.guestEmail,
-          subject: "🔔 Appointment Confirmation: Greenwood Barbers - " + (data.serviceName || "Grooming Ritual"),
-          htmlBody: 
-            "<div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #030c08; color: #f5f4ef; padding: 24px; border-radius: 8px; border: 1px solid #c59b48;'>" +
-              "<div style='text-align: center; margin-bottom: 20px;'>" +
-                "<h2 style='color: #c59b48; margin: 0; letter-spacing: 2px;'>GREENWOOD BARBERS</h2>" +
-                "<p style='color: #828f86; font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; margin: 4px 0 0;'>Official Parlour Appointment (In-Person)</p>" +
-              "</div>" +
-              "<div style='background: #091c13; padding: 18px; border-radius: 6px; border: 1px solid rgba(197, 155, 72, 0.25); margin: 20px 0; font-size: 14px; line-height: 1.7;'>" +
-                "<p style='margin: 4px 0;'><strong>Booking Pass:</strong> <span style='color: #c59b48; font-family: monospace; font-size: 16px;'>" + (data.bookingCode || "-") + "</span></p>" +
-                "<p style='margin: 4px 0;'><strong>Guest Name:</strong> " + (data.guestName || "-") + "</p>" +
-                "<p style='margin: 4px 0;'><strong>Barber:</strong> " + (data.barberName || "-") + "</p>" +
-                "<p style='margin: 4px 0;'><strong>Schedule:</strong> " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB</p>" +
-                "<p style='margin: 4px 0;'><strong>Treatment:</strong> " + (data.serviceName || "-") + "</p>" +
-                "<p style='margin: 4px 0; color: #e5b95f;'><strong>Total Amount:</strong> " + (data.totalPrice || "-") + "</p>" +
-              "</div>" +
-              "<p style='font-size: 13px; color: #c2cac3; line-height: 1.6;'>📍 <strong>Parlour Location:</strong><br>Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang, West Bandung</p>" +
-              "<p style='font-size: 12px; color: #828f86; margin-top: 15px;'>🔔 <em>Note: This is an exclusive in-person session at our parlour (Not an online meeting). Please arrive 5–10 minutes prior to your allocated time.</em></p>" +
-            "</div>"
+          subject: emailSubject,
+          body: description,
+          htmlBody: emailHtml
         });
       } catch (mailErr) {
         console.warn("MailApp error:", mailErr);
       }
     }
 
-    // 4. Kirim Pesan WhatsApp Otomatis via Gateway Fonnte
+    // 4. Kirim Pesan WhatsApp Otomatis via Gateway Fonnte (Format Baru Sesuai Feedback Client)
     if (FONNTE_API_TOKEN && data.guestPhone) {
       try {
         var cleanPhone = data.guestPhone.replace(/[^0-9]/g, "");
@@ -166,21 +204,17 @@ function doPost(e) {
         }
         
         var waMessage = 
-          "🔔 *GREENWOOD BARBERS — APPOINTMENT CONFIRMATION* 🏛️\n" +
-          "_Private Grooming Session at Kota Baru Parahyangan_\n\n" +
-          "Dear *" + (data.guestName || "Distinguished Guest") + "*,\n\n" +
-          "Your grooming reservation is officially confirmed and scheduled in our system: ✨\n\n" +
-          "• *Booking Pass*  : " + (data.bookingCode || "-") + "\n" +
-          "• *Treatment*     : " + (data.serviceName || "-") + "\n" +
-          "• *Barber*        : " + (data.barberName || "Bramantyo") + "\n" +
-          "• *Schedule*      : " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB\n" +
-          "• *Total Amount*  : " + (data.totalPrice || "-") + "\n\n" +
-          "📍 *Location & Directions (Google Maps)*:\n" +
-          "Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan\n" +
-          "https://www.google.com/maps/search/?api=1&query=Ruko+PancaTengah,+Kota+Baru+Parahyangan\n\n" +
-          "✉️ *Calendar & Email*: Official calendar invitation has been dispatched to (" + (data.guestEmail || "-") + ").\n\n" +
-          "Please arrive 5–10 minutes prior to your allocated session. Our chair is dedicated exclusively to you.\n\n" +
-          "— _Concierge Greenwood Barbers (+62 812-2230-2050)_";
+          "Hi " + guestName + ", your chair at Greenwood is reserved.\n\n" +
+          serviceName + " with " + barberName + "\n" +
+          "Add-ons: " + addons + "\n" +
+          dayName + ", " + dateFormatted + " · " + timeRange + "\n" +
+          "Total: Rp " + cleanTotal + "\n\n" +
+          "📍 Ruko PancaTengah Blok B No. 08, KBP. Free parking at the door.\n" +
+          mapsLink + "\n\n" +
+          "Come 5–10 minutes early; your coffee is on us. Need to change the time? Just reply here, ideally 3 hours ahead.\n\n" +
+          "Please reply YES to confirm. See you " + dayName + ".\n" +
+          "— Greenwood Barbers\n" +
+          "Pass " + passCode;
 
         // Kirim pesan konfirmasi ke nomor tamu (Guest)
         var waResponse = UrlFetchApp.fetch("https://api.fonnte.com/send", {
@@ -209,16 +243,15 @@ function doPost(e) {
         if (ADMIN_PHONE && cleanPhone !== ADMIN_PHONE) {
           try {
             var adminMessage = 
-              "🚨 *NEW RESERVATION ALERT — GREENWOOD BARBERS* 🏛️\n\n" +
-              "A new appointment has been scheduled via website:\n" +
-              "• *Guest*         : " + (data.guestName || "-") + " (" + (data.guestPhone || "-") + ")\n" +
-              "• *Booking Pass*  : " + (data.bookingCode || "-") + "\n" +
-              "• *Barber*        : " + (data.barberName || "-") + "\n" +
-              "• *Schedule*      : " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB\n" +
-              "• *Treatment*     : " + (data.serviceName || "-") + "\n" +
-              "• *Total Amount*  : " + (data.totalPrice || "-") + "\n" +
-              "• *Notes*         : " + (data.guestNotes || "-") + "\n\n" +
-              "The session has been automatically recorded to Google Calendar.";
+              "🚨 *NEW RESERVATION ALERT — GREENWOOD BARBERS*\n\n" +
+              "Hi " + guestName + ", your chair at Greenwood is reserved.\n\n" +
+              serviceName + " with " + barberName + "\n" +
+              "Add-ons: " + addons + "\n" +
+              dayName + ", " + dateFormatted + " · " + timeRange + "\n" +
+              "Total: Rp " + cleanTotal + "\n" +
+              "Guest Contact: " + (data.guestPhone || "-") + " | " + (data.guestEmail || "-") + "\n" +
+              "Note: " + notes + "\n" +
+              "Pass: " + passCode;
 
             UrlFetchApp.fetch("https://api.fonnte.com/send", {
               method: "post",
