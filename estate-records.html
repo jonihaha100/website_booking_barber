@@ -970,7 +970,7 @@
 
       const webhookUrl = (typeof GREENWOOD_CONFIG !== 'undefined' && GREENWOOD_CONFIG.brand && GREENWOOD_CONFIG.brand.googleCalendarWebhookUrl)
         ? GREENWOOD_CONFIG.brand.googleCalendarWebhookUrl
-        : 'https://script.google.com/macros/s/AKfycbyBO38T86NmJFTgYKvThT70w5xUDVbh_wdr-104o6SjcM8t3-FAiLHn1TL6D9tXgK7xPg/exec';
+        : 'https://script.google.com/macros/s/AKfycbyD-BAcCadXUgBs-PUhuqlV_ohHdoSLDWJu3sHi4ok668q4GFV4P2wb0i5J9W6VJUKbSQ/exec';
 
       try {
         const fetchUrl = webhookUrl + (webhookUrl.includes('?') ? '&' : '?') + 'action=get_bookings&t=' + Date.now();
