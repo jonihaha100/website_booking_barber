@@ -1242,7 +1242,13 @@
         ? booking.addons.map(a => a.name).join(', ')
         : (booking.serviceName && booking.serviceName.includes(' + ') ? booking.serviceName.split(' + ').slice(1).join(', ') : 'None');
 
-      const dayName = booking.day || booking.dayName || getDayNameText(booking.dateKey);
+      let dayName = getDayNameText(booking.dateKey);
+      if (!dayName && (booking.day || booking.dayName)) {
+        dayName = booking.day || booking.dayName;
+      }
+      const dayMap = { 'Sun': 'Sunday', 'Mon': 'Monday', 'Tue': 'Tuesday', 'Wed': 'Wednesday', 'Thu': 'Thursday', 'Fri': 'Friday', 'Sat': 'Saturday' };
+      if (dayMap[dayName]) dayName = dayMap[dayName];
+
       const dateFormatted = booking.date || booking.dateFormatted || getDateFormattedText(booking.dateKey);
       const startSlot = booking.timeSlot || '10:00';
       const endSlot = booking.end || calculateEndTimeText(startSlot, booking.totalDuration || 45);
@@ -1264,7 +1270,7 @@
         `📍 Ruko PancaTengah, Jl. Parahyangan No.87, KBP. Free parking at the door.\n` +
         `${mapsLink}\n\n` +
         `Come 5–10 minutes early; your coffee is on us. Need to change the time? Just reply here, ideally 3 hours ahead.\n\n` +
-        `Please reply YES to confirm. See you ${dayName}.\n` +
+        `Please reply YES to confirm. See you on ${dayName}.\n` +
         `— Greenwood Barbers\n` +
         `Pass ${booking.bookingCode}`;
 

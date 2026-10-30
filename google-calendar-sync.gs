@@ -62,7 +62,7 @@ function doPost(e) {
     var serviceName = data.service || data.packageName || (data.serviceName ? data.serviceName.split(' + ')[0] : "The Cut");
     var addons = data.addons || data.addonsText || (data.serviceName && data.serviceName.indexOf(' + ') !== -1 ? data.serviceName.split(' + ').slice(1).join(', ') : "None");
     
-    var dayName = data.day || data.dayName || Utilities.formatDate(startTime, "Asia/Jakarta", "EEEE");
+    var dayName = Utilities.formatDate(startTime, "Asia/Jakarta", "EEEE");
     var dateFormatted = data.date || data.dateFormatted || Utilities.formatDate(startTime, "Asia/Jakarta", "MMM d");
     var startFormatted = data.start || data.timeSlot || Utilities.formatDate(startTime, "Asia/Jakarta", "HH:mm");
     var endFormatted = data.end || Utilities.formatDate(endTime, "Asia/Jakarta", "HH:mm");
@@ -88,7 +88,7 @@ function doPost(e) {
     // 1. CALENDAR EVENT TITLE (Feedback Client: "Greenwood Barbers · {service} with {barber}")
     var eventTitle = "Greenwood Barbers · " + serviceName + " with " + barberName;
     
-    // 2. CALENDAR / EMAIL DESCRIPTION (Feedback Client)
+    // 2. CALENDAR / EMAIL DESCRIPTION (Feedback Client: Bersih tanpa repetisi Lokasi & Peta, tanpa reminder WA di sini)
     var description = 
       "Your chair is reserved.\n\n" +
       "Service: " + serviceName + "\n" +
@@ -97,12 +97,8 @@ function doPost(e) {
       "When: " + dayName + ", " + dateFormatted + ", " + timeRange + "\n" +
       "Total: Rp " + cleanTotal + "\n" +
       "Your note: " + notes + "\n\n" +
-      "Where: Ruko PancaTengah, Jl. Parahyangan No.87, Kota Baru Parahyangan, Padalarang. Free parking at the door.\n" +
-      "Map: " + mapsLink + "\n\n" +
       "Come 5–10 minutes early. To change your time, WhatsApp us at +62 812-2230-2050, ideally 3 hours ahead.\n\n" +
-      "Pass " + passCode + "\n\n" +
-      "WhatsApp reminder (2 hours before):\n" +
-      "Hi " + guestName + ", see you at " + startFormatted + " today with " + barberName + ". Free parking at the door. Running late? Just reply here.";
+      "Pass " + passCode;
       
     var location = data.location || "Greenwood Barbers, Ruko PancaTengah, Jl. Parahyangan No.87, Kota Baru Parahyangan, Padalarang, West Java 40553";
 
@@ -175,7 +171,7 @@ function doPost(e) {
           "📍 Ruko PancaTengah, Jl. Parahyangan No.87, KBP. Free parking at the door.\n" +
           mapsLink + "\n\n" +
           "Come 5–10 minutes early; your coffee is on us. Need to change the time? Just reply here, ideally 3 hours ahead.\n\n" +
-          "Please reply YES to confirm. See you " + dayName + ".\n" +
+          "Please reply YES to confirm. See you on " + dayName + ".\n" +
           "— Greenwood Barbers\n" +
           "Pass " + passCode;
 

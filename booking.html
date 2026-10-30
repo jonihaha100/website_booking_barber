@@ -1935,7 +1935,8 @@
 
     // 3. Initialize 14-Day Calendar (Step 2)
     function initCalendar() {
-      const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      const shortDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      const fullDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
       const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
       const today = new Date();
 
@@ -1952,7 +1953,8 @@
           dateObj: d,
           dateKey: `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`,
           dayOfWeek: dayOfWeek,
-          dayName: days[dayOfWeek],
+          dayShort: shortDays[dayOfWeek],
+          dayName: fullDays[dayOfWeek],
           dayNum: d.getDate(),
           monthName: months[d.getMonth()],
           year: d.getFullYear(),
@@ -1978,7 +1980,7 @@
         if (d.isClosed) {
           return `
             <div class="date-card-btn closed" title="Parlour Closed Every Tuesday">
-              <span class="date-day-name">${d.dayName}</span>
+              <span class="date-day-name">${d.dayShort}</span>
               <span class="date-num">${d.dayNum}</span>
               <span class="date-closed-badge">Closed</span>
             </div>
@@ -1986,7 +1988,7 @@
         } else {
           return `
             <div class="date-card-btn ${isSelected ? 'active' : ''}" onclick="selectDateByIndex(${startIndex + idx})">
-              <span class="date-day-name">${d.dayName}</span>
+              <span class="date-day-name">${d.dayShort}</span>
               <span class="date-num">${d.dayNum}</span>
               <span class="date-month-name">${d.monthName}</span>
             </div>
@@ -2237,7 +2239,10 @@
         endSlot = `${eH}:${eM}`;
       } catch(e) {}
 
-      const dayName = selectedDateObj ? selectedDateObj.dayName : '';
+      const fullDayList = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const dayName = selectedDateObj 
+        ? (selectedDateObj.dayName && selectedDateObj.dayName.length > 3 ? selectedDateObj.dayName : fullDayList[selectedDateObj.dayOfWeek]) 
+        : '';
       const dateFormatted = selectedDateObj ? `${selectedDateObj.monthName} ${selectedDateObj.dayNum}` : '';
       const pkgName = selectedPackage ? selectedPackage.name : 'The Cut';
       const addonsStr = selectedAddons.length > 0 ? selectedAddons.map(a => a.name).join(', ') : 'None';
@@ -2256,7 +2261,7 @@
         `📍 Ruko PancaTengah, Jl. Parahyangan No.87, KBP. Free parking at the door.\n` +
         `${mapsLink}\n\n` +
         `Come 5–10 minutes early; your coffee is on us. Need to change the time? Just reply here, ideally 3 hours ahead.\n\n` +
-        `Please reply YES to confirm. See you ${dayName}.\n` +
+        `Please reply YES to confirm. See you on ${dayName}.\n` +
         `— Greenwood Barbers\n` +
         `Pass ${bookingCode}`;
 
