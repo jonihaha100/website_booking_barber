@@ -1318,6 +1318,17 @@
           Cut + Shave / Trim is our package. Same price, plus a 10-minute back and shoulder massage.
         </div>
 
+        <!-- Smart Package Auto-Upgrade Callout -->
+        <div id="smartUpgradeNotice" style="display: none; background: rgba(197, 155, 72, 0.14); border: 1px solid var(--accent-gold); border-radius: 6px; padding: 14px 18px; margin: 14px 0; text-align: left;">
+          <div style="font-weight: 700; color: var(--accent-gold-bright); font-size: 14px; margin-bottom: 4px; display: flex; align-items: center; gap: 8px;">
+            <span>✨</span>
+            <span>Automatically Upgraded to The Ritual</span>
+          </div>
+          <div style="font-size: 13px; color: #e0ded6; line-height: 1.5;">
+            You selected Cut &amp; Shave plus Black Mask &amp; Hair Spa. We’ve automatically bundled this into <strong>The Ritual</strong> package at <strong>Rp 590.000</strong> (saving you Rp 10.000 and 20 mins)!
+          </div>
+        </div>
+
         <!-- Add-on List with Conflict Blocking -->
         <div class="addons-heading">
           <span>Add a little more</span>
@@ -1644,7 +1655,7 @@
                     </span>
                   </div>
                   <div style="font-size: 12.5px; color: var(--text-muted); line-height: 1.55; margin-top: 3px;">
-                    Our front desk (+62 812-2230-2050) sent your pass to WhatsApp (reply YES to confirm). Plus, a <strong>WhatsApp reminder (2 hours before)</strong> is scheduled automatically.
+                    Our front desk (+62 812-2230-2050) sent your pass to WhatsApp with your reservation details. Plus, a <strong>WhatsApp reminder (2 hours before)</strong> is scheduled automatically.
                   </div>
                 </div>
               </div>
@@ -1748,12 +1759,6 @@
 
     // Select Signature Package
     function selectPackage(pkgId) {
-      // If guest selects The Cut and The Shave / Trim together, move them to The Cut & Shave / Trim
-      if ((selectedPackage && selectedPackage.id === 'pkg-cut' && pkgId === 'pkg-shave-trim') ||
-          (selectedPackage && selectedPackage.id === 'pkg-shave-trim' && pkgId === 'pkg-cut')) {
-        pkgId = 'pkg-cut-shave-trim';
-      }
-
       selectedPackage = GREENWOOD_CONFIG.packages.find(p => p.id === pkgId);
       
       // Update radio card UI
@@ -1764,6 +1769,11 @@
       const notice = document.getElementById('cutShaveNotice');
       if (notice) {
         notice.style.display = (pkgId === 'pkg-cut-shave-trim') ? 'block' : 'none';
+      }
+
+      const upgradeNotice = document.getElementById('smartUpgradeNotice');
+      if (upgradeNotice && pkgId !== 'pkg-ritual') {
+        upgradeNotice.style.display = 'none';
       }
 
       // Re-evaluate add-ons: If previously selected add-on is now included, deselect it
@@ -1830,6 +1840,31 @@
         selectedAddons.splice(idx, 1);
       } else {
         selectedAddons.push(addon);
+      }
+
+      // SMART PACKAGE BUNDLING / AUTO-UPGRADE:
+      // If guest chooses Cut & Shave / Trim and selects both Black Mask and Hair Spa,
+      // it constitutes "The Ritual" (Rp 590.000 instead of 420k + 90k + 90k = 600k)!
+      if (selectedPackage && selectedPackage.id === 'pkg-cut-shave-trim') {
+        const hasMask = selectedAddons.some(a => a.id === 'addon-mask');
+        const hasSpa = selectedAddons.some(a => a.id === 'addon-spa');
+        if (hasMask && hasSpa) {
+          selectedPackage = GREENWOOD_CONFIG.packages.find(p => p.id === 'pkg-ritual');
+          selectedAddons = []; // All add-ons are included in The Ritual
+
+          // Update active package card in UI
+          document.querySelectorAll('.package-radio-card').forEach(c => c.classList.remove('selected'));
+          const ritualCard = document.getElementById('pkgCard-pkg-ritual');
+          if (ritualCard) {
+            ritualCard.classList.add('selected');
+          }
+
+          const cutNotice = document.getElementById('cutShaveNotice');
+          if (cutNotice) cutNotice.style.display = 'none';
+
+          const upgradeNotice = document.getElementById('smartUpgradeNotice');
+          if (upgradeNotice) upgradeNotice.style.display = 'block';
+        }
       }
 
       renderAddons();
@@ -2261,7 +2296,7 @@
         `📍 Ruko PancaTengah, Jl. Parahyangan No.87, KBP. Free parking at the door.\n` +
         `${mapsLink}\n\n` +
         `Come 5–10 minutes early; your coffee is on us. Need to change the time? Just reply here, ideally 3 hours ahead.\n\n` +
-        `Please reply YES to confirm. See you on ${dayName}.\n` +
+        `See you on ${dayName}.\n` +
         `— Greenwood Barbers\n` +
         `Pass ${bookingCode}`;
 

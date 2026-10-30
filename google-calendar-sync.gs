@@ -85,6 +85,22 @@ function doPost(e) {
     var passCode = data.pass_code || data.bookingCode || "-";
     var mapsLink = data.maps_link || data.mapsLink || "https://www.google.com/maps/search/?api=1&query=Ruko+PancaTengah,+Kota+Baru+Parahyangan";
 
+    // Smart Package Auto-Upgrade (Backend Safeguard):
+    // If services selected constitute The Ritual (Cut & Shave + Black Mask + Hair Spa):
+    var isCutShave = (serviceName.indexOf("Cut & Shave") !== -1 || (serviceName.indexOf("Cut") !== -1 && serviceName.indexOf("Shave") !== -1));
+    var hasMask = (addons.indexOf("Black Mask") !== -1 || (data.addons && Array.isArray(data.addons) && data.addons.some(function(a){ return a.id === 'addon-mask' || a.name === 'Black Mask'; })));
+    var hasSpa = (addons.indexOf("Hair Spa") !== -1 || (data.addons && Array.isArray(data.addons) && data.addons.some(function(a){ return a.id === 'addon-spa' || a.name === 'Hair Spa'; })));
+
+    if (isCutShave && hasMask && hasSpa) {
+      serviceName = "The Ritual";
+      addons = "None";
+      durationMins = 95;
+      endTime = new Date(startTime.getTime() + (durationMins * 60 * 1000));
+      endFormatted = Utilities.formatDate(endTime, "Asia/Jakarta", "HH:mm");
+      timeRange = startFormatted + "–" + endFormatted;
+      cleanTotal = "590.000";
+    }
+
     // 1. CALENDAR EVENT TITLE (Feedback Client: "Greenwood Barbers · {service} with {barber}")
     var eventTitle = "Greenwood Barbers · " + serviceName + " with " + barberName;
     
@@ -171,7 +187,7 @@ function doPost(e) {
           "📍 Ruko PancaTengah, Jl. Parahyangan No.87, KBP. Free parking at the door.\n" +
           mapsLink + "\n\n" +
           "Come 5–10 minutes early; your coffee is on us. Need to change the time? Just reply here, ideally 3 hours ahead.\n\n" +
-          "Please reply YES to confirm. See you on " + dayName + ".\n" +
+          "See you on " + dayName + ".\n" +
           "— Greenwood Barbers\n" +
           "Pass " + passCode;
 
