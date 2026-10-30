@@ -249,6 +249,11 @@ const GreenwoodBookingStore = {
     return false;
   },
 
+  // Alias for backward compatibility with estate-records
+  updateStatus: function(bookingCode, status) {
+    return this.updateBookingStatus(bookingCode, status);
+  },
+
   // Delete booking by code
   deleteBooking: function(bookingCode) {
     let list = this.getBookings();

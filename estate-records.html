@@ -235,6 +235,113 @@
       margin-top: 6px;
     }
 
+    /* CLOUD SYNC BANNER */
+    .sync-banner-shell {
+      background: rgba(9, 28, 19, 0.75);
+      border: 1px solid rgba(197, 155, 72, 0.35);
+      border-radius: 10px;
+      padding: 14px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+    .sync-status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13.5px;
+      color: #e5b95f;
+      flex-wrap: wrap;
+    }
+    .sync-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .dot-live {
+      background: #4ade80;
+      box-shadow: 0 0 10px #4ade80;
+    }
+    .dot-syncing {
+      background: #e5b95f;
+      box-shadow: 0 0 10px #e5b95f;
+      animation: pulseSync 1.2s infinite;
+    }
+    .dot-offline {
+      background: #fbbf24;
+      box-shadow: 0 0 8px #fbbf24;
+    }
+    .dot-error {
+      background: #ef4444;
+      box-shadow: 0 0 8px #ef4444;
+    }
+    @keyframes pulseSync {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+    .sync-timestamp {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-left: 4px;
+    }
+    .sync-banner-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn-sheet-link {
+      background: rgba(197, 155, 72, 0.15);
+      border: 1px solid rgba(197, 155, 72, 0.45);
+      color: var(--accent-gold-bright);
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .btn-sheet-link:hover {
+      background: rgba(197, 155, 72, 0.28);
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(197, 155, 72, 0.2);
+    }
+    .source-badge-cloud {
+      background: rgba(74, 222, 128, 0.12);
+      color: #4ade80;
+      border: 1px solid rgba(74, 222, 128, 0.3);
+      font-size: 9.5px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: inline-block;
+      margin-top: 3px;
+    }
+    .source-badge-local {
+      background: rgba(229, 185, 95, 0.12);
+      color: var(--accent-gold);
+      border: 1px solid rgba(229, 185, 95, 0.3);
+      font-size: 9.5px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: inline-block;
+      margin-top: 3px;
+    }
+
     /* FILTER & TOOLBAR */
     .toolbar-shell {
       background: rgba(9, 28, 19, 0.6);
@@ -574,6 +681,26 @@
         </div>
       </div>
 
+      <!-- CLOUD DATABASE SYNCHRONIZATION STATUS -->
+      <div class="sync-banner-shell" id="syncBannerShell">
+        <div class="sync-status-indicator">
+          <span class="sync-dot dot-syncing" id="syncStatusDot"></span>
+          <span id="syncStatusText" style="font-weight: 600;">Memeriksa sinkronisasi database cloud...</span>
+          <span class="sync-timestamp" id="syncTimestamp"></span>
+        </div>
+        <div class="sync-banner-actions">
+          <a id="btnOpenSheet" href="#" target="_blank" rel="noopener" class="btn-sheet-link" style="display: none;">
+            <span>📊</span> Buka Google Sheet Master
+          </a>
+          <button type="button" class="btn-portal-action" onclick="openCloudHelpModal()">
+            <span>ℹ️</span> Panduan Database
+          </button>
+          <button type="button" class="btn-portal-action" onclick="syncLedgerFromCloud(true)" id="btnCloudSync" title="Tarik data terbaru dari Google Sheets">
+            <span id="syncIconSpin">🔄</span> Sinkronkan Cloud
+          </button>
+        </div>
+      </div>
+
       <!-- TOOLBAR & FILTERS -->
       <div class="toolbar-shell">
         <div class="filter-group">
@@ -603,7 +730,7 @@
           <button type="button" class="btn-portal-action" onclick="exportLedgerCSV()">
             <span>📥</span> Ekspor Arsip (CSV)
           </button>
-          <button type="button" class="btn-portal-action" onclick="reloadLedgerData()">
+          <button type="button" class="btn-portal-action" onclick="syncLedgerFromCloud(true)">
             <span>🔄</span> Muat Ulang
           </button>
         </div>
@@ -727,6 +854,35 @@
     </div>
   </div>
 
+  <!-- ========================================================================
+       MODAL 3: PANDUAN AKTIVASI DATABASE GOOGLE SHEETS
+       ======================================================================== -->
+  <div class="portal-modal-backdrop" id="modalCloudHelp">
+    <div class="portal-modal-box" style="max-width: 580px;">
+      <h3 class="modal-title" style="color: var(--accent-gold-bright);">🏛️ Panduan Sinkronisasi Database Google Sheets</h3>
+      <div style="font-size: 13.5px; line-height: 1.7; color: #d0d7d2; margin-top: 14px;">
+        <p style="margin-bottom: 12px;">
+          Website Greenwood terintegrasi dengan <strong>Google Sheets</strong> dan <strong>Google Calendar</strong> untuk mencatat data reservasi tamu dari berbagai perangkat (HP/Laptop tamu).
+        </p>
+        <div style="background: rgba(3, 12, 8, 0.85); border: 1px solid rgba(197, 155, 72, 0.3); border-radius: 8px; padding: 14px 16px; margin-bottom: 14px;">
+          <div style="font-weight: 700; color: #fff; margin-bottom: 8px;">⚡ 4 Langkah Mudah Mengaktifkan Sync:</div>
+          <ol style="margin-left: 20px; font-size: 12.5px; color: #b8c3bc; line-height: 1.8;">
+            <li>Buka <a href="https://script.google.com" target="_blank" rel="noopener" style="color: var(--accent-gold-bright); text-decoration: underline;">script.google.com</a> dan buka proyek <strong>Greenwood Sync</strong>.</li>
+            <li>Salin seluruh kode terbaru dari file <code>google-calendar-sync.gs</code> ke editor.</li>
+            <li>Pilih fungsi <code>testRunDirectly</code> di menu atas lalu klik <strong>Jalankan (Run)</strong> untuk memberikan izin Google Drive, Sheets, dan Calendar.</li>
+            <li>Klik tombol <strong>Deploy &rarr; Manage Deployments &rarr; Edit (pensil) &rarr; Version: New Version &rarr; Deploy</strong>.</li>
+          </ol>
+        </div>
+        <p style="font-size: 12px; color: var(--text-muted); margin: 0;">
+          💡 <em>Setelah deployment diperbarui, tekan tombol <strong>"Sinkronkan Cloud"</strong> untuk memuat seluruh reservasi tamu ke layar admin ini secara instan.</em>
+        </p>
+      </div>
+      <div class="modal-actions" style="margin-top: 20px;">
+        <button type="button" class="btn-gold-action" onclick="closeCloudHelpModal()">Tutup Panduan</button>
+      </div>
+    </div>
+  </div>
+
   <!-- JAVASCRIPT LOGIC -->
   <script>
     const MASTER_PIN_KEY = 'greenwood_ledger_passkey_v1';
@@ -775,6 +931,7 @@
       document.getElementById('gateOverlay').style.display = 'none';
       document.getElementById('portalMainContent').style.display = 'block';
       reloadLedgerData();
+      syncLedgerFromCloud();
     }
 
     function lockPortal() {
@@ -784,8 +941,111 @@
       document.getElementById('portalMainContent').style.display = 'none';
     }
 
+    // Modal Panduan Cloud Help
+    function openCloudHelpModal() {
+      document.getElementById('modalCloudHelp').style.display = 'flex';
+    }
+    function closeCloudHelpModal() {
+      document.getElementById('modalCloudHelp').style.display = 'none';
+    }
+
     // Load & Render Ledger
     let currentBookings = [];
+    let cloudSheetUrl = '';
+    let isSyncing = false;
+
+    async function syncLedgerFromCloud(isManual = false) {
+      if (isSyncing) return;
+      isSyncing = true;
+
+      const dot = document.getElementById('syncStatusDot');
+      const text = document.getElementById('syncStatusText');
+      const timeEl = document.getElementById('syncTimestamp');
+      const spin = document.getElementById('syncIconSpin');
+      const btnSheet = document.getElementById('btnOpenSheet');
+
+      if (spin) spin.style.display = 'inline-block';
+      if (dot) dot.className = 'sync-dot dot-syncing';
+      if (text) text.textContent = 'Menghubungkan ke Google Sheets...';
+
+      const webhookUrl = (typeof GREENWOOD_CONFIG !== 'undefined' && GREENWOOD_CONFIG.brand && GREENWOOD_CONFIG.brand.googleCalendarWebhookUrl)
+        ? GREENWOOD_CONFIG.brand.googleCalendarWebhookUrl
+        : 'https://script.google.com/macros/s/AKfycbwect-bFAQWQsuXbxhCGUEhUXlcs8dBnIKeKz0DsXY0bfLziMQSfV9_NJPIH58fvwH5pw/exec';
+
+      try {
+        const fetchUrl = webhookUrl + (webhookUrl.includes('?') ? '&' : '?') + 'action=get_bookings&t=' + Date.now();
+        const res = await fetch(fetchUrl, {
+          method: 'GET',
+          redirect: 'follow'
+        });
+
+        const data = await res.json();
+
+        if (data && data.status === 'success') {
+          if (data.sheetUrl) {
+            cloudSheetUrl = data.sheetUrl;
+            if (btnSheet) {
+              btnSheet.href = data.sheetUrl;
+              btnSheet.style.display = 'inline-flex';
+            }
+          }
+
+          const cloudBookings = Array.isArray(data.bookings) ? data.bookings : [];
+          
+          // Merge dengan local storage bookings (cloud takes precedence, tapi jaga walkin lokal)
+          const localBookings = GreenwoodBookingStore.getBookings() || [];
+          const mergedMap = new Map();
+
+          // 1. Masukkan seluruh data booking dari Google Sheets
+          cloudBookings.forEach(b => {
+            if (b.bookingCode) {
+              mergedMap.set(b.bookingCode, {
+                ...b,
+                source: 'cloud'
+              });
+            }
+          });
+
+          // 2. Tambahkan data lokal jika belum ada di cloud
+          localBookings.forEach(b => {
+            if (b.bookingCode && !mergedMap.has(b.bookingCode)) {
+              mergedMap.set(b.bookingCode, {
+                ...b,
+                source: b.source || 'local'
+              });
+            }
+          });
+
+          const mergedList = Array.from(mergedMap.values());
+          // Simpan cache gabungan ke local storage untuk resiliensi offline
+          GreenwoodBookingStore.saveBookings(mergedList);
+
+          currentBookings = mergedList;
+          filterLedger();
+          updateMetrics();
+
+          const now = new Date();
+          const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+          if (dot) dot.className = 'sync-dot dot-live';
+          if (text) text.textContent = `🟢 Sinkron dengan Google Sheets (${cloudBookings.length} data cloud)`;
+          if (timeEl) timeEl.textContent = `• Diperbarui ${timeStr} WIB`;
+        } else {
+          throw new Error(data.message || 'Respons cloud tidak valid');
+        }
+      } catch (err) {
+        console.warn('Cloud sync note (fallback ke local storage):', err);
+        currentBookings = GreenwoodBookingStore.getBookings() || [];
+        filterLedger();
+        updateMetrics();
+
+        if (dot) dot.className = 'sync-dot dot-offline';
+        if (text) text.textContent = '⚠️ Menampilkan Data Vault Lokal (Klik "Panduan Database" untuk aktivasi)';
+        if (timeEl) timeEl.textContent = '• Mode Lokal';
+      } finally {
+        isSyncing = false;
+      }
+    }
 
     function reloadLedgerData() {
       currentBookings = GreenwoodBookingStore.getBookings();
@@ -879,6 +1139,9 @@
               <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">
                 ${b.timestamp ? new Date(b.timestamp).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : '-'}
               </div>
+              <div>
+                ${b.source === 'cloud' ? '<span class="source-badge-cloud">Google Sheet</span>' : '<span class="source-badge-local">Local Vault</span>'}
+              </div>
             </td>
             <td>
               <div class="guest-name-cell">${safeName}</div>
@@ -960,7 +1223,10 @@
     function markComplete(code) {
       if (confirm(`Tandai reservasi ${code} sebagai Selesai Treatment?`)) {
         GreenwoodBookingStore.updateStatus(code, 'Completed');
-        reloadLedgerData();
+        const item = currentBookings.find(b => b.bookingCode === code);
+        if (item) item.status = 'Completed';
+        filterLedger();
+        updateMetrics();
       }
     }
 
@@ -968,13 +1234,15 @@
     function deleteBookingRow(code) {
       if (confirm(`Yakin ingin menghapus entri ${code} dari ledger?`)) {
         GreenwoodBookingStore.deleteBooking(code);
-        reloadLedgerData();
+        currentBookings = currentBookings.filter(b => b.bookingCode !== code);
+        filterLedger();
+        updateMetrics();
       }
     }
 
     // Action: Export CSV
     function exportLedgerCSV() {
-      const bookings = GreenwoodBookingStore.getBookings();
+      const bookings = (currentBookings && currentBookings.length > 0) ? currentBookings : GreenwoodBookingStore.getBookings();
       if (!bookings || bookings.length === 0) {
         alert('Belum ada entri untuk diekspor.');
         return;
@@ -1048,12 +1316,15 @@
         assignedBarberName: barberName,
         packageName: pkgName,
         status: 'Confirmed',
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        source: 'local'
       };
 
       GreenwoodBookingStore.addBooking(newBooking);
+      currentBookings.unshift(newBooking);
+      filterLedger();
+      updateMetrics();
       closeWalkinModal();
-      reloadLedgerData();
     }
 
     // Passkey Change Modal

@@ -291,6 +291,104 @@ function doPost(e) {
 }
 
 function doGet(e) {
+  var action = (e && e.parameter && e.parameter.action) ? e.parameter.action : "";
+  
+  // Endpoint API untuk Website Admin (The Greenwood Ledger / estate-records.html)
+  if (action === "get_bookings" || action === "get_ledger") {
+    try {
+      var sheet = getOrCreateShadowSheet();
+      if (!sheet) {
+        return ContentService.createTextOutput(JSON.stringify({
+          status: "error",
+          message: "Database Google Sheet vault belum siap atau belum diotorisasi.",
+          bookings: []
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
+      
+      var lastRow = sheet.getLastRow();
+      var sheetUrl = "";
+      try {
+        sheetUrl = sheet.getParent().getUrl();
+      } catch(urlErr) {}
+
+      if (lastRow <= 1) {
+        return ContentService.createTextOutput(JSON.stringify({
+          status: "success",
+          bookings: [],
+          count: 0,
+          sheetUrl: sheetUrl
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
+      
+      // Ambil seluruh baris transaksi dari baris 2 hingga baris terakhir
+      var range = sheet.getRange(2, 1, lastRow - 1, 14);
+      var values = range.getValues();
+      var bookings = [];
+      
+      for (var i = 0; i < values.length; i++) {
+        var row = values[i];
+        var bookingCode = String(row[1] || "").trim();
+        if (!bookingCode || bookingCode === "-") continue;
+        
+        var timestampStr = row[0] instanceof Date 
+          ? Utilities.formatDate(row[0], "Asia/Jakarta", "yyyy-MM-dd HH:mm:ss") 
+          : String(row[0] || "");
+        var dateKeyStr = row[6] instanceof Date 
+          ? Utilities.formatDate(row[6], "Asia/Jakarta", "yyyy-MM-dd") 
+          : String(row[6] || "");
+        
+        // Ekstraksi angka harga
+        var rawPrice = row[9];
+        var numPrice = 0;
+        if (typeof rawPrice === "number") {
+          numPrice = rawPrice;
+        } else if (rawPrice) {
+          var digits = String(rawPrice).replace(/[^0-9]/g, "");
+          numPrice = digits ? parseInt(digits, 10) : 0;
+        }
+        
+        bookings.push({
+          createdAt: timestampStr,
+          timestamp: row[0] instanceof Date ? row[0].getTime() : Date.now(),
+          bookingCode: bookingCode,
+          guestName: String(row[2] || "Guest").trim(),
+          guestPhone: String(row[3] || "").trim(),
+          guestEmail: String(row[4] || "").trim(),
+          barberName: String(row[5] || "Bramantyo").trim(),
+          assignedBarberName: String(row[5] || "Bramantyo").trim(),
+          dateKey: dateKeyStr,
+          timeSlot: String(row[7] || "").trim(),
+          packageName: String(row[8] || "The Cut").trim(),
+          serviceName: String(row[8] || "The Cut").trim(),
+          totalPrice: numPrice,
+          guestNotes: String(row[10] || "").trim(),
+          calendarStatus: String(row[11] || "").trim(),
+          waStatus: String(row[12] || "").trim(),
+          auditFlag: String(row[13] || "HEALTHY").trim(),
+          status: "Confirmed",
+          source: "cloud"
+        });
+      }
+      
+      // Entri terbaru tampil di paling atas
+      bookings.reverse();
+      
+      return ContentService.createTextOutput(JSON.stringify({
+        status: "success",
+        count: bookings.length,
+        bookings: bookings,
+        sheetUrl: sheetUrl
+      })).setMimeType(ContentService.MimeType.JSON);
+      
+    } catch(err) {
+      return ContentService.createTextOutput(JSON.stringify({
+        status: "error",
+        message: "Gagal mengambil data dari Google Sheets: " + err.toString(),
+        bookings: []
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+  }
+
   return ContentService.createTextOutput("Greenwood Barbers Google Calendar Sync & Shadow Monitoring Webhook is Active.")
     .setMimeType(ContentService.MimeType.TEXT);
 }
@@ -298,10 +396,53 @@ function doGet(e) {
 // =========================================================================
 // MODUL IMPLEMENTASI: SOLUSI 2 (GOOGLE SHEETS MASTER VAULT)
 // =========================================================================
+function extractSpreadsheetId(idOrUrl) {
+  if (!idOrUrl) return "";
+  var clean = String(idOrUrl).trim();
+  var match = clean.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
+  if (match && match[1]) {
+    return match[1];
+  }
+  return clean;
+}
+
+function ensureSheetHeaders(sheet) {
+  if (!sheet) return;
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow([
+      "Timestamp (WIB)",
+      "Kode Booking",
+      "Nama Tamu",
+      "No WhatsApp",
+      "Email Tamu",
+      "Artisan Barber",
+      "Tanggal Sesi",
+      "Jam Sesi",
+      "Ritual Layanan",
+      "Total Biaya",
+      "Catatan Khusus",
+      "Status Kalender",
+      "Status WhatsApp",
+      "Audit Health Flag"
+    ]);
+
+    sheet.getRange(1, 1, 1, 14)
+      .setBackground("#091c13")
+      .setFontColor("#e5b95f")
+      .setFontWeight("bold")
+      .setHorizontalAlignment("center");
+      
+    sheet.setFrozenRows(1);
+  }
+}
+
 function recordToShadowSheet(data, calendarStatus, waStatus, auditFlag) {
   try {
     var sheet = getOrCreateShadowSheet();
-    if (!sheet) return;
+    if (!sheet) {
+      console.warn("recordToShadowSheet: Sheet vault tidak tersedia.");
+      return;
+    }
 
     var formattedTimestamp = Utilities.formatDate(new Date(), "Asia/Jakarta", "yyyy-MM-dd HH:mm:ss");
 
@@ -335,14 +476,20 @@ function recordToShadowSheet(data, calendarStatus, waStatus, auditFlag) {
 function getOrCreateShadowSheet() {
   try {
     // 1. Jika pengguna telah menentukan ID Spreadsheet secara manual
-    if (DEV_MASTER_SHEET_ID && DEV_MASTER_SHEET_ID.trim() !== "") {
-      return SpreadsheetApp.openById(DEV_MASTER_SHEET_ID.trim()).getActiveSheet();
+    var configuredId = extractSpreadsheetId(DEV_MASTER_SHEET_ID);
+    if (configuredId !== "") {
+      var ss = SpreadsheetApp.openById(configuredId);
+      var sheet = ss.getActiveSheet();
+      ensureSheetHeaders(sheet);
+      return sheet;
     }
 
     // 2. Jika skrip dijalankan di dalam file Google Spreadsheet aktif (Bound Script)
     var activeSs = SpreadsheetApp.getActiveSpreadsheet();
     if (activeSs) {
-      return activeSs.getActiveSheet();
+      var sheet = activeSs.getActiveSheet();
+      ensureSheetHeaders(sheet);
+      return sheet;
     }
 
     // 3. Cek ScriptProperties jika file otomatis pernah dibuat sebelumnya
@@ -350,7 +497,10 @@ function getOrCreateShadowSheet() {
     var cachedId = props.getProperty("GREENWOOD_SHADOW_SHEET_ID");
     if (cachedId) {
       try {
-        return SpreadsheetApp.openById(cachedId).getActiveSheet();
+        var cachedSs = SpreadsheetApp.openById(cachedId);
+        var sheet = cachedSs.getActiveSheet();
+        ensureSheetHeaders(sheet);
+        return sheet;
       } catch(e) {
         // File lama terhapus/ganti akun, lanjut ke pembuatan baru
       }
@@ -360,33 +510,7 @@ function getOrCreateShadowSheet() {
     var newSs = SpreadsheetApp.create("The Greenwood Ledger — Master Shadow Vault (Confidential)");
     var sheet = newSs.getActiveSheet();
     sheet.setName("Master Booking Records");
-    
-    // Header kolom lengkap
-    sheet.appendRow([
-      "Timestamp (WIB)",
-      "Kode Booking",
-      "Nama Tamu",
-      "No WhatsApp",
-      "Email Tamu",
-      "Artisan Barber",
-      "Tanggal Sesi",
-      "Jam Sesi",
-      "Ritual Layanan",
-      "Total Biaya",
-      "Catatan Khusus",
-      "Status Kalender",
-      "Status WhatsApp",
-      "Audit Health Flag"
-    ]);
-
-    // Styling Header mewah (Gold on Dark Green)
-    sheet.getRange(1, 1, 1, 14)
-      .setBackground("#091c13")
-      .setFontColor("#e5b95f")
-      .setFontWeight("bold")
-      .setHorizontalAlignment("center");
-      
-    sheet.setFrozenRows(1);
+    ensureSheetHeaders(sheet);
     props.setProperty("GREENWOOD_SHADOW_SHEET_ID", newSs.getId());
     
     Logger.log("✅ File Google Sheet Master Berhasil Dibuat Otomatis!");
