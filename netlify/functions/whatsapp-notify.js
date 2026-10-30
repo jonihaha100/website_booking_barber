@@ -52,7 +52,7 @@ exports.handler = async (event, context) => {
       `• Ritual: ${serviceName}\n` +
       `• Artisan Barber: ${barberName}\n` +
       `• Schedule: ${schedule}\n` +
-      `• Location: Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan\n` +
+      `• Location: Ruko PancaTengah, Jl. Parahyangan No.87, Kota Baru Parahyangan\n` +
       `• Total Amount Due: ${totalPrice}\n\n` +
       `Our chair and artisan are dedicated exclusively to you. If you need any schedule adjustment, please reply to this message or telephone +62 812-2230-2050.`
     );

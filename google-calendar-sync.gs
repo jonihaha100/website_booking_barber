@@ -97,18 +97,20 @@ function doPost(e) {
       "When: " + dayName + ", " + dateFormatted + ", " + timeRange + "\n" +
       "Total: Rp " + cleanTotal + "\n" +
       "Your note: " + notes + "\n\n" +
-      "Where: Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang. Free parking at the door.\n" +
+      "Where: Ruko PancaTengah, Jl. Parahyangan No.87, Kota Baru Parahyangan, Padalarang. Free parking at the door.\n" +
       "Map: " + mapsLink + "\n\n" +
       "Come 5–10 minutes early. To change your time, WhatsApp us at +62 812-2230-2050, ideally 3 hours ahead.\n\n" +
-      "Pass " + passCode;
+      "Pass " + passCode + "\n\n" +
+      "WhatsApp reminder (2 hours before):\n" +
+      "Hi " + guestName + ", see you at " + startFormatted + " today with " + barberName + ". Free parking at the door. Running late? Just reply here.";
       
-    var location = data.location || "Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang";
+    var location = data.location || "Greenwood Barbers, Ruko PancaTengah, Jl. Parahyangan No.87, Kota Baru Parahyangan, Padalarang, West Java 40553";
 
     // Opsi Pembuatan Event (Invite Email Pelanggan & Kirim Notifikasi Kalender)
     var options = {
       description: description,
       location: location,
-      sendInvites: true // Otomatis mengirimkan email undangan resmi Google Calendar ke pelanggan!
+      sendInvites: true // Otomatis mengirimkan email undangan resmi Google Calendar (RSVP Card) ke pelanggan!
     };
     
     if (data.guestEmail && data.guestEmail.indexOf("@") !== -1) {
@@ -150,45 +152,9 @@ function doPost(e) {
       }
     }
 
-    // 3. Kirim email konfirmasi resmi langsung ke inbox tamu via MailApp (Format Baru Sesuai Feedback)
-    if (data.guestEmail && data.guestEmail.indexOf("@") !== -1) {
-      try {
-        var emailRecipient = String(data.guestEmail).trim();
-        var emailSubject = "Greenwood Barbers · " + serviceName + " with " + barberName;
-        
-        var emailHtml = 
-          "<div style='font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif; max-width: 580px; margin: 0 auto; background: #030c08; color: #f5f4ef; padding: 28px 24px; border-radius: 8px; border: 1px solid #c59b48;'>" +
-            "<div style='text-align: center; margin-bottom: 22px; border-bottom: 1px solid rgba(197, 155, 72, 0.25); padding-bottom: 16px;'>" +
-              "<h2 style='color: #c59b48; margin: 0; letter-spacing: 2.5px; font-size: 18px;'>GREENWOOD BARBERS</h2>" +
-              "<p style='color: #828f86; font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; margin: 6px 0 0;'>Official Parlour Reservation</p>" +
-            "</div>" +
-            "<h3 style='color: #f5f4ef; font-size: 17px; margin: 0 0 16px 0; font-weight: 600;'>Your chair is reserved.</h3>" +
-            "<div style='background: #091c13; padding: 18px; border-radius: 6px; border: 1px solid rgba(197, 155, 72, 0.25); margin-bottom: 20px; font-size: 14px; line-height: 1.75; color: #d0d7d2;'>" +
-              "<p style='margin: 3px 0;'><strong>Service:</strong> " + serviceName + "</p>" +
-              "<p style='margin: 3px 0;'><strong>Add-ons:</strong> " + addons + "</p>" +
-              "<p style='margin: 3px 0;'><strong>Barber:</strong> " + barberName + "</p>" +
-              "<p style='margin: 3px 0;'><strong>When:</strong> " + dayName + ", " + dateFormatted + ", " + timeRange + "</p>" +
-              "<p style='margin: 3px 0; color: #e5b95f;'><strong>Total:</strong> Rp " + cleanTotal + "</p>" +
-              "<p style='margin: 3px 0;'><strong>Your note:</strong> " + notes + "</p>" +
-            "</div>" +
-            "<div style='font-size: 13px; line-height: 1.6; color: #c2cac3; margin-bottom: 18px;'>" +
-              "<p style='margin: 0 0 6px 0;'><strong>Where:</strong> Ruko PancaTengah Blok B No. 08, Kota Baru Parahyangan, Padalarang. Free parking at the door.</p>" +
-              "<p style='margin: 0;'><strong>Map:</strong> <a href='" + mapsLink + "' target='_blank' style='color: #e5b95f; text-decoration: underline;'>" + mapsLink + "</a></p>" +
-            "</div>" +
-            "<p style='font-size: 12.5px; color: #9aa59d; line-height: 1.55; margin: 0 0 18px 0;'>" +
-              "Come 5–10 minutes early. To change your time, WhatsApp us at <a href='https://wa.me/6281222302050' style='color: #e5b95f; text-decoration: none;'>+62 812-2230-2050</a>, ideally 3 hours ahead." +
-            "</p>" +
-            "<div style='border-top: 1px solid rgba(197, 155, 72, 0.2); padding-top: 14px; font-family: monospace; font-size: 14px; color: #e5b95f; font-weight: 600;'>" +
-              "Pass " + passCode +
-            "</div>" +
-          "</div>";
-
-        var emailOptions = { htmlBody: emailHtml };
-        MailApp.sendEmail(emailRecipient, emailSubject, description, emailOptions);
-      } catch (mailErr) {
-        Logger.log("MailApp error: " + mailErr);
-      }
-    }
+    // 3. Email Konfirmasi: Cukup Undangan Resmi Google Calendar (RSVP Card)
+    // Sesuai feedback resmi client (WhatsApp Image 2026-10-30 at 17.59.43), email kustom terpisah ditiadakan.
+    // Tamu hanya menerima email resmi Google Calendar invitation yang rapi, berkelas, dan memiliki tombol RSVP Yes/No/Maybe.
 
     // 4. Kirim Pesan WhatsApp Otomatis via Gateway Fonnte (Format Baru Sesuai Feedback Client)
     if (FONNTE_API_TOKEN && data.guestPhone) {
@@ -206,14 +172,14 @@ function doPost(e) {
           "Add-ons: " + addons + "\n" +
           dayName + ", " + dateFormatted + " · " + timeRange + "\n" +
           "Total: Rp " + cleanTotal + "\n\n" +
-          "📍 Ruko PancaTengah Blok B No. 08, KBP. Free parking at the door.\n" +
+          "📍 Ruko PancaTengah, Jl. Parahyangan No.87, KBP. Free parking at the door.\n" +
           mapsLink + "\n\n" +
           "Come 5–10 minutes early; your coffee is on us. Need to change the time? Just reply here, ideally 3 hours ahead.\n\n" +
           "Please reply YES to confirm. See you " + dayName + ".\n" +
           "— Greenwood Barbers\n" +
           "Pass " + passCode;
 
-        // Kirim pesan konfirmasi ke nomor tamu (Guest)
+        // Kirim pesan konfirmasi instan ke nomor tamu (Guest)
         var waResponse = UrlFetchApp.fetch("https://api.fonnte.com/send", {
           method: "post",
           headers: {
@@ -225,6 +191,26 @@ function doPost(e) {
           },
           muteHttpExceptions: true
         });
+
+        // 4b. Otomatis jadwalkan pesan 'WhatsApp reminder (2 hours before)' via Fonnte jika sesi > 2 jam dari sekarang
+        var reminderTimestamp = Math.floor((startTime.getTime() - (2 * 60 * 60 * 1000)) / 1000);
+        var nowTimestamp = Math.floor(Date.now() / 1000);
+        if (reminderTimestamp > (nowTimestamp + 300)) {
+          var reminderText = 
+            "Hi " + guestName + ", see you at " + startFormatted + " today with " + barberName + ". Free parking at the door. Running late? Just reply here.";
+          UrlFetchApp.fetch("https://api.fonnte.com/send", {
+            method: "post",
+            headers: {
+              Authorization: FONNTE_API_TOKEN
+            },
+            payload: {
+              target: cleanPhone,
+              message: reminderText,
+              schedule: reminderTimestamp
+            },
+            muteHttpExceptions: true
+          });
+        }
 
         var respCode = waResponse.getResponseCode();
         var respBody = waResponse.getContentText();

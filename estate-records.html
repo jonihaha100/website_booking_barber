@@ -1189,7 +1189,7 @@
             </td>
             <td style="text-align: right; white-space: nowrap;">
               <button type="button" class="btn-table-action btn-table-wa" onclick="sendWhatsAppConfirmation(decodeURIComponent('${encodedCode}'))" title="Kirim Konfirmasi WA Resmi">💬 Konfirmasi WA</button>
-              <button type="button" class="btn-table-action" style="background: rgba(229,185,95,0.12); border: 1px solid rgba(229,185,95,0.3); color: var(--accent-gold-bright);" onclick="sendWhatsAppReminder(decodeURIComponent('${encodedCode}'))" title="Kirim Pengingat 2 Jam Sebelum Sesi">⏰ Reminder (2 Jam)</button>
+              <button type="button" class="btn-table-action" style="background: rgba(229,185,95,0.12); border: 1px solid rgba(229,185,95,0.3); color: var(--accent-gold-bright);" onclick="sendWhatsAppReminder(decodeURIComponent('${encodedCode}'))" title="Kirim Pengingat 2 Jam Sebelum Sesi">⏰ WhatsApp reminder (2 hours before)</button>
               ${b.status !== 'Completed' ? `<button type="button" class="btn-table-action btn-table-complete" onclick="markComplete(decodeURIComponent('${encodedCode}'))" title="Tandai Selesai">&#10003; Selesai</button>` : ''}
               <button type="button" class="btn-table-action btn-table-del" onclick="deleteBookingRow(decodeURIComponent('${encodedCode}'))" title="Hapus">&#10005;</button>
             </td>
@@ -1261,7 +1261,7 @@
         `Add-ons: ${addons}\n` +
         `${dayName}, ${dateFormatted} · ${startSlot}–${endSlot}\n` +
         `Total: Rp ${totalStr}\n\n` +
-        `📍 Ruko PancaTengah Blok B No. 08, KBP. Free parking at the door.\n` +
+        `📍 Ruko PancaTengah, Jl. Parahyangan No.87, KBP. Free parking at the door.\n` +
         `${mapsLink}\n\n` +
         `Come 5–10 minutes early; your coffee is on us. Need to change the time? Just reply here, ideally 3 hours ahead.\n\n` +
         `Please reply YES to confirm. See you ${dayName}.\n` +
