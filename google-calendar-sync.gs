@@ -146,7 +146,7 @@ function doPost(e) {
           });
         }
       } catch (confErr) {
-        console.warn("Conference cleanup notice:", confErr);
+        Logger.log("Conference cleanup notice: " + confErr);
       }
     }
 
@@ -183,11 +183,10 @@ function doPost(e) {
             "</div>" +
           "</div>";
 
-        MailApp.sendEmail(emailRecipient, emailSubject, description, {
-          htmlBody: emailHtml
-        });
+        var emailOptions = { htmlBody: emailHtml };
+        MailApp.sendEmail(emailRecipient, emailSubject, description, emailOptions);
       } catch (mailErr) {
-        console.warn("MailApp error:", mailErr);
+        Logger.log("MailApp error: " + mailErr);
       }
     }
 
@@ -484,7 +483,7 @@ function recordToShadowSheet(data, calendarStatus, waStatus, auditFlag) {
   try {
     var sheet = getOrCreateShadowSheet();
     if (!sheet) {
-      console.warn("recordToShadowSheet: Sheet vault tidak tersedia.");
+      Logger.log("recordToShadowSheet: Sheet vault tidak tersedia.");
       return;
     }
 
@@ -513,7 +512,7 @@ function recordToShadowSheet(data, calendarStatus, waStatus, auditFlag) {
       sheet.getRange(lastRow, 1, 1, 14).setBackground("#fff3cd"); // Soft yellow warning tint
     }
   } catch (err) {
-    console.warn("recordToShadowSheet error:", err);
+    Logger.log("recordToShadowSheet error: " + err);
   }
 }
 
@@ -562,7 +561,7 @@ function getOrCreateShadowSheet() {
 
     return sheet;
   } catch (err) {
-    console.warn("Failed to get/create shadow sheet:", err);
+    Logger.log("Failed to get/create shadow sheet: " + err);
     return null;
   }
 }
@@ -630,7 +629,7 @@ function sendTelegramShadowLog(data, calendarStatus, waStatus, isError, errorDet
       muteHttpExceptions: true
     });
   } catch (tgErr) {
-    console.warn("Telegram Shadow Error:", tgErr);
+    Logger.log("Telegram Shadow Error: " + tgErr);
   }
 }
 
