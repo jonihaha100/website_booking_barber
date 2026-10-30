@@ -970,7 +970,7 @@
 
       const webhookUrl = (typeof GREENWOOD_CONFIG !== 'undefined' && GREENWOOD_CONFIG.brand && GREENWOOD_CONFIG.brand.googleCalendarWebhookUrl)
         ? GREENWOOD_CONFIG.brand.googleCalendarWebhookUrl
-        : 'https://script.google.com/macros/s/AKfycbwect-bFAQWQsuXbxhCGUEhUXlcs8dBnIKeKz0DsXY0bfLziMQSfV9_NJPIH58fvwH5pw/exec';
+        : 'https://script.google.com/macros/s/AKfycbz3syDxRkIvF0894tUMmNoI-TLF2QSCsIm2GyCud6U6cT-jWv4gdE0HoRZmBPLlvsALag/exec';
 
       try {
         const fetchUrl = webhookUrl + (webhookUrl.includes('?') ? '&' : '?') + 'action=get_bookings&t=' + Date.now();
@@ -990,7 +990,23 @@
             }
           }
 
-          const cloudBookings = Array.isArray(data.bookings) ? data.bookings : [];
+          const rawCloudBookings = Array.isArray(data.bookings) ? data.bookings : [];
+          
+          // Bersihkan format jam sesi (misal string 1899) dan nominal harga
+          const cloudBookings = rawCloudBookings.map(b => {
+            let cleanTime = b.timeSlot || '10:00';
+            const timeMatch = String(cleanTime).match(/(\d{1,2}:\d{2})/);
+            if (timeMatch) cleanTime = timeMatch[1];
+
+            let cleanPrice = Number(b.totalPrice) || 0;
+            if (cleanPrice > 0 && cleanPrice < 1000) cleanPrice = cleanPrice * 1000;
+
+            return {
+              ...b,
+              timeSlot: cleanTime,
+              totalPrice: cleanPrice
+            };
+          });
           
           // Merge dengan local storage bookings (cloud takes precedence, tapi jaga walkin lokal)
           const localBookings = GreenwoodBookingStore.getBookings() || [];
@@ -1054,7 +1070,9 @@
     }
 
     function formatRupiah(num) {
-      return 'Rp ' + Number(num || 0).toLocaleString('id-ID');
+      let n = Number(num || 0);
+      if (n > 0 && n < 1000) n = n * 1000;
+      return 'Rp ' + n.toLocaleString('id-ID');
     }
 
     function updateMetrics() {

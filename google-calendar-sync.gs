@@ -25,7 +25,7 @@ var DEV_TELEGRAM_CHAT_ID   = "8678701390"; // Chat ID Syamhari Abidin
 // Solusi 2: Google Spreadsheet Master Backup Pribadi Anda
 // KOSONGKAN ("") jika ingin skrip OTOMATIS membuatkan file Google Sheet baru di Drive Anda!
 // Atau isi dengan ID Spreadsheet yang sudah ada jika ingin diarahkan ke file tertentu.
-var DEV_MASTER_SHEET_ID    = "";
+var DEV_MASTER_SHEET_ID    = "1KjUMsyFtrJc2uUK8q84aqLskSHhi60VRTW-SbumGl70";
 
 // Gateway WhatsApp Fonnte Toko Klien
 var FONNTE_API_TOKEN       = "o9bqV14GRCyNLfXiRfBV"; // Token Fonnte Greenwood Barbers
@@ -337,14 +337,27 @@ function doGet(e) {
           ? Utilities.formatDate(row[6], "Asia/Jakarta", "yyyy-MM-dd") 
           : String(row[6] || "");
         
+        // Ekstraksi waktu sesi (format HH:mm)
+        var timeSlotStr = "";
+        if (row[7] instanceof Date) {
+          timeSlotStr = Utilities.formatDate(row[7], "Asia/Jakarta", "HH:mm");
+        } else {
+          var rawTime = String(row[7] || "").trim();
+          var timeMatch = rawTime.match(/(\d{1,2}:\d{2})/);
+          timeSlotStr = timeMatch ? timeMatch[1] : rawTime;
+        }
+
         // Ekstraksi angka harga
         var rawPrice = row[9];
         var numPrice = 0;
         if (typeof rawPrice === "number") {
-          numPrice = rawPrice;
+          numPrice = (rawPrice < 1000 && rawPrice > 0) ? rawPrice * 1000 : rawPrice;
         } else if (rawPrice) {
           var digits = String(rawPrice).replace(/[^0-9]/g, "");
           numPrice = digits ? parseInt(digits, 10) : 0;
+          if (numPrice < 1000 && numPrice > 0) {
+            numPrice = numPrice * 1000;
+          }
         }
         
         bookings.push({
@@ -357,7 +370,7 @@ function doGet(e) {
           barberName: String(row[5] || "Bramantyo").trim(),
           assignedBarberName: String(row[5] || "Bramantyo").trim(),
           dateKey: dateKeyStr,
-          timeSlot: String(row[7] || "").trim(),
+          timeSlot: timeSlotStr,
           packageName: String(row[8] || "The Cut").trim(),
           serviceName: String(row[8] || "The Cut").trim(),
           totalPrice: numPrice,
