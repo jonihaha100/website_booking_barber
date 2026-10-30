@@ -153,6 +153,7 @@ function doPost(e) {
     // 3. Kirim email konfirmasi resmi langsung ke inbox tamu via MailApp (Format Baru Sesuai Feedback)
     if (data.guestEmail && data.guestEmail.indexOf("@") !== -1) {
       try {
+        var emailRecipient = String(data.guestEmail).trim();
         var emailSubject = "Greenwood Barbers · " + serviceName + " with " + barberName;
         
         var emailHtml = 
@@ -182,10 +183,7 @@ function doPost(e) {
             "</div>" +
           "</div>";
 
-        MailApp.sendEmail({
-          to: data.guestEmail,
-          subject: emailSubject,
-          body: description,
+        MailApp.sendEmail(emailRecipient, emailSubject, description, {
           htmlBody: emailHtml
         });
       } catch (mailErr) {
