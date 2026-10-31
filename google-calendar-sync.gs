@@ -83,7 +83,7 @@ function doPost(e) {
 
     var notes = data.notes || data.guestNotes || "None";
     var passCode = data.pass_code || data.bookingCode || "-";
-    var mapsLink = data.maps_link || data.mapsLink || "https://www.google.com/maps/search/?api=1&query=Ruko+PancaTengah,+Kota+Baru+Parahyangan";
+    var mapsLink = data.maps_link || data.mapsLink || "https://www.google.com/maps/search/?api=1&query=-6.871083,107.466639";
 
     // Smart Package Auto-Upgrade (Backend Safeguard):
     // If services selected constitute The Ritual (Cut & Shave + Black Mask + Hair Spa):

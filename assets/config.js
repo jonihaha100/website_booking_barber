@@ -18,8 +18,13 @@ const GREENWOOD_CONFIG = {
     phoneDisplay: "+62 812-2230-2050",
     email: "contact@greenwoodbarbers.com",
     adminEmail: "admin@greenwood.id",
-    mapsUrl: "https://www.google.com/maps/search/?api=1&query=Ruko+PancaTengah,+Kota+Baru+Parahyangan",
-    mapsEmbedUrl: "https://maps.google.com/maps?q=-6.871273,107.466664&hl=en&z=17&output=embed",
+    mapsUrl: "https://www.google.com/maps/search/?api=1&query=-6.871083,107.466639",
+    mapsEmbedUrl: "https://maps.google.com/maps?q=-6.871083,107.466639&hl=en&z=17&output=embed",
+    coordinates: {
+      lat: -6.871083,
+      lng: 107.466639,
+      dms: "6°52'15.9\"S 107°27'59.9\"E"
+    },
     parkingInfo: "7 minutes from Whoosh Padalarang and 5 minutes from the Padalarang toll exit. Free parking right in front of the door.",
     paymentNotice: "",
     cancellationNotice: "Kindly advise our concierge at least 3 hours prior if you need to reschedule.",
