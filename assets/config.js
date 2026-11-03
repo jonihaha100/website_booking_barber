@@ -9,7 +9,7 @@ const GREENWOOD_CONFIG = {
   // 1. BRAND INFORMATION & OFFICIAL CONTACTS
   brand: {
     name: "Greenwood Barbers",
-    tagline: "Bandung’s First Gentleman’s Retreat",
+    tagline: "Bandung’s First Gentlemen’s Retreat",
     location: "Ruko PancaTengah, Kota Baru Parahyangan",
     city: "Padalarang, West Bandung Regency 40553",
     fullAddress: "Ruko PancaTengah, Jl. Parahyangan No.87, Kota Baru Parahyangan, Padalarang 40553",

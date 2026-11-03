@@ -529,8 +529,8 @@
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
     }
     .barber-avatar-wrap {
-      width: 64px;
-      height: 64px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
       margin: 0 auto 10px;
       overflow: hidden;
@@ -1266,7 +1266,7 @@
     <!-- COMPACT BOOKING HEADER -->
     <div class="booking-header">
       <span class="booking-eyebrow">Reserve a Chair &bull; Kota Baru Parahyangan</span>
-      <h1 class="booking-title">Reserve your chair</h1>
+      <h1 class="booking-title">Reserve a chair</h1>
       <p class="booking-sub">
         Pick your service, your barber and your time. It takes about a minute, and your chair will be waiting.
       </p>
@@ -1313,11 +1313,6 @@
           <!-- Dynamically populated from GREENWOOD_CONFIG.packages -->
         </div>
 
-        <!-- Bundle Package Callout -->
-        <div id="cutShaveNotice" style="display: none; background: rgba(197, 155, 72, 0.1); border: 1px solid var(--accent-gold); border-radius: 6px; padding: 12px 16px; margin: 14px 0; font-size: 13.5px; color: var(--accent-gold-bright); text-align: center;">
-          Cut + Shave / Trim is our package. Same price, plus a 10-minute back and shoulder massage.
-        </div>
-
         <!-- Smart Package Auto-Upgrade Callout -->
         <div id="smartUpgradeNotice" style="display: none; background: rgba(197, 155, 72, 0.14); border: 1px solid var(--accent-gold); border-radius: 6px; padding: 14px 18px; margin: 14px 0; text-align: left;">
           <div style="font-weight: 700; color: var(--accent-gold-bright); font-size: 14px; margin-bottom: 4px; display: flex; align-items: center; gap: 8px;">
@@ -1332,7 +1327,6 @@
         <!-- Add-on List with Conflict Blocking -->
         <div class="addons-heading">
           <span>Add a little more</span>
-          <span class="addons-sub-note">Anything already in your service is greyed out.</span>
         </div>
         <div id="addonListContainer">
           <!-- Dynamically populated from GREENWOOD_CONFIG.addons -->
@@ -1353,13 +1347,9 @@
     <div class="flow-panel" id="panelStep2">
       <div class="panel-card">
         <div class="panel-header-row">
-          <h2 class="panel-title">Who would you like?</h2>
+          <h2 class="panel-title">Pick your barber</h2>
           <span class="panel-badge">Step 2 of 4</span>
         </div>
-
-        <p style="font-size: 14.5px; color: var(--text-muted); margin-bottom: 18px;">
-          Pick your barber, or take the first available for the most times to choose from.
-        </p>
 
         <!-- Banner: First available barber (Default) -->
         <div class="barber-any-banner selected" id="barberCard-any" onclick="selectBarber('any')">
@@ -1496,11 +1486,8 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="guestEmail">Email (for your calendar invite and reminders) *</label>
-            <input type="email" id="guestEmail" class="form-input" placeholder="e.g. name@gmail.com" required>
-            <p style="font-size: 12px; color: var(--text-muted); margin-top: 6px; line-height: 1.5;">
-              🔔 <em>We’ve added your appointment to Google Calendar, with reminders 2 hours and 30 minutes before.</em>
-            </p>
+            <label class="form-label" for="guestEmail">Email (optional, for calendar invite)</label>
+            <input type="email" id="guestEmail" class="form-input" placeholder="e.g. name@gmail.com">
           </div>
 
           <div class="form-group">
@@ -1545,7 +1532,8 @@
               <div class="pass-brand-title">GREENWOOD BARBERS</div>
               <div style="font-size: 11px; letter-spacing: 1.5px; color: var(--accent-gold); text-transform: uppercase;">Your Greenwood pass</div>
             </div>
-            <div class="pass-code-pill" id="passCodeVal">GWB-261028-0000</div>
+            <!-- Hidden code container for script execution -->
+            <span id="passCodeVal" style="display: none;"></span>
           </div>
 
           <div class="pass-content-grid">
@@ -1575,108 +1563,40 @@
             </div>
           </div>
 
-          <!-- ARRIVAL ADVISORY -->
-          <div style="background: rgba(197, 155, 72, 0.08); border: 1px solid rgba(197, 155, 72, 0.22); border-radius: 8px; padding: 14px 18px; margin: 20px 0 16px; text-align: left; font-size: 13.5px; line-height: 1.6;">
-            <div style="color: var(--accent-gold); font-weight: 700; margin-bottom: 6px; font-size: 13px; letter-spacing: 1px; text-transform: uppercase;">
-              &#128205; Before you come
-            </div>
-            <div style="color: var(--text-main); margin-bottom: 4px;">
-              &bull; <strong>Where:</strong> <a href="https://www.google.com/maps/search/?api=1&query=-6.871083,107.466639" target="_blank" rel="noopener" style="color: var(--accent-gold-bright); text-decoration: underline; font-weight: 600;">Ruko PancaTengah, Jl. Parahyangan No.87</a>, Kota Baru Parahyangan. Free parking at the door.
-            </div>
-            <div style="color: var(--text-main);">
-              &bull; <strong>When:</strong> Come 5 to 10 minutes early. Your coffee is on us, before your time starts.
-            </div>
+          <!-- PROMINENT ACTIONS: WHATSAPP US & OPEN IN MAPS -->
+          <div style="display: flex; gap: 14px; margin-top: 24px; flex-wrap: wrap;">
+            <a href="https://wa.me/6281222302050" target="_blank" rel="noopener" style="flex: 1; min-width: 200px; background: #25D366; color: #ffffff; text-decoration: none; font-weight: 700; font-size: 15px; padding: 14px 20px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35); transition: transform 0.2s ease, opacity 0.2s ease;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.073.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824zM12 2C6.477 2 2 6.477 2 12c0 1.891.524 3.662 1.435 5.178L2 22l4.981-1.399C8.423 21.498 10.155 22 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
+              </svg>
+              <span>WhatsApp Us</span>
+            </a>
+            <a href="https://www.google.com/maps/search/?api=1&query=-6.871083,107.466639" target="_blank" rel="noopener" style="flex: 1; min-width: 200px; background: rgba(197, 155, 72, 0.15); border: 1.5px solid var(--accent-gold); color: var(--accent-gold-bright); text-decoration: none; font-weight: 700; font-size: 15px; padding: 14px 20px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: background 0.2s ease, border-color 0.2s ease;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <span>Open in Maps</span>
+            </a>
           </div>
 
-          <div class="pass-footer-strip" style="font-size: 12.5px; color: var(--text-muted);">
+          <div class="pass-footer-strip" style="font-size: 12.5px; color: var(--text-muted); margin-top: 20px;">
             Questions? WhatsApp +62 812-2230-2050 &bull; Open Wednesday&ndash;Monday, 10:00&ndash;20:00
           </div>
 
-          <div class="pass-print-watermark" style="display: none;">
-            Greenwood Barbers &bull; Kota Baru Parahyangan
+          <!-- Secondary Actions -->
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; width: 100%; margin-top: 16px;">
+            <button type="button" class="btn-step-back" onclick="resetBookingSession()" style="flex: 1; min-width: 160px;">
+              + Book another chair
+            </button>
+            <a href="index.html" class="btn-step-back" style="flex: 1; min-width: 150px; text-decoration: none; text-align: center;">
+              Back to home &rarr;
+            </a>
           </div>
 
-          <!-- AUTOMATED CONFIRMATION & INTEGRATION STATUS -->
-          <div class="pass-actions-bar" style="display: flex; flex-direction: column; gap: 16px; margin-top: 24px;">
-            
-            <!-- Dual Validation Status Container with Live Feedback -->
-            <div style="background: rgba(9, 28, 19, 0.85); border: 1.5px solid rgba(197, 155, 72, 0.35); border-radius: 8px; padding: 20px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4); text-align: left;">
-              
-              <!-- Header -->
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; border-bottom: 1px solid rgba(197, 155, 72, 0.2); padding-bottom: 12px; flex-wrap: wrap; gap: 8px;">
-                <div style="display: flex; align-items: center; gap: 10px;">
-                  <span style="font-size: 20px;">🏛️</span>
-                  <div>
-                    <div style="font-family: var(--font-serif); font-size: 15px; font-weight: 700; color: var(--accent-gold-bright); letter-spacing: 0.5px;">
-                      Two reminders, sent for you
-                    </div>
-                    <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 1px;">
-                      In-person appointment
-                    </div>
-                  </div>
-                </div>
-                <span id="passSyncOverallBadge" style="font-size: 11px; color: #4ade80; font-weight: 700; background: rgba(74, 222, 128, 0.12); padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(74, 222, 128, 0.3); text-transform: uppercase; letter-spacing: 0.5px;">
-                  ✓ On
-                </span>
-              </div>
-
-              <!-- Validation 1: Official Google Calendar Invitation (As per client approved screenshot) -->
-              <div style="display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px;">
-                <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(197, 155, 72, 0.15); border: 1px solid var(--accent-gold); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; margin-top: 2px;">
-                  🔔
-                </div>
-                <div style="flex: 1;">
-                  <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
-                    <div style="font-family: var(--font-serif); font-size: 14.5px; font-weight: 700; color: #f5f4ef;">
-                      Official Google Calendar invite
-                    </div>
-                    <span id="passGcalStatusBadge" style="font-size: 11px; color: #4ade80; background: rgba(74, 222, 128, 0.12); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(74, 222, 128, 0.3); font-weight: 600;">
-                      ✓ Sent
-                    </span>
-                  </div>
-                  <div style="font-size: 12.5px; color: var(--text-muted); line-height: 1.55; margin-top: 3px;">
-                    Official RSVP invitation sent to your email with instant Google Calendar schedule sync and reminder.
-                  </div>
-                </div>
-              </div>
-
-              <!-- Validation 2: WhatsApp Confirmation & WhatsApp Reminder (2 hours before) -->
-              <div style="display: flex; align-items: flex-start; gap: 14px;">
-                <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(37, 211, 102, 0.15); border: 1px solid #25d366; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; margin-top: 2px;">
-                  💬
-                </div>
-                <div style="flex: 1;">
-                  <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
-                    <div style="font-family: var(--font-serif); font-size: 14.5px; font-weight: 700; color: #f5f4ef;">
-                      WhatsApp confirmation &amp; reminder
-                    </div>
-                    <span id="passWaStatusBadge" style="font-size: 11px; color: #25d366; background: rgba(37, 211, 102, 0.12); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(37, 211, 102, 0.3); font-weight: 600;">
-                      ✓ Sent
-                    </span>
-                  </div>
-                  <div style="font-size: 12.5px; color: var(--text-muted); line-height: 1.55; margin-top: 3px;">
-                    Our front desk (+62 812-2230-2050) sent your pass to WhatsApp with your reservation details. Plus, a <strong>WhatsApp reminder (2 hours before)</strong> is scheduled automatically.
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            <!-- Tip Screenshot -->
-            <div style="font-size: 13px; color: var(--text-muted); text-align: center; margin-top: 4px;">
-              💡 <em>Tip: Save or screenshot this pass for your arrival verification at the parlour.</em>
-            </div>
-
-            <!-- Action Navigation Buttons -->
-            <div style="display: flex; gap: 12px; flex-wrap: wrap; width: 100%; margin-top: 6px;">
-              <button type="button" class="btn-step-back" onclick="resetBookingSession()" style="flex: 1; min-width: 160px;">
-                + Book another chair
-              </button>
-              <a href="index.html" class="btn-step-back" style="flex: 1; min-width: 150px; text-decoration: none; text-align: center;">
-                Back to home &rarr;
-              </a>
-            </div>
-          </div>
+          <!-- Hidden elements for script background execution -->
+          <span id="passGcalStatusBadge" style="display: none;"></span>
+          <span id="passWaStatusBadge" style="display: none;"></span>
         </div>
       </div>
 
@@ -1735,15 +1655,20 @@
       const pkgContainer = document.getElementById('packageListContainer');
       pkgContainer.innerHTML = GREENWOOD_CONFIG.packages.map(pkg => {
         const isSelected = selectedPackage.id === pkg.id;
+        let subtitleHtml = '';
+        if (pkg.id === 'pkg-cut-shave-trim') {
+          subtitleHtml = '<div class="pkg-desc-snippet">Including complimentary back and shoulder massage</div>';
+        } else if (pkg.id === 'pkg-ritual') {
+          subtitleHtml = '<div class="pkg-desc-snippet">Everything we do</div>';
+        }
         return `
           <div class="package-radio-card ${isSelected ? 'selected' : ''}" id="pkgCard-${pkg.id}" onclick="selectPackage('${pkg.id}')">
             <div class="pkg-info-left">
               <div class="pkg-title-row">
                 <span class="pkg-name">${pkg.name}</span>
-                <span class="pkg-badge-pill">${pkg.badge}</span>
                 <button type="button" class="btn-pkg-info" onclick="openPackageDetails('${pkg.id}', event)" title="View what’s included">i</button>
               </div>
-              <div class="pkg-desc-snippet">${pkg.summary}</div>
+              ${subtitleHtml}
             </div>
             <div class="pkg-price-col">
               <div class="pkg-price-val">${formatRupiah(pkg.price)}</div>
@@ -1768,7 +1693,7 @@
 
       const notice = document.getElementById('cutShaveNotice');
       if (notice) {
-        notice.style.display = (pkgId === 'pkg-cut-shave-trim') ? 'block' : 'none';
+        notice.style.display = 'none';
       }
 
       const upgradeNotice = document.getElementById('smartUpgradeNotice');
@@ -1800,9 +1725,9 @@
               <div class="addon-info-left">
                 <div class="addon-title-row">
                   <span class="addon-name">${addon.name}</span>
+                  <button type="button" class="btn-pkg-info" onclick="openAddonDetails('${addon.id}', event)" title="View details">i</button>
                   <span class="addon-included-badge">&#10003; Already in your package</span>
                 </div>
-                <div class="addon-desc">${addon.summary}</div>
               </div>
               <div class="addon-price-col">
                 <div class="addon-price-val" style="color: var(--text-muted);">&mdash;</div>
@@ -1816,8 +1741,8 @@
               <div class="addon-info-left">
                 <div class="addon-title-row">
                   <span class="addon-name">${addon.name}</span>
+                  <button type="button" class="btn-pkg-info" onclick="openAddonDetails('${addon.id}', event)" title="View details">i</button>
                 </div>
-                <div class="addon-desc">${addon.summary}</div>
               </div>
               <div class="addon-price-col">
                 <div class="addon-price-val">+ ${formatRupiah(addon.price)}</div>
@@ -1943,8 +1868,6 @@
               <img src="${barber.avatarUrl}" alt="${barber.name}" class="barber-avatar-img">
             </div>
             <div class="barber-name-text">${barber.name}</div>
-            <div style="font-size: 11px; color: var(--accent-gold); font-weight: 600; margin-top: 3px;">${barber.role}</div>
-            <div style="font-size: 10.5px; color: var(--text-muted); margin-top: 2px; line-height: 1.25;">${barber.badge}</div>
           </div>
         `;
       }).join('');
@@ -2455,6 +2378,24 @@
           <span>${s}</span>
         </li>
       `).join('');
+
+      document.getElementById('pkgInfoModal').classList.add('open');
+    }
+
+    // Add-on Step Details Modal
+    function openAddonDetails(addonId, e) {
+      if (e) e.stopPropagation();
+      const addon = GREENWOOD_CONFIG.addons.find(a => a.id === addonId);
+      if (!addon) return;
+
+      document.getElementById('modalPkgTitle').textContent = addon.name;
+      document.getElementById('modalPkgMeta').textContent = `${addon.duration} Mins &bull; ${formatRupiah(addon.price)}`;
+      document.getElementById('modalPkgStepsList').innerHTML = `
+        <li class="info-step-item">
+          <span style="color: var(--accent-gold-bright); font-weight: 700;">&bull;</span>
+          <span>${addon.summary}</span>
+        </li>
+      `;
 
       document.getElementById('pkgInfoModal').classList.add('open');
     }
