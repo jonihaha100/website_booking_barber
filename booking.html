@@ -1659,12 +1659,6 @@
       const pkgContainer = document.getElementById('packageListContainer');
       pkgContainer.innerHTML = GREENWOOD_CONFIG.packages.map(pkg => {
         const isSelected = selectedPackage.id === pkg.id;
-        let subtitleHtml = '';
-        if (pkg.id === 'pkg-cut-shave-trim') {
-          subtitleHtml = '<div class="pkg-desc-snippet">Including complimentary back and shoulder massage</div>';
-        } else if (pkg.id === 'pkg-ritual') {
-          subtitleHtml = '<div class="pkg-desc-snippet">Everything we do</div>';
-        }
         return `
           <div class="package-radio-card ${isSelected ? 'selected' : ''}" id="pkgCard-${pkg.id}" onclick="selectPackage('${pkg.id}')">
             <div class="pkg-info-left">
@@ -1672,7 +1666,6 @@
                 <span class="pkg-name">${pkg.name}</span>
                 <button type="button" class="btn-pkg-info" onclick="openPackageDetails('${pkg.id}', event)" title="View what’s included">i</button>
               </div>
-              ${subtitleHtml}
             </div>
             <div class="pkg-price-col">
               <div class="pkg-price-val">${formatRupiah(pkg.price)}</div>
