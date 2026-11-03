@@ -66,7 +66,7 @@
     .about-hero-inner {
       position: relative;
       z-index: 2;
-      max-width: 800px;
+      max-width: 1020px;
       margin: 0 auto;
     }
     .about-location-badge {
@@ -90,19 +90,21 @@
     }
     .about-hero-title {
       font-family: var(--font-serif);
-      font-size: 44px;
+      font-size: clamp(28px, 3.8vw, 42px);
       font-weight: 500;
       color: #b8b0a2;
-      line-height: 1.22;
-      margin-bottom: 14px;
+      line-height: 1.28;
+      margin-bottom: 16px;
+      text-wrap: balance;
       -webkit-font-smoothing: antialiased;
     }
     .about-hero-sub {
-      font-size: 16px;
+      font-size: clamp(14.5px, 1.8vw, 16px);
       color: #828f86;
-      max-width: 640px;
+      max-width: 680px;
       margin: 0 auto;
-      line-height: 1.7;
+      line-height: 1.75;
+      text-wrap: balance;
     }
 
     .about-container {
@@ -309,7 +311,7 @@
         <div class="about-location-badge">OUR STORY</div>
         <h1 class="about-hero-title">We built the barbershop we wanted to sit in.</h1>
         <p class="about-hero-sub">
-          Quiet, clean and in no hurry. A place to put your phone down for an hour and come out looking like yourself again.
+          Quiet, clean and in no hurry. A place to put your phone down for an hour and leave feeling like yourself again.
         </p>
       </div>
     </section>
