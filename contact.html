@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <title>Contact &amp; Directions &middot; Greenwood Barbers</title>
-  <meta name="description" content="Ruko PancaTengah, Kota Baru Parahyangan. 7 minutes from Whoosh Padalarang, free parking. Open Wed–Mon, 10:00–20:00.">
+  <title>Contact &middot; Greenwood Barbers</title>
+  <meta name="description" content="Ruko PancaTengah, Kota Baru Parahyangan. Message or call us any time we’re open. Wednesday to Monday, 10:00–20:00.">
   <link rel="icon" type="image/png" href="assets/greenwood_monogram_cropped.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -260,37 +260,6 @@
       height: 100%;
       min-height: 420px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
-      position: relative;
-    }
-    .map-overlay-link {
-      position: absolute;
-      inset: 0;
-      z-index: 5;
-      display: flex;
-      align-items: flex-end;
-      justify-content: flex-end;
-      padding: 16px;
-      text-decoration: none;
-      cursor: pointer;
-    }
-    .map-overlay-link .map-badge-btn {
-      background: rgba(3, 12, 8, 0.9);
-      border: 1.5px solid var(--accent-gold);
-      color: var(--accent-gold-bright);
-      font-size: 13px;
-      font-weight: 600;
-      padding: 8px 16px;
-      border-radius: 6px;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-    }
-    .map-overlay-link:hover .map-badge-btn {
-      background: rgba(197, 155, 72, 0.25);
-      border-color: var(--accent-gold-bright);
-      transform: translateY(-2px);
     }
     .map-iframe {
       width: 100%;
@@ -528,6 +497,7 @@
       </div>
       <div class="contact-hero-vignette"></div>
       <div class="contact-hero-inner">
+        <div class="contact-location-badge">VISIT &middot; CALL &middot; MESSAGE</div>
         <h1 class="contact-hero-title">Come and see us.</h1>
         <p class="contact-hero-sub">
           We’re at Ruko PancaTengah, Kota Baru Parahyangan. Message or call us any time we’re open, and our dedicated staff will answer.
@@ -576,11 +546,9 @@
             <div class="info-row">
               <div class="info-row-label">Address</div>
               <div class="info-row-text">
-                <a href="https://www.google.com/maps/search/?api=1&query=-6.871083,107.466639" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; display: inline-block;" title="Open in Google Maps">
-                  <strong style="color: var(--text-main);">Greenwood Barbers</strong><br>
-                  <span style="color: var(--accent-gold-bright); text-decoration: underline;">Ruko PancaTengah, Jl. Parahyangan No.87</span><br>
-                  <span>Kota Baru Parahyangan, Padalarang 40553</span>
-                </a><br>
+                <strong>Greenwood Barbers</strong><br>
+                <a href="https://www.google.com/maps/search/?api=1&query=-6.871083,107.466639" target="_blank" rel="noopener" style="color: var(--accent-gold-bright); text-decoration: underline;">Ruko PancaTengah, Jl. Parahyangan No. 87</a><br>
+                Kota Baru Parahyangan, Padalarang 40553<br>
                 <span style="font-size: 13px; color: var(--text-muted); margin-top: 4px; display: inline-block;">Free parking right at the door.</span>
               </div>
             </div>
@@ -602,24 +570,23 @@
           </div>
         </div>
 
-        <!-- Right: Interactive Google Maps Embed with Direct Link -->
-        <div class="map-wrap" style="height: 100%; min-height: 380px;">
+        <!-- Right: Interactive Google Maps Embed (Clicking anywhere opens Google Maps) -->
+        <div class="map-wrap" style="height: 100%; min-height: 380px; position: relative;">
           <iframe 
             class="map-iframe"
             title="Greenwood Barbers Sanctuary Location Map"
             src="https://maps.google.com/maps?q=-6.871083,107.466639&hl=en&z=17&output=embed" 
-            style="height: 100%; min-height: 380px; width: 100%; pointer-events: none; border: 0;"
+            style="height: 100%; min-height: 380px; width: 100%; border: 0;"
+            allowfullscreen="" 
             loading="lazy" 
             referrerpolicy="no-referrer-when-downgrade">
           </iframe>
           <a href="https://www.google.com/maps/search/?api=1&query=-6.871083,107.466639" 
              target="_blank" 
              rel="noopener" 
-             class="map-overlay-link" 
-             title="Open Greenwood Barbers in Google Maps">
-            <span class="map-badge-btn">
-              <span>Open in Google Maps</span> &nearr;
-            </span>
+             style="position: absolute; inset: 0; z-index: 5; cursor: pointer;"
+             title="Open Greenwood Barbers in Google Maps"
+             aria-label="Open Greenwood Barbers in Google Maps">
           </a>
         </div>
 
@@ -633,7 +600,7 @@
     <div class="footer-copy">
       <div style="margin-bottom: 4px;">Open Wednesday&ndash;Monday, 10:00&ndash;20:00 WIB &middot; Closed Tuesdays</div>
       <div style="margin-bottom: 4px;">
-        <a href="https://www.google.com/maps/search/?api=1&query=-6.871083,107.466639" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Ruko PancaTengah, Jl. Parahyangan No.87, Kota Baru Parahyangan, Padalarang</a> &middot; WhatsApp: <a href="https://wa.me/6281222302050" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">+62 812-2230-2050</a> &middot; <a href="mailto:contact@greenwoodbarbers.com" style="color: inherit; text-decoration: underline;">contact@greenwoodbarbers.com</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=-6.871083,107.466639" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Ruko PancaTengah, Jl. Parahyangan No. 87, Kota Baru Parahyangan, Padalarang</a> &middot; WhatsApp <a href="https://wa.me/6281222302050" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">+62 812-2230-2050</a> &middot; <a href="mailto:admin@greenwood.id" style="color: inherit; text-decoration: underline;">admin@greenwood.id</a>
       </div>
       <div>&copy; 2026 Greenwood Barbers. All rights reserved.</div>
     </div>

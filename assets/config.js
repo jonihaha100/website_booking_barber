@@ -16,7 +16,7 @@ const GREENWOOD_CONFIG = {
     whatsappNumber: "6281222302050", // International format without +
     whatsappDisplay: "+62 812-2230-2050",
     phoneDisplay: "+62 812-2230-2050",
-    email: "contact@greenwoodbarbers.com",
+    email: "admin@greenwood.id",
     adminEmail: "admin@greenwood.id",
     mapsUrl: "https://www.google.com/maps/search/?api=1&query=-6.871083,107.466639",
     mapsEmbedUrl: "https://maps.google.com/maps?q=-6.871083,107.466639&hl=en&z=17&output=embed",
@@ -48,7 +48,7 @@ const GREENWOOD_CONFIG = {
     scheduleText: "Wednesday &ndash; Monday: 10:00 &ndash; 20:00 WIB &bull; Closed Tuesdays."
   },
 
-  // 3. REV 7 GROOMING SERVICES (SINGLE SELECTION)
+  // 3. GROOMING SERVICES (SINGLE SELECTION)
   // Components: 'haircut', 'wash', 'styling', 'massage', 'shave', 'scalp', 'mask'
   packages: [
     {
@@ -57,8 +57,8 @@ const GREENWOOD_CONFIG = {
       duration: 45,
       price: 240000,
       components: ["haircut", "wash", "styling"],
-      badge: "The Flagship",
-      summary: "A conversation, a proper wash, the cut, a straight-razor neckline, a hot towel and styling.",
+      badge: "",
+      summary: "Our flagship. We listen first, then take 45 minutes to make you look as good as you deserve.",
       steps: [
         "A conversation at the mirror; nothing is cut until we agree",
         "Cold towel",
@@ -68,8 +68,7 @@ const GREENWOOD_CONFIG = {
         "Ears, nose and brows",
         "Hot towel",
         "Neck and shoulder massage",
-        "Styled, with a quick lesson for home",
-        "Your cut saved on your guest card"
+        "Styled, with a quick lesson for home"
       ]
     },
     {
@@ -78,11 +77,11 @@ const GREENWOOD_CONFIG = {
       duration: 30,
       price: 180000,
       components: ["shave"],
-      badge: "Your Choice",
+      badge: "",
       summary: "A straight-razor shave or a beard trim. Tell your barber at the mirror. Same time, same price.",
       steps: [
         "Shave: hot towel · pre-shave oil · brushed lather · first pass with the grain · second pass against it · cold towel · balm · ears, nose and brows · face massage.",
-        "Trim: hot towel · trim and shape · lather · straight-razor lines on the cheeks and neck · ears, nose and brows · oil and balm"
+        "Trim: hot towel · trim and shape · lather · clean lines on the cheeks and neck · ears, nose and brows · oil and balm"
       ]
     },
     {
@@ -91,12 +90,12 @@ const GREENWOOD_CONFIG = {
       duration: 75,
       price: 420000,
       components: ["haircut", "wash", "styling", "shave", "massage"],
-      badge: "The Reset",
-      summary: "The Cut, then a shave or trim in the same chair, with a ten-minute back and shoulder massage.",
+      badge: "",
+      summary: "Our go-to package. The Cut, then a hot towel shave or beard trim in the same chair, finished with a 15-minute back and shoulder massage.",
       steps: [
         "Everything in The Cut",
-        "A shave or beard trim, your choice at the mirror",
-        "A 10-minute back and shoulder massage",
+        "A hot towel shave or beard trim, your choice at the mirror",
+        "A 15-minute back and shoulder massage",
         "Styled last, so you walk out fresh"
       ]
     },
@@ -106,19 +105,20 @@ const GREENWOOD_CONFIG = {
       duration: 95,
       price: 590000,
       components: ["haircut", "wash", "styling", "shave", "massage", "scalp", "mask"],
-      badge: "Everything We Do",
-      summary: "The cut, a shave or trim, a steamed hair spa, and a black mask while we work on your back and shoulders.",
+      badge: "",
+      summary: "For the days that matter. Everything included: the cut, a hot towel shave or beard trim, a hair spa and a black mask, finished with a back and shoulder massage.",
       steps: [
         "Everything in The Cut",
-        "A shave or beard trim",
-        "Hair spa during the wash",
-        "Black mask, with a back and shoulder massage while it dries",
-        "Styled last"
+        "A hot towel shave or beard trim",
+        "Hair spa",
+        "Black mask",
+        "Back and shoulder massage",
+        "Styled last, so you walk out fresh"
       ]
     }
   ],
 
-  // 4. REV 7 A LA CARTE GROOMING ADD-ONS
+  // 4. A LA CARTE GROOMING ADD-ONS
   // Can only be selected if the component is NOT already included in the selected package
   addons: [
     {
@@ -127,7 +127,7 @@ const GREENWOOD_CONFIG = {
       duration: 15,
       price: 60000,
       component: "massage",
-      summary: "Shoulders, then upper back, then a hot towel across the neck. Fifteen minutes for the weight you carry all week."
+      summary: "Shoulders, then upper back, then a hot towel across the neck."
     },
     {
       id: "addon-mask",
@@ -135,7 +135,7 @@ const GREENWOOD_CONFIG = {
       duration: 20,
       price: 90000,
       component: "mask",
-      summary: "A cleansing mask that dries while we massage your neck and shoulders, finished with a cold towel. Your face feels clean and fresh."
+      summary: "A cleansing peel-off mask that dries while we massage your neck and shoulders, finished with a cold towel."
     },
     {
       id: "addon-spa",
@@ -143,7 +143,7 @@ const GREENWOOD_CONFIG = {
       duration: 20,
       price: 90000,
       component: "scalp",
-      summary: "A hair mask worked in, a scalp massage, then ten minutes of warm steam."
+      summary: "A hair mask worked in, a scalp massage, then warm steam and a rinse."
     }
   ],
 

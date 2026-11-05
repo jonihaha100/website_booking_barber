@@ -101,22 +101,29 @@ function doPost(e) {
       cleanTotal = "590.000";
     }
 
-    // 1. CALENDAR EVENT TITLE (Feedback Client: "Greenwood Barbers · {service} with {barber}")
+    // 1. CALENDAR EVENT TITLE (Greenwood Barbers · {service} with {barber})
     var eventTitle = "Greenwood Barbers · " + serviceName + " with " + barberName;
     
-    // 2. CALENDAR / EMAIL DESCRIPTION (Feedback Client: Bersih tanpa repetisi Lokasi & Peta, tanpa reminder WA di sini)
-    var description = 
-      "Your chair is reserved.\n\n" +
-      "Service: " + serviceName + "\n" +
-      "Add-ons: " + addons + "\n" +
-      "Barber: " + barberName + "\n" +
-      "When: " + dayName + ", " + dateFormatted + ", " + timeRange + "\n" +
-      "Total: Rp " + cleanTotal + "\n" +
-      "Your note: " + notes + "\n\n" +
-      "Come 5–10 minutes early. To change your time, WhatsApp us at +62 812-2230-2050, ideally 3 hours ahead.\n\n" +
-      "Pass " + passCode;
+    // 2. CALENDAR / EMAIL DESCRIPTION (Docx 5 Nov 2026)
+    var descLines = [
+      "Your chair is reserved.",
+      "Service: " + serviceName
+    ];
+    if (addons && addons !== "None" && addons !== "") {
+      descLines.push("Add-ons: " + addons);
+    }
+    descLines.push("Barber: " + barberName);
+    descLines.push("When: " + dayName + ", " + dateFormatted + ", " + timeRange);
+    descLines.push("Total: Rp " + cleanTotal);
+    if (notes && notes !== "None" && notes !== "" && notes.toLowerCase() !== "optional") {
+      descLines.push("Your note: " + notes);
+    }
+    descLines.push("Where: Ruko PancaTengah, Jl. Parahyangan No. 87, Kota Baru Parahyangan, Padalarang. Free parking at the door.");
+    descLines.push("Map: " + mapsLink);
+    descLines.push("To change your time, WhatsApp us at +62 812-2230-2050, ideally 3 hours ahead.");
+    var description = descLines.join("\n");
       
-    var location = data.location || "Greenwood Barbers, Ruko PancaTengah, Jl. Parahyangan No.87, Kota Baru Parahyangan, Padalarang, West Java 40553";
+    var location = data.location || "Greenwood Barbers, Ruko PancaTengah, Jl. Parahyangan No. 87, Kota Baru Parahyangan, Padalarang, West Java 40553";
 
     // Opsi Pembuatan Event (Invite Email Pelanggan & Kirim Notifikasi Kalender)
     var options = {
@@ -178,18 +185,22 @@ function doPost(e) {
           cleanPhone = "62" + cleanPhone;
         }
         
-        var waMessage = 
-          "Hi " + guestName + ", your chair at Greenwood is reserved.\n\n" +
-          serviceName + " with " + barberName + "\n" +
-          "Add-ons: " + addons + "\n" +
-          dayName + ", " + dateFormatted + " · " + timeRange + "\n" +
-          "Total: Rp " + cleanTotal + "\n\n" +
-          "📍 Ruko PancaTengah, Jl. Parahyangan No.87, KBP. Free parking at the door.\n" +
-          mapsLink + "\n\n" +
-          "Come 5–10 minutes early; your coffee is on us. Need to change the time? Just reply here, ideally 3 hours ahead.\n\n" +
-          "See you on " + dayName + ".\n" +
-          "— Greenwood Barbers\n" +
-          "Pass " + passCode;
+        var waLines = [
+          "Hi " + guestName + ", your chair at Greenwood is reserved.",
+          "*" + serviceName + "* with " + barberName
+        ];
+        if (addons && addons !== "None" && addons !== "") {
+          waLines.push("Add-ons: " + addons);
+        }
+        waLines.push(dayName + ", " + dateFormatted + " · " + timeRange);
+        waLines.push("Total: Rp " + cleanTotal);
+        waLines.push("📍 Ruko PancaTengah, Kota Baru Parahyangan. Free parking at the door.");
+        waLines.push(mapsLink);
+        waLines.push("Need to change the time? Just reply here, ideally 3 hours ahead.");
+        waLines.push("Please reply *YES* to confirm. See you " + dayName + ".");
+        waLines.push("— Greenwood Barbers");
+
+        var waMessage = waLines.join("\n");
 
         // Kirim pesan konfirmasi instan ke nomor tamu (Guest)
         var waResponse = UrlFetchApp.fetch("https://api.fonnte.com/send", {

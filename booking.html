@@ -1265,8 +1265,8 @@
 
     <!-- COMPACT BOOKING HEADER -->
     <div class="booking-header">
-      <span class="booking-eyebrow">Reserve a Chair &bull; Kota Baru Parahyangan</span>
-      <h1 class="booking-title">Reserve a chair</h1>
+      <span class="booking-eyebrow">KOTA BARU PARAHYANGAN</span>
+      <h1 class="booking-title">Reserve a Chair</h1>
       <p class="booking-sub">
         Pick your service, your barber and your time. It takes about a minute, and your chair will be waiting.
       </p>
@@ -1347,7 +1347,7 @@
     <div class="flow-panel" id="panelStep2">
       <div class="panel-card">
         <div class="panel-header-row">
-          <h2 class="panel-title">Pick your barber</h2>
+          <h2 class="panel-title">Pick your favourite barber</h2>
           <span class="panel-badge">Step 2 of 4</span>
         </div>
 
@@ -1411,9 +1411,7 @@
           </div>
           <button type="button" class="btn-cal-nav" id="btnCalNext" onclick="navigateCalendarWeek(1)" aria-label="Next Week">&rarr;</button>
         </div>
-        <div style="font-size: 12px; color: var(--text-muted); text-align: center; margin-bottom: 24px;" id="calendarWeekCaption">
-          Week 1 of 2
-        </div>
+        <div style="display: none;" id="calendarWeekCaption"></div>
 
         <!-- Single Grid of Available Time Slots -->
         <div class="slots-container" id="slotsSectionWrapper">
@@ -1486,8 +1484,8 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="guestEmail">Email (optional, for calendar invite)</label>
-            <input type="email" id="guestEmail" class="form-input" placeholder="e.g. name@gmail.com">
+            <label class="form-label" for="guestEmail">Email (optional)</label>
+            <input type="email" id="guestEmail" class="form-input" placeholder="For your calendar invite and reminders">
           </div>
 
           <div class="form-group">
@@ -1522,7 +1520,7 @@
             Your chair is reserved.
           </h2>
           <p style="font-size: 15px; color: var(--text-muted); max-width: 600px; margin: 0 auto 12px; line-height: 1.7;">
-            Your barber will be ready for you. <strong style="color: var(--accent-gold-bright);">See you soon.</strong>
+            Your barber will be ready for you. See you soon.
           </p>
         </div>
 
@@ -1580,12 +1578,8 @@
             </a>
           </div>
 
-          <div class="pass-footer-strip" style="font-size: 12.5px; color: var(--text-muted); margin-top: 20px;">
-            Questions? WhatsApp +62 812-2230-2050 &bull; Open Wednesday&ndash;Monday, 10:00&ndash;20:00
-          </div>
-
           <!-- Secondary Actions -->
-          <div style="display: flex; gap: 12px; flex-wrap: wrap; width: 100%; margin-top: 16px;">
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; width: 100%; margin-top: 24px;">
             <button type="button" class="btn-step-back" onclick="resetBookingSession()" style="flex: 1; min-width: 160px;">
               + Book another chair
             </button>
@@ -1623,7 +1617,7 @@
     <div class="footer-copy">
       <div style="margin-bottom: 4px;">Open Wednesday&ndash;Monday, 10:00&ndash;20:00 WIB &middot; Closed Tuesdays</div>
       <div style="margin-bottom: 4px;">
-        <a href="https://www.google.com/maps/search/?api=1&query=-6.871083,107.466639" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Ruko PancaTengah, Jl. Parahyangan No.87, Kota Baru Parahyangan, Padalarang</a> &middot; WhatsApp: <a href="https://wa.me/6281222302050" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">+62 812-2230-2050</a> &middot; <a href="mailto:contact@greenwoodbarbers.com" style="color: inherit; text-decoration: underline;">contact@greenwoodbarbers.com</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=-6.871083,107.466639" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Ruko PancaTengah, Jl. Parahyangan No. 87, Kota Baru Parahyangan, Padalarang</a> &middot; WhatsApp <a href="https://wa.me/6281222302050" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">+62 812-2230-2050</a> &middot; <a href="mailto:admin@greenwood.id" style="color: inherit; text-decoration: underline;">admin@greenwood.id</a>
       </div>
       <div>&copy; 2026 Greenwood Barbers. All rights reserved.</div>
     </div>
@@ -2200,25 +2194,29 @@
         : '';
       const dateFormatted = selectedDateObj ? `${selectedDateObj.monthName} ${selectedDateObj.dayNum}` : '';
       const pkgName = selectedPackage ? selectedPackage.name : 'The Cut';
-      const addonsStr = selectedAddons.length > 0 ? selectedAddons.map(a => a.name).join(', ') : 'None';
-      const barberDisplayName = assignedBarber ? assignedBarber.name : 'Bramantyo';
+      const addonsStr = selectedAddons.length > 0 ? selectedAddons.map(a => a.name).join(', ') : '';
+      const barberDisplayName = assignedBarber ? assignedBarber.name : 'First available barber';
       const mapsLink = (typeof GREENWOOD_CONFIG !== 'undefined' && GREENWOOD_CONFIG.brand && GREENWOOD_CONFIG.brand.mapsUrl) 
         ? GREENWOOD_CONFIG.brand.mapsUrl 
         : 'https://www.google.com/maps/search/?api=1&query=-6.871083,107.466639';
-      const totalAmountNumber = Number(totalPrc || 0).toLocaleString('id-ID');
+      const totalAmountNumber = Number(totalPrc || 0).toLocaleString('en-US');
 
-      const waReminderText = 
-        `Hi ${name}, your chair at Greenwood is reserved.\n\n` +
-        `${pkgName} with ${barberDisplayName}\n` +
-        `Add-ons: ${addonsStr}\n` +
-        `${dayName}, ${dateFormatted} · ${selectedTimeSlot}–${endSlot}\n` +
-        `Total: Rp ${totalAmountNumber}\n\n` +
-        `📍 Ruko PancaTengah, Jl. Parahyangan No.87, KBP. Free parking at the door.\n` +
-        `${mapsLink}\n\n` +
-        `Come 5–10 minutes early; your coffee is on us. Need to change the time? Just reply here, ideally 3 hours ahead.\n\n` +
-        `See you on ${dayName}.\n` +
-        `— Greenwood Barbers\n` +
-        `Pass ${bookingCode}`;
+      let waLines = [
+        `Hi ${name}, your chair at Greenwood is reserved.`,
+        `*${pkgName}* with ${barberDisplayName}`
+      ];
+      if (addonsStr) {
+        waLines.push(`Add-ons: ${addonsStr}`);
+      }
+      waLines.push(`${dayName}, ${dateFormatted} · ${selectedTimeSlot}–${endSlot}`);
+      waLines.push(`Total: Rp ${totalAmountNumber}`);
+      waLines.push(`📍 Ruko PancaTengah, Kota Baru Parahyangan. Free parking at the door.`);
+      waLines.push(mapsLink);
+      waLines.push(`Need to change the time? Just reply here, ideally 3 hours ahead.`);
+      waLines.push(`Please reply *YES* to confirm. See you ${dayName}.`);
+      waLines.push(`— Greenwood Barbers`);
+
+      const waReminderText = waLines.join('\n');
 
       // ======================================================================
       // BACKEND AUTOMATED SYNC (GOOGLE APPS SCRIPT WEBHOOK + FONNTE WA)
