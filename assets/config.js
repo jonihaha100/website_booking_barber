@@ -19,7 +19,7 @@ const GREENWOOD_CONFIG = {
     email: "admin@greenwood.id",
     adminEmail: "admin@greenwood.id",
     mapsUrl: "https://www.google.com/maps/search/?api=1&query=-6.871083,107.466639",
-    mapsEmbedUrl: "https://maps.google.com/maps?q=-6.871083,107.466639&hl=en&z=17&output=embed",
+    mapsEmbedUrl: "https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s-6.871083,107.466639!6i17!3m1!1sen!5m1!1sen",
     coordinates: {
       lat: -6.871083,
       lng: 107.466639,
