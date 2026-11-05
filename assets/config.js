@@ -40,10 +40,16 @@ const GREENWOOD_CONFIG = {
     closedDays: [2], // 0: Sun, 1: Mon, 2: Tue (CLOSED), 3: Wed, 4: Thu, 5: Fri, 6: Sat
     closedDayName: "Tuesday",
     dailySlots: [
-      "10:00", "10:30", "11:00", "11:30", "12:00", "12:30",
-      "13:00", "13:30", "14:00", "14:30", "15:00", "15:30",
-      "16:00", "16:30", "17:00", "17:30", "18:00", "18:25",
-      "18:45", "19:00", "19:15", "19:30"
+      "10:00", "10:15", "10:30", "10:45",
+      "11:00", "11:15", "11:30", "11:45",
+      "12:00", "12:15", "12:30", "12:45",
+      "13:00", "13:15", "13:30", "13:45",
+      "14:00", "14:15", "14:30", "14:45",
+      "15:00", "15:15", "15:30", "15:45",
+      "16:00", "16:15", "16:30", "16:45",
+      "17:00", "17:15", "17:30", "17:45",
+      "18:00", "18:15", "18:30", "18:45",
+      "19:00", "19:15"
     ],
     scheduleText: "Wednesday &ndash; Monday: 10:00 &ndash; 20:00 WIB &bull; Closed Tuesdays."
   },
@@ -283,8 +289,8 @@ const GreenwoodBookingStore = {
     return `GWB-${yy}${mm}${dd}-${randomHex}`;
   },
 
-  // Get dynamic slot list for duration (following real service length)
-  // Ensures last slot allows completion before 20:00 (e.g. 95 min ritual -> last slot 18:25)
+  // Get dynamic slot list for duration (following client feedback: interval 15 menit dari buka sampai tutup)
+  // Ensures last slot allows completion before 20:00 (e.g. 45 min cut -> last slot 19:15, 95 min ritual -> last slot 18:25)
   getSlotsForDuration: function(totalDurationMinutes) {
     const openH = GREENWOOD_CONFIG.hours.openHour; // 10
     const closeH = GREENWOOD_CONFIG.hours.closeHour; // 20
@@ -296,18 +302,7 @@ const GreenwoodBookingStore = {
     const toTimeStr = (m) => `${pad(Math.floor(m / 60))}:${pad(m % 60)}`;
 
     let slots = [];
-    
-    // Determine natural interval based on duration
-    let step = 30;
-    if (totalDurationMinutes === 45) {
-      step = 45;
-    } else if (totalDurationMinutes === 30) {
-      step = 30;
-    } else if (totalDurationMinutes === 75) {
-      step = 75;
-    } else if (totalDurationMinutes === 95) {
-      step = 95;
-    }
+    const step = 15; // Feedback Client: setiap 15 menit dari jam buka sampai jam tutup
 
     let cur = startMins;
     while (cur <= maxStartMins) {
