@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>Contact &middot; Greenwood Barbers</title>
   <meta name="description" content="Ruko PancaTengah, Kota Baru Parahyangan. Message or call us any time we’re open. Wednesday to Monday, 10:00–20:00.">
   <link rel="icon" type="image/png" href="assets/greenwood_monogram_cropped.png">
@@ -571,11 +573,19 @@
 
         <!-- Right: Interactive Google Maps Embed (Clicking anywhere opens Google Maps) -->
         <div class="map-wrap" style="height: 100%; min-height: 380px; position: relative;">
+          <!-- Fallback Card: Always present underneath iframe, so it is NEVER an empty black void -->
+          <div class="map-fallback" style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; text-align: center; background: radial-gradient(circle at center, #0e2b1d 0%, #030c08 100%); z-index: 1;">
+            <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(197, 155, 72, 0.15); border: 1px solid var(--accent-gold); display: flex; align-items: center; justify-content: center; margin-bottom: 12px; font-size: 22px;">📍</div>
+            <div style="font-family: var(--font-serif); font-size: 18px; color: #f0e6d2; margin-bottom: 4px;">Greenwood Barbers</div>
+            <div style="font-size: 13px; color: var(--text-muted); max-width: 260px; line-height: 1.4; margin-bottom: 16px;">Ruko PancaTengah, Jl. Parahyangan No. 87, Kota Baru Parahyangan</div>
+            <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: var(--accent-gold); color: #030c08; font-size: 13px; font-weight: 600; border-radius: 4px;">Open in Google Maps &nearr;</span>
+          </div>
+
           <iframe 
             class="map-iframe"
             title="Greenwood Barbers Sanctuary Location Map"
             src="https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s-6.871083,107.466639!6i17!3m1!1sen!5m1!1sen" 
-            style="height: 100%; min-height: 380px; width: 100%; border: 0;"
+            style="height: 100%; min-height: 380px; width: 100%; border: 0; position: relative; z-index: 2;"
             allowfullscreen="" 
             loading="eager" 
             referrerpolicy="no-referrer-when-downgrade">
