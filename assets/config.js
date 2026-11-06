@@ -28,7 +28,7 @@ const GREENWOOD_CONFIG = {
     parkingInfo: "7 minutes from Whoosh Padalarang and 5 minutes from the Padalarang toll exit. Free parking right in front of the door.",
     paymentNotice: "",
     cancellationNotice: "Kindly advise our concierge at least 3 hours prior if you need to reschedule.",
-    googleCalendarWebhookUrl: "https://script.google.com/macros/s/AKfycbwstHVMBPso04_CWtqqjhNzlM6bA92ifG69b0bxLRzhy6j-9rXl7QfjqpjaPf6oJmimFw/exec"
+    googleCalendarWebhookUrl: "https://script.google.com/macros/s/AKfycbwcWUr-r7PIFXD3JRWnCJoQufIB5rZNyVfGgk5Pocz8l51_9tfusRYbo0tsGFrAU5Xa6g/exec"
   },
 
   // 2. OPERATING HOURS (10 Hours Daily • TUESDAY CLOSED)

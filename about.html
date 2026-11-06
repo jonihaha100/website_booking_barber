@@ -260,9 +260,9 @@
         gap: 18px;
       }
       .value-title {
-        white-space: normal;
-        font-size: 20px;
-        text-wrap: balance;
+        white-space: nowrap;
+        font-size: clamp(16px, 4.2vw, 20px);
+        letter-spacing: -0.2px;
       }
       .about-split {
         grid-template-columns: 1fr;
@@ -285,7 +285,14 @@
         padding: 22px 18px;
       }
       .value-title {
-        font-size: 18.5px;
+        font-size: clamp(14.5px, 4.3vw, 17.5px);
+        white-space: nowrap;
+      }
+    }
+    @media (max-width: 360px) {
+      .value-title {
+        font-size: 13.5px;
+        white-space: nowrap;
       }
     }
   </style>
