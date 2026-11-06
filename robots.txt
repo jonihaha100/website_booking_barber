@@ -13,6 +13,7 @@ Allow: /booking.html
 Disallow: /estate-records.html
 Disallow: /estate-records
 Disallow: /google-calendar-sync.gs
+Disallow: /docs/
 Disallow: /CLIENT_REVIEW_GUIDE.html
 Disallow: /LAPORAN_*
 Disallow: /*.md$

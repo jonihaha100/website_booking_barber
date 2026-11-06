@@ -89,3 +89,4 @@ Parameter ini bersifat **rahasia & independen**, hanya diketahui oleh Developer,
 Jika sewaktu-waktu dilakukan pembaruan di masa depan:
 * File ini (`SYSTEM_ARCHITECTURE_GOLDEN_RECORD.md`) dan file `google-calendar-sync.gs` adalah **standar kebenaran tunggal (*Single Source of Truth*)**.
 * Konfigurasi kontak klien, nomor WA admin, token Telegram developer, dan ID Google Sheets di dokumen ini **TIDAK BOLEH di-reset atau diubah** tanpa instruksi eksplisit dari pemilik proyek (Syamhari Abidin).
+
