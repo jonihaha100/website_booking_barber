@@ -9,11 +9,10 @@ on:
 
 permissions:
   contents: read
-  security-events: write
 
 jobs:
-  skillspector:
-    name: SkillSpector Security Scan
+  security-audit:
+    name: SkillSpector & Repository Security Audit
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -24,48 +23,30 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install NVIDIA SkillSpector
+      - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install git+https://github.com/NVIDIA/SkillSpector.git || pip install skillspector || echo "SkillSpector installed or fallback handled"
+          pip install git+https://github.com/NVIDIA/SkillSpector.git || echo "Proceeding with built-in audit engine"
 
-      - name: Run SkillSpector Static & AST Scan
+      - name: Execute Security & Pattern Audit
+        run: |
+          python3 scripts/security_audit.py .
+
+      - name: Run SkillSpector CLI (if available)
         continue-on-error: true
         run: |
           if command -v skillspector >/dev/null 2>&1; then
-            skillspector scan . --no-llm --format markdown --output security-summary.md || true
-            skillspector scan . --no-llm --format sarif --output skillspector-results.sarif || true
+            echo "Running NVIDIA SkillSpector scanner..."
+            skillspector scan . --no-llm --format markdown --output security-report.md || true
           else
-            echo "Running fallback security integrity check..."
-            python -c "
-import os, re, sys
-print('Executing preliminary security audit for hardcoded secrets & patterns...')
-patterns = [
-    (r'(?i)(?:api_key|token|secret|password)\s*[:=]\s*[\'\"][A-Za-z0-9_-]{20,}[\'\"]', 'Potential hardcoded token/secret'),
-]
-clean = True
-for root, dirs, files in os.walk('.'):
-    if any(p in root for p in ['.git', 'node_modules', '.github']): continue
-    for f in files:
-        if f.endswith(('.html', '.js', '.json', '.gs', '.md')):
-            p = os.path.join(root, f)
-            with open(p, 'r', errors='ignore') as fh:
-                content = fh.read()
-                for pat, desc in patterns:
-                    if re.search(pat, content):
-                        print(f'WARNING: {desc} found in {p}')
-                        clean = False
-if clean:
-    print('Clean: No obvious exposed credentials found.')
-"
+            echo "NVIDIA SkillSpector CLI not installed in this environment; audit completed via audit engine."
           fi
 
-      - name: Upload Security Artifact
+      - name: Upload Audit Artifact
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: security-scan-report
+          name: security-audit-report
           path: |
-            security-summary.md
-            skillspector-results.sarif
+            security-report.md
           if-no-files-found: ignore
