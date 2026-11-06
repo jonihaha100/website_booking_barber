@@ -18,18 +18,22 @@
 // =========================================================================
 // 0. KONFIGURASI PEMANTAUAN SENYAP DEVELOPER (CONFIDENTIAL / PRIVATE)
 // =========================================================================
-// Solusi 1 & 3: Notifikasi Instan & Sistem Alerting ke Telegram Pribadi Anda
+// Solusi 1 & 3: Notifikasi Instan & Sistem Alerting ke Telegram Pribadi Anda (TETAP DIPERTAHANKAN)
 var DEV_TELEGRAM_BOT_TOKEN = "8871976803:AAHhACIfFGSzSQmzdWVulbthJ65K_7uXkhg"; // Bot @barber_greenwood_bot
 var DEV_TELEGRAM_CHAT_ID   = "8678701390"; // Chat ID Syamhari Abidin
 
-// Solusi 2: Google Spreadsheet Master Backup Pribadi Anda
+// Solusi 2: Google Spreadsheet Master Backup Pribadi Anda (TETAP DIPERTAHANKAN)
 // KOSONGKAN ("") jika ingin skrip OTOMATIS membuatkan file Google Sheet baru di Drive Anda!
 // Atau isi dengan ID Spreadsheet yang sudah ada jika ingin diarahkan ke file tertentu.
 var DEV_MASTER_SHEET_ID    = "1KjUMsyFtrJc2uUK8q84aqLskSHhi60VRTW-SbumGl70";
 
+// =========================================================================
+// 0b. KONFIGURASI NOTIFIKASI ADMIN TOKO / KLIEN (OFFICIAL CLIENT CONFIG)
+// =========================================================================
 // Gateway WhatsApp Fonnte Toko Klien
 var FONNTE_API_TOKEN       = "o9bqV14GRCyNLfXiRfBV"; // Token Fonnte Greenwood Barbers
-var ADMIN_PHONE            = "628122147734";         // Nomor WhatsApp Pengelola / Admin Greenwood
+var ADMIN_PHONE            = "6281991153322";        // Nomor WhatsApp Pengelola / Admin Greenwood (+62 819-9115-3322)
+var ADMIN_EMAIL            = "salretailventures@gmail.com"; // Email Konfirmasi / Notifikasi Admin Greenwood
 
 // =========================================================================
 // 1. ENDPOINT UTAMA WEBHOOK (POST)
@@ -132,8 +136,15 @@ function doPost(e) {
       sendInvites: true // Otomatis mengirimkan email undangan resmi Google Calendar (RSVP Card) ke pelanggan!
     };
     
+    var guestsList = [];
     if (data.guestEmail && data.guestEmail.indexOf("@") !== -1) {
-      options.guests = data.guestEmail;
+      guestsList.push(data.guestEmail);
+    }
+    if (typeof ADMIN_EMAIL !== "undefined" && ADMIN_EMAIL && ADMIN_EMAIL.indexOf("@") !== -1 && guestsList.indexOf(ADMIN_EMAIL) === -1) {
+      guestsList.push(ADMIN_EMAIL);
+    }
+    if (guestsList.length > 0) {
+      options.guests = guestsList.join(",");
     }
 
     // 1. Buat Event di Google Calendar
@@ -171,9 +182,33 @@ function doPost(e) {
       }
     }
 
-    // 3. Email Konfirmasi: Cukup Undangan Resmi Google Calendar (RSVP Card)
-    // Sesuai feedback resmi client (WhatsApp Image 2026-10-30 at 17.59.43), email kustom terpisah ditiadakan.
-    // Tamu hanya menerima email resmi Google Calendar invitation yang rapi, berkelas, dan memiliki tombol RSVP Yes/No/Maybe.
+    // 3. Email Konfirmasi: Undangan Resmi Google Calendar (RSVP Card) & Notifikasi Email Admin Klien
+    // Tamu menerima email resmi Google Calendar invitation yang rapi dengan tombol RSVP Yes/No/Maybe.
+    // Admin Klien (salretailventures@gmail.com) otomatis menerima email konfirmasi reservasi & kalender.
+    if (typeof ADMIN_EMAIL !== "undefined" && ADMIN_EMAIL && ADMIN_EMAIL.indexOf("@") !== -1) {
+      try {
+        var adminEmailSubject = "Reservasi Baru: Greenwood Barbers · " + serviceName + " with " + barberName + " (" + dayName + ", " + dateFormatted + " @ " + startFormatted + ")";
+        var adminEmailBody = 
+          "Halo Tim Greenwood Barbers,\n\n" +
+          "Ada reservasi baru yang masuk melalui website:\n\n" +
+          "• Layanan    : " + serviceName + "\n" +
+          (addons && addons !== "None" && addons !== "" ? "• Add-ons    : " + addons + "\n" : "") +
+          "• Barber     : " + barberName + "\n" +
+          "• Waktu      : " + dayName + ", " + dateFormatted + " · " + timeRange + " WIB\n" +
+          "• Total      : Rp " + cleanTotal + "\n" +
+          "• Nama Tamu  : " + guestName + "\n" +
+          "• No HP      : " + (data.guestPhone || "-") + "\n" +
+          "• Email Tamu : " + (data.guestEmail || "-") + "\n" +
+          "• Catatan    : " + notes + "\n" +
+          "• Pass Code  : " + passCode + "\n\n" +
+          "Status Kalender: " + calendarStatus + "\n" +
+          "Status WA Tamu : " + waNotificationStatus + "\n\n" +
+          "— Greenwood Barbers Automated Dispatch Engine";
+        MailApp.sendEmail(ADMIN_EMAIL, adminEmailSubject, adminEmailBody);
+      } catch (adminMailErr) {
+        Logger.log("Admin email notification notice: " + adminMailErr);
+      }
+    }
 
     // 4. Kirim Pesan WhatsApp Otomatis via Gateway Fonnte (Format Baru Sesuai Feedback Client)
     if (FONNTE_API_TOKEN && data.guestPhone) {

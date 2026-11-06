@@ -17,7 +17,7 @@ const GREENWOOD_CONFIG = {
     whatsappDisplay: "+62 812-2230-2050",
     phoneDisplay: "+62 812-2230-2050",
     email: "admin@greenwood.id",
-    adminEmail: "admin@greenwood.id",
+    adminEmail: "salretailventures@gmail.com",
     mapsUrl: "https://www.google.com/maps/search/?api=1&query=-6.871083,107.466639",
     mapsEmbedUrl: "https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s-6.871083,107.466639!6i17!3m1!1sen!5m1!1sen",
     coordinates: {
