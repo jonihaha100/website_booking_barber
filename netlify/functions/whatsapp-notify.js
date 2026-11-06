@@ -54,7 +54,7 @@ exports.handler = async (event, context) => {
       `• Schedule: ${schedule}\n` +
       `• Location: Ruko PancaTengah, Jl. Parahyangan No.87, Kota Baru Parahyangan\n` +
       `• Total Amount Due: ${totalPrice}\n\n` +
-      `Our chair and artisan are dedicated exclusively to you. If you need any schedule adjustment, please reply to this message or telephone +62 812-2230-2050.`
+      `Our chair and artisan are dedicated exclusively to you. If you need any schedule adjustment, please reply to this message or telephone +62 819-9115-3322.`
     );
 
     // If external WhatsApp API provider is configured via environment variables

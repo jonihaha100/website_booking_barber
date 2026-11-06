@@ -124,7 +124,7 @@ function doPost(e) {
     }
     descLines.push("Where: Ruko PancaTengah, Jl. Parahyangan No. 87, Kota Baru Parahyangan, Padalarang. Free parking at the door.");
     descLines.push("Map: " + mapsLink);
-    descLines.push("To change your time, WhatsApp us at +62 812-2230-2050, ideally 3 hours ahead.");
+    descLines.push("To change your time, WhatsApp us at +62 819-9115-3322, ideally 3 hours ahead.");
     var description = descLines.join("\n");
       
     var location = data.location || "Greenwood Barbers, Ruko PancaTengah, Jl. Parahyangan No. 87, Kota Baru Parahyangan, Padalarang, West Java 40553";

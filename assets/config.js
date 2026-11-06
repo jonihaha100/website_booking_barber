@@ -13,10 +13,10 @@ const GREENWOOD_CONFIG = {
     location: "Ruko PancaTengah, Kota Baru Parahyangan",
     city: "Padalarang, West Bandung Regency 40553",
     fullAddress: "Ruko PancaTengah, Jl. Parahyangan No.87, Kota Baru Parahyangan, Padalarang 40553",
-    whatsappNumber: "6281222302050", // International format without +
-    whatsappDisplay: "+62 812-2230-2050",
-    phoneDisplay: "+62 812-2230-2050",
-    email: "admin@greenwood.id",
+    whatsappNumber: "6281991153322", // International format without +
+    whatsappDisplay: "+62 819-9115-3322",
+    phoneDisplay: "+62 819-9115-3322",
+    email: "salretailventures@gmail.com",
     adminEmail: "salretailventures@gmail.com",
     mapsUrl: "https://www.google.com/maps/search/?api=1&query=-6.871083,107.466639",
     mapsEmbedUrl: "https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s-6.871083,107.466639!6i17!3m1!1sen!5m1!1sen",
@@ -28,7 +28,7 @@ const GREENWOOD_CONFIG = {
     parkingInfo: "7 minutes from Whoosh Padalarang and 5 minutes from the Padalarang toll exit. Free parking right in front of the door.",
     paymentNotice: "",
     cancellationNotice: "Kindly advise our concierge at least 3 hours prior if you need to reschedule.",
-    googleCalendarWebhookUrl: "https://script.google.com/macros/s/AKfycbwcWUr-r7PIFXD3JRWnCJoQufIB5rZNyVfGgk5Pocz8l51_9tfusRYbo0tsGFrAU5Xa6g/exec"
+    googleCalendarWebhookUrl: "https://script.google.com/macros/s/AKfycbxTz-1pKwj_Dd0ebm1_CfY7V9801L91Qw6qvwTa3LA6MLV7oULTA76GCRA5K8ic1LSTwQ/exec"
   },
 
   // 2. OPERATING HOURS (10 Hours Daily • TUESDAY CLOSED)
