@@ -108,4 +108,25 @@ Website dideploy secara otomatis menggunakan **GitHub Actions**:
 3. GitHub Actions akan otomatis mem-build dan memperbarui situs live di **[https://greenwood.id](https://greenwood.id)** dalam ~30 detik.
 
 ---
+
+## 🛡️ 6. Standar Keamanan & Audit (NVIDIA SkillSpector)
+
+Repositori ini mengintegrasikan **NVIDIA SkillSpector** sebagai acuan keamanan untuk memeriksa potensi kerentanan web, keamanan AI agent skills, dan konfigurasi webhook:
+
+* **Skill Definition:** [`.agents/skills/skillspector/SKILL.md`](.agents/skills/skillspector/SKILL.md)
+* **Automated CI/CD Workflow:** [`.github/workflows/security-scan.yml`](.github/workflows/security-scan.yml)
+* **Cakupan Pemindaian (71+ Pola Kerentanan):**
+  1. Deteksi kebocoran token / API keys rahasia (Secret Exfiltration).
+  2. Pencegahan Prompt & Code Injection pada integrasi otomatisasi.
+  3. Sanitasi input form booking sebelum dikirim ke endpoint Google Apps Script / Telegram.
+  4. Analisis statis AST & pencocokan signature YARA.
+
+Untuk menjalankan audit keamanan secara manual di lingkungan lokal:
+```bash
+# Menjalankan pemindaian cepat SkillSpector
+skillspector scan . --no-llm --format markdown --output security-summary.md
+```
+
+---
 *© 2026 Greenwood Barbers. All rights reserved.*
+
