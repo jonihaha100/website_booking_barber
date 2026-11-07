@@ -75,8 +75,8 @@ Selama masa pembuatan dan uji coba sistem, skrip Google Apps Script berjalan di 
 | **WhatsApp Pengirim** | WhatsApp Dev Test Token | Hubungkan nomor `+62 819-9115-3322` di Fonnte | Terkirim dari Greenwood Barbers |
 | **Kalender Google** | Kalender Dev Test | Deploy Web App di akun `salretailventures@gmail.com` | Kalender resmi `salretailventures@gmail.com` |
 | **Email Pengirim** | Akun Dev Test | Deploy Web App di akun `salretailventures@gmail.com` | Terkirim dari `salretailventures@gmail.com` |
-| **Versi Informasi (Store Info)** | Baru selesai dibuat (`/info`) | Sudah aktif di navigasi & halaman `/info.html` | Live di website |
-| **Versi Bahasa Indonesia (Indo)** | Baru selesai dibuat (`EN \| ID`) | Sudah aktif dengan toggle bilingual realtime | Live di website |
+| **Versi Bahasa Indonesia (Indo)** | Selesai dibuat (`EN \| ID`) | Sudah aktif dengan toggle bilingual realtime di header | Live di website |
 
 ---
 *Dokumen ini diterbitkan oleh tim teknis pengembang Greenwood Barbers untuk memastikan kelancaran operasional dan standar profesionalitas tingkat tinggi.*
+

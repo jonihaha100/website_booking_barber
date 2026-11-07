@@ -13,7 +13,6 @@ website_booking_barber/
 ├── 🌐 HALAMAN UTAMA (PRODUCTION PAGES)
 │   ├── index.html              # Beranda Utama (The Grand Foyer)
 │   ├── about.html              # Filosofi & 3 Core Values (Nilai 02 Rapi Sejajar)
-│   ├── info.html               # Panduan Informasi Toko, Akses Transit Whoosh & Kebijakan
 │   ├── services.html           # Menu Signature Grooming Rituals & Tarif
 │   ├── barbers.html            # Profil Tim Master Barber
 │   ├── contact.html            # Lokasi, Peta Interaktif & Kontak Resmi
@@ -26,13 +25,13 @@ website_booking_barber/
 ├── ⚙️ KONFIGURASI & LOGIKA SISTEM
 │   ├── assets/
 │   │   ├── config.js           # PUSAT DATA: Harga, Jam Operasional, Barber, & Webhook
-│   │   ├── greenwood-i18n.js   # BILINGUAL ENGINE: Toggle Bahasa (EN | ID) & Store Info Modal
+│   │   ├── greenwood-i18n.js   # BILINGUAL ENGINE: Toggle Bahasa Dual-Language (EN | ID)
 │   │   ├── greenwood.css       # Stylesheet Tema Victorian / Emerald Gold
 │   │   └── *.jpg / *.png       # Foto Resolusi Tinggi Interior, Barber & Produk
 │   ├── google-calendar-sync.gs # Script Google Apps Script (Calendar + Sheet + Telegram)
 │   ├── SYSTEM_ARCHITECTURE_GOLDEN_RECORD.md  # Blueprint Arsitektur Sistem Paten
 │   ├── CNAME                   # Konfigurasi Domain greenwood.id
-│   ├── _redirects              # Aturan Routing & Aliasing Server (/info -> info.html)
+│   ├── _redirects              # Aturan Routing & Aliasing Server
 │   └── robots.txt              # Protokol Keamanan & Pengindeksan Mesin Pencari
 │
 ├── 📁 DOKUMEN PROPOSAL & ARSIP PERANCANGAN

@@ -1,6 +1,6 @@
 /**
- * GREENWOOD BARBERS — BILINGUAL ENGINE & STORE INFO CONTROLLER (v1.0)
- * Dual-language toggle (English / Bahasa Indonesia) and Store Info Visitor Guide.
+ * GREENWOOD BARBERS — BILINGUAL ENGINE (EN | ID)
+ * Dual-language toggle (British Mayfair English / Bahasa Indonesia).
  * Developed for Greenwood Barbers Kota Baru Parahyangan.
  */
 
@@ -14,7 +14,6 @@
       navHome: "Home",
       navAbout: "About Us",
       navContact: "Contact Us",
-      navInfo: "Store Info",
       navReserve: "RESERVE A CHAIR",
       
       // Index Hero
@@ -22,7 +21,6 @@
       heroTitle: "Bandung's First Gentlemen's Retreat",
       heroSubtitle: "The hour is yours. A quiet barbershop in the hills of West Bandung.",
       heroCtaBook: "RESERVE A CHAIR",
-      heroCtaInfo: "VISITING INFO",
       
       // Index Values
       valueTitle1: "Clean you can see and smell",
@@ -42,34 +40,13 @@
       // Footer
       footerTagline: "Bandung's First Gentlemen's Retreat • Kota Baru Parahyangan",
       footerCopyright: "© 2026 Greenwood Barbers. All rights reserved.",
-      footerContactBtn: "Chat WhatsApp Concierge",
-      
-      // Store Info Modal
-      modalTitle: "Store Info & Visiting Guide",
-      modalSubtitle: "Greenwood Barbers • Flagship Kota Baru Parahyangan",
-      modalHoursLabel: "Operating Hours",
-      modalHoursVal: "Wednesday – Monday: 10:00 – 20:00 WIB (Closed Tuesdays)",
-      modalLocationLabel: "Civic Address",
-      modalLocationVal: "Ruko PancaTengah, Jl. Parahyangan No. 87, Kota Baru Parahyangan, Padalarang, West Bandung 40553",
-      modalTransitLabel: "Transit & Accessibility",
-      modalTransitVal: "7 minutes from Whoosh High-Speed Rail Padalarang Station • 5 minutes from Padalarang Toll Exit.",
-      modalParkingLabel: "Parking Facility",
-      modalParkingVal: "Complimentary reserved parking directly in front of the parlour door.",
-      modalBookingPolicyLabel: "Appointment & Reschedule",
-      modalBookingPolicyVal: "Online reservation recommended. To reschedule, kindly notify via WhatsApp at least 3 hours prior.",
-      modalPaymentLabel: "Payment Methods",
-      modalPaymentVal: "Cashless accepted (QRIS, Debit Card, Credit Card, Mandiri Virtual Account).",
-      modalBtnBook: "RESERVE A CHAIR ONLINE",
-      modalBtnWa: "CHAT WHATSAPP (+62 819-9115-3322)",
-      modalBtnMaps: "OPEN IN GOOGLE MAPS",
-      modalClose: "Close"
+      footerContactBtn: "Chat WhatsApp Concierge"
     },
     id: {
       // Navigation
       navHome: "Beranda",
       navAbout: "Tentang Kami",
       navContact: "Kontak",
-      navInfo: "Info Toko",
       navReserve: "RESERVASI KURSI",
       
       // Index Hero
@@ -77,7 +54,6 @@
       heroTitle: "Tempat Singgah Perawatan Pria Pertama di Bandung",
       heroSubtitle: "Waktu seutuhnya milik Anda. Barbershop tenang dan eksklusif di perbukitan Bandung Barat.",
       heroCtaBook: "RESERVASI KURSI",
-      heroCtaInfo: "INFO LOKASI & TOKO",
       
       // Index Values
       valueTitle1: "Kebersihan yang Nyata Terlihat dan Terasa",
@@ -97,27 +73,7 @@
       // Footer
       footerTagline: "Tempat Singgah Perawatan Pria Pertama di Bandung • Kota Baru Parahyangan",
       footerCopyright: "© 2026 Greenwood Barbers. Hak cipta dilindungi undang-undang.",
-      footerContactBtn: "Hubungi WhatsApp Concierge",
-      
-      // Store Info Modal
-      modalTitle: "Informasi Toko & Panduan Tamu",
-      modalSubtitle: "Greenwood Barbers • Flagship Kota Baru Parahyangan",
-      modalHoursLabel: "Jam Operasional",
-      modalHoursVal: "Rabu – Senin: 10:00 – 20:00 WIB (Tutup Hari Selasa)",
-      modalLocationLabel: "Alamat Resmi",
-      modalLocationVal: "Ruko PancaTengah, Jl. Parahyangan No. 87, Kota Baru Parahyangan, Padalarang, Bandung Barat 40553",
-      modalTransitLabel: "Akses Transportasi",
-      modalTransitVal: "7 menit dari Stasiun Kereta Cepat Whoosh Padalarang • 5 menit dari Gerbang Tol Padalarang.",
-      modalParkingLabel: "Fasilitas Parkir",
-      modalParkingVal: "Parkir gratis tepat di depan pintu masuk parlour.",
-      modalBookingPolicyLabel: "Kebijakan Reservasi & Reschedule",
-      modalBookingPolicyVal: "Reservasi online sangat disarankan. Untuk perubahan jadwal, mohon konfirmasi melalui WhatsApp minimal 3 jam sebelumnya.",
-      modalPaymentLabel: "Metode Pembayaran",
-      modalPaymentVal: "Menerima pembayaran nontunai (QRIS, Kartu Debit, Kartu Kredit, Mandiri Virtual Account).",
-      modalBtnBook: "RESERVASI KURSI ONLINE",
-      modalBtnWa: "CHAT WHATSAPP (+62 819-9115-3322)",
-      modalBtnMaps: "BUKA DI GOOGLE MAPS",
-      modalClose: "Tutup"
+      footerContactBtn: "Hubungi WhatsApp Concierge"
     }
   };
 
@@ -152,8 +108,6 @@
         link.textContent = dict.navAbout;
       } else if (href.indexOf('contact.html') !== -1 || href.indexOf('contact') !== -1) {
         link.textContent = dict.navContact;
-      } else if (href.indexOf('info.html') !== -1 || href.indexOf('info') !== -1) {
-        link.textContent = dict.navInfo;
       } else if (href.indexOf('booking.html') !== -1 || href.indexOf('booking') !== -1) {
         if (!link.classList.contains('btn-primary')) {
           link.textContent = dict.navReserve;
@@ -186,27 +140,16 @@
     var heroSubtitle = document.querySelector('.clean-hero-subtitle');
     if (heroSubtitle && !heroSubtitle.hasAttribute('data-i18n')) heroSubtitle.textContent = dict.heroSubtitle;
 
-    var heroCtaBook = document.querySelector('.clean-hero-actions .btn-primary');
-    if (heroCtaBook && !heroCtaBook.hasAttribute('data-i18n')) heroCtaBook.textContent = dict.heroCtaBook;
-
-    var heroCtaInfo = document.querySelector('.clean-hero-actions .btn-secondary');
-    if (heroCtaInfo && !heroCtaInfo.hasAttribute('data-i18n')) heroCtaInfo.textContent = dict.heroCtaInfo;
-
-    // Update Modal Content
-    var modalTitle = document.getElementById('gwModalTitle');
-    if (modalTitle) modalTitle.textContent = dict.modalTitle;
-
-    var modalSubtitle = document.getElementById('gwModalSubtitle');
-    if (modalSubtitle) modalSubtitle.textContent = dict.modalSubtitle;
-
-    var modalClose = document.getElementById('gwModalCloseBtn');
-    if (modalClose) modalClose.textContent = dict.modalClose;
+    var heroCtaBook = document.querySelector('.clean-hero-actions .btn-primary, .clean-hero-actions .btn-clean-reserve');
+    if (heroCtaBook && !heroCtaBook.hasAttribute('data-i18n')) {
+      heroCtaBook.textContent = dict.heroCtaBook + " →";
+    }
 
     // Dispatch Event for Page-specific listeners
     window.dispatchEvent(new CustomEvent('greenwood-language-changed', { detail: { lang: lang, dict: dict } }));
   }
 
-  // 3. INJECT LANGUAGE SWITCHER & STORE INFO LINK
+  // 3. INJECT LANGUAGE SWITCHER
   function injectLanguageSwitcher() {
     var ctaGroups = document.querySelectorAll('.header-cta-group');
     ctaGroups.forEach(function (ctaGroup) {
@@ -245,136 +188,19 @@
         applyLanguage(targetLang);
       });
     });
-
-    // Inject "Store Info" into main navigation if not already present
-    var mainNavs = document.querySelectorAll('nav.main-nav');
-    mainNavs.forEach(function (nav) {
-      if (!nav.querySelector('a[href*="info"]')) {
-        var infoLink = document.createElement('a');
-        infoLink.href = 'info.html';
-        infoLink.textContent = currentLang === 'id' ? 'Info Toko' : 'Store Info';
-        if (window.location.pathname.indexOf('info') !== -1) {
-          infoLink.className = 'active';
-        }
-        nav.appendChild(infoLink);
-      }
-    });
-
-    // Inject "Store Info" into mobile nav overlay
-    if (mobileNav && !mobileNav.querySelector('a[href*="info"]')) {
-      var mobileInfoLink = document.createElement('a');
-      mobileInfoLink.href = 'info.html';
-      mobileInfoLink.textContent = currentLang === 'id' ? 'Info Toko' : 'Store Info';
-      if (window.location.pathname.indexOf('info') !== -1) {
-        mobileInfoLink.className = 'active';
-      }
-      var bookBtn = mobileNav.querySelector('.btn-primary');
-      if (bookBtn) {
-        mobileNav.insertBefore(mobileInfoLink, bookBtn);
-      } else {
-        mobileNav.appendChild(mobileInfoLink);
-      }
-    }
   }
 
-  // 4. INJECT STORE INFO MODAL
-  function injectStoreInfoModal() {
-    if (document.getElementById('gwStoreInfoModal')) return;
-
-    var dict = translations[currentLang];
-    var modalHtml = 
-      '<div id="gwStoreInfoModal" class="gw-info-modal-backdrop" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="gwModalTitle">' +
-      '  <div class="gw-info-modal-card">' +
-      '    <div class="gw-info-modal-header">' +
-      '      <div>' +
-      '        <div style="font-size:10px; letter-spacing:2.5px; text-transform:uppercase; color:var(--accent-gold); font-weight:600;" id="gwModalSubtitle">' + dict.modalSubtitle + '</div>' +
-      '        <h2 id="gwModalTitle" style="font-family:var(--font-serif); font-size:22px; color:var(--accent-gold); margin:4px 0 0;">' + dict.modalTitle + '</h2>' +
-      '      </div>' +
-      '      <button type="button" class="gw-info-modal-close" onclick="window.GreenwoodI18n.closeInfoModal()" aria-label="Close dialog">&times;</button>' +
-      '    </div>' +
-      '    <div class="gw-info-modal-body">' +
-      '      <div class="gw-info-row">' +
-      '        <div class="gw-info-label">' + dict.modalHoursLabel + '</div>' +
-      '        <div class="gw-info-val">' + dict.modalHoursVal + '</div>' +
-      '      </div>' +
-      '      <div class="gw-info-row">' +
-      '        <div class="gw-info-label">' + dict.modalLocationLabel + '</div>' +
-      '        <div class="gw-info-val">' + dict.modalLocationVal + '</div>' +
-      '      </div>' +
-      '      <div class="gw-info-row">' +
-      '        <div class="gw-info-label">' + dict.modalTransitLabel + '</div>' +
-      '        <div class="gw-info-val">' + dict.modalTransitVal + '</div>' +
-      '      </div>' +
-      '      <div class="gw-info-row">' +
-      '        <div class="gw-info-label">' + dict.modalParkingLabel + '</div>' +
-      '        <div class="gw-info-val">' + dict.modalParkingVal + '</div>' +
-      '      </div>' +
-      '      <div class="gw-info-row">' +
-      '        <div class="gw-info-label">' + dict.modalBookingPolicyLabel + '</div>' +
-      '        <div class="gw-info-val">' + dict.modalBookingPolicyVal + '</div>' +
-      '      </div>' +
-      '      <div class="gw-info-row">' +
-      '        <div class="gw-info-label">' + dict.modalPaymentLabel + '</div>' +
-      '        <div class="gw-info-val">' + dict.modalPaymentVal + '</div>' +
-      '      </div>' +
-      '    </div>' +
-      '    <div class="gw-info-modal-footer">' +
-      '      <a href="booking.html" class="btn-primary" style="text-align:center; text-decoration:none; display:inline-block; padding:10px 18px; font-size:12px;">' + dict.modalBtnBook + '</a>' +
-      '      <a href="https://wa.me/6281991153322?text=Halo%20Greenwood%20Barbers,%20saya%20ingin%20bertanya%20mengenai%20layanan%20dan%20jadwal" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="text-align:center; text-decoration:none; display:inline-block; padding:10px 18px; font-size:12px;">' + dict.modalBtnWa + '</a>' +
-      '      <button type="button" class="btn-secondary" id="gwModalCloseBtn" onclick="window.GreenwoodI18n.closeInfoModal()" style="padding:10px 16px; font-size:12px;">' + dict.modalClose + '</button>' +
-      '    </div>' +
-      '  </div>' +
-      '</div>';
-
-    var container = document.createElement('div');
-    container.innerHTML = modalHtml;
-    document.body.appendChild(container.firstChild);
-
-    // Close on backdrop click or ESC
-    var modal = document.getElementById('gwStoreInfoModal');
-    if (modal) {
-      modal.addEventListener('click', function (e) {
-        if (e.target === modal) window.GreenwoodI18n.closeInfoModal();
-      });
-    }
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') window.GreenwoodI18n.closeInfoModal();
-    });
-  }
-
-  // 5. PUBLIC API
+  // 4. PUBLIC API
   window.GreenwoodI18n = {
     setLanguage: applyLanguage,
     getLanguage: function () { return currentLang; },
-    getDictionary: function () { return translations[currentLang]; },
-    openInfoModal: function () {
-      var modal = document.getElementById('gwStoreInfoModal');
-      if (modal) {
-        modal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-      }
-    },
-    closeInfoModal: function () {
-      var modal = document.getElementById('gwStoreInfoModal');
-      if (modal) {
-        modal.style.display = 'none';
-        document.body.style.overflow = '';
-      }
-    }
+    getDictionary: function () { return translations[currentLang]; }
   };
 
-  // 6. INITIALIZE ON DOM READY
+  // 5. INITIALIZE ON DOM READY
   function init() {
     injectLanguageSwitcher();
-    injectStoreInfoModal();
     applyLanguage(currentLang);
-
-    // Auto-open modal if hash is #store-info or #info
-    if (window.location.hash === '#store-info' || window.location.hash === '#info') {
-      setTimeout(function () {
-        window.GreenwoodI18n.openInfoModal();
-      }, 300);
-    }
   }
 
   if (document.readyState === 'loading') {

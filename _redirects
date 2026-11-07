@@ -4,8 +4,6 @@
 /parlour.html /contact.html 301
 /about       /about.html    200
 /contact     /contact.html  200
-/info        /info.html     200
-/informasi   /info.html     200
 /booking     /booking.html  200
 /estate-records /estate-records.html 200
 /CLIENT_REVIEW_GUIDE.html /docs/client_proposals/CLIENT_REVIEW_GUIDE.html 301
