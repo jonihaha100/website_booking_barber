@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/greenwood.css?v=20261025_v3fixed">
-  <script src="assets/config.js?v=20261107_prod"></script>
+  <script src="assets/config.js?v=20261107_v2"></script>
   <script src="assets/greenwood-i18n.js?v=20261107_v1" defer></script>
 
   <style>
@@ -2248,7 +2248,7 @@
 
         const gcalWebhookUrl = (typeof GREENWOOD_CONFIG !== 'undefined' && GREENWOOD_CONFIG.brand && GREENWOOD_CONFIG.brand.googleCalendarWebhookUrl && GREENWOOD_CONFIG.brand.googleCalendarWebhookUrl.length > 10) 
           ? GREENWOOD_CONFIG.brand.googleCalendarWebhookUrl 
-          : 'https://script.google.com/macros/s/AKfycbxTz-1pKwj_Dd0ebm1_CfY7V9801L91Qw6qvwTa3LA6MLV7oULTA76GCRA5K8ic1LSTwQ/exec';
+          : 'https://script.google.com/macros/s/AKfycbwNw4b7W2gUTmWuFj2UzL5M2jeRWBjeAnF6l1P8p-zwfoLWsawIwHlQFK3kmGAy9C-B/exec';
 
         const gcalPayload = JSON.stringify({
           bookingCode: bookingCode,
