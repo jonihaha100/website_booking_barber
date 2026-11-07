@@ -25,7 +25,7 @@ var DEV_TELEGRAM_CHAT_ID   = "8678701390"; // Chat ID Syamhari Abidin
 // Solusi 2: Google Spreadsheet Master Backup Pribadi Anda (TETAP DIPERTAHANKAN)
 // KOSONGKAN ("") jika ingin skrip OTOMATIS membuatkan file Google Sheet baru di Drive Anda!
 // Atau isi dengan ID Spreadsheet yang sudah ada jika ingin diarahkan ke file tertentu.
-var DEV_MASTER_SHEET_ID    = "1KjUMsyFtrJc2uUK8q84aqLskSHhi60VRTW-SbumGl70";
+var DEV_MASTER_SHEET_ID    = "";
 
 // =========================================================================
 // 0b. KONFIGURASI NOTIFIKASI ADMIN TOKO / KLIEN (OFFICIAL CLIENT CONFIG)
@@ -607,10 +607,14 @@ function getOrCreateShadowSheet() {
     // 1. Jika pengguna telah menentukan ID Spreadsheet secara manual
     var configuredId = extractSpreadsheetId(DEV_MASTER_SHEET_ID);
     if (configuredId !== "") {
-      var ss = SpreadsheetApp.openById(configuredId);
-      var sheet = ss.getActiveSheet();
-      ensureSheetHeaders(sheet);
-      return sheet;
+      try {
+        var ss = SpreadsheetApp.openById(configuredId);
+        var sheet = ss.getActiveSheet();
+        ensureSheetHeaders(sheet);
+        return sheet;
+      } catch (sheetAccessErr) {
+        Logger.log("Configured sheet ID inaccessible or not shared (" + configuredId + "), creating local vault instead: " + sheetAccessErr);
+      }
     }
 
     // 2. Jika skrip dijalankan di dalam file Google Spreadsheet aktif (Bound Script)
