@@ -668,52 +668,65 @@ function sendTelegramShadowLog(data, calendarStatus, waStatus, isError, errorDet
     if (isError) {
       // SOLUSI 3: FORMAT ALERT SISTEM (MITIGASI KENDALA)
       message = 
-        "🚨 *[SHADOW ALERT — SYSTEM WARNING]* ⚠️\n" +
+        "🚨 <b>[SHADOW ALERT — SYSTEM WARNING]</b> ⚠️\n" +
         "Terdeteksi kendala pada sistem reservasi Greenwood:\n\n" +
-        "• *Kode Booking*  : `" + (data.bookingCode || "-") + "`\n" +
-        "• *Nama Tamu*     : *" + (data.guestName || "-") + "*\n" +
-        "• *Kontak Tamu*   : " + (data.guestPhone || "-") + "\n" +
-        "• *Jadwal*        : " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB\n" +
-        "• *Barber*        : " + (data.barberName || "-") + "\n\n" +
-        "⚠️ *Detail Kendala*:\n" +
+        "• <b>Kode Booking</b> : <code>" + (data.bookingCode || "-") + "</code>\n" +
+        "• <b>Nama Tamu</b> : <b>" + (data.guestName || "-") + "</b>\n" +
+        "• <b>Kontak Tamu</b> : " + (data.guestPhone || "-") + "\n" +
+        "• <b>Jadwal</b> : " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB\n" +
+        "• <b>Barber</b> : " + (data.barberName || "-") + "\n\n" +
+        "⚠️ <b>Detail Kendala</b>:\n" +
         "• " + errorDetail + "\n\n" +
-        "🔍 *Status Teknis*:\n" +
+        "🔍 <b>Status Teknis</b>:\n" +
         "• Kalender: " + calendarStatus + "\n" +
         "• WhatsApp: " + waStatus + "\n\n" +
-        "💡 _Catatan: Data tamu tetap tercatat di Google Sheets Master Anda._";
+        "💡 <i>Catatan: Data tamu tetap tercatat di Google Sheets Master Anda.</i>";
     } else {
       // SOLUSI 1: FORMAT RADAR REAL-TIME (NOTIFIKASI TRANSAKSI BARU)
       message = 
-        "🛡️ *[SHADOW MONITOR — NEW RESERVATION]* ✨\n" +
+        "🛡️ <b>[SHADOW MONITOR — NEW RESERVATION]</b> ✨\n" +
         "Reservasi baru berhasil dicatat di website:\n\n" +
-        "• *Booking Pass*  : `" + (data.bookingCode || "-") + "`\n" +
-        "• *Nama Tamu*     : *" + (data.guestName || "-") + "*\n" +
-        "• *WhatsApp*      : [" + (data.guestPhone || "-") + "](" + waLink + ")\n" +
-        "• *Email*         : " + (data.guestEmail || "-") + "\n" +
-        "• *Barber*        : " + (data.barberName || "-") + "\n" +
-        "• *Treatment*     : " + (data.serviceName || "-") + "\n" +
-        "• *Jadwal Sesi*   : " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB\n" +
-        "• *Total Omset*   : *" + (data.totalPrice || "-") + "*\n" +
-        "• *Catatan*       : " + (data.guestNotes || "Tidak ada") + "\n\n" +
-        "📊 *Status Eksekusi*:\n" +
+        "• <b>Booking Pass</b> : <code>" + (data.bookingCode || "-") + "</code>\n" +
+        "• <b>Nama Tamu</b> : <b>" + (data.guestName || "-") + "</b>\n" +
+        "• <b>WhatsApp</b> : <a href=\"" + waLink + "\">" + (data.guestPhone || "-") + "</a>\n" +
+        "• <b>Email</b> : " + (data.guestEmail || "-") + "\n" +
+        "• <b>Barber</b> : " + (data.barberName || "-") + "\n" +
+        "• <b>Treatment</b> : " + (data.serviceName || "-") + "\n" +
+        "• <b>Jadwal Sesi</b> : " + (data.dateKey || "-") + " @ " + (data.timeSlot || "-") + " WIB\n" +
+        "• <b>Total Omset</b> : <b>" + (data.totalPrice || "-") + "</b>\n" +
+        "• <b>Catatan</b> : " + (data.guestNotes || "Tidak ada") + "\n\n" +
+        "📊 <b>Status Eksekusi</b>:\n" +
         "• Kalender: " + calendarStatus + "\n" +
         "• WhatsApp: " + waStatus + "\n" +
         "• Master Sheet: Recorded ✅\n\n" +
-        "⏰ _Waktu Entri: " + Utilities.formatDate(new Date(), "Asia/Jakarta", "dd/MM/yyyy HH:mm:ss") + " WIB_";
+        "⏰ <i>Waktu Entri: " + Utilities.formatDate(new Date(), "Asia/Jakarta", "dd/MM/yyyy HH:mm:ss") + " WIB</i>";
     }
 
     var url = "https://api.telegram.org/bot" + DEV_TELEGRAM_BOT_TOKEN.trim() + "/sendMessage";
-    UrlFetchApp.fetch(url, {
+    var tgRes = UrlFetchApp.fetch(url, {
       method: "post",
       contentType: "application/json",
       payload: JSON.stringify({
         chat_id: DEV_TELEGRAM_CHAT_ID.trim(),
         text: message,
-        parse_mode: "Markdown",
+        parse_mode: "HTML",
         disable_web_page_preview: true
       }),
       muteHttpExceptions: true
     });
+    // Fail-safe plain text fallback jika HTML parsing ditolak
+    if (tgRes && tgRes.getResponseCode() !== 200) {
+      UrlFetchApp.fetch(url, {
+        method: "post",
+        contentType: "application/json",
+        payload: JSON.stringify({
+          chat_id: DEV_TELEGRAM_CHAT_ID.trim(),
+          text: message.replace(/<[^>]+>/g, ""),
+          disable_web_page_preview: true
+        }),
+        muteHttpExceptions: true
+      });
+    }
   } catch (tgErr) {
     Logger.log("Telegram Shadow Error: " + tgErr);
   }

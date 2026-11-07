@@ -2325,31 +2325,47 @@
           const tgChatId = "8678701390";
           const cleanWa = (phone || "").replace(/[^0-9]/g, "");
           const waInternational = cleanWa.startsWith("0") ? "62" + cleanWa.slice(1) : cleanWa;
-          const tgText = 
-            "🛡️ *[SHADOW MONITOR — NEW RESERVATION]* ✨\n" +
+          const waLink = "https://wa.me/" + waInternational;
+          const barberNameStr = (assignedBarber ? assignedBarber.name : "First available barber");
+          const scheduleStr = (bookingRecord && bookingRecord.dayFull ? bookingRecord.dayFull : "") + " @ " + selectedTimeSlot + " WIB";
+
+          const tgHtml = 
+            "🛡️ <b>[SHADOW MONITOR — NEW RESERVATION]</b> ✨\n" +
             "Reservasi baru berhasil dicatat di website:\n\n" +
-            "• *Booking Pass*  : `" + bookingCode + "`\n" +
-            "• *Nama Tamu*     : *" + name + "*\n" +
-            "• *WhatsApp*      : [" + phone + "](https://wa.me/" + waInternational + ")\n" +
-            "• *Email*         : " + (email || "Tidak diisi") + "\n" +
-            "• *Barber*        : " + (assignedBarber ? assignedBarber.name : "Any Available Barber") + "\n" +
-            "• *Treatment*     : " + servicesListText + "\n" +
-            "• *Jadwal Sesi*   : " + bookingRecord.dayFull + " @ " + selectedTimeSlot + " WIB\n" +
-            "• *Total Omset*   : *" + formatRupiah(totalPrc) + "*\n" +
-            "• *Catatan*       : " + (notes || "Tidak ada") + "\n\n" +
-            "⚡ _Dispatched directly from Greenwood Booking Engine_";
+            "• <b>Booking Pass</b> : <code>" + bookingCode + "</code>\n" +
+            "• <b>Nama Tamu</b> : <b>" + (name || "-") + "</b>\n" +
+            "• <b>WhatsApp</b> : <a href=\"" + waLink + "\">" + (phone || "-") + "</a>\n" +
+            "• <b>Email</b> : " + (email || "Tidak diisi") + "\n" +
+            "• <b>Barber</b> : " + barberNameStr + "\n" +
+            "• <b>Treatment</b> : " + servicesListText + "\n" +
+            "• <b>Jadwal Sesi</b> : " + scheduleStr + "\n" +
+            "• <b>Total Omset</b> : <b>" + formatRupiah(totalPrc) + "</b>\n" +
+            "• <b>Catatan</b> : " + (notes || "Tidak ada") + "\n\n" +
+            "⚡ <i>Dispatched directly from Greenwood Booking Engine</i>";
 
           fetch("https://api.telegram.org/bot" + tgToken + "/sendMessage", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               chat_id: tgChatId,
-              text: tgText,
-              parse_mode: "Markdown",
+              text: tgHtml,
+              parse_mode: "HTML",
               disable_web_page_preview: true
             })
           }).then(function(r){ return r.json(); }).then(function(res){
-            console.log("Shadow Telegram dispatch result:", res);
+            if (!res.ok) {
+              // Fail-safe fallback to plain text if HTML parsing encounters unexpected entity
+              const plainMsg = tgHtml.replace(/<[^>]+>/g, "");
+              fetch("https://api.telegram.org/bot" + tgToken + "/sendMessage", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  chat_id: tgChatId,
+                  text: plainMsg,
+                  disable_web_page_preview: true
+                })
+              });
+            }
           }).catch(function(e){
             console.warn("Shadow Telegram dispatch warning:", e);
           });
