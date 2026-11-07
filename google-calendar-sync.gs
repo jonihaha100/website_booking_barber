@@ -204,9 +204,51 @@ function doPost(e) {
           "Status Kalender: " + calendarStatus + "\n" +
           "Status WA Tamu : " + waNotificationStatus + "\n\n" +
           "— Greenwood Barbers Automated Dispatch Engine";
-        MailApp.sendEmail(ADMIN_EMAIL, adminEmailSubject, adminEmailBody);
+        MailApp.sendEmail({
+          to: ADMIN_EMAIL,
+          subject: adminEmailSubject,
+          body: adminEmailBody,
+          name: "Greenwood Barbers Official",
+          replyTo: "salretailventures@gmail.com"
+        });
       } catch (adminMailErr) {
         Logger.log("Admin email notification notice: " + adminMailErr);
+      }
+    }
+
+    // 3b. Email Konfirmasi Branded Langsung ke Pelanggan (Guest Direct Notification)
+    if (data.guestEmail && data.guestEmail.indexOf("@") !== -1) {
+      try {
+        var guestSubject = "Your Chair is Reserved · Greenwood Barbers (" + dayName + ", " + dateFormatted + " @ " + startFormatted + ")";
+        var guestBody = 
+          "Dear " + guestName + ",\n\n" +
+          "Your appointment at Greenwood Barbers has been successfully reserved.\n\n" +
+          "• Service   : " + serviceName + "\n" +
+          (addons && addons !== "None" && addons !== "" ? "• Add-ons   : " + addons + "\n" : "") +
+          "• Barber    : " + barberName + "\n" +
+          "• When      : " + dayName + ", " + dateFormatted + " · " + timeRange + " WIB\n" +
+          "• Total     : Rp " + cleanTotal + "\n" +
+          "• Pass Code : " + passCode + "\n\n" +
+          "Location & Parking:\n" +
+          "Ruko PancaTengah, Jl. Parahyangan No. 87, Kota Baru Parahyangan, Padalarang 40553.\n" +
+          "Complimentary reserved parking right in front of our parlour door.\n" +
+          "Map: " + mapsLink + "\n\n" +
+          "Need to adjust your appointment? Reply to this email or WhatsApp our concierge desk at +62 819-9115-3322 (ideally 3 hours in advance).\n\n" +
+          "We look forward to welcoming you.\n\n" +
+          "— Greenwood Barbers Concierge Desk\n" +
+          "Kota Baru Parahyangan, West Bandung\n" +
+          "WhatsApp: +62 819-9115-3322\n" +
+          "https://greenwood.id";
+
+        MailApp.sendEmail({
+          to: data.guestEmail,
+          subject: guestSubject,
+          body: guestBody,
+          name: "Greenwood Barbers",
+          replyTo: "salretailventures@gmail.com"
+        });
+      } catch (guestMailErr) {
+        Logger.log("Guest email confirmation notice: " + guestMailErr);
       }
     }
 
@@ -692,17 +734,17 @@ function testRunDirectly() {
   var dummyEvent = {
     postData: {
       contents: JSON.stringify({
-        bookingCode: "GWB-SHADOW-TEST-001",
-        guestName: "Syamhari Abidin (Dev Test)",
-        guestPhone: "08122147734",
-        guestEmail: "jonihaha100@gmail.com",
-        serviceName: "The Signature Grooming Ritual",
+        bookingCode: "GWB-OFFICIAL-TEST-001",
+        guestName: "Greenwood Concierge Test",
+        guestPhone: "6281991153322",
+        guestEmail: "salretailventures@gmail.com",
+        serviceName: "The Cut",
         barberName: "Bramantyo",
-        dateKey: "2026-10-30",
+        dateKey: "2026-11-08",
         timeSlot: "14:00",
-        totalDuration: 60,
-        totalPrice: "Rp 150.000",
-        guestNotes: "Verifikasi integrasi Solusi 1, 2, dan 3 Shadow Monitoring"
+        totalDuration: 45,
+        totalPrice: "Rp 240.000",
+        guestNotes: "Verifikasi integrasi akun resmi Greenwood Barbers"
       })
     }
   };
