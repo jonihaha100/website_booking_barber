@@ -1585,6 +1585,32 @@
             </a>
           </div>
 
+          <!-- POST-SERVICE GUEST RATING & FEEDBACK FORM -->
+          <div class="feedback-card" id="guestFeedbackBox" style="margin-top: 24px; background: rgba(9, 28, 19, 0.7); border: 1px solid var(--accent-gold); border-radius: 8px; padding: 20px; text-align: center;">
+            <div style="font-family: 'Lora', Georgia, serif; font-size: 16px; color: #fff; margin-bottom: 6px;">
+              Beri Ulasan Layanan &bull; Rate Your Experience
+            </div>
+            <div style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 12px;">
+              Bantu kami menyempurnakan ritual cukur Anda di Greenwood Barbers.
+            </div>
+            <div style="display: flex; justify-content: center; gap: 10px; font-size: 28px; cursor: pointer; margin-bottom: 12px;" id="starRatingWrap">
+              <span class="star-rating-item" onclick="setGuestRating(1)" style="color: #e5b95f;">★</span>
+              <span class="star-rating-item" onclick="setGuestRating(2)" style="color: #e5b95f;">★</span>
+              <span class="star-rating-item" onclick="setGuestRating(3)" style="color: #e5b95f;">★</span>
+              <span class="star-rating-item" onclick="setGuestRating(4)" style="color: #e5b95f;">★</span>
+              <span class="star-rating-item" onclick="setGuestRating(5)" style="color: #e5b95f;">★</span>
+            </div>
+            <textarea id="guestFeedbackComment" rows="2" placeholder="Tuliskan ulasan atau preferensi Anda untuk kunjungan berikutnya..." style="width: 100%; max-width: 480px; box-sizing: border-box; background: rgba(3, 12, 8, 0.9); border: 1px solid rgba(197, 155, 72, 0.3); color: #fff; padding: 10px; border-radius: 6px; font-size: 12.5px; outline: none; margin-bottom: 10px;"></textarea>
+            <div>
+              <button type="button" onclick="submitGuestFeedback()" style="background: var(--accent-gold); color: #030c08; font-weight: 700; border: none; padding: 8px 18px; border-radius: 4px; font-size: 12.5px; cursor: pointer;">
+                Kirim Ulasan &rarr;
+              </button>
+            </div>
+            <div id="feedbackSuccessMsg" style="display: none; color: #4ade80; font-size: 12.5px; margin-top: 10px; font-weight: 600;">
+              ✓ Terima kasih atas ulasan Anda! Catatan ini telah disimpan ke sistem CRM kami.
+            </div>
+          </div>
+
           <!-- Secondary Actions -->
           <div style="display: flex; gap: 12px; flex-wrap: wrap; width: 100%; margin-top: 24px;">
             <button type="button" class="btn-step-back" onclick="resetBookingSession()" style="flex: 1; min-width: 160px;">
@@ -2406,6 +2432,49 @@
       passScreen.style.display = 'block';
       passScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+
+    // Guest Feedback & Rating Handlers
+    window.currentGuestRating = 5;
+    window.setGuestRating = function(r) {
+      window.currentGuestRating = r;
+      const stars = document.querySelectorAll('.star-rating-item');
+      stars.forEach((s, idx) => {
+        s.style.color = (idx < r) ? '#e5b95f' : 'rgba(255,255,255,0.2)';
+      });
+    };
+
+    window.submitGuestFeedback = function() {
+      const commentEl = document.getElementById('guestFeedbackComment');
+      const comment = commentEl ? commentEl.value.trim() : "";
+      const code = document.getElementById('passCodeVal') ? document.getElementById('passCodeVal').textContent : "GW-BOOKING";
+      const guestName = document.getElementById('passGuestName') ? document.getElementById('passGuestName').textContent : "Guest";
+      const guestPhone = document.getElementById('passGuestPhone') ? document.getElementById('passGuestPhone').textContent : "";
+
+      try {
+        const feedbacks = JSON.parse(localStorage.getItem('greenwood_guest_feedbacks_v1') || '[]');
+        feedbacks.unshift({
+          timestamp: Date.now(),
+          bookingCode: code,
+          guestName: guestName,
+          guestPhone: guestPhone,
+          rating: window.currentGuestRating,
+          comment: comment
+        });
+        localStorage.setItem('greenwood_guest_feedbacks_v1', JSON.stringify(feedbacks));
+
+        if (typeof GreenwoodAdminDB !== 'undefined' && guestPhone) {
+          const cust = GreenwoodAdminDB.findCustomerByPhoneOrName(guestPhone);
+          if (cust) {
+            const extraNote = `[Feedback ${window.currentGuestRating}★: "${comment}"]`;
+            GreenwoodAdminDB.updateInternalNotes(cust.id, (cust.internalNotes ? cust.internalNotes + " • " : "") + extraNote);
+          }
+        }
+      } catch(e) {}
+
+      const successMsg = document.getElementById('feedbackSuccessMsg');
+      if (successMsg) successMsg.style.display = 'block';
+      if (commentEl) commentEl.disabled = true;
+    };
 
     // Reset Booking Session
     function resetBookingSession() {
