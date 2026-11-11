@@ -1203,7 +1203,7 @@
             </div>
 
             <!-- BARBER TIP (UANG TIP BARBER) -->
-            <div class="pos-summary-row" style="flex-direction: column; gap: 4px; border-top: 1px dashed var(--card-border); padding-top: 6px;">
+            <div class="pos-summary-row" id="posTipRowContainer" style="flex-direction: column; gap: 4px; border-top: 1px dashed var(--card-border); padding-top: 6px;">
               <div style="display: flex; justify-content: space-between; align-items: center;">
                 <span>Uang Tip Barber</span>
                 <input type="number" id="posTipInput" class="form-control" style="width: 120px; text-align: right; padding: 4px 8px; font-size: 12px; color: var(--accent-gold-bright);" value="0" oninput="calculatePosTotal()">
@@ -1659,6 +1659,15 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           <label class="form-label">Batas Hari Pelanggan Pasif (Hari)</label>
           <input type="number" id="setPassiveDays" class="form-control" value="35">
           <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 4px;">Tamu yang tidak berkunjung melebihi jumlah hari ini akan diberi tanda 'Pasif' untuk follow-up pengingat.</div>
+        </div>
+        <div class="form-row" style="margin-top: 14px; padding-top: 10px; border-top: 1px dashed var(--card-border);">
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #fff; font-size: 13px;">
+            <input type="checkbox" id="setEnableTips" checked onchange="toggleTipsFeature(this.checked)" style="transform: scale(1.2);">
+            <span>Aktifkan Input Uang Tip Barber di Layar Kasir (POS)</span>
+          </label>
+          <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 4px; padding-left: 24px;">
+            Sesuai spesifikasi Modul B. Jika dinonaktifkan, baris input Tip Barber di layar kasir akan disembunyikan.
+          </div>
         </div>
         <button type="button" class="btn-gold-action" onclick="saveBranchConfig()" style="margin-top: 8px;">
           Simpan Konfigurasi Cabang
@@ -2153,6 +2162,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       initSandboxState();
       applyRolePermissionsToUI();
       setSystemLanguage(I18N.currentLang);
+      updateTipsVisibility();
 
       // Init existing reservations
       reloadLedgerData();
@@ -3625,8 +3635,28 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         if (branchNameInput && cfg.branchName) branchNameInput.value = cfg.branchName;
         if (branchIdInput && cfg.branchId) branchIdInput.value = cfg.branchId;
         if (passiveDaysInput && cfg.passiveThresholdDays) passiveDaysInput.value = cfg.passiveThresholdDays;
+        const tipToggle = document.getElementById('setEnableTips');
+        if (tipToggle) tipToggle.checked = cfg.enableBarberTips !== false;
         
         initSandboxState();
+      }
+    }
+
+    function toggleTipsFeature(enabled) {
+      GreenwoodAdminDB.saveConfig({ enableBarberTips: enabled });
+      updateTipsVisibility();
+    }
+
+    function updateTipsVisibility() {
+      const cfg = GreenwoodAdminDB.getConfig();
+      const enabled = cfg.enableBarberTips !== false;
+      const tipRow = document.getElementById('posTipRowContainer');
+      const tipToggle = document.getElementById('setEnableTips');
+      if (tipRow) tipRow.style.display = enabled ? 'flex' : 'none';
+      if (tipToggle) tipToggle.checked = enabled;
+      if (!enabled) {
+        if (document.getElementById('posTipInput')) document.getElementById('posTipInput').value = 0;
+        calculatePosTotal();
       }
     }
 

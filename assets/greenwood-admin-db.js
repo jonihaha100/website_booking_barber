@@ -910,7 +910,8 @@
         branchName: "Greenwood Barbers — Kota Baru Parahyangan",
         branchId: DEFAULT_BRANCH_ID,
         activeRole: "Owner",
-        passiveThresholdDays: 35
+        passiveThresholdDays: 35,
+        enableBarberTips: true
       });
     },
 
