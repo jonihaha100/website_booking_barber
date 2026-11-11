@@ -21,7 +21,8 @@
     ATTENDANCE: DB_PREFIX + 'attendance_v1',
     LOGS: DB_PREFIX + 'activity_logs_v1',
     CONFIG: DB_PREFIX + 'system_config_v1',
-    SANDBOX: DB_PREFIX + 'sandbox_state_v1'
+    SANDBOX: DB_PREFIX + 'sandbox_state_v1',
+    ROLES: DB_PREFIX + 'role_permissions_v2'
   };
 
   const DEFAULT_BRANCH_ID = 'kbp-main'; // Kota Baru Parahyangan Main Branch
@@ -272,6 +273,149 @@
   ];
 
   // =========================================================================
+  // MATRIKS HAK AKSES PERAN PENGGUNA (ROLE-BASED ACCESS CONTROL MATRIX)
+  // Berdasarkan acuan arsitektur Permissions - Roles (Zoho/Minutes App)
+  // =========================================================================
+  const DEFAULT_ROLE_PERMISSIONS = {
+    Owner: {
+      id: "Owner",
+      name: "Owner",
+      badge: "Super Admin",
+      title: "👑 Owner (Pemilik Toko)",
+      subtitle: "Akses Penuh Tanpa Batas (Super Admin)",
+      description: "Memiliki wewenang tertinggi untuk seluruh data omzet finansial, audit trail, konfigurasi sistem multi-cabang, dan otorisasi kasir.",
+      isSuperAdmin: true,
+      permissions: {
+        pos_view: true,
+        pos_create: true,
+        pos_discount: true,
+        pos_tip: true,
+        pos_void: true,
+        crm_view: true,
+        crm_notes: true,
+        crm_phone: true,
+        crm_create: true,
+        crm_export: true,
+        booking_view: true,
+        booking_create: true,
+        booking_edit: true,
+        booking_cancel: true,
+        staff_clockin: true,
+        staff_comm_self: true,
+        staff_comm_all: true,
+        staff_comm_export: true,
+        analytics_view: true,
+        analytics_export: true,
+        settings_sandbox: true,
+        settings_passkey: true,
+        settings_roles: true
+      }
+    },
+    Manager: {
+      id: "Manager",
+      name: "Manager",
+      badge: "Store Manager",
+      title: "👔 Store Manager (Kepala Toko)",
+      subtitle: "Operasional Kasir, Staf & Komisi",
+      description: "Mengawasi operasional harian kasir, menyetujui diskon & void transaksi, mengelola jadwal shift absensi, serta rekap komisi akuntan.",
+      isSuperAdmin: false,
+      permissions: {
+        pos_view: true,
+        pos_create: true,
+        pos_discount: true,
+        pos_tip: true,
+        pos_void: true,
+        crm_view: true,
+        crm_notes: true,
+        crm_phone: true,
+        crm_create: true,
+        crm_export: true,
+        booking_view: true,
+        booking_create: true,
+        booking_edit: true,
+        booking_cancel: true,
+        staff_clockin: true,
+        staff_comm_self: true,
+        staff_comm_all: true,
+        staff_comm_export: true,
+        analytics_view: true,
+        analytics_export: true,
+        settings_sandbox: true,
+        settings_passkey: false, // Hanya Owner yang boleh mengganti master passkey
+        settings_roles: false
+      }
+    },
+    Cashier: {
+      id: "Cashier",
+      name: "Cashier",
+      badge: "Front Desk",
+      title: "💳 Kasir (Front Desk Operator)",
+      subtitle: "POS Kasir, Order & CRM Harian",
+      description: "Operasional cepat di meja kasir: mencatat transaksi layanan dan produk, input uang tip barber, registrasi data tamu baru, dan cetak nota digital.",
+      isSuperAdmin: false,
+      permissions: {
+        pos_view: true,
+        pos_create: true,
+        pos_discount: true,
+        pos_tip: true,
+        pos_void: false, // Kasir dilarang membatalkan transaksi tanpa otorisasi manager
+        crm_view: true,
+        crm_notes: true,
+        crm_phone: true,
+        crm_create: true,
+        crm_export: false, // Cegah ekspor database pelanggan
+        booking_view: true,
+        booking_create: true,
+        booking_edit: true,
+        booking_cancel: false,
+        staff_clockin: true,
+        staff_comm_self: false,
+        staff_comm_all: false,
+        staff_comm_export: false, // Dilarang ekspor komisi barber
+        analytics_view: true, // Hanya ringkasan kasir harian
+        analytics_export: false,
+        settings_sandbox: false,
+        settings_passkey: false,
+        settings_roles: false
+      }
+    },
+    Barber: {
+      id: "Barber",
+      name: "Barber",
+      badge: "Stylist",
+      title: "💈 Barber / Hair Stylist",
+      subtitle: "Catatan Rambut & Komisi Pribadi",
+      description: "Akses teknis pemotongan rambut: melihat jadwal antrean tamu, membaca catatan formula potongan pelanggan, absensi shift, dan pantau komisi sendiri.",
+      isSuperAdmin: false,
+      permissions: {
+        pos_view: false, // Barber tidak melayani transaksi kasir
+        pos_create: false,
+        pos_discount: false,
+        pos_tip: false,
+        pos_void: false,
+        crm_view: true,
+        crm_notes: true, // SANGAT PENTING: Wajib bisa baca formula potongan rambut
+        crm_phone: false, // Nomor telepon disamarkan demi privasi pelanggan
+        crm_create: false,
+        crm_export: false,
+        booking_view: true, // Melihat jadwal kerja sendiri
+        booking_create: false,
+        booking_edit: false,
+        booking_cancel: false,
+        staff_clockin: true, // Clock-in / Clock-out mandiri
+        staff_comm_self: true, // Melihat komisi diri sendiri
+        staff_comm_all: false, // Dilarang mengintip komisi barber lain
+        staff_comm_export: false, // Dilarang ekspor rekap akuntan
+        analytics_view: false, // Dilarang melihat omzet finansial toko
+        analytics_export: false,
+        settings_sandbox: false,
+        settings_passkey: false,
+        settings_roles: false
+      }
+    }
+  };
+
+  // =========================================================================
   // HELPER METODE LOCAL STORAGE
   // =========================================================================
   function getStorage(key, fallback) {
@@ -334,6 +478,9 @@
           lastSimulationPayload: null,
           lastSimulationResponse: null
         });
+      }
+      if (!localStorage.getItem(KEYS.ROLES)) {
+        setStorage(KEYS.ROLES, DEFAULT_ROLE_PERMISSIONS);
       }
       this.recalculatePassiveCustomers();
     },
@@ -781,6 +928,56 @@
       setStorage(KEYS.CONFIG, cfg);
       this.logActivity("Ganti Peran Akses", `Peran aktif diubah menjadi: ${newRole}`);
       return cfg;
+    },
+
+    // -----------------------------------------------------------------------
+    // ROLE & PERMISSIONS MANAGEMENT (MATRIKS HAK AKSES)
+    // -----------------------------------------------------------------------
+    getRolePermissions: function() {
+      const stored = getStorage(KEYS.ROLES, null);
+      if (!stored) {
+        setStorage(KEYS.ROLES, DEFAULT_ROLE_PERMISSIONS);
+        return JSON.parse(JSON.stringify(DEFAULT_ROLE_PERMISSIONS));
+      }
+      return stored;
+    },
+
+    getRoleDetails: function(roleId) {
+      const all = this.getRolePermissions();
+      return all[roleId] || DEFAULT_ROLE_PERMISSIONS[roleId] || null;
+    },
+
+    saveRolePermissions: function(roleId, newPermissions) {
+      const all = this.getRolePermissions();
+      if (all[roleId]) {
+        all[roleId].permissions = Object.assign({}, all[roleId].permissions, newPermissions);
+        setStorage(KEYS.ROLES, all);
+        this.logActivity("Update Hak Akses", `Matriks izin peran '${roleId}' berhasil diperbarui.`);
+      }
+      return all[roleId];
+    },
+
+    resetRolePermissionsToDefault: function(roleId) {
+      const all = this.getRolePermissions();
+      if (DEFAULT_ROLE_PERMISSIONS[roleId]) {
+        all[roleId] = JSON.parse(JSON.stringify(DEFAULT_ROLE_PERMISSIONS[roleId]));
+        setStorage(KEYS.ROLES, all);
+        this.logActivity("Reset Hak Akses", `Matriks izin peran '${roleId}' dikembalikan ke setelan default.`);
+      }
+      return all[roleId];
+    },
+
+    getActiveRole: function() {
+      return this.getConfig().activeRole || "Owner";
+    },
+
+    hasPermission: function(permKey, roleOverride) {
+      const role = roleOverride || this.getActiveRole();
+      const all = this.getRolePermissions();
+      const roleObj = all[role];
+      if (!roleObj) return false;
+      if (roleObj.isSuperAdmin) return true;
+      return !!(roleObj.permissions && roleObj.permissions[permKey]);
     },
 
     // Activity Log

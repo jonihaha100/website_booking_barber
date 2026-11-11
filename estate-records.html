@@ -873,6 +873,153 @@
       align-items: center;
       gap: 6px;
     }
+
+    /* =========================================================================
+       ROLES & PERMISSIONS MODAL STYLES (ZOHO / CLIQ MATRIX BENCHMARK)
+       ========================================================================= */
+    .role-matrix-container {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 16px;
+      margin-top: 14px;
+      min-height: 520px;
+    }
+    @media (max-width: 820px) {
+      .role-matrix-container {
+        grid-template-columns: 1fr;
+      }
+    }
+    .role-sidebar {
+      background: rgba(3, 12, 8, 0.7);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 12px;
+    }
+    .role-sidebar-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-gold);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .role-card-item {
+      padding: 10px 12px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      background: rgba(255, 255, 255, 0.02);
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .role-card-item:hover {
+      background: rgba(197, 155, 72, 0.08);
+      border-color: rgba(197, 155, 72, 0.3);
+    }
+    .role-card-item.active {
+      background: rgba(197, 155, 72, 0.16);
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 10px rgba(197, 155, 72, 0.15);
+    }
+    .role-card-name {
+      font-weight: 700;
+      font-size: 13.5px;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .role-card-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 3px;
+      line-height: 1.35;
+    }
+    .role-matrix-body {
+      background: rgba(3, 12, 8, 0.6);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 18px 20px;
+      max-height: 65vh;
+      overflow-y: auto;
+    }
+    .role-matrix-breadcrumb {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .role-matrix-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .role-matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      font-size: 12px;
+    }
+    .role-matrix-table th {
+      background: rgba(197, 155, 72, 0.12);
+      color: #fff;
+      text-align: center;
+      padding: 8px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      border: 1px solid var(--card-border);
+    }
+    .role-matrix-table th:first-child {
+      text-align: left;
+    }
+    .role-matrix-table td {
+      padding: 8px 10px;
+      border: 1px solid var(--card-border);
+      color: #e2e8f0;
+      text-align: center;
+    }
+    .role-matrix-table td:first-child {
+      text-align: left;
+      font-weight: 500;
+    }
+    .role-matrix-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .perm-checkbox {
+      cursor: pointer;
+      width: 16px;
+      height: 16px;
+      accent-color: var(--accent-gold);
+    }
+    .perm-checkbox:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+    .role-section-heading {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent-gold-bright);
+      margin: 14px 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .role-lock-banner {
+      background: rgba(239, 68, 68, 0.08);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 8px;
+      padding: 24px;
+      text-align: center;
+      color: #fca5a5;
+      margin: 20px 0;
+    }
   </style>
 </head>
 <body>
@@ -922,6 +1069,9 @@
           <option value="Cashier">💳 Peran: Kasir</option>
           <option value="Barber">💈 Peran: Barber</option>
         </select>
+        <button type="button" class="btn-portal-action" onclick="openRolesPermissionsModal()" title="Kelola Matriks Hak Akses (Permissions)">
+          <span>🛡️</span> Hak Akses Role
+        </button>
         <a href="index.html" class="btn-portal-action" target="_blank">
           <span>🌐</span> Web Publik
         </a>
@@ -1151,7 +1301,7 @@
             <button type="button" class="btn-gold-action" onclick="openNewCustomerModal()">
               <span>+</span> Tambah Pelanggan
             </button>
-            <button type="button" class="btn-portal-action" onclick="exportCrmToCSV()">
+            <button type="button" class="btn-portal-action" id="btnExportCrm" onclick="exportCrmToCSV()">
               <span>📥</span> Export CSV / Excel
             </button>
           </div>
@@ -1303,7 +1453,7 @@
               <option value="week">Periode: 7 Hari Terakhir</option>
               <option value="month" selected>Periode: Bulan Ini</option>
             </select>
-            <button type="button" class="btn-gold-action" onclick="exportStaffCommissionCSV()">
+            <button type="button" class="btn-gold-action" id="btnExportStaffCommission" onclick="exportStaffCommissionCSV()">
               <span>📊</span> Export CSV Akuntan
             </button>
           </div>
@@ -1429,6 +1579,7 @@
       <div style="display: flex; gap: 8px; border-bottom: 1px solid var(--card-border); padding-bottom: 12px; margin-bottom: 18px; overflow-x: auto;">
         <button type="button" class="pos-cat-pill active" id="btnSetTabSandbox" onclick="switchSettingsSection('sandbox')">🧪 Google API Sandbox</button>
         <button type="button" class="pos-cat-pill" id="btnSetTabBranch" onclick="switchSettingsSection('branch')">🏛️ Multi-Cabang &amp; CRM</button>
+        <button type="button" class="pos-cat-pill" id="btnSetTabRoles" onclick="switchSettingsSection('roles')">🛡️ Hak Akses &amp; Role</button>
         <button type="button" class="pos-cat-pill" id="btnSetTabPasskey" onclick="switchSettingsSection('passkey')">🔑 Security Passkey</button>
       </div>
 
@@ -1526,6 +1677,123 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           </button>
         </form>
       </div>
+
+      <!-- SECTION 4: ROLES SHORTCUT -->
+      <div id="setSectionRoles" style="display: none;">
+        <div style="background: rgba(3,12,8,0.7); border: 1px solid var(--card-border); border-radius: 8px; padding: 18px; margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <h4 style="margin: 0; color: #fff; font-size: 15px;">Matriks Hak Akses Pengguna (Permissions - Roles)</h4>
+              <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">Berdasarkan acuan arsitektur otorisasi modular &amp; role-based access control.</div>
+            </div>
+            <button type="button" class="btn-gold-action" onclick="closeSettingsModal(); openRolesPermissionsModal();">
+              🛡️ Buka Editor Matriks Lengkap
+            </button>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 14px;">
+            <div style="background: rgba(197,155,72,0.08); border: 1px solid rgba(197,155,72,0.25); border-radius: 6px; padding: 12px;">
+              <div style="font-weight: 700; color: #fff; font-size: 13px;">👑 Owner</div>
+              <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 4px;">Super Admin: Akses penuh tanpa batas untuk seluruh omzet &amp; sistem.</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); border-radius: 6px; padding: 12px;">
+              <div style="font-weight: 700; color: #fff; font-size: 13px;">👔 Store Manager</div>
+              <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 4px;">Operasional kasir, diskon &amp; void, absensi shift &amp; rekap komisi akuntan.</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); border-radius: 6px; padding: 12px;">
+              <div style="font-weight: 700; color: #fff; font-size: 13px;">💳 Kasir (Cashier)</div>
+              <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 4px;">Input pesanan POS, tip, registrasi tamu; dilarang void &amp; ekspor omzet.</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); border-radius: 6px; padding: 12px;">
+              <div style="font-weight: 700; color: #fff; font-size: 13px;">💈 Barber / Stylist</div>
+              <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 4px;">Lihat formula rambut tamu, absensi &amp; komisi diri sendiri.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-actions" style="margin-top: 18px;">
+        <button type="button" class="btn-portal-action" onclick="closeSettingsModal()">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL 0B: MATRIKS HAK AKSES PERAN (PERMISSIONS - ROLES)
+       Berdasarkan referensi photo: Admin Panel > Permissions - Roles
+       ======================================================================== -->
+  <div class="portal-modal-backdrop" id="modalRolesPermissions">
+    <div class="portal-modal-box" style="max-width: 980px; width: 95vw; padding: 24px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--card-border); padding-bottom: 12px; margin-bottom: 14px;">
+        <div>
+          <div style="font-size: 11px; color: var(--accent-gold); font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;">
+            Admin Panel &gt; Permissions - Roles
+          </div>
+          <h3 style="font-family: 'Lora', Georgia, serif; font-size: 19px; color: #fff; margin: 3px 0 0;">
+            Matriks Hak Akses &amp; Otorisasi Pengguna
+          </h3>
+        </div>
+        <button type="button" class="modal-close-btn" onclick="closeRolesPermissionsModal()">&times;</button>
+      </div>
+
+      <div class="role-matrix-container">
+        <!-- LEFT SIDEBAR: USER ROLES -->
+        <div class="role-sidebar">
+          <div class="role-sidebar-title">
+            <span>👥</span> USER ROLES
+          </div>
+          <div id="roleSidebarList">
+            <!-- Populated via JS -->
+          </div>
+          <div style="margin-top: 14px; padding: 10px; background: rgba(197,155,72,0.06); border-radius: 6px; border: 1px dashed rgba(197,155,72,0.3); font-size: 11px; color: #d0d7d2; line-height: 1.45;">
+            💡 <strong>Panduan:</strong> Pilih peran di atas untuk menyesuaikan izin fitur. Klik <em>Simpan Hak Akses</em> untuk memberlakukan perubahan di sistem.
+          </div>
+        </div>
+
+        <!-- RIGHT PANEL: DETAILED PERMISSIONS MATRIX -->
+        <div class="role-matrix-body">
+          <div class="role-matrix-header">
+            <div>
+              <div class="role-matrix-breadcrumb" id="permRoleBreadcrumb">Permissions &gt; Owner</div>
+              <h4 id="permRoleTitle" style="margin: 0; font-size: 16px; color: #fff; display: flex; align-items: center; gap: 8px;">
+                <span>👑 Owner (Pemilik Toko)</span>
+                <span class="sandbox-badge" id="permRoleBadge" style="background: rgba(197,155,72,0.2); color: var(--accent-gold-bright); border: 1px solid var(--accent-gold);">Super Admin</span>
+              </h4>
+              <p id="permRoleDesc" style="font-size: 12px; color: var(--text-muted); margin: 4px 0 0; line-height: 1.4;">
+                Memiliki wewenang tertinggi untuk seluruh data omzet finansial, kasir, dan audit.
+              </p>
+            </div>
+            <div>
+              <span id="permSuperAdminNotice" style="display: none; font-size: 11px; background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 4px 10px; border-radius: 20px; font-weight: 600;">
+                🔒 Akses Penuh Super Admin
+              </span>
+            </div>
+          </div>
+
+          <!-- PERMISSION MATRIX TABLES (DYNAMICALLY POPULATED) -->
+          <div id="permissionsMatrixContent">
+            <!-- Dynamic Tables -->
+          </div>
+
+          <!-- FOOTER ACTIONS (CANCEL & SAVE) -->
+          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--card-border); padding-top: 14px; margin-top: 18px; flex-wrap: wrap; gap: 10px;">
+            <button type="button" class="btn-portal-action" style="font-size: 11.5px;" onclick="handleResetRolePermissions()">
+              ↺ Reset ke Default
+            </button>
+            <div style="display: flex; gap: 10px;">
+              <button type="button" class="btn-portal-action" onclick="closeRolesPermissionsModal()">
+                Batal (Cancel)
+              </button>
+              <button type="button" class="btn-gold-action" style="padding: 8px 18px;" onclick="handleSaveRolePermissions()">
+                💾 Simpan Hak Akses
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
 
       <div class="modal-actions" style="margin-top: 18px;">
         <button type="button" class="btn-portal-action" onclick="closeSettingsModal()">Tutup</button>
@@ -1879,6 +2147,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       renderStaffCommissionTable();
       renderAnalyticsDashboard();
       initSandboxState();
+      applyRolePermissionsToUI();
 
       // Init existing reservations
       reloadLedgerData();
@@ -1895,8 +2164,453 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     // Role switcher handler
     function handleRoleChange(newRole) {
       GreenwoodAdminDB.setActiveRole(newRole);
+      applyRolePermissionsToUI();
       alert(`Peran akses berhasil diubah ke: ${newRole}\nSistem menyesuaikan wewenang otorisasi & pencatatan log.`);
       renderActivityLogs();
+    }
+
+    // =========================================================================
+    // MATRIKS HAK AKSES PERAN (PERMISSIONS - ROLES CONTROLLER)
+    // Berdasarkan acuan arsitektur Permissions - Roles (Zoho/Minutes App)
+    // =========================================================================
+    let currentMatrixRoleId = 'Owner';
+
+    function openRolesPermissionsModal(roleId) {
+      const modal = document.getElementById('modalRolesPermissions');
+      if (modal) modal.style.display = 'flex';
+      currentMatrixRoleId = roleId || GreenwoodAdminDB.getActiveRole() || 'Owner';
+      renderRoleSidebarList();
+      selectRoleInMatrix(currentMatrixRoleId);
+    }
+
+    function closeRolesPermissionsModal() {
+      const modal = document.getElementById('modalRolesPermissions');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function renderRoleSidebarList() {
+      const container = document.getElementById('roleSidebarList');
+      if (!container) return;
+      const allRoles = GreenwoodAdminDB.getRolePermissions();
+      const roleKeys = Object.keys(allRoles);
+
+      container.innerHTML = roleKeys.map(k => {
+        const r = allRoles[k];
+        const isSelected = k === currentMatrixRoleId;
+        return `
+          <div class="role-card-item ${isSelected ? 'active' : ''}" onclick="selectRoleInMatrix('${k}')">
+            <div class="role-card-name">
+              <span>${escapeHtml(r.name)}</span>
+              <span style="font-size: 10px; padding: 2px 6px; border-radius: 4px; background: rgba(197,155,72,0.15); color: var(--accent-gold);">${r.badge}</span>
+            </div>
+            <div class="role-card-desc">${escapeHtml(r.subtitle || r.description)}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function selectRoleInMatrix(roleId) {
+      currentMatrixRoleId = roleId;
+      renderRoleSidebarList();
+
+      const roleData = GreenwoodAdminDB.getRoleDetails(roleId);
+      if (!roleData) return;
+
+      const breadcrumb = document.getElementById('permRoleBreadcrumb');
+      const title = document.getElementById('permRoleTitle');
+      const badge = document.getElementById('permRoleBadge');
+      const desc = document.getElementById('permRoleDesc');
+      const saNotice = document.getElementById('permSuperAdminNotice');
+
+      if (breadcrumb) breadcrumb.textContent = `Permissions > ${roleData.name}`;
+      if (title) title.innerHTML = `<span>${escapeHtml(roleData.title)}</span>`;
+      if (badge) badge.textContent = roleData.badge;
+      if (desc) desc.textContent = roleData.description;
+
+      if (saNotice) {
+        saNotice.style.display = roleData.isSuperAdmin ? 'inline-block' : 'none';
+      }
+
+      renderRolePermissionsMatrix(roleData);
+    }
+
+    function renderRolePermissionsMatrix(roleData) {
+      const container = document.getElementById('permissionsMatrixContent');
+      if (!container) return;
+      const p = roleData.permissions || {};
+      const isSA = roleData.isSuperAdmin;
+
+      const makeCb = (key) => `
+        <input type="checkbox" class="perm-checkbox" data-perm="${key}" ${p[key] || isSA ? 'checked' : ''} ${isSA ? 'disabled title="Super Admin memiliki akses permanen"' : ''}>
+      `;
+
+      container.innerHTML = `
+        <!-- SECTION 1: POS & KASIR -->
+        <div class="role-section-heading">
+          <span>💳</span> 1. Modul POS &amp; Transaksi Kasir
+        </div>
+        <table class="role-matrix-table">
+          <thead>
+            <tr>
+              <th style="width: 38%;">Fitur / Hak Akses Kasir</th>
+              <th>Buka Kasir (View)</th>
+              <th>Input Order (Create)</th>
+              <th>Diskon (Edit)</th>
+              <th>Uang Tip (Tip)</th>
+              <th>Void / Hapus (Delete)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong>Katalog &amp; Antarmuka Kasir Cepat</strong>
+                <div style="font-size:11px; color:var(--text-muted);">Membuka antarmuka kasir, pencarian layanan &amp; produk</div>
+              </td>
+              <td>${makeCb('pos_view')}</td>
+              <td style="color:var(--text-muted);">-</td>
+              <td style="color:var(--text-muted);">-</td>
+              <td style="color:var(--text-muted);">-</td>
+              <td style="color:var(--text-muted);">-</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Checkout &amp; Pencatatan Pembayaran Manual</strong>
+                <div style="font-size:11px; color:var(--text-muted);">Input Cash, Transfer, QRIS Statis, Card &amp; Add-ons</div>
+              </td>
+              <td style="color:var(--text-muted);">-</td>
+              <td>${makeCb('pos_create')}</td>
+              <td style="color:var(--text-muted);">-</td>
+              <td style="color:var(--text-muted);">-</td>
+              <td style="color:var(--text-muted);">-</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Input Diskon &amp; Potongan Harga</strong>
+                <div style="font-size:11px; color:var(--text-muted);">Pemberian potongan nominal rupiah secara manual</div>
+              </td>
+              <td style="color:var(--text-muted);">-</td>
+              <td style="color:var(--text-muted);">-</td>
+              <td>${makeCb('pos_discount')}</td>
+              <td style="color:var(--text-muted);">-</td>
+              <td style="color:var(--text-muted);">-</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Input Uang Tip Barber</strong>
+                <div style="font-size:11px; color:var(--text-muted);">Mencatat tip apresiasi tamu langsung ke barber</div>
+              </td>
+              <td style="color:var(--text-muted);">-</td>
+              <td style="color:var(--text-muted);">-</td>
+              <td style="color:var(--text-muted);">-</td>
+              <td>${makeCb('pos_tip')}</td>
+              <td style="color:var(--text-muted);">-</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Void / Batalkan Transaksi Selesai</strong>
+                <div style="font-size:11px; color:var(--text-muted);">Membatalkan nota bayar yang keliru di meja kasir</div>
+              </td>
+              <td style="color:var(--text-muted);">-</td>
+              <td style="color:var(--text-muted);">-</td>
+              <td style="color:var(--text-muted);">-</td>
+              <td style="color:var(--text-muted);">-</td>
+              <td>${makeCb('pos_void')}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- SECTION 2: CRM & PELANGGAN -->
+        <div class="role-section-heading">
+          <span>👥</span> 2. Modul CRM &amp; Database Pelanggan
+        </div>
+        <table class="role-matrix-table">
+          <thead>
+            <tr>
+              <th style="width: 38%;">Fitur / Data Pelanggan</th>
+              <th>Lihat Data (View)</th>
+              <th>Tambah Tamu (Create)</th>
+              <th>Catatan Rambut (Notes)</th>
+              <th>Nomor HP (Phone)</th>
+              <th>Ekspor CSV (Export)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong>Database &amp; Riwayat Belanja Tamu</strong>
+                <div style="font-size:11px; color:var(--text-muted);">Riwayat kunjungan, total spend, status pasif &amp; ultah</div>
+              </td>
+              <td>${makeCb('crm_view')}</td>
+              <td>${makeCb('crm_create')}</td>
+              <td style="color:var(--text-muted);">-</td>
+              <td style="color:var(--text-muted);">-</td>
+              <td>${makeCb('crm_export')}</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Catatan Preferensi Rambut (Internal Notes)</strong>
+                <div style="font-size:11px; color:var(--accent-gold-bright); font-weight:600;">Formula cukur (#2 fade, beard trim, suka kopi dingin)</div>
+              </td>
+              <td style="color:var(--text-muted);">-</td>
+              <td style="color:var(--text-muted);">-</td>
+              <td>${makeCb('crm_notes')}</td>
+              <td style="color:var(--text-muted);">-</td>
+              <td style="color:var(--text-muted);">-</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Kontak WhatsApp / Telepon Pelanggan</strong>
+                <div style="font-size:11px; color:var(--text-muted);">Akses nomor ponsel lengkap (jika dimatikan, disamarkan)</div>
+              </td>
+              <td style="color:var(--text-muted);">-</td>
+              <td style="color:var(--text-muted);">-</td>
+              <td style="color:var(--text-muted);">-</td>
+              <td>${makeCb('crm_phone')}</td>
+              <td style="color:var(--text-muted);">-</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- SECTION 3: BOOKING & BUKU TAMU -->
+        <div class="role-section-heading">
+          <span>📅</span> 3. Modul Booking &amp; Buku Tamu Reservasi
+        </div>
+        <table class="role-matrix-table">
+          <thead>
+            <tr>
+              <th style="width: 38%;">Fitur Reservasi</th>
+              <th>Lihat Jadwal (View)</th>
+              <th>Walk-in Baru (Create)</th>
+              <th>Reschedule (Edit)</th>
+              <th>Batalkan (Delete)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong>Buku Tamu Reservasi Online</strong>
+                <div style="font-size:11px; color:var(--text-muted);">Daftar reservasi masuk dari web booking &amp; Google Calendar</div>
+              </td>
+              <td>${makeCb('booking_view')}</td>
+              <td>${makeCb('booking_create')}</td>
+              <td>${makeCb('booking_edit')}</td>
+              <td>${makeCb('booking_cancel')}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- SECTION 4: STAF & KOMISI AKUNTAN -->
+        <div class="role-section-heading">
+          <span>💈</span> 4. Modul Staf, Absensi &amp; Komisi Akuntan
+        </div>
+        <table class="role-matrix-table">
+          <thead>
+            <tr>
+              <th style="width: 38%;">Fitur Staf &amp; Komisi</th>
+              <th>Clock-In/Out (Action)</th>
+              <th>Komisi Sendiri (View)</th>
+              <th>Komisi Semua Staf (View All)</th>
+              <th>Ekspor Akuntan (Export)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong>Absensi Shift Kerja Barber</strong>
+                <div style="font-size:11px; color:var(--text-muted);">Pencatatan jam hadir dan kepulangan barber</div>
+              </td>
+              <td>${makeCb('staff_clockin')}</td>
+              <td style="color:var(--text-muted);">-</td>
+              <td style="color:var(--text-muted);">-</td>
+              <td style="color:var(--text-muted);">-</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Laporan Komisi Layanan &amp; Produk</strong>
+                <div style="font-size:11px; color:var(--text-muted);">Perhitungan otomatis komisi 40-45% jasa &amp; 10% produk</div>
+              </td>
+              <td style="color:var(--text-muted);">-</td>
+              <td>${makeCb('staff_comm_self')}</td>
+              <td>${makeCb('staff_comm_all')}</td>
+              <td>${makeCb('staff_comm_export')}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- SECTION 5: OMZET FINANSIAL & SISTEM -->
+        <div class="role-section-heading">
+          <span>📊</span> 5. Modul Laporan Omzet &amp; Pengaturan Sistem
+        </div>
+        <table class="role-matrix-table">
+          <thead>
+            <tr>
+              <th style="width: 38%;">Fitur Finansial &amp; Sistem</th>
+              <th>Lihat Omzet (View)</th>
+              <th>Ekspor Laporan (Export)</th>
+              <th>Uji Sandbox (Test)</th>
+              <th>Master Passkey (Passkey)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong>Dashboard Omzet &amp; Jam Sibuk</strong>
+                <div style="font-size:11px; color:var(--text-muted);">Metrik pendapatan harian/mingguan &amp; grafik retensi</div>
+              </td>
+              <td>${makeCb('analytics_view')}</td>
+              <td>${makeCb('analytics_export')}</td>
+              <td style="color:var(--text-muted);">-</td>
+              <td style="color:var(--text-muted);">-</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Pengaturan Sandbox &amp; Security Passkey</strong>
+                <div style="font-size:11px; color:var(--text-muted);">Simulasi webhook Google API &amp; perubahan PIN master</div>
+              </td>
+              <td style="color:var(--text-muted);">-</td>
+              <td style="color:var(--text-muted);">-</td>
+              <td>${makeCb('settings_sandbox')}</td>
+              <td>${makeCb('settings_passkey')}</td>
+            </tr>
+          </tbody>
+        </table>
+      `;
+    }
+
+    function handleSaveRolePermissions() {
+      const roleData = GreenwoodAdminDB.getRoleDetails(currentMatrixRoleId);
+      if (!roleData) return;
+      if (roleData.isSuperAdmin) {
+        alert("Peran Owner adalah Super Admin. Seluruh hak akses dipertahankan aktif secara permanen.");
+        closeRolesPermissionsModal();
+        return;
+      }
+
+      const container = document.getElementById('permissionsMatrixContent');
+      const checkboxes = container.querySelectorAll('.perm-checkbox');
+      const newPerms = {};
+
+      checkboxes.forEach(cb => {
+        const key = cb.getAttribute('data-perm');
+        if (key) {
+          newPerms[key] = cb.checked;
+        }
+      });
+
+      GreenwoodAdminDB.saveRolePermissions(currentMatrixRoleId, newPerms);
+      alert(`Hak akses untuk peran '${roleData.name}' berhasil disimpan!`);
+      applyRolePermissionsToUI();
+      closeRolesPermissionsModal();
+    }
+
+    function handleResetRolePermissions() {
+      const roleData = GreenwoodAdminDB.getRoleDetails(currentMatrixRoleId);
+      if (!roleData) return;
+      if (confirm(`Kembalikan hak akses peran '${roleData.name}' ke setelan standar bawaan?`)) {
+        GreenwoodAdminDB.resetRolePermissionsToDefault(currentMatrixRoleId);
+        selectRoleInMatrix(currentMatrixRoleId);
+        applyRolePermissionsToUI();
+        alert(`Hak akses peran '${roleData.name}' telah di-reset ke standar.`);
+      }
+    }
+
+    function applyRolePermissionsToUI() {
+      const activeRole = GreenwoodAdminDB.getActiveRole();
+      const isSA = activeRole === 'Owner';
+      const roleObj = GreenwoodAdminDB.getRoleDetails(activeRole);
+      const perms = roleObj ? roleObj.permissions : {};
+
+      // 1. Role switcher dropdown value in header
+      const switcher = document.getElementById('roleSwitcher');
+      if (switcher && switcher.value !== activeRole) {
+        switcher.value = activeRole;
+      }
+
+      // 2. POS Tab Lock / Unlock
+      const posTab = document.getElementById('tab-pos');
+      let posLock = document.getElementById('posRoleLockBanner');
+      const posLayout = document.querySelector('.pos-layout');
+      const canPos = isSA || !!perms.pos_view;
+
+      if (!canPos) {
+        if (!posLock && posTab) {
+          posLock = document.createElement('div');
+          posLock.id = 'posRoleLockBanner';
+          posLock.className = 'role-lock-banner';
+          posTab.insertBefore(posLock, posTab.firstChild);
+        }
+        if (posLock) {
+          posLock.style.display = 'block';
+          posLock.innerHTML = `
+            <div style="font-size: 32px; margin-bottom: 8px;">🔒</div>
+            <h4 style="margin: 0 0 6px; color: #fff; font-size: 16px;">Akses Kasir POS Dibatasi</h4>
+            <p style="margin: 0 0 14px; font-size: 13px; color: var(--text-muted); max-width: 460px; margin-left: auto; margin-right: auto;">
+              Peran aktif saat ini (<strong>${activeRole}</strong>) tidak memiliki wewenang mengoperasikan Kasir POS. Beralih ke peran Kasir, Manager, atau Owner untuk memproses transaksi.
+            </p>
+            <button type="button" class="btn-portal-action" onclick="switchTab('crm')">Buka Modul CRM</button>
+          `;
+        }
+        if (posLayout) posLayout.style.display = 'none';
+      } else {
+        if (posLock) posLock.style.display = 'none';
+        if (posLayout) posLayout.style.display = 'grid';
+      }
+
+      // 3. POS Discount & Tip Inputs
+      const discInput = document.getElementById('posDiscountInput');
+      if (discInput) {
+        discInput.disabled = !isSA && !perms.pos_discount;
+        if (discInput.disabled) discInput.title = "Izin input diskon dinonaktifkan untuk peran ini";
+      }
+      const tipInput = document.getElementById('posTipInput');
+      if (tipInput) {
+        tipInput.disabled = !isSA && !perms.pos_tip;
+      }
+
+      // 4. CRM Toolbar Buttons
+      const crmExportBtn = document.getElementById('btnExportCrm');
+      if (crmExportBtn) {
+        crmExportBtn.style.display = (isSA || perms.crm_export) ? 'inline-flex' : 'none';
+      }
+
+      // 5. Staff Commission Export Button
+      const staffExportBtn = document.getElementById('btnExportStaffCommission');
+      if (staffExportBtn) {
+        staffExportBtn.style.display = (isSA || perms.staff_comm_export) ? 'inline-flex' : 'none';
+      }
+
+      // 6. Analytics Omzet Protection
+      const analyticsSec = document.getElementById('tab-analytics');
+      let analyticsLock = document.getElementById('analyticsRoleLockBanner');
+      const metricsGrid = analyticsSec ? analyticsSec.querySelector('.metrics-grid') : null;
+      const canAnalytics = isSA || !!perms.analytics_view;
+
+      if (!canAnalytics) {
+        if (!analyticsLock && analyticsSec) {
+          analyticsLock = document.createElement('div');
+          analyticsLock.id = 'analyticsRoleLockBanner';
+          analyticsLock.className = 'role-lock-banner';
+          analyticsSec.insertBefore(analyticsLock, analyticsSec.children[1] || analyticsSec.firstChild);
+        }
+        if (analyticsLock) {
+          analyticsLock.style.display = 'block';
+          analyticsLock.innerHTML = `
+            <div style="font-size: 32px; margin-bottom: 8px;">🔒</div>
+            <h4 style="margin: 0 0 6px; color: #fff; font-size: 16px;">Laporan Finansial &amp; Omzet Dilindungi</h4>
+            <p style="margin: 0; font-size: 13px; color: var(--text-muted); max-width: 480px; margin-left: auto; margin-right: auto;">
+              Peran <strong>${activeRole}</strong> tidak memiliki otorisasi melihat omzet finansial toko. Data sensitif dilindungi sesuai matriks hak akses.
+            </p>
+          `;
+        }
+        if (metricsGrid) metricsGrid.style.display = 'none';
+      } else {
+        if (analyticsLock) analyticsLock.style.display = 'none';
+        if (metricsGrid) metricsGrid.style.display = 'grid';
+      }
+
+      // 7. Refresh current tab data
+      if (typeof renderCrmTable === 'function') renderCrmTable();
+      if (typeof renderStaffCommissionTable === 'function') renderStaffCommissionTable();
     }
 
     // TAB SWITCHING
@@ -2364,6 +3078,9 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
 
         const notesShort = c.internalNotes ? (c.internalNotes.length > 55 ? c.internalNotes.slice(0, 55) + "..." : c.internalNotes) : "-";
 
+        const canSeePhone = GreenwoodAdminDB.hasPermission('crm_phone');
+        const phoneDisplay = canSeePhone ? escapeHtml(c.phone) : (c.phone ? c.phone.substring(0, 4) + '••••' + c.phone.slice(-3) : '-');
+
         return `
           <tr>
             <td>
@@ -2371,7 +3088,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
               <div style="font-size: 11px; color: var(--text-muted);">${c.id}</div>
             </td>
             <td>
-              <div>${escapeHtml(c.phone)}</div>
+              <div>${phoneDisplay}</div>
               <div style="font-size: 11.5px; color: var(--text-muted);">${escapeHtml(c.email || '-')}</div>
             </td>
             <td>${c.birthday ? escapeHtml(c.birthday) : '-'}</td>
@@ -2404,8 +3121,9 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       if (!cust) return;
       activeCustomerDetail = cust;
 
+      const canSeePhone = GreenwoodAdminDB.hasPermission('crm_phone');
       document.getElementById('custDetailTitle').textContent = `Profil: ${cust.name}`;
-      document.getElementById('custDetailPhone').textContent = cust.phone || "-";
+      document.getElementById('custDetailPhone').textContent = canSeePhone ? (cust.phone || "-") : (cust.phone ? cust.phone.substring(0, 4) + '••••' + cust.phone.slice(-3) : '-');
       document.getElementById('custDetailEmail').textContent = cust.email || "-";
       document.getElementById('custDetailVisits').textContent = `${cust.visitCount || 0}x`;
       document.getElementById('custDetailSpend').textContent = formatRupiah(cust.totalSpend);
@@ -2498,6 +3216,10 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     }
 
     function exportCrmToCSV() {
+      if (!GreenwoodAdminDB.hasPermission('crm_export')) {
+        alert("Akses Ditolak: Peran aktif Anda tidak memiliki izin untuk mengekspor database kontak pelanggan.");
+        return;
+      }
       const customers = GreenwoodAdminDB.getCustomers();
       if (customers.length === 0) {
         alert("Tidak ada data untuk diekspor.");
@@ -2570,8 +3292,18 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       const period = document.getElementById('staffPeriodSelect') ? document.getElementById('staffPeriodSelect').value : 'month';
       const report = GreenwoodAdminDB.getCommissionReport(period);
       const tbody = document.getElementById('staffCommissionTableBody');
+      const canSeeAll = GreenwoodAdminDB.hasPermission('staff_comm_all');
+      const activeRole = GreenwoodAdminDB.getActiveRole();
 
-      tbody.innerHTML = report.map(r => `
+      let displayReport = report;
+      let filterNotice = '';
+      if (!canSeeAll && activeRole === 'Barber') {
+        // Barber only sees Bramantyo (or first barber)
+        displayReport = report.filter(r => r.staffName.includes('Bramantyo') || r.staffId === 'STF-001');
+        filterNotice = `<tr><td colspan="9" style="text-align:center; padding:8px; font-size:11.5px; color:#38bdf8; background:rgba(56,189,248,0.06);">🔒 Mode Privasi: Menampilkan rincian komisi pribadi Anda (Bramantyo) sesuai peran Barber.</td></tr>`;
+      }
+
+      tbody.innerHTML = displayReport.map(r => `
         <tr>
           <td><strong style="color:#fff;">${escapeHtml(r.staffName)}</strong></td>
           <td style="color:var(--text-muted);">${r.role}</td>
@@ -2583,10 +3315,14 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           <td style="color:var(--accent-gold-bright);">${formatRupiah(r.totalTipsReceived)}</td>
           <td><strong style="color:#4ade80; font-size:14px;">${formatRupiah(r.totalPayoutCommission)}</strong></td>
         </tr>
-      `).join('');
+      `).join('') + filterNotice;
     }
 
     function exportStaffCommissionCSV() {
+      if (!GreenwoodAdminDB.hasPermission('staff_comm_export')) {
+        alert("Akses Ditolak: Peran aktif Anda tidak memiliki wewenang untuk mengekspor data komisi akuntan.");
+        return;
+      }
       const period = document.getElementById('staffPeriodSelect').value;
       const report = GreenwoodAdminDB.getCommissionReport(period);
 
@@ -2694,18 +3430,22 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     function switchSettingsSection(section) {
       const secSandbox = document.getElementById('setSectionSandbox');
       const secBranch = document.getElementById('setSectionBranch');
+      const secRoles = document.getElementById('setSectionRoles');
       const secPasskey = document.getElementById('setSectionPasskey');
 
       const btnSandbox = document.getElementById('btnSetTabSandbox');
       const btnBranch = document.getElementById('btnSetTabBranch');
+      const btnRoles = document.getElementById('btnSetTabRoles');
       const btnPasskey = document.getElementById('btnSetTabPasskey');
 
       if (secSandbox) secSandbox.style.display = (section === 'sandbox') ? 'block' : 'none';
       if (secBranch) secBranch.style.display = (section === 'branch') ? 'block' : 'none';
+      if (secRoles) secRoles.style.display = (section === 'roles') ? 'block' : 'none';
       if (secPasskey) secPasskey.style.display = (section === 'passkey') ? 'block' : 'none';
 
       if (btnSandbox) btnSandbox.classList.toggle('active', section === 'sandbox');
       if (btnBranch) btnBranch.classList.toggle('active', section === 'branch');
+      if (btnRoles) btnRoles.classList.toggle('active', section === 'roles');
       if (btnPasskey) btnPasskey.classList.toggle('active', section === 'passkey');
     }
 
@@ -3014,7 +3754,13 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       closeWalkinModal();
     }
 
-    function openPinModal() { document.getElementById('modalPin').style.display = 'flex'; }
+    function openPinModal() {
+      if (!GreenwoodAdminDB.hasPermission('settings_passkey')) {
+        alert("Akses Dibatasi: Hanya Owner (Super Admin) yang berwenang mengubah Master Security Passkey.");
+        return;
+      }
+      document.getElementById('modalPin').style.display = 'flex';
+    }
     function closePinModal() { document.getElementById('modalPin').style.display = 'none'; document.getElementById('changePinForm').reset(); }
     function handleSaveNewPin(e) {
       e.preventDefault();
