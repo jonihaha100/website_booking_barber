@@ -336,9 +336,7 @@
       transform: translateY(-1px);
     }
 
-    /* =========================================================================
-       MODUL B: POS (KASIR CEPAT) STYLES
-       ========================================================================= */
+    /* Point of Sale styles */
     .pos-layout {
       display: grid;
       grid-template-columns: 1fr 420px;
@@ -595,9 +593,7 @@
       color: #fff;
     }
 
-    /* =========================================================================
-       MODUL D: CRM & PELANGGAN STYLES
-       ========================================================================= */
+    /* Customer CRM styles */
     .crm-toolbar {
       display: flex;
       flex-wrap: wrap;
@@ -681,9 +677,7 @@
     .badge-reguler { background: rgba(32, 201, 151, 0.15); color: var(--success); }
     .badge-birthday { background: rgba(56, 189, 248, 0.15); color: var(--info); border: 1px solid var(--info); }
 
-    /* =========================================================================
-       MODALS STYLES
-       ========================================================================= */
+    /* Modal dialog styles */
     .portal-modal-backdrop {
       position: fixed;
       inset: 0;
@@ -786,9 +780,7 @@
       margin-bottom: 4px;
     }
 
-    /* =========================================================================
-       MODUL C & G/H: STAFF, ANALYTICS & SANDBOX STYLES
-       ========================================================================= */
+    /* MODUL C & G/H: STAFF, ANALYTICS & SANDBOX STYLES */
     .staff-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -874,9 +866,7 @@
       gap: 6px;
     }
 
-    /* =========================================================================
-       ROLES & PERMISSIONS MODAL STYLES (ZOHO / CLIQ MATRIX BENCHMARK)
-       ========================================================================= */
+    /* ROLES & PERMISSIONS MODAL STYLES (ZOHO / CLIQ MATRIX BENCHMARK) */
     .role-matrix-container {
       display: grid;
       grid-template-columns: 240px 1fr;
@@ -1020,13 +1010,16 @@
       color: #fca5a5;
       margin: 20px 0;
     }
+      /* Accessible focus states for keyboard navigation (WCAG AA) */
+    :focus-visible {
+      outline: 2px solid var(--accent-gold);
+      outline-offset: 2px;
+    }
   </style>
 </head>
 <body>
 
-  <!-- ========================================================================
-       1. SECURITY PASSKEY GATE (PASSKEY DEFAULT: 2050)
-       ======================================================================== -->
+  <!-- Security passkey gate -->
   <div class="gate-overlay" id="gateOverlay">
     <div class="gate-card">
       <img src="assets/greenwood_logo_transparent.png" alt="Greenwood Barbers" class="gate-logo">
@@ -1037,16 +1030,14 @@
       </p>
       <form id="gateForm" onsubmit="handleGateUnlock(event)">
         <input type="password" id="masterPinInput" class="pin-input" placeholder="••••" maxlength="8" autofocus required>
-        <button type="submit" class="btn-gate-unlock">Otorisasi Akses &rarr;</button>
+        <button type="submit" class="btn-gate-unlock">Otorisasi Akses</button>
         <div class="gate-err-msg" id="gateErrMsg">Kunci Otorisasi (*Passkey*) Tidak Sesuai.</div>
       </form>
       <div style="font-size: 11px; color: var(--text-muted); margin-top: 16px;">Passkey default: <code>2050</code></div>
     </div>
   </div>
 
-  <!-- ========================================================================
-       2. MAIN ENTERPRISE SUITE (REVEALED AFTER UNLOCK)
-       ======================================================================== -->
+  <!-- Main administrative portal -->
   <div id="portalMainContent" style="display: none;">
 
     <!-- TOP HEADER -->
@@ -1060,63 +1051,71 @@
       </div>
       <div class="portal-user-actions">
         <div class="branch-badge" title="Cabang Aktif">
-          <span>🏛️</span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 4px;"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v4M12 14v4M16 14v4"/></svg>
           <span id="currentBranchName">Kota Baru Parahyangan (kbp-main)</span>
         </div>
         <select id="roleSwitcher" class="role-select" onchange="handleRoleChange(this.value)" title="Ganti Peran Akses">
-          <option value="Owner">👑 Peran: Owner</option>
-          <option value="Manager">👔 Peran: Manager</option>
-          <option value="Cashier">💳 Peran: Kasir</option>
-          <option value="Barber">💈 Peran: Barber</option>
+          <option value="Owner">Peran: Owner</option>
+          <option value="Manager">Peran: Manager</option>
+          <option value="Cashier">Peran: Kasir</option>
+          <option value="Barber">Peran: Barber</option>
         </select>
-        <button type="button" class="btn-portal-action" onclick="openRolesPermissionsModal()" title="Kelola Matriks Hak Akses (Permissions)">
-          <span>🛡️</span> <span data-i18n="btn_roles">Hak Akses Role</span>
+        <button type="button" class="btn-portal-action" onclick="openRolesPermissionsModal()" title="Kelola Matriks Hak Akses">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 4px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span data-i18n="btn_roles">Hak Akses Role</span>
         </button>
-        <select id="langSwitcher" class="role-select" onchange="setSystemLanguage(this.value)" title="Ganti Bahasa / Switch Language" style="min-width: 82px;">
-          <option value="id" selected>🇮🇩 ID</option>
-          <option value="en">🇬🇧 EN</option>
+        <select id="langSwitcher" class="role-select" onchange="setSystemLanguage(this.value)" title="Ganti Bahasa / Switch Language" style="min-width: 76px;">
+          <option value="id" selected>ID</option>
+          <option value="en">EN</option>
         </select>
         <a href="index.html" class="btn-portal-action" target="_blank">
-          <span>🌐</span> <span data-i18n="btn_web">Web Publik</span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 4px;"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span data-i18n="btn_web">Web Publik</span>
         </a>
         <button type="button" class="btn-portal-action" onclick="openSettingsModal()" title="Pengaturan Sistem & Sandbox">
-          <span>⚙️</span> <span data-i18n="btn_settings">Pengaturan</span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 4px;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span data-i18n="btn_settings">Pengaturan</span>
         </button>
         <button type="button" class="btn-portal-action" onclick="openPinModal()">
-          <span>🔑</span> <span data-i18n="btn_passkey">Passkey</span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 4px;"><path d="M21 2l-2 2m-1.5 1.5L12 11l-4-4-6 6 4 4 6-6 5.5-5.5z"/><circle cx="16" cy="8" r="2"/></svg>
+          <span data-i18n="btn_passkey">Passkey</span>
         </button>
         <button type="button" class="btn-portal-action btn-portal-lock" onclick="lockPortal()">
-          <span>🔒</span> <span data-i18n="btn_lock">Kunci</span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 4px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span data-i18n="btn_lock">Kunci</span>
         </button>
       </div>
     </header>
 
-    <!-- MODULE TABS (5 BUSINESS ESSENTIALS) -->
+    <!-- Module navigation -->
     <nav class="portal-tabs-nav">
       <button type="button" class="portal-tab-btn active" onclick="switchTab('pos')">
-        <span>💳</span> <span data-i18n="nav_pos">Kasir Cepat (POS)</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 6px;"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        <span data-i18n="nav_pos">Kasir Cepat (POS)</span>
       </button>
       <button type="button" class="portal-tab-btn" onclick="switchTab('crm')">
-        <span>👥</span> <span data-i18n="nav_crm">CRM &amp; Pelanggan</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 6px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span data-i18n="nav_crm">CRM &amp; Pelanggan</span>
         <span class="portal-tab-badge" id="badgeCrmCount">0</span>
       </button>
       <button type="button" class="portal-tab-btn" onclick="switchTab('reservations')">
-        <span>📅</span> <span data-i18n="nav_reservations">Buku Tamu &amp; Booking Online</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 6px;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span data-i18n="nav_reservations">Buku Tamu &amp; Booking Online</span>
       </button>
       <button type="button" class="portal-tab-btn" onclick="switchTab('staff')">
-        <span>💈</span> <span data-i18n="nav_staff">Staf &amp; Komisi Akuntan</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 6px;"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+        <span data-i18n="nav_staff">Staf &amp; Komisi Akuntan</span>
       </button>
       <button type="button" class="portal-tab-btn" onclick="switchTab('analytics')">
-        <span>📊</span> <span data-i18n="nav_analytics">Laporan Omzet &amp; Retensi</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 6px;"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        <span data-i18n="nav_analytics">Laporan Omzet &amp; Retensi</span>
       </button>
     </nav>
 
     <!-- MAIN CONTAINER -->
     <main class="portal-container">
 
-      <!-- ====================================================================
-           TAB 1: MODUL B — POINT OF SALE (POS KASIR CEPAT)
-           ==================================================================== -->
+      <!-- Tab 1: Point of Sale -->
       <section id="tab-pos" class="tab-section active">
         <div class="pos-layout">
           
@@ -1252,9 +1251,7 @@
         </div>
       </section>
 
-      <!-- ====================================================================
-           TAB 2: MODUL D — CRM & DATABASE PELANGGAN
-           ==================================================================== -->
+      <!-- Tab 2: Customer CRM -->
       <section id="tab-crm" class="tab-section">
         
         <!-- 4 CRM METRICS -->
@@ -1334,9 +1331,7 @@
 
       </section>
 
-      <!-- ====================================================================
-           TAB 3: RESERVASI & BUKU TAMU ONLINE (EXISTING PRESERVED)
-           ==================================================================== -->
+      <!-- Tab 3: Guestbook and online reservations -->
       <section id="tab-reservations" class="tab-section">
         
         <!-- 4 REAL-TIME METRICS -->
@@ -1441,9 +1436,7 @@
 
       </section>
 
-      <!-- ====================================================================
-           TAB 4: MODUL C — MANAJEMEN STAF, ABSENSI & KOMISI AKUNTAN
-           ==================================================================== -->
+      <!-- Tab 4: Staff attendance and commissions -->
       <section id="tab-staff" class="tab-section">
         
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 10px;">
@@ -1495,9 +1488,7 @@
 
       </section>
 
-      <!-- ====================================================================
-           TAB 5: MODUL G & H — LAPORAN ANALITIK, RETENSI & LOG
-           ==================================================================== -->
+      <!-- Tab 5: Analytics and business reports -->
       <section id="tab-analytics" class="tab-section">
         
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
@@ -1569,9 +1560,7 @@
     </main>
   </div>
 
-  <!-- ========================================================================
-       MODAL 0: PENGATURAN SISTEM & GOOGLE API SANDBOX (OPSI 2)
-       ======================================================================== -->
+  <!-- Modal: System settings and Google API sandbox -->
   <div class="portal-modal-backdrop" id="modalSettings">
     <div class="portal-modal-box" style="max-width: 760px;">
       <h3 class="modal-title">
@@ -1649,7 +1638,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       <div id="setSectionBranch" style="display: none;">
         <div class="form-row">
           <label class="form-label">Nama Cabang / Estate</label>
-          <input type="text" id="setBranchName" class="form-control" value="Greenwood Barbers — Kota Baru Parahyangan">
+          <input type="text" id="setBranchName" class="form-control" value="Greenwood Barbers, Kota Baru Parahyangan">
         </div>
         <div class="form-row">
           <label class="form-label">Branch ID Database</label>
@@ -1730,10 +1719,8 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     </div>
   </div>
 
-  <!-- ========================================================================
-       MODAL 0B: MATRIKS HAK AKSES PERAN (PERMISSIONS - ROLES)
-       Berdasarkan referensi photo: Admin Panel > Permissions - Roles
-       ======================================================================== -->
+  <!-- MODAL 0B: MATRIKS HAK AKSES PERAN (PERMISSIONS - ROLES)
+       Berdasarkan referensi photo: Admin Panel > Permissions - Roles -->
   <div class="portal-modal-backdrop" id="modalRolesPermissions">
     <div class="portal-modal-box" style="max-width: 980px; width: 95vw; padding: 24px;">
       <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--card-border); padding-bottom: 12px; margin-bottom: 14px;">
@@ -1751,14 +1738,12 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       <div class="role-matrix-container">
         <!-- LEFT SIDEBAR: USER ROLES -->
         <div class="role-sidebar">
-          <div class="role-sidebar-title">
-            <span>👥</span> USER ROLES
-          </div>
+          <div class="role-sidebar-title">User Roles</div>
           <div id="roleSidebarList">
             <!-- Populated via JS -->
           </div>
           <div style="margin-top: 14px; padding: 10px; background: rgba(197,155,72,0.06); border-radius: 6px; border: 1px dashed rgba(197,155,72,0.3); font-size: 11px; color: #d0d7d2; line-height: 1.45;">
-            💡 <strong>Panduan:</strong> Pilih peran di atas untuk menyesuaikan izin fitur. Klik <em>Simpan Hak Akses</em> untuk memberlakukan perubahan di sistem.
+            <strong>Panduan:</strong> Pilih peran di atas untuk menyesuaikan izin fitur. Klik <em>Simpan Hak Akses</em> untuk memberlakukan perubahan di sistem.
           </div>
         </div>
 
@@ -1814,9 +1799,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     </div>
   </div>
 
-  <!-- ========================================================================
-       MODAL 1: DETAIL PROFIL & PREFERENSI PELANGGAN (CRM)
-       ======================================================================== -->
+  <!-- MODAL 1: DETAIL PROFIL & PREFERENSI PELANGGAN (CRM) -->
   <div class="portal-modal-backdrop" id="modalCustomerDetail">
     <div class="portal-modal-box" style="max-width: 680px;">
       <h3 class="modal-title">
@@ -1883,9 +1866,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     </div>
   </div>
 
-  <!-- ========================================================================
-       MODAL 2: TAMBAH PELANGGAN BARU (CRM)
-       ======================================================================== -->
+  <!-- MODAL 2: TAMBAH PELANGGAN BARU (CRM) -->
   <div class="portal-modal-backdrop" id="modalNewCustomer">
     <div class="portal-modal-box">
       <h3 class="modal-title">
@@ -1923,9 +1904,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     </div>
   </div>
 
-  <!-- ========================================================================
-       MODAL 3: NOTA DIGITAL / THERMAL RECEIPT (POS)
-       ======================================================================== -->
+  <!-- MODAL 3: NOTA DIGITAL / THERMAL RECEIPT (POS) -->
   <div class="portal-modal-backdrop" id="modalReceipt">
     <div class="portal-modal-box" style="max-width: 440px;">
       <h3 class="modal-title" style="margin-bottom: 10px;">
@@ -1951,9 +1930,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     </div>
   </div>
 
-  <!-- ========================================================================
-       MODAL 4: CATAT TAMU LANGSUNG (WALK-IN LEDGER)
-       ======================================================================== -->
+  <!-- MODAL 4: CATAT TAMU LANGSUNG (WALK-IN LEDGER) -->
   <div class="portal-modal-backdrop" id="modalWalkin">
     <div class="portal-modal-box">
       <h3 class="modal-title">+ Catat Tamu Langsung (Walk-In)</h3>
@@ -1996,11 +1973,11 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         <div class="form-row">
           <label class="form-label">Paket Perawatan *</label>
           <select id="walkinPackage" class="form-control" onchange="updateWalkinPrice()" required>
-            <option value="150000" data-name="The Cut">The Cut — Rp 150.000</option>
-            <option value="210000" data-name="The Cut &amp; Shave">The Cut &amp; Shave — Rp 210.000</option>
-            <option value="90000" data-name="Beard Grooming">Beard Grooming — Rp 90.000</option>
-            <option value="350000" data-name="The Ritual">The Ritual (Signature) — Rp 350.000</option>
-            <option value="120000" data-name="Royal Shave">Royal Shave — Rp 120.000</option>
+            <option value="150000" data-name="The Cut">The Cut : Rp 150.000</option>
+            <option value="210000" data-name="The Cut &amp; Shave">The Cut &amp; Shave : Rp 210.000</option>
+            <option value="90000" data-name="Beard Grooming">Beard Grooming : Rp 90.000</option>
+            <option value="350000" data-name="The Ritual">The Ritual (Signature) : Rp 350.000</option>
+            <option value="120000" data-name="Royal Shave">Royal Shave : Rp 120.000</option>
           </select>
         </div>
         <div class="form-row">
@@ -2015,9 +1992,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     </div>
   </div>
 
-  <!-- ========================================================================
-       MODAL 5: GANTI SECURITY PASSKEY
-       ======================================================================== -->
+  <!-- MODAL 5: GANTI SECURITY PASSKEY -->
   <div class="portal-modal-backdrop" id="modalPin">
     <div class="portal-modal-box">
       <h3 class="modal-title">🔑 Perbarui Security Passkey</h3>
@@ -2038,9 +2013,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     </div>
   </div>
 
-  <!-- ========================================================================
-       MODAL 6: PANDUAN DATABASE CLOUD
-       ======================================================================== -->
+  <!-- MODAL 6: PANDUAN DATABASE CLOUD -->
   <div class="portal-modal-backdrop" id="modalCloudHelp">
     <div class="portal-modal-box" style="max-width: 580px;">
       <h3 class="modal-title" style="color: var(--accent-gold-bright);">🏛️ Panduan Sinkronisasi Database Google Sheets</h3>
@@ -2063,9 +2036,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     </div>
   </div>
 
-  <!-- ========================================================================
-       JAVASCRIPT ENTERPRISE CONTROLLER
-       ======================================================================== -->
+  <!-- JAVASCRIPT ENTERPRISE CONTROLLER -->
   <script>
     const MASTER_PIN_KEY = 'greenwood_ledger_passkey_v1';
     const SESSION_KEY = 'greenwood_ledger_auth_session';
@@ -2122,7 +2093,29 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         .replace(/'/g, '&#039;');
     }
 
-    // Window Init
+    
+    // Close open modals on Escape key press (WCAG keyboard standard)
+    window.addEventListener("keydown", function(e) {
+      if (e.key === "Escape") {
+        closeActiveModals();
+      }
+    });
+
+    function closeActiveModals() {
+      const modalIds = [
+        "modalRolesPermissions", "modalReceipt", "modalCustomerDetail",
+        "modalNewCustomer", "modalSettings", "modalWalkin", "modalPin", "modalCloudHelp"
+      ];
+      modalIds.forEach(function(id) {
+        const el = document.getElementById(id);
+        if (el && el.style.display !== "none") {
+          el.style.display = "none";
+        }
+      });
+      activeCustomerDetail = null;
+    }
+  
+    // Initialize application state
     window.addEventListener('DOMContentLoaded', () => {
       const isUnlocked = sessionStorage.getItem(SESSION_KEY) === 'true';
       if (isUnlocked) {
@@ -2176,9 +2169,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       document.getElementById('portalMainContent').style.display = 'none';
     }
 
-    // =========================================================================
-    // MULTI-LANGUAGE ENGINE (INDONESIAN & ENGLISH / I18N SYSTEM)
-    // =========================================================================
+    // Multi-language localization (ID / EN)
     const I18N = {
       currentLang: localStorage.getItem('greenwood_admin_lang_v1') || 'id',
       dict: {
@@ -2194,13 +2185,13 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           btn_settings: "Pengaturan",
           btn_passkey: "Passkey",
           btn_lock: "Kunci",
-          role_Owner: "👑 Peran: Owner",
-          role_Manager: "👔 Peran: Manager",
-          role_Cashier: "💳 Peran: Kasir",
-          role_Barber: "💈 Peran: Barber",
+          role_Owner: "Peran: Owner",
+          role_Manager: "Peran: Manager",
+          role_Cashier: "Peran: Kasir",
+          role_Barber: "Peran: Barber",
           // POS
           pos_catalog_title: "Katalog Layanan & Produk",
-          pos_search_ph: "🔍 Cari item...",
+          pos_search_ph: "Cari layanan atau produk...",
           pos_cat_all: "Semua Item",
           pos_cat_service: "Ritual Cukur (Services)",
           pos_cat_product: "Grooming Apothecary (Produk)",
@@ -2210,7 +2201,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           pos_cust_label: "Pelanggan *",
           pos_cust_default: "-- Tamu Walk-In (Tanpa Data) --",
           pos_btn_new_cust: "+ Baru",
-          pos_notes_tag: "⚡ Preferensi Gaya Rambut & Kebiasaan:",
+          pos_notes_tag: "Preferensi Gaya Rambut & Kebiasaan:",
           pos_barber_label: "Pilih Barber Pelaksana *",
           pos_barber_default: "-- Pilih Barber --",
           pos_disc_label: "Diskon / Potongan (Rp)",
@@ -2218,7 +2209,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           pos_pay_method_label: "Metode Pembayaran (Manual Cashier)",
           pos_cash_tendered_label: "Uang Diterima:",
           pos_change_label: "Kembalian:",
-          pos_btn_checkout: "✓ Selesaikan Pembayaran & Cetak Nota",
+          pos_btn_checkout: "Selesaikan Pembayaran & Cetak Nota",
           pos_btn_wa: "Kirim Nota WhatsApp",
           // CRM
           crm_metric_total: "Total Pelanggan Terdaftar",
@@ -2229,11 +2220,11 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           crm_sub_passive: "> 35 Hari Belum Kembali",
           crm_metric_revenue: "Akumulasi LTV Belanja",
           crm_sub_revenue: "Total Nilai Pembelian Tamu",
-          crm_search_ph: "🔍 Cari nama, HP, formula rambut...",
+          crm_search_ph: "Cari nama, telepon, catatan...",
           crm_cat_all: "Semua Kategori",
-          crm_cat_vip: "⭐ Pelanggan VIP",
-          crm_cat_passive: "⚠️ Pelanggan Pasif (> 35 Hari)",
-          crm_cat_bday: "🎂 Ulang Tahun Bulan Ini",
+          crm_cat_vip: "Pelanggan VIP",
+          crm_cat_passive: "Pelanggan Pasif (> 35 Hari)",
+          crm_cat_bday: "Ulang Tahun Bulan Ini",
           crm_sort_recent: "Kunjungan Terakhir (Terbaru)",
           crm_sort_oldest: "Kunjungan Terakhir (Terlama / Pasif)",
           crm_sort_spend: "Total Belanja Tertinggi",
@@ -2274,13 +2265,13 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           btn_settings: "Settings",
           btn_passkey: "Passkey",
           btn_lock: "Lock",
-          role_Owner: "👑 Role: Owner",
-          role_Manager: "👔 Role: Manager",
-          role_Cashier: "💳 Role: Cashier",
-          role_Barber: "💈 Role: Barber",
+          role_Owner: "Role: Owner",
+          role_Manager: "Role: Manager",
+          role_Cashier: "Role: Cashier",
+          role_Barber: "Role: Barber",
           // POS
           pos_catalog_title: "Services & Products Catalog",
-          pos_search_ph: "🔍 Search items...",
+          pos_search_ph: "Search service or product...",
           pos_cat_all: "All Items",
           pos_cat_service: "Grooming Rituals (Services)",
           pos_cat_product: "Apothecary Grooming (Products)",
@@ -2290,7 +2281,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           pos_cust_label: "Customer *",
           pos_cust_default: "-- Walk-In Guest (No Profile) --",
           pos_btn_new_cust: "+ New",
-          pos_notes_tag: "⚡ Haircut Preferences & Habits:",
+          pos_notes_tag: "Haircut Preferences & Habits:",
           pos_barber_label: "Select Assigned Barber *",
           pos_barber_default: "-- Select Barber --",
           pos_disc_label: "Discount / Voucher (Rp)",
@@ -2298,7 +2289,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           pos_pay_method_label: "Payment Method (Manual Cashier)",
           pos_cash_tendered_label: "Cash Tendered:",
           pos_change_label: "Change:",
-          pos_btn_checkout: "✓ Complete Payment & Print Receipt",
+          pos_btn_checkout: "Complete Payment & Print Receipt",
           pos_btn_wa: "Send WhatsApp Receipt",
           // CRM
           crm_metric_total: "Total Registered Customers",
@@ -2309,11 +2300,11 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           crm_sub_passive: "> 35 Days Inactive",
           crm_metric_revenue: "Accumulated Spend LTV",
           crm_sub_revenue: "Total Guest Purchasing Value",
-          crm_search_ph: "🔍 Search name, phone, formula...",
+          crm_search_ph: "Search name, phone, notes...",
           crm_cat_all: "All Categories",
-          crm_cat_vip: "⭐ VIP Customers",
-          crm_cat_passive: "⚠️ Passive (> 35 Days)",
-          crm_cat_bday: "🎂 Birthdays This Month",
+          crm_cat_vip: "VIP Customers",
+          crm_cat_passive: "Passive Guests (> 35 Days)",
+          crm_cat_bday: "Birthdays This Month",
           crm_sort_recent: "Last Visit (Most Recent)",
           crm_sort_oldest: "Last Visit (Oldest / Passive)",
           crm_sort_spend: "Highest Total Spend",
@@ -2387,10 +2378,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       renderActivityLogs();
     }
 
-    // =========================================================================
-    // MATRIKS HAK AKSES PERAN (PERMISSIONS - ROLES CONTROLLER)
-    // Berdasarkan acuan arsitektur Permissions - Roles (Zoho/Minutes App)
-    // =========================================================================
+    // Role permissions controller
     let currentMatrixRoleId = 'Owner';
 
     function openRolesPermissionsModal(roleId) {
@@ -2465,7 +2453,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       container.innerHTML = `
         <!-- SECTION 1: POS & KASIR -->
         <div class="role-section-heading">
-          <span>💳</span> 1. Modul POS &amp; Transaksi Kasir
+          1. Modul POS &amp; Transaksi Kasir
         </div>
         <table class="role-matrix-table">
           <thead>
@@ -2539,7 +2527,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
 
         <!-- SECTION 2: CRM & PELANGGAN -->
         <div class="role-section-heading">
-          <span>👥</span> 2. Modul CRM &amp; Database Pelanggan
+          2. Modul CRM &amp; Database Pelanggan
         </div>
         <table class="role-matrix-table">
           <thead>
@@ -2591,7 +2579,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
 
         <!-- SECTION 3: BOOKING & BUKU TAMU -->
         <div class="role-section-heading">
-          <span>📅</span> 3. Modul Booking &amp; Buku Tamu Reservasi
+          3. Modul Booking &amp; Buku Tamu Reservasi
         </div>
         <table class="role-matrix-table">
           <thead>
@@ -2619,7 +2607,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
 
         <!-- SECTION 4: STAF & KOMISI AKUNTAN -->
         <div class="role-section-heading">
-          <span>💈</span> 4. Modul Staf, Absensi &amp; Komisi Akuntan
+          4. Modul Staf, Absensi &amp; Komisi Akuntan
         </div>
         <table class="role-matrix-table">
           <thead>
@@ -2657,7 +2645,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
 
         <!-- SECTION 5: OMZET FINANSIAL & SISTEM -->
         <div class="role-section-heading">
-          <span>📊</span> 5. Modul Laporan Omzet &amp; Pengaturan Sistem
+          5. Modul Laporan Omzet &amp; Pengaturan Sistem
         </div>
         <table class="role-matrix-table">
           <thead>
@@ -2737,14 +2725,10 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       const isSA = activeRole === 'Owner';
       const roleObj = GreenwoodAdminDB.getRoleDetails(activeRole);
       const perms = roleObj ? roleObj.permissions : {};
-
-      // 1. Role switcher dropdown value in header
       const switcher = document.getElementById('roleSwitcher');
       if (switcher && switcher.value !== activeRole) {
         switcher.value = activeRole;
       }
-
-      // 2. POS Tab Lock / Unlock
       const posTab = document.getElementById('tab-pos');
       let posLock = document.getElementById('posRoleLockBanner');
       const posLayout = document.querySelector('.pos-layout');
@@ -2760,7 +2744,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         if (posLock) {
           posLock.style.display = 'block';
           posLock.innerHTML = `
-            <div style="font-size: 32px; margin-bottom: 8px;">🔒</div>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2" style="margin-bottom: 8px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             <h4 style="margin: 0 0 6px; color: #fff; font-size: 16px;">Akses Kasir POS Dibatasi</h4>
             <p style="margin: 0 0 14px; font-size: 13px; color: var(--text-muted); max-width: 460px; margin-left: auto; margin-right: auto;">
               Peran aktif saat ini (<strong>${activeRole}</strong>) tidak memiliki wewenang mengoperasikan Kasir POS. Beralih ke peran Kasir, Manager, atau Owner untuk memproses transaksi.
@@ -2773,8 +2757,6 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         if (posLock) posLock.style.display = 'none';
         if (posLayout) posLayout.style.display = 'grid';
       }
-
-      // 3. POS Discount & Tip Inputs
       const discInput = document.getElementById('posDiscountInput');
       if (discInput) {
         discInput.disabled = !isSA && !perms.pos_discount;
@@ -2784,20 +2766,14 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       if (tipInput) {
         tipInput.disabled = !isSA && !perms.pos_tip;
       }
-
-      // 4. CRM Toolbar Buttons
       const crmExportBtn = document.getElementById('btnExportCrm');
       if (crmExportBtn) {
         crmExportBtn.style.display = (isSA || perms.crm_export) ? 'inline-flex' : 'none';
       }
-
-      // 5. Staff Commission Export Button
       const staffExportBtn = document.getElementById('btnExportStaffCommission');
       if (staffExportBtn) {
         staffExportBtn.style.display = (isSA || perms.staff_comm_export) ? 'inline-flex' : 'none';
       }
-
-      // 6. Analytics Omzet Protection
       const analyticsSec = document.getElementById('tab-analytics');
       let analyticsLock = document.getElementById('analyticsRoleLockBanner');
       const metricsGrid = analyticsSec ? analyticsSec.querySelector('.metrics-grid') : null;
@@ -2813,7 +2789,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         if (analyticsLock) {
           analyticsLock.style.display = 'block';
           analyticsLock.innerHTML = `
-            <div style="font-size: 32px; margin-bottom: 8px;">🔒</div>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2" style="margin-bottom: 8px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             <h4 style="margin: 0 0 6px; color: #fff; font-size: 16px;">Laporan Finansial &amp; Omzet Dilindungi</h4>
             <p style="margin: 0; font-size: 13px; color: var(--text-muted); max-width: 480px; margin-left: auto; margin-right: auto;">
               Peran <strong>${activeRole}</strong> tidak memiliki otorisasi melihat omzet finansial toko. Data sensitif dilindungi sesuai matriks hak akses.
@@ -2825,8 +2801,6 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         if (analyticsLock) analyticsLock.style.display = 'none';
         if (metricsGrid) metricsGrid.style.display = 'grid';
       }
-
-      // 7. Refresh current tab data
       if (typeof renderCrmTable === 'function') renderCrmTable();
       if (typeof renderStaffCommissionTable === 'function') renderStaffCommissionTable();
     }
@@ -2853,9 +2827,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       if (tabId === 'pos') refreshPosCustomerDropdown();
     }
 
-    // =========================================================================
-    // MODUL B: POINT OF SALE (POS) CONTROLLER
-    // =========================================================================
+    // Point of Sale operations
     function initPosCatalog() {
       renderPosItems(CATALOG_ITEMS);
     }
@@ -3030,7 +3002,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       select.innerHTML = html;
     }
 
-    // Handle Customer Selection in POS (MENAMPILKAN INTERNAL NOTES SECARA MENCOLOK)
+    // Display customer haircut preferences and notes prominently upon selection
     function handlePosCustomerChange(customerId) {
       currentSelectedCustomerId = customerId;
       const banner = document.getElementById('posInternalNotesBanner');
@@ -3061,8 +3033,6 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         document.getElementById('posInternalNotesText').textContent = `"${updated}"`;
       }
     }
-
-    // Execute Checkout
     function executeCheckout() {
       if (posCart.length === 0) {
         alert("Keranjang masih kosong! Silakan pilih layanan atau produk terlebih dahulu.");
@@ -3109,18 +3079,12 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       });
 
       lastCompletedTransaction = txRecord;
-
-      // Render Receipt Modal
       renderDigitalReceipt(txRecord);
       document.getElementById('modalReceipt').style.display = 'flex';
-
-      // Reset POS Cart
       clearPosCart();
       refreshPosCustomerDropdown();
       document.getElementById('posInternalNotesBanner').style.display = 'none';
       currentSelectedCustomerId = "";
-
-      // Refresh other tabs
       renderCrmTable();
       renderStaffCommissionTable();
       renderAnalyticsDashboard();
@@ -3227,12 +3191,12 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       if (cleanPhone.startsWith("0")) cleanPhone = "62" + cleanPhone.slice(1);
 
       let msg = 
-        `🏛️ *NOTA TRANSAKSI — GREENWOOD BARBERS*\n` +
+        `*NOTA TRANSAKSI : GREENWOOD BARBERS*\n` +
         `Kota Baru Parahyangan\n\n` +
-        `• No. Nota : *${tx.receiptNumber}*\n` +
-        `• Tanggal : ${tx.dateFormatted} ${tx.timeFormatted}\n` +
-        `• Tamu : *${tx.customerName}*\n` +
-        `• Barber : ${tx.barberName}\n\n` +
+        `No. Nota : *${tx.receiptNumber}*\n` +
+        `Tanggal : ${tx.dateFormatted} ${tx.timeFormatted}\n` +
+        `Tamu : *${tx.customerName}*\n` +
+        `Barber : ${tx.barberName}\n\n` +
         `*Rincian Transaksi:*\n`;
 
       tx.items.forEach(it => {
@@ -3243,7 +3207,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       if (tx.tip > 0) msg += `• Tip Barber : ${formatRupiah(tx.tip)}\n`;
       msg += `\n*TOTAL : ${formatRupiah(tx.total)}*\n` +
              `Metode : ${tx.paymentMethod}\n\n` +
-             `Terima kasih atas kunjungan Anda di Greenwood Barbers. Sampai jumpa di ritual grooming berikutnya! 🙏✨`;
+             `Terima kasih atas kunjungan Anda di Greenwood Barbers.`;
 
       const url = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`;
       window.open(url, '_blank');
@@ -3253,9 +3217,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       document.getElementById('modalReceipt').style.display = 'none';
     }
 
-    // =========================================================================
-    // MODUL D: CRM & PELANGGAN CONTROLLER
-    // =========================================================================
+    // Customer CRM controller
     function renderCrmTable() {
       const keyword = document.getElementById('crmSearchKeyword') ? document.getElementById('crmSearchKeyword').value : "";
       const category = document.getElementById('crmCategoryFilter') ? document.getElementById('crmCategoryFilter').value : "all";
@@ -3266,12 +3228,8 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         category: category,
         sortBy: sortBy
       });
-
-      // Update badge
       const badgeCount = document.getElementById('badgeCrmCount');
       if (badgeCount) badgeCount.textContent = customers.length;
-
-      // Update CRM Metrics
       const allCustomers = GreenwoodAdminDB.getCustomers();
       const activeCount = allCustomers.filter(c => !c.passiveFlag).length;
       const passiveCount = allCustomers.filter(c => c.passiveFlag).length;
@@ -3347,8 +3305,6 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       document.getElementById('custDetailSpend').textContent = formatRupiah(cust.totalSpend);
       document.getElementById('custDetailLastVisit').textContent = `Kunjungan Terakhir: ${cust.lastVisit || '-'} (${cust.lastBarber || 'Barber'})`;
       document.getElementById('custDetailNotesInput').value = cust.internalNotes || "";
-
-      // Render History
       const hBody = document.getElementById('custDetailHistoryBody');
       const history = cust.visitHistory || [];
       if (history.length === 0) {
@@ -3469,9 +3425,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       document.body.removeChild(link);
     }
 
-    // =========================================================================
-    // MODUL C: STAF & KOMISI CONTROLLER
-    // =========================================================================
+    // Staff attendance and commission reporting
     function renderStaffCards() {
       const staffList = GreenwoodAdminDB.getStaff();
       const container = document.getElementById('staffCardsGrid');
@@ -3568,9 +3522,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       document.body.removeChild(link);
     }
 
-    // =========================================================================
-    // MODUL G & H: LAPORAN ANALITIK, RETENSI & LOG
-    // =========================================================================
+    // Analytics and busy hours visualization
     function renderAnalyticsDashboard() {
       const an = GreenwoodAdminDB.getAnalyticsOverview();
 
@@ -3579,8 +3531,6 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       document.getElementById('anRevenueMonth').textContent = formatRupiah(an.revenueThisMonth);
       document.getElementById('anRepeatRate').textContent = `${an.repeatRatePercent}%`;
       document.getElementById('anRepeatSub').textContent = `${an.repeatCustomersCount} Tamu Berulang / ${an.newCustomersCount} Baru`;
-
-      // Render Busy Hours Chart
       const grid = document.getElementById('busyHoursGrid');
       let maxCount = 1;
       for (let h = 10; h <= 20; h++) {
@@ -3620,9 +3570,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       `).join('');
     }
 
-    // =========================================================================
-    // MODUL PENGATURAN SISTEM & GOOGLE API SANDBOX (OPSI 2)
-    // =========================================================================
+    // System settings and branch configuration
     function openSettingsModal() {
       const modal = document.getElementById('modalSettings');
       if (modal) modal.style.display = 'flex';
@@ -3693,7 +3641,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       
       if (typeof GreenwoodAdminDB !== 'undefined') {
         GreenwoodAdminDB.saveConfig({
-          branchName: branchName || "Greenwood Barbers — Kota Baru Parahyangan",
+          branchName: branchName || "Greenwood Barbers, Kota Baru Parahyangan",
           passiveThresholdDays: passiveDays > 0 ? passiveDays : 35
         });
         alert('Konfigurasi cabang & CRM berhasil disimpan!');
@@ -3716,9 +3664,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       closeSettingsModal();
     }
 
-    // =========================================================================
-    // MODUL A: GOOGLE API & SANDBOX CONTROLLER
-    // =========================================================================
+    // Google Calendar API sandbox simulation
     function initSandboxState() {
       const state = GreenwoodAdminDB.getSandboxState();
       const checkbox = document.getElementById('sandboxToggleCheckbox');
@@ -3778,9 +3724,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       });
     }
 
-    // =========================================================================
-    // MODUL RESERVASI (EXISTING LEDGER PRESERVED)
-    // =========================================================================
+    // Reservation ledger management
     function reloadLedgerData() {
       if (typeof GreenwoodBookingStore !== 'undefined') {
         currentBookings = GreenwoodBookingStore.getBookings() || [];

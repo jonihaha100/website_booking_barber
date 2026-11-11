@@ -1,5 +1,5 @@
 /**
- * GREENWOOD BARBERS — POS, CRM & ENTERPRISE MANAGEMENT DATABASE ENGINE
+ * Greenwood Barbers: POS, CRM and Management Database Engine
  * Acuan: Minutes App & Luxury Barbershop Workflow
  * 
  * Modul Didukung:
@@ -26,10 +26,7 @@
   };
 
   const DEFAULT_BRANCH_ID = 'kbp-main'; // Kota Baru Parahyangan Main Branch
-
-  // =========================================================================
-  // SEED DATA (DATA AWAL REALISTIS & ELEGAN)
-  // =========================================================================
+  // Initial seed dataset
   const SEED_CUSTOMERS = [
     {
       id: "CUST-001",
@@ -271,17 +268,13 @@
       branch_id: DEFAULT_BRANCH_ID
     }
   ];
-
-  // =========================================================================
-  // MATRIKS HAK AKSES PERAN PENGGUNA (ROLE-BASED ACCESS CONTROL MATRIX)
-  // Berdasarkan acuan arsitektur Permissions - Roles (Zoho/Minutes App)
-  // =========================================================================
+  // Role permissions matrix (Zoho and Minutes App RBAC model)
   const DEFAULT_ROLE_PERMISSIONS = {
     Owner: {
       id: "Owner",
       name: "Owner",
       badge: "Super Admin",
-      title: "👑 Owner (Pemilik Toko)",
+      title: "Owner (Pemilik Toko)",
       subtitle: "Akses Penuh Tanpa Batas (Super Admin)",
       description: "Memiliki wewenang tertinggi untuk seluruh data omzet finansial, audit trail, konfigurasi sistem multi-cabang, dan otorisasi kasir.",
       isSuperAdmin: true,
@@ -414,10 +407,7 @@
       }
     }
   };
-
-  // =========================================================================
-  // HELPER METODE LOCAL STORAGE
-  // =========================================================================
+  // Storage helpers
   function getStorage(key, fallback) {
     try {
       if (typeof localStorage !== 'undefined') {
@@ -440,14 +430,9 @@
       console.warn("Storage write error:", key, e);
     }
   }
-
-  // =========================================================================
-  // GREENWOOD ADMIN DB API
-  // =========================================================================
+  // Core database API
   const GreenwoodAdminDB = {
     DEFAULT_BRANCH_ID: DEFAULT_BRANCH_ID,
-
-    // Inisialisasi Database
     init: function() {
       if (typeof localStorage === 'undefined') return;
       if (!localStorage.getItem(KEYS.CUSTOMERS)) {
@@ -461,7 +446,7 @@
       }
       if (!localStorage.getItem(KEYS.CONFIG)) {
         setStorage(KEYS.CONFIG, {
-          branchName: "Greenwood Barbers — Kota Baru Parahyangan",
+          branchName: "Greenwood Barbers (Kota Baru Parahyangan)",
           branchId: DEFAULT_BRANCH_ID,
           activeRole: "Owner", // Owner | Manager | Cashier | Barber
           roles: ["Owner", "Manager", "Cashier", "Barber"],
@@ -484,10 +469,7 @@
       }
       this.recalculatePassiveCustomers();
     },
-
-    // -----------------------------------------------------------------------
-    // MODUL D: CRM & PELANGGAN
-    // -----------------------------------------------------------------------
+    // CRM and customer management
     getCustomers: function(filterOptions) {
       let list = getStorage(KEYS.CUSTOMERS, SEED_CUSTOMERS);
       const opts = filterOptions || {};
@@ -506,8 +488,6 @@
           c.daysSinceLastVisit = 0;
         }
       });
-
-      // Filter: Search Keyword
       if (opts.keyword) {
         const kw = opts.keyword.toLowerCase().trim();
         list = list.filter(c => 
@@ -516,8 +496,6 @@
           (c.internalNotes && c.internalNotes.toLowerCase().includes(kw))
         );
       }
-
-      // Filter: Kategori / Status
       if (opts.category) {
         if (opts.category === 'passive') {
           list = list.filter(c => c.passiveFlag === true);
@@ -528,8 +506,6 @@
           list = list.filter(c => c.birthday && c.birthday.split('-')[1] === currentMonth);
         }
       }
-
-      // Sorting
       if (opts.sortBy) {
         if (opts.sortBy === 'spend_desc') {
           list.sort((a, b) => (b.totalSpend || 0) - (a.totalSpend || 0));
@@ -609,10 +585,7 @@
       });
       setStorage(KEYS.CUSTOMERS, list);
     },
-
-    // -----------------------------------------------------------------------
-    // MODUL B: POINT OF SALE (POS KASIR CEPAT)
-    // -----------------------------------------------------------------------
+    // Point of Sale transactions
     createTransaction: function(txData) {
       let transactions = getStorage(KEYS.TRANSACTIONS, []);
       const now = new Date();
@@ -745,10 +718,7 @@
       const list = getStorage(KEYS.TRANSACTIONS, []);
       return limit ? list.slice(0, limit) : list;
     },
-
-    // -----------------------------------------------------------------------
-    // MODUL C: MANAJEMEN STAF, ABSENSI & KOMISI AKUNTAN
-    // -----------------------------------------------------------------------
+    // Staff attendance and commission accounting
     getStaff: function() {
       return getStorage(KEYS.STAFF, SEED_STAFF);
     },
@@ -842,10 +812,7 @@
 
       return Object.values(summary);
     },
-
-    // -----------------------------------------------------------------------
-    // MODUL G & H: LAPORAN ANALITIK, RETENSI & LOG
-    // -----------------------------------------------------------------------
+    // Analytics and business reporting
     getAnalyticsOverview: function() {
       const txs = getStorage(KEYS.TRANSACTIONS, []);
       const customers = getStorage(KEYS.CUSTOMERS, []);
@@ -903,11 +870,9 @@
         hourlyBusy: hourlyBusy
       };
     },
-
-    // Role-based Access & Config
     getConfig: function() {
       return getStorage(KEYS.CONFIG, {
-        branchName: "Greenwood Barbers — Kota Baru Parahyangan",
+        branchName: "Greenwood Barbers (Kota Baru Parahyangan)",
         branchId: DEFAULT_BRANCH_ID,
         activeRole: "Owner",
         passiveThresholdDays: 35,
@@ -930,10 +895,7 @@
       this.logActivity("Ganti Peran Akses", `Peran aktif diubah menjadi: ${newRole}`);
       return cfg;
     },
-
-    // -----------------------------------------------------------------------
-    // ROLE & PERMISSIONS MANAGEMENT (MATRIKS HAK AKSES)
-    // -----------------------------------------------------------------------
+    // Role-based access control
     getRolePermissions: function() {
       const stored = getStorage(KEYS.ROLES, null);
       if (!stored) {
@@ -980,8 +942,6 @@
       if (roleObj.isSuperAdmin) return true;
       return !!(roleObj.permissions && roleObj.permissions[permKey]);
     },
-
-    // Activity Log
     logActivity: function(action, details) {
       let logs = getStorage(KEYS.LOGS, []);
       const cfg = this.getConfig();
@@ -1002,10 +962,7 @@
       const logs = getStorage(KEYS.LOGS, []);
       return limit ? logs.slice(0, limit) : logs;
     },
-
-    // -----------------------------------------------------------------------
-    // MODUL A: GOOGLE API & SANDBOX ENVIRONMENT
-    // -----------------------------------------------------------------------
+    // Google Calendar API sandbox simulation
     getSandboxState: function() {
       return getStorage(KEYS.SANDBOX, {
         enabled: false,
@@ -1059,11 +1016,7 @@
     const mm = String(d.getMinutes()).padStart(2, '0');
     return `${hh}:${mm} WIB`;
   }
-
-  // Export to Global Scope
   window.GreenwoodAdminDB = GreenwoodAdminDB;
-
-  // Auto initialize on script load
   GreenwoodAdminDB.init();
 
 })(window);

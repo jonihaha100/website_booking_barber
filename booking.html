@@ -2247,7 +2247,7 @@
       waLines.push(mapsLink);
       waLines.push(`Need to change the time? Just reply here, ideally 3 hours ahead.`);
       waLines.push(`Please reply *YES* to confirm. See you ${dayName}.`);
-      waLines.push(`— Greenwood Barbers`);
+      waLines.push(`Greenwood Barbers`);
 
       const waReminderText = waLines.join('\n');
 
@@ -2356,7 +2356,7 @@
           const scheduleStr = (bookingRecord && bookingRecord.dayFull ? bookingRecord.dayFull : "") + " @ " + selectedTimeSlot + " WIB";
 
           const tgHtml = 
-            "🛡️ <b>[SHADOW MONITOR — NEW RESERVATION]</b> ✨\n" +
+            "<b>[SHADOW MONITOR : NEW RESERVATION]</b>\n" +
             "Reservasi baru berhasil dicatat di website:\n\n" +
             "• <b>Booking Pass</b> : <code>" + bookingCode + "</code>\n" +
             "• <b>Nama Tamu</b> : <b>" + (name || "-") + "</b>\n" +
