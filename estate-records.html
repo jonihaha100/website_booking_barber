@@ -1070,19 +1070,23 @@
           <option value="Barber">💈 Peran: Barber</option>
         </select>
         <button type="button" class="btn-portal-action" onclick="openRolesPermissionsModal()" title="Kelola Matriks Hak Akses (Permissions)">
-          <span>🛡️</span> Hak Akses Role
+          <span>🛡️</span> <span data-i18n="btn_roles">Hak Akses Role</span>
         </button>
+        <select id="langSwitcher" class="role-select" onchange="setSystemLanguage(this.value)" title="Ganti Bahasa / Switch Language" style="min-width: 82px;">
+          <option value="id" selected>🇮🇩 ID</option>
+          <option value="en">🇬🇧 EN</option>
+        </select>
         <a href="index.html" class="btn-portal-action" target="_blank">
-          <span>🌐</span> Web Publik
+          <span>🌐</span> <span data-i18n="btn_web">Web Publik</span>
         </a>
         <button type="button" class="btn-portal-action" onclick="openSettingsModal()" title="Pengaturan Sistem & Sandbox">
-          <span>⚙️</span> Pengaturan
+          <span>⚙️</span> <span data-i18n="btn_settings">Pengaturan</span>
         </button>
         <button type="button" class="btn-portal-action" onclick="openPinModal()">
-          <span>🔑</span> Passkey
+          <span>🔑</span> <span data-i18n="btn_passkey">Passkey</span>
         </button>
         <button type="button" class="btn-portal-action btn-portal-lock" onclick="lockPortal()">
-          <span>🔒</span> Kunci
+          <span>🔒</span> <span data-i18n="btn_lock">Kunci</span>
         </button>
       </div>
     </header>
@@ -1090,20 +1094,20 @@
     <!-- MODULE TABS (5 BUSINESS ESSENTIALS) -->
     <nav class="portal-tabs-nav">
       <button type="button" class="portal-tab-btn active" onclick="switchTab('pos')">
-        <span>💳</span> Kasir Cepat (POS)
+        <span>💳</span> <span data-i18n="nav_pos">Kasir Cepat (POS)</span>
       </button>
       <button type="button" class="portal-tab-btn" onclick="switchTab('crm')">
-        <span>👥</span> CRM &amp; Pelanggan
+        <span>👥</span> <span data-i18n="nav_crm">CRM &amp; Pelanggan</span>
         <span class="portal-tab-badge" id="badgeCrmCount">0</span>
       </button>
       <button type="button" class="portal-tab-btn" onclick="switchTab('reservations')">
-        <span>📅</span> Buku Tamu &amp; Booking Online
+        <span>📅</span> <span data-i18n="nav_reservations">Buku Tamu &amp; Booking Online</span>
       </button>
       <button type="button" class="portal-tab-btn" onclick="switchTab('staff')">
-        <span>💈</span> Staf &amp; Komisi Akuntan
+        <span>💈</span> <span data-i18n="nav_staff">Staf &amp; Komisi Akuntan</span>
       </button>
       <button type="button" class="portal-tab-btn" onclick="switchTab('analytics')">
-        <span>📊</span> Laporan Omzet &amp; Retensi
+        <span>📊</span> <span data-i18n="nav_analytics">Laporan Omzet &amp; Retensi</span>
       </button>
     </nav>
 
@@ -1119,16 +1123,16 @@
           <!-- LEFT: ITEMS CATALOG -->
           <div class="pos-catalog-panel">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-              <h3 style="margin: 0; color: #fff; font-size: 16px; font-family: 'Lora', Georgia, serif;">Katalog Layanan &amp; Produk</h3>
-              <input type="text" id="posSearchCatalog" placeholder="🔍 Cari item..." oninput="filterPosCatalog(this.value)" style="background: rgba(3,12,8,0.8); border: 1px solid var(--card-border); color: #fff; padding: 6px 12px; border-radius: 6px; font-size: 12px; outline: none;">
+              <h3 style="margin: 0; color: #fff; font-size: 16px; font-family: 'Lora', Georgia, serif;" data-i18n="pos_catalog_title">Katalog Layanan &amp; Produk</h3>
+              <input type="text" id="posSearchCatalog" placeholder="🔍 Cari item..." data-i18n-placeholder="pos_search_ph" oninput="filterPosCatalog(this.value)" style="background: rgba(3,12,8,0.8); border: 1px solid var(--card-border); color: #fff; padding: 6px 12px; border-radius: 6px; font-size: 12px; outline: none;">
             </div>
 
             <!-- CATEGORY PILLS -->
             <div class="pos-category-pills">
-              <button type="button" class="pos-cat-pill active" onclick="filterPosCategory('all', this)">Semua Item</button>
-              <button type="button" class="pos-cat-pill" onclick="filterPosCategory('service', this)">Ritual Cukur (Services)</button>
-              <button type="button" class="pos-cat-pill" onclick="filterPosCategory('product', this)">Grooming Apothecary (Produk)</button>
-              <button type="button" class="pos-cat-pill" onclick="filterPosCategory('addon', this)">Add-ons Perawatan</button>
+              <button type="button" class="pos-cat-pill active" onclick="filterPosCategory('all', this)" data-i18n="pos_cat_all">Semua Item</button>
+              <button type="button" class="pos-cat-pill" onclick="filterPosCategory('service', this)" data-i18n="pos_cat_service">Ritual Cukur (Services)</button>
+              <button type="button" class="pos-cat-pill" onclick="filterPosCategory('product', this)" data-i18n="pos_cat_product">Grooming Apothecary (Produk)</button>
+              <button type="button" class="pos-cat-pill" onclick="filterPosCategory('addon', this)" data-i18n="pos_cat_addon">Add-ons Perawatan</button>
             </div>
 
             <!-- GRID ITEMS -->
@@ -1256,53 +1260,53 @@
         <!-- 4 CRM METRICS -->
         <div class="metrics-grid">
           <div class="metric-card">
-            <div class="metric-label">Total Pelanggan Terdaftar</div>
+            <div class="metric-label" data-i18n="crm_metric_total">Total Pelanggan Terdaftar</div>
             <div class="metric-val" id="crmMetricTotal">0</div>
-            <div class="metric-sub">Database Loyal Tamu</div>
+            <div class="metric-sub" data-i18n="crm_sub_total">Database Loyal Tamu</div>
           </div>
           <div class="metric-card">
-            <div class="metric-label">Pelanggan Aktif</div>
+            <div class="metric-label" data-i18n="crm_metric_active">Pelanggan Aktif</div>
             <div class="metric-val" style="color: var(--success);" id="crmMetricActive">0</div>
-            <div class="metric-sub">&lt; 35 Hari Terakhir</div>
+            <div class="metric-sub" data-i18n="crm_sub_active">&lt; 35 Hari Terakhir</div>
           </div>
           <div class="metric-card">
-            <div class="metric-label">Pelanggan Pasif</div>
+            <div class="metric-label" data-i18n="crm_metric_passive">Pelanggan Pasif</div>
             <div class="metric-val" style="color: var(--danger);" id="crmMetricPassive">0</div>
-            <div class="metric-sub">&gt; 35 Hari Belum Kembali</div>
+            <div class="metric-sub" data-i18n="crm_sub_passive">&gt; 35 Hari Belum Kembali</div>
           </div>
           <div class="metric-card">
-            <div class="metric-label">Akumulasi LTV Belanja</div>
+            <div class="metric-label" data-i18n="crm_metric_revenue">Akumulasi LTV Belanja</div>
             <div class="metric-val" style="color: var(--accent-gold-bright);" id="crmMetricRevenue">Rp 0</div>
-            <div class="metric-sub">Total Nilai Pembelian Tamu</div>
+            <div class="metric-sub" data-i18n="crm_sub_revenue">Total Nilai Pembelian Tamu</div>
           </div>
         </div>
 
         <!-- CRM TOOLBAR & FILTERS -->
         <div class="crm-toolbar">
           <div class="crm-filter-group">
-            <input type="text" id="crmSearchKeyword" class="crm-search-input" placeholder="🔍 Cari nama, HP, formula rambut..." oninput="filterCrmTable()">
+            <input type="text" id="crmSearchKeyword" class="crm-search-input" placeholder="🔍 Cari nama, HP, formula rambut..." data-i18n-placeholder="crm_search_ph" oninput="filterCrmTable()">
             
             <select id="crmCategoryFilter" class="crm-select" onchange="filterCrmTable()">
-              <option value="all">Semua Kategori</option>
-              <option value="vip">⭐ Pelanggan VIP</option>
-              <option value="passive">⚠️ Pelanggan Pasif (&gt; 35 Hari)</option>
-              <option value="birthday_this_month">🎂 Ulang Tahun Bulan Ini</option>
+              <option value="all" data-i18n="crm_cat_all">Semua Kategori</option>
+              <option value="vip" data-i18n="crm_cat_vip">⭐ Pelanggan VIP</option>
+              <option value="passive" data-i18n="crm_cat_passive">⚠️ Pelanggan Pasif (&gt; 35 Hari)</option>
+              <option value="birthday_this_month" data-i18n="crm_cat_bday">🎂 Ulang Tahun Bulan Ini</option>
             </select>
 
             <select id="crmSortBy" class="crm-select" onchange="filterCrmTable()">
-              <option value="last_visit_desc">Kunjungan Terakhir (Terbaru)</option>
-              <option value="last_visit_asc">Kunjungan Terakhir (Terlama / Pasif)</option>
-              <option value="spend_desc">Total Belanja Tertinggi</option>
-              <option value="visits_desc">Jumlah Kunjungan Terbanyak</option>
+              <option value="last_visit_desc" data-i18n="crm_sort_recent">Kunjungan Terakhir (Terbaru)</option>
+              <option value="last_visit_asc" data-i18n="crm_sort_oldest">Kunjungan Terakhir (Terlama / Pasif)</option>
+              <option value="spend_desc" data-i18n="crm_sort_spend">Total Belanja Tertinggi</option>
+              <option value="visits_desc" data-i18n="crm_sort_visits">Jumlah Kunjungan Terbanyak</option>
             </select>
           </div>
 
           <div style="display: flex; gap: 8px;">
             <button type="button" class="btn-gold-action" onclick="openNewCustomerModal()">
-              <span>+</span> Tambah Pelanggan
+              <span>+</span> <span data-i18n="crm_btn_add">Tambah Pelanggan</span>
             </button>
             <button type="button" class="btn-portal-action" id="btnExportCrm" onclick="exportCrmToCSV()">
-              <span>📥</span> Export CSV / Excel
+              <span>📥</span> <span data-i18n="crm_btn_export">Export CSV / Excel</span>
             </button>
           </div>
         </div>
@@ -1444,17 +1448,17 @@
         
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 10px;">
           <div>
-            <h3 style="margin: 0; color: #fff; font-family: 'Lora', serif; font-size: 20px;">Jadwal Shift &amp; Absensi Barber</h3>
-            <div style="font-size: 12.5px; color: var(--text-muted); margin-top: 4px;">Pencatatan Clock-In / Clock-Out harian serta rasio komisi layanan &amp; produk.</div>
+            <h3 style="margin: 0; color: #fff; font-family: 'Lora', serif; font-size: 20px;" data-i18n="staff_title">Jadwal Shift &amp; Absensi Barber</h3>
+            <div style="font-size: 12.5px; color: var(--text-muted); margin-top: 4px;" data-i18n="staff_sub">Pencatatan Clock-In / Clock-Out harian serta rasio komisi layanan &amp; produk.</div>
           </div>
           <div style="display: flex; gap: 8px;">
             <select id="staffPeriodSelect" class="crm-select" onchange="renderStaffCommissionTable()">
-              <option value="today">Periode: Hari Ini</option>
-              <option value="week">Periode: 7 Hari Terakhir</option>
-              <option value="month" selected>Periode: Bulan Ini</option>
+              <option value="today" data-i18n="staff_period_today">Periode: Hari Ini</option>
+              <option value="week" data-i18n="staff_period_week">Periode: 7 Hari Terakhir</option>
+              <option value="month" selected data-i18n="staff_period_month">Periode: Bulan Ini</option>
             </select>
             <button type="button" class="btn-gold-action" id="btnExportStaffCommission" onclick="exportStaffCommissionCSV()">
-              <span>📊</span> Export CSV Akuntan
+              <span>📊</span> <span data-i18n="staff_btn_export">Export CSV Akuntan</span>
             </button>
           </div>
         </div>
@@ -1498,42 +1502,42 @@
         
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
           <div>
-            <h3 style="margin: 0; color: #fff; font-family: 'Lora', serif; font-size: 20px;">Dashboard Laporan Omzet &amp; Retensi</h3>
-            <div style="font-size: 12.5px; color: var(--text-muted); margin-top: 4px;">Performa bisnis, jam sibuk operasional, dan tingkat kunjungan berulang pelanggan.</div>
+            <h3 style="margin: 0; color: #fff; font-family: 'Lora', serif; font-size: 20px;" data-i18n="analytics_title">Dashboard Laporan Omzet &amp; Retensi</h3>
+            <div style="font-size: 12.5px; color: var(--text-muted); margin-top: 4px;" data-i18n="analytics_sub">Performa bisnis, jam sibuk operasional, dan tingkat kunjungan berulang pelanggan.</div>
           </div>
           <button type="button" class="btn-portal-action" onclick="window.print()">
-            <span>🖨️</span> Cetak / Simpan PDF
+            <span>🖨️</span> <span data-i18n="an_btn_print">Cetak / Simpan PDF</span>
           </button>
         </div>
 
         <!-- REVENUE CARDS -->
         <div class="metrics-grid">
           <div class="metric-card">
-            <div class="metric-label">Omzet Hari Ini</div>
+            <div class="metric-label" data-i18n="an_rev_today">Omzet Hari Ini</div>
             <div class="metric-val" style="color: #4ade80;" id="anRevenueToday">Rp 0</div>
-            <div class="metric-sub">Kasir &amp; Booking</div>
+            <div class="metric-sub" data-i18n="an_rev_today_sub">Kasir &amp; Booking</div>
           </div>
           <div class="metric-card">
-            <div class="metric-label">Omzet 7 Hari Terakhir</div>
+            <div class="metric-label" data-i18n="an_rev_week">Omzet 7 Hari Terakhir</div>
             <div class="metric-val" style="color: var(--accent-gold-bright);" id="anRevenueWeek">Rp 0</div>
-            <div class="metric-sub">Performa Mingguan</div>
+            <div class="metric-sub" data-i18n="an_rev_week_sub">Performa Mingguan</div>
           </div>
           <div class="metric-card">
-            <div class="metric-label">Omzet Bulan Ini</div>
+            <div class="metric-label" data-i18n="an_rev_month">Omzet Bulan Ini</div>
             <div class="metric-val" style="color: #fff;" id="anRevenueMonth">Rp 0</div>
-            <div class="metric-sub">Akumulasi Bulanan</div>
+            <div class="metric-sub" data-i18n="an_rev_month_sub">Akumulasi Bulanan</div>
           </div>
           <div class="metric-card">
-            <div class="metric-label">Retensi Tamu (Repeat-Visit)</div>
+            <div class="metric-label" data-i18n="an_retention_label">Retensi Tamu (Repeat-Visit)</div>
             <div class="metric-val" style="color: #38bdf8;" id="anRepeatRate">0%</div>
-            <div class="metric-sub" id="anRepeatSub">Pelanggan Kembali</div>
+            <div class="metric-sub" id="anRepeatSub" data-i18n="an_retention_sub">Pelanggan Kembali</div>
           </div>
         </div>
 
         <!-- BUSY HOURS CHART -->
         <div class="chart-container">
-          <h4 style="margin: 0 0 4px; color: #fff; font-size: 15px; font-family: 'Lora', serif;">Grafik Jam Sibuk Operasional (Busy-Hours)</h4>
-          <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Distribusi volume transaksi berdasarkan jam kedatangan tamu (10:00 s/d 20:00 WIB).</div>
+          <h4 style="margin: 0 0 4px; color: #fff; font-size: 15px; font-family: 'Lora', serif;" data-i18n="an_busy_title">Grafik Jam Sibuk Operasional (Busy-Hours)</h4>
+          <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;" data-i18n="an_busy_sub">Distribusi volume transaksi berdasarkan jam kedatangan tamu (10:00 s/d 20:00 WIB).</div>
           <div class="busy-hours-bar-grid" id="busyHoursGrid">
             <!-- Dynamically populated bars -->
           </div>
@@ -2148,6 +2152,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       renderAnalyticsDashboard();
       initSandboxState();
       applyRolePermissionsToUI();
+      setSystemLanguage(I18N.currentLang);
 
       // Init existing reservations
       reloadLedgerData();
@@ -2159,6 +2164,209 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       document.getElementById('masterPinInput').value = '';
       document.getElementById('gateOverlay').style.display = 'flex';
       document.getElementById('portalMainContent').style.display = 'none';
+    }
+
+    // =========================================================================
+    // MULTI-LANGUAGE ENGINE (INDONESIAN & ENGLISH / I18N SYSTEM)
+    // =========================================================================
+    const I18N = {
+      currentLang: localStorage.getItem('greenwood_admin_lang_v1') || 'id',
+      dict: {
+        id: {
+          tagline: "POS • CRM • Management Suite",
+          nav_pos: "Kasir Cepat (POS)",
+          nav_crm: "CRM & Pelanggan",
+          nav_reservations: "Buku Tamu & Booking Online",
+          nav_staff: "Staf & Komisi Akuntan",
+          nav_analytics: "Laporan Omzet & Retensi",
+          btn_roles: "Hak Akses Role",
+          btn_web: "Web Publik",
+          btn_settings: "Pengaturan",
+          btn_passkey: "Passkey",
+          btn_lock: "Kunci",
+          role_Owner: "👑 Peran: Owner",
+          role_Manager: "👔 Peran: Manager",
+          role_Cashier: "💳 Peran: Kasir",
+          role_Barber: "💈 Peran: Barber",
+          // POS
+          pos_catalog_title: "Katalog Layanan & Produk",
+          pos_search_ph: "🔍 Cari item...",
+          pos_cat_all: "Semua Item",
+          pos_cat_service: "Ritual Cukur (Services)",
+          pos_cat_product: "Grooming Apothecary (Produk)",
+          pos_cat_addon: "Add-ons Perawatan",
+          pos_summary_title: "Pesanan Kasir",
+          pos_clear_cart: "Kosongkan",
+          pos_cust_label: "Pelanggan *",
+          pos_cust_default: "-- Tamu Walk-In (Tanpa Data) --",
+          pos_btn_new_cust: "+ Baru",
+          pos_notes_tag: "⚡ Preferensi Gaya Rambut & Kebiasaan:",
+          pos_barber_label: "Pilih Barber Pelaksana *",
+          pos_barber_default: "-- Pilih Barber --",
+          pos_disc_label: "Diskon / Potongan (Rp)",
+          pos_tip_label: "Uang Tip Barber (Rp)",
+          pos_pay_method_label: "Metode Pembayaran (Manual Cashier)",
+          pos_cash_tendered_label: "Uang Diterima:",
+          pos_change_label: "Kembalian:",
+          pos_btn_checkout: "✓ Selesaikan Pembayaran & Cetak Nota",
+          pos_btn_wa: "Kirim Nota WhatsApp",
+          // CRM
+          crm_metric_total: "Total Pelanggan Terdaftar",
+          crm_sub_total: "Database Loyal Tamu",
+          crm_metric_active: "Pelanggan Aktif",
+          crm_sub_active: "< 35 Hari Terakhir",
+          crm_metric_passive: "Pelanggan Pasif",
+          crm_sub_passive: "> 35 Hari Belum Kembali",
+          crm_metric_revenue: "Akumulasi LTV Belanja",
+          crm_sub_revenue: "Total Nilai Pembelian Tamu",
+          crm_search_ph: "🔍 Cari nama, HP, formula rambut...",
+          crm_cat_all: "Semua Kategori",
+          crm_cat_vip: "⭐ Pelanggan VIP",
+          crm_cat_passive: "⚠️ Pelanggan Pasif (> 35 Hari)",
+          crm_cat_bday: "🎂 Ulang Tahun Bulan Ini",
+          crm_sort_recent: "Kunjungan Terakhir (Terbaru)",
+          crm_sort_oldest: "Kunjungan Terakhir (Terlama / Pasif)",
+          crm_sort_spend: "Total Belanja Tertinggi",
+          crm_sort_visits: "Jumlah Kunjungan Terbanyak",
+          crm_btn_add: "Tambah Pelanggan",
+          crm_btn_export: "Export CSV / Excel",
+          // Staff
+          staff_title: "Jadwal Shift & Absensi Barber",
+          staff_sub: "Pencatatan Clock-In / Clock-Out harian serta rasio komisi layanan & produk.",
+          staff_period_today: "Periode: Hari Ini",
+          staff_period_week: "Periode: 7 Hari Terakhir",
+          staff_period_month: "Periode: Bulan Ini",
+          staff_btn_export: "Export CSV Akuntan",
+          // Analytics
+          analytics_title: "Dashboard Laporan Omzet & Retensi",
+          analytics_sub: "Performa bisnis, jam sibuk operasional, dan tingkat kunjungan berulang pelanggan.",
+          an_rev_today: "Omzet Hari Ini",
+          an_rev_today_sub: "Kasir & Booking",
+          an_rev_week: "Omzet 7 Hari Terakhir",
+          an_rev_week_sub: "Performa Mingguan",
+          an_rev_month: "Omzet Bulan Ini",
+          an_rev_month_sub: "Akumulasi Bulanan",
+          an_retention_label: "Retensi Tamu (Repeat-Visit)",
+          an_retention_sub: "Pelanggan Kembali",
+          an_busy_title: "Grafik Jam Sibuk Operasional (Busy-Hours)",
+          an_busy_sub: "Distribusi volume transaksi berdasarkan jam kedatangan tamu (10:00 s/d 20:00 WIB).",
+          an_btn_print: "Cetak / Simpan PDF"
+        },
+        en: {
+          tagline: "POS • CRM • Management Suite",
+          nav_pos: "Quick POS (Cashier)",
+          nav_crm: "CRM & Customers",
+          nav_reservations: "Guest Book & Online Booking",
+          nav_staff: "Staff & Commission (Accountant)",
+          nav_analytics: "Revenue & Retention Reports",
+          btn_roles: "Role Permissions",
+          btn_web: "Public Web",
+          btn_settings: "Settings",
+          btn_passkey: "Passkey",
+          btn_lock: "Lock",
+          role_Owner: "👑 Role: Owner",
+          role_Manager: "👔 Role: Manager",
+          role_Cashier: "💳 Role: Cashier",
+          role_Barber: "💈 Role: Barber",
+          // POS
+          pos_catalog_title: "Services & Products Catalog",
+          pos_search_ph: "🔍 Search items...",
+          pos_cat_all: "All Items",
+          pos_cat_service: "Grooming Rituals (Services)",
+          pos_cat_product: "Apothecary Grooming (Products)",
+          pos_cat_addon: "Treatment Add-ons",
+          pos_summary_title: "Cashier Order Summary",
+          pos_clear_cart: "Clear Cart",
+          pos_cust_label: "Customer *",
+          pos_cust_default: "-- Walk-In Guest (No Profile) --",
+          pos_btn_new_cust: "+ New",
+          pos_notes_tag: "⚡ Haircut Preferences & Habits:",
+          pos_barber_label: "Select Assigned Barber *",
+          pos_barber_default: "-- Select Barber --",
+          pos_disc_label: "Discount / Voucher (Rp)",
+          pos_tip_label: "Barber Tip (Rp)",
+          pos_pay_method_label: "Payment Method (Manual Cashier)",
+          pos_cash_tendered_label: "Cash Tendered:",
+          pos_change_label: "Change:",
+          pos_btn_checkout: "✓ Complete Payment & Print Receipt",
+          pos_btn_wa: "Send WhatsApp Receipt",
+          // CRM
+          crm_metric_total: "Total Registered Customers",
+          crm_sub_total: "Loyal Guest Database",
+          crm_metric_active: "Active Customers",
+          crm_sub_active: "< Last 35 Days",
+          crm_metric_passive: "Passive Customers",
+          crm_sub_passive: "> 35 Days Inactive",
+          crm_metric_revenue: "Accumulated Spend LTV",
+          crm_sub_revenue: "Total Guest Purchasing Value",
+          crm_search_ph: "🔍 Search name, phone, formula...",
+          crm_cat_all: "All Categories",
+          crm_cat_vip: "⭐ VIP Customers",
+          crm_cat_passive: "⚠️ Passive (> 35 Days)",
+          crm_cat_bday: "🎂 Birthdays This Month",
+          crm_sort_recent: "Last Visit (Most Recent)",
+          crm_sort_oldest: "Last Visit (Oldest / Passive)",
+          crm_sort_spend: "Highest Total Spend",
+          crm_sort_visits: "Most Frequent Visits",
+          crm_btn_add: "Add Customer",
+          crm_btn_export: "Export CSV / Excel",
+          // Staff
+          staff_title: "Barber Shift Schedule & Attendance",
+          staff_sub: "Daily Clock-In / Clock-Out tracking and service & product commission ratio.",
+          staff_period_today: "Period: Today",
+          staff_period_week: "Period: Last 7 Days",
+          staff_period_month: "Period: This Month",
+          staff_btn_export: "Export Accountant CSV",
+          // Analytics
+          analytics_title: "Revenue & Retention Dashboard",
+          analytics_sub: "Business performance, peak operational hours, and guest repeat-visit rate.",
+          an_rev_today: "Today's Revenue",
+          an_rev_today_sub: "Cashier & Bookings",
+          an_rev_week: "Last 7 Days Revenue",
+          an_rev_week_sub: "Weekly Performance",
+          an_rev_month: "This Month's Revenue",
+          an_rev_month_sub: "Monthly Accumulation",
+          an_retention_label: "Guest Retention (Repeat-Visit)",
+          an_retention_sub: "Returning Guests",
+          an_busy_title: "Peak Operational Hours (Busy-Hours)",
+          an_busy_sub: "Transaction volume distribution by guest arrival hour (10:00 to 20:00 WIB).",
+          an_btn_print: "Print / Save PDF"
+        }
+      }
+    };
+
+    function setSystemLanguage(lang) {
+      I18N.currentLang = lang || 'id';
+      localStorage.setItem('greenwood_admin_lang_v1', I18N.currentLang);
+      
+      const d = I18N.dict[I18N.currentLang] || I18N.dict['id'];
+      
+      // Update DOM elements with data-i18n
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (d[key]) el.textContent = d[key];
+      });
+
+      // Update placeholders with data-i18n-placeholder
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (d[key]) el.placeholder = d[key];
+      });
+
+      // Update Role switcher option labels
+      const roleSwitcher = document.getElementById('roleSwitcher');
+      if (roleSwitcher) {
+        const activeVal = roleSwitcher.value;
+        roleSwitcher.options[0].text = d['role_Owner'] || "👑 Peran: Owner";
+        roleSwitcher.options[1].text = d['role_Manager'] || "👔 Peran: Manager";
+        roleSwitcher.options[2].text = d['role_Cashier'] || "💳 Peran: Kasir";
+        roleSwitcher.options[3].text = d['role_Barber'] || "💈 Peran: Barber";
+        roleSwitcher.value = activeVal;
+      }
+
+      // Sync select value
+      const langSelect = document.getElementById('langSwitcher');
+      if (langSelect) langSelect.value = I18N.currentLang;
     }
 
     // Role switcher handler
