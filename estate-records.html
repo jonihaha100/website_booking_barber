@@ -925,6 +925,9 @@
         <a href="index.html" class="btn-portal-action" target="_blank">
           <span>🌐</span> Web Publik
         </a>
+        <button type="button" class="btn-portal-action" onclick="openSettingsModal()" title="Pengaturan Sistem & Sandbox">
+          <span>⚙️</span> Pengaturan
+        </button>
         <button type="button" class="btn-portal-action" onclick="openPinModal()">
           <span>🔑</span> Passkey
         </button>
@@ -934,7 +937,7 @@
       </div>
     </header>
 
-    <!-- MODULE TABS -->
+    <!-- MODULE TABS (5 BUSINESS ESSENTIALS) -->
     <nav class="portal-tabs-nav">
       <button type="button" class="portal-tab-btn active" onclick="switchTab('pos')">
         <span>💳</span> Kasir Cepat (POS)
@@ -951,9 +954,6 @@
       </button>
       <button type="button" class="portal-tab-btn" onclick="switchTab('analytics')">
         <span>📊</span> Laporan Omzet &amp; Retensi
-      </button>
-      <button type="button" class="portal-tab-btn" onclick="switchTab('sandbox')">
-        <span>🧪</span> Google API Sandbox
       </button>
     </nav>
 
@@ -1412,83 +1412,125 @@
 
       </section>
 
-      <!-- ====================================================================
-           TAB 6: MODUL A — GOOGLE API SANDBOX & SIMULATOR
-           ==================================================================== -->
-      <section id="tab-sandbox" class="tab-section">
-        
-        <div class="sandbox-shell">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
-            <div style="display: flex; align-items: center; gap: 12px;">
-              <span class="sandbox-badge">🧪 GOOGLE API SANDBOX ENVIRONMENT</span>
-              <span style="font-size: 13px; color: #fff; font-weight: 600;">Status:</span>
-              <label style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer;">
-                <input type="checkbox" id="sandboxToggleCheckbox" onchange="handleSandboxToggle(this.checked)" style="transform: scale(1.3);">
-                <span id="sandboxToggleLabel" style="font-size: 13px; color: #38bdf8; font-weight: 700;">Simulasi Aktif (Aman untuk Uji Coba)</span>
-              </label>
-            </div>
-            <div style="font-size: 12px; color: var(--text-muted);">
-              Zero Quota Consumption &bull; Isolasi Penuh Kalender Live
-            </div>
+    </main>
+  </div>
+
+  <!-- ========================================================================
+       MODAL 0: PENGATURAN SISTEM & GOOGLE API SANDBOX (OPSI 2)
+       ======================================================================== -->
+  <div class="portal-modal-backdrop" id="modalSettings">
+    <div class="portal-modal-box" style="max-width: 760px;">
+      <h3 class="modal-title">
+        <span>⚙️ Pengaturan Sistem &amp; Integrasi API</span>
+        <button type="button" class="modal-close-btn" onclick="closeSettingsModal()">&times;</button>
+      </h3>
+
+      <!-- SETTINGS SUB-TABS -->
+      <div style="display: flex; gap: 8px; border-bottom: 1px solid var(--card-border); padding-bottom: 12px; margin-bottom: 18px; overflow-x: auto;">
+        <button type="button" class="pos-cat-pill active" id="btnSetTabSandbox" onclick="switchSettingsSection('sandbox')">🧪 Google API Sandbox</button>
+        <button type="button" class="pos-cat-pill" id="btnSetTabBranch" onclick="switchSettingsSection('branch')">🏛️ Multi-Cabang &amp; CRM</button>
+        <button type="button" class="pos-cat-pill" id="btnSetTabPasskey" onclick="switchSettingsSection('passkey')">🔑 Security Passkey</button>
+      </div>
+
+      <!-- SECTION 1: SANDBOX SIMULATOR -->
+      <div id="setSectionSandbox">
+        <div style="background: rgba(3,12,8,0.7); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 8px; padding: 14px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <div style="color: #fff; font-weight: 700; font-size: 13.5px;">Mode Pengujian API (Sandbox Simulator)</div>
+            <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">Uji coba alur sinkronisasi kalender &amp; WhatsApp secara aman tanpa memotong kuota gateway pesan resmi.</div>
           </div>
-
-          <p style="font-size: 13.5px; color: #d0d7d2; line-height: 1.6; margin-top: 0;">
-            Fitur Sandbox ini memungkinkan owner/klien menguji alur sinkronisasi <strong>Google Calendar</strong> dan notifikasi <strong>WhatsApp Fonnte</strong> secara aman tanpa memotong kuota gateway pesan resmi atau membanjiri Google Calendar toko dengan jadwal palsu.
-          </p>
-
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
-            
-            <!-- SIMULATOR INPUT -->
-            <div style="background: rgba(3,12,8,0.7); border: 1px solid var(--card-border); border-radius: 8px; padding: 16px;">
-              <h4 style="margin: 0 0 12px; color: #fff; font-size: 14px;">1. Parameter Simulasi Booking</h4>
-              <div class="form-row">
-                <label class="form-label">Nama Tamu Uji Coba</label>
-                <input type="text" id="sbGuestName" class="form-control" value="Syamhari Sandbox Test">
-              </div>
-              <div class="form-row">
-                <label class="form-label">Nomor WhatsApp Tamu</label>
-                <input type="text" id="sbGuestPhone" class="form-control" value="08122147734">
-              </div>
-              <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                <div>
-                  <label class="form-label">Layanan</label>
-                  <select id="sbService" class="form-control">
-                    <option value="The Ritual">The Ritual (Rp 350.000)</option>
-                    <option value="The Cut & Shave">The Cut &amp; Shave (Rp 210.000)</option>
-                    <option value="The Cut">The Cut (Rp 150.000)</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="form-label">Barber</label>
-                  <select id="sbBarber" class="form-control">
-                    <option value="Bramantyo">Bramantyo</option>
-                    <option value="Rian Pratama">Rian Pratama</option>
-                  </select>
-                </div>
-              </div>
-              <button type="button" class="btn-gold-action" style="width: 100%; margin-top: 8px;" onclick="runSandboxTestDispatch()">
-                ⚡ Jalankan Simulasi Dispatch Sekarang
-              </button>
-            </div>
-
-            <!-- SIMULATOR OUTPUT CONSOLE -->
-            <div style="background: #020704; border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 8px; padding: 16px; font-family: monospace; font-size: 12px;">
-              <div style="display: flex; justify-content: space-between; color: #38bdf8; margin-bottom: 8px; font-weight: bold;">
-                <span>CONSOLE LOG SIMULATOR</span>
-                <span id="sbResponseStatus">READY</span>
-              </div>
-              <pre id="sbConsoleOutput" style="margin: 0; color: #a5f3fc; max-height: 230px; overflow-y: auto; white-space: pre-wrap; word-break: break-all;">
-Tekan tombol "Jalankan Simulasi Dispatch" di sebelah kiri untuk melihat proses simulasi Google Calendar & WhatsApp Webhook...
-              </pre>
-            </div>
-
-          </div>
-
+          <label style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer;">
+            <input type="checkbox" id="sandboxToggleCheckbox" onchange="handleSandboxToggle(this.checked)" style="transform: scale(1.3);">
+            <span id="sandboxToggleLabel" style="font-size: 12.5px; color: #38bdf8; font-weight: 700;">Simulasi Aktif</span>
+          </label>
         </div>
 
-      </section>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div style="background: rgba(3,12,8,0.6); border: 1px solid var(--card-border); border-radius: 6px; padding: 12px;">
+            <div style="font-weight: 700; color: #fff; font-size: 12.5px; margin-bottom: 8px;">Uji Coba Simulasi Webhook:</div>
+            <div class="form-row" style="margin-bottom: 8px;">
+              <label class="form-label">Nama Tamu</label>
+              <input type="text" id="sbGuestName" class="form-control" value="Syamhari Sandbox Test" style="padding: 6px 10px; font-size: 12px;">
+            </div>
+            <div class="form-row" style="margin-bottom: 8px;">
+              <label class="form-label">No. WhatsApp</label>
+              <input type="text" id="sbGuestPhone" class="form-control" value="08122147734" style="padding: 6px 10px; font-size: 12px;">
+            </div>
+            <div class="form-row" style="margin-bottom: 8px;">
+              <label class="form-label">Layanan</label>
+              <select id="sbService" class="form-control" style="padding: 6px 10px; font-size: 12px;">
+                <option value="The Ritual">The Ritual (Rp 350.000)</option>
+                <option value="The Cut & Shave">The Cut &amp; Shave (Rp 210.000)</option>
+                <option value="The Cut">The Cut (Rp 150.000)</option>
+              </select>
+            </div>
+            <div class="form-row" style="margin-bottom: 8px;">
+              <label class="form-label">Barber</label>
+              <select id="sbBarber" class="form-control" style="padding: 6px 10px; font-size: 12px;">
+                <option value="Bramantyo">Bramantyo</option>
+                <option value="Aris">Aris</option>
+                <option value="Dadan">Dadan</option>
+                <option value="Fahmi">Fahmi</option>
+              </select>
+            </div>
+            <button type="button" class="btn-gold-action" style="width: 100%; margin-top: 6px; font-size: 11.5px; padding: 7px;" onclick="runSandboxTestDispatch()">
+              ⚡ Jalankan Simulasi Dispatch
+            </button>
+          </div>
 
-    </main>
+          <div style="background: #020704; border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 6px; padding: 12px; font-family: monospace; font-size: 11px;">
+            <div style="display: flex; justify-content: space-between; color: #38bdf8; margin-bottom: 6px; font-weight: bold;">
+              <span>CONSOLE SIMULATOR</span>
+              <span id="sbResponseStatus">READY</span>
+            </div>
+            <pre id="sbConsoleOutput" style="margin: 0; color: #a5f3fc; max-height: 190px; overflow-y: auto; white-space: pre-wrap; word-break: break-all;">
+Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webhook...
+            </pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 2: BRANCH & CRM CONFIG -->
+      <div id="setSectionBranch" style="display: none;">
+        <div class="form-row">
+          <label class="form-label">Nama Cabang / Estate</label>
+          <input type="text" id="setBranchName" class="form-control" value="Greenwood Barbers — Kota Baru Parahyangan">
+        </div>
+        <div class="form-row">
+          <label class="form-label">Branch ID Database</label>
+          <input type="text" id="setBranchId" class="form-control" value="kbp-main" readonly style="color: var(--accent-gold-bright);">
+        </div>
+        <div class="form-row">
+          <label class="form-label">Batas Hari Pelanggan Pasif (Hari)</label>
+          <input type="number" id="setPassiveDays" class="form-control" value="35">
+          <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 4px;">Tamu yang tidak berkunjung melebihi jumlah hari ini akan diberi tanda 'Pasif' untuk follow-up pengingat.</div>
+        </div>
+        <button type="button" class="btn-gold-action" onclick="saveBranchConfig()" style="margin-top: 8px;">
+          Simpan Konfigurasi Cabang
+        </button>
+      </div>
+
+      <!-- SECTION 3: PASSKEY -->
+      <div id="setSectionPasskey" style="display: none;">
+        <form onsubmit="handleSaveNewPinFromSettings(event)">
+          <div class="form-row">
+            <label class="form-label">Passkey Baru (4-8 Digit)</label>
+            <input type="password" id="setNewPin" class="form-control" placeholder="Contoh: 2050" required minlength="4" maxlength="8">
+          </div>
+          <div class="form-row">
+            <label class="form-label">Konfirmasi Passkey Baru</label>
+            <input type="password" id="setConfirmPin" class="form-control" placeholder="Ketik ulang passkey baru" required minlength="4" maxlength="8">
+          </div>
+          <button type="submit" class="btn-gold-action" style="margin-top: 8px;">
+            Simpan Passkey Baru
+          </button>
+        </form>
+      </div>
+
+      <div class="modal-actions" style="margin-top: 18px;">
+        <button type="button" class="btn-portal-action" onclick="closeSettingsModal()">Tutup</button>
+      </div>
+    </div>
   </div>
 
   <!-- ========================================================================
@@ -2622,6 +2664,78 @@ Tekan tombol "Jalankan Simulasi Dispatch" di sebelah kiri untuk melihat proses s
           <td><span style="font-size:11px; background:rgba(197,155,72,0.1); padding:2px 6px; border-radius:4px;">${l.branch_id}</span></td>
         </tr>
       `).join('');
+    }
+
+    // =========================================================================
+    // MODUL PENGATURAN SISTEM & GOOGLE API SANDBOX (OPSI 2)
+    // =========================================================================
+    function openSettingsModal() {
+      const modal = document.getElementById('modalSettings');
+      if (modal) modal.style.display = 'flex';
+      
+      if (typeof GreenwoodAdminDB !== 'undefined') {
+        const cfg = GreenwoodAdminDB.getConfig();
+        const branchNameInput = document.getElementById('setBranchName');
+        const branchIdInput = document.getElementById('setBranchId');
+        const passiveDaysInput = document.getElementById('setPassiveDays');
+        if (branchNameInput && cfg.branchName) branchNameInput.value = cfg.branchName;
+        if (branchIdInput && cfg.branchId) branchIdInput.value = cfg.branchId;
+        if (passiveDaysInput && cfg.passiveThresholdDays) passiveDaysInput.value = cfg.passiveThresholdDays;
+        
+        initSandboxState();
+      }
+    }
+
+    function closeSettingsModal() {
+      const modal = document.getElementById('modalSettings');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function switchSettingsSection(section) {
+      const secSandbox = document.getElementById('setSectionSandbox');
+      const secBranch = document.getElementById('setSectionBranch');
+      const secPasskey = document.getElementById('setSectionPasskey');
+
+      const btnSandbox = document.getElementById('btnSetTabSandbox');
+      const btnBranch = document.getElementById('btnSetTabBranch');
+      const btnPasskey = document.getElementById('btnSetTabPasskey');
+
+      if (secSandbox) secSandbox.style.display = (section === 'sandbox') ? 'block' : 'none';
+      if (secBranch) secBranch.style.display = (section === 'branch') ? 'block' : 'none';
+      if (secPasskey) secPasskey.style.display = (section === 'passkey') ? 'block' : 'none';
+
+      if (btnSandbox) btnSandbox.classList.toggle('active', section === 'sandbox');
+      if (btnBranch) btnBranch.classList.toggle('active', section === 'branch');
+      if (btnPasskey) btnPasskey.classList.toggle('active', section === 'passkey');
+    }
+
+    function saveBranchConfig() {
+      const branchName = document.getElementById('setBranchName')?.value.trim();
+      const passiveDays = parseInt(document.getElementById('setPassiveDays')?.value || '35', 10);
+      
+      if (typeof GreenwoodAdminDB !== 'undefined') {
+        GreenwoodAdminDB.saveConfig({
+          branchName: branchName || "Greenwood Barbers — Kota Baru Parahyangan",
+          passiveThresholdDays: passiveDays > 0 ? passiveDays : 35
+        });
+        alert('Konfigurasi cabang & CRM berhasil disimpan!');
+        if (typeof renderCustomersTable === 'function') renderCustomersTable();
+      }
+    }
+
+    function handleSaveNewPinFromSettings(e) {
+      e.preventDefault();
+      const p1 = document.getElementById('setNewPin')?.value.trim();
+      const p2 = document.getElementById('setConfirmPin')?.value.trim();
+      if (!p1 || p1 !== p2) {
+        alert('Konfirmasi Passkey tidak cocok atau kosong!');
+        return;
+      }
+      localStorage.setItem(MASTER_PIN_KEY, p1);
+      alert('Security Passkey berhasil diperbarui!');
+      if (document.getElementById('setNewPin')) document.getElementById('setNewPin').value = '';
+      if (document.getElementById('setConfirmPin')) document.getElementById('setConfirmPin').value = '';
+      closeSettingsModal();
     }
 
     // =========================================================================

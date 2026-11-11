@@ -767,6 +767,14 @@
       });
     },
 
+    saveConfig: function(updates) {
+      let cfg = this.getConfig();
+      cfg = Object.assign(cfg, updates);
+      setStorage(KEYS.CONFIG, cfg);
+      this.logActivity("Update Konfigurasi", `Pengaturan cabang/CRM diperbarui.`);
+      return cfg;
+    },
+
     setActiveRole: function(newRole) {
       let cfg = this.getConfig();
       cfg.activeRole = newRole;
