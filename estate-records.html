@@ -382,58 +382,116 @@
     }
     .pos-items-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
       gap: 14px;
+      align-items: stretch;
     }
     .pos-item-card {
-      background: rgba(13, 37, 26, 0.6);
+      background: rgba(13, 37, 26, 0.65);
       border: 1px solid var(--card-border);
       border-radius: 10px;
       padding: 16px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 120px;
+      min-height: 154px;
+      position: relative;
     }
     .pos-item-card:hover {
       border-color: var(--accent-gold);
       background: rgba(197, 155, 72, 0.12);
       transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
     }
     .pos-item-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      gap: 8px;
-      margin-bottom: 8px;
+      gap: 10px;
+      margin-bottom: 6px;
     }
     .pos-item-title {
       font-weight: 700;
       font-size: 14px;
       color: #fff;
+      line-height: 1.35;
+      min-height: 38px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex: 1;
     }
     .pos-item-type-badge {
       font-size: 9.5px;
-      padding: 2px 6px;
+      padding: 3px 7px;
       border-radius: 4px;
       text-transform: uppercase;
       font-weight: 700;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      line-height: 1;
+      height: fit-content;
+      margin-top: 1px;
+    }
+    .badge-type-service {
       background: rgba(197, 155, 72, 0.2);
       color: var(--accent-gold-bright);
+      border: 1px solid rgba(197, 155, 72, 0.35);
+    }
+    .badge-type-product {
+      background: rgba(217, 119, 6, 0.18);
+      color: #fbbf24;
+      border: 1px solid rgba(217, 119, 6, 0.35);
+    }
+    .badge-type-addon {
+      background: rgba(56, 189, 248, 0.15);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.3);
     }
     .pos-item-desc {
       font-size: 11.5px;
       color: var(--text-muted);
-      line-height: 1.4;
+      line-height: 1.45;
+      min-height: 34px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
       margin-bottom: 12px;
+    }
+    .pos-item-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 10px;
+      border-top: 1px solid rgba(197, 155, 72, 0.08);
     }
     .pos-item-price {
       font-weight: 700;
       color: var(--accent-gold-bright);
       font-size: 15px;
+      letter-spacing: -0.2px;
+    }
+    .btn-pos-add {
+      font-size: 11.5px;
+      font-weight: 600;
+      background: rgba(197, 155, 72, 0.15);
+      color: var(--accent-gold-bright);
+      border: 1px solid rgba(197, 155, 72, 0.3);
+      padding: 4px 10px;
+      border-radius: 5px;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .pos-item-card:hover .btn-pos-add {
+      background: var(--accent-gold);
+      color: #030c08;
+      border-color: var(--accent-gold);
     }
 
     /* POS CART PANEL */
@@ -2066,15 +2124,15 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       { id: "prd-shave-cream", type: "product", name: "Mayfair Sandalwood Shaving Cream", price: 220000, duration: 0, desc: "190g Tub • Mysore Sandalwood lather kaya busa." },
       { id: "prd-pre-shave", type: "product", name: "Botanical Pre-Shave Glaze Oil", price: 175000, duration: 0, desc: "60ml Dropper • Minyak pelindung sebelum mencukur." },
       { id: "prd-brush", type: "product", name: "Silvertip Badger Shaving Brush", price: 350000, duration: 0, desc: "Hand-turned walnut wood • Kuas cukur bulu lembut." },
-      { id: "prd-balm", type: "product", name: "Post-Shave Soothing Relief Balm", price: 185000, duration: 0, desc: "Balm penyejuk kulit sesudah bercukur." },
-      { id: "prd-tonic", type: "product", name: "Botanical Scalp Tonic", price: 195000, duration: 0, desc: "Tonic kulit kepala menyegarkan dengan ekstrak herbal." },
-      { id: "prd-pomade", type: "product", name: "Classic Matte Dressing Pomade", price: 160000, duration: 0, desc: "Pomade hasil matte natural water-based wangi elegan." },
+      { id: "prd-balm", type: "product", name: "Post-Shave Soothing Relief Balm", price: 185000, duration: 0, desc: "100ml Jar • Balm penyejuk & relaksasi kulit sesudah cukur." },
+      { id: "prd-tonic", type: "product", name: "Botanical Scalp Tonic", price: 195000, duration: 0, desc: "100ml Dropper • Tonic kulit kepala menyegarkan ekstrak herbal." },
+      { id: "prd-pomade", type: "product", name: "Classic Matte Dressing Pomade", price: 160000, duration: 0, desc: "100g Jar • Pomade hasil matte natural water-based wangi elegan." },
 
       // Add-ons
-      { id: "add-spa", type: "addon", name: "Hair Spa & Scalp Massage", price: 80000, duration: 20, desc: "Relaksasi pijat kulit kepala dengan essential oil." },
-      { id: "add-mask", type: "addon", name: "Black Charcoal Mask", price: 60000, duration: 15, desc: "Pembersih komedo & pori-pori wajah mendalam." },
-      { id: "add-towel", type: "addon", name: "Hot Towel Refresh", price: 40000, duration: 10, desc: "Kompres uap herbal daun eucalyptus." },
-      { id: "add-scrub", type: "addon", name: "Charcoal Face Scrub", price: 50000, duration: 15, desc: "Eksfoliasi wajah lembut mengangkat sel kulit mati." }
+      { id: "add-spa", type: "addon", name: "Hair Spa & Scalp Massage", price: 80000, duration: 20, desc: "Perawatan & relaksasi pijat kulit kepala essential oil." },
+      { id: "add-mask", type: "addon", name: "Black Charcoal Mask", price: 60000, duration: 15, desc: "Masker arang aktif pembersih komedo & pori mendalam." },
+      { id: "add-towel", type: "addon", name: "Hot Towel Refresh", price: 40000, duration: 10, desc: "Kompres uap herbal hangat minyak daun eucalyptus." },
+      { id: "add-scrub", type: "addon", name: "Charcoal Face Scrub", price: 50000, duration: 15, desc: "Scrub eksfoliasi wajah lembut angkat sel kulit mati." }
     ];
 
     function getMasterPin() {
@@ -2836,21 +2894,33 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
 
     function renderPosItems(items) {
       const grid = document.getElementById('posItemsGrid');
-      grid.innerHTML = items.map(item => `
-        <div class="pos-item-card" onclick="addToPosCart('${item.id}')">
+      grid.innerHTML = items.map(item => {
+        let typeBadgeClass = 'badge-type-service';
+        let typeBadgeText = 'Layanan';
+        if (item.type === 'product') {
+          typeBadgeClass = 'badge-type-product';
+          typeBadgeText = 'Produk';
+        } else if (item.type === 'addon') {
+          typeBadgeClass = 'badge-type-addon';
+          typeBadgeText = 'Add-on';
+        }
+
+        return `
+        <div class="pos-item-card" onclick="addToPosCart('${item.id}')" role="button" tabindex="0">
           <div>
             <div class="pos-item-header">
               <span class="pos-item-title">${escapeHtml(item.name)}</span>
-              <span class="pos-item-type-badge">${item.type === 'service' ? 'Layanan' : (item.type === 'product' ? 'Produk' : 'Add-on')}</span>
+              <span class="pos-item-type-badge ${typeBadgeClass}">${typeBadgeText}</span>
             </div>
             <div class="pos-item-desc">${escapeHtml(item.desc)}</div>
           </div>
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+          <div class="pos-item-footer">
             <span class="pos-item-price">${formatRupiah(item.price)}</span>
-            <span style="font-size: 11px; background: rgba(197,155,72,0.15); color: var(--accent-gold-bright); padding: 3px 8px; border-radius: 4px;">+ Tambah</span>
+            <span class="btn-pos-add">+ Tambah</span>
           </div>
         </div>
-      `).join('');
+      `;
+      }).join('');
     }
 
     function filterPosCategory(category, btn) {
