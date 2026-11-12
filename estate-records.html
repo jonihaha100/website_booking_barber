@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
   <title>The Greenwood Ledger &bull; Barbershop POS, CRM &amp; Management Suite</title>
   <link rel="icon" type="image/png" href="assets/greenwood_monogram_cropped.png">
@@ -3168,12 +3170,12 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     function printReceipt() {
       const content = document.getElementById('thermalReceiptContent').innerHTML;
       const win = window.open('', '', 'height=600,width=400');
-      win.document.write('<html><head><title>Cetak Nota Greenwood</title>');
-      win.document.write('<style>body{font-family:monospace;font-size:12px;padding:15px;line-height:1.4}.thermal-receipt-center{text-align:center;margin-bottom:10px}.thermal-receipt-divider{border-top:1px dashed #333;margin:8px 0}.thermal-receipt-row{display:flex;justify-content:space-between;margin-bottom:3px}</style>');
-      win.document.write('</head><body>');
-      win.document.write(content);
-      win.document.write('</body></html>');
-      win.document.close();
+      if (!win) return;
+      win.document.title = 'Cetak Nota Greenwood';
+      const styleEl = win.document.createElement('style');
+      styleEl.textContent = 'body{font-family:monospace;font-size:12px;padding:15px;line-height:1.4}.thermal-receipt-center{text-align:center;margin-bottom:10px}.thermal-receipt-divider{border-top:1px dashed #333;margin:8px 0}.thermal-receipt-row{display:flex;justify-content:space-between;margin-bottom:3px}';
+      win.document.head.appendChild(styleEl);
+      win.document.body.innerHTML = content;
       win.focus();
       setTimeout(() => { win.print(); win.close(); }, 250);
     }
@@ -3314,8 +3316,8 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       } else {
         hBody.innerHTML = history.map(h => `
           <tr>
-            <td>${h.date}</td>
-            <td><code>${h.receiptId}</code></td>
+            <td>${escapeHtml(h.date)}</td>
+            <td><code>${escapeHtml(h.receiptId)}</code></td>
             <td>${escapeHtml(h.barberName)}</td>
             <td>${escapeHtml(h.serviceName)}</td>
             <td><strong>${formatRupiah(h.total)}</strong></td>
@@ -3511,7 +3513,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       tbody.innerHTML = displayReport.map(r => `
         <tr>
           <td><strong style="color:#fff;">${escapeHtml(r.staffName)}</strong></td>
-          <td style="color:var(--text-muted);">${r.role}</td>
+          <td style="color:var(--text-muted);">${escapeHtml(r.role)}</td>
           <td><strong>${r.totalServicesDone}</strong> layanan</td>
           <td>${r.totalProductsSold} item</td>
           <td>${formatRupiah(r.totalGrossRevenue)}</td>
@@ -3594,11 +3596,11 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
 
       tbody.innerHTML = logs.map(l => `
         <tr>
-          <td><span style="font-size:11px; color:var(--text-muted);">${l.dateFormatted}</span></td>
-          <td><strong>${l.actor}</strong></td>
+          <td><span style="font-size:11px; color:var(--text-muted);">${escapeHtml(l.dateFormatted)}</span></td>
+          <td><strong>${escapeHtml(l.actor)}</strong></td>
           <td style="color:var(--accent-gold-bright);">${escapeHtml(l.action)}</td>
           <td>${escapeHtml(l.details)}</td>
-          <td><span style="font-size:11px; background:rgba(197,155,72,0.1); padding:2px 6px; border-radius:4px;">${l.branch_id}</span></td>
+          <td><span style="font-size:11px; background:rgba(197,155,72,0.1); padding:2px 6px; border-radius:4px;">${escapeHtml(l.branch_id)}</span></td>
         </tr>
       `).join('');
     }
@@ -3874,7 +3876,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       if (dot) dot.className = 'sync-dot dot-syncing';
       if (txt) txt.textContent = 'Menghubungkan ke Google Sheets...';
 
-      fetch(webhookUrl + (webhookUrl.includes('?') ? '&' : '?') + 'action=get_bookings&t=' + Date.now())
+      fetch(webhookUrl + (webhookUrl.includes('?') ? '&' : '?') + 'action=get_bookings&key=gw_ledger_sec_2050&t=' + Date.now())
         .then(r => r.json())
         .then(res => {
           if (res.status === 'success') {

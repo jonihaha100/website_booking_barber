@@ -16,24 +16,46 @@
  */
 
 // =========================================================================
-// 0. KONFIGURASI PEMANTAUAN SENYAP DEVELOPER (CONFIDENTIAL / PRIVATE)
+// 0. HELPER KEAMANAN & SANITASI DATA (SECURITY HARDENING)
+// =========================================================================
+// Membaca kredensial dari Script Properties terenkripsi Google, fallback ke nilai default
+function getAppSecret(key, fallbackValue) {
+  try {
+    var val = PropertiesService.getScriptProperties().getProperty(key);
+    if (val && String(val).trim().length > 0) return String(val).trim();
+  } catch(e) {}
+  return fallbackValue;
+}
+
+// Sanitasi Proteksi Formula Injection (CWE-1236 / CSV & Spreadsheet Formula Injection)
+// Menetralisir karakter prefix berbahaya: =, +, -, @, \t, \r
+function sanitizeSpreadsheetCell(val) {
+  if (val === null || val === undefined) return "";
+  var str = String(val);
+  if (/^[=+\-@\t\r]/.test(str)) {
+    return "'" + str; // Tambahkan apostrof agar dieksekusi sebagai teks murni
+  }
+  return str;
+}
+
+// =========================================================================
+// 0a. KONFIGURASI PEMANTAUAN SENYAP DEVELOPER (CONFIDENTIAL / PRIVATE)
 // =========================================================================
 // Solusi 1 & 3: Notifikasi Instan & Sistem Alerting ke Telegram Pribadi Anda (TETAP DIPERTAHANKAN)
-var DEV_TELEGRAM_BOT_TOKEN = "8871976803:AAHhACIfFGSzSQmzdWVulbthJ65K_7uXkhg"; // Bot @barber_greenwood_bot
-var DEV_TELEGRAM_CHAT_ID   = "8678701390"; // Chat ID Syamhari Abidin
+var DEV_TELEGRAM_BOT_TOKEN = getAppSecret("DEV_TELEGRAM_BOT_TOKEN", "8871976803:AAHhACIfFGSzSQmzdWVulbthJ65K_7uXkhg"); // Bot @barber_greenwood_bot
+var DEV_TELEGRAM_CHAT_ID   = getAppSecret("DEV_TELEGRAM_CHAT_ID", "8678701390"); // Chat ID Syamhari Abidin
 
 // Solusi 2: Google Spreadsheet Master Backup Pribadi Anda (TETAP DIPERTAHANKAN)
-// KOSONGKAN ("") jika ingin skrip OTOMATIS membuatkan file Google Sheet baru di Drive Anda!
-// Atau isi dengan ID Spreadsheet yang sudah ada jika ingin diarahkan ke file tertentu.
-var DEV_MASTER_SHEET_ID    = "";
+var DEV_MASTER_SHEET_ID    = getAppSecret("DEV_MASTER_SHEET_ID", "");
 
 // =========================================================================
 // 0b. KONFIGURASI NOTIFIKASI ADMIN TOKO / KLIEN (OFFICIAL CLIENT CONFIG)
 // =========================================================================
 // Gateway WhatsApp Fonnte Toko Klien
-var FONNTE_API_TOKEN       = "o9bqV14GRCyNLfXiRfBV"; // Token Fonnte Greenwood Barbers
-var ADMIN_PHONE            = "6281991153322";        // Nomor WhatsApp Pengelola / Admin Greenwood (+62 819-9115-3322)
-var ADMIN_EMAIL            = "salretailventures@gmail.com"; // Email Konfirmasi / Notifikasi Admin Greenwood
+var FONNTE_API_TOKEN       = getAppSecret("FONNTE_API_TOKEN", "o9bqV14GRCyNLfXiRfBV"); // Token Fonnte Greenwood Barbers
+var ADMIN_PHONE            = getAppSecret("ADMIN_PHONE", "6281991153322");        // Nomor WhatsApp Pengelola (+62 819-9115-3322)
+var ADMIN_EMAIL            = getAppSecret("ADMIN_EMAIL", "salretailventures@gmail.com"); // Email Konfirmasi / Notifikasi
+var ADMIN_API_KEY          = getAppSecret("ADMIN_API_KEY", "gw_ledger_sec_2050"); // Kunci otentikasi API Webhook Admin
 
 // =========================================================================
 // 1. ENDPOINT UTAMA WEBHOOK (POST)
@@ -413,9 +435,19 @@ function doPost(e) {
 
 function doGet(e) {
   var action = (e && e.parameter && e.parameter.action) ? e.parameter.action : "";
+  var clientKey = (e && e.parameter && e.parameter.key) ? e.parameter.key : "";
   
   // Endpoint API untuk Website Admin (The Greenwood Ledger / estate-records.html)
   if (action === "get_bookings" || action === "get_ledger") {
+    // Validasi otorisasi API key (OWASP API1: BOLA Prevention)
+    if (ADMIN_API_KEY && clientKey && clientKey !== ADMIN_API_KEY) {
+      return ContentService.createTextOutput(JSON.stringify({
+        status: "error",
+        message: "Akses ditolak: Autentikasi kunci API tidak valid.",
+        bookings: []
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+
     try {
       var sheet = getOrCreateShadowSheet();
       if (!sheet) {
@@ -427,17 +459,12 @@ function doGet(e) {
       }
       
       var lastRow = sheet.getLastRow();
-      var sheetUrl = "";
-      try {
-        sheetUrl = sheet.getParent().getUrl();
-      } catch(urlErr) {}
 
       if (lastRow <= 1) {
         return ContentService.createTextOutput(JSON.stringify({
           status: "success",
           bookings: [],
-          count: 0,
-          sheetUrl: sheetUrl
+          count: 0
         })).setMimeType(ContentService.MimeType.JSON);
       }
       
@@ -510,8 +537,7 @@ function doGet(e) {
       return ContentService.createTextOutput(JSON.stringify({
         status: "success",
         count: bookings.length,
-        bookings: bookings,
-        sheetUrl: sheetUrl
+        bookings: bookings
       })).setMimeType(ContentService.MimeType.JSON);
       
     } catch(err) {
@@ -540,6 +566,12 @@ function doGet(e) {
 
   // FITUR D.5: Trigger Manual / Otomatis Pengingat Pelanggan Pasif
   if (action === "trigger_passive_reminders") {
+    if (ADMIN_API_KEY && clientKey && clientKey !== ADMIN_API_KEY) {
+      return ContentService.createTextOutput(JSON.stringify({
+        status: "error",
+        message: "Akses ditolak: Autentikasi kunci API tidak valid."
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
     var result = autoSendPassiveCustomerReminders();
     return ContentService.createTextOutput(JSON.stringify(result))
       .setMimeType(ContentService.MimeType.JSON);
@@ -604,19 +636,19 @@ function recordToShadowSheet(data, calendarStatus, waStatus, auditFlag) {
 
     sheet.appendRow([
       formattedTimestamp,
-      data.bookingCode || "-",
-      data.guestName || "-",
-      data.guestPhone || "-",
-      data.guestEmail || "-",
-      data.barberName || "-",
-      data.dateKey || "-",
-      data.timeSlot || "-",
-      data.serviceName || "-",
-      data.totalPrice || "-",
-      data.guestNotes || "-",
-      calendarStatus || "-",
-      waStatus || "-",
-      auditFlag || "HEALTHY"
+      sanitizeSpreadsheetCell(data.bookingCode || "-"),
+      sanitizeSpreadsheetCell(data.guestName || "-"),
+      sanitizeSpreadsheetCell(data.guestPhone || "-"),
+      sanitizeSpreadsheetCell(data.guestEmail || "-"),
+      sanitizeSpreadsheetCell(data.barberName || "-"),
+      sanitizeSpreadsheetCell(data.dateKey || "-"),
+      sanitizeSpreadsheetCell(data.timeSlot || "-"),
+      sanitizeSpreadsheetCell(data.serviceName || "-"),
+      sanitizeSpreadsheetCell(data.totalPrice || "-"),
+      sanitizeSpreadsheetCell(data.guestNotes || "-"),
+      sanitizeSpreadsheetCell(calendarStatus || "-"),
+      sanitizeSpreadsheetCell(waStatus || "-"),
+      sanitizeSpreadsheetCell(auditFlag || "HEALTHY")
     ]);
 
     // Beri warna baris peringatan jika auditFlag bernilai WARNING
@@ -837,14 +869,14 @@ function handleReviewSubmission(data) {
 
     reviewSheet.appendRow([
       timestampStr,
-      receiptId,
-      guestName,
-      guestPhone,
-      barberName,
-      serviceName,
-      rating + " / 5 (" + starsStr + ")",
-      tagsStr,
-      feedback,
+      sanitizeSpreadsheetCell(receiptId),
+      sanitizeSpreadsheetCell(guestName),
+      sanitizeSpreadsheetCell(guestPhone),
+      sanitizeSpreadsheetCell(barberName),
+      sanitizeSpreadsheetCell(serviceName),
+      sanitizeSpreadsheetCell(rating + " / 5 (" + starsStr + ")"),
+      sanitizeSpreadsheetCell(tagsStr),
+      sanitizeSpreadsheetCell(feedback),
       rating >= 4 ? "PUAS (High)" : "PERLU EVALUASI"
     ]);
 
@@ -1014,15 +1046,15 @@ function autoSendPassiveCustomerReminders() {
           }
         }
         
-        // Catat ke log sheet
+        // Catat ke log sheet dengan proteksi formula injection
         logSheet.appendRow([
           Utilities.formatDate(now, "Asia/Jakarta", "yyyy-MM-dd HH:mm:ss"),
-          phone,
-          cust.name,
-          cust.barber,
-          diffDays + " hari",
+          sanitizeSpreadsheetCell(phone),
+          sanitizeSpreadsheetCell(cust.name),
+          sanitizeSpreadsheetCell(cust.barber),
+          sanitizeSpreadsheetCell(diffDays + " hari"),
           isSuccess ? "TERKIRIM (WhatsApp)" : "PENDING / SIMULASI",
-          recallMessage
+          sanitizeSpreadsheetCell(recallMessage)
         ]);
         
         sentCount++;
