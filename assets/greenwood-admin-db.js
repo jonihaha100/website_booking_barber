@@ -22,7 +22,15 @@
     LOGS: DB_PREFIX + 'activity_logs_v1',
     CONFIG: DB_PREFIX + 'system_config_v1',
     SANDBOX: DB_PREFIX + 'sandbox_state_v1',
-    ROLES: DB_PREFIX + 'role_permissions_v2'
+    ROLES: DB_PREFIX + 'role_permissions_v2',
+    ROLE_PINS: DB_PREFIX + 'role_pins_v1'
+  };
+
+  const DEFAULT_ROLE_PINS = {
+    Owner: "2050",
+    Manager: "3030",
+    Cashier: "1010",
+    Barber: "0000"
   };
 
   const DEFAULT_BRANCH_ID = 'kbp-main'; // Kota Baru Parahyangan Main Branch
@@ -466,6 +474,14 @@
       }
       if (!localStorage.getItem(KEYS.ROLES)) {
         setStorage(KEYS.ROLES, DEFAULT_ROLE_PERMISSIONS);
+      }
+      if (!localStorage.getItem(KEYS.ROLE_PINS)) {
+        const legacyPin = localStorage.getItem('greenwood_ledger_passkey_v1');
+        const initialPins = Object.assign({}, DEFAULT_ROLE_PINS);
+        if (legacyPin && legacyPin.trim()) {
+          initialPins.Owner = legacyPin.trim();
+        }
+        setStorage(KEYS.ROLE_PINS, initialPins);
       }
       this.recalculatePassiveCustomers();
     },
@@ -932,6 +948,50 @@
 
     getActiveRole: function() {
       return this.getConfig().activeRole || "Owner";
+    },
+
+    getRolePins: function() {
+      let pins = getStorage(KEYS.ROLE_PINS, null);
+      if (!pins) {
+        const legacyPin = localStorage.getItem('greenwood_ledger_passkey_v1');
+        pins = Object.assign({}, DEFAULT_ROLE_PINS);
+        if (legacyPin && legacyPin.trim()) {
+          pins.Owner = legacyPin.trim();
+        }
+        setStorage(KEYS.ROLE_PINS, pins);
+      }
+      return pins;
+    },
+
+    saveRolePins: function(pins) {
+      const current = this.getRolePins();
+      const updated = Object.assign({}, current, pins);
+      setStorage(KEYS.ROLE_PINS, updated);
+      if (updated.Owner) {
+        localStorage.setItem('greenwood_ledger_passkey_v1', updated.Owner);
+      }
+      this.logActivity("Update PIN Peran", "PIN otentikasi peran staf diperbarui.");
+      return updated;
+    },
+
+    verifyPinAndGetRole: function(enteredPin) {
+      if (!enteredPin) return null;
+      const clean = String(enteredPin).trim();
+      const pins = this.getRolePins();
+      const roles = ["Owner", "Manager", "Cashier", "Barber"];
+      for (let r of roles) {
+        if (pins[r] && clean === String(pins[r]).trim()) {
+          return r;
+        }
+      }
+      return null;
+    },
+
+    verifyRolePin: function(role, enteredPin) {
+      if (!enteredPin || !role) return false;
+      const clean = String(enteredPin).trim();
+      const pins = this.getRolePins();
+      return pins[role] && clean === String(pins[role]).trim();
     },
 
     hasPermission: function(permKey, roleOverride) {

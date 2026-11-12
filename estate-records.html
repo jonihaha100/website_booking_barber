@@ -1228,14 +1228,22 @@
       <h2 class="gate-title">The Greenwood Ledger</h2>
       <p class="gate-desc">
         Barbershop Point of Sale, CRM &amp; Management Suite.<br>
-        Otorisasi passkey estate diperlukan untuk membuka sistem.
+        Masukkan PIN otentikasi peran Anda untuk membuka terminal.
       </p>
       <form id="gateForm" onsubmit="handleGateUnlock(event)">
-        <input type="password" id="masterPinInput" class="pin-input" placeholder="••••" maxlength="8" autofocus required>
-        <button type="submit" class="btn-gate-unlock">Otorisasi Akses</button>
-        <div class="gate-err-msg" id="gateErrMsg">Kunci Otorisasi (*Passkey*) Tidak Sesuai.</div>
+        <input type="password" id="masterPinInput" class="pin-input" placeholder="••••" maxlength="8" inputmode="numeric" autofocus required style="letter-spacing: 6px; font-size: 24px; text-align: center;">
+        <button type="submit" class="btn-gate-unlock">Otorisasi &amp; Buka Terminal</button>
+        <div class="gate-err-msg" id="gateErrMsg">PIN Otorisasi Tidak Sesuai. Periksa kembali PIN Anda.</div>
       </form>
-      <div style="font-size: 11px; color: var(--text-muted); margin-top: 16px;">Passkey default: <code>2050</code></div>
+      <div style="margin-top: 18px; padding: 12px 14px; background: rgba(3, 12, 8, 0.7); border: 1px solid var(--card-border); border-radius: 8px; font-size: 11.5px; color: var(--text-muted); text-align: left;">
+        <div style="color: var(--accent-gold); font-weight: 700; margin-bottom: 6px; text-align: center;">PIN Default Berdasarkan Peran (Opsi A):</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px 10px;">
+          <div>👑 <strong>Owner:</strong> <code>2050</code></div>
+          <div>👔 <strong>Manager:</strong> <code>3030</code></div>
+          <div>💳 <strong>Kasir:</strong> <code>1010</code></div>
+          <div>💈 <strong>Barber:</strong> <code>0000</code></div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1871,16 +1879,29 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       <!-- SECTION 3: PASSKEY -->
       <div id="setSectionPasskey" style="display: none;">
         <form onsubmit="handleSaveNewPinFromSettings(event)">
-          <div class="form-row">
-            <label class="form-label">Passkey Baru (4-8 Digit)</label>
-            <input type="password" id="setNewPin" class="form-control" placeholder="Contoh: 2050" required minlength="4" maxlength="8">
+          <div style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 14px;">
+            Atur PIN otentikasi peran staf (Opsi A: Deteksi otomatis peran saat login). Setiap peran wajib memiliki PIN unik (4-8 digit).
           </div>
-          <div class="form-row">
-            <label class="form-label">Konfirmasi Passkey Baru</label>
-            <input type="password" id="setConfirmPin" class="form-control" placeholder="Ketik ulang passkey baru" required minlength="4" maxlength="8">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="form-row">
+              <label class="form-label">👑 PIN Owner (Super Admin)</label>
+              <input type="password" id="pinOwnerInput" class="form-control" placeholder="Default: 2050" required minlength="4" maxlength="8">
+            </div>
+            <div class="form-row">
+              <label class="form-label">👔 PIN Store Manager</label>
+              <input type="password" id="pinManagerInput" class="form-control" placeholder="Default: 3030" required minlength="4" maxlength="8">
+            </div>
+            <div class="form-row">
+              <label class="form-label">💳 PIN Kasir (Front Desk)</label>
+              <input type="password" id="pinCashierInput" class="form-control" placeholder="Default: 1010" required minlength="4" maxlength="8">
+            </div>
+            <div class="form-row">
+              <label class="form-label">💈 PIN Barber (Stylist)</label>
+              <input type="password" id="pinBarberInput" class="form-control" placeholder="Default: 0000" required minlength="4" maxlength="8">
+            </div>
           </div>
-          <button type="submit" class="btn-gold-action" style="margin-top: 8px;">
-            Simpan Passkey Baru
+          <button type="submit" class="btn-gold-action" style="margin-top: 14px;">
+            Simpan Seluruh PIN Peran
           </button>
         </form>
       </div>
@@ -2199,18 +2220,31 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
 
   <!-- MODAL 5: GANTI SECURITY PASSKEY -->
   <div class="portal-modal-backdrop" id="modalPin">
-    <div class="portal-modal-box">
-      <h3 class="modal-title">🔑 Perbarui Security Passkey</h3>
+    <div class="portal-modal-box" style="max-width: 540px;">
+      <h3 class="modal-title">🔑 Perbarui PIN Akses Peran (Opsi A)</h3>
+      <p style="font-size: 12.5px; color: var(--text-muted); margin: 0 0 16px;">
+        Sistem otomatis mengenali peran sesuai PIN yang diketik saat login. Setiap peran wajib memiliki PIN yang berbeda (4-8 digit).
+      </p>
       <form id="changePinForm" onsubmit="handleSaveNewPin(event)">
-        <div class="form-row">
-          <label class="form-label">Passkey Baru (4-8 Digit)</label>
-          <input type="password" id="newPinInput" class="form-control" placeholder="Contoh: 2050" required minlength="4" maxlength="8">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div class="form-row">
+            <label class="form-label">👑 PIN Owner (Super Admin)</label>
+            <input type="password" id="modalPinOwner" class="form-control" placeholder="2050" required minlength="4" maxlength="8">
+          </div>
+          <div class="form-row">
+            <label class="form-label">👔 PIN Store Manager</label>
+            <input type="password" id="modalPinManager" class="form-control" placeholder="3030" required minlength="4" maxlength="8">
+          </div>
+          <div class="form-row">
+            <label class="form-label">💳 PIN Kasir</label>
+            <input type="password" id="modalPinCashier" class="form-control" placeholder="1010" required minlength="4" maxlength="8">
+          </div>
+          <div class="form-row">
+            <label class="form-label">💈 PIN Barber</label>
+            <input type="password" id="modalPinBarber" class="form-control" placeholder="0000" required minlength="4" maxlength="8">
+          </div>
         </div>
-        <div class="form-row">
-          <label class="form-label">Konfirmasi Passkey</label>
-          <input type="password" id="confirmPinInput" class="form-control" placeholder="Ketik ulang passkey baru" required minlength="4" maxlength="8">
-        </div>
-        <div class="modal-actions">
+        <div class="modal-actions" style="margin-top: 18px;">
           <button type="button" class="btn-portal-action" onclick="closePinModal()">Batal</button>
           <button type="submit" class="btn-gold-action">Simpan Perubahan</button>
         </div>
@@ -2328,20 +2362,35 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       }
     });
 
-    // Handle gate unlock
+    // Handle gate unlock (Option A: Direct Role Detection by PIN)
     function handleGateUnlock(e) {
       e.preventDefault();
       const enteredPin = document.getElementById('masterPinInput').value.trim();
-      const correctPin = getMasterPin();
+      
+      if (typeof GreenwoodAdminDB !== 'undefined') {
+        GreenwoodAdminDB.init();
+      }
 
-      if (enteredPin === correctPin) {
+      const role = (typeof GreenwoodAdminDB !== 'undefined' && GreenwoodAdminDB.verifyPinAndGetRole) 
+        ? GreenwoodAdminDB.verifyPinAndGetRole(enteredPin) 
+        : (enteredPin === getMasterPin() ? 'Owner' : null);
+
+      if (role) {
         sessionStorage.setItem(SESSION_KEY, 'true');
+        sessionStorage.setItem('greenwood_authenticated_role', role);
+        if (typeof GreenwoodAdminDB !== 'undefined') {
+          GreenwoodAdminDB.setActiveRole(role);
+        }
         showPortalContent();
+        document.getElementById('masterPinInput').value = '';
       } else {
         const err = document.getElementById('gateErrMsg');
-        err.style.display = 'block';
+        if (err) {
+          err.textContent = 'PIN Otorisasi Tidak Sesuai. Periksa kembali PIN Anda.';
+          err.style.display = 'block';
+        }
         document.getElementById('masterPinInput').value = '';
-        setTimeout(() => { err.style.display = 'none'; }, 3000);
+        setTimeout(() => { if (err) err.style.display = 'none'; }, 3000);
       }
     }
 
@@ -2351,6 +2400,17 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       
       // Init Database & Components
       GreenwoodAdminDB.init();
+
+      // Ensure active role matches the authenticated role from session
+      const authRole = sessionStorage.getItem('greenwood_authenticated_role') || GreenwoodAdminDB.getActiveRole() || 'Owner';
+      GreenwoodAdminDB.setActiveRole(authRole);
+
+      // Sync role switcher dropdown
+      const roleSwitcher = document.getElementById('roleSwitcher');
+      if (roleSwitcher) {
+        roleSwitcher.value = authRole;
+      }
+
       initPosCatalog();
       refreshPosCustomerDropdown();
       renderCrmTable();
@@ -2370,9 +2430,14 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     function lockPortal() {
       stopRealTimeSync();
       sessionStorage.removeItem(SESSION_KEY);
+      sessionStorage.removeItem('greenwood_authenticated_role');
       document.getElementById('masterPinInput').value = '';
       document.getElementById('gateOverlay').style.display = 'flex';
       document.getElementById('portalMainContent').style.display = 'none';
+      setTimeout(() => {
+        const pinInp = document.getElementById('masterPinInput');
+        if (pinInp) pinInp.focus();
+      }, 50);
     }
 
     // Multi-language localization (ID / EN)
@@ -2576,11 +2641,30 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       if (langSelect) langSelect.value = I18N.currentLang;
     }
 
-    // Role switcher handler
+    // Role switcher handler (with PIN Elevation Protection)
     function handleRoleChange(newRole) {
+      const currentRole = GreenwoodAdminDB.getActiveRole();
+      if (newRole === currentRole) return;
+
+      // Check if privilege elevation is requested
+      const isElevation = (currentRole === 'Barber' && newRole !== 'Barber') ||
+                          (currentRole === 'Cashier' && (newRole === 'Manager' || newRole === 'Owner')) ||
+                          (currentRole === 'Manager' && newRole === 'Owner');
+
+      if (isElevation) {
+        const enteredPin = prompt(`Otorisasi Keamanan Dibutuhkan:\nMasukkan PIN [${newRole}] untuk beralih wewenang:`);
+        if (!enteredPin || !GreenwoodAdminDB.verifyRolePin(newRole, enteredPin)) {
+          alert(`Otorisasi gagal! PIN ${newRole} tidak valid.`);
+          const switcher = document.getElementById('roleSwitcher');
+          if (switcher) switcher.value = currentRole;
+          return;
+        }
+      }
+
       GreenwoodAdminDB.setActiveRole(newRole);
+      sessionStorage.setItem('greenwood_authenticated_role', newRole);
       applyRolePermissionsToUI();
-      alert(`Peran akses berhasil diubah ke: ${newRole}\nSistem menyesuaikan wewenang otorisasi & pencatatan log.`);
+      alert(`Wewenang berhasil dialihkan ke peran: ${newRole}\nSistem menyesuaikan antarmuka & pencatatan log.`);
       renderActivityLogs();
     }
 
@@ -3838,7 +3922,18 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         const tipToggle = document.getElementById('setEnableTips');
         if (tipToggle) tipToggle.checked = cfg.enableBarberTips !== false;
         
+        populateSettingsPinInputs();
         initSandboxState();
+      }
+    }
+
+    function populateSettingsPinInputs() {
+      if (typeof GreenwoodAdminDB !== 'undefined') {
+        const pins = GreenwoodAdminDB.getRolePins();
+        if (document.getElementById('pinOwnerInput')) document.getElementById('pinOwnerInput').value = pins.Owner || '2050';
+        if (document.getElementById('pinManagerInput')) document.getElementById('pinManagerInput').value = pins.Manager || '3030';
+        if (document.getElementById('pinCashierInput')) document.getElementById('pinCashierInput').value = pins.Cashier || '1010';
+        if (document.getElementById('pinBarberInput')) document.getElementById('pinBarberInput').value = pins.Barber || '0000';
       }
     }
 
@@ -3903,16 +3998,31 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
 
     function handleSaveNewPinFromSettings(e) {
       e.preventDefault();
-      const p1 = document.getElementById('setNewPin')?.value.trim();
-      const p2 = document.getElementById('setConfirmPin')?.value.trim();
-      if (!p1 || p1 !== p2) {
-        alert('Konfirmasi Passkey tidak cocok atau kosong!');
+      const pOwner = document.getElementById('pinOwnerInput')?.value.trim();
+      const pManager = document.getElementById('pinManagerInput')?.value.trim();
+      const pCashier = document.getElementById('pinCashierInput')?.value.trim();
+      const pBarber = document.getElementById('pinBarberInput')?.value.trim();
+
+      if (!pOwner || !pManager || !pCashier || !pBarber) {
+        alert('Semua PIN peran wajib diisi!');
         return;
       }
-      localStorage.setItem(MASTER_PIN_KEY, p1);
-      alert('Security Passkey berhasil diperbarui!');
-      if (document.getElementById('setNewPin')) document.getElementById('setNewPin').value = '';
-      if (document.getElementById('setConfirmPin')) document.getElementById('setConfirmPin').value = '';
+
+      const list = [pOwner, pManager, pCashier, pBarber];
+      const unique = new Set(list);
+      if (unique.size !== list.length) {
+        alert("Peringatan: Setiap peran wajib memiliki PIN yang berbeda (unik) agar sistem dapat mendeteksi peran secara akurat.");
+        return;
+      }
+
+      GreenwoodAdminDB.saveRolePins({
+        Owner: pOwner,
+        Manager: pManager,
+        Cashier: pCashier,
+        Barber: pBarber
+      });
+
+      alert('Seluruh PIN peran staf berhasil disimpan!');
       closeSettingsModal();
     }
 
@@ -4295,19 +4405,49 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
 
     function openPinModal() {
       if (!GreenwoodAdminDB.hasPermission('settings_passkey')) {
-        alert("Akses Dibatasi: Hanya Owner (Super Admin) yang berwenang mengubah Master Security Passkey.");
+        alert("Akses Dibatasi: Hanya Owner (Super Admin) yang berwenang mengubah PIN Akses Sistem.");
         return;
       }
+      const pins = GreenwoodAdminDB.getRolePins();
+      if (document.getElementById('modalPinOwner')) document.getElementById('modalPinOwner').value = pins.Owner || '2050';
+      if (document.getElementById('modalPinManager')) document.getElementById('modalPinManager').value = pins.Manager || '3030';
+      if (document.getElementById('modalPinCashier')) document.getElementById('modalPinCashier').value = pins.Cashier || '1010';
+      if (document.getElementById('modalPinBarber')) document.getElementById('modalPinBarber').value = pins.Barber || '0000';
       document.getElementById('modalPin').style.display = 'flex';
     }
-    function closePinModal() { document.getElementById('modalPin').style.display = 'none'; document.getElementById('changePinForm').reset(); }
+
+    function closePinModal() { 
+      document.getElementById('modalPin').style.display = 'none'; 
+      document.getElementById('changePinForm').reset(); 
+    }
+
     function handleSaveNewPin(e) {
       e.preventDefault();
-      const p1 = document.getElementById('newPinInput').value.trim();
-      const p2 = document.getElementById('confirmPinInput').value.trim();
-      if (p1 !== p2) { alert('Konfirmasi Passkey tidak cocok!'); return; }
-      localStorage.setItem(MASTER_PIN_KEY, p1);
-      alert('Security Passkey berhasil diperbarui!');
+      const pOwner = document.getElementById('modalPinOwner')?.value.trim();
+      const pManager = document.getElementById('modalPinManager')?.value.trim();
+      const pCashier = document.getElementById('modalPinCashier')?.value.trim();
+      const pBarber = document.getElementById('modalPinBarber')?.value.trim();
+
+      if (!pOwner || !pManager || !pCashier || !pBarber) {
+        alert('Semua PIN peran wajib diisi!');
+        return;
+      }
+
+      const list = [pOwner, pManager, pCashier, pBarber];
+      const unique = new Set(list);
+      if (unique.size !== list.length) {
+        alert("Peringatan: Setiap peran wajib memiliki PIN yang berbeda (unik) agar sistem dapat mendeteksi peran secara akurat.");
+        return;
+      }
+
+      GreenwoodAdminDB.saveRolePins({
+        Owner: pOwner,
+        Manager: pManager,
+        Cashier: pCashier,
+        Barber: pBarber
+      });
+
+      alert('PIN otentikasi peran berhasil diperbarui!');
       closePinModal();
     }
 
