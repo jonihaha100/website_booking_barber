@@ -3233,7 +3233,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         return;
       }
       if (tabId === 'crm' && !isSA && !perms.crm_view) {
-        alert("Akses Ditolak: Peran Kasir tidak memiliki wewenang untuk membuka master database CRM pelanggan.");
+        alert("Akses Ditolak: Peran aktif Anda tidak memiliki wewenang untuk membuka master database CRM pelanggan.");
         return;
       }
       if (tabId === 'analytics' && !isSA && !perms.analytics_view) {
@@ -4322,6 +4322,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           <td>
             <strong>${escapeHtml(b.guestName || 'Guest')}</strong>
             <div style="font-size:11.5px; color:var(--text-muted);">${phoneDisplay}</div>
+            ${b.notes ? `<div style="font-size:11px; color:#e5b95f; font-style:italic; margin-top:2px;">"${escapeHtml(b.notes)}"</div>` : ''}
           </td>
           <td>${escapeHtml(b.assignedBarberName || b.barberName || 'First available')}</td>
           <td>

@@ -385,8 +385,8 @@
       name: "Barber",
       badge: "Stylist",
       title: "💈 Barber / Hair Stylist",
-      subtitle: "Catatan Rambut & Komisi Pribadi",
-      description: "Akses teknis pemotongan rambut: melihat jadwal antrean tamu, membaca catatan formula potongan pelanggan, absensi shift, dan pantau komisi sendiri.",
+      subtitle: "Jadwal Pangkas & Komisi Pribadi",
+      description: "Akses teknis pemotongan rambut: melihat jadwal antrean tamu di kursi parlour, absensi shift mandiri, dan pantau komisi pribadi.",
       isSuperAdmin: false,
       permissions: {
         pos_view: false, // Barber tidak melayani transaksi kasir
@@ -394,12 +394,12 @@
         pos_discount: false,
         pos_tip: false,
         pos_void: false,
-        crm_view: true,
-        crm_notes: true, // SANGAT PENTING: Wajib bisa baca formula potongan rambut
+        crm_view: false, // Tab CRM ditutup total dari Barber demi privasi database toko
+        crm_notes: false,
         crm_phone: false, // Nomor telepon disamarkan demi privasi pelanggan
         crm_create: false,
         crm_export: false,
-        booking_view: true, // Melihat jadwal kerja sendiri
+        booking_view: true, // Melihat antrean kerja di kursi
         booking_create: false,
         booking_edit: false,
         booking_cancel: false,
@@ -931,7 +931,7 @@
         setStorage(KEYS.ROLES, DEFAULT_ROLE_PERMISSIONS);
         return JSON.parse(JSON.stringify(DEFAULT_ROLE_PERMISSIONS));
       }
-      // Ensure Cashier CRM & analytics_view adhere to strict business isolation
+      // Ensure Cashier & Barber CRM & analytics_view adhere to strict business isolation
       if (stored.Cashier && stored.Cashier.permissions) {
         let updated = false;
         if (stored.Cashier.permissions.analytics_view === true) {
@@ -943,6 +943,18 @@
           stored.Cashier.permissions.crm_notes = false;
           stored.Cashier.permissions.crm_phone = false;
           stored.Cashier.permissions.crm_create = false;
+          updated = true;
+        }
+        if (updated) setStorage(KEYS.ROLES, stored);
+      }
+      if (stored.Barber && stored.Barber.permissions) {
+        let updated = false;
+        if (stored.Barber.permissions.crm_view === true) {
+          stored.Barber.permissions.crm_view = false;
+          stored.Barber.permissions.crm_notes = false;
+          stored.Barber.permissions.crm_phone = false;
+          stored.Barber.permissions.crm_create = false;
+          stored.Barber.permissions.crm_export = false;
           updated = true;
         }
         if (updated) setStorage(KEYS.ROLES, stored);
