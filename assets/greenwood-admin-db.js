@@ -373,7 +373,7 @@
         staff_comm_self: false,
         staff_comm_all: false,
         staff_comm_export: false, // Dilarang ekspor komisi barber
-        analytics_view: true, // Hanya ringkasan kasir harian
+        analytics_view: false, // Kasir fokus kasir cepat, omzet toko hanya diakses Owner/Manager
         analytics_export: false,
         settings_sandbox: false,
         settings_passkey: false,
@@ -917,6 +917,11 @@
       if (!stored) {
         setStorage(KEYS.ROLES, DEFAULT_ROLE_PERMISSIONS);
         return JSON.parse(JSON.stringify(DEFAULT_ROLE_PERMISSIONS));
+      }
+      // Ensure Cashier analytics_view adheres to strict business isolation
+      if (stored.Cashier && stored.Cashier.permissions && stored.Cashier.permissions.analytics_view === true) {
+        stored.Cashier.permissions.analytics_view = false;
+        setStorage(KEYS.ROLES, stored);
       }
       return stored;
     },
