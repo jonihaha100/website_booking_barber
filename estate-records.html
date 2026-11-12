@@ -1380,7 +1380,7 @@
                   <option value="">-- Tamu Walk-In (Tanpa Data) --</option>
                   <!-- Populated from CRM -->
                 </select>
-                <button type="button" class="btn-portal-action" onclick="openNewCustomerModal()" title="Daftar Pelanggan Baru">+ Baru</button>
+                <button type="button" class="btn-portal-action" id="btnPosNewCustomer" onclick="openNewCustomerModal()" title="Daftar Pelanggan Baru">+ Baru</button>
               </div>
             </div>
 
@@ -3173,6 +3173,10 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       if (btnAddNewCust) {
         btnAddNewCust.style.display = (isSA || perms.crm_create) ? 'inline-flex' : 'none';
       }
+      const btnPosNewCust = document.getElementById('btnPosNewCustomer');
+      if (btnPosNewCust) {
+        btnPosNewCust.style.display = (isSA || perms.crm_create) ? 'inline-flex' : 'none';
+      }
       const staffExportBtn = document.getElementById('btnExportStaffCommission');
       if (staffExportBtn) {
         staffExportBtn.style.display = (isSA || perms.staff_comm_export) ? 'inline-flex' : 'none';
@@ -3227,6 +3231,10 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       if (tabId === 'pos' && !isSA && !perms.pos_view) {
         alert("Akses Dibatasi: Peran Barber tidak melayani transaksi meja kasir.");
         switchTab('reservations');
+        return;
+      }
+      if (tabId === 'crm' && !isSA && !perms.crm_view) {
+        alert("Akses Ditolak: Peran Kasir tidak memiliki wewenang untuk membuka master database CRM pelanggan.");
         return;
       }
       if (tabId === 'analytics' && !isSA && !perms.analytics_view) {

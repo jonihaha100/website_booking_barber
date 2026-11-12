@@ -360,10 +360,10 @@
         pos_discount: true,
         pos_tip: true,
         pos_void: false, // Kasir dilarang membatalkan transaksi tanpa otorisasi manager
-        crm_view: true,
-        crm_notes: true,
-        crm_phone: true,
-        crm_create: true,
+        crm_view: false, // Tab CRM disembunyikan total dari Kasir (data pelanggan dilindungi)
+        crm_notes: false,
+        crm_phone: false,
+        crm_create: false,
         crm_export: false, // Cegah ekspor database pelanggan
         booking_view: true,
         booking_create: true,
@@ -918,10 +918,21 @@
         setStorage(KEYS.ROLES, DEFAULT_ROLE_PERMISSIONS);
         return JSON.parse(JSON.stringify(DEFAULT_ROLE_PERMISSIONS));
       }
-      // Ensure Cashier analytics_view adheres to strict business isolation
-      if (stored.Cashier && stored.Cashier.permissions && stored.Cashier.permissions.analytics_view === true) {
-        stored.Cashier.permissions.analytics_view = false;
-        setStorage(KEYS.ROLES, stored);
+      // Ensure Cashier CRM & analytics_view adhere to strict business isolation
+      if (stored.Cashier && stored.Cashier.permissions) {
+        let updated = false;
+        if (stored.Cashier.permissions.analytics_view === true) {
+          stored.Cashier.permissions.analytics_view = false;
+          updated = true;
+        }
+        if (stored.Cashier.permissions.crm_view === true) {
+          stored.Cashier.permissions.crm_view = false;
+          stored.Cashier.permissions.crm_notes = false;
+          stored.Cashier.permissions.crm_phone = false;
+          stored.Cashier.permissions.crm_create = false;
+          updated = true;
+        }
+        if (updated) setStorage(KEYS.ROLES, stored);
       }
       return stored;
     },
