@@ -494,6 +494,68 @@
       border-color: var(--accent-gold);
     }
 
+    /* REAL-TIME CLOUD SYNC BANNER & STATUS INDICATORS */
+    .sync-banner-shell {
+      background: rgba(9, 28, 19, 0.75);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 10px 16px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    .sync-status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #fff;
+    }
+    .sync-banner-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .sync-timestamp {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-left: 4px;
+    }
+    .sync-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 6px;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+    .dot-syncing {
+      background: #fbbf24;
+      box-shadow: 0 0 8px rgba(251, 191, 36, 0.7);
+      animation: pulse 1s infinite alternate;
+    }
+    .dot-live {
+      background: #4ade80;
+      box-shadow: 0 0 10px rgba(74, 222, 128, 0.8);
+    }
+    .dot-offline {
+      background: #f87171;
+      box-shadow: 0 0 8px rgba(248, 113, 113, 0.6);
+    }
+    @keyframes pulse {
+      0% { opacity: 0.4; transform: scale(0.85); }
+      100% { opacity: 1; transform: scale(1.15); }
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
     /* POS CART PANEL */
     .pos-cart-panel {
       background: rgba(9, 28, 19, 0.85);
@@ -2217,12 +2279,13 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       setSystemLanguage(I18N.currentLang);
       updateTipsVisibility();
 
-      // Init existing reservations
+      // Init existing reservations & activate real-time synchronization pulse
       reloadLedgerData();
-      syncLedgerFromCloud();
+      startRealTimeSync();
     }
 
     function lockPortal() {
+      stopRealTimeSync();
       sessionStorage.removeItem(SESSION_KEY);
       document.getElementById('masterPinInput').value = '';
       document.getElementById('gateOverlay').style.display = 'flex';
@@ -2885,6 +2948,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       if (tabId === 'staff') { renderStaffCards(); renderStaffCommissionTable(); }
       if (tabId === 'analytics') renderAnalyticsDashboard();
       if (tabId === 'pos') refreshPosCustomerDropdown();
+      if (tabId === 'reservations') { filterLedger(); updateMetrics(); }
     }
 
     // Point of Sale operations
@@ -3922,18 +3986,95 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     }
 
     function completeBooking(code) {
+      const b = currentBookings.find(x => x.bookingCode === code);
+      if (b) {
+        b.status = 'Completed';
+      }
       if (typeof GreenwoodBookingStore !== 'undefined') {
         GreenwoodBookingStore.updateStatus(code, 'Completed');
       }
-      reloadLedgerData();
+      filterLedger();
+      updateMetrics();
     }
 
     function deleteBookingRow(code) {
       if (!confirm(`Hapus reservasi ${code}?`)) return;
+      currentBookings = currentBookings.filter(x => x.bookingCode !== code);
       if (typeof GreenwoodBookingStore !== 'undefined') {
         GreenwoodBookingStore.deleteBooking(code);
       }
-      reloadLedgerData();
+      filterLedger();
+      updateMetrics();
+    }
+
+    // Real-Time Auto Sync Engine & CRM Data Link
+    let realTimeSyncTimer = null;
+    const REALTIME_SYNC_INTERVAL_MS = 25000; // Live auto-pulse every 25 seconds
+
+    function startRealTimeSync() {
+      if (realTimeSyncTimer) clearInterval(realTimeSyncTimer);
+      syncLedgerFromCloud(false);
+      realTimeSyncTimer = setInterval(() => {
+        if (!document.hidden && sessionStorage.getItem(SESSION_KEY) === 'true') {
+          syncLedgerFromCloud(false);
+        }
+      }, REALTIME_SYNC_INTERVAL_MS);
+    }
+
+    function stopRealTimeSync() {
+      if (realTimeSyncTimer) {
+        clearInterval(realTimeSyncTimer);
+        realTimeSyncTimer = null;
+      }
+    }
+
+    // Auto-refresh when user switches back to this browser tab
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && sessionStorage.getItem(SESSION_KEY) === 'true') {
+        syncLedgerFromCloud(false);
+      }
+    });
+
+    const filterReservations = filterLedger;
+
+    function syncCloudCustomersToCRM(bookings) {
+      if (!bookings || !Array.isArray(bookings) || typeof GreenwoodAdminDB === 'undefined') return;
+      let hasNew = false;
+      bookings.forEach(b => {
+        const guestName = (b.guestName || "").trim();
+        const guestPhone = (b.guestPhone || "").trim();
+        if (!guestName || guestName === "Guest" || !guestPhone) return;
+
+        const existing = GreenwoodAdminDB.findCustomerByPhoneOrName(guestPhone);
+        if (!existing) {
+          GreenwoodAdminDB.saveCustomer({
+            name: guestName,
+            phone: guestPhone,
+            email: b.guestEmail || "",
+            internalNotes: `Reservasi online (${b.bookingCode || 'Web'}). Layanan: ${b.serviceName || b.packageName || 'The Cut'} bersama ${b.barberName || 'Barber'}.`,
+            tags: ["Reguler", "Online Booking"],
+            lastVisit: b.dateKey || new Date().toISOString().slice(0, 10),
+            lastBarber: b.barberName || "Bramantyo",
+            lastService: b.serviceName || b.packageName || "The Cut",
+            totalSpend: Number(b.totalPrice) || 0,
+            visitCount: 1,
+            visitHistory: [{
+              date: b.dateKey || new Date().toISOString().slice(0, 10),
+              receiptId: b.bookingCode || "BK-ONLINE",
+              barberName: b.barberName || "Bramantyo",
+              serviceName: b.serviceName || b.packageName || "The Cut",
+              total: Number(b.totalPrice) || 0,
+              tip: 0,
+              notes: b.guestNotes || "Online reservation"
+            }]
+          });
+          hasNew = true;
+        }
+      });
+      if (hasNew) {
+        refreshPosCustomerDropdown();
+        renderCrmTable();
+      }
     }
 
     function syncLedgerFromCloud(isManual) {
@@ -3943,30 +4084,41 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
 
       const dot = document.getElementById('syncStatusDot');
       const txt = document.getElementById('syncStatusText');
+      const stamp = document.getElementById('syncTimestamp');
+      const spin = document.getElementById('syncIconSpin');
+
+      if (spin && isManual) spin.style.animation = 'spin 0.8s linear infinite';
       if (dot) dot.className = 'sync-dot dot-syncing';
-      if (txt) txt.textContent = 'Menghubungkan ke Google Sheets...';
+      if (txt) txt.textContent = isManual ? 'Mengambil data terbaru dari Google Sheets...' : 'Memperbarui data real-time...';
 
       fetch(webhookUrl + (webhookUrl.includes('?') ? '&' : '?') + 'action=get_bookings&key=gw_ledger_sec_2050&t=' + Date.now())
         .then(r => r.json())
         .then(res => {
+          if (spin) spin.style.animation = 'none';
           if (res.status === 'success') {
+            const timeStr = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
             if (dot) dot.className = 'sync-dot dot-live';
-            if (txt) txt.textContent = `Sinkron Aktif &bull; Terhubung ke Google Sheets (${res.count || 0} entri)`;
+            if (txt) txt.innerHTML = `Live Sync &bull; Terhubung ke Google Sheets (${res.count || 0} entri)`;
+            if (stamp) stamp.innerHTML = `&bull; Terakhir: <strong>${timeStr} WIB</strong>`;
+
             if (res.sheetUrl && document.getElementById('btnOpenSheet')) {
               document.getElementById('btnOpenSheet').href = res.sheetUrl;
               document.getElementById('btnOpenSheet').style.display = 'inline-flex';
             }
             if (Array.isArray(res.bookings) && res.bookings.length > 0) {
               currentBookings = res.bookings;
-              filterReservations();
+              filterLedger();
               updateMetrics();
+              syncCloudCustomersToCRM(res.bookings);
             }
           } else {
             if (dot) dot.className = 'sync-dot dot-offline';
             if (txt) txt.textContent = 'Mode Penyimpanan Lokal (Offline Storage Aktif)';
           }
         })
-        .catch(() => {
+        .catch(err => {
+          if (spin) spin.style.animation = 'none';
+          console.warn('Sync error:', err);
           if (dot) dot.className = 'sync-dot dot-offline';
           if (txt) txt.textContent = 'Mode Penyimpanan Lokal (Offline Storage Aktif)';
         });
