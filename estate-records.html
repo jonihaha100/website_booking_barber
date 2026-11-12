@@ -179,6 +179,20 @@
       outline: none;
       cursor: pointer;
     }
+    .user-role-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: rgba(197, 155, 72, 0.12);
+      border: 1px solid rgba(197, 155, 72, 0.35);
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent-gold-bright);
+      white-space: nowrap;
+      user-select: none;
+    }
     .btn-portal-action {
       background: rgba(197, 155, 72, 0.1);
       border: 1px solid var(--card-border);
@@ -1264,13 +1278,14 @@
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 4px;"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v4M12 14v4M16 14v4"/></svg>
           <span id="currentBranchName">Kota Baru Parahyangan (kbp-main)</span>
         </div>
-        <select id="roleSwitcher" class="role-select" onchange="handleRoleChange(this.value)" title="Ganti Peran Akses">
-          <option value="Owner">Peran: Owner</option>
-          <option value="Manager">Peran: Manager</option>
-          <option value="Cashier">Peran: Kasir</option>
-          <option value="Barber">Peran: Barber</option>
-        </select>
-        <button type="button" class="btn-portal-action" onclick="openRolesPermissionsModal()" title="Kelola Matriks Hak Akses">
+
+        <!-- AUTHENTICATED ROLE BADGE (Read-only status badge based on login PIN) -->
+        <div class="user-role-badge" id="userRoleBadge" title="Profil Peran Terotentikasi">
+          <span id="userRoleBadgeIcon">💳</span>
+          <span id="userRoleBadgeText">Peran: Kasir</span>
+        </div>
+
+        <button type="button" class="btn-portal-action" id="btnHeaderRoles" onclick="openRolesPermissionsModal()" title="Kelola Matriks Hak Akses">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 4px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           <span data-i18n="btn_roles">Hak Akses Role</span>
         </button>
@@ -1282,15 +1297,15 @@
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 4px;"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           <span data-i18n="btn_web">Web Publik</span>
         </a>
-        <button type="button" class="btn-portal-action" onclick="openSettingsModal()" title="Pengaturan Sistem & Sandbox">
+        <button type="button" class="btn-portal-action" id="btnHeaderSettings" onclick="openSettingsModal()" title="Pengaturan Sistem & Sandbox">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 4px;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
           <span data-i18n="btn_settings">Pengaturan</span>
         </button>
-        <button type="button" class="btn-portal-action" onclick="openPinModal()">
+        <button type="button" class="btn-portal-action" id="btnHeaderPasskey" onclick="openPinModal()" title="Perbarui PIN Peran">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 4px;"><path d="M21 2l-2 2m-1.5 1.5L12 11l-4-4-6 6 4 4 6-6 5.5-5.5z"/><circle cx="16" cy="8" r="2"/></svg>
           <span data-i18n="btn_passkey">Passkey</span>
         </button>
-        <button type="button" class="btn-portal-action btn-portal-lock" onclick="lockPortal()">
+        <button type="button" class="btn-portal-action btn-portal-lock" onclick="lockPortal()" title="Kunci Layar Terminal">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 4px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           <span data-i18n="btn_lock">Kunci</span>
         </button>
@@ -2625,9 +2640,21 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         if (d[key]) el.placeholder = d[key];
       });
 
-      // Update Role switcher option labels
+      // Update Role switcher option labels & active role badge
+      const activeRole = (typeof GreenwoodAdminDB !== 'undefined') ? GreenwoodAdminDB.getActiveRole() : 'Owner';
+      const badgeText = document.getElementById('userRoleBadgeText');
+      if (badgeText) {
+        const roleLabels = {
+          Owner: (I18N.currentLang === 'en') ? 'Role: Owner (Super Admin)' : 'Peran: Owner (Super Admin)',
+          Manager: (I18N.currentLang === 'en') ? 'Role: Store Manager' : 'Peran: Store Manager',
+          Cashier: (I18N.currentLang === 'en') ? 'Role: Cashier' : 'Peran: Kasir',
+          Barber: (I18N.currentLang === 'en') ? 'Role: Barber' : 'Peran: Barber'
+        };
+        badgeText.textContent = roleLabels[activeRole] || `Peran: ${activeRole}`;
+      }
+
       const roleSwitcher = document.getElementById('roleSwitcher');
-      if (roleSwitcher) {
+      if (roleSwitcher && roleSwitcher.options && roleSwitcher.options.length >= 4) {
         const activeVal = roleSwitcher.value;
         roleSwitcher.options[0].text = d['role_Owner'] || "👑 Peran: Owner";
         roleSwitcher.options[1].text = d['role_Manager'] || "👔 Peran: Manager";
@@ -3015,10 +3042,39 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       const isSA = activeRole === 'Owner';
       const roleObj = GreenwoodAdminDB.getRoleDetails(activeRole);
       const perms = roleObj ? roleObj.permissions : {};
-      const switcher = document.getElementById('roleSwitcher');
-      if (switcher && switcher.value !== activeRole) {
-        switcher.value = activeRole;
+
+      // 1. Update Authenticated Role Badge in Top Navigation
+      const badgeIcon = document.getElementById('userRoleBadgeIcon');
+      const badgeText = document.getElementById('userRoleBadgeText');
+      const roleIcons = {
+        Owner: '👑',
+        Manager: '👔',
+        Cashier: '💳',
+        Barber: '💈'
+      };
+      const roleLabels = {
+        Owner: 'Peran: Owner (Super Admin)',
+        Manager: 'Peran: Store Manager',
+        Cashier: 'Peran: Kasir',
+        Barber: 'Peran: Barber'
+      };
+      if (badgeIcon) badgeIcon.textContent = roleIcons[activeRole] || '👤';
+      if (badgeText) badgeText.textContent = roleLabels[activeRole] || `Peran: ${activeRole}`;
+
+      // 2. Strict Header Button Visibility based on Active Authenticated Role
+      const btnRoles = document.getElementById('btnHeaderRoles');
+      if (btnRoles) {
+        btnRoles.style.display = isSA ? 'inline-flex' : 'none';
       }
+      const btnSettings = document.getElementById('btnHeaderSettings');
+      if (btnSettings) {
+        btnSettings.style.display = (isSA || activeRole === 'Manager') ? 'inline-flex' : 'none';
+      }
+      const btnPasskey = document.getElementById('btnHeaderPasskey');
+      if (btnPasskey) {
+        btnPasskey.style.display = isSA ? 'inline-flex' : 'none';
+      }
+
       const posTab = document.getElementById('tab-pos');
       let posLock = document.getElementById('posRoleLockBanner');
       const posLayout = document.querySelector('.pos-layout');
