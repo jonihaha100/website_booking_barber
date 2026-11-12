@@ -3188,6 +3188,15 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       if (btnOpenWalkin) {
         btnOpenWalkin.style.display = (isSA || perms.booking_create) ? 'inline-flex' : 'none';
       }
+      const filterBarberEl = document.getElementById('filterBarberSelect');
+      if (filterBarberEl) {
+        if (activeRole === 'Barber') {
+          filterBarberEl.value = 'bramantyo';
+          filterBarberEl.style.display = 'none';
+        } else {
+          filterBarberEl.style.display = 'inline-block';
+        }
+      }
       const analyticsSec = document.getElementById('tab-analytics');
       let analyticsLock = document.getElementById('analyticsRoleLockBanner');
       const metricsGrid = analyticsSec ? analyticsSec.querySelector('.metrics-grid') : null;
@@ -4275,9 +4284,16 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     }
 
     function filterLedger() {
+      const activeRole = (typeof GreenwoodAdminDB !== 'undefined') ? GreenwoodAdminDB.getActiveRole() : 'Owner';
+      const isBarber = activeRole === 'Barber';
+
       const kw = (document.getElementById('searchKeyword')?.value || "").toLowerCase().trim();
-      const barber = document.getElementById('filterBarberSelect')?.value || "all";
+      let barber = document.getElementById('filterBarberSelect')?.value || "all";
       const status = document.getElementById('filterStatusSelect')?.value || "all";
+
+      if (isBarber) {
+        barber = 'bramantyo';
+      }
 
       let filtered = currentBookings.filter(b => {
         let matchKw = true;
@@ -4322,14 +4338,17 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           <td>
             <strong>${escapeHtml(b.guestName || 'Guest')}</strong>
             <div style="font-size:11.5px; color:var(--text-muted);">${phoneDisplay}</div>
-            ${b.notes ? `<div style="font-size:11px; color:#e5b95f; font-style:italic; margin-top:2px;">"${escapeHtml(b.notes)}"</div>` : ''}
+            ${(b.guestNotes || b.notes) ? `<div style="font-size:11px; color:#e5b95f; font-style:italic; margin-top:2px;">"${escapeHtml(b.guestNotes || b.notes)}"</div>` : ''}
           </td>
           <td>${escapeHtml(b.assignedBarberName || b.barberName || 'First available')}</td>
           <td>
             <div>${escapeHtml(b.dateKey || '-')}</div>
             <div style="font-size:11.5px; color:var(--accent-gold);">${escapeHtml(b.timeSlot || '')} WIB</div>
           </td>
-          <td>${escapeHtml(b.serviceName || b.packageName || 'The Cut')}</td>
+          <td>
+            <div>${escapeHtml(b.serviceName || b.packageName || 'The Cut')}</div>
+            ${(b.addons && b.addons.length > 0) ? `<div style="font-size:11px; color:var(--text-muted); margin-top:2px;">+ ${b.addons.map(a => escapeHtml(a.name)).join(', ')}</div>` : ''}
+          </td>
           <td><strong style="color:var(--accent-gold-bright);">${formatRupiah(b.totalPrice || b.total || 0)}</strong></td>
           <td>
             <span class="badge-tag ${b.status === 'Completed' ? 'badge-reguler' : (b.status === 'Cancelled' ? 'badge-passive' : 'badge-vip')}">
