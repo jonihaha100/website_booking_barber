@@ -984,14 +984,15 @@ function autoSendPassiveCustomerReminders() {
       var diffDays = Math.floor((now - cust.date) / (1000 * 60 * 60 * 24));
       
       if (diffDays >= PASSIVE_DAYS_THRESHOLD && !sentRecently[phone]) {
-        // Susun pesan ramah & personal
+        // Susun pesan sopan & personal berstandar concierge
         var dateStr = Utilities.formatDate(cust.date, "Asia/Jakarta", "dd MMMM yyyy");
         var recallMessage = 
-          "Halo Bpk/Sdr *" + cust.name + "*,\n" +
-          "Salam hangat dari Greenwood Barbers Kota Baru Parahyangan. 🙏✨\n\n" +
-          "Kami mencatat sudah " + diffDays + " hari sejak kunjungan terakhir Anda bersama " + cust.barber + " (" + dateStr + ").\n\n" +
-          "Kursi Anda selalu siap. Apakah berkenan kami jadwalkan sesi grooming santai minggu ini? Anda bisa langsung reservasi jam favorit di: https://greenwood.id/booking.html\n\n" +
-          "Terima kasih dan sampai jumpa di parlour kami. 🌿";
+          "Salam hormat Bpk/Sdr *" + cust.name + "*,\n" +
+          "Dari Greenwood Barbers Kota Baru Parahyangan.\n\n" +
+          "Berdasarkan catatan kami, sudah " + diffDays + " hari sejak kunjungan terakhir Anda bersama " + cust.barber + " (" + dateStr + ").\n\n" +
+          "Kursi Anda selalu siap. Apabila Anda berkenan menjadwalkan sesi perawatan berikutnya, reservasi waktu dapat dipilih langsung melalui:\n" +
+          "https://greenwood.id/booking.html\n\n" +
+          "Terima kasih dan sampai jumpa di parlour kami.";
         
         var isSuccess = false;
         if (FONNTE_API_TOKEN) {

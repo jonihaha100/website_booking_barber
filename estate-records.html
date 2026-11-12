@@ -3346,10 +3346,12 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       if (cleanPhone.startsWith("0")) cleanPhone = "62" + cleanPhone.slice(1);
 
       const msg = 
-        `Halo ${activeCustomerDetail.name}, salam hangat dari Greenwood Barbers Kota Baru Parahyangan. 🙏✨\n\n` +
-        `Kami mencatat sudah cukup lama Anda tidak menikmati ritual perawatan rambut & beard grooming bersama kami (terakhir ${activeCustomerDetail.lastVisit || 'beberapa waktu lalu'}).\n\n` +
-        `Kursi Anda selalu siap. Apakah berkenan kami jadwalkan sesi grooming santai minggu ini? Anda bisa langsung reservasi jam favorit di: https://greenwood.id/booking.html\n\n` +
-        `Terima kasih dan sampai jumpa di parlour kami. 🌿`;
+        `Salam hormat Bpk/Sdr ${activeCustomerDetail.name},\n` +
+        `Dari Greenwood Barbers Kota Baru Parahyangan.\n\n` +
+        `Berdasarkan catatan kami, sudah cukup lama Anda tidak melakukan perawatan rambut bersama kami (kunjungan terakhir: ${activeCustomerDetail.lastVisit || 'beberapa waktu lalu'}).\n\n` +
+        `Kursi Anda selalu siap. Apabila Anda berkenan menjadwalkan sesi perawatan berikutnya, reservasi dapat langsung dipilih melalui:\n` +
+        `https://greenwood.id/booking.html\n\n` +
+        `Terima kasih dan sampai jumpa di parlour kami.`;
 
       const url = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`;
       window.open(url, '_blank');
