@@ -3955,7 +3955,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           </div>
           <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--card-border); padding-top:10px;">
             <span style="font-size:11.5px; color:${s.isClockedIn ? '#4ade80' : 'var(--text-muted)'}; font-weight:600;">
-              ${s.isClockedIn ? `In: ${s.clockInTime}` : 'Belum Absen'}
+              ${s.isClockedIn ? `In: ${s.clockInTime}` : (s.lastClockOutTime ? `Out: ${s.lastClockOutTime}` : 'Belum Absen')}
             </span>
             <button type="button" class="btn-portal-action" onclick="toggleStaffClock('${s.id}')" style="font-size:11px; padding:4px 10px;">
               ${s.isClockedIn ? 'Clock-Out' : 'Clock-In'}

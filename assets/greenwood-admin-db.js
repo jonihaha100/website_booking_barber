@@ -745,7 +745,11 @@
       if (member) {
         member.isClockedIn = !member.isClockedIn;
         const nowStr = UtilitiesFormatTime(new Date());
-        member.clockInTime = member.isClockedIn ? nowStr : null;
+        if (member.isClockedIn) {
+          member.clockInTime = nowStr;
+        } else {
+          member.lastClockOutTime = nowStr;
+        }
         setStorage(KEYS.STAFF, staff);
 
         // Catat di log absensi
@@ -761,7 +765,7 @@
         });
         setStorage(KEYS.ATTENDANCE, att);
 
-        this.logActivity("Absensi Staf", `${member.name} melakukan ${member.isClockedIn ? 'Clock-In' : 'Clock-Out'} pada ${nowStr}`);
+        this.logActivity("Absensi Staf", `${member.name} melakukan ${member.isClockedIn ? 'Clock-In (' + nowStr + ')' : 'Clock-Out (' + nowStr + ')'}`);
         return member;
       }
       return null;
