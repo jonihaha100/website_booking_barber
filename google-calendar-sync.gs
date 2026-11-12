@@ -52,6 +52,11 @@ function doPost(e) {
 
     data = JSON.parse(e.postData.contents);
     
+    // FITUR A.6: Penanganan Ulasan & Rating Pelanggan (Customer Feedback)
+    if (data.action === "submit_review") {
+      return handleReviewSubmission(data);
+    }
+    
     // Ambil Kalender Utama akun Google ini
     var calendar = CalendarApp.getDefaultCalendar();
     
@@ -518,6 +523,28 @@ function doGet(e) {
     }
   }
 
+  // FITUR A.6: Submit Review via GET (Opsional / Fallback)
+  if (action === "submit_review") {
+    var queryData = {
+      action: "submit_review",
+      receiptId: (e.parameter && e.parameter.receiptId) ? e.parameter.receiptId : "GW-PARLOUR",
+      guestName: (e.parameter && (e.parameter.name || e.parameter.guestName)) ? (e.parameter.name || e.parameter.guestName) : "Guest",
+      guestPhone: (e.parameter && (e.parameter.phone || e.parameter.guestPhone)) ? (e.parameter.phone || e.parameter.guestPhone) : "",
+      barberName: (e.parameter && (e.parameter.barber || e.parameter.barberName)) ? (e.parameter.barber || e.parameter.barberName) : "Bramantyo",
+      rating: parseInt((e.parameter && e.parameter.rating) ? e.parameter.rating : "5"),
+      tags: (e.parameter && e.parameter.tags) ? e.parameter.tags.split(',') : [],
+      feedback: (e.parameter && e.parameter.feedback) ? e.parameter.feedback : ""
+    };
+    return handleReviewSubmission(queryData);
+  }
+
+  // FITUR D.5: Trigger Manual / Otomatis Pengingat Pelanggan Pasif
+  if (action === "trigger_passive_reminders") {
+    var result = autoSendPassiveCustomerReminders();
+    return ContentService.createTextOutput(JSON.stringify(result))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
   return ContentService.createTextOutput("Greenwood Barbers Google Calendar Sync & Shadow Monitoring Webhook is Active.")
     .setMimeType(ContentService.MimeType.TEXT);
 }
@@ -776,4 +803,292 @@ function testRunDirectly() {
     Logger.log("📂 Link Google Sheet Master Anda:");
     Logger.log("https://docs.google.com/spreadsheets/d/" + sheetId + "/edit");
   }
+}
+
+// =========================================================================
+// FITUR A.6: PENANGANAN ULASAN & RATING PELANGGAN (CUSTOMER FEEDBACK)
+// =========================================================================
+function handleReviewSubmission(data) {
+  try {
+    var masterSheet = getOrCreateShadowSheet();
+    if (!masterSheet) {
+      return ContentService.createTextOutput(JSON.stringify({
+        status: "error",
+        message: "Google Sheet master vault tidak tersedia."
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+
+    var ss = masterSheet.getParent();
+    var reviewSheet = getOrCreateReviewsSheet(ss);
+
+    var now = new Date();
+    var timestampStr = Utilities.formatDate(now, "Asia/Jakarta", "yyyy-MM-dd HH:mm:ss");
+    var receiptId = data.receiptId || "GW-PARLOUR";
+    var guestName = data.guestName || "Tamu Terhormat";
+    var guestPhone = data.guestPhone || "-";
+    var barberName = data.barberName || "Bramantyo";
+    var serviceName = data.serviceName || "Grooming Ritual";
+    var rating = parseInt(data.rating || 5);
+    var tagsStr = Array.isArray(data.tags) ? data.tags.join(", ") : (data.tags || "-");
+    var feedback = data.feedback || "-";
+
+    var starsStr = "";
+    for (var i = 0; i < rating; i++) starsStr += "⭐";
+
+    reviewSheet.appendRow([
+      timestampStr,
+      receiptId,
+      guestName,
+      guestPhone,
+      barberName,
+      serviceName,
+      rating + " / 5 (" + starsStr + ")",
+      tagsStr,
+      feedback,
+      rating >= 4 ? "PUAS (High)" : "PERLU EVALUASI"
+    ]);
+
+    // Kirim notifikasi instan ke Telegram Developer & Owner
+    var tgMsg = 
+      "🌟 <b>ULASAN PELANGGAN BARU (A.6)</b>\n" +
+      "━━━━━━━━━━━━━━━━━━━━\n" +
+      "🏛️ <b>Parlour:</b> Greenwood Barbers KBP\n" +
+      "👤 <b>Tamu:</b> " + guestName + "\n" +
+      "💈 <b>Barber:</b> " + barberName + "\n" +
+      "⭐ <b>Rating:</b> " + starsStr + " (" + rating + "/5)\n" +
+      "🏷️ <b>Apresiasi:</b> " + tagsStr + "\n" +
+      "💬 <b>Ulasan:</b> <i>\"" + feedback + "\"</i>\n" +
+      "🧾 <b>No. Nota:</b> <code>" + receiptId + "</code>\n" +
+      "━━━━━━━━━━━━━━━━━━━━";
+
+    sendTelegramShadowRadar(tgMsg);
+
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "success",
+      message: "Ulasan pelanggan berhasil dicatat ke Google Sheets & notifikasi dikirimkan.",
+      rating: rating
+    })).setMimeType(ContentService.MimeType.JSON);
+
+  } catch(err) {
+    Logger.log("Review submission error: " + err);
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "error",
+      message: "Gagal menyimpan ulasan: " + err.toString()
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function getOrCreateReviewsSheet(ss) {
+  var sheetName = "Reviews_Feedback";
+  var sheet = ss.getSheetByName(sheetName);
+  if (!sheet) {
+    sheet = ss.insertSheet(sheetName);
+    var headers = [
+      "Waktu Ulasan", 
+      "No. Nota / ID", 
+      "Nama Tamu", 
+      "No. WhatsApp", 
+      "Barber", 
+      "Layanan", 
+      "Rating Bintang", 
+      "Kategori Puas", 
+      "Ulasan & Komentar Tamu", 
+      "Status Kepuasan"
+    ];
+    sheet.appendRow(headers);
+    var headerRange = sheet.getRange(1, 1, 1, headers.length);
+    headerRange.setBackground("#063827");
+    headerRange.setFontColor("#e2be6c");
+    headerRange.setFontWeight("bold");
+    sheet.setFrozenRows(1);
+  }
+  return sheet;
+}
+
+// =========================================================================
+// FITUR D.5: AUTO-REMINDER WHATSAPP HARIAN UNTUK TAMU PASIF (> 35 HARI)
+// =========================================================================
+/**
+ * Memindai buku besar tamu di Google Sheets.
+ * Tamu yang kunjungan terakhirnya >= 35 hari akan dikirimi sapaan WhatsApp personal.
+ * Dilengkapi pencegahan spam: Tamu tidak akan dikirimi reminder lebih dari 1x dalam 30 hari.
+ */
+function autoSendPassiveCustomerReminders() {
+  var sentCount = 0;
+  var errors = [];
+  
+  try {
+    var masterSheet = getOrCreateShadowSheet();
+    if (!masterSheet) {
+      return { status: "error", message: "Master sheet vault tidak ditemukan." };
+    }
+    
+    var ss = masterSheet.getParent();
+    var lastRow = masterSheet.getLastRow();
+    if (lastRow <= 1) {
+      return { status: "success", message: "Database masih kosong, tidak ada tamu pasif.", sent: 0 };
+    }
+    
+    // Siapkan lembar log pengingat
+    var logSheet = getOrCreateReminderLogSheet(ss);
+    
+    // Baca seluruh riwayat booking
+    var data = masterSheet.getRange(2, 1, lastRow - 1, 14).getValues();
+    var customerLatest = {};
+    
+    data.forEach(function(row) {
+      var phone = String(row[3] || "").replace(/[^0-9]/g, "");
+      if (phone.indexOf("0") === 0) phone = "62" + phone.substring(1);
+      else if (phone.indexOf("8") === 0) phone = "62" + phone;
+      
+      if (!phone || phone.length < 9) return;
+      
+      var name = String(row[2] || "Tamu Terhormat").trim();
+      var barber = String(row[5] || "Bramantyo").trim();
+      var dateVal = row[6] || row[0]; // Tanggal booking
+      var visitDate = dateVal instanceof Date ? dateVal : new Date(dateVal);
+      
+      if (isNaN(visitDate.getTime())) return;
+      
+      if (!customerLatest[phone] || visitDate > customerLatest[phone].date) {
+        customerLatest[phone] = {
+          name: name,
+          barber: barber,
+          date: visitDate
+        };
+      }
+    });
+    
+    // Baca riwayat log reminder 30 hari terakhir agar tidak dobel spam
+    var sentRecently = {};
+    var logLastRow = logSheet.getLastRow();
+    var now = new Date();
+    
+    if (logLastRow > 1) {
+      var logData = logSheet.getRange(2, 1, logLastRow - 1, 4).getValues();
+      logData.forEach(function(lRow) {
+        var lDate = lRow[0] instanceof Date ? lRow[0] : new Date(lRow[0]);
+        var lPhone = String(lRow[1] || "");
+        var daysSinceLog = Math.floor((now - lDate) / (1000 * 60 * 60 * 24));
+        if (daysSinceLog < 30) {
+          sentRecently[lPhone] = true;
+        }
+      });
+    }
+    
+    // Evaluasi tamu pasif (> 35 hari)
+    var PASSIVE_DAYS_THRESHOLD = 35;
+    
+    for (var phone in customerLatest) {
+      var cust = customerLatest[phone];
+      var diffDays = Math.floor((now - cust.date) / (1000 * 60 * 60 * 24));
+      
+      if (diffDays >= PASSIVE_DAYS_THRESHOLD && !sentRecently[phone]) {
+        // Susun pesan ramah & personal
+        var dateStr = Utilities.formatDate(cust.date, "Asia/Jakarta", "dd MMMM yyyy");
+        var recallMessage = 
+          "Halo Bpk/Sdr *" + cust.name + "*,\n" +
+          "Salam hangat dari Greenwood Barbers Kota Baru Parahyangan. 🙏✨\n\n" +
+          "Kami mencatat sudah " + diffDays + " hari sejak kunjungan terakhir Anda bersama " + cust.barber + " (" + dateStr + ").\n\n" +
+          "Kursi Anda selalu siap. Apakah berkenan kami jadwalkan sesi grooming santai minggu ini? Anda bisa langsung reservasi jam favorit di: https://greenwood.id/booking.html\n\n" +
+          "Terima kasih dan sampai jumpa di parlour kami. 🌿";
+        
+        var isSuccess = false;
+        if (FONNTE_API_TOKEN) {
+          try {
+            var res = UrlFetchApp.fetch("https://api.fonnte.com/send", {
+              method: "post",
+              headers: { Authorization: FONNTE_API_TOKEN },
+              payload: {
+                target: phone,
+                message: recallMessage
+              },
+              muteHttpExceptions: true
+            });
+            if (res.getResponseCode() === 200) {
+              isSuccess = true;
+            }
+          } catch(errWa) {
+            errors.push(phone + ": " + errWa.toString());
+          }
+        }
+        
+        // Catat ke log sheet
+        logSheet.appendRow([
+          Utilities.formatDate(now, "Asia/Jakarta", "yyyy-MM-dd HH:mm:ss"),
+          phone,
+          cust.name,
+          cust.barber,
+          diffDays + " hari",
+          isSuccess ? "TERKIRIM (WhatsApp)" : "PENDING / SIMULASI",
+          recallMessage
+        ]);
+        
+        sentCount++;
+      }
+    }
+    
+    // Notifikasi rekap ke Telegram
+    if (sentCount > 0) {
+      var summaryMsg = 
+        "📢 <b>REKAP AUTO-REMINDER TAMU PASIF (D.5)</b>\n" +
+        "━━━━━━━━━━━━━━━━━━━━\n" +
+        "🏛️ Greenwood Barbers KBP\n" +
+        "✅ Berhasil memicu pengingat untuk: <b>" + sentCount + " Tamu Pasif</b> (>35 Hari)\n" +
+        "📅 Waktu Eksekusi: " + Utilities.formatDate(now, "Asia/Jakarta", "dd-MM-yyyy HH:mm") + " WIB\n" +
+        "━━━━━━━━━━━━━━━━━━━━";
+      sendTelegramShadowRadar(summaryMsg);
+    }
+    
+    return {
+      status: "success",
+      sent: sentCount,
+      errors: errors
+    };
+    
+  } catch(e) {
+    Logger.log("Auto reminder error: " + e);
+    return { status: "error", message: e.toString() };
+  }
+}
+
+function getOrCreateReminderLogSheet(ss) {
+  var sheetName = "Reminder_Logs";
+  var sheet = ss.getSheetByName(sheetName);
+  if (!sheet) {
+    sheet = ss.insertSheet(sheetName);
+    var headers = ["Waktu Pengiriman", "No. WhatsApp", "Nama Tamu", "Barber Terakhir", "Hari Sejak Kunjungan", "Status", "Isi Pesan"];
+    sheet.appendRow(headers);
+    var headerRange = sheet.getRange(1, 1, 1, headers.length);
+    headerRange.setBackground("#063827");
+    headerRange.setFontColor("#e2be6c");
+    headerRange.setFontWeight("bold");
+    sheet.setFrozenRows(1);
+  }
+  return sheet;
+}
+
+/**
+ * PANDUAN AKTIVASI PEMICU HARIAN OTOMATIS:
+ * Jalankan fungsi 'createDailyPassiveReminderTrigger' ini satu kali saja
+ * di Google Apps Script untuk menjadwalkan pengiriman reminder otomatis
+ * setiap hari pukul 10:00 - 11:00 WIB.
+ */
+function createDailyPassiveReminderTrigger() {
+  // Hapus pemicu lama yang sama agar tidak duplikat
+  var triggers = ScriptApp.getProjectTriggers();
+  for (var i = 0; i < triggers.length; i++) {
+    if (triggers[i].getHandlerFunction() === "autoSendPassiveCustomerReminders") {
+      ScriptApp.deleteTrigger(triggers[i]);
+    }
+  }
+  
+  // Buat pemicu harian jam 10 pagi
+  ScriptApp.newTrigger("autoSendPassiveCustomerReminders")
+    .timeBased()
+    .everyDays(1)
+    .atHour(10)
+    .create();
+    
+  Logger.log("✅ Pemicu harian jam 10:00 WIB berhasil dipasang untuk autoSendPassiveCustomerReminders.");
 }

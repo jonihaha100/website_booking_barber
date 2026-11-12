@@ -3207,7 +3207,9 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       if (tx.tip > 0) msg += `• Tip Barber : ${formatRupiah(tx.tip)}\n`;
       msg += `\n*TOTAL : ${formatRupiah(tx.total)}*\n` +
              `Metode : ${tx.paymentMethod}\n\n` +
-             `Terima kasih atas kunjungan Anda di Greenwood Barbers.`;
+             `Terima kasih atas kunjungan Anda di Greenwood Barbers.\n\n` +
+             `Bagaimana pengalaman grooming Anda hari ini? Berikan ulasan singkat Anda di sini:\n` +
+             `👉 https://greenwood.id/review.html?receipt=${encodeURIComponent(tx.receiptNumber)}&barber=${encodeURIComponent(tx.barberName)}&name=${encodeURIComponent(tx.customerName)}&phone=${encodeURIComponent(cleanPhone)}`;
 
       const url = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`;
       window.open(url, '_blank');
@@ -3400,20 +3402,49 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         return;
       }
 
-      const headers = ["ID Pelanggan", "Nama Pelanggan", "No Kontak", "Email", "Tanggal Lahir", "Kunjungan Terakhir", "Total Kunjungan", "Total Belanja (Rp)", "Formula / Internal Notes", "Status Pasif", "Cabang"];
-      const rows = customers.map(c => [
-        `"${c.id}"`,
-        `"${(c.name || '').replace(/"/g, '""')}"`,
-        `"${c.phone || ''}"`,
-        `"${c.email || ''}"`,
-        `"${c.birthday || ''}"`,
-        `"${c.lastVisit || ''}"`,
-        c.visitCount || 0,
-        c.totalSpend || 0,
-        `"${(c.internalNotes || '').replace(/"/g, '""')}"`,
-        c.passiveFlag ? "Ya (Pasif)" : "Tidak (Aktif)",
-        `"${c.branch_id || 'kbp-main'}"`
-      ]);
+      const headers = [
+        "ID Pelanggan", 
+        "Nama Pelanggan", 
+        "Status VIP", 
+        "No Kontak", 
+        "Email", 
+        "Tanggal Lahir", 
+        "Kunjungan Pertama", 
+        "Kunjungan Terakhir", 
+        "Hari Tidak Datang", 
+        "Status Retensi", 
+        "Total Kunjungan", 
+        "Total Belanja (Rp)", 
+        "Rata-Rata Belanja (AOV)", 
+        "Barber Terakhir", 
+        "Layanan Terakhir", 
+        "Formula / Internal Notes", 
+        "Cabang"
+      ];
+      const rows = customers.map(c => {
+        const isVip = (c.tags && c.tags.includes('VIP')) ? "VIP" : "Reguler";
+        const aov = c.visitCount > 0 ? Math.round((c.totalSpend || 0) / c.visitCount) : 0;
+        const phoneFormatted = c.phone ? `="${c.phone}"` : '""';
+        return [
+          `"${c.id}"`,
+          `"${(c.name || '').replace(/"/g, '""')}"`,
+          `"${isVip}"`,
+          phoneFormatted,
+          `"${c.email || ''}"`,
+          `"${c.birthday || ''}"`,
+          `"${c.firstVisit || ''}"`,
+          `"${c.lastVisit || ''}"`,
+          c.daysSinceLastVisit !== undefined ? c.daysSinceLastVisit : 0,
+          c.passiveFlag ? "Pasif" : "Aktif",
+          c.visitCount || 0,
+          c.totalSpend || 0,
+          aov,
+          `"${(c.lastBarber || '').replace(/"/g, '""')}"`,
+          `"${(c.lastService || '').replace(/"/g, '""')}"`,
+          `"${(c.internalNotes || '').replace(/"/g, '""')}"`,
+          `"${c.branch_id || 'kbp-main'}"`
+        ];
+      });
 
       const csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
       const encodedUri = encodeURI(csvContent);

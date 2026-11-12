@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Customer Review &amp; Feedback — Greenwood Barbers Kota Baru Parahyangan</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-noir: #020704;
+      --bg-card: rgba(6, 40, 28, 0.75);
+      --card-border: rgba(197, 155, 72, 0.28);
+      --accent-gold: #c59b48;
+      --accent-gold-bright: #e2be6c;
+      --text-cream: #f7f2e7;
+      --text-muted: rgba(247, 242, 231, 0.65);
+      --success: #25d366;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-noir);
+      color: var(--text-cream);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      position: relative;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(6, 56, 39, 0.6) 0%, transparent 60%),
+        radial-gradient(circle at 50% 100%, rgba(197, 155, 72, 0.08) 0%, transparent 50%);
+    }
+
+    .review-container {
+      width: 100%;
+      max-width: 520px;
+      background: var(--bg-card);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 12px;
+      padding: 32px 28px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .brand-header {
+      text-align: center;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(197, 155, 72, 0.15);
+    }
+
+    .brand-eyebrow {
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .brand-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 28px;
+      font-weight: 500;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+      line-height: 1.2;
+    }
+
+    .brand-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .visit-badge-box {
+      background: rgba(3, 16, 11, 0.85);
+      border: 1px dashed rgba(197, 155, 72, 0.35);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .visit-label {
+      color: var(--text-muted);
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .visit-val {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .star-rating-wrap {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .star-rating-label {
+      font-size: 14px;
+      color: var(--text-cream);
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .star-row {
+      display: inline-flex;
+      gap: 10px;
+      direction: row;
+      justify-content: center;
+    }
+
+    .star-btn {
+      background: transparent;
+      border: none;
+      font-size: 38px;
+      color: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      outline: none;
+    }
+
+    .star-btn.active, .star-btn.hover {
+      color: #f5c518;
+      transform: scale(1.15);
+      text-shadow: 0 0 12px rgba(245, 197, 24, 0.45);
+    }
+
+    .rating-caption {
+      margin-top: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent-gold-bright);
+      min-height: 20px;
+    }
+
+    .feedback-tags-wrap {
+      margin-bottom: 20px;
+    }
+
+    .section-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent-gold);
+      margin-bottom: 10px;
+      display: block;
+      font-weight: 600;
+    }
+
+    .pill-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill-item {
+      background: rgba(3, 16, 11, 0.7);
+      border: 1px solid rgba(197, 155, 72, 0.25);
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 12px;
+      color: var(--text-cream);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s ease;
+    }
+
+    .pill-item.selected {
+      background: rgba(197, 155, 72, 0.25);
+      border-color: var(--accent-gold-bright);
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      background: rgba(3, 16, 11, 0.85);
+      border: 1px solid rgba(197, 155, 72, 0.3);
+      border-radius: 6px;
+      color: #ffffff;
+      padding: 10px 12px;
+      font-size: 13.5px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--accent-gold-bright);
+      box-shadow: 0 0 8px rgba(197, 155, 72, 0.2);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 80px;
+      line-height: 1.5;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, #c59b48 0%, #9e7930 100%);
+      color: #020704;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 6px 20px rgba(197, 155, 72, 0.25);
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* SUCCESS STATE */
+    .success-box {
+      display: none;
+      text-align: center;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .success-icon {
+      font-size: 50px;
+      margin-bottom: 12px;
+      color: #f5c518;
+    }
+
+    .success-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 26px;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .success-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .gmaps-card {
+      background: rgba(3, 16, 11, 0.95);
+      border: 1.5px solid var(--accent-gold);
+      border-radius: 8px;
+      padding: 18px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .gmaps-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--accent-gold-bright);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .gmaps-desc {
+      font-size: 12.5px;
+      color: rgba(247, 242, 231, 0.8);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .btn-gmaps {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: #4285F4;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 13px;
+      padding: 12px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+
+    .btn-gmaps:hover {
+      background: #3367d6;
+    }
+
+    .btn-back-home {
+      display: inline-block;
+      color: var(--text-muted);
+      text-decoration: underline;
+      font-size: 13px;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="review-container">
+    
+    <!-- BRAND HEADER -->
+    <div class="brand-header">
+      <div class="brand-eyebrow">Gentlemen's Feedback Protocol</div>
+      <h1 class="brand-title">Greenwood Barbers</h1>
+      <div class="brand-sub">Flagship Sanctuary &bull; Kota Baru Parahyangan</div>
+    </div>
+
+    <!-- FORM WRAPPER -->
+    <div id="reviewFormWrap">
+      
+      <!-- VISIT DETAILS -->
+      <div class="visit-badge-box">
+        <div>
+          <div class="visit-label">Tamu Terhormat</div>
+          <div class="visit-val" id="dispGuestName">Valued Guest</div>
+        </div>
+        <div style="text-align: right;">
+          <div class="visit-label">Master Barber</div>
+          <div class="visit-val" id="dispBarberName" style="color: var(--accent-gold-bright);">Bramantyo</div>
+        </div>
+      </div>
+
+      <!-- STAR RATING -->
+      <div class="star-rating-wrap">
+        <div class="star-rating-label">Beri nilai pengalaman ritus grooming Anda:</div>
+        <div class="star-row" id="starRow">
+          <button type="button" class="star-btn" data-value="1">&#9733;</button>
+          <button type="button" class="star-btn" data-value="2">&#9733;</button>
+          <button type="button" class="star-btn" data-value="3">&#9733;</button>
+          <button type="button" class="star-btn" data-value="4">&#9733;</button>
+          <button type="button" class="star-btn" data-value="5">&#9733;</button>
+        </div>
+        <div class="rating-caption" id="ratingCaption">Pilih bintang di atas</div>
+      </div>
+
+      <!-- QUICK COMPLIMENT TAGS -->
+      <div class="feedback-tags-wrap" id="complimentsWrap" style="display: none;">
+        <span class="section-label">Apa yang paling memuaskan Anda?</span>
+        <div class="pill-grid">
+          <div class="pill-item" onclick="togglePill(this)">✂️ Guntingan Presisi &amp; Simetris</div>
+          <div class="pill-item" onclick="togglePill(this)">🧖 Pijat Relaksasi Akupresur</div>
+          <div class="pill-item" onclick="togglePill(this)">🪒 Cukur Handuk Panas Sempurna</div>
+          <div class="pill-item" onclick="togglePill(this)">🌿 Suasana Tenang &amp; Hening</div>
+          <div class="pill-item" onclick="togglePill(this)">⏱️ Tepat Waktu Tanpa Menunggu</div>
+          <div class="pill-item" onclick="togglePill(this)">☕ Kopi / Jamuan Hangat</div>
+        </div>
+      </div>
+
+      <!-- FORM FIELDS -->
+      <div class="form-group">
+        <label class="section-label">Catatan Tambahan atau Masukan (Opsional)</label>
+        <textarea id="feedbackText" class="form-textarea" placeholder="Tuliskan pengalaman Anda atau detail potongan rambut yang Anda sukai..."></textarea>
+      </div>
+
+      <div class="form-group" id="contactFields" style="display: none;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div>
+            <label class="visit-label" style="display:block; margin-bottom: 4px;">Nama Lengkap</label>
+            <input type="text" id="custNameInput" class="form-input" placeholder="Nama Anda">
+          </div>
+          <div>
+            <label class="visit-label" style="display:block; margin-bottom: 4px;">No. WhatsApp</label>
+            <input type="tel" id="custPhoneInput" class="form-input" placeholder="0812...">
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="btn-submit" id="btnSubmitReview" onclick="submitReview()" disabled>
+        <span>Kirim Ulasan Resmi</span> &rarr;
+      </button>
+
+    </div>
+
+    <!-- SUCCESS STATE -->
+    <div id="reviewSuccessWrap" class="success-box">
+      <div class="success-icon">&#10004;</div>
+      <h2 class="success-title">Ulasan Diterima dengan Hormat</h2>
+      <p class="success-desc">
+        Terima kasih banyak atas waktu dan penilaian Anda. Catatan ini telah otomatis tersimpan dalam portofolio layanan 
+        <strong id="finalBarberName" style="color: #fff;">Bramantyo</strong> dan buku besar <em>The Greenwood Ledger</em>.
+      </p>
+
+      <!-- GOOGLE MAPS CARD (SMART ROUTING UNTUK 4/5 BINTANG) -->
+      <div class="gmaps-card" id="gmapsCtaBox" style="display: none;">
+        <div class="gmaps-title">
+          <span>🌟</span> BANTU DUKUNG KAMI DI GOOGLE MAPS
+        </div>
+        <div class="gmaps-desc">
+          Sebagai apresiasi atas kepuasan Anda, apakah Anda berkenan membagikan ulasan bintang 5 ini di Google Maps Greenwood Barbers? Ulasan Anda sangat berharga bagi reputasi Flagship kami di Kota Baru Parahyangan.
+        </div>
+        <a href="https://maps.app.goo.gl/3K1oZp6H8jQ7k" target="_blank" rel="noopener" class="btn-gmaps" id="gmapsLinkBtn">
+          <span>⭐</span> Salin &amp; Buka Google Maps Review
+        </a>
+      </div>
+
+      <a href="index.html" class="btn-back-home">&larr; Kembali ke Beranda Greenwood Barbers</a>
+    </div>
+
+  </div>
+
+  <script>
+    // 1. EXTRACT QUERY PARAMS (From Cashier WhatsApp Link)
+    const params = new URLSearchParams(window.location.search);
+    const receiptId = params.get('receipt') || 'GW-PARLOUR';
+    const barberParam = params.get('barber') || 'Bramantyo';
+    const guestParam = params.get('name') || 'Tamu Terhormat';
+    const phoneParam = params.get('phone') || '';
+
+    document.getElementById('dispGuestName').textContent = guestParam;
+    document.getElementById('dispBarberName').textContent = barberParam;
+    document.getElementById('finalBarberName').textContent = barberParam;
+
+    let selectedRating = 0;
+    const ratingCaptions = {
+      1: "❌ Perlu Banyak Perbaikan",
+      2: "⚠️ Kurang Memuaskan",
+      3: "👍 Cukup Baik",
+      4: "✨ Sangat Bagus & Rapi",
+      5: "🌟 Paripurna (Exceptional Experience)"
+    };
+
+    // 2. STAR RATING INTERACTION
+    const starButtons = document.querySelectorAll('.star-btn');
+    const ratingCaption = document.getElementById('ratingCaption');
+    const complimentsWrap = document.getElementById('complimentsWrap');
+    const btnSubmit = document.getElementById('btnSubmitReview');
+
+    starButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        selectedRating = parseInt(btn.getAttribute('data-value'));
+        renderStars(selectedRating);
+        ratingCaption.textContent = ratingCaptions[selectedRating] || "";
+        btnSubmit.disabled = false;
+
+        // Show compliments if 4 or 5 stars
+        if (selectedRating >= 4) {
+          complimentsWrap.style.display = 'block';
+        } else {
+          complimentsWrap.style.display = 'none';
+        }
+      });
+
+      btn.addEventListener('mouseenter', () => {
+        const val = parseInt(btn.getAttribute('data-value'));
+        highlightStars(val);
+      });
+
+      btn.addEventListener('mouseleave', () => {
+        renderStars(selectedRating);
+      });
+    });
+
+    function highlightStars(count) {
+      starButtons.forEach(b => {
+        const v = parseInt(b.getAttribute('data-value'));
+        if (v <= count) b.classList.add('hover');
+        else b.classList.remove('hover');
+      });
+    }
+
+    function renderStars(count) {
+      starButtons.forEach(b => {
+        b.classList.remove('hover');
+        const v = parseInt(b.getAttribute('data-value'));
+        if (v <= count) b.classList.add('active');
+        else b.classList.remove('active');
+      });
+    }
+
+    function togglePill(el) {
+      el.classList.toggle('selected');
+    }
+
+    // 3. SUBMIT REVIEW HANDLER
+    async function submitReview() {
+      if (selectedRating === 0) return;
+
+      btnSubmit.disabled = true;
+      btnSubmit.textContent = "Mengirimkan Ulasan...";
+
+      const selectedPills = Array.from(document.querySelectorAll('.pill-item.selected'))
+        .map(p => p.textContent.trim());
+
+      const feedback = document.getElementById('feedbackText').value.trim();
+
+      const payload = {
+        action: "submit_review",
+        receiptId: receiptId,
+        guestName: guestParam !== 'Tamu Terhormat' ? guestParam : (document.getElementById('custNameInput').value || 'Tamu Anonim'),
+        guestPhone: phoneParam || document.getElementById('custPhoneInput').value || '',
+        barberName: barberParam,
+        rating: selectedRating,
+        tags: selectedPills,
+        feedback: feedback,
+        submittedAt: new Date().toISOString()
+      };
+
+      // Simpan juga ke LocalStorage sebagai cadangan instan
+      try {
+        const localReviews = JSON.parse(localStorage.getItem('greenwood_reviews') || '[]');
+        localReviews.unshift(payload);
+        localStorage.setItem('greenwood_reviews', JSON.stringify(localReviews));
+      } catch(e) {}
+
+      // Kirim ke Google Apps Script Webhook
+      const scriptUrl = "https://script.google.com/macros/s/AKfycbxTz-1pKwj_Dd0ebm1_CfY7V9801L91Qw6qvwTa3LA6MLV7oULTA76GCRA5K8ic1LSTwQ/exec";
+
+      try {
+        await fetch(scriptUrl, {
+          method: 'POST',
+          mode: 'no-cors', // Standard cross-origin GAS submission
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch (err) {
+        console.warn("Review dispatched with local cache fallback:", err);
+      }
+
+      // Display Success State
+      document.getElementById('reviewFormWrap').style.display = 'none';
+      document.getElementById('reviewSuccessWrap').style.display = 'block';
+
+      // Smart Google Maps Routing for High Ratings (4 or 5 stars)
+      if (selectedRating >= 4) {
+        document.getElementById('gmapsCtaBox').style.display = 'block';
+        // Auto copy feedback text to clipboard if filled
+        if (feedback.length > 5) {
+          navigator.clipboard.writeText(feedback).catch(() => {});
+        }
+      }
+    }
+  </script>
+</body>
+</html>
