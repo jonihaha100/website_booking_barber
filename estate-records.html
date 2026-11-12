@@ -1661,7 +1661,8 @@
                 <th>Kode Registrasi</th>
                 <th>Nama Tamu &amp; Kontak</th>
                 <th>Artisan Barber</th>
-                <th style="white-space: nowrap; min-width: 140px;">Jadwal Sesi</th>
+                <th style="white-space: nowrap; min-width: 125px;">Tanggal Sesi</th>
+                <th style="white-space: nowrap; min-width: 105px;">Waktu</th>
                 <th>Ritual Layanan</th>
                 <th>Tagihan</th>
                 <th>Status</th>
@@ -4374,14 +4375,14 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
             ${(b.guestNotes || b.notes) ? `<div style="font-size:11px; color:#e5b95f; font-style:italic; margin-top:2px;">"${escapeHtml(b.guestNotes || b.notes)}"</div>` : ''}
           </td>
           <td>${escapeHtml(b.assignedBarberName || b.barberName || 'First available')}</td>
-          <td style="white-space: nowrap; min-width: 140px;">
-            <div style="font-weight: 600; color: #fff; font-size: 13px; line-height: 1.3;">${formatScheduleDate(b.dateKey)}</div>
-            <div style="margin-top: 4px;">
-              <span class="schedule-time-badge">
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                <span>${escapeHtml(b.timeSlot || '')} WIB</span>
-              </span>
-            </div>
+          <td style="white-space: nowrap; min-width: 125px;">
+            <div style="font-weight: 600; color: #fff; font-size: 13px;">${formatScheduleDate(b.dateKey)}</div>
+          </td>
+          <td style="white-space: nowrap; min-width: 105px;">
+            <span class="schedule-time-badge">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>${escapeHtml(b.timeSlot || '')} WIB</span>
+            </span>
           </td>
           <td>
             <div>${escapeHtml(b.serviceName || b.packageName || 'The Cut')}</div>
