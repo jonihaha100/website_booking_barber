@@ -152,7 +152,7 @@
     {
       id: "barber-bramantyo",
       name: "Bramantyo",
-      role: "Master Barber",
+      role: "Barber",
       phone: "081991153322",
       serviceCommissionRate: 45, // 45% komisi jasa
       productCommissionRate: 10, // 10% komisi produk
@@ -165,7 +165,7 @@
     {
       id: "barber-rian",
       name: "Rian Pratama",
-      role: "Senior Barber",
+      role: "Barber",
       phone: "081223344556",
       serviceCommissionRate: 40,
       productCommissionRate: 10,
@@ -178,7 +178,7 @@
     {
       id: "barber-dimas",
       name: "Dimas Setiawan",
-      role: "Senior Barber",
+      role: "Barber",
       phone: "081334455667",
       serviceCommissionRate: 40,
       productCommissionRate: 10,
@@ -736,7 +736,16 @@
     },
     // Staff attendance and commission accounting
     getStaff: function() {
-      return getStorage(KEYS.STAFF, SEED_STAFF);
+      let list = getStorage(KEYS.STAFF, SEED_STAFF);
+      let changed = false;
+      list.forEach(s => {
+        if (s.role && (s.role.includes("Master") || s.role.includes("Senior"))) {
+          s.role = "Barber";
+          changed = true;
+        }
+      });
+      if (changed) setStorage(KEYS.STAFF, list);
+      return list;
     },
 
     toggleClockIn: function(staffId) {

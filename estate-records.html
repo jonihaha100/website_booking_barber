@@ -1399,11 +1399,11 @@
             <div class="form-row">
               <label class="form-label">Artisan Barber Bertugas *</label>
               <select id="posBarberSelect" class="form-control">
-                <option value="barber-bramantyo">Bramantyo (Master Barber)</option>
-                <option value="barber-rian">Rian Pratama (Senior Barber)</option>
-                <option value="barber-dimas">Dimas Setiawan (Senior Barber)</option>
-                <option value="barber-farhan">Farhan Akbar (Barber)</option>
-                <option value="barber-aldi">Aldi Maulana (Barber)</option>
+                <option value="barber-bramantyo">Bramantyo</option>
+                <option value="barber-rian">Rian Pratama</option>
+                <option value="barber-dimas">Dimas Setiawan</option>
+                <option value="barber-farhan">Farhan Akbar</option>
+                <option value="barber-aldi">Aldi Maulana</option>
               </select>
             </div>
 
@@ -1697,7 +1697,6 @@
               <thead>
                 <tr>
                   <th>Artisan Barber</th>
-                  <th>Role</th>
                   <th>Layanan Dikerjakan</th>
                   <th>Produk Terjual</th>
                   <th>Omzet Kotor (Gross)</th>
@@ -3990,13 +3989,12 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       if (!canSeeAll && activeRole === 'Barber') {
         // Barber only sees Bramantyo (or first barber)
         displayReport = report.filter(r => r.staffName.includes('Bramantyo') || r.staffId === 'barber-bramantyo' || r.staffId === 'STF-001');
-        filterNotice = `<tr><td colspan="9" style="text-align:center; padding:8px; font-size:11.5px; color:#38bdf8; background:rgba(56,189,248,0.06);">🔒 Mode Privasi: Menampilkan rincian komisi pribadi Anda (Bramantyo) sesuai peran Barber.</td></tr>`;
+        filterNotice = `<tr><td colspan="8" style="text-align:center; padding:8px; font-size:11.5px; color:#38bdf8; background:rgba(56,189,248,0.06);">🔒 Mode Privasi: Menampilkan rincian komisi pribadi Anda (Bramantyo) sesuai peran Barber.</td></tr>`;
       }
 
       tbody.innerHTML = displayReport.map(r => `
         <tr>
           <td><strong style="color:#fff;">${escapeHtml(r.staffName)}</strong></td>
-          <td style="color:var(--text-muted);">${escapeHtml(r.role)}</td>
           <td><strong>${r.totalServicesDone}</strong> layanan</td>
           <td>${r.totalProductsSold} item</td>
           <td>${formatRupiah(r.totalGrossRevenue)}</td>
@@ -4016,11 +4014,10 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       const period = document.getElementById('staffPeriodSelect').value;
       const report = GreenwoodAdminDB.getCommissionReport(period);
 
-      const headers = ["Barber ID", "Nama Barber", "Jabatan", "Layanan Selesai", "Produk Terjual", "Omzet Kotor (Rp)", "Komisi Jasa (Rp)", "Komisi Produk (Rp)", "Uang Tip (Rp)", "Total Payout Komisi (Rp)"];
+      const headers = ["Barber ID", "Nama Barber", "Layanan Selesai", "Produk Terjual", "Omzet Kotor (Rp)", "Komisi Jasa (Rp)", "Komisi Produk (Rp)", "Uang Tip (Rp)", "Total Payout Komisi (Rp)"];
       const rows = report.map(r => [
         `"${r.staffId}"`,
         `"${r.staffName}"`,
-        `"${r.role}"`,
         r.totalServicesDone,
         r.totalProductsSold,
         r.totalGrossRevenue,
