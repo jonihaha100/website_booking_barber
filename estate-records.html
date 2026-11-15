@@ -125,88 +125,102 @@
       display: none;
     }
 
-    /* TOP NAVIGATION */
+    /* TOP NAVIGATION (SINGLE ROW LUXURY BAR) */
     .portal-nav {
-      background: rgba(4, 15, 10, 0.96);
+      background: rgba(4, 15, 10, 0.98);
       border-bottom: 1px solid var(--card-border);
-      padding: 12px 24px;
+      padding: 8px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       position: sticky;
       top: 0;
       z-index: 100;
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(10px);
+      flex-wrap: nowrap !important;
+      min-height: 52px;
+      gap: 12px;
     }
     .portal-brand-wrap {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 10px;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     .portal-logo {
-      height: 36px;
+      height: 32px;
     }
     .portal-tagline {
-      font-size: 11px;
-      letter-spacing: 1.2px;
+      font-size: 10.5px;
+      letter-spacing: 1px;
       color: var(--accent-gold);
       text-transform: uppercase;
       font-weight: 600;
+      white-space: nowrap;
     }
     .portal-user-actions {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 6px;
+      flex-wrap: nowrap !important;
+      flex-shrink: 0;
     }
     .branch-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: rgba(197, 155, 72, 0.12);
+      gap: 5px;
+      background: rgba(197, 155, 72, 0.1);
       border: 1px solid var(--card-border);
-      padding: 6px 12px;
+      padding: 5px 9px;
       border-radius: 6px;
-      font-size: 12px;
+      font-size: 11.5px;
       color: var(--accent-gold-bright);
       font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     .role-select {
       background: rgba(3, 12, 8, 0.9);
       border: 1px solid var(--card-border);
       color: #fff;
-      font-size: 12px;
-      padding: 6px 10px;
+      font-size: 11.5px;
+      padding: 5px 8px;
       border-radius: 6px;
       outline: none;
       cursor: pointer;
+      flex-shrink: 0;
     }
     .user-role-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 6px 12px;
+      gap: 5px;
+      padding: 5px 10px;
       background: rgba(197, 155, 72, 0.12);
-      border: 1px solid rgba(197, 155, 72, 0.35);
+      border: 1px solid rgba(197, 155, 72, 0.4);
       border-radius: 6px;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 600;
       color: var(--accent-gold-bright);
       white-space: nowrap;
+      flex-shrink: 0;
       user-select: none;
     }
     .btn-portal-action {
-      background: rgba(197, 155, 72, 0.1);
+      background: rgba(197, 155, 72, 0.08);
       border: 1px solid var(--card-border);
       color: var(--text-main);
-      padding: 7px 12px;
+      padding: 5px 10px;
       border-radius: 6px;
-      font-size: 12px;
+      font-size: 11.5px;
       cursor: pointer;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       transition: all 0.2s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     .btn-portal-action:hover {
       background: rgba(197, 155, 72, 0.22);
@@ -230,6 +244,66 @@
     }
     .btn-portal-lock {
       background: rgba(224, 108, 117, 0.12);
+      border-color: rgba(224, 108, 117, 0.4);
+      color: var(--danger);
+    }
+
+    /* Mobile Quick Menu Dropdown Container */
+    .portal-more-wrap {
+      position: relative;
+      display: none;
+    }
+    .portal-more-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: rgba(3, 12, 8, 0.98);
+      border: 1px solid var(--accent-gold);
+      border-radius: 8px;
+      padding: 6px;
+      min-width: 210px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      z-index: 1000;
+      backdrop-filter: blur(12px);
+    }
+    .portal-more-dropdown.active {
+      display: flex;
+    }
+    .portal-dropdown-item {
+      background: transparent;
+      border: none;
+      color: #e5b95f;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      font-size: 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: left;
+      transition: background 0.15s ease, color 0.15s ease;
+      white-space: nowrap;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .portal-dropdown-item:hover {
+      background: rgba(197, 155, 72, 0.18);
+      color: #fff;
+    }
+    .portal-dropdown-divider {
+      height: 1px;
+      background: var(--card-border);
+      margin: 4px 0;
+    }
+    .portal-dropdown-header {
+      padding: 6px 12px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
       border-color: rgba(224, 108, 117, 0.4);
       color: var(--danger);
     }
@@ -1272,17 +1346,75 @@
       font-weight: 600;
     }
 
-    /* Tablet Breakpoint (max-width: 900px) */
-    @media (max-width: 900px) {
+    /* Tablet & Mobile Breakpoint (max-width: 860px) */
+    @media (max-width: 860px) {
       .portal-nav {
-        padding: 10px 18px;
+        padding: 6px 10px !important;
+        flex-wrap: nowrap !important;
+        gap: 6px !important;
+        min-height: 48px;
+        height: 48px;
+        box-sizing: border-box;
+      }
+      .portal-brand-wrap {
+        gap: 6px !important;
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+      .portal-logo {
+        height: 24px !important;
+      }
+      .portal-brand-title {
+        font-size: 12px !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .portal-tagline {
+        display: none !important;
+      }
+      .branch-badge {
+        display: none !important;
+      }
+      .portal-user-actions {
+        gap: 4px !important;
+        flex-wrap: nowrap !important;
+        flex-shrink: 0;
+      }
+      /* Hide desktop-only loose buttons on mobile & tablet */
+      #btnHeaderRoles,
+      #btnHeaderSettings,
+      #btnHeaderPasskey,
+      .btn-header-web {
+        display: none !important;
+      }
+      /* Show Mobile More Dropdown Trigger */
+      .portal-more-wrap {
+        display: inline-block !important;
+      }
+      .user-role-badge {
+        padding: 3px 6px !important;
+        font-size: 10px !important;
+        max-width: 90px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .role-select {
+        padding: 3px 4px !important;
+        font-size: 10.5px !important;
+        min-width: 44px !important;
+      }
+      .btn-portal-action {
+        padding: 4px 7px !important;
+        font-size: 11px !important;
       }
       .portal-container {
-        padding: 20px 16px 60px;
+        padding: 16px 12px 60px;
       }
       .metrics-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px;
       }
       .pos-layout {
         grid-template-columns: 1fr;
@@ -1320,37 +1452,6 @@
       .btn-gate-unlock {
         min-height: 44px;
         font-size: 13px;
-      }
-
-      /* Navbar on Phone */
-      .portal-nav {
-        padding: 10px 12px;
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-      .portal-brand-wrap {
-        gap: 8px;
-      }
-      .portal-logo {
-        height: 28px;
-      }
-      .portal-tagline {
-        display: none; /* Hide long tagline to save horizontal header space */
-      }
-      .branch-badge {
-        display: none; /* Hide branch text on phone */
-      }
-      .portal-user-actions {
-        gap: 6px;
-        flex-wrap: wrap;
-      }
-      .user-role-badge {
-        padding: 4px 8px;
-        font-size: 11px;
-      }
-      .btn-portal-action {
-        padding: 6px 9px;
-        font-size: 11px;
       }
 
       /* Tabs Navigation on Phone */
@@ -1595,44 +1696,78 @@
     <header class="portal-nav">
       <div class="portal-brand-wrap">
         <img src="assets/greenwood_logo_transparent.png" alt="Greenwood Barbers" class="portal-logo">
-        <div>
-          <div style="font-weight: 700; color: #fff; font-size: 14.5px; letter-spacing: 0.5px;">The Greenwood Ledger</div>
+        <div style="min-width: 0;">
+          <div class="portal-brand-title" style="font-weight: 700; color: #fff; font-size: 14px; letter-spacing: 0.4px;">The Greenwood Ledger</div>
           <div class="portal-tagline">POS &bull; CRM &bull; Management Suite</div>
         </div>
       </div>
       <div class="portal-user-actions">
-        <div class="branch-badge" title="Cabang Aktif">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 4px;"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v4M12 14v4M16 14v4"/></svg>
-          <span id="currentBranchName">Kota Baru Parahyangan (kbp-main)</span>
+        <div class="branch-badge" id="branchBadgeWrap" title="Cabang Aktif: Kota Baru Parahyangan (kbp-main)">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -1px; margin-right: 2px;"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v4M12 14v4M16 14v4"/></svg>
+          <span id="currentBranchName">KBP</span>
         </div>
 
         <!-- AUTHENTICATED ROLE BADGE (Read-only status badge based on login PIN) -->
         <div class="user-role-badge" id="userRoleBadge" title="Profil Peran Terotentikasi">
-          <span id="userRoleBadgeIcon">💳</span>
-          <span id="userRoleBadgeText">Peran: Kasir</span>
+          <span id="userRoleBadgeIcon">👑</span>
+          <span id="userRoleBadgeText">Owner</span>
         </div>
 
         <button type="button" class="btn-portal-action" id="btnHeaderRoles" onclick="openRolesPermissionsModal()" title="Kelola Matriks Hak Akses">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 4px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          <span data-i18n="btn_roles">Hak Akses Role</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -1px; margin-right: 2px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span data-i18n="btn_roles">Hak Akses</span>
         </button>
-        <select id="langSwitcher" class="role-select" onchange="setSystemLanguage(this.value)" title="Ganti Bahasa / Switch Language" style="min-width: 76px;">
-          <option value="id" selected>ID</option>
-          <option value="en">EN</option>
-        </select>
-        <a href="index.html" class="btn-portal-action" target="_blank">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 4px;"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-          <span data-i18n="btn_web">Web Publik</span>
-        </a>
         <button type="button" class="btn-portal-action" id="btnHeaderSettings" onclick="openSettingsModal()" title="Pengaturan Sistem & Sandbox">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 4px;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -1px; margin-right: 2px;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
           <span data-i18n="btn_settings">Pengaturan</span>
         </button>
         <button type="button" class="btn-portal-action" id="btnHeaderPasskey" onclick="openPinModal()" title="Perbarui PIN Peran">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 4px;"><path d="M21 2l-2 2m-1.5 1.5L12 11l-4-4-6 6 4 4 6-6 5.5-5.5z"/><circle cx="16" cy="8" r="2"/></svg>
-          <span data-i18n="btn_passkey">Passkey</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -1px; margin-right: 2px;"><path d="M21 2l-2 2m-1.5 1.5L12 11l-4-4-6 6 4 4 6-6 5.5-5.5z"/><circle cx="16" cy="8" r="2"/></svg>
+          <span data-i18n="btn_passkey">PIN</span>
         </button>
+        <a href="index.html" class="btn-portal-action btn-header-web" target="_blank" title="Buka Halaman Web Publik">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -1px; margin-right: 2px;"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span data-i18n="btn_web">Web</span>
+        </a>
+        <select id="langSwitcher" class="role-select" onchange="setSystemLanguage(this.value)" title="Ganti Bahasa / Switch Language" style="min-width: 58px;">
+          <option value="id" selected>ID</option>
+          <option value="en">EN</option>
+        </select>
+
+        <!-- MOBILE MORE DROPDOWN MENU -->
+        <div class="portal-more-wrap" id="portalMoreWrap">
+          <button type="button" class="btn-portal-action" id="btnMoreToggle" onclick="toggleMoreMenu(event)" title="Opsi Menu Super Admin">
+            <span>⚙️ Menu ▾</span>
+          </button>
+          <div class="portal-more-dropdown" id="portalMoreDropdown">
+            <button type="button" class="portal-dropdown-item" id="btnMoreRoles" onclick="closeMoreMenu(); openRolesPermissionsModal();">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span>Hak Akses Role</span>
+            </button>
+            <button type="button" class="portal-dropdown-item" id="btnMoreSettings" onclick="closeMoreMenu(); openSettingsModal();">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              <span>Pengaturan Sistem</span>
+            </button>
+            <button type="button" class="portal-dropdown-item" id="btnMorePasskey" onclick="closeMoreMenu(); openPinModal();">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-1.5 1.5L12 11l-4-4-6 6 4 4 6-6 5.5-5.5z"/><circle cx="16" cy="8" r="2"/></svg>
+              <span>Perbarui PIN Peran</span>
+            </button>
+            <a href="index.html" target="_blank" class="portal-dropdown-item" onclick="closeMoreMenu()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              <span>Web Publik</span>
+            </a>
+            <div class="portal-dropdown-divider"></div>
+            <div class="portal-dropdown-header">
+              <span>🏛️ Kota Baru Parahyangan</span>
+            </div>
+          </div>
+        </div>
+
         <button type="button" class="btn-portal-action btn-portal-lock" onclick="lockPortal()" title="Kunci Layar Terminal">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -1px; margin-right: 2px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span data-i18n="btn_lock">Kunci</span>
+        </button>
+      </div>
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 4px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           <span data-i18n="btn_lock">Kunci</span>
         </button>
@@ -3432,16 +3567,30 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
 
       // 2. Strict Header Button Visibility based on Active Authenticated Role
       const btnRoles = document.getElementById('btnHeaderRoles');
+      const btnMoreRoles = document.getElementById('btnMoreRoles');
       if (btnRoles) {
         btnRoles.style.display = isSA ? 'inline-flex' : 'none';
       }
+      if (btnMoreRoles) {
+        btnMoreRoles.style.display = isSA ? 'flex' : 'none';
+      }
+
       const btnSettings = document.getElementById('btnHeaderSettings');
+      const btnMoreSettings = document.getElementById('btnMoreSettings');
       if (btnSettings) {
         btnSettings.style.display = (isSA || activeRole === 'Manager') ? 'inline-flex' : 'none';
       }
+      if (btnMoreSettings) {
+        btnMoreSettings.style.display = (isSA || activeRole === 'Manager') ? 'flex' : 'none';
+      }
+
       const btnPasskey = document.getElementById('btnHeaderPasskey');
+      const btnMorePasskey = document.getElementById('btnMorePasskey');
       if (btnPasskey) {
         btnPasskey.style.display = isSA ? 'inline-flex' : 'none';
+      }
+      if (btnMorePasskey) {
+        btnMorePasskey.style.display = isSA ? 'flex' : 'none';
       }
 
       // 3. Strict Tab Navigation Visibility per Role
@@ -5020,6 +5169,28 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       document.getElementById('modalPin').style.display = 'none'; 
       document.getElementById('changePinForm').reset(); 
     }
+
+    // Mobile More Actions Dropdown Helpers
+    function toggleMoreMenu(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      const dd = document.getElementById('portalMoreDropdown');
+      if (dd) dd.classList.toggle('active');
+    }
+
+    function closeMoreMenu() {
+      const dd = document.getElementById('portalMoreDropdown');
+      if (dd) dd.classList.remove('active');
+    }
+
+    window.addEventListener('click', (e) => {
+      const wrap = document.getElementById('portalMoreWrap');
+      if (wrap && !wrap.contains(e.target)) {
+        closeMoreMenu();
+      }
+    });
 
     function handleSaveNewPin(e) {
       e.preventDefault();
