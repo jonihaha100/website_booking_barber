@@ -41,6 +41,7 @@
       padding: 0;
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
     /* GATE SCREEN (SECURITY PASSKEY) */
@@ -1251,6 +1252,312 @@
       outline: 2px solid var(--accent-gold);
       outline-offset: 2px;
     }
+
+    /* ==========================================================================
+       RESPONSIVE DESIGN (DESKTOP, TABLET & MOBILE VIEWPORT OPTIMIZATIONS)
+       ========================================================================== */
+
+    /* Scroll Hint for Horizontal Data Tables on Mobile */
+    .table-scroll-hint {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: rgba(197, 155, 72, 0.08);
+      border: 1px dashed rgba(197, 155, 72, 0.3);
+      border-radius: 6px;
+      color: var(--accent-gold-bright);
+      font-size: 11px;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    /* Tablet Breakpoint (max-width: 900px) */
+    @media (max-width: 900px) {
+      .portal-nav {
+        padding: 10px 18px;
+      }
+      .portal-container {
+        padding: 20px 16px 60px;
+      }
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .pos-layout {
+        grid-template-columns: 1fr;
+      }
+      .role-matrix-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Mobile Breakpoint (max-width: 680px) */
+    @media (max-width: 680px) {
+      /* Gate / Passkey Modal on Phone */
+      .gate-card {
+        padding: 28px 18px;
+        margin: 12px;
+        border-radius: 10px;
+      }
+      .gate-logo {
+        height: 38px;
+        margin-bottom: 16px;
+      }
+      .gate-title {
+        font-size: 21px;
+      }
+      .gate-desc {
+        font-size: 12px;
+        margin-bottom: 18px;
+      }
+      .pin-input {
+        font-size: 22px;
+        letter-spacing: 8px;
+        padding: 10px;
+        margin-bottom: 16px;
+      }
+      .btn-gate-unlock {
+        min-height: 44px;
+        font-size: 13px;
+      }
+
+      /* Navbar on Phone */
+      .portal-nav {
+        padding: 10px 12px;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .portal-brand-wrap {
+        gap: 8px;
+      }
+      .portal-logo {
+        height: 28px;
+      }
+      .portal-tagline {
+        display: none; /* Hide long tagline to save horizontal header space */
+      }
+      .branch-badge {
+        display: none; /* Hide branch text on phone */
+      }
+      .portal-user-actions {
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .user-role-badge {
+        padding: 4px 8px;
+        font-size: 11px;
+      }
+      .btn-portal-action {
+        padding: 6px 9px;
+        font-size: 11px;
+      }
+
+      /* Tabs Navigation on Phone */
+      .portal-tabs-nav {
+        padding: 0 8px;
+        gap: 4px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .portal-tab-btn {
+        padding: 11px 12px;
+        font-size: 12px;
+        gap: 5px;
+      }
+
+      /* Main Container */
+      .portal-container {
+        padding: 14px 10px 60px;
+      }
+
+      /* Metrics Grid (Compact 2x2 for Phone) */
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+        margin-bottom: 14px !important;
+      }
+      .metric-card {
+        padding: 12px 10px;
+        border-radius: 8px;
+      }
+      .metric-label {
+        font-size: 9.5px;
+        letter-spacing: 0.5px;
+        margin-bottom: 4px;
+      }
+      .metric-val {
+        font-size: 18px;
+        line-height: 1.15;
+      }
+      .metric-sub {
+        font-size: 10.5px;
+      }
+
+      /* Sync Banner */
+      .sync-banner-shell {
+        padding: 10px 12px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+      .sync-status-indicator {
+        font-size: 11.5px;
+      }
+      .sync-banner-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        width: 100%;
+      }
+      .sync-banner-actions a,
+      .sync-banner-actions button {
+        flex: 1 1 45%;
+        justify-content: center;
+        font-size: 11px;
+        padding: 7px 8px;
+      }
+
+      /* Toolbar & Search Filters */
+      .toolbar-shell {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 8px !important;
+        margin-bottom: 12px !important;
+      }
+      .toolbar-shell > div {
+        width: 100% !important;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .crm-search-input {
+        width: 100% !important;
+        min-height: 40px;
+        font-size: 14px;
+        box-sizing: border-box;
+      }
+      .crm-select {
+        flex: 1 1 calc(50% - 5px);
+        min-height: 40px;
+        font-size: 12.5px;
+        box-sizing: border-box;
+      }
+      .btn-gold-action,
+      .toolbar-shell .btn-portal-action {
+        flex: 1 1 calc(50% - 5px);
+        min-height: 40px;
+        justify-content: center;
+        font-size: 12px;
+        box-sizing: border-box;
+      }
+
+      /* Table Scroll Hint */
+      .table-scroll-hint {
+        display: flex;
+      }
+
+      /* Table Touch Tuning */
+      .crm-table-wrap {
+        border-radius: 8px;
+        margin-bottom: 14px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .crm-table th {
+        padding: 9px 10px;
+        font-size: 10.5px;
+      }
+      .crm-table td {
+        padding: 9px 10px;
+        font-size: 12px;
+      }
+      .btn-table-action {
+        min-height: 32px;
+        padding: 0 10px;
+        font-size: 11px;
+      }
+
+      /* Staff Shift Grid */
+      .staff-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+        margin-bottom: 18px !important;
+      }
+      .staff-card {
+        padding: 14px;
+        border-radius: 8px;
+      }
+      .btn-clock {
+        min-height: 42px;
+        width: 100%;
+        font-size: 13px;
+        justify-content: center;
+      }
+
+      /* POS Catalog */
+      .pos-catalog-panel,
+      .pos-cart-panel {
+        padding: 12px;
+        border-radius: 8px;
+      }
+      .pos-items-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+      }
+      .pos-item-card {
+        padding: 10px;
+        min-height: 115px;
+      }
+      .pos-item-name {
+        font-size: 12.5px;
+      }
+      .pos-item-price {
+        font-size: 12px;
+      }
+      .pos-pay-btn {
+        min-height: 44px;
+        font-size: 14px;
+      }
+
+      /* Charts */
+      .chart-container {
+        padding: 14px;
+        border-radius: 8px;
+        overflow-x: auto;
+      }
+      .busy-hours-bar-grid {
+        min-width: 440px;
+        gap: 6px;
+      }
+
+      /* Modals on Mobile */
+      .portal-modal-backdrop {
+        padding: 10px;
+      }
+      .portal-modal-box {
+        padding: 18px 14px;
+        border-radius: 10px;
+        max-height: 92vh;
+      }
+      .modal-title {
+        font-size: 17px;
+        margin-bottom: 12px;
+      }
+      .form-control,
+      .form-select {
+        font-size: 16px !important; /* Prevents auto-zoom on iOS */
+        min-height: 40px;
+      }
+      .modal-actions {
+        flex-direction: column;
+        gap: 8px;
+      }
+      .modal-actions button,
+      .modal-actions a {
+        width: 100%;
+        min-height: 42px;
+        justify-content: center;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1554,6 +1861,10 @@
         </div>
 
         <!-- CRM TABLE -->
+        <div class="table-scroll-hint">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"/><polyline points="12 16 16 12 12 8"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          <span>Geser tabel ke samping untuk melihat data lengkap</span>
+        </div>
         <div class="crm-table-wrap">
           <table class="crm-table">
             <thead>
@@ -1659,6 +1970,10 @@
         </div>
 
         <!-- LEDGER DATA TABLE -->
+        <div class="table-scroll-hint">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"/><polyline points="12 16 16 12 12 8"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          <span>Geser tabel ke samping untuk melihat rincian &amp; aksi</span>
+        </div>
         <div class="crm-table-wrap">
           <table class="crm-table" id="ledgerTable" style="min-width: 980px;">
             <colgroup>
@@ -1724,6 +2039,10 @@
         <!-- COMMISSION SUMMARY TABLE FOR ACCOUNTANT -->
         <div style="margin-top: 24px;">
           <h4 style="color: #fff; font-size: 16px; margin: 0 0 12px; font-family: 'Lora', serif;">Tabel Ringkasan Komisi &amp; Performa Barber (Siap Ekspor Akuntan)</h4>
+          <div class="table-scroll-hint">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"/><polyline points="12 16 16 12 12 8"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            <span>Geser tabel ke samping untuk melihat total komisi &amp; payout</span>
+          </div>
           <div class="crm-table-wrap">
             <table class="crm-table">
               <thead>
@@ -1796,6 +2115,10 @@
         <!-- ACTIVITY LOG AUDIT TRAIL -->
         <div style="margin-top: 24px;">
           <h4 style="color: #fff; font-size: 16px; margin: 0 0 12px; font-family: 'Lora', serif;">Activity Log &amp; Audit Trail (Multi-Role)</h4>
+          <div class="table-scroll-hint">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"/><polyline points="12 16 16 12 12 8"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            <span>Geser tabel ke samping untuk melihat log aktivitas</span>
+          </div>
           <div class="crm-table-wrap">
             <table class="crm-table">
               <thead>
@@ -2062,12 +2385,6 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         </div>
       </div>
 
-    </div>
-  </div>
-
-      <div class="modal-actions" style="margin-top: 18px;">
-        <button type="button" class="btn-portal-action" onclick="closeSettingsModal()">Tutup</button>
-      </div>
     </div>
   </div>
 
@@ -2402,6 +2719,17 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
   
     // Initialize application state
     window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlPin = urlParams.get('pin');
+      if (urlPin) {
+        const pinInp = document.getElementById('masterPinInput');
+        if (pinInp) {
+          pinInp.value = urlPin;
+          handleGateUnlock(new Event('submit'));
+          return;
+        }
+      }
+
       const isUnlocked = sessionStorage.getItem(SESSION_KEY) === 'true';
       if (isUnlocked) {
         showPortalContent();
@@ -2468,8 +2796,11 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       setSystemLanguage(I18N.currentLang);
       updateTipsVisibility();
 
-      // Open correct initial tab based on authenticated role
-      if (authRole === 'Barber') {
+      // Open correct initial tab based on URL param or authenticated role
+      const urlTab = new URLSearchParams(window.location.search).get('tab');
+      if (urlTab && ['pos', 'crm', 'reservations', 'staff', 'analytics'].includes(urlTab)) {
+        switchTab(urlTab);
+      } else if (authRole === 'Barber') {
         switchTab('reservations');
       } else {
         switchTab('pos');
