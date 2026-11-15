@@ -33,7 +33,7 @@
       --warning: #fbbf24;
     }
 
-    body {
+    html, body {
       background-color: var(--bg-dark);
       color: var(--text-main);
       font-family: 'Open Sans', system-ui, sans-serif;
@@ -41,7 +41,10 @@
       padding: 0;
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
+      max-width: 100vw;
+      width: 100%;
       overflow-x: hidden;
+      box-sizing: border-box;
     }
 
     /* GATE SCREEN (SECURITY PASSKEY) */
@@ -125,39 +128,51 @@
       display: none;
     }
 
-    /* TOP NAVIGATION (SINGLE ROW LUXURY BAR) */
+    /* TOP NAVIGATION (EXECUTIVE SUITE 1-ROW LUXURY BAR) */
     .portal-nav {
       background: rgba(4, 15, 10, 0.98);
       border-bottom: 1px solid var(--card-border);
-      padding: 8px 20px;
+      padding: 0 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       position: sticky;
       top: 0;
       z-index: 100;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
       flex-wrap: nowrap !important;
-      min-height: 52px;
-      gap: 12px;
+      height: 54px;
+      box-sizing: border-box;
+      gap: 14px;
     }
     .portal-brand-wrap {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       white-space: nowrap;
       flex-shrink: 0;
     }
     .portal-logo {
       height: 32px;
+      width: auto;
+      display: block;
+    }
+    .portal-brand-title {
+      font-family: 'Lora', Georgia, serif;
+      font-weight: 700;
+      color: #ffffff;
+      font-size: 15px;
+      letter-spacing: 0.4px;
+      line-height: 1.2;
     }
     .portal-tagline {
-      font-size: 10.5px;
-      letter-spacing: 1px;
+      font-size: 9.5px;
+      letter-spacing: 1.5px;
       color: var(--accent-gold);
       text-transform: uppercase;
       font-weight: 600;
       white-space: nowrap;
+      line-height: 1.2;
     }
     .portal-user-actions {
       display: flex;
@@ -166,38 +181,50 @@
       flex-wrap: nowrap !important;
       flex-shrink: 0;
     }
+    .header-divider {
+      height: 20px;
+      width: 1px;
+      background: rgba(197, 155, 72, 0.25);
+      margin: 0 3px;
+      flex-shrink: 0;
+    }
     .branch-badge {
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      background: rgba(197, 155, 72, 0.1);
+      background: rgba(197, 155, 72, 0.08);
       border: 1px solid var(--card-border);
-      padding: 5px 9px;
+      height: 32px;
+      padding: 0 10px;
       border-radius: 6px;
       font-size: 11.5px;
       color: var(--accent-gold-bright);
       font-weight: 600;
       white-space: nowrap;
       flex-shrink: 0;
+      box-sizing: border-box;
     }
     .role-select {
       background: rgba(3, 12, 8, 0.9);
       border: 1px solid var(--card-border);
       color: #fff;
       font-size: 11.5px;
-      padding: 5px 8px;
+      height: 32px;
+      padding: 0 8px;
       border-radius: 6px;
       outline: none;
       cursor: pointer;
       flex-shrink: 0;
+      box-sizing: border-box;
     }
     .user-role-badge {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      padding: 5px 10px;
+      gap: 6px;
+      height: 32px;
+      padding: 0 11px;
       background: rgba(197, 155, 72, 0.12);
-      border: 1px solid rgba(197, 155, 72, 0.4);
+      border: 1px solid rgba(197, 155, 72, 0.45);
       border-radius: 6px;
       font-size: 11.5px;
       font-weight: 600;
@@ -205,22 +232,26 @@
       white-space: nowrap;
       flex-shrink: 0;
       user-select: none;
+      box-sizing: border-box;
     }
     .btn-portal-action {
       background: rgba(197, 155, 72, 0.08);
       border: 1px solid var(--card-border);
       color: var(--text-main);
-      padding: 5px 10px;
+      height: 32px;
+      padding: 0 11px;
       border-radius: 6px;
       font-size: 11.5px;
       cursor: pointer;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      justify-content: center;
+      gap: 6px;
       transition: all 0.2s ease;
       white-space: nowrap;
       flex-shrink: 0;
+      box-sizing: border-box;
     }
     .btn-portal-action:hover {
       background: rgba(197, 155, 72, 0.22);
@@ -246,6 +277,11 @@
       background: rgba(224, 108, 117, 0.12);
       border-color: rgba(224, 108, 117, 0.4);
       color: var(--danger);
+    }
+    .btn-portal-lock:hover {
+      background: rgba(224, 108, 117, 0.25);
+      border-color: var(--danger);
+      color: #fff;
     }
 
     /* Mobile Quick Menu Dropdown Container */
@@ -304,57 +340,110 @@
       font-size: 11px;
       color: var(--text-muted);
     }
-      border-color: rgba(224, 108, 117, 0.4);
-      color: var(--danger);
-    }
-    .btn-portal-lock:hover {
-      background: rgba(224, 108, 117, 0.25);
-      color: #fff;
-    }
 
-    /* MODULE TABS BAR */
+    /* SECONDARY NAVIGATION (SYMMETRICAL SEGMENTED TABS SUITE) */
     .portal-tabs-nav {
       background: #020704;
       border-bottom: 1px solid var(--card-border);
-      padding: 0 24px;
+      padding: 6px 20px;
       display: flex;
-      gap: 6px;
-      overflow-x: auto;
-      scrollbar-width: none;
+      align-items: center;
+      justify-content: space-between;
+      height: 48px;
+      box-sizing: border-box;
+      gap: 14px;
     }
-    .portal-tabs-nav::-webkit-scrollbar {
-      display: none;
+    .portal-tabs-segmented {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(4, 15, 10, 0.7);
+      border: 1px solid rgba(197, 155, 72, 0.2);
+      border-radius: 8px;
+      padding: 3px;
+      box-sizing: border-box;
     }
     .portal-tab-btn {
       background: transparent;
-      border: none;
-      border-bottom: 2.5px solid transparent;
+      border: 1px solid transparent;
+      border-radius: 6px;
       color: var(--text-muted);
-      font-size: 13.5px;
+      font-size: 12.5px;
       font-weight: 600;
-      padding: 14px 18px;
+      height: 32px;
+      padding: 0 14px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      transition: all 0.2s ease;
+      gap: 7px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       white-space: nowrap;
+      box-sizing: border-box;
+      user-select: none;
     }
     .portal-tab-btn:hover {
       color: #fff;
+      background: rgba(197, 155, 72, 0.08);
     }
     .portal-tab-btn.active {
-      color: var(--accent-gold-bright);
-      border-bottom-color: var(--accent-gold);
-      background: rgba(197, 155, 72, 0.06);
+      color: #ffffff;
+      background: linear-gradient(135deg, rgba(197, 155, 72, 0.28) 0%, rgba(197, 155, 72, 0.12) 100%);
+      border: 1px solid rgba(197, 155, 72, 0.6);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+    .portal-tab-btn.active svg {
+      stroke: var(--accent-gold-bright);
     }
     .portal-tab-badge {
       background: var(--accent-gold);
       color: #030c08;
       font-size: 10px;
       font-weight: 800;
-      padding: 2px 6px;
+      padding: 1px 5px;
       border-radius: 10px;
+      line-height: 1.2;
+    }
+    /* Symmetrical Meta Counterweight (Right Side of Tabs Bar) */
+    .portal-tabs-meta {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+    .portal-sync-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      letter-spacing: 0.2px;
+    }
+    .portal-pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 8px rgba(74, 222, 128, 0.8);
+      animation: pulseGreen 2.2s infinite;
+      display: inline-block;
+    }
+    @keyframes pulseGreen {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
+      70% { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(74, 222, 128, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+    }
+    .portal-live-clock {
+      font-family: 'SF Mono', 'Roboto Mono', Monaco, monospace;
+      font-size: 11.5px;
+      color: var(--accent-gold-bright);
+      font-weight: 600;
+      background: rgba(197, 155, 72, 0.08);
+      border: 1px solid rgba(197, 155, 72, 0.22);
+      border-radius: 5px;
+      padding: 3px 8px;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
     }
 
     /* MAIN CONTAINER */
@@ -448,6 +537,9 @@
       grid-template-columns: 1fr 420px;
       gap: 24px;
       align-items: start;
+      min-width: 0;
+      max-width: 100%;
+      box-sizing: border-box;
     }
     @media (max-width: 1024px) {
       .pos-layout {
@@ -459,6 +551,10 @@
       border: 1px solid var(--card-border);
       border-radius: 12px;
       padding: 20px;
+      min-width: 0;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
     }
     .pos-category-pills {
       display: flex;
@@ -466,6 +562,14 @@
       margin-bottom: 18px;
       overflow-x: auto;
       padding-bottom: 4px;
+      min-width: 0;
+      max-width: 100%;
+      box-sizing: border-box;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .pos-category-pills::-webkit-scrollbar {
+      display: none;
     }
     .pos-cat-pill {
       background: rgba(3, 12, 8, 0.8);
@@ -478,6 +582,7 @@
       cursor: pointer;
       white-space: nowrap;
       transition: all 0.2s ease;
+      flex-shrink: 0;
     }
     .pos-cat-pill:hover, .pos-cat-pill.active {
       background: var(--accent-gold);
@@ -489,6 +594,9 @@
       grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
       gap: 14px;
       align-items: stretch;
+      min-width: 0;
+      max-width: 100%;
+      box-sizing: border-box;
     }
     .pos-item-card {
       background: rgba(9, 28, 19, 0.7);
@@ -1349,26 +1457,29 @@
     /* Tablet & Mobile Breakpoint (max-width: 860px) */
     @media (max-width: 860px) {
       .portal-nav {
-        padding: 6px 10px !important;
+        padding: 0 8px !important;
         flex-wrap: nowrap !important;
-        gap: 6px !important;
-        min-height: 48px;
-        height: 48px;
-        box-sizing: border-box;
+        gap: 5px !important;
+        min-height: 48px !important;
+        height: 48px !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+        overflow: visible !important;
       }
       .portal-brand-wrap {
         gap: 6px !important;
-        flex: 1 1 auto;
-        min-width: 0;
+        flex: 0 1 auto !important;
+        min-width: 0 !important;
+        overflow: hidden !important;
       }
       .portal-logo {
-        height: 24px !important;
+        height: 22px !important;
+        width: auto !important;
+        flex-shrink: 0 !important;
       }
       .portal-brand-title {
-        font-size: 12px !important;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        display: none !important;
       }
       .portal-tagline {
         display: none !important;
@@ -1376,10 +1487,14 @@
       .branch-badge {
         display: none !important;
       }
+      .header-divider {
+        display: none !important;
+      }
       .portal-user-actions {
         gap: 4px !important;
         flex-wrap: nowrap !important;
-        flex-shrink: 0;
+        flex-shrink: 0 !important;
+        margin-left: auto !important;
       }
       /* Hide desktop-only loose buttons on mobile & tablet */
       #btnHeaderRoles,
@@ -1392,35 +1507,123 @@
       .portal-more-wrap {
         display: inline-block !important;
       }
+      .portal-more-wrap .btn-portal-action {
+        height: 28px !important;
+        padding: 0 7px !important;
+        font-size: 11px !important;
+        font-weight: 600 !important;
+      }
       .user-role-badge {
-        padding: 3px 6px !important;
-        font-size: 10px !important;
-        max-width: 90px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        height: 28px !important;
+        padding: 0 6px !important;
+        font-size: 11px !important;
+        flex-shrink: 0 !important;
+      }
+      #userRoleBadgeText {
+        display: none !important; /* Hide long role label on mobile, maintain gold crown */
       }
       .role-select {
-        padding: 3px 4px !important;
+        height: 28px !important;
+        padding: 0 2px !important;
         font-size: 10.5px !important;
-        min-width: 44px !important;
+        min-width: 36px !important;
+        width: 36px !important;
+        flex-shrink: 0 !important;
       }
-      .btn-portal-action {
-        padding: 4px 7px !important;
+      .btn-portal-lock {
+        height: 28px !important;
+        width: 28px !important;
+        padding: 0 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-shrink: 0 !important;
+      }
+      .btn-portal-lock span {
+        display: none !important; /* Padlock icon only on mobile */
+      }
+      .btn-portal-lock svg {
+        margin: 0 !important;
+      }
+
+      /* TABS BAR RESPONSIVE ON MOBILE */
+      .portal-tabs-nav {
+        padding: 4px 6px !important;
+        height: 42px !important;
+        min-height: 42px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        gap: 0 !important;
+        overflow: hidden !important;
+        display: flex !important;
+        align-items: center !important;
+      }
+      .portal-tabs-meta {
+        display: none !important;
+      }
+      .portal-tabs-segmented {
+        width: 100% !important;
+        max-width: 100% !important;
+        display: flex !important;
+        gap: 2px !important;
+        padding: 2px !important;
+        box-sizing: border-box !important;
+        flex: 1 1 100% !important;
+      }
+      .portal-tab-btn {
+        flex: 1 1 0 !important;
+        min-width: 0 !important;
+        width: 20% !important;
+        height: 32px !important;
+        padding: 0 1px !important;
         font-size: 11px !important;
+        justify-content: center !important;
+        text-align: center !important;
+        gap: 2px !important;
+        box-sizing: border-box !important;
+      }
+      .portal-tab-btn svg {
+        display: none !important; /* Hide icons on mobile so short text is 100% visible and unclipped */
+      }
+      .portal-tab-badge {
+        font-size: 9px !important;
+        padding: 1px 3px !important;
+        margin-left: 2px !important;
+      }
+      .portal-tab-label-full {
+        display: none !important;
+      }
+      .portal-tab-label-short {
+        display: inline !important;
       }
       .portal-container {
-        padding: 16px 12px 60px;
+        padding: 14px 8px 60px !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
       }
       .metrics-grid {
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 10px;
+        gap: 8px !important;
       }
       .pos-layout {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
       }
       .role-matrix-container {
         grid-template-columns: 1fr;
+      }
+    }
+
+    @media (min-width: 861px) {
+      .portal-tab-label-short {
+        display: none !important;
+      }
+      .portal-tab-label-full {
+        display: inline !important;
       }
     }
 
@@ -1454,21 +1657,13 @@
         font-size: 13px;
       }
 
-      /* Tabs Navigation on Phone */
-      .portal-tabs-nav {
-        padding: 0 8px;
-        gap: 4px;
-        -webkit-overflow-scrolling: touch;
-      }
-      .portal-tab-btn {
-        padding: 11px 12px;
-        font-size: 12px;
-        gap: 5px;
-      }
-
       /* Main Container */
       .portal-container {
-        padding: 14px 10px 60px;
+        padding: 12px 8px 60px !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
       }
 
       /* Metrics Grid (Compact 2x2 for Phone) */
@@ -1597,16 +1792,25 @@
       /* POS Catalog */
       .pos-catalog-panel,
       .pos-cart-panel {
-        padding: 12px;
-        border-radius: 8px;
+        padding: 10px !important;
+        border-radius: 8px !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
       }
       .pos-items-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
         gap: 8px !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
       }
       .pos-item-card {
-        padding: 10px;
-        min-height: 115px;
+        padding: 8px !important;
+        min-height: 110px !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
       }
       .pos-item-name {
         font-size: 12.5px;
@@ -1697,13 +1901,13 @@
       <div class="portal-brand-wrap">
         <img src="assets/greenwood_logo_transparent.png" alt="Greenwood Barbers" class="portal-logo">
         <div style="min-width: 0;">
-          <div class="portal-brand-title" style="font-weight: 700; color: #fff; font-size: 14px; letter-spacing: 0.4px;">The Greenwood Ledger</div>
+          <div class="portal-brand-title">The Greenwood Ledger</div>
           <div class="portal-tagline">POS &bull; CRM &bull; Management Suite</div>
         </div>
       </div>
       <div class="portal-user-actions">
         <div class="branch-badge" id="branchBadgeWrap" title="Cabang Aktif: Kota Baru Parahyangan (kbp-main)">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -1px; margin-right: 2px;"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v4M12 14v4M16 14v4"/></svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v4M12 14v4M16 14v4"/></svg>
           <span id="currentBranchName">KBP</span>
         </div>
 
@@ -1713,23 +1917,25 @@
           <span id="userRoleBadgeText">Owner</span>
         </div>
 
+        <div class="header-divider"></div>
+
         <button type="button" class="btn-portal-action" id="btnHeaderRoles" onclick="openRolesPermissionsModal()" title="Kelola Matriks Hak Akses">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -1px; margin-right: 2px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           <span data-i18n="btn_roles">Hak Akses</span>
         </button>
         <button type="button" class="btn-portal-action" id="btnHeaderSettings" onclick="openSettingsModal()" title="Pengaturan Sistem & Sandbox">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -1px; margin-right: 2px;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
           <span data-i18n="btn_settings">Pengaturan</span>
         </button>
         <button type="button" class="btn-portal-action" id="btnHeaderPasskey" onclick="openPinModal()" title="Perbarui PIN Peran">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -1px; margin-right: 2px;"><path d="M21 2l-2 2m-1.5 1.5L12 11l-4-4-6 6 4 4 6-6 5.5-5.5z"/><circle cx="16" cy="8" r="2"/></svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-1.5 1.5L12 11l-4-4-6 6 4 4 6-6 5.5-5.5z"/><circle cx="16" cy="8" r="2"/></svg>
           <span data-i18n="btn_passkey">PIN</span>
         </button>
         <a href="index.html" class="btn-portal-action btn-header-web" target="_blank" title="Buka Halaman Web Publik">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -1px; margin-right: 2px;"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           <span data-i18n="btn_web">Web</span>
         </a>
-        <select id="langSwitcher" class="role-select" onchange="setSystemLanguage(this.value)" title="Ganti Bahasa / Switch Language" style="min-width: 58px;">
+        <select id="langSwitcher" class="role-select" onchange="setSystemLanguage(this.value)" title="Ganti Bahasa / Switch Language">
           <option value="id" selected>ID</option>
           <option value="en">EN</option>
         </select>
@@ -1745,7 +1951,7 @@
               <span>Hak Akses Role</span>
             </button>
             <button type="button" class="portal-dropdown-item" id="btnMoreSettings" onclick="closeMoreMenu(); openSettingsModal();">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
               <span>Pengaturan Sistem</span>
             </button>
             <button type="button" class="portal-dropdown-item" id="btnMorePasskey" onclick="closeMoreMenu(); openPinModal();">
@@ -1763,12 +1969,10 @@
           </div>
         </div>
 
+        <div class="header-divider"></div>
+
         <button type="button" class="btn-portal-action btn-portal-lock" onclick="lockPortal()" title="Kunci Layar Terminal">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -1px; margin-right: 2px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          <span data-i18n="btn_lock">Kunci</span>
-        </button>
-      </div>
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 4px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           <span data-i18n="btn_lock">Kunci</span>
         </button>
       </div>
@@ -1776,27 +1980,43 @@
 
     <!-- Module navigation (Strict Role-Filtered Tabs) -->
     <nav class="portal-tabs-nav">
-      <button type="button" class="portal-tab-btn active" id="tabNavPos" onclick="switchTab('pos')">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 6px;"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-        <span data-i18n="nav_pos">Kasir Cepat (POS)</span>
-      </button>
-      <button type="button" class="portal-tab-btn" id="tabNavCrm" onclick="switchTab('crm')">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 6px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        <span data-i18n="nav_crm">CRM &amp; Pelanggan</span>
-        <span class="portal-tab-badge" id="badgeCrmCount">0</span>
-      </button>
-      <button type="button" class="portal-tab-btn" id="tabNavReservations" onclick="switchTab('reservations')">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 6px;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        <span data-i18n="nav_reservations">Buku Tamu &amp; Booking Online</span>
-      </button>
-      <button type="button" class="portal-tab-btn" id="tabNavStaff" onclick="switchTab('staff')">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 6px;"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
-        <span id="tabNavStaffLabel" data-i18n="nav_staff">Staf &amp; Komisi Akuntan</span>
-      </button>
-      <button type="button" class="portal-tab-btn" id="tabNavAnalytics" onclick="switchTab('analytics')">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 6px;"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-        <span data-i18n="nav_analytics">Laporan Omzet &amp; Retensi</span>
-      </button>
+      <div class="portal-tabs-segmented" role="tablist">
+        <button type="button" class="portal-tab-btn active" id="tabNavPos" onclick="switchTab('pos')" role="tab">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          <span class="portal-tab-label-full" data-i18n="nav_pos">Kasir Cepat (POS)</span>
+          <span class="portal-tab-label-short" data-i18n="nav_pos_short">Kasir</span>
+        </button>
+        <button type="button" class="portal-tab-btn" id="tabNavCrm" onclick="switchTab('crm')" role="tab">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="portal-tab-label-full" data-i18n="nav_crm">CRM &amp; Pelanggan</span>
+          <span class="portal-tab-label-short" data-i18n="nav_crm_short">CRM</span>
+          <span class="portal-tab-badge" id="badgeCrmCount">0</span>
+        </button>
+        <button type="button" class="portal-tab-btn" id="tabNavReservations" onclick="switchTab('reservations')" role="tab">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span class="portal-tab-label-full" data-i18n="nav_reservations">Buku Tamu &amp; Booking Online</span>
+          <span class="portal-tab-label-short" data-i18n="nav_reservations_short">Tamu</span>
+        </button>
+        <button type="button" class="portal-tab-btn" id="tabNavStaff" onclick="switchTab('staff')" role="tab">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+          <span class="portal-tab-label-full" id="tabNavStaffLabel" data-i18n="nav_staff">Staf &amp; Komisi Akuntan</span>
+          <span class="portal-tab-label-short" id="tabNavStaffLabelShort" data-i18n="nav_staff_short">Staf</span>
+        </button>
+        <button type="button" class="portal-tab-btn" id="tabNavAnalytics" onclick="switchTab('analytics')" role="tab">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span class="portal-tab-label-full" data-i18n="nav_analytics">Laporan Omzet &amp; Retensi</span>
+          <span class="portal-tab-label-short" data-i18n="nav_analytics_short">Laporan</span>
+        </button>
+      </div>
+
+      <!-- Symmetrical Counterbalance (Live Sync Status & Clock) -->
+      <div class="portal-tabs-meta" id="portalTabsMeta">
+        <div class="portal-sync-status" title="Status Sinkronisasi Cloud Greenwood">
+          <span class="portal-pulse-dot"></span>
+          <span style="font-weight: 500;">Cloud Sync Active</span>
+        </div>
+        <div class="portal-live-clock" id="headerLiveClock">--:-- WIB</div>
+      </div>
     </nav>
 
     <!-- MAIN CONTAINER -->
@@ -1809,7 +2029,7 @@
           <!-- LEFT: ITEMS CATALOG -->
           <div class="pos-catalog-panel">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-              <h3 style="margin: 0; color: var(--accent-gold); font-size: 17px; font-family: 'Lora', Georgia, serif; letter-spacing: 0.3px;" data-i18n="pos_catalog_title">Katalog Layanan &amp; Produk</h3>
+              <h3 id="posCatalogTitleHeader" style="margin: 0; color: var(--accent-gold); font-size: 17px; font-family: 'Lora', Georgia, serif; letter-spacing: 0.3px;" data-i18n="pos_catalog_title">Katalog Layanan &amp; Produk</h3>
               <input type="text" id="posSearchCatalog" placeholder="🔍 Cari item..." data-i18n-placeholder="pos_search_ph" oninput="filterPosCatalog(this.value)" style="background: rgba(3,12,8,0.8); border: 1px solid var(--card-border); color: var(--text-main); padding: 6px 12px; border-radius: 6px; font-size: 12px; outline: none;">
             </div>
 
@@ -2944,10 +3164,30 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       // Init existing reservations & activate real-time synchronization pulse
       reloadLedgerData();
       startRealTimeSync();
+      initLiveClock();
+    }
+
+    function initLiveClock() {
+      updateLiveClock();
+      if (!window.liveClockInterval) {
+        window.liveClockInterval = setInterval(updateLiveClock, 1000);
+      }
+    }
+
+    function updateLiveClock() {
+      const clockEl = document.getElementById('headerLiveClock');
+      if (!clockEl) return;
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Jakarta' }).replace('.', ':');
+      clockEl.textContent = timeStr + ' WIB';
     }
 
     function lockPortal() {
       stopRealTimeSync();
+      if (window.liveClockInterval) {
+        clearInterval(window.liveClockInterval);
+        window.liveClockInterval = null;
+      }
       sessionStorage.removeItem(SESSION_KEY);
       sessionStorage.removeItem('greenwood_authenticated_role');
       document.getElementById('masterPinInput').value = '';
@@ -2966,10 +3206,15 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         id: {
           tagline: "POS • CRM • Management Suite",
           nav_pos: "Kasir Cepat (POS)",
+          nav_pos_short: "Kasir",
           nav_crm: "CRM & Pelanggan",
+          nav_crm_short: "CRM",
           nav_reservations: "Buku Tamu & Booking Online",
+          nav_reservations_short: "Tamu",
           nav_staff: "Staf & Komisi Akuntan",
+          nav_staff_short: "Staf",
           nav_analytics: "Laporan Omzet & Retensi",
+          nav_analytics_short: "Laporan",
           btn_roles: "Hak Akses Role",
           btn_web: "Web Publik",
           btn_settings: "Pengaturan",
@@ -3046,10 +3291,15 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         en: {
           tagline: "POS • CRM • Management Suite",
           nav_pos: "Quick POS (Cashier)",
+          nav_pos_short: "POS",
           nav_crm: "CRM & Customers",
+          nav_crm_short: "CRM",
           nav_reservations: "Guest Book & Online Booking",
+          nav_reservations_short: "Guests",
           nav_staff: "Staff & Commission (Accountant)",
+          nav_staff_short: "Staff",
           nav_analytics: "Revenue & Retention Reports",
+          nav_analytics_short: "Reports",
           btn_roles: "Role Permissions",
           btn_web: "Public Web",
           btn_settings: "Settings",
@@ -3621,12 +3871,15 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       // - Barber: Personal shift & personal commission ("Absensi & Komisi Saya")
       // - Cashier: HIDDEN (Kasir cannot view staff commissions)
       if (tabStaff) {
+        const tabStaffLabelShort = document.getElementById('tabNavStaffLabelShort');
         if (isSA || perms.staff_comm_all) {
           tabStaff.style.display = 'inline-flex';
           if (tabStaffLabel) tabStaffLabel.textContent = (I18N.currentLang === 'en') ? 'Staff & Commissions' : 'Staf & Komisi Akuntan';
+          if (tabStaffLabelShort) tabStaffLabelShort.textContent = (I18N.currentLang === 'en') ? 'Staff' : 'Staf';
         } else if (activeRole === 'Barber') {
           tabStaff.style.display = 'inline-flex';
           if (tabStaffLabel) tabStaffLabel.textContent = (I18N.currentLang === 'en') ? 'My Shift & Commission' : 'Absensi & Komisi Saya';
+          if (tabStaffLabelShort) tabStaffLabelShort.textContent = (I18N.currentLang === 'en') ? 'My Shift' : 'Absen';
         } else {
           tabStaff.style.display = 'none';
         }
@@ -5224,6 +5477,8 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
 
     function openCloudHelpModal() { document.getElementById('modalCloudHelp').style.display = 'flex'; }
     function closeCloudHelpModal() { document.getElementById('modalCloudHelp').style.display = 'none'; }
+
+
   </script>
 </body>
 </html>
