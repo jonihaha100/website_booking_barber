@@ -1574,7 +1574,8 @@
       .portal-tab-btn {
         flex: 1 1 0 !important;
         min-width: 0 !important;
-        width: 20% !important;
+        width: auto !important;
+        max-width: 100% !important;
         height: 32px !important;
         padding: 0 1px !important;
         font-size: 11px !important;
@@ -1882,12 +1883,15 @@
         <div class="gate-err-msg" id="gateErrMsg">PIN Otorisasi Tidak Sesuai. Periksa kembali PIN Anda.</div>
       </form>
       <div style="margin-top: 18px; padding: 12px 14px; background: rgba(3, 12, 8, 0.7); border: 1px solid var(--card-border); border-radius: 8px; font-size: 11.5px; color: var(--text-muted); text-align: left;">
-        <div style="color: var(--accent-gold); font-weight: 700; margin-bottom: 6px; text-align: center;">PIN Default Berdasarkan Peran (Opsi A):</div>
+        <div style="color: var(--accent-gold); font-weight: 700; margin-bottom: 6px; text-align: center;">PIN Otentikasi Peran Terisolasi:</div>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px 10px;">
           <div>👑 <strong>Owner:</strong> <code>2050</code></div>
           <div>👔 <strong>Manager:</strong> <code>3030</code></div>
           <div>💳 <strong>Kasir:</strong> <code>1010</code></div>
           <div>💈 <strong>Barber:</strong> <code>0000</code></div>
+        </div>
+        <div style="margin-top: 6px; padding-top: 6px; border-top: 1px solid rgba(197,155,72,0.15); font-size: 10.5px; color: var(--text-muted); text-align: center;">
+          PIN Stylist: <code>0001</code> Bramantyo &bull; <code>0002</code> Rian &bull; <code>0003</code> Dimas &bull; <code>0004</code> Farhan &bull; <code>0005</code> Aldi
         </div>
       </div>
     </div>
@@ -2252,7 +2256,7 @@
             <div class="metric-val" id="metricTotalCount">0</div>
             <div class="metric-sub">Tercatat di Ledger</div>
           </div>
-          <div class="metric-card">
+          <div class="metric-card" id="metricRevenueCard">
             <div class="metric-label">Estimasi Nilai Treatment</div>
             <div class="metric-val" style="color: var(--accent-gold-bright);" id="metricTotalRevenue">Rp 0</div>
             <div class="metric-sub">Akumulasi Tagihan Layanan</div>
@@ -2297,6 +2301,17 @@
           <div style="display: flex; gap: 10px; flex-wrap: wrap;">
             <input type="text" id="searchKeyword" class="crm-search-input" placeholder="🔍 Cari tamu, no kontak, tiket..." oninput="filterLedger()">
             
+            <div id="barberIdentityBanner" style="display: none; align-items: center; gap: 6px; background: rgba(197,155,72,0.12); border: 1px solid rgba(197,155,72,0.35); border-radius: 6px; padding: 4px 10px; font-size: 11.5px; color: #fff;">
+              <span style="color: var(--accent-gold); font-weight: 600;">💈 Kursi:</span>
+              <select id="barberProfileSelect" class="crm-select" style="min-height: 28px; height: 28px; padding: 2px 8px; font-size: 11.5px; background: #040f0a; border-color: var(--accent-gold); color: #fff;" onchange="switchBarberProfile(this.value)">
+                <option value="barber-bramantyo">Bramantyo (Kursi #1)</option>
+                <option value="barber-rian">Rian Pratama (Kursi #2)</option>
+                <option value="barber-dimas">Dimas Setiawan (Kursi #3)</option>
+                <option value="barber-farhan">Farhan Akbar (Kursi #4)</option>
+                <option value="barber-aldi">Aldi Maulana (Kursi #5)</option>
+              </select>
+            </div>
+
             <select id="filterBarberSelect" class="crm-select" onchange="filterLedger()">
               <option value="all">Semua Artisan Barber</option>
               <option value="bramantyo">Bramantyo</option>
@@ -2331,14 +2346,14 @@
         </div>
         <div class="crm-table-wrap">
           <table class="crm-table" id="ledgerTable" style="min-width: 980px;">
-            <colgroup>
+            <colgroup id="ledgerColgroup">
               <col style="width: 120px;">
               <col style="min-width: 170px;">
               <col style="width: 130px;">
               <col style="width: 120px;">
               <col style="width: 95px;">
               <col style="min-width: 150px;">
-              <col style="width: 110px;">
+              <col id="colLedgerPrice" style="width: 110px;">
               <col style="width: 100px;">
               <col style="width: 115px;">
             </colgroup>
@@ -2350,7 +2365,7 @@
                 <th>Tanggal Sesi</th>
                 <th>Waktu</th>
                 <th>Ritual Layanan</th>
-                <th>Tagihan</th>
+                <th id="thLedgerPrice">Tagihan</th>
                 <th>Status</th>
                 <th style="text-align: right;">Aksi</th>
               </tr>
@@ -3134,34 +3149,58 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       const authRole = sessionStorage.getItem('greenwood_authenticated_role') || GreenwoodAdminDB.getActiveRole() || 'Owner';
       GreenwoodAdminDB.setActiveRole(authRole);
 
-      // Sync role switcher dropdown
+      // Sync role switcher dropdown if present
       const roleSwitcher = document.getElementById('roleSwitcher');
       if (roleSwitcher) {
         roleSwitcher.value = authRole;
       }
 
-      initPosCatalog();
-      refreshPosCustomerDropdown();
-      renderCrmTable();
-      renderStaffCards();
-      renderStaffCommissionTable();
-      renderAnalyticsDashboard();
-      initSandboxState();
+      // 1. FIRST Apply Role Security & Boundary Guards
       applyRolePermissionsToUI();
+
+      // 2. Only render modules permitted for this role
+      if (authRole !== 'Barber') {
+        initPosCatalog();
+        refreshPosCustomerDropdown();
+      }
+
+      if (authRole === 'Owner' || authRole === 'Manager') {
+        renderCrmTable();
+        renderAnalyticsDashboard();
+      } else {
+        const crmBody = document.getElementById('crmTableBody');
+        if (crmBody) crmBody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:24px; color:#ef4444; background:rgba(239,68,68,0.06); font-weight:600;">🔒 Modul CRM dilindungi. Akses dibatasi untuk peran ${authRole}.</td></tr>`;
+      }
+
+      if (authRole !== 'Cashier') {
+        renderStaffCards();
+        renderStaffCommissionTable();
+      } else {
+        const sGrid = document.getElementById('staffCardsGrid');
+        if (sGrid) sGrid.innerHTML = `<div style="grid-column: 1 / -1; padding: 20px; text-align: center; color: #ef4444; background: rgba(239,68,68,0.06); border-radius: 8px; font-weight:600;">🔒 Data komisi staf dilindungi dari peran Kasir.</div>`;
+        const commBody = document.getElementById('staffCommissionTableBody');
+        if (commBody) commBody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:20px; color:#ef4444; background:rgba(239,68,68,0.06); font-weight:600;">🔒 Data komisi staf dilindungi dari peran Kasir.</td></tr>`;
+      }
+
+      initSandboxState();
       setSystemLanguage(I18N.currentLang);
       updateTipsVisibility();
 
-      // Open correct initial tab based on URL param or authenticated role
-      const urlTab = new URLSearchParams(window.location.search).get('tab');
-      if (urlTab && ['pos', 'crm', 'reservations', 'staff', 'analytics'].includes(urlTab)) {
-        switchTab(urlTab);
-      } else if (authRole === 'Barber') {
+      // 3. Open correct initial tab based on authenticated role
+      if (authRole === 'Barber') {
         switchTab('reservations');
-      } else {
+      } else if (authRole === 'Cashier') {
         switchTab('pos');
+      } else {
+        const urlTab = new URLSearchParams(window.location.search).get('tab');
+        if (urlTab && ['pos', 'crm', 'reservations', 'staff', 'analytics'].includes(urlTab)) {
+          switchTab(urlTab);
+        } else {
+          switchTab('pos');
+        }
       }
 
-      // Init existing reservations & activate real-time synchronization pulse
+      // 4. Init reservations with strict role filter & clock
       reloadLedgerData();
       startRealTimeSync();
       initLiveClock();
@@ -3190,6 +3229,8 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       }
       sessionStorage.removeItem(SESSION_KEY);
       sessionStorage.removeItem('greenwood_authenticated_role');
+      sessionStorage.removeItem('greenwood_active_barber_id');
+      sessionStorage.removeItem('greenwood_active_barber_name');
       document.getElementById('masterPinInput').value = '';
       document.getElementById('gateOverlay').style.display = 'flex';
       document.getElementById('portalMainContent').style.display = 'none';
@@ -3396,13 +3437,14 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
 
       // Update Role switcher option labels & active role badge
       const activeRole = (typeof GreenwoodAdminDB !== 'undefined') ? GreenwoodAdminDB.getActiveRole() : 'Owner';
+      const activeBarberName = (typeof GreenwoodAdminDB !== 'undefined') ? GreenwoodAdminDB.getActiveBarberName() : 'Bramantyo';
       const badgeText = document.getElementById('userRoleBadgeText');
       if (badgeText) {
         const roleLabels = {
           Owner: (I18N.currentLang === 'en') ? 'Role: Owner (Super Admin)' : 'Peran: Owner (Super Admin)',
           Manager: (I18N.currentLang === 'en') ? 'Role: Store Manager' : 'Peran: Store Manager',
           Cashier: (I18N.currentLang === 'en') ? 'Role: Cashier' : 'Peran: Kasir',
-          Barber: (I18N.currentLang === 'en') ? 'Role: Barber' : 'Peran: Barber'
+          Barber: (I18N.currentLang === 'en') ? `Barber: ${activeBarberName}` : `Barber: ${activeBarberName}`
         };
         badgeText.textContent = roleLabels[activeRole] || `Peran: ${activeRole}`;
       }
@@ -3453,6 +3495,10 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     let currentMatrixRoleId = 'Owner';
 
     function openRolesPermissionsModal(roleId) {
+      if (typeof GreenwoodAdminDB !== 'undefined' && !GreenwoodAdminDB.isSuperAdmin()) {
+        alert("Akses Ditolak: Hanya Owner (Super Admin) yang berwenang mengubah matriks hak akses.");
+        return;
+      }
       const modal = document.getElementById('modalRolesPermissions');
       if (modal) modal.style.display = 'flex';
       currentMatrixRoleId = roleId || GreenwoodAdminDB.getActiveRole() || 'Owner';
@@ -3806,42 +3852,41 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         Cashier: '💳',
         Barber: '💈'
       };
+
+      const activeBarberName = (typeof GreenwoodAdminDB !== 'undefined') ? GreenwoodAdminDB.getActiveBarberName() : 'Bramantyo';
       const roleLabels = {
-        Owner: 'Peran: Owner (Super Admin)',
-        Manager: 'Peran: Store Manager',
-        Cashier: 'Peran: Kasir',
-        Barber: 'Peran: Barber'
+        Owner: (I18N.currentLang === 'en') ? 'Role: Owner (Super Admin)' : 'Peran: Owner (Super Admin)',
+        Manager: (I18N.currentLang === 'en') ? 'Role: Store Manager' : 'Peran: Store Manager',
+        Cashier: (I18N.currentLang === 'en') ? 'Role: Cashier' : 'Peran: Kasir',
+        Barber: (I18N.currentLang === 'en') ? `Barber: ${activeBarberName}` : `Barber: ${activeBarberName}`
       };
       if (badgeIcon) badgeIcon.textContent = roleIcons[activeRole] || '👤';
       if (badgeText) badgeText.textContent = roleLabels[activeRole] || `Peran: ${activeRole}`;
 
       // 2. Strict Header Button Visibility based on Active Authenticated Role
-      const btnRoles = document.getElementById('btnHeaderRoles');
-      const btnMoreRoles = document.getElementById('btnMoreRoles');
-      if (btnRoles) {
-        btnRoles.style.display = isSA ? 'inline-flex' : 'none';
-      }
-      if (btnMoreRoles) {
-        btnMoreRoles.style.display = isSA ? 'flex' : 'none';
-      }
-
-      const btnSettings = document.getElementById('btnHeaderSettings');
-      const btnMoreSettings = document.getElementById('btnMoreSettings');
-      if (btnSettings) {
-        btnSettings.style.display = (isSA || activeRole === 'Manager') ? 'inline-flex' : 'none';
-      }
-      if (btnMoreSettings) {
-        btnMoreSettings.style.display = (isSA || activeRole === 'Manager') ? 'flex' : 'none';
-      }
-
+      // Security Passkey: STRICTLY OWNER ONLY
       const btnPasskey = document.getElementById('btnHeaderPasskey');
       const btnMorePasskey = document.getElementById('btnMorePasskey');
-      if (btnPasskey) {
-        btnPasskey.style.display = isSA ? 'inline-flex' : 'none';
-      }
-      if (btnMorePasskey) {
-        btnMorePasskey.style.display = isSA ? 'flex' : 'none';
-      }
+      if (btnPasskey) btnPasskey.style.display = isSA ? 'inline-flex' : 'none';
+      if (btnMorePasskey) btnMorePasskey.style.display = isSA ? 'flex' : 'none';
+
+      // Role Permissions (RBAC): STRICTLY OWNER ONLY
+      const btnRoles = document.getElementById('btnHeaderRoles');
+      const btnMoreRoles = document.getElementById('btnMoreRoles');
+      if (btnRoles) btnRoles.style.display = isSA ? 'inline-flex' : 'none';
+      if (btnMoreRoles) btnMoreRoles.style.display = isSA ? 'flex' : 'none';
+
+      // System Settings (Sandbox/Branch): Owner or Manager (with Passkeys & Roles strictly hidden inside)
+      const btnSettings = document.getElementById('btnHeaderSettings');
+      const btnMoreSettings = document.getElementById('btnMoreSettings');
+      if (btnSettings) btnSettings.style.display = (isSA || activeRole === 'Manager') ? 'inline-flex' : 'none';
+      if (btnMoreSettings) btnMoreSettings.style.display = (isSA || activeRole === 'Manager') ? 'flex' : 'none';
+
+      // Inside settings modal: Hide passkey and roles subtabs for Store Manager
+      const btnSetTabPasskey = document.getElementById('btnSetTabPasskey');
+      const btnSetTabRoles = document.getElementById('btnSetTabRoles');
+      if (btnSetTabPasskey) btnSetTabPasskey.style.display = isSA ? 'inline-block' : 'none';
+      if (btnSetTabRoles) btnSetTabRoles.style.display = isSA ? 'inline-block' : 'none';
 
       // 3. Strict Tab Navigation Visibility per Role
       const tabPos = document.getElementById('tabNavPos');
@@ -3856,9 +3901,9 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         tabPos.style.display = (isSA || perms.pos_view) ? 'inline-flex' : 'none';
       }
 
-      // CRM Tab: Visible for all roles.
+      // CRM Tab: ONLY Owner & Manager. Completely Hidden for Cashier & Barber.
       if (tabCrm) {
-        tabCrm.style.display = (isSA || perms.crm_view) ? 'inline-flex' : 'none';
+        tabCrm.style.display = (isSA || (perms.crm_view && activeRole === 'Manager')) ? 'inline-flex' : 'none';
       }
 
       // Reservations / Schedule Tab: Visible for all roles.
@@ -3885,13 +3930,47 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         }
       }
 
-      // Analytics Tab:
-      // - Owner & Manager: VISIBLE
-      // - Cashier & Barber: HIDDEN (no financial revenue spying)
+      // Analytics Tab: ONLY Owner & Manager. Completely Hidden for Cashier & Barber.
       if (tabAnalytics) {
         tabAnalytics.style.display = (isSA || perms.analytics_view) ? 'inline-flex' : 'none';
       }
 
+      // 4. Buku Tamu (Reservations) Scope & Masking
+      const metricRevenueCard = document.getElementById('metricRevenueCard');
+      if (metricRevenueCard) {
+        metricRevenueCard.style.display = (isSA || activeRole === 'Manager') ? 'block' : 'none';
+      }
+
+      const thLedgerPrice = document.getElementById('thLedgerPrice');
+      const colLedgerPrice = document.getElementById('colLedgerPrice');
+      if (thLedgerPrice) thLedgerPrice.style.display = (activeRole === 'Barber') ? 'none' : 'table-cell';
+      if (colLedgerPrice) colLedgerPrice.style.display = (activeRole === 'Barber') ? 'none' : 'table-column';
+
+      const filterBarberEl = document.getElementById('filterBarberSelect');
+      const barberIdentityBanner = document.getElementById('barberIdentityBanner');
+      if (activeRole === 'Barber') {
+        if (filterBarberEl) filterBarberEl.style.display = 'none';
+        if (barberIdentityBanner) {
+          barberIdentityBanner.style.display = 'inline-flex';
+          const profSelect = document.getElementById('barberProfileSelect');
+          if (profSelect) profSelect.value = GreenwoodAdminDB.getActiveBarberId();
+        }
+      } else {
+        if (filterBarberEl) filterBarberEl.style.display = 'inline-block';
+        if (barberIdentityBanner) barberIdentityBanner.style.display = 'none';
+      }
+
+      // Hide Google Sheet master button and export from non-managers
+      const btnOpenSheet = document.getElementById('btnOpenSheet');
+      if (btnOpenSheet) {
+        btnOpenSheet.style.display = (isSA || activeRole === 'Manager') ? 'inline-flex' : 'none';
+      }
+      const btnExportLedger = document.getElementById('btnExportLedger');
+      if (btnExportLedger) {
+        btnExportLedger.style.display = (isSA || activeRole === 'Manager') ? 'inline-flex' : 'none';
+      }
+
+      // 5. Point of Sale Guards
       const posTab = document.getElementById('tab-pos');
       let posLock = document.getElementById('posRoleLockBanner');
       const posLayout = document.querySelector('.pos-layout');
@@ -3912,7 +3991,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
             <p style="margin: 0 0 14px; font-size: 13px; color: var(--text-muted); max-width: 460px; margin-left: auto; margin-right: auto;">
               Peran aktif saat ini (<strong>${activeRole}</strong>) tidak memiliki wewenang mengoperasikan Kasir POS. Beralih ke peran Kasir, Manager, atau Owner untuk memproses transaksi.
             </p>
-            <button type="button" class="btn-portal-action" onclick="switchTab('crm')">Buka Modul CRM</button>
+            <button type="button" class="btn-portal-action" onclick="switchTab('reservations')">Buka Buku Tamu</button>
           `;
         }
         if (posLayout) posLayout.style.display = 'none';
@@ -3920,6 +3999,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         if (posLock) posLock.style.display = 'none';
         if (posLayout) posLayout.style.display = 'grid';
       }
+
       const discInput = document.getElementById('posDiscountInput');
       if (discInput) {
         discInput.disabled = !isSA && !perms.pos_discount;
@@ -3931,11 +4011,11 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       }
       const crmExportBtn = document.getElementById('btnExportCrm');
       if (crmExportBtn) {
-        crmExportBtn.style.display = (isSA || perms.crm_export) ? 'inline-flex' : 'none';
+        crmExportBtn.style.display = (isSA || (perms.crm_export && activeRole === 'Manager')) ? 'inline-flex' : 'none';
       }
       const btnAddNewCust = document.getElementById('btnAddNewCustomer');
       if (btnAddNewCust) {
-        btnAddNewCust.style.display = (isSA || perms.crm_create) ? 'inline-flex' : 'none';
+        btnAddNewCust.style.display = (isSA || (perms.crm_create && activeRole === 'Manager')) ? 'inline-flex' : 'none';
       }
       const btnPosNewCust = document.getElementById('btnPosNewCustomer');
       if (btnPosNewCust) {
@@ -3945,27 +4025,15 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       if (staffExportBtn) {
         staffExportBtn.style.display = (isSA || perms.staff_comm_export) ? 'inline-flex' : 'none';
       }
-      const btnExportLedger = document.getElementById('btnExportLedger');
-      if (btnExportLedger) {
-        btnExportLedger.style.display = (isSA || perms.crm_export) ? 'inline-flex' : 'none';
-      }
       const btnOpenWalkin = document.getElementById('btnOpenWalkin');
       if (btnOpenWalkin) {
         btnOpenWalkin.style.display = (isSA || perms.booking_create) ? 'inline-flex' : 'none';
       }
-      const filterBarberEl = document.getElementById('filterBarberSelect');
-      if (filterBarberEl) {
-        if (activeRole === 'Barber') {
-          filterBarberEl.value = 'bramantyo';
-          filterBarberEl.style.display = 'none';
-        } else {
-          filterBarberEl.style.display = 'inline-block';
-        }
-      }
+
       const analyticsSec = document.getElementById('tab-analytics');
       let analyticsLock = document.getElementById('analyticsRoleLockBanner');
       const metricsGrid = analyticsSec ? analyticsSec.querySelector('.metrics-grid') : null;
-      const canAnalytics = isSA || !!perms.analytics_view;
+      const canAnalytics = isSA || (!!perms.analytics_view && (activeRole === 'Manager' || activeRole === 'Owner'));
 
       if (!canAnalytics) {
         if (!analyticsLock && analyticsSec) {
@@ -3989,8 +4057,6 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         if (analyticsLock) analyticsLock.style.display = 'none';
         if (metricsGrid) metricsGrid.style.display = 'grid';
       }
-      if (typeof renderCrmTable === 'function') renderCrmTable();
-      if (typeof renderStaffCommissionTable === 'function') renderStaffCommissionTable();
     }
 
     // TAB SWITCHING with Strict Role Access Guards
@@ -4006,16 +4072,16 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         switchTab('reservations');
         return;
       }
-      if (tabId === 'crm' && !isSA && !perms.crm_view) {
-        alert("Akses Ditolak: Peran aktif Anda tidak memiliki wewenang untuk membuka master database CRM pelanggan.");
+      if (tabId === 'crm' && (activeRole === 'Barber' || activeRole === 'Cashier')) {
+        alert(`Akses Ditolak: Database CRM pelanggan dilindungi khusus Owner dan Manager (Peran aktif: ${activeRole}).`);
         return;
       }
-      if (tabId === 'analytics' && !isSA && !perms.analytics_view) {
-        alert("Akses Ditolak: Anda tidak memiliki wewenang melihat laporan omzet finansial toko.");
+      if (tabId === 'analytics' && (activeRole === 'Barber' || activeRole === 'Cashier')) {
+        alert(`Akses Ditolak: Laporan omzet finansial toko dilindungi khusus Owner dan Manager (Peran aktif: ${activeRole}).`);
         return;
       }
       if (tabId === 'staff' && activeRole === 'Cashier') {
-        alert("Akses Ditolak: Anda tidak memiliki wewenang melihat slip komisi staf.");
+        alert("Akses Ditolak: Peran Kasir tidak memiliki wewenang melihat manajemen slip komisi staf.");
         return;
       }
 
@@ -4701,15 +4767,25 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
 
     // Staff attendance and commission reporting
     function renderStaffCards() {
-      const staffList = GreenwoodAdminDB.getStaff();
       const container = document.getElementById('staffCardsGrid');
       if (!container) return;
       const activeRole = (typeof GreenwoodAdminDB !== 'undefined') ? GreenwoodAdminDB.getActiveRole() : 'Owner';
+
+      // Cashier is strictly blocked from staff management
+      if (activeRole === 'Cashier') {
+        container.innerHTML = `<div style="grid-column: 1 / -1; padding: 20px; text-align: center; color: #ef4444; background: rgba(239,68,68,0.06); border-radius: 8px; font-weight:600;">🔒 Data komisi staf dilindungi dari peran Kasir.</div>`;
+        return;
+      }
+
+      const staffList = GreenwoodAdminDB.getStaff();
       const isBarber = activeRole === 'Barber';
+      const activeBarberId = (typeof GreenwoodAdminDB !== 'undefined') ? GreenwoodAdminDB.getActiveBarberId() : 'barber-bramantyo';
+      const activeBarberName = (typeof GreenwoodAdminDB !== 'undefined') ? GreenwoodAdminDB.getActiveBarberName() : 'Bramantyo';
 
       let displayStaff = staffList;
       if (isBarber) {
-        displayStaff = staffList.filter(s => s.name.includes('Bramantyo') || s.id === 'barber-bramantyo' || s.id === 'STF-001');
+        // Barber strictly only sees their OWN card
+        displayStaff = staffList.filter(s => s.id === activeBarberId || s.name.toLowerCase().includes(activeBarberName.toLowerCase()));
       }
 
       container.innerHTML = displayStaff.map(s => `
@@ -4741,8 +4817,10 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     function toggleStaffClock(staffId) {
       const activeRole = (typeof GreenwoodAdminDB !== 'undefined') ? GreenwoodAdminDB.getActiveRole() : 'Owner';
       if (activeRole === 'Barber') {
+        const activeBarberId = (typeof GreenwoodAdminDB !== 'undefined') ? GreenwoodAdminDB.getActiveBarberId() : 'barber-bramantyo';
+        const activeBarberName = (typeof GreenwoodAdminDB !== 'undefined') ? GreenwoodAdminDB.getActiveBarberName() : 'Bramantyo';
         const staff = GreenwoodAdminDB.getStaff().find(s => s.id === staffId);
-        if (staff && !staff.name.includes('Bramantyo') && staffId !== 'barber-bramantyo' && staffId !== 'STF-001') {
+        if (staff && staff.id !== activeBarberId && !staff.name.toLowerCase().includes(activeBarberName.toLowerCase())) {
           alert("Akses Dibatasi: Anda hanya diizinkan melakukan absensi kehadiran untuk profil Anda sendiri.");
           return;
         }
@@ -4752,18 +4830,27 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     }
 
     function renderStaffCommissionTable() {
+      const tbody = document.getElementById('staffCommissionTableBody');
+      if (!tbody) return;
+      const activeRole = (typeof GreenwoodAdminDB !== 'undefined') ? GreenwoodAdminDB.getActiveRole() : 'Owner';
+
+      // Cashier is strictly blocked from staff commission figures
+      if (activeRole === 'Cashier') {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:20px; color:#ef4444; background:rgba(239,68,68,0.06); font-weight:600;">🔒 Data komisi staf dilindungi dari peran Kasir.</td></tr>`;
+        return;
+      }
+
       const period = document.getElementById('staffPeriodSelect') ? document.getElementById('staffPeriodSelect').value : 'month';
       const report = GreenwoodAdminDB.getCommissionReport(period);
-      const tbody = document.getElementById('staffCommissionTableBody');
       const canSeeAll = GreenwoodAdminDB.hasPermission('staff_comm_all');
-      const activeRole = GreenwoodAdminDB.getActiveRole();
 
       let displayReport = report;
       let filterNotice = '';
       if (!canSeeAll && activeRole === 'Barber') {
-        // Barber only sees Bramantyo (or first barber)
-        displayReport = report.filter(r => r.staffName.includes('Bramantyo') || r.staffId === 'barber-bramantyo' || r.staffId === 'STF-001');
-        filterNotice = `<tr><td colspan="8" style="text-align:center; padding:8px; font-size:11.5px; color:#38bdf8; background:rgba(56,189,248,0.06);">🔒 Mode Privasi: Menampilkan rincian komisi pribadi Anda (Bramantyo) sesuai peran Barber.</td></tr>`;
+        const activeBarberId = (typeof GreenwoodAdminDB !== 'undefined') ? GreenwoodAdminDB.getActiveBarberId() : 'barber-bramantyo';
+        const activeBarberName = (typeof GreenwoodAdminDB !== 'undefined') ? GreenwoodAdminDB.getActiveBarberName() : 'Bramantyo';
+        displayReport = report.filter(r => r.staffId === activeBarberId || r.staffName.toLowerCase().includes(activeBarberName.toLowerCase()));
+        filterNotice = `<tr><td colspan="8" style="text-align:center; padding:8px; font-size:11.5px; color:#38bdf8; background:rgba(56,189,248,0.06);">🔒 Mode Privasi Terisolasi: Hanya menampilkan rincian komisi pribadi Anda (${escapeHtml(activeBarberName)}). Komisi staf lain dilindungi secara ketat.</td></tr>`;
       }
 
       tbody.innerHTML = displayReport.map(r => `
@@ -5048,6 +5135,29 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       updateMetrics();
     }
 
+    function switchBarberProfile(barberId) {
+      if (typeof GreenwoodAdminDB === 'undefined') return;
+      const staffList = GreenwoodAdminDB.getStaff();
+      const staff = staffList.find(s => s.id === barberId);
+      const name = staff ? staff.name : 'Barber';
+      GreenwoodAdminDB.setActiveBarber(barberId, name);
+
+      // Update badge text in top header
+      const badgeText = document.getElementById('userRoleBadgeText');
+      if (badgeText) {
+        badgeText.textContent = `Barber: ${name}`;
+      }
+
+      // Sync select elements
+      const profSelect = document.getElementById('barberProfileSelect');
+      if (profSelect) profSelect.value = barberId;
+
+      filterLedger();
+      updateMetrics();
+      renderStaffCards();
+      renderStaffCommissionTable();
+    }
+
     function filterLedger() {
       const activeRole = (typeof GreenwoodAdminDB !== 'undefined') ? GreenwoodAdminDB.getActiveRole() : 'Owner';
       const isBarber = activeRole === 'Barber';
@@ -5056,9 +5166,8 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       let barber = document.getElementById('filterBarberSelect')?.value || "all";
       const status = document.getElementById('filterStatusSelect')?.value || "all";
 
-      if (isBarber) {
-        barber = 'bramantyo';
-      }
+      const activeBarberId = (typeof GreenwoodAdminDB !== 'undefined') ? GreenwoodAdminDB.getActiveBarberId() : 'barber-bramantyo';
+      const activeBarberName = (typeof GreenwoodAdminDB !== 'undefined') ? GreenwoodAdminDB.getActiveBarberName() : 'Bramantyo';
 
       let filtered = currentBookings.filter(b => {
         let matchKw = true;
@@ -5068,7 +5177,14 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
                     (b.guestPhone && b.guestPhone.includes(kw));
         }
         let matchBarber = true;
-        if (barber !== 'all') {
+        if (isBarber) {
+          // Barber strictly sees only appointments assigned to their own chair/name
+          const bAssigned = (b.assignedBarberId || b.barberId || "").toLowerCase();
+          const bName = (b.assignedBarberName || b.barberName || "").toLowerCase();
+          const targetId = activeBarberId.toLowerCase();
+          const targetName = activeBarberName.toLowerCase();
+          matchBarber = bAssigned === targetId || bName.includes(targetName) || bName.includes(targetId);
+        } else if (barber !== 'all') {
           matchBarber = (b.barberId === barber || b.assignedBarberId === barber || (b.assignedBarberName && b.assignedBarberName.toLowerCase().includes(barber)));
         }
         let matchStatus = true;
@@ -5111,10 +5227,13 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       }
       if (empty) empty.style.display = 'none';
 
+      const activeRole = (typeof GreenwoodAdminDB !== 'undefined') ? GreenwoodAdminDB.getActiveRole() : 'Owner';
+      const isBarber = activeRole === 'Barber';
       const canSeePhone = (typeof GreenwoodAdminDB !== 'undefined') ? GreenwoodAdminDB.hasPermission('crm_phone') : true;
 
       tbody.innerHTML = bookings.map(b => {
         const phoneDisplay = canSeePhone ? escapeHtml(b.guestPhone || '-') : (b.guestPhone ? b.guestPhone.substring(0, 4) + '••••' + b.guestPhone.slice(-3) : '-');
+        const priceCell = isBarber ? '' : `<td><strong style="color: var(--accent-gold-bright); font-size: 12.5px;">${formatRupiah(b.totalPrice || b.total || 0)}</strong></td>`;
         return `
         <tr>
           <td><code style="font-size: 11.5px;">${escapeHtml(b.bookingCode || '-')}</code></td>
@@ -5137,7 +5256,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
             <div style="font-weight: 500; line-height: 1.2;">${escapeHtml(b.serviceName || b.packageName || 'The Cut')}</div>
             ${(b.addons && b.addons.length > 0) ? `<div style="font-size: 10.5px; color: var(--text-muted); margin-top: 1px;">+ ${b.addons.map(a => escapeHtml(a.name)).join(', ')}</div>` : ''}
           </td>
-          <td><strong style="color: var(--accent-gold-bright); font-size: 12.5px;">${formatRupiah(b.totalPrice || b.total || 0)}</strong></td>
+          ${priceCell}
           <td>
             <span class="badge-tag ${b.status === 'Completed' ? 'badge-reguler' : (b.status === 'Cancelled' ? 'badge-passive' : 'badge-vip')}">
               ${b.status || 'Confirmed'}
@@ -5167,6 +5286,14 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     }
 
     function updateMetrics() {
+      const activeRole = (typeof GreenwoodAdminDB !== 'undefined') ? GreenwoodAdminDB.getActiveRole() : 'Owner';
+      const isOwnerOrMgr = activeRole === 'Owner' || activeRole === 'Manager';
+
+      const revCard = document.getElementById('metricRevenueCard');
+      if (revCard) {
+        revCard.style.display = isOwnerOrMgr ? 'block' : 'none';
+      }
+
       const count = currentBookings.length;
       const rev = currentBookings.reduce((sum, b) => sum + (Number(b.totalPrice || b.total) || 0), 0);
       const completed = currentBookings.filter(b => b.status === 'Completed').length;
@@ -5177,7 +5304,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       const todayCount = currentBookings.filter(b => b.dateKey === todayKey).length;
 
       if (document.getElementById('metricTotalCount')) document.getElementById('metricTotalCount').textContent = count;
-      if (document.getElementById('metricTotalRevenue')) document.getElementById('metricTotalRevenue').textContent = formatRupiah(rev);
+      if (document.getElementById('metricTotalRevenue') && isOwnerOrMgr) document.getElementById('metricTotalRevenue').textContent = formatRupiah(rev);
       if (document.getElementById('metricTodayCount')) document.getElementById('metricTodayCount').textContent = todayCount;
       if (document.getElementById('metricCompletedCount')) document.getElementById('metricCompletedCount').textContent = completed;
     }
@@ -5406,8 +5533,8 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     }
 
     function openPinModal() {
-      if (!GreenwoodAdminDB.hasPermission('settings_passkey')) {
-        alert("Akses Dibatasi: Hanya Owner (Super Admin) yang berwenang mengubah PIN Akses Sistem.");
+      if (typeof GreenwoodAdminDB !== 'undefined' && !GreenwoodAdminDB.isSuperAdmin()) {
+        alert("Akses Ditolak: Hanya Owner (Super Admin) yang berwenang melihat atau memperbarui PIN otorisasi peran.");
         return;
       }
       const pins = GreenwoodAdminDB.getRolePins();

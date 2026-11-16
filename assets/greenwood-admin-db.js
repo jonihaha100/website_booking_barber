@@ -23,7 +23,8 @@
     CONFIG: DB_PREFIX + 'system_config_v1',
     SANDBOX: DB_PREFIX + 'sandbox_state_v1',
     ROLES: DB_PREFIX + 'role_permissions_v2',
-    ROLE_PINS: DB_PREFIX + 'role_pins_v1'
+    ROLE_PINS: DB_PREFIX + 'role_pins_v1',
+    BARBER_PINS: DB_PREFIX + 'barber_pins_v1'
   };
 
   const DEFAULT_ROLE_PINS = {
@@ -31,6 +32,14 @@
     Manager: "3030",
     Cashier: "1010",
     Barber: "0000"
+  };
+
+  const DEFAULT_BARBER_PINS = {
+    "barber-bramantyo": "0001",
+    "barber-rian": "0002",
+    "barber-dimas": "0003",
+    "barber-farhan": "0004",
+    "barber-aldi": "0005"
   };
 
   const DEFAULT_BRANCH_ID = 'kbp-main'; // Kota Baru Parahyangan Main Branch
@@ -988,7 +997,52 @@
     },
 
     getActiveRole: function() {
+      if (typeof sessionStorage !== 'undefined') {
+        const sRole = sessionStorage.getItem('greenwood_authenticated_role');
+        if (sRole) return sRole;
+      }
       return this.getConfig().activeRole || "Owner";
+    },
+
+    isSuperAdmin: function() {
+      return this.getActiveRole() === 'Owner';
+    },
+
+    getActiveBarberId: function() {
+      if (typeof sessionStorage !== 'undefined') {
+        const s = sessionStorage.getItem('greenwood_active_barber_id');
+        if (s) return s;
+      }
+      return 'barber-bramantyo';
+    },
+
+    getActiveBarberName: function() {
+      if (typeof sessionStorage !== 'undefined') {
+        const s = sessionStorage.getItem('greenwood_active_barber_name');
+        if (s) return s;
+      }
+      const staff = this.getStaff().find(x => x.id === this.getActiveBarberId());
+      return staff ? staff.name : 'Bramantyo';
+    },
+
+    setActiveBarber: function(barberId, barberName) {
+      if (typeof sessionStorage !== 'undefined') {
+        sessionStorage.setItem('greenwood_active_barber_id', barberId);
+        if (barberName) {
+          sessionStorage.setItem('greenwood_active_barber_name', barberName);
+        }
+      }
+    },
+
+    getBarberPins: function() {
+      return getStorage(KEYS.BARBER_PINS, DEFAULT_BARBER_PINS);
+    },
+
+    saveBarberPins: function(pins) {
+      const cur = this.getBarberPins();
+      const updated = Object.assign({}, cur, pins);
+      setStorage(KEYS.BARBER_PINS, updated);
+      return updated;
     },
 
     getRolePins: function() {
@@ -1019,10 +1073,22 @@
       if (!enteredPin) return null;
       const clean = String(enteredPin).trim();
       const pins = this.getRolePins();
-      const roles = ["Owner", "Manager", "Cashier", "Barber"];
-      for (let r of roles) {
-        if (pins[r] && clean === String(pins[r]).trim()) {
-          return r;
+      if (pins.Owner && clean === String(pins.Owner).trim()) return 'Owner';
+      if (pins.Manager && clean === String(pins.Manager).trim()) return 'Manager';
+      if (pins.Cashier && clean === String(pins.Cashier).trim()) return 'Cashier';
+      if (pins.Barber && clean === String(pins.Barber).trim()) {
+        this.setActiveBarber('barber-bramantyo', 'Bramantyo');
+        return 'Barber';
+      }
+
+      // Check dedicated Barber pins (0001 - 0005)
+      const bPins = this.getBarberPins();
+      const staffList = this.getStaff();
+      for (let sId in bPins) {
+        if (clean === String(bPins[sId]).trim()) {
+          const staff = staffList.find(s => s.id === sId);
+          this.setActiveBarber(sId, staff ? staff.name : 'Barber');
+          return 'Barber';
         }
       }
       return null;
@@ -1032,11 +1098,19 @@
       if (!enteredPin || !role) return false;
       const clean = String(enteredPin).trim();
       const pins = this.getRolePins();
-      return pins[role] && clean === String(pins[role]).trim();
+      if (pins[role] && clean === String(pins[role]).trim()) return true;
+      if (role === 'Barber') {
+        const bPins = this.getBarberPins();
+        for (let sId in bPins) {
+          if (clean === String(bPins[sId]).trim()) return true;
+        }
+      }
+      return false;
     },
 
     hasPermission: function(permKey, roleOverride) {
       const role = roleOverride || this.getActiveRole();
+      if (role === 'Owner') return true;
       const all = this.getRolePermissions();
       const roleObj = all[role];
       if (!roleObj) return false;
