@@ -713,6 +713,119 @@
       box-shadow: 0 0 10px rgba(197, 155, 72, 0.35);
     }
 
+    /* POS Shift & Inventory Top Toolbar */
+    .pos-top-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(9, 28, 19, 0.75);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 10px 16px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .pos-shift-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: var(--text-main);
+    }
+    .pos-shift-indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+      flex-shrink: 0;
+    }
+    .pos-shift-indicator.closed {
+      background: #f59e0b;
+      box-shadow: 0 0 8px rgba(245, 158, 11, 0.6);
+    }
+    .pos-toolbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .btn-pos-toolbar {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 600;
+      background: rgba(197, 155, 72, 0.12);
+      border: 1px solid rgba(197, 155, 72, 0.35);
+      color: var(--accent-gold-bright);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-pos-toolbar:hover {
+      background: var(--accent-gold);
+      color: #030c08;
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 10px rgba(197, 155, 72, 0.3);
+    }
+
+    /* Product Stock Badges */
+    .badge-stock-ok {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .badge-stock-low {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(245, 158, 11, 0.18);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .badge-stock-empty {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(239, 68, 68, 0.18);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .pos-item-card.out-of-stock {
+      opacity: 0.55;
+      cursor: not-allowed;
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+    .pos-item-card.out-of-stock:hover {
+      transform: none;
+      box-shadow: none;
+      border-color: rgba(239, 68, 68, 0.4);
+    }
+    .pos-item-card.out-of-stock .btn-pos-add {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border-color: rgba(239, 68, 68, 0.3);
+      cursor: not-allowed;
+    }
+
     /* REAL-TIME CLOUD SYNC BANNER & STATUS INDICATORS */
     .sync-banner-shell {
       background: rgba(9, 28, 19, 0.75);
@@ -2028,6 +2141,24 @@
 
       <!-- Tab 1: Point of Sale -->
       <section id="tab-pos" class="tab-section active">
+        <!-- POS SHIFT & INVENTORY TOP TOOLBAR -->
+        <div class="pos-top-toolbar" id="posTopToolbar">
+          <div class="pos-shift-info" id="posShiftInfoWrap">
+            <div class="pos-shift-indicator" id="posShiftStatusDot"></div>
+            <div class="pos-shift-text" id="posShiftStatusText">
+              <strong>Shift Kasir:</strong> <span id="posShiftCashierName">Memuat status shift...</span>
+            </div>
+          </div>
+          <div class="pos-toolbar-actions">
+            <button type="button" class="btn-pos-toolbar" id="btnManageShift" onclick="openShiftModal()">
+              💰 <span id="btnManageShiftLabel">Laci Kas &amp; Tutup Shift</span>
+            </button>
+            <button type="button" class="btn-pos-toolbar" id="btnManageInventory" onclick="openInventoryModal()">
+              📦 <span id="btnManageInventoryLabel">Kelola Stok Produk</span>
+            </button>
+          </div>
+        </div>
+
         <div class="pos-layout">
           
           <!-- LEFT: ITEMS CATALOG -->
@@ -3008,6 +3139,125 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     </div>
   </div>
 
+  <!-- MODAL 7: KELOLA LACI KAS & REKONSILIASI SHIFT -->
+  <div class="portal-modal-backdrop" id="modalShift">
+    <div class="portal-modal-box" style="max-width: 540px;">
+      <h3 class="modal-title" style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+        <span id="modalShiftTitle">💰 Laci Kas &amp; Tutup Shift</span>
+        <button type="button" class="modal-close-btn" onclick="closeShiftModal()">&times;</button>
+      </h3>
+
+      <!-- VIEW 1: FORM BUKA SHIFT (JIKA SHIFT BELUM DIBUKA) -->
+      <div id="shiftOpenView" style="display: none;">
+        <div style="background: rgba(197, 155, 72, 0.08); border: 1px solid rgba(197, 155, 72, 0.25); border-radius: 8px; padding: 12px; margin-bottom: 16px; font-size: 12px; color: var(--accent-gold-bright);">
+          ℹ️ <strong>Buka Kasir Baru:</strong> Masukkan modal uang kembalian (Cash Float) yang tersedia di dalam laci kas sebelum kasir mulai beroperasi melayani transaksi tamu.
+        </div>
+        <div class="form-row">
+          <label class="form-label">Nama Kasir Bertugas *</label>
+          <input type="text" id="shiftCashierInput" class="form-control" value="Front Desk Kasir" placeholder="Nama kasir yang bertugas">
+        </div>
+        <div class="form-row">
+          <label class="form-label">Modal Kas Kecil / Uang Kembalian (Rp) *</label>
+          <input type="number" id="shiftOpeningFloatInput" class="form-control" value="200000" style="font-size: 15px; font-weight: 700; color: var(--accent-gold-bright);" placeholder="Contoh: 200000">
+          <div style="display: flex; gap: 6px; margin-top: 6px;">
+            <button type="button" class="tip-chip" onclick="document.getElementById('shiftOpeningFloatInput').value = 100000">Rp 100.000</button>
+            <button type="button" class="tip-chip" onclick="document.getElementById('shiftOpeningFloatInput').value = 200000">Rp 200.000</button>
+            <button type="button" class="tip-chip" onclick="document.getElementById('shiftOpeningFloatInput').value = 300000">Rp 300.000</button>
+            <button type="button" class="tip-chip" onclick="document.getElementById('shiftOpeningFloatInput').value = 500000">Rp 500.000</button>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="form-label">Catatan Pembukaan</label>
+          <input type="text" id="shiftOpenNotesInput" class="form-control" placeholder="Contoh: Pecahan 10k, 20k, 50k lengkap">
+        </div>
+        <div class="modal-actions" style="margin-top: 20px;">
+          <button type="button" class="btn-portal-action" onclick="closeShiftModal()">Batal</button>
+          <button type="button" class="btn-gold-action" onclick="handleOpenShiftSubmit()">🔓 Konfirmasi Buka Shift Kasir</button>
+        </div>
+      </div>
+
+      <!-- VIEW 2: FORM TUTUP SHIFT & REKONSILIASI KAS (JIKA SHIFT SEDANG AKTIF) -->
+      <div id="shiftCloseView" style="display: none;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px;">
+          <div style="background: rgba(3, 12, 8, 0.7); border: 1px solid var(--card-border); border-radius: 8px; padding: 10px;">
+            <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Modal Awal (Float)</div>
+            <div style="font-size: 15px; font-weight: 700; color: #fff; margin-top: 4px;" id="shiftModalOpeningFloat">Rp 0</div>
+          </div>
+          <div style="background: rgba(3, 12, 8, 0.7); border: 1px solid var(--card-border); border-radius: 8px; padding: 10px;">
+            <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Penjualan Tunai (Cash)</div>
+            <div style="font-size: 15px; font-weight: 700; color: var(--success); margin-top: 4px;" id="shiftModalCashSales">Rp 0</div>
+          </div>
+          <div style="background: rgba(3, 12, 8, 0.7); border: 1px solid var(--card-border); border-radius: 8px; padding: 10px;">
+            <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Non-Tunai (QRIS/Trf)</div>
+            <div style="font-size: 15px; font-weight: 700; color: #60a5fa; margin-top: 4px;" id="shiftModalNonCashSales">Rp 0</div>
+          </div>
+          <div style="background: rgba(197, 155, 72, 0.12); border: 1px solid rgba(197, 155, 72, 0.35); border-radius: 8px; padding: 10px;">
+            <div style="font-size: 11px; color: var(--accent-gold); text-transform: uppercase;">Kas Seharusnya di Laci</div>
+            <div style="font-size: 15px; font-weight: 700; color: var(--accent-gold-bright); margin-top: 4px;" id="shiftModalExpectedCash">Rp 0</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" style="display: flex; justify-content: space-between;">
+            <span>Hitung Fisik Uang di Laci Kasir (Rp) *</span>
+            <span style="font-size: 11px; color: var(--text-muted);">Hitung semua uang tunai fisik</span>
+          </label>
+          <input type="number" id="shiftActualCashInput" class="form-control" style="font-size: 16px; font-weight: 700; color: #fff;" placeholder="Masukkan nominal fisik uang di laci" oninput="calculateShiftVariance()">
+        </div>
+
+        <!-- DYNAMIC VARIANCE RESULT BOX -->
+        <div id="shiftVarianceBox" style="margin-bottom: 14px; padding: 12px; border-radius: 8px; font-size: 13px; font-weight: 600; text-align: center; display: none;">
+        </div>
+
+        <div class="form-row">
+          <label class="form-label">Catatan Penutupan Shift</label>
+          <input type="text" id="shiftCloseNotesInput" class="form-control" placeholder="Contoh: Kas fisik cocok, setoran siap diserahkan">
+        </div>
+
+        <div class="modal-actions" style="margin-top: 18px; justify-content: space-between;">
+          <button type="button" class="btn-portal-action" onclick="printShiftSummaryReport()">🖨️ Cetak Rekap</button>
+          <div style="display: flex; gap: 8px;">
+            <button type="button" class="btn-portal-action" onclick="closeShiftModal()">Batal</button>
+            <button type="button" class="btn-gold-action" style="background: #b91c1c; border-color: #ef4444; color: #fff;" onclick="handleCloseShiftSubmit()">🔒 Tutup Shift &amp; Rekonsiliasi</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 8: KELOLA STOK PRODUK (INVENTORY RESTOCK) -->
+  <div class="portal-modal-backdrop" id="modalInventory">
+    <div class="portal-modal-box" style="max-width: 680px;">
+      <h3 class="modal-title" style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+        <span>📦 Manajemen Stok &amp; Restock Produk (Apothecary)</span>
+        <button type="button" class="modal-close-btn" onclick="closeInventoryModal()">&times;</button>
+      </h3>
+      <div style="background: rgba(3, 12, 8, 0.7); border: 1px solid var(--card-border); border-radius: 8px; padding: 12px; margin-bottom: 14px; font-size: 12px; color: var(--text-muted);">
+        Stok produk berkurang secara otomatis setiap kali kasir menyelesaikan transaksi checkout. Super Admin dan Store Manager dapat menambah stok (Restock) secara instan.
+      </div>
+      <div class="table-responsive" style="max-height: 380px; overflow-y: auto;">
+        <table class="crm-table" style="font-size: 12px;">
+          <thead>
+            <tr>
+              <th>Produk Grooming</th>
+              <th>Kategori</th>
+              <th>Batas Waspada</th>
+              <th>Stok Fisik</th>
+              <th>Status</th>
+              <th style="text-align: right;">Aksi Tambah Stok</th>
+            </tr>
+          </thead>
+          <tbody id="inventoryTableBody">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-actions" style="margin-top: 18px;">
+        <button type="button" class="btn-portal-action" onclick="closeInventoryModal()">Tutup</button>
+      </div>
+    </div>
+  </div>
+
   <!-- JAVASCRIPT ENTERPRISE CONTROLLER -->
   <script>
     const MASTER_PIN_KEY = 'greenwood_ledger_passkey_v1';
@@ -3076,7 +3326,8 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     function closeActiveModals() {
       const modalIds = [
         "modalRolesPermissions", "modalReceipt", "modalCustomerDetail",
-        "modalNewCustomer", "modalSettings", "modalWalkin", "modalPin", "modalCloudHelp"
+        "modalNewCustomer", "modalSettings", "modalWalkin", "modalPin", "modalCloudHelp",
+        "modalShift", "modalInventory"
       ];
       modalIds.forEach(function(id) {
         const el = document.getElementById(id);
@@ -4071,6 +4322,9 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         if (analyticsLock) analyticsLock.style.display = 'none';
         if (metricsGrid) metricsGrid.style.display = 'grid';
       }
+
+      // Update POS toolbar and stock badges for current role
+      updatePosShiftToolbar();
     }
 
     // TAB SWITCHING with Strict Role Access Guards
@@ -4122,6 +4376,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
 
     // Point of Sale operations
     function initPosCatalog() {
+      updatePosShiftToolbar();
       renderPosItems(CATALOG_ITEMS);
     }
 
@@ -4138,18 +4393,40 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           typeBadgeText = 'Add-on';
         }
 
+        let stockBadgeHtml = '';
+        let isOutOfStock = false;
+        if (item.type === 'product' && typeof GreenwoodAdminDB !== 'undefined') {
+          const stock = GreenwoodAdminDB.getProductStock(item.id);
+          const minStock = 4;
+          if (stock <= 0) {
+            isOutOfStock = true;
+            stockBadgeHtml = `<span class="badge-stock-empty">⛔ Habis (0)</span>`;
+          } else if (stock <= minStock) {
+            stockBadgeHtml = `<span class="badge-stock-low">⚠️ Sisa: ${stock} pcs</span>`;
+          } else {
+            stockBadgeHtml = `<span class="badge-stock-ok">🟢 Sisa: ${stock} pcs</span>`;
+          }
+        }
+
+        const clickHandler = isOutOfStock 
+          ? `alert('Stok ${escapeHtml(item.name)} saat ini sedang habis (0 pcs). Silakan lakukan restock produk.')`
+          : `addToPosCart('${item.id}')`;
+
         return `
-        <div class="pos-item-card" onclick="addToPosCart('${item.id}')" role="button" tabindex="0">
+        <div class="pos-item-card ${isOutOfStock ? 'out-of-stock' : ''}" onclick="${clickHandler}" role="button" tabindex="0">
           <div>
             <div class="pos-item-header">
               <span class="pos-item-title">${escapeHtml(item.name)}</span>
-              <span class="pos-item-type-badge ${typeBadgeClass}">${typeBadgeText}</span>
+              <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px;">
+                <span class="pos-item-type-badge ${typeBadgeClass}">${typeBadgeText}</span>
+                ${stockBadgeHtml}
+              </div>
             </div>
             <div class="pos-item-desc">${escapeHtml(item.desc)}</div>
           </div>
           <div class="pos-item-footer">
             <span class="pos-item-price">${formatRupiah(item.price)}</span>
-            <span class="btn-pos-add">+ Tambah</span>
+            <span class="btn-pos-add">${isOutOfStock ? 'Habis' : '+ Tambah'}</span>
           </div>
         </div>
       `;
@@ -4180,6 +4457,16 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       const item = CATALOG_ITEMS.find(it => it.id === itemId);
       if (!item) return;
 
+      if (item.type === 'product' && typeof GreenwoodAdminDB !== 'undefined') {
+        const stock = GreenwoodAdminDB.getProductStock(itemId);
+        const existing = posCart.find(c => c.id === itemId);
+        const currentQty = existing ? existing.qty : 0;
+        if (currentQty + 1 > stock) {
+          alert(`Stok tidak mencukupi! Produk "${item.name}" hanya tersisa ${stock} pcs di toko.`);
+          return;
+        }
+      }
+
       const existing = posCart.find(c => c.id === itemId);
       if (existing) {
         existing.qty++;
@@ -4198,6 +4485,13 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     function updateCartQty(itemId, delta) {
       const existing = posCart.find(c => c.id === itemId);
       if (existing) {
+        if (delta > 0 && existing.type === 'product' && typeof GreenwoodAdminDB !== 'undefined') {
+          const stock = GreenwoodAdminDB.getProductStock(itemId);
+          if (existing.qty + delta > stock) {
+            alert(`Stok maksimal tercapai (${stock} pcs).`);
+            return;
+          }
+        }
         existing.qty += delta;
         if (existing.qty <= 0) {
           posCart = posCart.filter(c => c.id !== itemId);
@@ -4344,6 +4638,17 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         return;
       }
 
+      // Validasi ketersediaan stok fisik produk
+      for (const it of posCart) {
+        if (it.type === 'product' && typeof GreenwoodAdminDB !== 'undefined') {
+          const stock = GreenwoodAdminDB.getProductStock(it.id);
+          if (it.qty > stock) {
+            alert(`Stok tidak mencukupi untuk "${it.name}". Stok tersisa: ${stock} pcs.`);
+            return;
+          }
+        }
+      }
+
       const subtotal = posCart.reduce((sum, it) => sum + (it.price * it.qty), 0);
       const discount = Math.max(0, Number(document.getElementById('posDiscountInput').value) || 0);
       const tip = Math.max(0, Number(document.getElementById('posTipInput').value) || 0);
@@ -4383,6 +4688,9 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         notes: (currentSelectedCustomerId ? (document.getElementById('posInternalNotesText').textContent || "") : "Kasir POS Walk-in")
       });
 
+      // Multi-Device Cloud Real-Time Push ke Google Sheets Master Vault
+      pushPosTransactionToCloud(txRecord);
+
       lastCompletedTransaction = txRecord;
       renderDigitalReceipt(txRecord);
       document.getElementById('modalReceipt').style.display = 'flex';
@@ -4390,6 +4698,8 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       refreshPosCustomerDropdown();
       document.getElementById('posInternalNotesBanner').style.display = 'none';
       currentSelectedCustomerId = "";
+      renderPosItems(CATALOG_ITEMS);
+      updatePosShiftToolbar();
       renderCrmTable();
       renderStaffCommissionTable();
       renderAnalyticsDashboard();
@@ -4522,6 +4832,381 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
 
     function closeReceiptModal() {
       document.getElementById('modalReceipt').style.display = 'none';
+    }
+
+    // =========================================================================
+    // MULTI-DEVICE CLOUD REAL-TIME PUSH ENGINE
+    // =========================================================================
+    function pushPosTransactionToCloud(txRecord) {
+      const webhookUrl = (typeof GREENWOOD_CONFIG !== 'undefined' && GREENWOOD_CONFIG.brand && GREENWOOD_CONFIG.brand.googleCalendarWebhookUrl)
+        ? GREENWOOD_CONFIG.brand.googleCalendarWebhookUrl
+        : 'https://script.google.com/macros/s/AKfycbxTz-1pKwj_Dd0ebm1_CfY7V9801L91Qw6qvwTa3LA6MLV7oULTA76GCRA5K8ic1LSTwQ/exec';
+
+      const payload = {
+        action: "save_pos_transaction",
+        isPosTransaction: true,
+        bookingCode: txRecord.receiptNumber,
+        receiptNumber: txRecord.receiptNumber,
+        guestName: txRecord.customerName,
+        guestPhone: txRecord.customerPhone,
+        guestEmail: "",
+        barberName: txRecord.barberName,
+        dateKey: new Date().toISOString().slice(0, 10),
+        timeSlot: txRecord.timeFormatted,
+        serviceName: txRecord.items.map(i => `${i.name} (x${i.qty})`).join(', '),
+        totalPrice: txRecord.total,
+        total: txRecord.total,
+        paymentMethod: txRecord.paymentMethod,
+        subtotal: txRecord.subtotal,
+        discount: txRecord.discount,
+        tip: txRecord.tip,
+        notes: txRecord.notes || "Kasir POS",
+        items: txRecord.items
+      };
+
+      try {
+        fetch(webhookUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).then(() => {
+          console.log('POS transaction successfully dispatched to Cloud Master Vault:', txRecord.receiptNumber);
+        }).catch(err => {
+          console.warn('Background POS cloud push failed/queued:', err);
+        });
+      } catch(err) {
+        console.warn('POS fetch exception:', err);
+      }
+    }
+
+    // Multi-Device Cloud Sync: Import POS Transactions from Cloud to Local DB
+    function syncCloudTransactionsToLocalDB(bookings) {
+      if (!bookings || !Array.isArray(bookings) || typeof GreenwoodAdminDB === 'undefined') return;
+      const localTxs = GreenwoodAdminDB.getTransactions();
+      const existingIds = new Set(localTxs.map(t => t.receiptNumber || t.id));
+      let hasNewTx = false;
+
+      bookings.forEach(b => {
+        const code = (b.bookingCode || "").trim();
+        const isPos = code.startsWith("RCP-") || (b.calendarStatus && b.calendarStatus.includes("POS")) || (b.guestNotes && b.guestNotes.includes("[POS"));
+        if (!isPos || existingIds.has(code)) return;
+
+        let method = "Cash";
+        if (b.calendarStatus && b.calendarStatus.includes("Transfer")) method = "Transfer";
+        else if (b.calendarStatus && b.calendarStatus.includes("QRIS")) method = "QRIS Statis";
+        else if (b.calendarStatus && b.calendarStatus.includes("Card")) method = "Card";
+        else if (b.guestNotes && b.guestNotes.includes("[POS Transfer]")) method = "Transfer";
+        else if (b.guestNotes && b.guestNotes.includes("[POS QRIS")) method = "QRIS Statis";
+        else if (b.guestNotes && b.guestNotes.includes("[POS Card]")) method = "Card";
+
+        const staffList = GreenwoodAdminDB.getStaff();
+        const barber = staffList.find(s => s.name === b.barberName) || staffList[0];
+
+        const record = {
+          id: "TX-CLOUD-" + code.replace(/[^a-zA-Z0-9]/g, ""),
+          receiptNumber: code,
+          timestamp: b.timestamp || Date.now(),
+          dateFormatted: b.dateKey || new Date().toISOString().slice(0, 10),
+          timeFormatted: b.timeSlot || "10:00 WIB",
+          customerId: null,
+          customerName: b.guestName || "Walk-In Guest",
+          customerPhone: b.guestPhone || "-",
+          barberId: barber ? barber.id : "barber-bramantyo",
+          barberName: b.barberName || "Bramantyo",
+          items: [{ type: "service", name: b.serviceName || b.packageName || "The Cut", price: Number(b.totalPrice) || 0, qty: 1 }],
+          subtotal: Number(b.totalPrice) || 0,
+          discount: 0,
+          tip: 0,
+          total: Number(b.totalPrice) || 0,
+          paymentMethod: method,
+          cashTendered: Number(b.totalPrice) || 0,
+          changeDue: 0,
+          barberServiceCommission: Math.round((Number(b.totalPrice) || 0) * ((barber ? barber.serviceCommissionRate : 40) / 100)),
+          barberProductCommission: 0,
+          totalBarberCommission: Math.round((Number(b.totalPrice) || 0) * ((barber ? barber.serviceCommissionRate : 40) / 100)),
+          status: "Paid",
+          notes: b.guestNotes || "Sinkronisasi Cloud POS Multi-Perangkat",
+          branch_id: GreenwoodAdminDB.DEFAULT_BRANCH_ID
+        };
+
+        localTxs.unshift(record);
+        existingIds.add(code);
+        hasNewTx = true;
+      });
+
+      if (hasNewTx) {
+        localStorage.setItem('greenwood_pos_crm_transactions_v1', JSON.stringify(localTxs));
+        renderStaffCommissionTable();
+        renderAnalyticsDashboard();
+      }
+    }
+
+    // =========================================================================
+    // CASH DRAWER & SHIFT RECONCILIATION CONTROLLER
+    // =========================================================================
+    function updatePosShiftToolbar() {
+      if (typeof GreenwoodAdminDB === 'undefined') return;
+      const shift = GreenwoodAdminDB.getActiveShift();
+      const dot = document.getElementById('posShiftStatusDot');
+      const cashierNameEl = document.getElementById('posShiftCashierName');
+      const shiftBtn = document.getElementById('btnManageShift');
+      const invBtn = document.getElementById('btnManageInventory');
+
+      // Update button visibility based on permissions
+      if (invBtn) {
+        invBtn.style.display = (GreenwoodAdminDB.hasPermission('pos_inventory') || GreenwoodAdminDB.getActiveRole() === 'Owner' || GreenwoodAdminDB.getActiveRole() === 'Manager') ? 'inline-flex' : 'none';
+      }
+
+      if (shift && shift.status === 'OPEN') {
+        if (dot) dot.className = 'pos-shift-indicator';
+        if (cashierNameEl) {
+          cashierNameEl.innerHTML = `<strong>${escapeHtml(shift.cashierName)}</strong> (Buka: ${shift.openedAtFormatted}) &bull; Modal Float: <strong>${formatRupiah(shift.openingCashFloat)}</strong>`;
+        }
+        if (shiftBtn) {
+          document.getElementById('btnManageShiftLabel').textContent = 'Laci Kas & Tutup Shift';
+        }
+      } else {
+        if (dot) dot.className = 'pos-shift-indicator closed';
+        if (cashierNameEl) {
+          cashierNameEl.innerHTML = `<span style="color: var(--accent-gold);">Shift Kasir Belum Dibuka</span> &bull; Klik tombol untuk input modal awal uang kembalian`;
+        }
+        if (shiftBtn) {
+          document.getElementById('btnManageShiftLabel').textContent = 'Buka Shift Kasir';
+        }
+      }
+    }
+
+    function openShiftModal() {
+      if (typeof GreenwoodAdminDB === 'undefined') return;
+      const shift = GreenwoodAdminDB.getActiveShift();
+      const openView = document.getElementById('shiftOpenView');
+      const closeView = document.getElementById('shiftCloseView');
+      const titleEl = document.getElementById('modalShiftTitle');
+
+      if (!shift || shift.status !== 'OPEN') {
+        // Show Buka Shift
+        if (titleEl) titleEl.innerHTML = '🔓 Buka Shift Kasir Baru';
+        if (openView) openView.style.display = 'block';
+        if (closeView) closeView.style.display = 'none';
+        document.getElementById('shiftCashierInput').value = GreenwoodAdminDB.getActiveRole() === 'Cashier' ? 'Kasir Bertugas' : (GreenwoodAdminDB.getActiveRole() + ' Operator');
+        document.getElementById('shiftOpeningFloatInput').value = 200000;
+        document.getElementById('shiftOpenNotesInput').value = '';
+      } else {
+        // Show Tutup Shift & Rekonsiliasi
+        if (titleEl) titleEl.innerHTML = '💰 Laci Kas &amp; Tutup Shift Kasir';
+        if (openView) openView.style.display = 'none';
+        if (closeView) closeView.style.display = 'block';
+
+        const summary = GreenwoodAdminDB.getShiftCurrentSummary();
+        document.getElementById('shiftModalOpeningFloat').textContent = formatRupiah(summary.openingCashFloat);
+        document.getElementById('shiftModalCashSales').textContent = formatRupiah(summary.cashSales);
+        document.getElementById('shiftModalNonCashSales').textContent = formatRupiah(summary.nonCashSales);
+        document.getElementById('shiftModalExpectedCash').textContent = formatRupiah(summary.expectedCashInDrawer);
+        document.getElementById('shiftActualCashInput').value = '';
+        document.getElementById('shiftCloseNotesInput').value = '';
+        document.getElementById('shiftVarianceBox').style.display = 'none';
+      }
+
+      document.getElementById('modalShift').style.display = 'flex';
+    }
+
+    function closeShiftModal() {
+      document.getElementById('modalShift').style.display = 'none';
+    }
+
+    function handleOpenShiftSubmit() {
+      const cashier = document.getElementById('shiftCashierInput').value.trim() || 'Front Desk Kasir';
+      const floatAmt = Number(document.getElementById('shiftOpeningFloatInput').value) || 0;
+      const notes = document.getElementById('shiftOpenNotesInput').value.trim();
+
+      GreenwoodAdminDB.openShift({
+        cashierName: cashier,
+        openingCashFloat: floatAmt,
+        notes: notes
+      });
+
+      closeShiftModal();
+      updatePosShiftToolbar();
+      alert(`Shift kasir berhasil dibuka oleh ${cashier} dengan modal awal uang kembalian ${formatRupiah(floatAmt)}.`);
+    }
+
+    function calculateShiftVariance() {
+      const summary = GreenwoodAdminDB.getShiftCurrentSummary();
+      if (!summary || !summary.active) return;
+
+      const inputVal = document.getElementById('shiftActualCashInput').value;
+      const varianceBox = document.getElementById('shiftVarianceBox');
+      if (inputVal === '') {
+        varianceBox.style.display = 'none';
+        return;
+      }
+
+      const actualCash = Number(inputVal) || 0;
+      const expectedCash = summary.expectedCashInDrawer;
+      const diff = actualCash - expectedCash;
+
+      varianceBox.style.display = 'block';
+      if (diff === 0) {
+        varianceBox.style.background = 'rgba(16, 185, 129, 0.2)';
+        varianceBox.style.border = '1px solid #10b981';
+        varianceBox.style.color = '#34d399';
+        varianceBox.innerHTML = `✅ KAS SEIMBANG &amp; COCOK 100% (Selisih: Rp 0)`;
+      } else if (diff > 0) {
+        varianceBox.style.background = 'rgba(59, 130, 246, 0.2)';
+        varianceBox.style.border = '1px solid #3b82f6';
+        varianceBox.style.color = '#93c5fd';
+        varianceBox.innerHTML = `🟢 SURPLUS KAS: +${formatRupiah(diff)} (Uang fisik lebih dari perkiraan sistem)`;
+      } else {
+        varianceBox.style.background = 'rgba(239, 68, 68, 0.2)';
+        varianceBox.style.border = '1px solid #ef4444';
+        varianceBox.style.color = '#fca5a5';
+        varianceBox.innerHTML = `🔴 DEFISIT KAS: -${formatRupiah(Math.abs(diff))} (Uang fisik kurang dari saldo sistem)`;
+      }
+    }
+
+    function handleCloseShiftSubmit() {
+      const actualVal = document.getElementById('shiftActualCashInput').value;
+      if (actualVal === '') {
+        alert('Silakan masukkan hasil hitung fisik uang di laci kasir terlebih dahulu.');
+        return;
+      }
+
+      const actualCash = Number(actualVal) || 0;
+      const notes = document.getElementById('shiftCloseNotesInput').value.trim();
+
+      if (!confirm('Apakah Anda yakin ingin menutup shift kasir saat ini? Tindakan ini akan mengunci pembukuan shift ini.')) {
+        return;
+      }
+
+      const closed = GreenwoodAdminDB.closeShift({
+        actualCash: actualCash,
+        closingNotes: notes
+      });
+
+      closeShiftModal();
+      updatePosShiftToolbar();
+      alert(`Shift kasir berhasil ditutup dan direkonsiliasi!\n\nStatus: ${closed.varianceStatus}\nKas Seharusnya: ${formatRupiah(closed.expectedCashInDrawer)}\nKas Fisik: ${formatRupiah(closed.actualCashInDrawer)}\nSelisih: ${formatRupiah(closed.variance)}`);
+    }
+
+    function printShiftSummaryReport() {
+      const summary = GreenwoodAdminDB.getShiftCurrentSummary();
+      if (!summary || !summary.active) {
+        alert("Tidak ada shift aktif yang dapat dicetak.");
+        return;
+      }
+      const actualCash = Number(document.getElementById('shiftActualCashInput').value) || summary.expectedCashInDrawer;
+      const variance = actualCash - summary.expectedCashInDrawer;
+
+      const content = `
+        <div style="font-family: monospace; max-width: 320px; margin: auto; padding: 15px; color: #000; font-size: 12px; line-height: 1.4;">
+          <div style="text-align: center; font-weight: bold; font-size: 14px;">GREENWOOD BARBERS</div>
+          <div style="text-align: center; font-size: 12px; font-weight: bold;">LAPORAN REKONSILIASI TUTUP SHIFT KASIR</div>
+          <div style="text-align: center; font-size: 11px;">Ruko PancaTengah No. 87, Kota Baru Parahyangan</div>
+          <hr style="border: none; border-top: 1px dashed #000; margin: 10px 0;">
+          <div>Shift ID : ${summary.shift.id}</div>
+          <div>Kasir : ${summary.shift.cashierName}</div>
+          <div>Waktu Buka : ${summary.shift.openedAtFormatted}</div>
+          <div>Waktu Rekap : ${new Date().toLocaleString('id-ID')}</div>
+          <hr style="border: none; border-top: 1px dashed #000; margin: 10px 0;">
+          <div style="display: flex; justify-content: space-between;"><span>Modal Awal (Float):</span><span>${formatRupiah(summary.openingCashFloat)}</span></div>
+          <div style="display: flex; justify-content: space-between;"><span>Penjualan Tunai:</span><span>${formatRupiah(summary.cashSales)}</span></div>
+          <div style="display: flex; justify-content: space-between;"><span>Penjualan Non-Tunai:</span><span>${formatRupiah(summary.nonCashSales)}</span></div>
+          <div style="display: flex; justify-content: space-between; font-weight: bold;"><span>Total Omzet:</span><span>${formatRupiah(summary.totalSales)}</span></div>
+          <div style="display: flex; justify-content: space-between;"><span>Total Transaksi:</span><span>${summary.txCount} transaksi</span></div>
+          <hr style="border: none; border-top: 1px dashed #000; margin: 10px 0;">
+          <div style="display: flex; justify-content: space-between; font-weight: bold;"><span>Kas Seharusnya:</span><span>${formatRupiah(summary.expectedCashInDrawer)}</span></div>
+          <div style="display: flex; justify-content: space-between; font-weight: bold;"><span>Kas Fisik di Laci:</span><span>${formatRupiah(actualCash)}</span></div>
+          <div style="display: flex; justify-content: space-between; font-weight: bold;"><span>Selisih:</span><span>${variance >= 0 ? '+' : ''}${formatRupiah(variance)}</span></div>
+          <div style="text-align: center; margin-top: 8px; font-weight: bold;">${variance === 0 ? '[ SEIMBANG / COCOK 100% ]' : (variance > 0 ? '[ SURPLUS KAS ]' : '[ DEFISIT KAS ]')}</div>
+          <hr style="border: none; border-top: 1px dashed #000; margin: 10px 0;">
+          <div style="margin-top: 25px; display: flex; justify-content: space-between; text-align: center; font-size: 11px;">
+            <div>Kasir Bertugas,<br><br><br><br>( ${escapeHtml(summary.shift.cashierName)} )</div>
+            <div>Store Manager,<br><br><br><br>( .......................... )</div>
+          </div>
+        </div>
+      `;
+      const win = window.open('', '_blank', 'width=380,height=600');
+      if (win) {
+        win.document.title = 'Rekap Shift Kasir - Greenwood';
+        win.document.body.innerHTML = content;
+        win.focus();
+        setTimeout(() => { win.print(); win.close(); }, 250);
+      }
+    }
+
+    // =========================================================================
+    // PRODUCT INVENTORY & RESTOCK CONTROLLER
+    // =========================================================================
+    function openInventoryModal() {
+      if (typeof GreenwoodAdminDB === 'undefined') return;
+      const role = GreenwoodAdminDB.getActiveRole();
+      if (role !== 'Owner' && role !== 'Manager' && !GreenwoodAdminDB.hasPermission('pos_inventory')) {
+        alert("Akses Ditolak: Hanya Store Manager dan Owner yang memiliki wewenang untuk mengelola stok produk.");
+        return;
+      }
+
+      const inventory = GreenwoodAdminDB.getInventory();
+      const tbody = document.getElementById('inventoryTableBody');
+      if (!tbody) return;
+
+      tbody.innerHTML = inventory.map(item => {
+        const stock = Number(item.stock || 0);
+        const minStock = Number(item.minStockAlert || 3);
+        let statusBadge = `<span class="badge-stock-ok">🟢 Aman</span>`;
+        if (stock <= 0) {
+          statusBadge = `<span class="badge-stock-empty">⛔ Habis</span>`;
+        } else if (stock <= minStock) {
+          statusBadge = `<span class="badge-stock-low">⚠️ Menipis</span>`;
+        }
+
+        return `
+          <tr>
+            <td>
+              <div style="font-weight: 600; color: #fff;">${escapeHtml(item.name)}</div>
+              <div style="font-size: 11px; color: var(--accent-gold);">${formatRupiah(item.price)}</div>
+            </td>
+            <td><span class="pos-item-type-badge badge-type-product">${escapeHtml(item.category || 'Apothecary')}</span></td>
+            <td><span style="color: var(--text-muted);">${minStock} ${item.unit || 'pcs'}</span></td>
+            <td><strong style="color: ${stock <= minStock ? '#fbbf24' : '#fff'}; font-size: 14px;">${stock}</strong> <span style="font-size: 11px; color: var(--text-muted);">${item.unit || 'pcs'}</span></td>
+            <td>${statusBadge}</td>
+            <td style="text-align: right;">
+              <div style="display: inline-flex; gap: 4px;">
+                <button type="button" class="btn-portal-action" style="padding: 3px 8px; font-size: 11px;" onclick="quickRestockProduct('${item.id}', 5)">+5</button>
+                <button type="button" class="btn-portal-action" style="padding: 3px 8px; font-size: 11px;" onclick="quickRestockProduct('${item.id}', 10)">+10</button>
+                <button type="button" class="btn-portal-action" style="padding: 3px 8px; font-size: 11px;" onclick="customRestockProduct('${item.id}', '${escapeHtml(item.name)}')">Ubah</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      document.getElementById('modalInventory').style.display = 'flex';
+    }
+
+    function closeInventoryModal() {
+      document.getElementById('modalInventory').style.display = 'none';
+    }
+
+    function quickRestockProduct(productId, amount) {
+      GreenwoodAdminDB.restockProduct(productId, amount, "Restock cepat tombol modal");
+      openInventoryModal();
+      renderPosItems(CATALOG_ITEMS);
+    }
+
+    function customRestockProduct(productId, productName) {
+      const current = GreenwoodAdminDB.getProductStock(productId);
+      const input = prompt(`Masukkan jumlah stok fisik terbaru untuk "${productName}":`, current);
+      if (input !== null && input !== "") {
+        const newStock = parseInt(input, 10);
+        if (!isNaN(newStock) && newStock >= 0) {
+          GreenwoodAdminDB.updateProductStock(productId, newStock, "Penyesuaian stok fisik manual");
+          openInventoryModal();
+          renderPosItems(CATALOG_ITEMS);
+        } else {
+          alert("Jumlah stok harus berupa angka bulat positif.");
+        }
+      }
     }
 
     // Customer CRM controller
@@ -5460,6 +6145,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
               filterLedger();
               updateMetrics();
               syncCloudCustomersToCRM(res.bookings);
+              syncCloudTransactionsToLocalDB(res.bookings);
             }
           } else {
             if (dot) dot.className = 'sync-dot dot-offline';

@@ -78,6 +78,11 @@ function doPost(e) {
     if (data.action === "submit_review") {
       return handleReviewSubmission(data);
     }
+
+    // FITUR B.5: Penanganan Transaksi Kasir POS (Walk-in & Multi-Device Cloud Sync)
+    if (data.action === "save_pos_transaction" || data.isPosTransaction === true) {
+      return handlePosTransaction(data);
+    }
     
     // Ambil Kalender Utama akun Google ini
     var calendar = CalendarApp.getDefaultCalendar();
@@ -834,6 +839,83 @@ function testRunDirectly() {
   if (sheetId) {
     Logger.log("📂 Link Google Sheet Master Anda:");
     Logger.log("https://docs.google.com/spreadsheets/d/" + sheetId + "/edit");
+  }
+}
+
+// =========================================================================
+// FITUR B.5: PENANGANAN TRANSAKSI KASIR POS (WALK-IN & MULTI-DEVICE CLOUD SYNC)
+// =========================================================================
+function handlePosTransaction(data) {
+  try {
+    var receiptNumber = data.bookingCode || data.receiptNumber || ("RCP-" + Utilities.formatDate(new Date(), "Asia/Jakarta", "yyyyMMdd-HHmmss"));
+    var guestName = data.guestName || data.name || "Walk-In Guest";
+    var guestPhone = data.guestPhone || data.phone || "-";
+    var guestEmail = data.guestEmail || data.email || "-";
+    var barberName = data.barberName || data.barber || "Bramantyo";
+    var dateKey = data.dateKey || Utilities.formatDate(new Date(), "Asia/Jakarta", "yyyy-MM-dd");
+    var timeSlot = data.timeSlot || Utilities.formatDate(new Date(), "Asia/Jakarta", "HH:mm");
+    
+    var serviceName = data.serviceName || (Array.isArray(data.items) ? data.items.map(function(it){
+      return it.name + (it.qty > 1 ? " (x" + it.qty + ")" : "");
+    }).join(", ") : "Transaksi Kasir POS");
+    
+    var rawTotal = data.total || data.totalPrice || 0;
+    var cleanTotalNum = 0;
+    if (typeof rawTotal === "number") {
+      cleanTotalNum = (rawTotal < 1000 && rawTotal > 0) ? rawTotal * 1000 : rawTotal;
+    } else {
+      var digits = String(rawTotal).replace(/[^0-9]/g, "");
+      cleanTotalNum = digits ? parseInt(digits, 10) : 0;
+      if (cleanTotalNum < 1000 && cleanTotalNum > 0) cleanTotalNum = cleanTotalNum * 1000;
+    }
+    var cleanTotalStr = Number(cleanTotalNum).toLocaleString('id-ID');
+    var paymentMethod = data.paymentMethod || "Cash";
+    var notes = (data.notes || data.guestNotes || "").replace(/\[POS [^\]]+\]\s*/g, "");
+    var fullNotes = "[POS " + paymentMethod + "] " + notes;
+
+    var sanitizedData = {
+      bookingCode: receiptNumber,
+      guestName: guestName,
+      guestPhone: guestPhone,
+      guestEmail: guestEmail,
+      barberName: barberName,
+      dateKey: dateKey,
+      timeSlot: timeSlot,
+      serviceName: serviceName,
+      totalPrice: cleanTotalNum,
+      guestNotes: fullNotes
+    };
+
+    // 1. Simpan baris transaksi ke Google Sheets Master Shadow Vault
+    recordToShadowSheet(sanitizedData, "POS Walk-in (" + paymentMethod + ")", "Direct POS (No WA required)", "HEALTHY");
+
+    // 2. Kirim Notifikasi Instan Radar ke Telegram Pengelola (Developer/Owner)
+    try {
+      var telegramText = 
+        "🛒 *TRANSAKSI KASIR POS BARU — GREENWOOD BARBERS*\n\n" +
+        "• *No. Nota*: `" + receiptNumber + "`\n" +
+        "• *Tamu*: " + guestName + " (" + guestPhone + ")\n" +
+        "• *Barber*: " + barberName + "\n" +
+        "• *Item*: " + serviceName + "\n" +
+        "• *Total*: Rp " + cleanTotalStr + " via *" + paymentMethod + "*\n" +
+        "• *Waktu*: " + dateKey + " · " + timeSlot + " WIB\n" +
+        (notes ? "• *Catatan*: " + notes + "\n" : "") +
+        "• *Status*: ✅ Tersimpan di Cloud Master Vault";
+
+      sendTelegramMessage(telegramText);
+    } catch(tgErr) {}
+
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "success",
+      receiptNumber: receiptNumber,
+      message: "Transaksi POS berhasil dicatat ke Google Sheets Master Vault."
+    })).setMimeType(ContentService.MimeType.JSON);
+
+  } catch(err) {
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "error",
+      message: "Gagal memproses transaksi POS di server cloud: " + err.toString()
+    })).setMimeType(ContentService.MimeType.JSON);
   }
 }
 

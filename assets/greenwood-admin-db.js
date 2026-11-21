@@ -24,7 +24,10 @@
     SANDBOX: DB_PREFIX + 'sandbox_state_v1',
     ROLES: DB_PREFIX + 'role_permissions_v2',
     ROLE_PINS: DB_PREFIX + 'role_pins_v1',
-    BARBER_PINS: DB_PREFIX + 'barber_pins_v1'
+    BARBER_PINS: DB_PREFIX + 'barber_pins_v1',
+    INVENTORY: DB_PREFIX + 'inventory_v1',
+    SHIFTS: DB_PREFIX + 'shifts_v1',
+    ACTIVE_SHIFT: DB_PREFIX + 'active_shift_v1'
   };
 
   const DEFAULT_ROLE_PINS = {
@@ -43,6 +46,17 @@
   };
 
   const DEFAULT_BRANCH_ID = 'kbp-main'; // Kota Baru Parahyangan Main Branch
+
+  // Initial Seed Inventory for Grooming Apothecary Products (Stock & Thresholds)
+  const SEED_INVENTORY = [
+    { id: "prd-shave-cream", name: "Mayfair Sandalwood Shaving Cream", category: "Apothecary", stock: 24, minStockAlert: 5, unit: "tub", price: 220000 },
+    { id: "prd-pre-shave", name: "Botanical Pre-Shave Glaze Oil", category: "Apothecary", stock: 18, minStockAlert: 4, unit: "dropper", price: 175000 },
+    { id: "prd-brush", name: "Silvertip Badger Shaving Brush", category: "Tools", stock: 8, minStockAlert: 2, unit: "pcs", price: 350000 },
+    { id: "prd-balm", name: "Post-Shave Soothing Relief Balm", category: "Apothecary", stock: 15, minStockAlert: 3, unit: "jar", price: 185000 },
+    { id: "prd-tonic", name: "Botanical Scalp Tonic", category: "Apothecary", stock: 20, minStockAlert: 5, unit: "dropper", price: 195000 },
+    { id: "prd-pomade", name: "Classic Matte Dressing Pomade", category: "Styling", stock: 30, minStockAlert: 6, unit: "jar", price: 160000 }
+  ];
+
   // Initial seed dataset
   const SEED_CUSTOMERS = [
     {
@@ -301,6 +315,8 @@
         pos_discount: true,
         pos_tip: true,
         pos_void: true,
+        pos_inventory: true,
+        pos_shift: true,
         crm_view: true,
         crm_notes: true,
         crm_phone: true,
@@ -335,6 +351,8 @@
         pos_discount: true,
         pos_tip: true,
         pos_void: true,
+        pos_inventory: true,
+        pos_shift: true,
         crm_view: true,
         crm_notes: true,
         crm_phone: true,
@@ -369,6 +387,8 @@
         pos_discount: true,
         pos_tip: true,
         pos_void: false, // Kasir dilarang membatalkan transaksi tanpa otorisasi manager
+        pos_inventory: false,
+        pos_shift: true,
         crm_view: false, // Tab CRM disembunyikan total dari Kasir (data pelanggan dilindungi)
         crm_notes: false,
         crm_phone: false,
@@ -403,6 +423,8 @@
         pos_discount: false,
         pos_tip: false,
         pos_void: false,
+        pos_inventory: false,
+        pos_shift: false,
         crm_view: false, // Tab CRM ditutup total dari Barber demi privasi database toko
         crm_notes: false,
         crm_phone: false, // Nomor telepon disamarkan demi privasi pelanggan
@@ -491,6 +513,12 @@
           initialPins.Owner = legacyPin.trim();
         }
         setStorage(KEYS.ROLE_PINS, initialPins);
+      }
+      if (!localStorage.getItem(KEYS.INVENTORY)) {
+        setStorage(KEYS.INVENTORY, SEED_INVENTORY);
+      }
+      if (!localStorage.getItem(KEYS.SHIFTS)) {
+        setStorage(KEYS.SHIFTS, []);
       }
       this.recalculatePassiveCustomers();
     },
@@ -673,6 +701,13 @@
       transactions.unshift(record);
       setStorage(KEYS.TRANSACTIONS, transactions);
 
+      // Kurangi stok produk secara otomatis dan catat pergerakan inventory
+      (txData.items || []).forEach(it => {
+        if (it.type === 'product' && it.id) {
+          this.deductStock(it.id, it.qty || 1);
+        }
+      });
+
       // Sinkronkan riwayat transaksi ke Profil CRM Pelanggan
       if (txData.customerPhone && txData.customerPhone !== "-") {
         this.syncTransactionToCustomer(record);
@@ -742,6 +777,195 @@
     getTransactions: function(limit) {
       const list = getStorage(KEYS.TRANSACTIONS, []);
       return limit ? list.slice(0, limit) : list;
+    },
+
+    // Inventory and stock management (Apothecary Products)
+    getInventory: function() {
+      let inv = getStorage(KEYS.INVENTORY, null);
+      if (!inv || !Array.isArray(inv) || inv.length === 0) {
+        setStorage(KEYS.INVENTORY, SEED_INVENTORY);
+        return SEED_INVENTORY.slice();
+      }
+      return inv;
+    },
+
+    getProductStock: function(productId) {
+      const inv = this.getInventory();
+      const item = inv.find(p => p.id === productId);
+      return item ? Number(item.stock || 0) : 0;
+    },
+
+    updateProductStock: function(productId, newStock, notes) {
+      let inv = this.getInventory();
+      const item = inv.find(p => p.id === productId);
+      if (item) {
+        const oldStock = item.stock;
+        item.stock = Math.max(0, Number(newStock) || 0);
+        setStorage(KEYS.INVENTORY, inv);
+        this.logActivity("Perbarui Stok Fisik", `${item.name}: ${oldStock} -> ${item.stock} ${item.unit}. ${notes || ''}`.trim());
+        return item;
+      }
+      return null;
+    },
+
+    deductStock: function(productId, qty) {
+      let inv = this.getInventory();
+      const item = inv.find(p => p.id === productId);
+      if (item) {
+        const deductQty = Math.max(1, Number(qty) || 1);
+        item.stock = Math.max(0, (item.stock || 0) - deductQty);
+        setStorage(KEYS.INVENTORY, inv);
+        this.logActivity("Pengurangan Stok Kasir", `Penjualan ${item.name} (-${deductQty} ${item.unit}, sisa ${item.stock})`);
+        return item.stock;
+      }
+      return 0;
+    },
+
+    restockProduct: function(productId, qtyToAdd, notes) {
+      let inv = this.getInventory();
+      const item = inv.find(p => p.id === productId);
+      if (item) {
+        const added = Math.max(1, Number(qtyToAdd) || 1);
+        item.stock = (item.stock || 0) + added;
+        setStorage(KEYS.INVENTORY, inv);
+        this.logActivity("Restock Produk Masuk", `Restock ${item.name} (+${added} ${item.unit}, total ${item.stock}). ${notes || ''}`.trim());
+        return item;
+      }
+      return null;
+    },
+
+    getLowStockAlerts: function() {
+      const inv = this.getInventory();
+      return inv.filter(p => Number(p.stock) <= Number(p.minStockAlert));
+    },
+
+    // Cash Drawer & Shift Management
+    getActiveShift: function() {
+      return getStorage(KEYS.ACTIVE_SHIFT, null);
+    },
+
+    openShift: function(params) {
+      params = params || {};
+      const now = new Date();
+      const shift = {
+        id: "SHIFT-" + now.toISOString().slice(0, 10).replace(/-/g, "") + "-" + Date.now().toString().slice(-4),
+        cashierId: params.cashierId || "Cashier",
+        cashierName: params.cashierName || "Front Desk Kasir",
+        openedAt: Date.now(),
+        openedAtFormatted: UtilitiesFormatDate(now) + " " + UtilitiesFormatTime(now),
+        openingCashFloat: Number(params.openingCashFloat) || 0,
+        status: "OPEN",
+        notes: params.notes || "Buka Kasir Operasional Harian",
+        branch_id: DEFAULT_BRANCH_ID
+      };
+
+      setStorage(KEYS.ACTIVE_SHIFT, shift);
+      this.logActivity("Buka Shift Kasir", `${shift.cashierName} membuka kasir dengan modal awal Rp ${Number(shift.openingCashFloat).toLocaleString('id-ID')}`);
+      return shift;
+    },
+
+    getShiftCurrentSummary: function() {
+      const shift = this.getActiveShift();
+      if (!shift) {
+        return { active: false };
+      }
+
+      const allTx = this.getTransactions();
+      const shiftTxs = allTx.filter(t => t.timestamp >= shift.openedAt);
+
+      let cashSales = 0;
+      let nonCashSales = 0;
+      const breakdown = {
+        Cash: { count: 0, total: 0 },
+        Transfer: { count: 0, total: 0 },
+        "QRIS Statis": { count: 0, total: 0 },
+        Card: { count: 0, total: 0 }
+      };
+
+      shiftTxs.forEach(t => {
+        const method = t.paymentMethod || "Cash";
+        const amt = Number(t.total) || 0;
+        if (!breakdown[method]) {
+          breakdown[method] = { count: 0, total: 0 };
+        }
+        breakdown[method].count++;
+        breakdown[method].total += amt;
+
+        if (method === "Cash") {
+          cashSales += amt;
+        } else {
+          nonCashSales += amt;
+        }
+      });
+
+      const expectedCashInDrawer = shift.openingCashFloat + cashSales;
+      const totalSales = cashSales + nonCashSales;
+
+      return {
+        active: true,
+        shift: shift,
+        openingCashFloat: shift.openingCashFloat,
+        cashSales: cashSales,
+        nonCashSales: nonCashSales,
+        totalSales: totalSales,
+        expectedCashInDrawer: expectedCashInDrawer,
+        txCount: shiftTxs.length,
+        breakdown: breakdown,
+        transactions: shiftTxs
+      };
+    },
+
+    closeShift: function(params) {
+      params = params || {};
+      const summary = this.getShiftCurrentSummary();
+      if (!summary.active) {
+        throw new Error("Tidak ada shift kasir yang sedang aktif.");
+      }
+
+      const now = new Date();
+      const actualCash = Number(params.actualCash) || 0;
+      const expectedCash = summary.expectedCashInDrawer;
+      const variance = actualCash - expectedCash;
+      let varianceStatus = "BALANCED";
+      if (variance > 0) varianceStatus = "SURPLUS";
+      if (variance < 0) varianceStatus = "DEFICIT";
+
+      const closedRecord = {
+        id: summary.shift.id,
+        cashierId: summary.shift.cashierId,
+        cashierName: summary.shift.cashierName,
+        openedAt: summary.shift.openedAt,
+        openedAtFormatted: summary.shift.openedAtFormatted,
+        closedAt: Date.now(),
+        closedAtFormatted: UtilitiesFormatDate(now) + " " + UtilitiesFormatTime(now),
+        openingCashFloat: summary.openingCashFloat,
+        totalCashSales: summary.cashSales,
+        totalNonCashSales: summary.nonCashSales,
+        totalSales: summary.totalSales,
+        expectedCashInDrawer: expectedCash,
+        actualCashInDrawer: actualCash,
+        variance: variance,
+        varianceStatus: varianceStatus,
+        closingNotes: params.closingNotes || "",
+        status: "CLOSED",
+        txCount: summary.txCount,
+        breakdown: summary.breakdown,
+        branch_id: DEFAULT_BRANCH_ID
+      };
+
+      let history = getStorage(KEYS.SHIFTS, []);
+      history.unshift(closedRecord);
+      setStorage(KEYS.SHIFTS, history);
+      setStorage(KEYS.ACTIVE_SHIFT, null);
+
+      const varianceText = variance === 0 ? "Cocok (Rp 0)" : (variance > 0 ? `Surplus +Rp ${variance.toLocaleString('id-ID')}` : `Defisit -Rp ${Math.abs(variance).toLocaleString('id-ID')}`);
+      this.logActivity("Tutup Shift Kasir", `${closedRecord.cashierName} menutup kasir. Fisik: Rp ${actualCash.toLocaleString('id-ID')}, Harapan: Rp ${expectedCash.toLocaleString('id-ID')} (${varianceText})`);
+
+      return closedRecord;
+    },
+
+    getShiftHistory: function() {
+      return getStorage(KEYS.SHIFTS, []);
     },
     // Staff attendance and commission accounting
     getStaff: function() {
