@@ -1874,7 +1874,7 @@
       <img src="assets/greenwood_logo_transparent.png" alt="Greenwood Barbers" class="gate-logo">
       <h2 class="gate-title">The Greenwood Ledger</h2>
       <p class="gate-desc">
-        Barbershop Point of Sale, CRM &amp; Management Suite.<br>
+        Sistem Kasir (POS), CRM &amp; Manajemen Greenwood Barbers.<br>
         Masukkan PIN otentikasi peran Anda untuk membuka terminal.
       </p>
       <form id="gateForm" onsubmit="handleGateUnlock(event)">
@@ -1906,7 +1906,7 @@
         <img src="assets/greenwood_logo_transparent.png" alt="Greenwood Barbers" class="portal-logo">
         <div style="min-width: 0;">
           <div class="portal-brand-title">The Greenwood Ledger</div>
-          <div class="portal-tagline">POS &bull; CRM &bull; Management Suite</div>
+          <div class="portal-tagline" data-i18n="tagline">POS &bull; CRM &bull; Manajemen Barbershop</div>
         </div>
       </div>
       <div class="portal-user-actions">
@@ -1952,7 +1952,7 @@
           <div class="portal-more-dropdown" id="portalMoreDropdown">
             <button type="button" class="portal-dropdown-item" id="btnMoreRoles" onclick="closeMoreMenu(); openRolesPermissionsModal();">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              <span>Hak Akses Role</span>
+              <span>Hak Akses Peran</span>
             </button>
             <button type="button" class="portal-dropdown-item" id="btnMoreSettings" onclick="closeMoreMenu(); openSettingsModal();">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
@@ -1998,7 +1998,7 @@
         </button>
         <button type="button" class="portal-tab-btn" id="tabNavReservations" onclick="switchTab('reservations')" role="tab">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          <span class="portal-tab-label-full" data-i18n="nav_reservations">Buku Tamu &amp; Booking Online</span>
+          <span class="portal-tab-label-full" data-i18n="nav_reservations">Buku Tamu &amp; Reservasi Online</span>
           <span class="portal-tab-label-short" data-i18n="nav_reservations_short">Tamu</span>
         </button>
         <button type="button" class="portal-tab-btn" id="tabNavStaff" onclick="switchTab('staff')" role="tab">
@@ -2017,7 +2017,7 @@
       <div class="portal-tabs-meta" id="portalTabsMeta">
         <div class="portal-sync-status" title="Status Sinkronisasi Cloud Greenwood">
           <span class="portal-pulse-dot"></span>
-          <span style="font-weight: 500;">Cloud Sync Active</span>
+          <span style="font-weight: 500;" id="portalSyncStatusText">Sinkronisasi Cloud Aktif</span>
         </div>
         <div class="portal-live-clock" id="headerLiveClock">--:-- WIB</div>
       </div>
@@ -2133,7 +2133,7 @@
             </div>
 
             <!-- METODE PEMBAYARAN MANUAL (CASH, TRANSFER, QRIS, CARD) -->
-            <label class="form-label" style="margin-top: 14px;">Metode Pembayaran (Manual Cashier)</label>
+            <label class="form-label" style="margin-top: 14px;" data-i18n="pos_pay_method_label">Metode Pembayaran Kasir</label>
             <div class="payment-methods-grid">
               <button type="button" class="btn-payment-method active" onclick="setPosPayment('Cash', this)">💵 Tunai (Cash)</button>
               <button type="button" class="btn-payment-method" onclick="setPosPayment('Transfer', this)">🏦 Transfer Bank</button>
@@ -2214,7 +2214,7 @@
               <span>+</span> <span data-i18n="crm_btn_add">Tambah Pelanggan</span>
             </button>
             <button type="button" class="btn-portal-action" id="btnExportCrm" onclick="exportCrmToCSV()">
-              <span>📥</span> <span data-i18n="crm_btn_export">Export CSV / Excel</span>
+              <span>📥</span> <span data-i18n="crm_btn_export">Ekspor CSV / Excel</span>
             </button>
           </div>
         </div>
@@ -2233,7 +2233,7 @@
                 <th>Ulang Tahun</th>
                 <th>Kunjungan Terakhir</th>
                 <th>Total Belanja</th>
-                <th>Catatan Formula &amp; Preferensi (Internal Notes)</th>
+                <th>Catatan Formula &amp; Preferensi</th>
                 <th>Status</th>
                 <th style="text-align: right; width: 110px; min-width: 100px; white-space: nowrap;">Aksi</th>
               </tr>
@@ -2420,7 +2420,7 @@
                   <th>Artisan Barber</th>
                   <th>Layanan Dikerjakan</th>
                   <th>Produk Terjual</th>
-                  <th>Omzet Kotor (Gross)</th>
+                  <th>Omzet Kotor</th>
                   <th>Komisi Jasa</th>
                   <th>Komisi Produk</th>
                   <th>Uang Tip Diterima</th>
@@ -2467,15 +2467,15 @@
             <div class="metric-sub" data-i18n="an_rev_month_sub">Akumulasi Bulanan</div>
           </div>
           <div class="metric-card">
-            <div class="metric-label" data-i18n="an_retention_label">Retensi Tamu (Repeat-Visit)</div>
+            <div class="metric-label" data-i18n="an_retention_label">Retensi Tamu (Kunjungan Ulang)</div>
             <div class="metric-val" style="color: #38bdf8;" id="anRepeatRate">0%</div>
-            <div class="metric-sub" id="anRepeatSub" data-i18n="an_retention_sub">Pelanggan Kembali</div>
+            <div class="metric-sub" id="anRepeatSub" data-i18n="an_retention_sub">Kunjungan Ulang</div>
           </div>
         </div>
 
         <!-- BUSY HOURS CHART -->
         <div class="chart-container">
-          <h4 style="margin: 0 0 4px; color: #fff; font-size: 15px; font-family: 'Lora', serif;" data-i18n="an_busy_title">Grafik Jam Sibuk Operasional (Busy-Hours)</h4>
+          <h4 style="margin: 0 0 4px; color: #fff; font-size: 15px; font-family: 'Lora', serif;" data-i18n="an_busy_title">Grafik Jam Sibuk Operasional</h4>
           <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;" data-i18n="an_busy_sub">Distribusi volume transaksi berdasarkan jam kedatangan tamu (10:00 s/d 20:00 WIB).</div>
           <div class="busy-hours-bar-grid" id="busyHoursGrid">
             <!-- Dynamically populated bars -->
@@ -2484,7 +2484,7 @@
 
         <!-- ACTIVITY LOG AUDIT TRAIL -->
         <div style="margin-top: 24px;">
-          <h4 style="color: #fff; font-size: 16px; margin: 0 0 12px; font-family: 'Lora', serif;">Activity Log &amp; Audit Trail (Multi-Role)</h4>
+          <h4 style="color: #fff; font-size: 16px; margin: 0 0 12px; font-family: 'Lora', serif;">Log Aktivitas &amp; Audit Trail</h4>
           <div class="table-scroll-hint">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"/><polyline points="12 16 16 12 12 8"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
             <span>Geser tabel ke samping untuk melihat log aktivitas</span>
@@ -2525,7 +2525,7 @@
         <button type="button" class="pos-cat-pill active" id="btnSetTabSandbox" onclick="switchSettingsSection('sandbox')">🧪 Google API Sandbox</button>
         <button type="button" class="pos-cat-pill" id="btnSetTabBranch" onclick="switchSettingsSection('branch')">🏛️ Multi-Cabang &amp; CRM</button>
         <button type="button" class="pos-cat-pill" id="btnSetTabRoles" onclick="switchSettingsSection('roles')">🛡️ Hak Akses &amp; Role</button>
-        <button type="button" class="pos-cat-pill" id="btnSetTabPasskey" onclick="switchSettingsSection('passkey')">🔑 Security Passkey</button>
+        <button type="button" class="pos-cat-pill" id="btnSetTabPasskey" onclick="switchSettingsSection('passkey')">🔑 Kunci Pengaman (Passkey)</button>
       </div>
 
       <!-- SECTION 1: SANDBOX SIMULATOR -->
@@ -2691,7 +2691,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--card-border); padding-bottom: 12px; margin-bottom: 14px;">
         <div>
           <div style="font-size: 11px; color: var(--accent-gold); font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;">
-            Admin Panel &gt; Permissions - Roles
+            Panel Admin &gt; Hak Akses Peran
           </div>
           <h3 style="font-family: 'Lora', Georgia, serif; font-size: 19px; color: var(--accent-gold); margin: 3px 0 0;">
             Matriks Hak Akses &amp; Otorisasi Pengguna
@@ -2703,7 +2703,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       <div class="role-matrix-container">
         <!-- LEFT SIDEBAR: USER ROLES -->
         <div class="role-sidebar">
-          <div class="role-sidebar-title">User Roles</div>
+          <div class="role-sidebar-title">Daftar Peran Pengguna</div>
           <div id="roleSidebarList">
             <!-- Populated via JS -->
           </div>
@@ -2716,7 +2716,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         <div class="role-matrix-body">
           <div class="role-matrix-header">
             <div>
-              <div class="role-matrix-breadcrumb" id="permRoleBreadcrumb">Permissions &gt; Owner</div>
+              <div class="role-matrix-breadcrumb" id="permRoleBreadcrumb">Hak Akses &gt; Owner</div>
               <h4 id="permRoleTitle" style="margin: 0; font-size: 16px; color: #fff; display: flex; align-items: center; gap: 8px;">
                 <span>👑 Owner (Pemilik Toko)</span>
                 <span class="sandbox-badge" id="permRoleBadge" style="background: rgba(197,155,72,0.2); color: var(--accent-gold-bright); border: 1px solid var(--accent-gold);">Super Admin</span>
@@ -2744,7 +2744,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
             </button>
             <div style="display: flex; gap: 10px;">
               <button type="button" class="btn-portal-action" onclick="closeRolesPermissionsModal()">
-                Batal (Cancel)
+                Batal
               </button>
               <button type="button" class="btn-gold-action" style="padding: 8px 18px;" onclick="handleSaveRolePermissions()">
                 💾 Simpan Hak Akses
@@ -2775,7 +2775,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         <div style="background: rgba(3,12,8,0.7); padding: 12px; border-radius: 6px; border: 1px solid var(--card-border);">
           <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Statistik Kunjungan</div>
           <div style="font-size: 13px; color: #fff; margin-top: 2px;">
-            Total: <strong id="custDetailVisits" style="color: var(--accent-gold-bright);">0x</strong> &bull; Spend: <strong id="custDetailSpend" style="color: var(--accent-gold-bright);">Rp 0</strong>
+            Total Kunjungan: <strong id="custDetailVisits" style="color: var(--accent-gold-bright);">0x</strong> &bull; Total Belanja: <strong id="custDetailSpend" style="color: var(--accent-gold-bright);">Rp 0</strong>
           </div>
           <div id="custDetailLastVisit" style="font-size: 11.5px; color: var(--text-muted); margin-top: 2px;">Kunjungan Terakhir: -</div>
         </div>
@@ -2784,7 +2784,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       <!-- INTERNAL NOTES FORMULA (HIGHLIGHTED) -->
       <div style="background: rgba(197, 155, 72, 0.12); border: 1.5px solid var(--accent-gold); border-radius: 8px; padding: 14px; margin-bottom: 16px;">
         <label class="form-label" style="color: var(--accent-gold-bright); font-weight: 700; display: flex; align-items: center; gap: 6px;">
-          <span>⚡</span> FORMULA GAYA RAMBUT &amp; INTERNAL NOTES
+          <span>⚡</span> FORMULA GAYA RAMBUT &amp; CATATAN KHUSUS
         </label>
         <textarea id="custDetailNotesInput" rows="3" class="form-control" style="font-size: 13.5px; background: rgba(3,12,8,0.9); line-height: 1.5;" placeholder="Contoh: Fade #2 samping, trim jenggot, suka kopi dingin..."></textarea>
         <div style="display: flex; justify-content: flex-end; margin-top: 8px;">
@@ -2852,7 +2852,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           <input type="email" id="newCustEmail" class="form-control" placeholder="nama@email.com">
         </div>
         <div class="form-row">
-          <label class="form-label">Internal Notes (Formula Potongan &amp; Kebiasaan)</label>
+          <label class="form-label">Catatan Khusus (Formula Potongan &amp; Kebiasaan)</label>
           <textarea id="newCustNotes" rows="2" class="form-control" placeholder="Contoh: Low fade #1.5, samping tipis, suka wangi sandalwood"></textarea>
         </div>
         <div class="modal-actions">
@@ -3245,21 +3245,21 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       currentLang: localStorage.getItem('greenwood_admin_lang_v1') || 'id',
       dict: {
         id: {
-          tagline: "POS • CRM • Management Suite",
+          tagline: "POS • CRM • Manajemen Barbershop",
           nav_pos: "Kasir Cepat (POS)",
           nav_pos_short: "Kasir",
           nav_crm: "CRM & Pelanggan",
           nav_crm_short: "CRM",
-          nav_reservations: "Buku Tamu & Booking Online",
+          nav_reservations: "Buku Tamu & Reservasi Online",
           nav_reservations_short: "Tamu",
           nav_staff: "Staf & Komisi Akuntan",
           nav_staff_short: "Staf",
           nav_analytics: "Laporan Omzet & Retensi",
           nav_analytics_short: "Laporan",
-          btn_roles: "Hak Akses Role",
+          btn_roles: "Hak Akses Peran",
           btn_web: "Web Publik",
           btn_settings: "Pengaturan",
-          btn_passkey: "Passkey",
+          btn_passkey: "PIN",
           btn_lock: "Kunci",
           role_Owner: "Peran: Owner",
           role_Manager: "Peran: Manager",
@@ -3269,9 +3269,9 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           pos_catalog_title: "Katalog Layanan & Produk",
           pos_search_ph: "Cari layanan atau produk...",
           pos_cat_all: "Semua Item",
-          pos_cat_service: "Ritual Cukur (Services)",
-          pos_cat_product: "Grooming Apothecary (Produk)",
-          pos_cat_addon: "Add-ons Perawatan",
+          pos_cat_service: "Ritual Cukur (Layanan)",
+          pos_cat_product: "Apothecary & Produk",
+          pos_cat_addon: "Layanan Tambahan (Add-on)",
           pos_summary_title: "Pesanan Kasir",
           pos_clear_cart: "Kosongkan",
           pos_cust_label: "Pelanggan *",
@@ -3282,7 +3282,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           pos_barber_default: "-- Pilih Barber --",
           pos_disc_label: "Diskon / Potongan (Rp)",
           pos_tip_label: "Uang Tip Barber (Rp)",
-          pos_pay_method_label: "Metode Pembayaran (Manual Cashier)",
+          pos_pay_method_label: "Metode Pembayaran Kasir",
           pos_cash_tendered_label: "Uang Diterima:",
           pos_change_label: "Kembalian:",
           pos_btn_checkout: "Selesaikan Pembayaran & Cetak Nota",
@@ -3306,14 +3306,14 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           crm_sort_spend: "Total Belanja Tertinggi",
           crm_sort_visits: "Jumlah Kunjungan Terbanyak",
           crm_btn_add: "Tambah Pelanggan",
-          crm_btn_export: "Export CSV / Excel",
+          crm_btn_export: "Ekspor CSV / Excel",
           // Staff
           staff_title: "Jadwal Shift & Absensi Barber",
-          staff_sub: "Pencatatan Clock-In / Clock-Out harian serta rasio komisi layanan & produk.",
+          staff_sub: "Pencatatan Jam Hadir & Kepulangan harian serta rasio komisi layanan & produk.",
           staff_period_today: "Periode: Hari Ini",
           staff_period_week: "Periode: 7 Hari Terakhir",
           staff_period_month: "Periode: Bulan Ini",
-          staff_btn_export: "Export CSV Akuntan",
+          staff_btn_export: "Ekspor CSV Akuntan",
           // Analytics
           analytics_title: "Dashboard Laporan Omzet & Retensi",
           analytics_sub: "Performa bisnis, jam sibuk operasional, dan tingkat kunjungan berulang pelanggan.",
@@ -3323,9 +3323,9 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           an_rev_week_sub: "Performa Mingguan",
           an_rev_month: "Omzet Bulan Ini",
           an_rev_month_sub: "Akumulasi Bulanan",
-          an_retention_label: "Retensi Tamu (Repeat-Visit)",
-          an_retention_sub: "Pelanggan Kembali",
-          an_busy_title: "Grafik Jam Sibuk Operasional (Busy-Hours)",
+          an_retention_label: "Retensi Tamu (Kunjungan Ulang)",
+          an_retention_sub: "Kunjungan Ulang",
+          an_busy_title: "Grafik Jam Sibuk Operasional",
           an_busy_sub: "Distribusi volume transaksi berdasarkan jam kedatangan tamu (10:00 s/d 20:00 WIB).",
           an_btn_print: "Cetak / Simpan PDF"
         },
@@ -3420,6 +3420,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     function setSystemLanguage(lang) {
       I18N.currentLang = lang || 'id';
       localStorage.setItem('greenwood_admin_lang_v1', I18N.currentLang);
+      document.documentElement.lang = I18N.currentLang;
       
       const d = I18N.dict[I18N.currentLang] || I18N.dict['id'];
       
@@ -4804,10 +4805,10 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           </div>
           <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--card-border); padding-top:10px;">
             <span style="font-size:11.5px; color:${s.isClockedIn ? '#4ade80' : 'var(--text-muted)'}; font-weight:600;">
-              ${s.isClockedIn ? `In: ${s.clockInTime}` : (s.lastClockOutTime ? `Out: ${s.lastClockOutTime}` : 'Belum Absen')}
+              ${s.isClockedIn ? `Masuk: ${s.clockInTime}` : (s.lastClockOutTime ? `Keluar: ${s.lastClockOutTime}` : 'Belum Absen')}
             </span>
             <button type="button" class="btn-portal-action" onclick="toggleStaffClock('${s.id}')" style="font-size:11px; padding:4px 10px;">
-              ${s.isClockedIn ? 'Clock-Out' : 'Clock-In'}
+              ${s.isClockedIn ? 'Absen Keluar' : 'Absen Masuk'}
             </button>
           </div>
         </div>
@@ -5234,15 +5235,21 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       tbody.innerHTML = bookings.map(b => {
         const phoneDisplay = canSeePhone ? escapeHtml(b.guestPhone || '-') : (b.guestPhone ? b.guestPhone.substring(0, 4) + '••••' + b.guestPhone.slice(-3) : '-');
         const priceCell = isBarber ? '' : `<td><strong style="color: var(--accent-gold-bright); font-size: 12.5px;">${formatRupiah(b.totalPrice || b.total || 0)}</strong></td>`;
+        const rawBarber = b.assignedBarberName || b.barberName;
+        const barberDisplay = (rawBarber && rawBarber !== 'First available') ? rawBarber : 'Barber Pertama Tersedia';
+        let statusBadgeText = 'Terkonfirmasi';
+        if (b.status === 'Completed') statusBadgeText = 'Selesai';
+        else if (b.status === 'Cancelled') statusBadgeText = 'Dibatalkan';
+
         return `
         <tr>
           <td><code style="font-size: 11.5px;">${escapeHtml(b.bookingCode || '-')}</code></td>
           <td>
-            <div style="font-weight: 600; color: #fff; line-height: 1.2;">${escapeHtml(b.guestName || 'Guest')}</div>
+            <div style="font-weight: 600; color: #fff; line-height: 1.2;">${escapeHtml(b.guestName || 'Tamu')}</div>
             <div style="font-size: 11px; color: var(--text-muted); margin-top: 1px;">${phoneDisplay}</div>
             ${(b.guestNotes || b.notes) ? `<div style="font-size: 10.5px; color: #e5b95f; font-style: italic; margin-top: 2px; max-width: 220px; line-height: 1.2;">"${escapeHtml(b.guestNotes || b.notes)}"</div>` : ''}
           </td>
-          <td>${escapeHtml(b.assignedBarberName || b.barberName || 'First available')}</td>
+          <td>${escapeHtml(barberDisplay)}</td>
           <td>
             <div style="font-weight: 600; color: #fff; font-size: 12.5px;">${formatScheduleDate(b.dateKey)}</div>
           </td>
@@ -5259,7 +5266,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           ${priceCell}
           <td>
             <span class="badge-tag ${b.status === 'Completed' ? 'badge-reguler' : (b.status === 'Cancelled' ? 'badge-passive' : 'badge-vip')}">
-              ${b.status || 'Confirmed'}
+              ${statusBadgeText}
             </span>
           </td>
           <td style="text-align: right;">
@@ -5461,17 +5468,22 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       }
       const bookings = currentBookings;
       const headers = ["Kode Registrasi", "Nama Tamu", "No WhatsApp", "Artisan Barber", "Tanggal Sesi", "Jam Sesi", "Ritual Layanan", "Tagihan (Rp)", "Status"];
-      const rows = bookings.map(b => [
-        `"${b.bookingCode || ''}"`,
-        `"${(b.guestName || '').replace(/"/g, '""')}"`,
-        `"${b.guestPhone || ''}"`,
-        `"${b.assignedBarberName || b.barberName || ''}"`,
-        `"${b.dateKey || ''}"`,
-        `"${b.timeSlot || ''}"`,
-        `"${b.serviceName || b.packageName || ''}"`,
-        b.totalPrice || b.total || 0,
-        `"${b.status || 'Confirmed'}"`
-      ]);
+      const statusMap = { 'Confirmed': 'Terkonfirmasi', 'Completed': 'Selesai', 'Cancelled': 'Dibatalkan' };
+      const rows = bookings.map(b => {
+        const rawBarber = b.assignedBarberName || b.barberName || '';
+        const barberText = (rawBarber && rawBarber !== 'First available') ? rawBarber : 'Barber Pertama Tersedia';
+        return [
+          `"${b.bookingCode || ''}"`,
+          `"${(b.guestName || 'Tamu').replace(/"/g, '""')}"`,
+          `"${b.guestPhone || ''}"`,
+          `"${barberText}"`,
+          `"${b.dateKey || ''}"`,
+          `"${b.timeSlot || ''}"`,
+          `"${b.serviceName || b.packageName || ''}"`,
+          b.totalPrice || b.total || 0,
+          `"${statusMap[b.status] || b.status || 'Terkonfirmasi'}"`
+        ];
+      });
 
       const csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
       const encodedUri = encodeURI(csvContent);

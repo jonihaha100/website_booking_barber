@@ -1,14 +1,64 @@
 /**
- * GREENWOOD BARBERS — BILINGUAL ENGINE (EN | ID)
- * Dual-language toggle (British Mayfair English / Bahasa Indonesia).
+ * GREENWOOD BARBERS — BILINGUAL ENGINE (ID | EN)
+ * Dual-language toggle (Bahasa Indonesia / British Mayfair English).
+ * Default language: Bahasa Indonesia (id).
  * Developed for Greenwood Barbers Kota Baru Parahyangan.
  */
 
 (function () {
   'use strict';
 
-  // 1. DICTIONARY MAPPINGS (EN <-> ID)
+  // 1. DICTIONARY MAPPINGS (ID <-> EN)
   var translations = {
+    id: {
+      // Navigation
+      navHome: "Beranda",
+      navAbout: "Tentang Kami",
+      navContact: "Hubungi Kami",
+      navReserve: "RESERVASI KURSI",
+      
+      // Index Hero
+      heroBadge: "KOTA BARU PARAHYANGAN",
+      heroTitle: "Tempat Singgah Perawatan Pria Pertama di Bandung",
+      heroSubtitle: "Waktu seutuhnya milik Anda. Barbershop tenang dan eksklusif di perbukitan Bandung Barat.",
+      heroCtaBook: "RESERVASI KURSI",
+      
+      // Section Headlines & Services
+      menuEyebrow: "PILIHAN LAYANAN",
+      menuHeadline: "Layanan Kami",
+      menuSubtext: "Setiap kunjungan diawali dengan konsultasi mendalam dan handuk dingin, serta diakhiri dengan hasil presisi yang membanggakan.",
+      
+      // Package 1
+      pkg1Title: "The Cut",
+      pkg1Dur: "45 Menit",
+      pkg1Desc: "Layanan utama kami. Kami mendengarkan kebutuhan Anda terlebih dahulu, kemudian mendedikasikan 45 menit untuk penampilan terbaik yang Anda dambakan.",
+      
+      // Package 2
+      pkg2Title: "The Cut & Shave / Trim",
+      pkg2Dur: "75 Menit",
+      pkg2Desc: "Paket terfavorit tamu kami. The Cut dilanjutkan dengan cukur handuk hangat atau perapian janggut di kursi yang sama, disempurnakan dengan pijat punggung dan bahu selama 15 menit.",
+      
+      // Package 3
+      pkg3Title: "The Ritual",
+      pkg3Dur: "95 Menit",
+      pkg3Desc: "Perawatan paripurna untuk momen istimewa Anda. Seluruh layanan tercakup: pemotongan rambut, cukur handuk hangat atau perapian janggut, hair spa, masker wajah, dan relaksasi pijat punggung & bahu.",
+      
+      btnReserve: "RESERVASI KURSI",
+      
+      // Index Values (if referenced)
+      valueTitle1: "Kebersihan yang Nyata Terlihat dan Terasa",
+      valueDesc1: "Satu silet baru sekali pakai untuk setiap tamu. Handuk hangat higienis. Seluruh peralatan disterilkan tuntas setiap sesi.",
+      valueTitle2: "Perawatan Tenang Tanpa Terburu-buru",
+      valueDesc2: "Kami mendedikasikan 45 hingga 95 menit untuk setiap sesi. Dimulai dengan konsultasi mendalam di depan cermin sebelum pemotongan.",
+      valueTitle3: "Parkir Gratis Tepat di Depan Pintu",
+      valueDesc3: "Bebas biaya parkir dan tanpa perlu berputar-putar. Parkir tepat di depan Ruko PancaTengah, hanya 7 menit dari Stasiun Whoosh.",
+      
+      // Footer
+      footerHours: "Buka Rabu–Senin, 10:00–20:00 WIB • Tutup Setiap Hari Selasa",
+      footerTagline: "Tempat Singgah Perawatan Pria Pertama di Bandung • Kota Baru Parahyangan",
+      footerCopyright: "© 2026 Greenwood Barbers. Hak cipta dilindungi undang-undang.",
+      footerContactBtn: "Hubungi WhatsApp Concierge"
+    },
     en: {
       // Navigation
       navHome: "Home",
@@ -22,6 +72,28 @@
       heroSubtitle: "The hour is yours. A quiet barbershop in the hills of West Bandung.",
       heroCtaBook: "RESERVE A CHAIR",
       
+      // Section Headlines & Services
+      menuEyebrow: "THE MENU",
+      menuHeadline: "Our Services",
+      menuSubtext: "Every visit starts with a conversation and a cold towel, and ends with a finish you’ll be glad to walk out in.",
+      
+      // Package 1
+      pkg1Title: "The Cut",
+      pkg1Dur: "45 Mins",
+      pkg1Desc: "Our flagship. We listen first, then take 45 minutes to make you look as good as you deserve.",
+      
+      // Package 2
+      pkg2Title: "The Cut & Shave / Trim",
+      pkg2Dur: "75 Mins",
+      pkg2Desc: "Our go-to package. The Cut, then a hot towel shave or beard trim in the same chair, finished with a 15-minute back and shoulder massage.",
+      
+      // Package 3
+      pkg3Title: "The Ritual",
+      pkg3Dur: "95 Mins",
+      pkg3Desc: "For the days that matter. Everything included: the cut, a hot towel shave or beard trim, a hair spa and a black mask, finished with a back and shoulder massage.",
+      
+      btnReserve: "RESERVE A CHAIR",
+      
       // Index Values
       valueTitle1: "Clean you can see and smell",
       valueDesc1: "New razor blade for every guest. Steamed hot towels freshly laundered. All tools sanitized between chairs.",
@@ -30,58 +102,19 @@
       valueTitle3: "Free parking at the door",
       valueDesc3: "No circling or parking fees. Pull up directly in front of Ruko PancaTengah, 7 minutes from Whoosh Padalarang.",
       
-      // Section Headlines
-      menuHeadline: "Essential grooming, done properly",
-      menuSub: "Four straightforward services. No hidden upsells.",
-      hoursHeadline: "Quiet, unhurried chairs in Kota Baru Parahyangan.",
-      hoursDetail: "Wednesday – Monday: 10:00 – 20:00 WIB • Closed Tuesdays",
-      addressText: "Ruko PancaTengah, Jl. Parahyangan No. 87, Kota Baru Parahyangan, Padalarang 40553",
-      
       // Footer
+      footerHours: "Open Wednesday–Monday, 10:00–20:00 WIB • Closed Tuesdays",
       footerTagline: "Bandung's First Gentlemen's Retreat • Kota Baru Parahyangan",
       footerCopyright: "© 2026 Greenwood Barbers. All rights reserved.",
       footerContactBtn: "Chat WhatsApp Concierge"
-    },
-    id: {
-      // Navigation
-      navHome: "Beranda",
-      navAbout: "Tentang Kami",
-      navContact: "Kontak",
-      navReserve: "RESERVASI KURSI",
-      
-      // Index Hero
-      heroBadge: "KOTA BARU PARAHYANGAN",
-      heroTitle: "Tempat Singgah Perawatan Pria Pertama di Bandung",
-      heroSubtitle: "Waktu seutuhnya milik Anda. Barbershop tenang dan eksklusif di perbukitan Bandung Barat.",
-      heroCtaBook: "RESERVASI KURSI",
-      
-      // Index Values
-      valueTitle1: "Kebersihan yang Nyata Terlihat dan Terasa",
-      valueDesc1: "Satu silet baru sekali pakai untuk setiap tamu. Handuk hangat higienis. Seluruh peralatan disterilkan tuntas setiap sesi.",
-      valueTitle2: "Perawatan Tenang Tanpa Terburu-buru",
-      valueDesc2: "Kami mendedikasikan 45 hingga 95 menit untuk setiap sesi. Dimulai dengan konsultasi mendalam di depan cermin sebelum pemotongan.",
-      valueTitle3: "Parkir Gratis Tepat di Depan Pintu",
-      valueDesc3: "Bebas biaya parkir dan tanpa perlu berputar-putar. Parkir tepat di depan Ruko PancaTengah, hanya 7 menit dari Stasiun Whoosh.",
-      
-      // Section Headlines
-      menuHeadline: "Perawatan Esensial, Dikerjakan dengan Sempurna",
-      menuSub: "Empat paket layanan utama berstandar tinggi. Tanpa biaya tersembunyi.",
-      hoursHeadline: "Suasana pangkas rambut tenang dan privat di Kota Baru Parahyangan.",
-      hoursDetail: "Rabu – Senin: 10:00 – 20:00 WIB • Tutup Setiap Hari Selasa",
-      addressText: "Ruko PancaTengah, Jl. Parahyangan No. 87, Kota Baru Parahyangan, Padalarang 40553",
-      
-      // Footer
-      footerTagline: "Tempat Singgah Perawatan Pria Pertama di Bandung • Kota Baru Parahyangan",
-      footerCopyright: "© 2026 Greenwood Barbers. Hak cipta dilindungi undang-undang.",
-      footerContactBtn: "Hubungi WhatsApp Concierge"
     }
   };
 
-  // 2. STATE CONTROLLER
-  var currentLang = localStorage.getItem('greenwood_lang') || 'en';
+  // 2. STATE CONTROLLER (Default to Indonesian 'id')
+  var currentLang = localStorage.getItem('greenwood_lang') || 'id';
 
   function applyLanguage(lang) {
-    if (!translations[lang]) lang = 'en';
+    if (!translations[lang]) lang = 'id';
     currentLang = lang;
     localStorage.setItem('greenwood_lang', lang);
     document.documentElement.lang = lang;
@@ -126,11 +159,15 @@
     i18nElements.forEach(function (el) {
       var key = el.getAttribute('data-i18n');
       if (dict[key]) {
-        el.textContent = dict[key];
+        if (key === 'heroCtaBook') {
+          el.innerHTML = dict[key] + ' &rarr;';
+        } else {
+          el.textContent = dict[key];
+        }
       }
     });
 
-    // Update Known Homepage Text If on index
+    // Update Known Homepage Text if missing data-i18n
     var heroBadge = document.querySelector('.clean-hero-badge');
     if (heroBadge && !heroBadge.hasAttribute('data-i18n')) heroBadge.textContent = dict.heroBadge;
 
@@ -142,8 +179,16 @@
 
     var heroCtaBook = document.querySelector('.clean-hero-actions .btn-primary, .clean-hero-actions .btn-clean-reserve');
     if (heroCtaBook && !heroCtaBook.hasAttribute('data-i18n')) {
-      heroCtaBook.textContent = dict.heroCtaBook + " →";
+      heroCtaBook.innerHTML = dict.heroCtaBook + " &rarr;";
     }
+
+    // Update Reserve buttons on package cards
+    var cardReserveBtns = document.querySelectorAll('.btn-card-reserve');
+    cardReserveBtns.forEach(function (btn) {
+      if (!btn.hasAttribute('data-i18n')) {
+        btn.textContent = dict.btnReserve;
+      }
+    });
 
     // Dispatch Event for Page-specific listeners
     window.dispatchEvent(new CustomEvent('greenwood-language-changed', { detail: { lang: lang, dict: dict } }));
@@ -157,11 +202,11 @@
 
       var switchWrap = document.createElement('div');
       switchWrap.className = 'lang-switch-wrap';
-      switchWrap.setAttribute('aria-label', 'Language Selector');
+      switchWrap.setAttribute('aria-label', 'Pilihan Bahasa / Language Selector');
       switchWrap.innerHTML = 
-        '<button type="button" class="lang-btn ' + (currentLang === 'en' ? 'active' : '') + '" data-lang="en">EN</button>' +
+        '<button type="button" class="lang-btn ' + (currentLang === 'id' ? 'active' : '') + '" data-lang="id">ID</button>' +
         '<span class="lang-divider">|</span>' +
-        '<button type="button" class="lang-btn ' + (currentLang === 'id' ? 'active' : '') + '" data-lang="id">ID</button>';
+        '<button type="button" class="lang-btn ' + (currentLang === 'en' ? 'active' : '') + '" data-lang="en">EN</button>';
 
       ctaGroup.insertBefore(switchWrap, ctaGroup.firstChild);
     });
@@ -172,10 +217,10 @@
       var mobileSwitch = document.createElement('div');
       mobileSwitch.className = 'lang-switch-wrap lang-switch-mobile';
       mobileSwitch.innerHTML = 
-        '<span style="font-size:11px; letter-spacing:1.5px; color:var(--text-muted); text-transform:uppercase; margin-right:8px;">LANGUAGE:</span>' +
-        '<button type="button" class="lang-btn ' + (currentLang === 'en' ? 'active' : '') + '" data-lang="en">EN</button>' +
+        '<span style="font-size:11px; letter-spacing:1.5px; color:var(--text-muted); text-transform:uppercase; margin-right:8px;">BAHASA:</span>' +
+        '<button type="button" class="lang-btn ' + (currentLang === 'id' ? 'active' : '') + '" data-lang="id">ID</button>' +
         '<span class="lang-divider">|</span>' +
-        '<button type="button" class="lang-btn ' + (currentLang === 'id' ? 'active' : '') + '" data-lang="id">ID</button>';
+        '<button type="button" class="lang-btn ' + (currentLang === 'en' ? 'active' : '') + '" data-lang="en">EN</button>';
       
       mobileNav.insertBefore(mobileSwitch, mobileNav.firstChild.nextSibling);
     }

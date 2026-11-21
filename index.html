@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <title>Greenwood Barbers &middot; Bandung’s First Gentlemen’s Retreat</title>
-  <meta name="description" content="Haircuts, hot towel shaves and beard trims by appointment in Kota Baru Parahyangan, Padalarang. No queue. Reserve your chair online.">
+  <title>Greenwood Barbers &middot; Tempat Singgah Perawatan Pria Pertama di Bandung</title>
+  <meta name="description" content="Pangkas rambut presisi, cukur handuk hangat, dan perawatan janggut dengan reservasi di Kota Baru Parahyangan, Padalarang. Tanpa antre. Reservasi kursi Anda secara online.">
   <link rel="icon" type="image/png" href="assets/greenwood_monogram_cropped.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -565,25 +565,25 @@
       <img src="assets/greenwood_logo_transparent.png?v=20261018_v3" alt="Greenwood Barbers" class="brand-logo-img">
     </a>
 
-    <nav class="main-nav" aria-label="Main navigation">
-      <a href="index.html" class="active">Home</a>
-      <a href="about.html">About Us</a>
-      <a href="contact.html">Contact Us</a>
+    <nav class="main-nav" aria-label="Navigasi Utama">
+      <a href="index.html" class="active" data-i18n="navHome">Beranda</a>
+      <a href="about.html" data-i18n="navAbout">Tentang Kami</a>
+      <a href="contact.html" data-i18n="navContact">Hubungi Kami</a>
     </nav>
 
     <div class="header-cta-group">
-      <a href="booking.html" class="btn-header-book">RESERVE A CHAIR</a>
-      <button class="menu-toggle-btn" onclick="toggleMobileNav()" aria-label="Toggle navigation menu">&#9776;</button>
+      <a href="booking.html" class="btn-header-book" data-i18n="navReserve">RESERVASI KURSI</a>
+      <button class="menu-toggle-btn" onclick="toggleMobileNav()" aria-label="Buka menu navigasi">&#9776;</button>
     </div>
   </header>
 
   <!-- MOBILE NAV OVERLAY -->
   <div class="mobile-nav-overlay" id="mobileNavOverlay">
-    <button class="mobile-nav-close" onclick="closeMobileNav()" aria-label="Close menu">&times;</button>
-    <a href="index.html" class="active" onclick="closeMobileNav()">Home</a>
-    <a href="about.html" onclick="closeMobileNav()">About Us</a>
-    <a href="contact.html" onclick="closeMobileNav()">Contact Us</a>
-    <a href="booking.html" class="btn-primary" style="margin-top: 16px;" onclick="closeMobileNav()">RESERVE A CHAIR</a>
+    <button class="mobile-nav-close" onclick="closeMobileNav()" aria-label="Tutup menu">&times;</button>
+    <a href="index.html" class="active" onclick="closeMobileNav()" data-i18n="navHome">Beranda</a>
+    <a href="about.html" onclick="closeMobileNav()" data-i18n="navAbout">Tentang Kami</a>
+    <a href="contact.html" onclick="closeMobileNav()" data-i18n="navContact">Hubungi Kami</a>
+    <a href="booking.html" class="btn-primary" style="margin-top: 16px;" onclick="closeMobileNav()" data-i18n="navReserve">RESERVASI KURSI</a>
   </div>
 
   <main>
@@ -596,12 +596,12 @@
       </div>
       
       <div class="clean-hero-content">
-        <div class="clean-hero-badge">KOTA BARU PARAHYANGAN</div>
-        <h1 class="clean-hero-title">Bandung's First Gentlemen's Retreat</h1>
-        <p class="clean-hero-subtitle">The hour is yours. A quiet barbershop in the hills of West Bandung.</p>
+        <div class="clean-hero-badge" data-i18n="heroBadge">KOTA BARU PARAHYANGAN</div>
+        <h1 class="clean-hero-title" data-i18n="heroTitle">Tempat Singgah Perawatan Pria Pertama di Bandung</h1>
+        <p class="clean-hero-subtitle" data-i18n="heroSubtitle">Waktu seutuhnya milik Anda. Barbershop tenang dan eksklusif di perbukitan Bandung Barat.</p>
         
         <div class="clean-hero-actions">
-          <a href="booking.html" class="btn-clean-reserve" data-i18n="heroCtaBook">RESERVE A CHAIR &rarr;</a>
+          <a href="booking.html" class="btn-clean-reserve" data-i18n="heroCtaBook">RESERVASI KURSI &rarr;</a>
         </div>
       </div>
     </section>
@@ -609,10 +609,10 @@
     <!-- 2. CURATED SIGNATURE RITUALS -->
     <section class="home-section" id="packages">
       <div class="section-header-center">
-        <span class="section-eyebrow">The Menu</span>
-        <h2 class="section-heading">Our Services</h2>
-        <p class="section-sub-text">
-          Every visit starts with a conversation and a cold towel, and ends with a finish you’ll be glad to walk out in.
+        <span class="section-eyebrow" data-i18n="menuEyebrow">PILIHAN LAYANAN</span>
+        <h2 class="section-heading" data-i18n="menuHeadline">Layanan Kami</h2>
+        <p class="section-sub-text" data-i18n="menuSubtext">
+          Setiap kunjungan diawali dengan konsultasi mendalam dan handuk dingin, serta diakhiri dengan hasil presisi yang membanggakan.
         </p>
       </div>
 
@@ -624,15 +624,15 @@
             <img src="assets/real_beard_grooming.jpg?v=20261018_v4" alt="The Cut" class="pkg-card-img" loading="lazy">
           </div>
           <div class="pkg-card-body">
-            <h3 class="pkg-card-title">The Cut</h3>
+            <h3 class="pkg-card-title" data-i18n="pkg1Title">The Cut</h3>
             <div class="pkg-price-row">
               <span class="pkg-price-text">Rp 240,000</span>
-              <span class="pkg-dur-badge">45 Mins</span>
+              <span class="pkg-dur-badge" data-i18n="pkg1Dur">45 Menit</span>
             </div>
-            <p class="pkg-card-desc">
-              Our flagship. We listen first, then take 45 minutes to make you look as good as you deserve.
+            <p class="pkg-card-desc" data-i18n="pkg1Desc">
+              Layanan utama kami. Kami mendengarkan kebutuhan Anda terlebih dahulu, kemudian mendedikasikan 45 menit untuk penampilan terbaik yang Anda dambakan.
             </p>
-            <a href="booking.html?pkg=pkg-cut" class="btn-card-reserve">RESERVE A CHAIR</a>
+            <a href="booking.html?pkg=pkg-cut" class="btn-card-reserve" data-i18n="btnReserve">RESERVASI KURSI</a>
           </div>
         </article>
 
@@ -642,15 +642,15 @@
             <img src="assets/real_haircut_taper.jpg?v=20261018_v4" alt="The Cut &amp; Shave / Trim" class="pkg-card-img" loading="lazy">
           </div>
           <div class="pkg-card-body">
-            <h3 class="pkg-card-title">The Cut &amp; Shave / Trim</h3>
+            <h3 class="pkg-card-title" data-i18n="pkg2Title">The Cut &amp; Shave / Trim</h3>
             <div class="pkg-price-row">
               <span class="pkg-price-text">Rp 420,000</span>
-              <span class="pkg-dur-badge">75 Mins</span>
+              <span class="pkg-dur-badge" data-i18n="pkg2Dur">75 Menit</span>
             </div>
-            <p class="pkg-card-desc">
-              Our go-to package. The Cut, then a hot towel shave or beard trim in the same chair, finished with a 15-minute back and shoulder massage.
+            <p class="pkg-card-desc" data-i18n="pkg2Desc">
+              Paket terfavorit tamu kami. The Cut dilanjutkan dengan cukur handuk hangat atau perapian janggut di kursi yang sama, disempurnakan dengan pijat punggung dan bahu selama 15 menit.
             </p>
-            <a href="booking.html?pkg=pkg-cut-shave-trim" class="btn-card-reserve">RESERVE A CHAIR</a>
+            <a href="booking.html?pkg=pkg-cut-shave-trim" class="btn-card-reserve" data-i18n="btnReserve">RESERVASI KURSI</a>
           </div>
         </article>
 
@@ -660,15 +660,15 @@
             <img src="assets/real_suit_shave.jpg?v=20261018_v4" alt="The Ritual" class="pkg-card-img" loading="lazy">
           </div>
           <div class="pkg-card-body">
-            <h3 class="pkg-card-title">The Ritual</h3>
+            <h3 class="pkg-card-title" data-i18n="pkg3Title">The Ritual</h3>
             <div class="pkg-price-row">
               <span class="pkg-price-text">Rp 590,000</span>
-              <span class="pkg-dur-badge">95 Mins</span>
+              <span class="pkg-dur-badge" data-i18n="pkg3Dur">95 Menit</span>
             </div>
-            <p class="pkg-card-desc">
-              For the days that matter. Everything included: the cut, a hot towel shave or beard trim, a hair spa and a black mask, finished with a back and shoulder massage.
+            <p class="pkg-card-desc" data-i18n="pkg3Desc">
+              Perawatan paripurna untuk momen istimewa Anda. Seluruh layanan tercakup: pemotongan rambut, cukur handuk hangat atau perapian janggut, hair spa, masker wajah, dan relaksasi pijat punggung &amp; bahu.
             </p>
-            <a href="booking.html?pkg=pkg-ritual" class="btn-card-reserve">RESERVE A CHAIR</a>
+            <a href="booking.html?pkg=pkg-ritual" class="btn-card-reserve" data-i18n="btnReserve">RESERVASI KURSI</a>
           </div>
         </article>
 
@@ -680,11 +680,11 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-copy">
-      <div style="margin-bottom: 4px;">Open Wednesday&ndash;Monday, 10:00&ndash;20:00 WIB &middot; Closed Tuesdays</div>
+      <div style="margin-bottom: 4px;" data-i18n="footerHours">Buka Rabu&ndash;Senin, 10:00&ndash;20:00 WIB &middot; Tutup Setiap Hari Selasa</div>
       <div style="margin-bottom: 4px;">
         <a href="https://www.google.com/maps/search/?api=1&query=-6.871083,107.466639" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Ruko PancaTengah, Jl. Parahyangan No. 87, Kota Baru Parahyangan, Padalarang</a> &middot; WhatsApp <a href="https://wa.me/6281991153322" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">+62 819-9115-3322</a> &middot; <a href="mailto:salretailventures@gmail.com" style="color: inherit; text-decoration: underline;">salretailventures@gmail.com</a>
       </div>
-      <div>&copy; 2026 Greenwood Barbers. All rights reserved.</div>
+      <div data-i18n="footerCopyright">&copy; 2026 Greenwood Barbers. Hak cipta dilindungi undang-undang.</div>
     </div>
   </footer>
 
