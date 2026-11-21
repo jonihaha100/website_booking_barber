@@ -110,13 +110,23 @@
     }
   };
 
-  // 2. STATE CONTROLLER (Default to Indonesian 'id')
-  var currentLang = localStorage.getItem('greenwood_lang') || 'id';
+  // 2. STATE CONTROLLER (Default strictly to Indonesian 'id')
+  var currentLang = localStorage.getItem('greenwood_lang_v2');
+  if (!currentLang) {
+    currentLang = 'id';
+    try {
+      localStorage.setItem('greenwood_lang_v2', 'id');
+      localStorage.setItem('greenwood_lang', 'id');
+    } catch (e) {}
+  }
 
   function applyLanguage(lang) {
     if (!translations[lang]) lang = 'id';
     currentLang = lang;
-    localStorage.setItem('greenwood_lang', lang);
+    try {
+      localStorage.setItem('greenwood_lang_v2', lang);
+      localStorage.setItem('greenwood_lang', lang);
+    } catch (e) {}
     document.documentElement.lang = lang;
 
     var dict = translations[lang];

@@ -3240,9 +3240,19 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       }, 50);
     }
 
-    // Multi-language localization (ID / EN)
+    // Multi-language localization (ID / EN - Defaults strictly to Indonesian 'id')
     const I18N = {
-      currentLang: localStorage.getItem('greenwood_admin_lang_v1') || 'id',
+      currentLang: (() => {
+        let l = localStorage.getItem('greenwood_admin_lang_v2');
+        if (!l) {
+          l = 'id';
+          try {
+            localStorage.setItem('greenwood_admin_lang_v2', 'id');
+            localStorage.setItem('greenwood_admin_lang_v1', 'id');
+          } catch (e) {}
+        }
+        return l;
+      })(),
       dict: {
         id: {
           tagline: "POS • CRM • Manajemen Barbershop",
@@ -3419,7 +3429,10 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
 
     function setSystemLanguage(lang) {
       I18N.currentLang = lang || 'id';
-      localStorage.setItem('greenwood_admin_lang_v1', I18N.currentLang);
+      try {
+        localStorage.setItem('greenwood_admin_lang_v2', I18N.currentLang);
+        localStorage.setItem('greenwood_admin_lang_v1', I18N.currentLang);
+      } catch (e) {}
       document.documentElement.lang = I18N.currentLang;
       
       const d = I18N.dict[I18N.currentLang] || I18N.dict['id'];
