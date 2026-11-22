@@ -2256,7 +2256,275 @@
         justify-content: center;
       }
     }
-  </style>
+  
+    /* ==========================================================
+       CLIENT SPEC: GUEST CARD (KARTU TAMU), 4-ZONES & KPIS
+       ========================================================== */
+    .guest-card-modal-box {
+      max-width: 960px !important;
+      width: 95vw !important;
+      max-height: 90vh !important;
+      overflow-y: auto !important;
+      background: #030c08 !important;
+      border: 1px solid var(--card-border) !important;
+      border-radius: 12px !important;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.85) !important;
+      padding: 24px !important;
+      color: #e2e8f0;
+    }
+
+    .guest-card-zone {
+      background: rgba(14, 31, 24, 0.45);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 18px;
+    }
+
+    .guest-card-zone-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(197, 155, 72, 0.2);
+      padding-bottom: 8px;
+    }
+
+    .guest-card-zone-title {
+      font-family: 'Lora', serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+    }
+
+    .recipe-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+    }
+
+    .recipe-field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .recipe-field-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .recipe-input, .recipe-select {
+      background: #040d09;
+      border: 1px solid var(--input-border);
+      border-radius: 6px;
+      color: #fff;
+      font-size: 12.5px;
+      padding: 8px 10px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .recipe-input:focus, .recipe-select:focus {
+      border-color: var(--accent-gold);
+    }
+
+    .verdict-btn-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .verdict-btn {
+      flex: 1;
+      padding: 10px 8px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--card-border);
+      background: rgba(3, 12, 8, 0.8);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .verdict-btn.active-loved {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: #ef4444;
+      color: #f87171;
+    }
+
+    .verdict-btn.active-fine {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: #38bdf8;
+      color: #38bdf8;
+    }
+
+    .verdict-btn.active-change {
+      background: rgba(197, 155, 72, 0.2);
+      border-color: var(--accent-gold);
+      color: var(--accent-gold-bright);
+    }
+
+    .photo-4angles-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .photo-4angles-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .photo-angle-card {
+      background: #040d09;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .photo-angle-thumb-wrap {
+      width: 100%;
+      height: 150px;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #0a1410;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+      border: 1px solid rgba(197,155,72,0.2);
+    }
+
+    .photo-angle-thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .photo-angle-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(3,12,8,0.85);
+      border: 1px solid var(--accent-gold);
+      color: var(--accent-gold-bright);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .topic-pill-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .topic-pill {
+      background: rgba(197, 155, 72, 0.12);
+      border: 1px solid rgba(197, 155, 72, 0.35);
+      color: var(--accent-gold-bright);
+      font-size: 11.5px;
+      padding: 4px 10px;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .topic-pill .remove-topic {
+      cursor: pointer;
+      opacity: 0.7;
+    }
+
+    .topic-pill .remove-topic:hover {
+      opacity: 1;
+      color: #ef4444;
+    }
+
+    /* KPI Heatmap & Gainshare */
+    .heatmap-wrap {
+      overflow-x: auto;
+      margin-top: 10px;
+    }
+
+    .heatmap-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .heatmap-table th, .heatmap-table td {
+      border: 1px solid #162a22;
+      padding: 6px 4px;
+    }
+
+    .heatmap-table th {
+      background: #040d09;
+      color: var(--accent-gold);
+      font-weight: 600;
+    }
+
+    .heatmap-cell {
+      border-radius: 4px;
+      font-weight: 600;
+      transition: transform 0.15s;
+    }
+
+    .heatmap-cell:hover {
+      transform: scale(1.08);
+      z-index: 2;
+    }
+
+    .gainshare-track {
+      width: 100%;
+      height: 18px;
+      background: #0a1410;
+      border-radius: 9px;
+      border: 1px solid #22382c;
+      position: relative;
+      overflow: hidden;
+      margin: 12px 0 6px;
+    }
+
+    .gainshare-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #38bdf8 0%, #4ade80 60%, var(--accent-gold-bright) 100%);
+      border-radius: 9px;
+      transition: width 0.4s ease;
+    }
+
+    .gainshare-marker {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #fff;
+      z-index: 2;
+    }
+
+</style>
 </head>
 
 <body>
@@ -2566,9 +2834,13 @@
             <!-- GLOWING AMBER INTERNAL NOTES BANNER (MUNCUL MENCOROK SAAT NAMA DIKLIK) -->
             <div class="internal-notes-banner" id="posInternalNotesBanner">
               <div class="internal-notes-header">
-                <span class="internal-notes-tag">⚡ Preferensi Gaya Rambut &amp; Kebiasaan:</span>
-                <button type="button" onclick="quickEditInternalNotes()"
-                  style="background:none; border:none; color:var(--accent-gold-bright); font-size:11px; cursor:pointer; text-decoration:underline;">Edit</button>
+                <span class="internal-notes-tag">⚡ Preferensi Gaya Rambut &amp; Resep:</span>
+                <div>
+                  <button type="button" onclick="quickEditInternalNotes()"
+                    style="background:none; border:none; color:var(--accent-gold-bright); font-size:11px; cursor:pointer; text-decoration:underline;">Edit Catatan</button>
+                  <button type="button" onclick="openActivePosGuestCard()"
+                    style="background:none; border:none; color:#4ade80; font-size:11px; cursor:pointer; text-decoration:underline; font-weight:600; margin-left:8px;">🪞 Buka Kartu Tamu</button>
+                </div>
               </div>
               <div class="internal-notes-content" id="posInternalNotesText">
                 "Fade #2 samping, trim jenggot tipis natural. Suka kopi dingin."
@@ -2662,8 +2934,14 @@
               </div>
             </div>
 
+            <!-- REBOOKING AT CHECKOUT (CLIENT KPI SPEC) -->
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--accent-gold-bright); cursor: pointer; margin-top: 14px; background: rgba(197, 155, 72, 0.1); padding: 8px 10px; border-radius: 6px; border: 1px dashed var(--accent-gold);">
+              <input type="checkbox" id="posRebookedNextVisit" style="accent-color: var(--accent-gold);">
+              <span>📅 Tamu Menjadwalkan Kunjungan Berikutnya (Rebooking at Checkout)</span>
+            </label>
+
             <!-- CHECKOUT BUTTON -->
-            <button type="button" class="btn-gate-unlock" style="margin-top: 18px;" onclick="executeCheckout()">
+            <button type="button" class="btn-gate-unlock" style="margin-top: 14px;" onclick="executeCheckout()">
               ✓ Selesaikan Pembayaran &amp; Cetak Nota
             </button>
           </div>
@@ -2999,16 +3277,17 @@
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
           <div>
             <h3 style="margin: 0; color: var(--accent-gold); font-family: 'Lora', serif; font-size: 20px;"
-              data-i18n="analytics_title">Dashboard Laporan Omzet &amp; Retensi</h3>
+              data-i18n="analytics_title">Dashboard Laporan &amp; Utilisasi Kursi (KPIs)</h3>
             <div style="font-size: 12.5px; color: var(--text-muted); margin-top: 4px;" data-i18n="analytics_sub">
-              Performa bisnis, jam sibuk operasional, dan tingkat kunjungan berulang pelanggan.</div>
+              Utilisasi kursi per-menit, pendapatan vs titik impas, gainshare tim, dan retensi tamu 35 hari.
+            </div>
           </div>
           <button type="button" class="btn-portal-action" onclick="window.print()">
             <span>🖨️</span> <span data-i18n="an_btn_print">Cetak / Simpan PDF</span>
           </button>
         </div>
 
-        <!-- REVENUE CARDS -->
+        <!-- REVENUE & CORE KPIS CARDS -->
         <div class="metrics-grid">
           <div class="metric-card">
             <div class="metric-label" data-i18n="an_rev_today">Omzet Hari Ini</div>
@@ -3016,37 +3295,113 @@
             <div class="metric-sub" data-i18n="an_rev_today_sub">Kasir &amp; Booking</div>
           </div>
           <div class="metric-card">
-            <div class="metric-label" data-i18n="an_rev_week">Omzet 7 Hari Terakhir</div>
-            <div class="metric-val" style="color: var(--accent-gold-bright);" id="anRevenueWeek">Rp 0</div>
-            <div class="metric-sub" data-i18n="an_rev_week_sub">Performa Mingguan</div>
-          </div>
-          <div class="metric-card">
             <div class="metric-label" data-i18n="an_rev_month">Omzet Bulan Ini</div>
             <div class="metric-val" style="color: #fff;" id="anRevenueMonth">Rp 0</div>
             <div class="metric-sub" data-i18n="an_rev_month_sub">Akumulasi Bulanan</div>
           </div>
           <div class="metric-card">
-            <div class="metric-label" data-i18n="an_retention_label">Retensi Tamu (Kunjungan Ulang)</div>
+            <div class="metric-label">Rata-Rata Tiket (Avg Ticket)</div>
+            <div class="metric-val" style="color: var(--accent-gold-bright);" id="anAvgTicket">Rp 310.000</div>
+            <div class="metric-sub">Target: Rp 380.000 / tamu</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Retensi 35 Hari (Kunjungan Ulang)</div>
             <div class="metric-val" style="color: #38bdf8;" id="anRepeatRate">0%</div>
-            <div class="metric-sub" id="anRepeatSub" data-i18n="an_retention_sub">Kunjungan Ulang</div>
+            <div class="metric-sub" id="anRepeatSub">Tamu Kembali &lt; 35 Hari</div>
           </div>
         </div>
 
-        <!-- BUSY HOURS CHART -->
-        <div class="chart-container">
-          <h4 style="margin: 0 0 4px; color: #fff; font-size: 15px; font-family: 'Lora', serif;"
-            data-i18n="an_busy_title">Grafik Jam Sibuk Operasional</h4>
-          <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;" data-i18n="an_busy_sub">
-            Distribusi volume transaksi berdasarkan jam kedatangan tamu (10:00 s/d 20:00 WIB).</div>
-          <div class="busy-hours-bar-grid" id="busyHoursGrid">
-            <!-- Dynamically populated bars -->
+        <!-- PENDAPATAN VS TITIK IMPAS (BREAK-EVEN) & AMBANG BATAS GAINSHARE TIM -->
+        <div class="chart-container" style="margin-top: 18px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <h4 style="margin: 0; color: #fff; font-size: 15px; font-family: 'Lora', serif;">
+                📈 Pendapatan vs Titik Impas (Break-Even) &amp; Ambang Batas Gainshare Tim
+              </h4>
+              <div style="font-size: 12px; color: var(--text-muted); margin-top: 3px;">
+                Mengukur apakah performa bulan ini berada di jalur aman (Break-Even Rp 35jt) dan kapan bonus tim Gainshare dimulai (Rp 45jt).
+              </div>
+            </div>
+            <div style="text-align: right;">
+              <span id="gainsharePoolBadge" style="font-size: 12px; font-weight: 700; color: var(--accent-gold-bright); background: rgba(197,155,72,0.15); border: 1px solid var(--accent-gold); padding: 4px 10px; border-radius: 6px;">
+                Pool Gainshare Tim: Rp 0
+              </span>
+            </div>
+          </div>
+
+          <div class="gainshare-track">
+            <div class="gainshare-bar-fill" id="gainshareBarFill" style="width: 70%;"></div>
+            <div class="gainshare-marker" style="left: 77.7%;" title="Break-Even (Rp 35.000.000)"></div>
+            <div class="gainshare-marker" style="left: 100%;" title="Ambang Batas Gainshare (Rp 45.000.000)"></div>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted);">
+            <div>Rp 0</div>
+            <div style="color: #38bdf8;">🏁 Break-Even (Rp 35.000.000)</div>
+            <div style="color: var(--accent-gold-bright);">🏆 Ambang Gainshare (Rp 45.000.000)</div>
+          </div>
+        </div>
+
+        <!-- CHAIR UTILISATION HEATMAP (DAY X HOUR) - REPLACES BUSY HOURS BARS -->
+        <div class="chart-container" style="margin-top: 18px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+            <div>
+              <h4 style="margin: 0; color: #fff; font-size: 15px; font-family: 'Lora', serif;">
+                🪑 Heatmap Utilisasi Kursi (Chair Utilisation: Hari &times; Jam)
+              </h4>
+              <div style="font-size: 12px; color: var(--text-muted); margin-top: 3px;">
+                Share menit kursi terisi dari kapasitas total (Kapasitas: 3 kursi &times; 60 mnt = 180 mnt/jam). Target: <strong>65%</strong>.
+              </div>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: center; font-size: 11px;">
+              <span style="display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:#4ade80; border-radius:2px;"></span> &ge;65% (Optimal)</span>
+              <span style="display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:#e5b95f; border-radius:2px;"></span> 40-64% (Sedang)</span>
+              <span style="display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:#1e3a2f; border-radius:2px;"></span> &lt;40% (Sepi)</span>
+            </div>
+          </div>
+
+          <div class="heatmap-wrap">
+            <table class="heatmap-table" id="chairUtilisationHeatmapTable">
+              <!-- Dynamically populated 7 days x 11 hours matrix -->
+            </table>
+          </div>
+        </div>
+
+        <!-- PER-BARBER KPIS: UTILISATION, REBOOKING & GUEST CARD COMPLETION -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; margin-top: 18px;">
+          <!-- Card Completion Rate -->
+          <div class="metric-card" style="text-align: left;">
+            <div class="metric-label" style="color: var(--accent-gold);">Kelengkapan Kartu Tamu (Guest Card Completion)</div>
+            <div style="font-size: 20px; font-weight: 700; color: #fff; margin-top: 4px;" id="kpiCardCompletionOverall">85%</div>
+            <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 2px;">Target: 80% (Resep Lengkap + Foto Depan &amp; Belakang)</div>
+            <div id="kpiCardCompletionPerBarber" style="margin-top: 10px; font-size: 11.5px; display: flex; flex-direction: column; gap: 4px;">
+              <!-- Barber stats -->
+            </div>
+          </div>
+
+          <!-- Rebooking at Checkout Rate -->
+          <div class="metric-card" style="text-align: left;">
+            <div class="metric-label" style="color: var(--accent-gold);">Rebooking Saat Checkout Kasir</div>
+            <div style="font-size: 20px; font-weight: 700; color: #38bdf8; margin-top: 4px;" id="kpiRebookingOverall">79%</div>
+            <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 2px;">Tamu yang langsung menjadwalkan kunjungan berikutnya</div>
+            <div id="kpiRebookingPerBarber" style="margin-top: 10px; font-size: 11.5px; display: flex; flex-direction: column; gap: 4px;">
+              <!-- Barber stats -->
+            </div>
+          </div>
+
+          <!-- Add-on per Guest -->
+          <div class="metric-card" style="text-align: left;">
+            <div class="metric-label" style="color: var(--accent-gold);">Penjualan Add-on per Tamu</div>
+            <div style="font-size: 20px; font-weight: 700; color: #4ade80; margin-top: 4px;" id="kpiAddonAvg">Rp 95.000</div>
+            <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 2px;">Target Konsultasi Produk/Perawatan: Rp 115.000</div>
+            <div style="margin-top: 10px; font-size: 11px; color: var(--text-muted);">
+              Konsultasi produk styling (pomade, clay, sea-salt) &amp; perawatan hot towel.
+            </div>
           </div>
         </div>
 
         <!-- ACTIVITY LOG AUDIT TRAIL -->
         <div style="margin-top: 24px;">
-          <h4 style="color: #fff; font-size: 16px; margin: 0 0 12px; font-family: 'Lora', serif;">Log Aktivitas &amp;
-            Audit Trail</h4>
+          <h4 style="color: #fff; font-size: 16px; margin: 0 0 12px; font-family: 'Lora', serif;">Log Aktivitas &amp; Audit Trail</h4>
           <div class="table-scroll-hint">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
               stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;">
@@ -3374,78 +3729,479 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     </div>
   </div>
 
-  <!-- MODAL 1: DETAIL PROFIL & PREFERENSI PELANGGAN (CRM) -->
+  <!-- MODAL 1: KARTU TAMU 4-ZONA & RESEP PANGKAS (GUEST CARD & UU PDP) -->
   <div class="portal-modal-backdrop" id="modalCustomerDetail">
-    <div class="portal-modal-box" style="max-width: 680px;">
-      <h3 class="modal-title">
-        <span id="custDetailTitle">Profil &amp; Catatan Pelanggan</span>
-        <button type="button" class="modal-close-btn" onclick="closeCustomerDetailModal()">&times;</button>
-      </h3>
-
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
-        <div
-          style="background: rgba(3,12,8,0.7); padding: 12px; border-radius: 6px; border: 1px solid var(--card-border);">
-          <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Kontak WhatsApp</div>
-          <div id="custDetailPhone" style="font-size: 14px; font-weight: 700; color: #fff; margin-top: 2px;">-</div>
-          <div id="custDetailEmail" style="font-size: 12px; color: var(--accent-gold); margin-top: 2px;">-</div>
-        </div>
-        <div
-          style="background: rgba(3,12,8,0.7); padding: 12px; border-radius: 6px; border: 1px solid var(--card-border);">
-          <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Statistik Kunjungan</div>
-          <div style="font-size: 13px; color: #fff; margin-top: 2px;">
-            Total Kunjungan: <strong id="custDetailVisits" style="color: var(--accent-gold-bright);">0x</strong> &bull;
-            Total Belanja: <strong id="custDetailSpend" style="color: var(--accent-gold-bright);">Rp 0</strong>
+    <div class="portal-modal-box guest-card-modal-box">
+      <!-- MODAL TOP BAR -->
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; border-bottom: 1px solid var(--card-border); padding-bottom: 12px;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 20px;">🪞</span>
+            <h3 style="margin: 0; color: var(--accent-gold); font-family: 'Lora', serif; font-size: 19px;" id="guestCardModalTitle">
+              Kartu Tamu &amp; Resep Pangkas (Guest Card)
+            </h3>
+            <span id="guestCardConsentBadge" class="badge-tag" style="cursor: pointer;" onclick="openConsentModal()">
+              <!-- Consent status badge -->
+            </span>
           </div>
-          <div id="custDetailLastVisit" style="font-size: 11.5px; color: var(--text-muted); margin-top: 2px;">Kunjungan
-            Terakhir: -</div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 3px;">
+            SOP C5 Konsultasi Cermin 10 Detik &bull; Rekam Resep Tetap &bull; Bukti Foto 4 Sudut (UU PDP No. 27/2022)
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" onclick="closeCustomerDetailModal()">&times;</button>
+      </div>
+
+      <!-- PENDING ASK-ABOUT PERSONAL FOLLOW-UP ALERT (BARBER ONLY) -->
+      <div id="guestCardFollowUpAlert" style="display: none; background: rgba(197,155,72,0.15); border: 1.5px solid var(--accent-gold); border-radius: 8px; padding: 10px 14px; margin-bottom: 16px; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 18px;">💡</span>
+          <div>
+            <div style="font-size: 11px; text-transform: uppercase; color: var(--accent-gold); font-weight: 700;">Pengingat Obrolan Personal Anda (Ask-About)</div>
+            <div id="guestCardFollowUpText" style="font-size: 13px; font-weight: 600; color: #fff;">-</div>
+          </div>
+        </div>
+        <button type="button" class="btn-gold-action" style="font-size: 11.5px; padding: 5px 12px;" onclick="handleMarkFollowUpDone()">
+          ✓ Tandai Selesai
+        </button>
+      </div>
+
+      <!-- ==============================================
+           ZONE 1: HEADER (WHO HE IS / IDENTITAS TAMU)
+           ============================================== -->
+      <div class="guest-card-zone">
+        <div style="display: flex; gap: 18px; align-items: center; flex-wrap: wrap;">
+          <!-- Avatar / Thumbnail of Last Cut -->
+          <div style="width: 80px; height: 80px; border-radius: 10px; overflow: hidden; border: 2px solid var(--accent-gold); background: #040d09; flex-shrink: 0; position: relative;">
+            <img id="zone1AvatarImg" src="assets/cuts/cust001_front.svg" alt="Foto Tamu" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <!-- Guest Details -->
+          <div style="flex: 1; min-width: 220px;">
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+              <h4 style="margin: 0; color: #fff; font-size: 18px; font-family: 'Lora', serif;" id="zone1GuestName">Nama Tamu</h4>
+              <span id="zone1HowToAddress" style="font-size: 12px; color: var(--accent-gold-bright); background: rgba(197,155,72,0.12); padding: 2px 8px; border-radius: 12px; border: 1px solid rgba(197,155,72,0.3);">Sapaan: -</span>
+              <span id="zone1TierBadge" class="badge-tag badge-vip">VIP</span>
+            </div>
+            <div style="display: flex; gap: 14px; margin-top: 6px; font-size: 12px; color: var(--text-muted); flex-wrap: wrap;">
+              <div>Kunjungan: <strong id="zone1VisitsCount" style="color: #fff;">0x</strong></div>
+              <div>Kunjungan Terakhir: <strong id="zone1LastVisitDate" style="color: #fff;">-</strong></div>
+              <div>Barber Langganan: <strong id="zone1UsualBarber" style="color: var(--accent-gold);">Bramantyo</strong></div>
+              <div id="zone1PhoneWrap">Kontak: <strong id="zone1Phone" style="color: #fff;">-</strong></div>
+            </div>
+          </div>
+          <!-- 1-Tap Repeat Last Cut Action Button -->
+          <div style="display: flex; flex-direction: column; gap: 6px; align-items: flex-end;">
+            <button type="button" class="btn-gold-action" style="font-size: 12.5px; padding: 10px 16px; display: flex; align-items: center; gap: 8px;" onclick="handleRepeatLastCut()">
+              <span>🔁</span> <span>Ulangi Resep Terakhir (Repeat Last Cut)</span>
+            </button>
+            <span style="font-size: 10.5px; color: var(--text-muted);">Salin resep sebelumnya dalam 1 ketukan</span>
+          </div>
         </div>
       </div>
 
-      <!-- INTERNAL NOTES FORMULA (HIGHLIGHTED) -->
-      <div
-        style="background: rgba(197, 155, 72, 0.12); border: 1.5px solid var(--accent-gold); border-radius: 8px; padding: 14px; margin-bottom: 16px;">
-        <label class="form-label"
-          style="color: var(--accent-gold-bright); font-weight: 700; display: flex; align-items: center; gap: 6px;">
-          <span>⚡</span> FORMULA GAYA RAMBUT &amp; CATATAN KHUSUS
-        </label>
-        <textarea id="custDetailNotesInput" rows="3" class="form-control"
-          style="font-size: 13.5px; background: rgba(3,12,8,0.9); line-height: 1.5;"
-          placeholder="Contoh: Fade #2 samping, trim jenggot, suka kopi dingin..."></textarea>
-        <div style="display: flex; justify-content: flex-end; margin-top: 8px;">
-          <button type="button" class="btn-gold-action" onclick="saveCustomerInternalNotes()">
-            Simpan Perubahan Formula
+      <!-- ==============================================
+           ZONE 2: LAST CUT (THE RECIPE / RESEP PANGKAS TETAP)
+           ============================================== -->
+      <div class="guest-card-zone">
+        <div class="guest-card-zone-header">
+          <h4 class="guest-card-zone-title">
+            <span>✂️</span> <span>Zona 2: Formula Resep Pangkas (Fixed Recipe Fields)</span>
+          </h4>
+          <span style="font-size: 11px; color: var(--text-muted);">Bukan nama julukan, tapi ukuran pasti yang bisa diulang barber mana pun</span>
+        </div>
+
+        <div class="recipe-grid">
+          <!-- 1. Style Name -->
+          <div class="recipe-field-group">
+            <label class="recipe-field-label">1. Nama Model (Style Name)</label>
+            <input type="text" id="recipeStyleName" class="recipe-input" placeholder="e.g. Textured crop, mid fade" list="presetStyleList">
+            <datalist id="presetStyleList">
+              <option value="Textured crop, mid fade">
+              <option value="Classic Side Part, Low Taper">
+              <option value="French Textured Crop">
+              <option value="Buzz Cut Taper Fade">
+              <option value="Pompadour Low Fade">
+              <option value="Classic Scissor Cut">
+            </datalist>
+          </div>
+
+          <!-- 2. Sides and Back -->
+          <div class="recipe-field-group">
+            <label class="recipe-field-label">2. Samping &amp; Belakang (Sides &amp; Back Guard)</label>
+            <input type="text" id="recipeSidesBack" class="recipe-input" placeholder="e.g. Guard #2 to #0.5, mid fade" list="presetGuardList">
+            <datalist id="presetGuardList">
+              <option value="Guard #2 to #0.5, mid fade">
+              <option value="Guard #1 to skin fade">
+              <option value="Guard #3 to #1 taper">
+              <option value="Guard #4 to #2 natural">
+              <option value="Scissor over comb (No clipper)">
+            </datalist>
+          </div>
+
+          <!-- 3. Fade Height & Type -->
+          <div class="recipe-field-group">
+            <label class="recipe-field-label">3. Tinggi &amp; Tipe Fade (Fade Height &amp; Type)</label>
+            <select id="recipeFadeType" class="recipe-select">
+              <option value="Mid, skin / drop / taper">Mid, skin / drop / taper</option>
+              <option value="Low taper fade">Low taper fade</option>
+              <option value="High skin drop fade">High skin drop fade</option>
+              <option value="Temple taper">Temple taper</option>
+              <option value="Natural taper (No fade)">Natural taper (No fade)</option>
+            </select>
+          </div>
+
+          <!-- 4. Top Length & Technique -->
+          <div class="recipe-field-group">
+            <label class="recipe-field-label">4. Panjang &amp; Teknik Atas (Top Length)</label>
+            <input type="text" id="recipeTopLength" class="recipe-input" placeholder="e.g. 4 cm, point-cut texture">
+          </div>
+
+          <!-- 5. Fringe and Part -->
+          <div class="recipe-field-group">
+            <label class="recipe-field-label">5. Poni &amp; Belahan (Fringe &amp; Part)</label>
+            <select id="recipeFringePart" class="recipe-select">
+              <option value="Forward fringe, no part">Forward fringe, no part</option>
+              <option value="Side swept right, subtle part">Side swept right, subtle part</option>
+              <option value="Side part kiri, combed back">Side part kiri, combed back</option>
+              <option value="Slicked back, no part">Slicked back, no part</option>
+              <option value="Blunt crop fringe">Blunt crop fringe</option>
+            </select>
+          </div>
+
+          <!-- 6. Neckline -->
+          <div class="recipe-field-group">
+            <label class="recipe-field-label">6. Garis Leher (Neckline)</label>
+            <select id="recipeNeckline" class="recipe-select">
+              <option value="Tapered / natural">Tapered / natural (Rapi memudar)</option>
+              <option value="Blocked / square">Blocked / square (Garis tegas kotak)</option>
+              <option value="Rounded">Rounded (Melingkar halus)</option>
+            </select>
+          </div>
+
+          <!-- 7. Beard -->
+          <div class="recipe-field-group">
+            <label class="recipe-field-label">7. Kumis &amp; Jenggot (Beard &amp; Shave)</label>
+            <input type="text" id="recipeBeard" class="recipe-input" placeholder="e.g. Trim #3, sharp cheek line">
+          </div>
+
+          <!-- 8. Products Used -->
+          <div class="recipe-field-group">
+            <label class="recipe-field-label">8. Produk Penataan (Products Used)</label>
+            <input type="text" id="recipeProducts" class="recipe-input" placeholder="e.g. Matte clay, sea-salt spray" list="presetProductList">
+            <datalist id="presetProductList">
+              <option value="Matte clay, sea-salt spray">
+              <option value="Water-based Pomade High Shine">
+              <option value="Styling Hair Powder & Matte Clay">
+              <option value="Cooling Scalp Tonic & Light Cream">
+            </datalist>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;">
+          <!-- 9. Styling -->
+          <div class="recipe-field-group">
+            <label class="recipe-field-label">9. Petunjuk Styling (Styling)</label>
+            <input type="text" id="recipeStyling" class="recipe-input" placeholder="e.g. Blow-dried forward, rough finish">
+          </div>
+          <!-- 10. Hair Notes -->
+          <div class="recipe-field-group">
+            <label class="recipe-field-label">10. Karakter Rambut (Hair Notes)</label>
+            <input type="text" id="recipeHairNotes" class="recipe-input" placeholder="e.g. Cowlick at the crown, leave 1 cm longer there">
+          </div>
+        </div>
+
+        <!-- 11. Guest's Verdict (1 Tap) -->
+        <div style="margin-top: 14px;">
+          <label class="recipe-field-label">11. Penilaian Tamu (Guest's Verdict) &bull; 1 Ketukan</label>
+          <div class="verdict-btn-group">
+            <button type="button" class="verdict-btn" id="verdictBtnLoved" onclick="handleSelectVerdict('loved')">
+              <span>❤️</span> <span>Loved It (Sangat Puas)</span>
+            </button>
+            <button type="button" class="verdict-btn" id="verdictBtnFine" onclick="handleSelectVerdict('fine')">
+              <span>👍</span> <span>Fine (Sesuai)</span>
+            </button>
+            <button type="button" class="verdict-btn" id="verdictBtnChange" onclick="handleSelectVerdict('change')">
+              <span>🔄</span> <span>Change Next Time (Ingin Penyesuaian)</span>
+            </button>
+          </div>
+          <input type="hidden" id="recipeVerdictValue" value="loved">
+        </div>
+
+        <!-- 12. Next Time -->
+        <div class="recipe-field-group" style="margin-top: 12px;">
+          <label class="recipe-field-label">12. Catatan Kunjungan Berikutnya (Next Time)</label>
+          <input type="text" id="recipeNextTime" class="recipe-input" placeholder="e.g. Go 0.5 cm shorter on top">
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; margin-top: 12px;">
+          <button type="button" class="btn-gold-action" id="btnSaveCutRecipe" onclick="handleSaveCutRecord()">
+            💾 Simpan Formula Resep Pangkas
           </button>
         </div>
       </div>
 
-      <!-- VISIT HISTORY TABLE -->
-      <label class="form-label">Riwayat Kunjungan &amp; Transaksi</label>
-      <div class="crm-table-wrap" style="max-height: 200px; overflow-y: auto;">
-        <table class="crm-table" style="font-size: 12px;">
-          <thead>
-            <tr>
-              <th>Tanggal</th>
-              <th>No. Nota</th>
-              <th>Barber</th>
-              <th>Layanan / Produk</th>
-              <th>Total Biaya</th>
-              <th>Tip</th>
-            </tr>
-          </thead>
-          <tbody id="custDetailHistoryBody">
-            <!-- Dynamically populated -->
-          </tbody>
-        </table>
+      <!-- ==============================================
+           ZONE 3: HOSPITALITY (HOSPITALITAS & KENYAMANAN)
+           ============================================== -->
+      <div class="guest-card-zone">
+        <div class="guest-card-zone-header">
+          <h4 class="guest-card-zone-title">
+            <span>☕</span> <span>Zona 3: Hospitalitas &amp; Preferensi Personal Tamu</span>
+          </h4>
+          <span style="font-size: 11px; color: var(--text-muted);">Diakses Kasir &amp; Barber &bull; Layanan minuman &amp; kenyamanan</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px;">
+          <div class="recipe-field-group">
+            <label class="recipe-field-label">Minuman Favorit &amp; Takaran</label>
+            <input type="text" id="hospDrink" class="recipe-input" placeholder="e.g. Iced black coffee no sugar">
+          </div>
+          <div class="recipe-field-group">
+            <label class="recipe-field-label">Preferensi Suasana Obrolan</label>
+            <select id="hospChat" class="recipe-select">
+              <option value="quiet">🤫 Tenang / Quiet (Fokus relaksasi pangkas)</option>
+              <option value="chatty">💬 Ramah / Chatty (Senang berbincang santai)</option>
+            </select>
+          </div>
+          <div class="recipe-field-group">
+            <label class="recipe-field-label">Sensitivitas Kulit &amp; Produk</label>
+            <input type="text" id="hospSensitivities" class="recipe-input" placeholder="e.g. Sensitif pisau razor langsung, gunakan foam hangat">
+          </div>
+          <div class="recipe-field-group">
+            <label class="recipe-field-label">Catatan Khusus Hari Kerja</label>
+            <input type="text" id="hospSpecialNotes" class="recipe-input" placeholder="e.g. Always in a hurry on weekdays">
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; margin-top: 10px;" id="hospSaveWrap">
+          <button type="button" class="btn-portal-action" onclick="handleSaveHospitality()">
+            💾 Simpan Preferensi Hospitalitas
+          </button>
+        </div>
       </div>
 
-      <div class="modal-actions" style="margin-top: 18px; justify-content: space-between;">
+      <!-- ==============================================
+           ZONE 4: HISTORY & 4-ANGLE PHOTO GALLERY & COMPARISON
+           ============================================== -->
+      <div class="guest-card-zone">
+        <div class="guest-card-zone-header">
+          <h4 class="guest-card-zone-title">
+            <span>📷</span> <span>Zona 4: Galeri Foto 4 Sudut &amp; Komparasi Kunjungan</span>
+          </h4>
+          <span style="font-size: 11px; color: var(--text-muted);">Depan, Samping Kiri, Samping Kanan, Belakang</span>
+        </div>
+
+        <!-- 4 Angles Grid -->
+        <div class="photo-4angles-grid">
+          <!-- Front -->
+          <div class="photo-angle-card">
+            <span class="photo-angle-badge">1. DEPAN</span>
+            <div class="photo-angle-thumb-wrap">
+              <img id="thumbAngleFront" src="assets/cuts/cust001_front.svg" alt="Sudut Depan">
+            </div>
+            <div style="font-size: 11px; color: var(--text-muted); text-align: center; margin-bottom: 6px;">Frame Wajah &amp; Poni</div>
+            <label class="btn-portal-action" style="font-size: 11px; padding: 4px 8px; cursor: pointer;">
+              <span>📷</span> Ambil / Upload
+              <input type="file" accept="image/*" style="display:none;" onchange="handleUploadAnglePhoto('front', event)">
+            </label>
+          </div>
+
+          <!-- Left -->
+          <div class="photo-angle-card">
+            <span class="photo-angle-badge">2. KIRI</span>
+            <div class="photo-angle-thumb-wrap">
+              <img id="thumbAngleLeft" src="assets/cuts/cust001_left.svg" alt="Sudut Kiri">
+            </div>
+            <div style="font-size: 11px; color: var(--text-muted); text-align: center; margin-bottom: 6px;">Frame Fade &amp; Cambang</div>
+            <label class="btn-portal-action" style="font-size: 11px; padding: 4px 8px; cursor: pointer;">
+              <span>📷</span> Ambil / Upload
+              <input type="file" accept="image/*" style="display:none;" onchange="handleUploadAnglePhoto('left', event)">
+            </label>
+          </div>
+
+          <!-- Right -->
+          <div class="photo-angle-card">
+            <span class="photo-angle-badge">3. KANAN</span>
+            <div class="photo-angle-thumb-wrap">
+              <img id="thumbAngleRight" src="assets/cuts/cust001_right.svg" alt="Sudut Kanan">
+            </div>
+            <div style="font-size: 11px; color: var(--text-muted); text-align: center; margin-bottom: 6px;">Frame Fade &amp; Arch Telinga</div>
+            <label class="btn-portal-action" style="font-size: 11px; padding: 4px 8px; cursor: pointer;">
+              <span>📷</span> Ambil / Upload
+              <input type="file" accept="image/*" style="display:none;" onchange="handleUploadAnglePhoto('right', event)">
+            </label>
+          </div>
+
+          <!-- Back -->
+          <div class="photo-angle-card">
+            <span class="photo-angle-badge">4. BELAKANG</span>
+            <div class="photo-angle-thumb-wrap">
+              <img id="thumbAngleBack" src="assets/cuts/cust001_back.svg" alt="Sudut Belakang">
+            </div>
+            <div style="font-size: 11px; color: var(--text-muted); text-align: center; margin-bottom: 6px;">Frame Garis Leher &amp; Pusar</div>
+            <label class="btn-portal-action" style="font-size: 11px; padding: 4px 8px; cursor: pointer;">
+              <span>📷</span> Ambil / Upload
+              <input type="file" accept="image/*" style="display:none;" onchange="handleUploadAnglePhoto('back', event)">
+            </label>
+          </div>
+        </div>
+
+        <!-- SIDE-BY-SIDE VISIT COMPARISON -->
+        <div style="margin-top: 18px; background: rgba(3,12,8,0.7); border: 1px solid var(--card-border); border-radius: 8px; padding: 12px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+            <label class="recipe-field-label" style="color: var(--accent-gold);">
+              <span>🔍</span> KOMPARASI 2 KUNJUNGAN BERDAMPINGAN ("SEPERTI POTONGAN BULAN AGUSTUS")
+            </label>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <select id="compareVisitA" class="recipe-select" style="font-size: 11.5px; padding: 4px 8px;" onchange="handleCompareVisits()"></select>
+              <span style="color: var(--text-muted); font-size: 12px;">vs</span>
+              <select id="compareVisitB" class="recipe-select" style="font-size: 11.5px; padding: 4px 8px;" onchange="handleCompareVisits()"></select>
+            </div>
+          </div>
+          <div id="compareVisitsOutput" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px;">
+            <!-- Comparison cards loaded dynamically -->
+          </div>
+        </div>
+
+        <!-- TIMELINE RIWAYAT KUNJUNGAN LENGKAP -->
+        <div style="margin-top: 16px;">
+          <label class="recipe-field-label">Timeline Riwayat Kunjungan &amp; Transaksi</label>
+          <div class="crm-table-wrap" style="max-height: 180px; overflow-y: auto; margin-top: 6px;">
+            <table class="crm-table" style="font-size: 11.5px;">
+              <thead>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>No. Nota</th>
+                  <th>Barber</th>
+                  <th>Layanan</th>
+                  <th>Formula Resep</th>
+                  <th>Total</th>
+                  <th>Status Kartu</th>
+                </tr>
+              </thead>
+              <tbody id="custDetailHistoryBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==============================================
+           3-LAYER CONVERSATION NOTES & RAPPORT ENGINE
+           ============================================== -->
+      <div class="guest-card-zone" style="border-color: rgba(197,155,72,0.35);">
+        <div class="guest-card-zone-header">
+          <h4 class="guest-card-zone-title">
+            <span>💬</span> <span>Mesin Percakapan 3-Layer (UU PDP Law 27/2022)</span>
+          </h4>
+          <span style="font-size: 10.5px; color: #4ade80;">🛡️ Privasi Terisolasi per Barber</span>
+        </div>
+
+        <!-- Layer 2: Rapport Topics (General Interests) -->
+        <div style="margin-bottom: 12px;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <label class="recipe-field-label" style="color: var(--accent-gold-bright);">
+              Layer 2: Topik Minat Umum (Rapport Topics &bull; Terbuka untuk Semua Barber)
+            </label>
+            <button type="button" class="btn-portal-action" style="font-size: 10.5px; padding: 2px 8px;" onclick="handleAddRapportTopic()">
+              + Tambah Topik
+            </button>
+          </div>
+          <div id="zoneRapportTopicsPills" class="topic-pill-container">
+            <!-- Dynamically populated topic badges -->
+          </div>
+        </div>
+
+        <!-- Layer 3: Personal Notes & Expiry -->
+        <div style="background: rgba(3,12,8,0.8); border: 1px dashed rgba(197,155,72,0.3); border-radius: 8px; padding: 12px; margin-top: 12px;">
+          <label class="recipe-field-label" style="color: #38bdf8; display: flex; justify-content: space-between;">
+            <span>Layer 3: Catatan Obrolan Personal Anda (Hanya Terlihat oleh Anda &bull; Kadaluarsa 60 Hari)</span>
+            <span style="font-size: 10px; color: var(--text-muted);">Auto-purge jika tamu tidak kembali dlm 60 hari</span>
+          </label>
+          <div id="personalNotesList" style="margin-top: 8px; font-size: 12px; display: flex; flex-direction: column; gap: 6px;">
+            <!-- Personal notes -->
+          </div>
+          <div style="display: flex; gap: 8px; margin-top: 8px;">
+            <input type="text" id="inputNewPersonalNote" class="recipe-input" style="flex: 1;" placeholder="Catat topik pembicaraan (cth: Berlibur ke Bali 15 Des, tanyakan kesannya)...">
+            <button type="button" class="btn-gold-action" style="font-size: 11px; padding: 6px 12px;" onclick="handleAddPersonalNote()">
+              + Simpan Catatan
+            </button>
+          </div>
+          <div style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">
+            ⚠️ UU PDP: Dilarang keras mencatat isu kesehatan sensitif, drama keluarga, keuangan, agama, atau politik.
+          </div>
+        </div>
+      </div>
+
+      <!-- ACTIONS BOTTOM -->
+      <div class="modal-actions" style="margin-top: 18px; justify-content: space-between; align-items: center;">
         <button type="button" class="btn-portal-action" id="btnWhatsappReminder" onclick="sendWhatsappFollowUp()"
           style="color: #25d366; border-color: rgba(37,211,102,0.4);">
-          <span>💬</span> Kirim Pengingat WhatsApp
+          <span>💬</span> WhatsApp Pengingat 35 Hari
         </button>
-        <button type="button" class="btn-portal-action" onclick="closeCustomerDetailModal()">
-          Tutup
+        <div style="display: flex; gap: 10px;">
+          <button type="button" class="btn-portal-action" onclick="openConsentModal()" style="color: var(--accent-gold);">
+            🛡️ Kelola Izin UU PDP
+          </button>
+          <button type="button" class="btn-portal-action" onclick="closeCustomerDetailModal()">
+            Tutup Kartu Tamu
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL UU PDP: PERSETUJUAN FOTO PANGKAS & PRIVASI (LAW NO. 27/2022) -->
+  <div class="portal-modal-backdrop" id="modalConsentUUPDP">
+    <div class="portal-modal-box" style="max-width: 580px;">
+      <h3 class="modal-title" style="color: var(--accent-gold); font-family: 'Lora', serif;">
+        <span>🛡️</span> Persetujuan Foto Tamu (UU PDP No. 27/2022)
+        <button type="button" class="modal-close-btn" onclick="closeConsentModal()">&times;</button>
+      </h3>
+
+      <div style="font-size: 12.5px; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px;">
+        Sesuai UU Pelindungan Data Pribadi (UU No. 27 Tahun 2022), pengambilan dan penyimpanan foto pelanggan wajib memiliki persetujuan eksplisit.
+      </div>
+
+      <!-- Official Wording Banner -->
+      <div style="background: rgba(197,155,72,0.12); border-left: 3px solid var(--accent-gold); padding: 12px; border-radius: 4px; margin-bottom: 16px;">
+        <div style="font-size: 11px; text-transform: uppercase; color: var(--accent-gold-bright); font-weight: 700; margin-bottom: 4px;">Naskah Resmi Barber ke Tamu (SOP Konsultasi):</div>
+        <div style="font-size: 12px; font-style: italic; color: #fff; line-height: 1.4;">
+          "Boleh saya foto rambutnya dari depan, samping dan belakang? Fotonya hanya disimpan di catatan Bapak, supaya barber mana pun bisa mengulang potongan ini persis sama. Tidak akan kami unggah ke mana pun tanpa izin Bapak."
+        </div>
+      </div>
+
+      <!-- 2 Separate Consent Questions -->
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; background: #040d09; padding: 12px; border-radius: 8px; border: 1px solid var(--card-border);">
+          <input type="checkbox" id="consentRefPhotos" style="margin-top: 3px; accent-color: var(--accent-gold);">
+          <div>
+            <div style="font-weight: 600; color: #fff; font-size: 13px;">1. Foto Referensi Pangkas Internal (Wajib Izin)</div>
+            <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 2px;">
+              Foto pangkas 4 sudut disimpan di Kartu Tamu privat Greenwood Ledger agar barber dapat mengulang potongan persis sama di kunjungan berikutnya.
+            </div>
+          </div>
+        </label>
+
+        <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; background: #040d09; padding: 12px; border-radius: 8px; border: 1px solid var(--card-border);">
+          <input type="checkbox" id="consentPortfolioUse" style="margin-top: 3px; accent-color: var(--accent-gold);">
+          <div>
+            <div style="font-weight: 600; color: #fff; font-size: 13px;">2. Publikasi Portofolio Medsos (Opt-in Terpisah)</div>
+            <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 2px;">
+              Greenwood Barbers diizinkan menampilkan hasil pangkas untuk portofolio di Instagram, TikTok, atau website resmi. (Bukan default).
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+        <button type="button" class="btn-portal-action" style="color: #ef4444; border-color: rgba(239,68,68,0.4);" onclick="handleWithdrawConsent()">
+          🗑️ Cabut Izin &amp; Hapus Foto
         </button>
+        <div style="display: flex; gap: 10px;">
+          <button type="button" class="btn-portal-action" onclick="closeConsentModal()">Batal</button>
+          <button type="button" class="btn-gold-action" onclick="handleSaveConsent()">💾 Simpan Persetujuan</button>
+        </div>
       </div>
     </div>
   </div>
@@ -4685,9 +5441,26 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         tabPos.style.display = (isSA || perms.pos_view) ? 'inline-flex' : 'none';
       }
 
-      // CRM Tab: ONLY Owner & Manager. Completely Hidden for Cashier & Barber.
+      // CRM Tab (Kartu Tamu): Visible for Owner, Manager, Cashier (All chairs), and Barber (Station Mirror)
       if (tabCrm) {
-        tabCrm.style.display = (isSA || (perms.crm_view && activeRole === 'Manager')) ? 'inline-flex' : 'none';
+        tabCrm.style.display = 'inline-flex';
+        const labelFull = tabCrm.querySelector('.portal-tab-label-full');
+        const labelShort = tabCrm.querySelector('.portal-tab-label-short');
+        if (activeRole === 'Barber') {
+          if (labelFull) labelFull.textContent = "🪞 Kartu Tamu & Cermin";
+          if (labelShort) labelShort.textContent = "Kartu Tamu";
+        } else if (activeRole === 'Cashier') {
+          if (labelFull) labelFull.textContent = "🪞 Kartu Tamu & Tamu";
+          if (labelShort) labelShort.textContent = "Kartu Tamu";
+        } else {
+          if (labelFull) labelFull.textContent = "CRM & Kartu Tamu";
+          if (labelShort) labelShort.textContent = "CRM";
+        }
+      }
+
+      // Analytics Tab (KPIs & Team Gainshare): Visible for all roles (Barber, Cashier, Manager, Owner)
+      if (tabAnalytics) {
+        tabAnalytics.style.display = 'inline-flex';
       }
 
       // Reservations / Schedule Tab: Visible for all roles.
@@ -4853,20 +5626,15 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       const roleObj = (typeof GreenwoodAdminDB !== 'undefined') ? GreenwoodAdminDB.getRoleDetails(activeRole) : null;
       const perms = roleObj ? roleObj.permissions : {};
 
-      // Security Guards per role
+      // Security Guards per role (Client Role Access Matrix)
       if (tabId === 'pos' && !isSA && !perms.pos_view) {
         alert("Akses Dibatasi: Peran Barber tidak melayani transaksi meja kasir.");
         switchTab('reservations');
         return;
       }
-      if (tabId === 'crm' && (activeRole === 'Barber' || activeRole === 'Cashier')) {
-        alert(`Akses Ditolak: Database CRM pelanggan dilindungi khusus Owner dan Manager (Peran aktif: ${activeRole}).`);
-        return;
-      }
-      if (tabId === 'analytics' && (activeRole === 'Barber' || activeRole === 'Cashier')) {
-        alert(`Akses Ditolak: Laporan omzet finansial toko dilindungi khusus Owner dan Manager (Peran aktif: ${activeRole}).`);
-        return;
-      }
+      // Client Spec: Both Barber & Cashier CAN access Guest Cards in CRM tab!
+      // Cashier sees all chairs; Barber sees own chair and served guests.
+      // Staff tab: Kasir cannot view staff commissions
       if (tabId === 'staff' && activeRole === 'Cashier') {
         alert("Akses Ditolak: Peran Kasir tidak memiliki wewenang melihat manajemen slip komisi staf.");
         return;
@@ -5138,6 +5906,38 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       } else {
         notesEl.textContent = "Belum ada catatan preferensi gaya rambut. Klik edit untuk menambahkan.";
         banner.style.display = 'block';
+      }
+    }
+
+    
+    function openActivePosGuestCard() {
+      if (currentSelectedCustomerId) {
+        openCustomerDetailModal(currentSelectedCustomerId);
+      } else {
+        alert("Pilih pelanggan terdaftar terlebih dahulu untuk membuka Kartu Tamu.");
+      }
+    }
+
+    function openGuestCardFromBooking(bookingCode) {
+      if (!GreenwoodAdminDB) return;
+      const bookings = (typeof getFilteredLedgerData === 'function') ? getFilteredLedgerData() : [];
+      const b = bookings.find(item => item.bookingCode === bookingCode);
+      if (!b) {
+        alert("Reservasi tidak ditemukan.");
+        return;
+      }
+      const cust = GreenwoodAdminDB.findCustomerByPhoneOrName(b.guestPhone || b.guestName);
+      if (cust) {
+        openCustomerDetailModal(cust.id);
+      } else {
+        // Tamu belum ada ID, buatkan akun tamu kilat
+        const newCust = GreenwoodAdminDB.saveCustomer({
+          name: b.guestName || "Tamu Reservasi",
+          howToAddress: b.guestName ? b.guestName.split(' ')[0] : "Bpk.",
+          phone: b.guestPhone || "",
+          internalNotes: b.guestNotes || b.notes || ""
+        });
+        openCustomerDetailModal(newCust.id);
       }
     }
 
@@ -5889,55 +6689,654 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       renderCrmTable();
     }
 
-    function openCustomerDetailModal(custId) {
-      const cust = GreenwoodAdminDB.getCustomerById(custId);
-      if (!cust) return;
-      activeCustomerDetail = cust;
+        // Global active card cache
+    let activeGuestCard = null;
 
-      const canSeePhone = GreenwoodAdminDB.hasPermission('crm_phone');
-      const canSeeCustSpend = (typeof GreenwoodAdminDB !== 'undefined') && (GreenwoodAdminDB.getActiveRole() === 'Owner' || GreenwoodAdminDB.getActiveRole() === 'Manager' || GreenwoodAdminDB.hasPermission('pos_view'));
-      document.getElementById('custDetailTitle').textContent = `Profil: ${cust.name}`;
-      document.getElementById('custDetailPhone').textContent = canSeePhone ? (cust.phone || "-") : (cust.phone ? cust.phone.substring(0, 4) + '••••' + cust.phone.slice(-3) : '-');
-      document.getElementById('custDetailEmail').textContent = cust.email || "-";
-      document.getElementById('custDetailVisits').textContent = `${cust.visitCount || 0}x`;
-      document.getElementById('custDetailSpend').textContent = canSeeCustSpend ? formatRupiah(cust.totalSpend) : 'Rp ••••••';
-      document.getElementById('custDetailLastVisit').textContent = `Kunjungan Terakhir: ${cust.lastVisit || '-'} (${cust.lastBarber || 'Barber'})`;
-      document.getElementById('custDetailNotesInput').value = cust.internalNotes || "";
+    /**
+     * Buka Modal Kartu Tamu 4-Zona (SOP C5 Konsultasi Cermin 10 Detik)
+     */
+    function openCustomerDetailModal(custId) {
+      if (!GreenwoodAdminDB) return;
+      const card = GreenwoodAdminDB.getGuestCard(custId);
+      if (!card) return;
+
+      activeCustomerDetail = card.customer;
+      activeGuestCard = card;
+
+      // 1. Header & Modal Top Bar
+      const titleEl = document.getElementById('guestCardModalTitle');
+      if (titleEl) titleEl.textContent = `Kartu Tamu: ${card.customer.name}`;
+
+      // Persetujuan UU PDP Badge
+      const consentBadge = document.getElementById('guestCardConsentBadge');
+      if (consentBadge) {
+        if (card.consent && card.consent.referencePhotos) {
+          consentBadge.className = 'badge-tag badge-reguler';
+          consentBadge.style.color = '#4ade80';
+          consentBadge.style.borderColor = 'rgba(74,222,128,0.4)';
+          consentBadge.innerHTML = '🟢 Izin Foto UU PDP Aktif';
+        } else {
+          consentBadge.className = 'badge-tag badge-passive';
+          consentBadge.style.color = '#f87171';
+          consentBadge.style.borderColor = 'rgba(239,68,68,0.4)';
+          consentBadge.innerHTML = '⚠️ Belum Izin Foto UU PDP';
+        }
+      }
+
+      // Pending Follow-Up Alert (Layer 3 Personal)
+      const followUpAlert = document.getElementById('guestCardFollowUpAlert');
+      const followUpText = document.getElementById('guestCardFollowUpText');
+      if (followUpAlert && followUpText) {
+        if (card.pendingFollowUp) {
+          followUpAlert.style.display = 'flex';
+          followUpText.textContent = `"${card.pendingFollowUp.followUpText || card.pendingFollowUp.text}"`;
+        } else {
+          followUpAlert.style.display = 'none';
+        }
+      }
+
+      // 2. Zone 1: Header (Who He Is)
+      const avatarImg = document.getElementById('zone1AvatarImg');
+      if (avatarImg) {
+        avatarImg.src = (card.lastCut && card.lastCut.photos && card.lastCut.photos.front)
+          ? card.lastCut.photos.front
+          : 'assets/cuts/cust001_front.svg';
+      }
+
+      const nameEl = document.getElementById('zone1GuestName');
+      if (nameEl) nameEl.textContent = card.customer.name;
+
+      const addressEl = document.getElementById('zone1HowToAddress');
+      if (addressEl) addressEl.textContent = `Sapaan: ${card.customer.howToAddress || card.customer.name.split(' ')[0]}`;
+
+      const tierBadge = document.getElementById('zone1TierBadge');
+      if (tierBadge) {
+        tierBadge.textContent = (card.customer.tags && card.customer.tags.includes('VIP')) ? '⭐ VIP' : 'Reguler';
+      }
+
+      const visitsEl = document.getElementById('zone1VisitsCount');
+      if (visitsEl) visitsEl.textContent = `${card.customer.visitCount}x`;
+
+      const lastVisitEl = document.getElementById('zone1LastVisitDate');
+      if (lastVisitEl) lastVisitEl.textContent = card.customer.lastVisit || '-';
+
+      const usualBarberEl = document.getElementById('zone1UsualBarber');
+      if (usualBarberEl) usualBarberEl.textContent = card.customer.lastBarber || 'Barber';
+
+      const phoneWrap = document.getElementById('zone1PhoneWrap');
+      const phoneEl = document.getElementById('zone1Phone');
+      if (phoneEl) phoneEl.textContent = card.customer.phone || '-';
+
+      // 3. Zone 2: Last Cut (The Fixed Recipe Fields)
+      const last = card.lastCut || {};
+      const canEditRecipe = card.permissions.canEditRecipe;
+
+      const styleInput = document.getElementById('recipeStyleName');
+      if (styleInput) { styleInput.value = last.styleName || ''; styleInput.disabled = !canEditRecipe; }
+
+      const sidesInput = document.getElementById('recipeSidesBack');
+      if (sidesInput) { sidesInput.value = last.sidesBackGuard || ''; sidesInput.disabled = !canEditRecipe; }
+
+      const fadeSelect = document.getElementById('recipeFadeType');
+      if (fadeSelect) { fadeSelect.value = last.fadeHeightType || 'Mid, skin / drop / taper'; fadeSelect.disabled = !canEditRecipe; }
+
+      const topInput = document.getElementById('recipeTopLength');
+      if (topInput) { topInput.value = last.topLengthTechnique || ''; topInput.disabled = !canEditRecipe; }
+
+      const fringeSelect = document.getElementById('recipeFringePart');
+      if (fringeSelect) { fringeSelect.value = last.fringePart || 'Forward fringe, no part'; fringeSelect.disabled = !canEditRecipe; }
+
+      const neckSelect = document.getElementById('recipeNeckline');
+      if (neckSelect) { neckSelect.value = last.neckline || 'Tapered / natural'; neckSelect.disabled = !canEditRecipe; }
+
+      const beardInput = document.getElementById('recipeBeard');
+      if (beardInput) { beardInput.value = last.beard || ''; beardInput.disabled = !canEditRecipe; }
+
+      const prodInput = document.getElementById('recipeProducts');
+      if (prodInput) { prodInput.value = last.productsUsed || ''; prodInput.disabled = !canEditRecipe; }
+
+      const stylingInput = document.getElementById('recipeStyling');
+      if (stylingInput) { stylingInput.value = last.styling || ''; stylingInput.disabled = !canEditRecipe; }
+
+      const hairInput = document.getElementById('recipeHairNotes');
+      if (hairInput) { hairInput.value = last.hairNotes || ''; hairInput.disabled = !canEditRecipe; }
+
+      const nextTimeInput = document.getElementById('recipeNextTime');
+      if (nextTimeInput) { nextTimeInput.value = last.nextTimeNotes || ''; nextTimeInput.disabled = !canEditRecipe; }
+
+      handleSelectVerdict(last.verdict || 'loved');
+
+      const btnSaveRecipe = document.getElementById('btnSaveCutRecipe');
+      if (btnSaveRecipe) btnSaveRecipe.style.display = canEditRecipe ? 'inline-flex' : 'none';
+
+      // 4. Zone 3: Hospitality
+      const hosp = card.hospitality || {};
+      const canEditHosp = card.permissions.canEditHospitality;
+
+      const drinkInput = document.getElementById('hospDrink');
+      if (drinkInput) { drinkInput.value = hosp.drinkPreference || ''; drinkInput.disabled = !canEditHosp; }
+
+      const chatSelect = document.getElementById('hospChat');
+      if (chatSelect) { chatSelect.value = hosp.chatPreference || 'quiet'; chatSelect.disabled = !canEditHosp; }
+
+      const sensInput = document.getElementById('hospSensitivities');
+      if (sensInput) { sensInput.value = hosp.sensitivities || ''; sensInput.disabled = !canEditHosp; }
+
+      const specInput = document.getElementById('hospSpecialNotes');
+      if (specInput) { specInput.value = hosp.specialNotes || ''; specInput.disabled = !canEditHosp; }
+
+      const hospSaveWrap = document.getElementById('hospSaveWrap');
+      if (hospSaveWrap) hospSaveWrap.style.display = canEditHosp ? 'flex' : 'none';
+
+      // 5. Zone 4: Photo Gallery 4 Angles
+      const photos = (last && last.photos) ? last.photos : {};
+      const thumbF = document.getElementById('thumbAngleFront');
+      const thumbL = document.getElementById('thumbAngleLeft');
+      const thumbR = document.getElementById('thumbAngleRight');
+      const thumbB = document.getElementById('thumbAngleBack');
+
+      if (thumbF) thumbF.src = photos.front || 'assets/cuts/cust001_front.svg';
+      if (thumbL) thumbL.src = photos.left || 'assets/cuts/cust001_left.svg';
+      if (thumbR) thumbR.src = photos.right || 'assets/cuts/cust001_right.svg';
+      if (thumbB) thumbB.src = photos.back || 'assets/cuts/cust001_back.svg';
+
+      // Dropdown Komparasi Kunjungan
+      populateComparisonDropdowns(card.allVisits);
+
+      // Riwayat Kunjungan Table
+      renderCardVisitHistory(card.allVisits);
+
+      // 6. Mesin Obrolan 3-Layer
+      renderRapportTopicsPills(card.rapportTopics);
+      renderPersonalNotesList(card.conversationNotes);
+
+      // WhatsApp Button (Only if can view phone)
       const btnWa = document.getElementById('btnWhatsappReminder');
       if (btnWa) {
-        btnWa.style.display = canSeePhone ? 'inline-flex' : 'none';
-      }
-      const hBody = document.getElementById('custDetailHistoryBody');
-      const history = cust.visitHistory || [];
-      if (history.length === 0) {
-        hBody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:15px; color:var(--text-muted);">Belum ada riwayat transaksi.</td></tr>`;
-      } else {
-        hBody.innerHTML = history.map(h => `
-          <tr>
-            <td>${escapeHtml(h.date)}</td>
-            <td><code>${escapeHtml(h.receiptId)}</code></td>
-            <td>${escapeHtml(h.barberName)}</td>
-            <td>${escapeHtml(h.serviceName)}</td>
-            <td><strong>${formatRupiah(h.total)}</strong></td>
-            <td style="color:var(--accent-gold-bright);">${formatRupiah(h.tip || 0)}</td>
-          </tr>
-        `).join('');
+        btnWa.style.display = card.permissions.canViewPhone ? 'inline-flex' : 'none';
       }
 
-      document.getElementById('modalCustomerDetail').style.display = 'flex';
+      const modal = document.getElementById('modalCustomerDetail');
+      if (modal) modal.style.display = 'flex';
     }
 
     function closeCustomerDetailModal() {
-      document.getElementById('modalCustomerDetail').style.display = 'none';
+      const modal = document.getElementById('modalCustomerDetail');
+      if (modal) modal.style.display = 'none';
       activeCustomerDetail = null;
+      activeGuestCard = null;
     }
 
-    function saveCustomerInternalNotes() {
-      if (!activeCustomerDetail) return;
-      const text = document.getElementById('custDetailNotesInput').value;
-      GreenwoodAdminDB.updateInternalNotes(activeCustomerDetail.id, text);
-      alert("Formula preferensi & internal notes pelanggan berhasil diperbarui!");
-      renderCrmTable();
+    /**
+     * Fitur 1-Tap 'Repeat Last Cut': Salin resep dari kunjungan sebelumnya
+     */
+    function handleRepeatLastCut() {
+      if (!activeCustomerDetail || !GreenwoodAdminDB) return;
+      const recipe = GreenwoodAdminDB.repeatLastCut(activeCustomerDetail.id);
+      if (!recipe) {
+        alert("Belum ada resep kunjungan sebelumnya untuk disalin.");
+        return;
+      }
+
+      if (document.getElementById('recipeStyleName')) document.getElementById('recipeStyleName').value = recipe.styleName || '';
+      if (document.getElementById('recipeSidesBack')) document.getElementById('recipeSidesBack').value = recipe.sidesBackGuard || '';
+      if (document.getElementById('recipeFadeType')) document.getElementById('recipeFadeType').value = recipe.fadeHeightType || 'Mid, skin / drop / taper';
+      if (document.getElementById('recipeTopLength')) document.getElementById('recipeTopLength').value = recipe.topLengthTechnique || '';
+      if (document.getElementById('recipeFringePart')) document.getElementById('recipeFringePart').value = recipe.fringePart || 'Forward fringe, no part';
+      if (document.getElementById('recipeNeckline')) document.getElementById('recipeNeckline').value = recipe.neckline || 'Tapered / natural';
+      if (document.getElementById('recipeBeard')) document.getElementById('recipeBeard').value = recipe.beard || '';
+      if (document.getElementById('recipeProducts')) document.getElementById('recipeProducts').value = recipe.productsUsed || '';
+      if (document.getElementById('recipeStyling')) document.getElementById('recipeStyling').value = recipe.styling || '';
+      if (document.getElementById('recipeHairNotes')) document.getElementById('recipeHairNotes').value = recipe.hairNotes || '';
+      if (document.getElementById('recipeNextTime')) document.getElementById('recipeNextTime').value = recipe.nextTimeNotes || '';
+      handleSelectVerdict(recipe.verdict || 'loved');
+
+      alert("⚡ Resep pangkas terakhir berhasil disalin ke formulir pangkas hari ini!");
+    }
+
+    /**
+     * Pilih Verdict Penilaian Tamu (Loved / Fine / Change Next Time)
+     */
+    function handleSelectVerdict(verdictVal) {
+      const valInput = document.getElementById('recipeVerdictValue');
+      if (valInput) valInput.value = verdictVal;
+
+      const btnLoved = document.getElementById('verdictBtnLoved');
+      const btnFine = document.getElementById('verdictBtnFine');
+      const btnChange = document.getElementById('verdictBtnChange');
+
+      if (btnLoved) btnLoved.className = (verdictVal === 'loved') ? 'verdict-btn active-loved' : 'verdict-btn';
+      if (btnFine) btnFine.className = (verdictVal === 'fine') ? 'verdict-btn active-fine' : 'verdict-btn';
+      if (btnChange) btnChange.className = (verdictVal === 'change') ? 'verdict-btn active-change' : 'verdict-btn';
+    }
+
+    /**
+     * Simpan Formula Resep Pangkas (Zona 2)
+     */
+    function handleSaveCutRecord() {
+      if (!activeCustomerDetail || !GreenwoodAdminDB) return;
+
+      const photos = {
+        front: document.getElementById('thumbAngleFront') ? document.getElementById('thumbAngleFront').src : '',
+        left: document.getElementById('thumbAngleLeft') ? document.getElementById('thumbAngleLeft').src : '',
+        right: document.getElementById('thumbAngleRight') ? document.getElementById('thumbAngleRight').src : '',
+        back: document.getElementById('thumbAngleBack') ? document.getElementById('thumbAngleBack').src : ''
+      };
+
+      const recordData = {
+        styleName: document.getElementById('recipeStyleName') ? document.getElementById('recipeStyleName').value : '',
+        sidesBackGuard: document.getElementById('recipeSidesBack') ? document.getElementById('recipeSidesBack').value : '',
+        fadeHeightType: document.getElementById('recipeFadeType') ? document.getElementById('recipeFadeType').value : '',
+        topLengthTechnique: document.getElementById('recipeTopLength') ? document.getElementById('recipeTopLength').value : '',
+        fringePart: document.getElementById('recipeFringePart') ? document.getElementById('recipeFringePart').value : '',
+        neckline: document.getElementById('recipeNeckline') ? document.getElementById('recipeNeckline').value : '',
+        beard: document.getElementById('recipeBeard') ? document.getElementById('recipeBeard').value : '',
+        productsUsed: document.getElementById('recipeProducts') ? document.getElementById('recipeProducts').value : '',
+        styling: document.getElementById('recipeStyling') ? document.getElementById('recipeStyling').value : '',
+        hairNotes: document.getElementById('recipeHairNotes') ? document.getElementById('recipeHairNotes').value : '',
+        verdict: document.getElementById('recipeVerdictValue') ? document.getElementById('recipeVerdictValue').value : 'loved',
+        nextTimeNotes: document.getElementById('recipeNextTime') ? document.getElementById('recipeNextTime').value : '',
+        photos: photos
+      };
+
+      const res = GreenwoodAdminDB.saveCutRecord(activeCustomerDetail.id, null, recordData);
+      if (res) {
+        alert("✅ Formula resep pangkas berhasil disimpan ke Kartu Tamu!");
+        openCustomerDetailModal(activeCustomerDetail.id);
+        renderCrmTable();
+      }
+    }
+
+    /**
+     * Simpan Preferensi Hospitalitas (Zona 3)
+     */
+    function handleSaveHospitality() {
+      if (!activeCustomerDetail || !GreenwoodAdminDB) return;
+      const hospData = {
+        drinkPreference: document.getElementById('hospDrink') ? document.getElementById('hospDrink').value : '',
+        chatPreference: document.getElementById('hospChat') ? document.getElementById('hospChat').value : 'quiet',
+        sensitivities: document.getElementById('hospSensitivities') ? document.getElementById('hospSensitivities').value : '',
+        specialNotes: document.getElementById('hospSpecialNotes') ? document.getElementById('hospSpecialNotes').value : ''
+      };
+
+      GreenwoodAdminDB.saveHospitalityPreferences(activeCustomerDetail.id, hospData);
+      alert("✅ Preferensi hospitalitas tamu berhasil disimpan!");
+      openCustomerDetailModal(activeCustomerDetail.id);
+    }
+
+    /**
+     * Tambah & Render Topik Rapport (Layer 2)
+     */
+    function handleAddRapportTopic() {
+      if (!activeCustomerDetail || !GreenwoodAdminDB) return;
+      const newTopic = prompt("Masukkan topik minat umum tamu (contoh: Badminton, Otomotif, Kuliner KBP):");
+      if (!newTopic || !newTopic.trim()) return;
+
+      const topics = (activeGuestCard && activeGuestCard.rapportTopics) ? activeGuestCard.rapportTopics.slice() : [];
+      if (!topics.includes(newTopic.trim())) {
+        topics.push(newTopic.trim());
+        GreenwoodAdminDB.saveRapportTopics(activeCustomerDetail.id, topics);
+        openCustomerDetailModal(activeCustomerDetail.id);
+      }
+    }
+
+    function handleRemoveRapportTopic(topic) {
+      if (!activeCustomerDetail || !GreenwoodAdminDB) return;
+      const topics = (activeGuestCard && activeGuestCard.rapportTopics) ? activeGuestCard.rapportTopics.filter(t => t !== topic) : [];
+      GreenwoodAdminDB.saveRapportTopics(activeCustomerDetail.id, topics);
+      openCustomerDetailModal(activeCustomerDetail.id);
+    }
+
+    function renderRapportTopicsPills(topics) {
+      const container = document.getElementById('zoneRapportTopicsPills');
+      if (!container) return;
+      if (!topics || topics.length === 0) {
+        container.innerHTML = '<span style="font-size: 11.5px; color: var(--text-muted); font-style: italic;">Belum ada topik minat dicatat. Klik "+ Tambah Topik" untuk mencatat minat umum tamu.</span>';
+        return;
+      }
+      container.innerHTML = topics.map(t => `
+        <span class="topic-pill">
+          <span>${escapeHtml(t)}</span>
+          <span class="remove-topic" onclick="handleRemoveRapportTopic('${escapeHtml(t)}')">&times;</span>
+        </span>
+      `).join('');
+    }
+
+    /**
+     * Tambah Catatan Personal Barber (Layer 3)
+     */
+    function handleAddPersonalNote() {
+      if (!activeCustomerDetail || !GreenwoodAdminDB) return;
+      const input = document.getElementById('inputNewPersonalNote');
+      if (!input || !input.value.trim()) return;
+
+      GreenwoodAdminDB.addConversationNote(activeCustomerDetail.id, {
+        layer: 'personal',
+        text: input.value.trim(),
+        followUp: true,
+        followUpText: input.value.trim()
+      });
+      input.value = '';
+      openCustomerDetailModal(activeCustomerDetail.id);
+    }
+
+    function handleMarkFollowUpDone() {
+      if (!activeCustomerDetail || !activeGuestCard || !activeGuestCard.pendingFollowUp) return;
+      GreenwoodAdminDB.markFollowUpDone(activeCustomerDetail.id, activeGuestCard.pendingFollowUp.id);
+      const alertEl = document.getElementById('guestCardFollowUpAlert');
+      if (alertEl) alertEl.style.display = 'none';
+      alert("✓ Pengingat obrolan tamu ditandai selesai.");
+      openCustomerDetailModal(activeCustomerDetail.id);
+    }
+
+    function renderPersonalNotesList(notes) {
+      const list = document.getElementById('personalNotesList');
+      if (!list) return;
+
+      const personalNotes = (notes || []).filter(n => n.layer === 'personal');
+      if (personalNotes.length === 0) {
+        list.innerHTML = '<div style="color: var(--text-muted); font-style: italic;">Tidak ada catatan obrolan personal aktif.</div>';
+        return;
+      }
+
+      list.innerHTML = personalNotes.map(n => {
+        const expStr = n.expiresAt ? new Date(n.expiresAt).toLocaleDateString('id-ID', { day:'numeric', month:'short' }) : '60 hari';
+        return `
+          <div style="background: rgba(14,31,24,0.6); padding: 8px 10px; border-radius: 6px; border-left: 2px solid #38bdf8; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <div style="color: #fff; font-weight: 500;">"${escapeHtml(n.text)}"</div>
+              <div style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">
+                Oleh: ${escapeHtml(n.authorBarberName)} &bull; ${n.isDone ? '✓ Selesai' : `Aktif (Kadaluarsa: ${expStr})`}
+              </div>
+            </div>
+            ${(!n.isDone) ? `<button type="button" class="btn-portal-action" style="font-size: 10px; padding: 2px 6px;" onclick="GreenwoodAdminDB.markFollowUpDone('${activeCustomerDetail.id}', '${n.id}'); openCustomerDetailModal('${activeCustomerDetail.id}');">✓ Selesai</button>` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    /**
+     * Upload & Resize Foto 4 Sudut (Client spec: 1600px canvas resize)
+     */
+    function handleUploadAnglePhoto(angle, event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const maxDim = 1600;
+          let w = img.width;
+          let h = img.height;
+          if (w > maxDim || h > maxDim) {
+            if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
+            else { w = Math.round((w * maxDim) / h); h = maxDim; }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = w;
+          canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          const resizedData = canvas.toDataURL('image/jpeg', 0.85);
+
+          const thumbId = (angle === 'front') ? 'thumbAngleFront' : (angle === 'left') ? 'thumbAngleLeft' : (angle === 'right') ? 'thumbAngleRight' : 'thumbAngleBack';
+          const thumbEl = document.getElementById(thumbId);
+          if (thumbEl) thumbEl.src = resizedData;
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    /**
+     * Dropdown & Render Komparasi 2 Kunjungan Berdampingan
+     */
+    function populateComparisonDropdowns(visits) {
+      const selA = document.getElementById('compareVisitA');
+      const selB = document.getElementById('compareVisitB');
+      if (!selA || !selB) return;
+
+      const cutVisits = (visits || []).filter(v => v.cutRecord);
+      if (cutVisits.length < 2) {
+        selA.innerHTML = '<option value="">(Butuh min. 2 kunjungan)</option>';
+        selB.innerHTML = '<option value="">(Butuh min. 2 kunjungan)</option>';
+        const out = document.getElementById('compareVisitsOutput');
+        if (out) out.innerHTML = '<div style="grid-column: 1/-1; color: var(--text-muted); font-size: 11.5px; text-align: center; padding: 10px;">Komparasi berdampingan akan aktif setelah tamu memiliki minimal 2 riwayat kunjungan dengan foto.</div>';
+        return;
+      }
+
+      const options = cutVisits.map((v, i) => `<option value="${v.visitId || v.date}">${v.date} &bull; ${escapeHtml(v.serviceName || 'The Cut')} (${v.cutRecord.styleName || 'Gaya'})</option>`).join('');
+      selA.innerHTML = options;
+      selB.innerHTML = options;
+
+      selA.selectedIndex = 0;
+      selB.selectedIndex = Math.min(1, cutVisits.length - 1);
+      handleCompareVisits();
+    }
+
+    function handleCompareVisits() {
+      if (!activeGuestCard) return;
+      const selA = document.getElementById('compareVisitA');
+      const selB = document.getElementById('compareVisitB');
+      const out = document.getElementById('compareVisitsOutput');
+      if (!selA || !selB || !out) return;
+
+      const vA = (activeGuestCard.allVisits || []).find(v => (v.visitId === selA.value || v.date === selA.value));
+      const vB = (activeGuestCard.allVisits || []).find(v => (v.visitId === selB.value || v.date === selB.value));
+      if (!vA || !vB || !vA.cutRecord || !vB.cutRecord) return;
+
+      const renderCard = (v, label) => `
+        <div style="background: #040d09; border: 1px solid var(--accent-gold); border-radius: 8px; padding: 10px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(197,155,72,0.2); padding-bottom: 4px; margin-bottom: 8px;">
+            <strong style="color: var(--accent-gold); font-size: 12px;">${label}: ${v.date}</strong>
+            <span style="font-size: 11px; color: var(--text-muted);">${escapeHtml(v.barberName)}</span>
+          </div>
+          <div style="width: 100%; height: 130px; border-radius: 6px; overflow: hidden; background: #0a1410; margin-bottom: 8px;">
+            <img src="${(v.cutRecord.photos && v.cutRecord.photos.front) ? v.cutRecord.photos.front : 'assets/cuts/cust001_front.svg'}" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div style="font-size: 12px; font-weight: 600; color: #fff;">${escapeHtml(v.cutRecord.styleName || '-')}</div>
+          <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Samping: <strong>${escapeHtml(v.cutRecord.sidesBackGuard || '-')}</strong></div>
+          <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Atas: <strong>${escapeHtml(v.cutRecord.topLengthTechnique || '-')}</strong></div>
+          <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Leher: <strong>${escapeHtml(v.cutRecord.neckline || '-')}</strong></div>
+          <div style="margin-top: 6px; font-size: 11px; color: var(--accent-gold-bright);">Verdict: ${v.cutRecord.verdict === 'loved' ? '❤️ Loved It' : v.cutRecord.verdict === 'fine' ? '👍 Fine' : '🔄 Change'}</div>
+        </div>
+      `;
+
+      out.innerHTML = renderCard(vA, "Kunjungan A") + renderCard(vB, "Kunjungan B");
+    }
+
+    function renderCardVisitHistory(history) {
+      const tbody = document.getElementById('custDetailHistoryBody');
+      if (!tbody) return;
+      if (!history || history.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:15px; color:var(--text-muted);">Belum ada riwayat pangkas.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = history.map(h => {
+        const cut = h.cutRecord;
+        const recipeSummary = cut ? `${cut.styleName || 'Gaya'} &bull; ${cut.sidesBackGuard || '-'}` : (h.notes || '-');
+        const completeBadge = (cut && cut.isComplete)
+          ? '<span style="color:#4ade80; font-weight:600;">✓ Lengkap (Resep+Foto)</span>'
+          : '<span style="color:var(--text-muted);">Resep Belum Lengkap</span>';
+
+        return `
+          <tr>
+            <td>${escapeHtml(h.date)}</td>
+            <td><code>${escapeHtml(h.receiptId || '-')}</code></td>
+            <td>${escapeHtml(h.barberName)}</td>
+            <td>${escapeHtml(h.serviceName)}</td>
+            <td><span style="font-size:11px; color:var(--accent-gold);">${escapeHtml(recipeSummary)}</span></td>
+            <td><strong>${formatRupiah(h.total || 0)}</strong></td>
+            <td>${completeBadge}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    /**
+     * Persetujuan UU PDP Modal Handlers
+     */
+    function openConsentModal() {
+      if (!activeGuestCard) return;
+      const refCb = document.getElementById('consentRefPhotos');
+      const portCb = document.getElementById('consentPortfolioUse');
+
+      if (refCb) refCb.checked = Boolean(activeGuestCard.consent && activeGuestCard.consent.referencePhotos);
+      if (portCb) portCb.checked = Boolean(activeGuestCard.consent && activeGuestCard.consent.portfolioUse);
+
+      const modal = document.getElementById('modalConsentUUPDP');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeConsentModal() {
+      const modal = document.getElementById('modalConsentUUPDP');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function handleSaveConsent() {
+      if (!activeCustomerDetail || !GreenwoodAdminDB) return;
+      const refVal = document.getElementById('consentRefPhotos') ? document.getElementById('consentRefPhotos').checked : false;
+      const portVal = document.getElementById('consentPortfolioUse') ? document.getElementById('consentPortfolioUse').checked : false;
+
+      GreenwoodAdminDB.recordPhotoConsent(activeCustomerDetail.id, {
+        referencePhotos: refVal,
+        portfolioUse: portVal
+      });
+
+      alert("🛡️ Persetujuan UU PDP berhasil dicatat dalam audit trail!");
+      closeConsentModal();
+      openCustomerDetailModal(activeCustomerDetail.id);
+    }
+
+    function handleWithdrawConsent() {
+      if (!activeCustomerDetail || !GreenwoodAdminDB) return;
+      if (!confirm("Peringatan UU PDP: Apakah Anda yakin ingin mencabut izin foto tamu ini? Seluruh file foto pangkas akan DIHAPUS PERMANEN dari sistem.")) {
+        return;
+      }
+
+      GreenwoodAdminDB.withdrawPhotoConsent(activeCustomerDetail.id);
+      alert("🗑️ Izin foto dicabut. Seluruh foto pangkas tamu telah dihapus permanen dari basis data.");
+      closeConsentModal();
+      openCustomerDetailModal(activeCustomerDetail.id);
+    }
+
+    /**
+     * Dashboard KPI & Heatmap Utilisasi Kursi (Client Spec Page 7)
+     */
+    function renderAnalyticsDashboard() {
+      if (!GreenwoodAdminDB) return;
+
+      const an = GreenwoodAdminDB.getAnalyticsOverview();
+      const revData = GreenwoodAdminDB.getRevenueVsBreakEven();
+      const cardStats = GreenwoodAdminDB.getGuestCardCompletionStats();
+      const avgTicketStats = GreenwoodAdminDB.getAverageTicketStats();
+      const addonStats = GreenwoodAdminDB.getAddonPerGuestStats();
+      const rebookStats = GreenwoodAdminDB.getRebookingStats();
+
+      // 1. Metric Cards
+      const revTodayEl = document.getElementById('anRevenueToday');
+      if (revTodayEl) revTodayEl.textContent = formatRupiah(an.revenueToday);
+
+      const revMonthEl = document.getElementById('anRevenueMonth');
+      if (revMonthEl) revMonthEl.textContent = formatRupiah(revData.currentRevenue);
+
+      const avgTicketEl = document.getElementById('anAvgTicket');
+      if (avgTicketEl) avgTicketEl.textContent = formatRupiah(avgTicketStats.currentAvgTicket);
+
+      const repeatRateEl = document.getElementById('anRepeatRate');
+      if (repeatRateEl) repeatRateEl.textContent = `${an.repeatRatePercent}%`;
+
+      const repeatSubEl = document.getElementById('anRepeatSub');
+      if (repeatSubEl) repeatSubEl.textContent = `${an.repeatCustomersCount} Tamu Berulang / ${an.newCustomersCount} Baru`;
+
+      // 2. Pendapatan vs Break-Even & Gainshare Tim Progress Bar
+      const barFill = document.getElementById('gainshareBarFill');
+      if (barFill) barFill.style.width = `${revData.pctToGainshare}%`;
+
+      const poolBadge = document.getElementById('gainsharePoolBadge');
+      if (poolBadge) {
+        poolBadge.textContent = revData.gainsharePool > 0
+          ? `🏆 Pool Gainshare Tim: ${formatRupiah(revData.gainsharePool)}`
+          : `🏁 Progres Break-Even: ${revData.pctToBreakEven}%`;
+      }
+
+      // 3. Heatmap Utilisasi Kursi (Day x Hour)
+      renderChairUtilisationHeatmap();
+
+      // 4. Per-Barber KPIs: Card Completion & Rebooking at Checkout
+      const cardOverallEl = document.getElementById('kpiCardCompletionOverall');
+      if (cardOverallEl) cardOverallEl.textContent = `${cardStats.overallPct}%`;
+
+      const cardPerBarberEl = document.getElementById('kpiCardCompletionPerBarber');
+      if (cardPerBarberEl) {
+        cardPerBarberEl.innerHTML = cardStats.perBarber.map(b => `
+          <div style="display:flex; justify-content:space-between;">
+            <span>${escapeHtml(b.name)}</span>
+            <strong style="color:${b.pct >= 80 ? '#4ade80' : 'var(--accent-gold)'};">${b.pct}% (${b.complete}/${b.total} kartu)</strong>
+          </div>
+        `).join('');
+      }
+
+      const rebookOverallEl = document.getElementById('kpiRebookingOverall');
+      if (rebookOverallEl) rebookOverallEl.textContent = `${rebookStats.overallPct}%`;
+
+      const rebookPerBarberEl = document.getElementById('kpiRebookingPerBarber');
+      if (rebookPerBarberEl) {
+        rebookPerBarberEl.innerHTML = rebookStats.perBarber.map(b => `
+          <div style="display:flex; justify-content:space-between;">
+            <span>${escapeHtml(b.name)}</span>
+            <strong style="color:${b.pct >= 50 ? '#38bdf8' : 'var(--accent-gold)'};">${b.pct}% (${b.rebooked}/${b.total} tamu)</strong>
+          </div>
+        `).join('');
+      }
+
+      const addonEl = document.getElementById('kpiAddonAvg');
+      if (addonEl) addonEl.textContent = formatRupiah(addonStats.currentAddonAvg);
+
+      renderActivityLogs();
+    }
+
+    /**
+     * Render Heatmap Utilisasi Kursi 7 Hari x 11 Jam
+     */
+    function renderChairUtilisationHeatmap() {
+      const table = document.getElementById('chairUtilisationHeatmapTable');
+      if (!table || !GreenwoodAdminDB) return;
+
+      const heat = GreenwoodAdminDB.getChairUtilisationHeatmap();
+      let html = '<thead><tr><th>Hari</th>';
+      heat.hours.forEach(h => {
+        html += `<th>${h}:00</th>`;
+      });
+      html += '<th>Rata2</th></tr></thead><tbody>';
+
+      heat.matrix.forEach((row, dIdx) => {
+        const dayName = heat.days[dIdx];
+        let rowSum = 0;
+        html += `<tr><td style="font-weight:700; color:#fff; text-align:left; padding-left:8px;">${dayName}</td>`;
+
+        row.forEach(cell => {
+          rowSum += cell.pct;
+          let bg = 'rgba(22, 42, 34, 0.4)';
+          let color = '#a3b899';
+          if (cell.pct >= 65) {
+            bg = 'rgba(74, 222, 128, 0.25)';
+            color = '#4ade80';
+          } else if (cell.pct >= 40) {
+            bg = 'rgba(229, 185, 95, 0.2)';
+            color = 'var(--accent-gold-bright)';
+          }
+          html += `<td class="heatmap-cell" style="background:${bg}; color:${color};" title="${dayName} ${cell.hour}:00 WIB - ${cell.bookedMinutes} mnt terisi (${cell.pct}%)">${cell.pct}%</td>`;
+        });
+
+        const dayAvg = Math.round(rowSum / row.length);
+        html += `<td style="font-weight:700; color:var(--accent-gold);">${dayAvg}%</td></tr>`;
+      });
+
+      html += '</tbody>';
+      table.innerHTML = html;
     }
 
     function sendWhatsappFollowUp() {
@@ -6200,36 +7599,6 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     }
 
     // Analytics and busy hours visualization
-    function renderAnalyticsDashboard() {
-      const an = GreenwoodAdminDB.getAnalyticsOverview();
-
-      document.getElementById('anRevenueToday').textContent = formatRupiah(an.revenueToday);
-      document.getElementById('anRevenueWeek').textContent = formatRupiah(an.revenueThisWeek);
-      document.getElementById('anRevenueMonth').textContent = formatRupiah(an.revenueThisMonth);
-      document.getElementById('anRepeatRate').textContent = `${an.repeatRatePercent}%`;
-      document.getElementById('anRepeatSub').textContent = `${an.repeatCustomersCount} Tamu Berulang / ${an.newCustomersCount} Baru`;
-      const grid = document.getElementById('busyHoursGrid');
-      let maxCount = 1;
-      for (let h = 10; h <= 20; h++) {
-        if ((an.hourlyBusy[h] || 0) > maxCount) maxCount = an.hourlyBusy[h];
-      }
-
-      let barsHtml = "";
-      for (let h = 10; h <= 20; h++) {
-        const val = an.hourlyBusy[h] || 0;
-        const heightPct = Math.max(6, Math.round((val / maxCount) * 100));
-        barsHtml += `
-          <div class="busy-hour-col">
-            <span style="font-size: 10px; color: ${val > 0 ? '#fff' : 'transparent'}; margin-bottom: 4px;">${val}</span>
-            <div class="busy-bar" style="height: ${heightPct}%;"></div>
-            <span class="busy-label">${h}:00</span>
-          </div>
-        `;
-      }
-      grid.innerHTML = barsHtml;
-
-      renderActivityLogs();
-    }
 
     function renderActivityLogs() {
       const logs = GreenwoodAdminDB.getActivityLogs(15);
@@ -6572,6 +7941,9 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           <td style="text-align: right;">
             <div class="table-actions">
               ${b.status !== 'Completed' ? `
+              <button type="button" class="btn-table-action" style="background: rgba(197, 155, 72, 0.15); border: 1px solid var(--accent-gold); color: var(--accent-gold-bright);" onclick="openGuestCardFromBooking('${b.bookingCode}')" title="SOP C5: Konsultasi Cermin 10 Detik">
+                <span>🪞 Kartu Tamu</span>
+              </button>
               <button type="button" class="btn-table-action btn-action-success" onclick="completeBooking('${b.bookingCode}')" title="Tandai Selesai">
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                 <span>Selesai</span>

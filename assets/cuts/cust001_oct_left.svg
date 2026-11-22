@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#040d09"/>
+      <stop offset="100%" stop-color="#0e1f18"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e5b95f"/>
+      <stop offset="100%" stop-color="#c59b48"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="500" rx="16" fill="url(#bgGrad)"/>
+  <rect x="8" y="8" width="384" height="484" rx="12" fill="none" stroke="#c59b48" stroke-width="1.5" stroke-opacity="0.35" stroke-dasharray="6 4"/>
+  
+  <!-- Silhouette Graphics -->
+  
+    <!-- Profile Left -->
+    <path d="M180 120 C230 115, 270 160, 260 230 C250 300, 220 340, 190 350 L170 340 L160 300 C150 280, 140 260, 140 220 C140 160, 150 125, 180 120 Z" fill="#162a22" stroke="#4ade80" stroke-width="1.5" stroke-opacity="0.4"/>
+    <!-- Hair Top & Back -->
+    <path d="M175 110 C220 105, 265 140, 255 190 L210 185 C190 185, 160 170, 160 140 Z" fill="url(#goldGrad)"/>
+    <!-- Guard #2 to #0.5 Mid Fade Guide -->
+    <path d="M160 190 C180 200, 220 210, 240 220" stroke="#e5b95f" stroke-width="2" stroke-dasharray="4 2" fill="none"/>
+    <text x="165" y="225" fill="#e5b95f" font-size="11" font-family="monospace">Guard #2 &gt; #0.5</text>
+    <text x="165" y="240" fill="#4ade80" font-size="10" font-family="monospace">Mid Skin Fade</text>
+    <!-- Ear Arch & Temple -->
+    <path d="M180 240 C170 240, 165 260, 175 275 C185 285, 195 270, 190 250 Z" fill="#0e1f18" stroke="#c59b48" stroke-width="1.5"/>
+    <!-- Sharp Cheek Line Beard -->
+    <path d="M200 280 L230 310 L200 340" stroke="#e5b95f" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  
+
+  <!-- Overlay Labels -->
+  <rect x="20" y="20" width="120" height="28" rx="6" fill="#030c08" fill-opacity="0.85" stroke="#c59b48" stroke-width="1"/>
+  <text x="80" y="38" fill="#e5b95f" font-family="'Lora', serif" font-size="12" font-weight="bold" text-anchor="middle">KIRI (12 OKT)</text>
+  
+  <rect x="20" y="450" width="360" height="32" rx="6" fill="#030c08" fill-opacity="0.9" stroke="#22382c" stroke-width="1"/>
+  <text x="30" y="471" fill="#a3b899" font-family="'Open Sans', sans-serif" font-size="11">Low Taper · Guard #3 > #1</text>
+  <text x="370" y="471" fill="#c59b48" font-family="'Open Sans', sans-serif" font-size="11" text-anchor="end">12 Okt 2026</text>
+</svg>

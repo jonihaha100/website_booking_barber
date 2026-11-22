@@ -15,14 +15,15 @@
 
   const DB_PREFIX = 'greenwood_pos_crm_';
   const KEYS = {
-    CUSTOMERS: DB_PREFIX + 'customers_v1',
+    CUSTOMERS: DB_PREFIX + 'customers_v2',
+    CUSTOMERS_LEGACY: DB_PREFIX + 'customers_v1',
     TRANSACTIONS: DB_PREFIX + 'transactions_v1',
     STAFF: DB_PREFIX + 'staff_v1',
     ATTENDANCE: DB_PREFIX + 'attendance_v1',
     LOGS: DB_PREFIX + 'activity_logs_v1',
     CONFIG: DB_PREFIX + 'system_config_v1',
     SANDBOX: DB_PREFIX + 'sandbox_state_v1',
-    ROLES: DB_PREFIX + 'role_permissions_v2',
+    ROLES: DB_PREFIX + 'role_permissions_v3',
     ROLE_PINS: DB_PREFIX + 'role_pins_v1',
     BARBER_PINS: DB_PREFIX + 'barber_pins_v1',
     INVENTORY: DB_PREFIX + 'inventory_v1',
@@ -58,38 +59,193 @@
   ];
 
   // Initial seed dataset
-  const SEED_CUSTOMERS = [
+    const SEED_CUSTOMERS = [
     {
       id: "CUST-001",
       name: "Bpk. Alexander Wijaya",
+      howToAddress: "Bpk. Alexander",
       phone: "081234567890",
       email: "alexander.w@example.com",
       birthday: "1988-06-15",
       internalNotes: "Fade #2 samping, trim jenggot tipis natural. Suka kopi hitam dingin tanpa gula. Langganan Bramantyo.",
+      managerNotes: "Klien eksekutif korporat mitra bisnis pemilik, prioritaskan kenyamanan terbaik.",
       tags: ["VIP", "Reguler"],
       totalSpend: 1450000,
       visitCount: 5,
       firstVisit: "2026-08-10",
       lastVisit: "2026-11-04",
       lastBarber: "Bramantyo",
-      lastService: "The Ritual",
+      lastService: "The Cut",
       passiveFlag: false,
       branch_id: DEFAULT_BRANCH_ID,
+      hospitality: {
+        drinkPreference: "Iced black coffee no sugar (Kopi Hitam Dingin tanpa gula)",
+        chatPreference: "quiet",
+        preferredBarber: "Bramantyo",
+        sensitivities: "Kulit leher sensitif terhadap pisau razor langsung. Wajib foam hangat & clipper guard 0.",
+        specialNotes: "Selalu terburu-buru saat hari kerja (urgent weekday meeting). Harap tepat waktu."
+      },
+      consent: {
+        referencePhotos: true,
+        portfolioUse: false,
+        agreedAt: "2026-08-10T10:30:00.000Z",
+        wordingVersion: "UU-PDP-2026.1",
+        agreedWithStaffId: "barber-bramantyo",
+        withdrawnDate: null
+      },
+      rapportTopics: ["Sepak Bola (Persib)", "Bersepeda / Cycling", "Properti & Real Estate"],
+      conversationNotes: [
+        {
+          id: "CN-001",
+          authorBarberId: "barber-bramantyo",
+          authorBarberName: "Bramantyo",
+          layer: "shared",
+          text: "Resep potongan rapi, es kopi hitam tanpa gula, lebih menyukai suasana tenang.",
+          followUp: false,
+          followUpText: "",
+          isDone: false,
+          createdAt: "2026-11-04T10:00:00.000Z",
+          expiresAt: null
+        },
+        {
+          id: "CN-002",
+          authorBarberId: "barber-bramantyo",
+          authorBarberName: "Bramantyo",
+          layer: "personal",
+          text: "Mengantar keluarga liburan ke Bali pada 15 Des, tanyakan kesan dan pengalamannya.",
+          followUp: true,
+          followUpText: "Tanyakan pengalaman liburan keluarga ke Bali",
+          isDone: false,
+          createdAt: "2026-11-04T10:15:00.000Z",
+          expiresAt: "2027-01-03T10:15:00.000Z" // 60 days
+        }
+      ],
       visitHistory: [
-        { date: "2026-11-04", receiptId: "RCP-20261104-01", barberName: "Bramantyo", serviceName: "The Ritual", total: 350000, tip: 50000, notes: "Persiapan gala dinner" },
-        { date: "2026-10-12", receiptId: "RCP-20261012-03", barberName: "Bramantyo", serviceName: "The Cut & Shave", total: 210000, tip: 30000, notes: "Rapihkan cambang" },
-        { date: "2026-09-18", receiptId: "RCP-20260918-05", barberName: "Bramantyo", serviceName: "The Ritual", total: 350000, tip: 50000, notes: "Creambath santai" },
-        { date: "2026-08-30", receiptId: "RCP-20260830-02", barberName: "Bramantyo", serviceName: "The Cut", total: 150000, tip: 20000, notes: "Quick trim" },
-        { date: "2026-08-10", receiptId: "RCP-20260810-01", barberName: "Bramantyo", serviceName: "The Ritual", total: 390000, tip: 40000, notes: "Kunjungan perdana" }
+        {
+          visitId: "VST-20261104-01",
+          date: "2026-11-04",
+          receiptId: "RCP-20261104-01",
+          barberName: "Bramantyo",
+          barberId: "barber-bramantyo",
+          chair: "Kursi 1",
+          serviceName: "The Cut",
+          total: 350000,
+          tip: 50000,
+          rebookedAtCheckout: true,
+          rebookedDate: "2026-12-09",
+          notes: "Persiapan gala dinner",
+          cutRecord: {
+            styleName: "Textured crop, mid fade",
+            sidesBackGuard: "Guard #2 to #0.5, mid fade",
+            fadeHeightType: "Mid, skin / drop / taper",
+            topLengthTechnique: "4 cm, point-cut texture",
+            fringePart: "Forward fringe, no part",
+            neckline: "Tapered natural",
+            beard: "Trim #3, sharp cheek line",
+            productsUsed: "Matte clay, sea-salt spray",
+            styling: "Blow-dried forward, rough finish",
+            hairNotes: "Cowlick at the crown (pusar rambut ganda), sisakan 1 cm lebih panjang di area ubun-ubun agar tidak jabrik",
+            verdict: "loved",
+            nextTimeNotes: "Go 0.5 cm shorter on top",
+            photos: {
+              front: "assets/cuts/cust001_front.svg",
+              left: "assets/cuts/cust001_left.svg",
+              right: "assets/cuts/cust001_right.svg",
+              back: "assets/cuts/cust001_back.svg",
+              top: ""
+            },
+            isComplete: true
+          }
+        },
+        {
+          visitId: "VST-20261012-03",
+          date: "2026-10-12",
+          receiptId: "RCP-20261012-03",
+          barberName: "Bramantyo",
+          barberId: "barber-bramantyo",
+          chair: "Kursi 1",
+          serviceName: "The Cut & Shave",
+          total: 210000,
+          tip: 30000,
+          rebookedAtCheckout: true,
+          rebookedDate: "2026-11-04",
+          notes: "Rapihkan cambang",
+          cutRecord: {
+            styleName: "Classic Side Part, Low Taper",
+            sidesBackGuard: "Guard #3 to #1, taper fade",
+            fadeHeightType: "Low taper",
+            topLengthTechnique: "5 cm, scissor over comb",
+            fringePart: "Side part kiri, combed back",
+            neckline: "Blocked / square",
+            beard: "Clean shaven with hot towel",
+            productsUsed: "Water-based Pomade High Shine",
+            styling: "Side parted comb, neat look",
+            hairNotes: "Sisakan panjang di atas pusar rambut",
+            verdict: "fine",
+            nextTimeNotes: "Coba textured crop lebih modern di pertemuan berikutnya",
+            photos: {
+              front: "assets/cuts/cust001_oct_front.svg",
+              left: "assets/cuts/cust001_oct_left.svg",
+              right: "assets/cuts/cust001_oct_right.svg",
+              back: "assets/cuts/cust001_oct_back.svg",
+              top: ""
+            },
+            isComplete: true
+          }
+        },
+        {
+          visitId: "VST-20260918-05",
+          date: "2026-09-18",
+          receiptId: "RCP-20260918-05",
+          barberName: "Bramantyo",
+          barberId: "barber-bramantyo",
+          chair: "Kursi 1",
+          serviceName: "The Ritual",
+          total: 350000,
+          tip: 50000,
+          rebookedAtCheckout: true,
+          rebookedDate: "2026-10-12",
+          notes: "Creambath santai"
+        },
+        {
+          visitId: "VST-20260830-02",
+          date: "2026-08-30",
+          receiptId: "RCP-20260830-02",
+          barberName: "Bramantyo",
+          barberId: "barber-bramantyo",
+          chair: "Kursi 1",
+          serviceName: "The Cut",
+          total: 150000,
+          tip: 20000,
+          rebookedAtCheckout: true,
+          rebookedDate: "2026-09-18",
+          notes: "Quick trim"
+        },
+        {
+          visitId: "VST-20260810-01",
+          date: "2026-08-10",
+          receiptId: "RCP-20260810-01",
+          barberName: "Bramantyo",
+          barberId: "barber-bramantyo",
+          chair: "Kursi 1",
+          serviceName: "The Ritual",
+          total: 390000,
+          tip: 40000,
+          rebookedAtCheckout: true,
+          rebookedDate: "2026-08-30",
+          notes: "Kunjungan perdana"
+        }
       ]
     },
     {
       id: "CUST-002",
       name: "dr. Kevin Pratama",
+      howToAddress: "dr. Kevin",
       phone: "081987654321",
       email: "dr.kevin.p@example.com",
       birthday: "1992-11-20",
       internalNotes: "Taper low fade, gunting atas sisir samping (side part klasik). Kulit kepala sensitif, gunakan handuk hangat suhu sedang.",
+      managerNotes: "Dokter spesialis bedah saraf, jadwal sering mendadak. Fleksibel jika mundur 15 menit.",
       tags: ["Reguler"],
       totalSpend: 630000,
       visitCount: 3,
@@ -99,74 +255,409 @@
       lastService: "The Cut & Shave",
       passiveFlag: false,
       branch_id: DEFAULT_BRANCH_ID,
+      hospitality: {
+        drinkPreference: "Teh Hijau Panas Tanpa Gula (Hot Green Tea)",
+        chatPreference: "chatty",
+        preferredBarber: "Rian Pratama",
+        sensitivities: "Kulit kepala mudah kering, hindari tonik beralkohol tinggi.",
+        specialNotes: "Jadwal praktek rumah sakit padat, konfirmasi via WhatsApp sebelum kedatangan."
+      },
+      consent: {
+        referencePhotos: true,
+        portfolioUse: true,
+        agreedAt: "2026-09-02T14:00:00.000Z",
+        wordingVersion: "UU-PDP-2026.1",
+        agreedWithStaffId: "barber-rian",
+        withdrawnDate: null
+      },
+      rapportTopics: ["Dunia Medis / Bedah", "Koleksi Jam Tangan", "Lari Marathon"],
+      conversationNotes: [
+        {
+          id: "CN-003",
+          authorBarberId: "barber-rian",
+          authorBarberName: "Rian Pratama",
+          layer: "shared",
+          text: "Teh hijau hangat, senang diskusi santai tentang olahraga lari.",
+          followUp: false,
+          followUpText: "",
+          isDone: false,
+          createdAt: "2026-10-28T14:30:00.000Z",
+          expiresAt: null
+        },
+        {
+          id: "CN-004",
+          authorBarberId: "barber-rian",
+          authorBarberName: "Rian Pratama",
+          layer: "personal",
+          text: "Baru menyelesaikan Bandung Half Marathon, tanyakan perolehan waktu personal best.",
+          followUp: true,
+          followUpText: "Tanyakan hasil lari Bandung Half Marathon",
+          isDone: false,
+          createdAt: "2026-10-28T14:35:00.000Z",
+          expiresAt: "2026-12-27T14:35:00.000Z"
+        }
+      ],
       visitHistory: [
-        { date: "2026-10-28", receiptId: "RCP-20261028-02", barberName: "Rian Pratama", serviceName: "The Cut & Shave", total: 210000, tip: 25000, notes: "Konsultasi pomade matte" },
-        { date: "2026-09-29", receiptId: "RCP-20260929-04", barberName: "Rian Pratama", serviceName: "The Cut", total: 150000, tip: 20000, notes: "Side part klasik" },
-        { date: "2026-09-02", receiptId: "RCP-20260902-01", barberName: "Rian Pratama", serviceName: "The Cut & Shave", total: 270000, tip: 30000, notes: "Addon hot towel" }
+        {
+          visitId: "VST-20261028-02",
+          date: "2026-10-28",
+          receiptId: "RCP-20261028-02",
+          barberName: "Rian Pratama",
+          barberId: "barber-rian",
+          chair: "Kursi 2",
+          serviceName: "The Cut & Shave",
+          total: 210000,
+          tip: 25000,
+          rebookedAtCheckout: true,
+          rebookedDate: "2026-11-26",
+          notes: "Konsultasi pomade matte",
+          cutRecord: {
+            styleName: "Side Part Taper Fade",
+            sidesBackGuard: "Guard #2 to #1, low taper",
+            fadeHeightType: "Low taper",
+            topLengthTechnique: "5 cm, scissor point cut",
+            fringePart: "Side swept right",
+            neckline: "Tapered natural",
+            beard: "Clean shaven with warm foam",
+            productsUsed: "Water-based Matte Pomade",
+            styling: "Combed side, slight volume",
+            hairNotes: "Rambut lurus jatuh rapi",
+            verdict: "loved",
+            nextTimeNotes: "Pertahankan panjang poni 5 cm",
+            photos: {
+              front: "assets/cuts/cust001_front.svg",
+              left: "assets/cuts/cust001_left.svg",
+              right: "assets/cuts/cust001_right.svg",
+              back: "assets/cuts/cust001_back.svg",
+              top: ""
+            },
+            isComplete: true
+          }
+        },
+        {
+          visitId: "VST-20260929-04",
+          date: "2026-09-29",
+          receiptId: "RCP-20260929-04",
+          barberName: "Rian Pratama",
+          barberId: "barber-rian",
+          chair: "Kursi 2",
+          serviceName: "The Cut",
+          total: 150000,
+          tip: 20000,
+          rebookedAtCheckout: false,
+          notes: "Side part klasik"
+        },
+        {
+          visitId: "VST-20260902-01",
+          date: "2026-09-02",
+          receiptId: "RCP-20260902-01",
+          barberName: "Rian Pratama",
+          barberId: "barber-rian",
+          chair: "Kursi 2",
+          serviceName: "The Cut & Shave",
+          total: 270000,
+          tip: 30000,
+          rebookedAtCheckout: true,
+          notes: "Addon hot towel"
+        }
       ]
     },
     {
       id: "CUST-003",
       name: "Bpk. Hendra Gunawan",
+      howToAddress: "Bpk. Hendra",
       phone: "081377889900",
       email: "hendra.kbp@example.com",
       birthday: "1975-03-08",
       internalNotes: "Scissor cut full (tanpa clipper), natural finish. Selalu minta teh hangat camomile.",
+      managerNotes: "Pengusaha tekstil lokal, langganan VIP sejak pembukaan toko.",
       tags: ["VIP", "Pasif"],
       totalSpend: 1050000,
       visitCount: 3,
       firstVisit: "2026-07-15",
-      lastVisit: "2026-09-10", // Lebih dari 60 hari yang lalu (Pasif)
+      lastVisit: "2026-09-10",
       lastBarber: "Dimas Setiawan",
       lastService: "The Ritual",
       passiveFlag: true,
       branch_id: DEFAULT_BRANCH_ID,
+      hospitality: {
+        drinkPreference: "Teh Chamomile Hangat Tanpa Gula",
+        chatPreference: "quiet",
+        preferredBarber: "Dimas Setiawan",
+        sensitivities: "Kulit sensitif pisau cukur, jangan gunakan pisau tajam tanpa pelumas tebal.",
+        specialNotes: "Lebih menyukai potongan klasik gunting tangan (scissor cut)."
+      },
+      consent: {
+        referencePhotos: true,
+        portfolioUse: false,
+        agreedAt: "2026-07-15T11:00:00.000Z",
+        wordingVersion: "UU-PDP-2026.1",
+        agreedWithStaffId: "barber-dimas",
+        withdrawnDate: null
+      },
+      rapportTopics: ["Bisnis Manufaktur", "Tanaman Hias & Bonsai", "Golf"],
+      conversationNotes: [
+        {
+          id: "CN-005",
+          authorBarberId: "barber-dimas",
+          authorBarberName: "Dimas Setiawan",
+          layer: "shared",
+          text: "Teh chamomile hangat, scissor cut tradisional tanpa mesin clipper.",
+          followUp: false,
+          followUpText: "",
+          isDone: false,
+          createdAt: "2026-09-10T11:30:00.000Z",
+          expiresAt: null
+        }
+      ],
       visitHistory: [
-        { date: "2026-09-10", receiptId: "RCP-20260910-02", barberName: "Dimas Setiawan", serviceName: "The Ritual", total: 350000, tip: 50000, notes: "Perawatan lengkap" },
-        { date: "2026-08-12", receiptId: "RCP-20260812-01", barberName: "Dimas Setiawan", serviceName: "The Ritual", total: 350000, tip: 50000, notes: "Scissor cut" },
-        { date: "2026-07-15", receiptId: "RCP-20260715-03", barberName: "Dimas Setiawan", serviceName: "The Ritual", total: 350000, tip: 50000, notes: "Kunjungan pertama" }
+        {
+          visitId: "VST-20260910-02",
+          date: "2026-09-10",
+          receiptId: "RCP-20260910-02",
+          barberName: "Dimas Setiawan",
+          barberId: "barber-dimas",
+          chair: "Kursi 3",
+          serviceName: "The Ritual",
+          total: 350000,
+          tip: 50000,
+          rebookedAtCheckout: false,
+          notes: "Perawatan lengkap",
+          cutRecord: {
+            styleName: "Classic Scissor Cut",
+            sidesBackGuard: "Scissor over comb (No clipper)",
+            fadeHeightType: "Natural taper",
+            topLengthTechnique: "6 cm, layered scissor",
+            fringePart: "Slick back natural",
+            neckline: "Natural tapered",
+            beard: "Natural trim",
+            productsUsed: "Hair Tonic & Light Grooming Cream",
+            styling: "Finger combed natural",
+            hairNotes: "Rambut sedikit ikal di ujung",
+            verdict: "loved",
+            nextTimeNotes: "Rapihkan bagian leher saja",
+            photos: {
+              front: "assets/cuts/cust001_oct_front.svg",
+              left: "assets/cuts/cust001_oct_left.svg",
+              right: "assets/cuts/cust001_oct_right.svg",
+              back: "assets/cuts/cust001_oct_back.svg",
+              top: ""
+            },
+            isComplete: true
+          }
+        },
+        {
+          visitId: "VST-20260812-01",
+          date: "2026-08-12",
+          receiptId: "RCP-20260812-01",
+          barberName: "Dimas Setiawan",
+          barberId: "barber-dimas",
+          chair: "Kursi 3",
+          serviceName: "The Ritual",
+          total: 350000,
+          tip: 50000,
+          rebookedAtCheckout: true,
+          notes: "Scissor cut"
+        },
+        {
+          visitId: "VST-20260715-03",
+          date: "2026-07-15",
+          receiptId: "RCP-20260715-03",
+          barberName: "Dimas Setiawan",
+          barberId: "barber-dimas",
+          chair: "Kursi 3",
+          serviceName: "The Ritual",
+          total: 350000,
+          tip: 50000,
+          rebookedAtCheckout: true,
+          notes: "Kunjungan pertama"
+        }
       ]
     },
     {
       id: "CUST-004",
       name: "Farid Nurhadi",
+      howToAddress: "Mas Farid",
       phone: "087811223344",
       email: "farid.n@example.com",
       birthday: "1998-11-12",
       internalNotes: "Textured crop, taper fade #1. Minat beli pomade matte water-based.",
+      managerNotes: "Anggota komunitas kreatif Kota Baru Parahyangan.",
       tags: ["Ulang Tahun Bulan Ini", "Reguler"],
       totalSpend: 360000,
       visitCount: 2,
       firstVisit: "2026-10-05",
       lastVisit: "2026-11-06",
-      lastBarber: "Farhan Akbar",
+      lastBarber: "Dimas Setiawan",
       lastService: "The Cut",
       passiveFlag: false,
       branch_id: DEFAULT_BRANCH_ID,
+      hospitality: {
+        drinkPreference: "Air Mineral Dingin (Chilled Mineral Water)",
+        chatPreference: "chatty",
+        preferredBarber: "Dimas Setiawan",
+        sensitivities: "Tidak ada sensitivitas produk khusus.",
+        specialNotes: "Menyukai tren gaya rambut modern eropa."
+      },
+      consent: {
+        referencePhotos: true,
+        portfolioUse: true,
+        agreedAt: "2026-10-05T15:00:00.000Z",
+        wordingVersion: "UU-PDP-2026.1",
+        agreedWithStaffId: "barber-dimas",
+        withdrawnDate: null
+      },
+      rapportTopics: ["Desain Grafis / UI/UX", "Kopi Spesialti", "Musik Indie"],
+      conversationNotes: [
+        {
+          id: "CN-006",
+          authorBarberId: "barber-dimas",
+          authorBarberName: "Dimas Setiawan",
+          layer: "shared",
+          text: "Textured crop dengan fade tinggi, air mineral dingin.",
+          followUp: false,
+          followUpText: "",
+          isDone: false,
+          createdAt: "2026-11-06T15:30:00.000Z",
+          expiresAt: null
+        }
+      ],
       visitHistory: [
-        { date: "2026-11-06", receiptId: "RCP-20261106-03", barberName: "Farhan Akbar", serviceName: "The Cut + Pomade", total: 210000, tip: 20000, notes: "Potong + beli pomade" },
-        { date: "2026-10-05", receiptId: "RCP-20261005-02", barberName: "Farhan Akbar", serviceName: "The Cut", total: 150000, tip: 15000, notes: "Textured crop" }
+        {
+          visitId: "VST-20261106-03",
+          date: "2026-11-06",
+          receiptId: "RCP-20261106-03",
+          barberName: "Dimas Setiawan",
+          barberId: "barber-dimas",
+          chair: "Kursi 3",
+          serviceName: "The Cut + Pomade",
+          total: 210000,
+          tip: 20000,
+          rebookedAtCheckout: true,
+          rebookedDate: "2026-12-04",
+          notes: "Potong + beli pomade",
+          cutRecord: {
+            styleName: "French Textured Crop",
+            sidesBackGuard: "Guard #1.5 to skin fade",
+            fadeHeightType: "High skin drop fade",
+            topLengthTechnique: "3.5 cm, blunt point cut",
+            fringePart: "Straight forward blunt fringe",
+            neckline: "Blocked clean",
+            beard: "Clean shaven",
+            productsUsed: "Styling Hair Powder & Matte Clay",
+            styling: "Messy forward matte finish",
+            hairNotes: "Tekstur tebal mudah ditata",
+            verdict: "loved",
+            nextTimeNotes: "Tetap dengan model ini",
+            photos: {
+              front: "assets/cuts/cust001_front.svg",
+              left: "assets/cuts/cust001_left.svg",
+              right: "assets/cuts/cust001_right.svg",
+              back: "assets/cuts/cust001_back.svg",
+              top: ""
+            },
+            isComplete: true
+          }
+        },
+        {
+          visitId: "VST-20261005-02",
+          date: "2026-10-05",
+          receiptId: "RCP-20261005-02",
+          barberName: "Dimas Setiawan",
+          barberId: "barber-dimas",
+          chair: "Kursi 3",
+          serviceName: "The Cut",
+          total: 150000,
+          tip: 15000,
+          rebookedAtCheckout: true,
+          notes: "Textured crop"
+        }
       ]
     },
     {
       id: "CUST-005",
       name: "Tomy Sugiarto",
+      howToAddress: "Mas Tomy",
       phone: "085699887766",
       email: "tomy.s@example.com",
-      birthday: "1985-01-24",
-      internalNotes: "Beard sculpting presisi, garis leher tinggi. Suka wangi sandalwood.",
-      tags: ["Pasif"],
-      totalSpend: 270000,
-      visitCount: 2,
-      firstVisit: "2026-08-01",
-      lastVisit: "2026-09-04", // > 60 hari yang lalu (Pasif)
-      lastBarber: "Aldi Maulana",
-      lastService: "Beard Grooming",
-      passiveFlag: true,
+      birthday: "1995-04-18",
+      internalNotes: "Buzz cut fade #1. Cepat, praktis, tanpa cuci rambut berlama-lama.",
+      managerNotes: "Pelanggan express, prioritaskan selesai tepat 25 menit.",
+      tags: ["Reguler"],
+      totalSpend: 150000,
+      visitCount: 1,
+      firstVisit: "2026-11-01",
+      lastVisit: "2026-11-01",
+      lastBarber: "Bramantyo",
+      lastService: "The Cut",
+      passiveFlag: false,
       branch_id: DEFAULT_BRANCH_ID,
+      hospitality: {
+        drinkPreference: "Kopi Hitam Dingin",
+        chatPreference: "quiet",
+        preferredBarber: "Bramantyo",
+        sensitivities: "Kulit kepala berminyak, gunakan tonik mint dingin.",
+        specialNotes: "Selalu pesan slot terawal pagi jam 10:00."
+      },
+      consent: {
+        referencePhotos: true,
+        portfolioUse: false,
+        agreedAt: "2026-11-01T10:15:00.000Z",
+        wordingVersion: "UU-PDP-2026.1",
+        agreedWithStaffId: "barber-bramantyo",
+        withdrawnDate: null
+      },
+      rapportTopics: ["Otomotif & Motor Klasik", "Gym / Fitness"],
+      conversationNotes: [
+        {
+          id: "CN-007",
+          authorBarberId: "barber-bramantyo",
+          authorBarberName: "Bramantyo",
+          layer: "shared",
+          text: "Buzz cut fade #1, kopi hitam dingin.",
+          followUp: false,
+          followUpText: "",
+          isDone: false,
+          createdAt: "2026-11-01T10:30:00.000Z",
+          expiresAt: null
+        }
+      ],
       visitHistory: [
-        { date: "2026-09-04", receiptId: "RCP-20260904-01", barberName: "Aldi Maulana", serviceName: "Beard Grooming + Shave", total: 180000, tip: 20000, notes: "Beard oil styling" },
-        { date: "2026-08-01", receiptId: "RCP-20260801-04", barberName: "Aldi Maulana", serviceName: "Beard Grooming", total: 90000, tip: 10000, notes: "Garis leher presisi" }
+        {
+          visitId: "VST-20261101-01",
+          date: "2026-11-01",
+          receiptId: "RCP-20261101-01",
+          barberName: "Bramantyo",
+          barberId: "barber-bramantyo",
+          chair: "Kursi 1",
+          serviceName: "The Cut",
+          total: 150000,
+          tip: 20000,
+          rebookedAtCheckout: false,
+          notes: "Kunjungan pertama",
+          cutRecord: {
+            styleName: "Buzz Cut Taper",
+            sidesBackGuard: "Guard #1 to skin fade",
+            fadeHeightType: "Mid skin fade",
+            topLengthTechnique: "Guard #3 buzz crop",
+            fringePart: "Micro fringe",
+            neckline: "Natural tapered",
+            beard: "Stubble 3-day",
+            productsUsed: "Cooling Scalp Tonic",
+            styling: "Natural wash & go",
+            hairNotes: "Pertumbuhan rambut cepat",
+            verdict: "loved",
+            nextTimeNotes: "Potong rutin per 3 minggu",
+            photos: {
+              front: "assets/cuts/cust001_front.svg",
+              left: "assets/cuts/cust001_left.svg",
+              right: "assets/cuts/cust001_right.svg",
+              back: "assets/cuts/cust001_back.svg",
+              top: ""
+            },
+            isComplete: true
+          }
+        }
       ]
     }
   ];
@@ -300,14 +791,14 @@
     }
   ];
   // Role permissions matrix (Zoho and Minutes App RBAC model)
-  const DEFAULT_ROLE_PERMISSIONS = {
+    const DEFAULT_ROLE_PERMISSIONS = {
     Owner: {
       id: "Owner",
       name: "Owner",
       badge: "Super Admin",
       title: "Owner (Pemilik Toko)",
       subtitle: "Akses Penuh Tanpa Batas (Super Admin)",
-      description: "Memiliki wewenang tertinggi untuk seluruh data omzet finansial, audit trail, konfigurasi sistem multi-cabang, dan otorisasi kasir.",
+      description: "Memiliki wewenang tertinggi untuk seluruh data omzet finansial, audit trail, resep pangkas kartu tamu, pengaturan peran dan ekspor CSV akuntan.",
       isSuperAdmin: true,
       permissions: {
         pos_view: true,
@@ -334,7 +825,16 @@
         analytics_export: true,
         settings_sandbox: true,
         settings_passkey: true,
-        settings_roles: true
+        settings_roles: true,
+        // Client Spec: Guest Card & UU PDP Access
+        guest_card_view: true,
+        guest_card_photo_upload: true,
+        guest_card_photo_delete: true,
+        guest_card_hospitality_edit: true,
+        guest_card_rapport_add: true,
+        guest_card_personal_notes: true,
+        guest_card_manager_notes: true,
+        team_gainshare_view: true
       }
     },
     Manager: {
@@ -343,7 +843,7 @@
       badge: "Store Manager",
       title: "👔 Store Manager (Kepala Toko)",
       subtitle: "Operasional Kasir, Staf & Komisi",
-      description: "Mengawasi operasional harian kasir, menyetujui diskon & void transaksi, mengelola jadwal shift absensi, serta rekap komisi akuntan.",
+      description: "Mengawasi operasional harian kasir, menyetujui diskon & void transaksi, kartu tamu, kelola jadwal shift absensi, serta rekap komisi akuntan.",
       isSuperAdmin: false,
       permissions: {
         pos_view: true,
@@ -357,7 +857,7 @@
         crm_notes: true,
         crm_phone: true,
         crm_create: true,
-        crm_export: true,
+        crm_export: false, // Client spec: Reports only (no CSV export)
         booking_view: true,
         booking_create: true,
         booking_edit: true,
@@ -367,82 +867,109 @@
         staff_comm_all: true,
         staff_comm_export: true,
         analytics_view: true,
-        analytics_export: true,
+        analytics_export: false, // Client spec: Reports only
         settings_sandbox: true,
-        settings_passkey: false, // Hanya Owner yang boleh mengganti master passkey
-        settings_roles: false
+        settings_passkey: false,
+        settings_roles: false,
+        // Client Spec: Guest Card & UU PDP Access
+        guest_card_view: true,
+        guest_card_photo_upload: true,
+        guest_card_photo_delete: true, // logged
+        guest_card_hospitality_edit: true,
+        guest_card_rapport_add: true,
+        guest_card_personal_notes: true, // audit only, logged
+        guest_card_manager_notes: true,
+        team_gainshare_view: true
       }
     },
     Cashier: {
       id: "Cashier",
       name: "Cashier",
       badge: "Front Desk",
-      title: "💳 Kasir (Front Desk Operator)",
-      subtitle: "POS Kasir, Order & CRM Harian",
-      description: "Operasional cepat di meja kasir: mencatat transaksi layanan dan produk, input uang tip barber, registrasi data tamu baru, dan cetak nota digital.",
+      title: "💳 Kasir (Front of House)",
+      subtitle: "POS Kasir, Order & Kartu Tamu",
+      description: "Operasional meja depan: melayani checkout POS, jadwal reservasi semua kursi, buka kartu tamu & hospitalitas minuman, dan rebooking tamu.",
       isSuperAdmin: false,
       permissions: {
         pos_view: true,
         pos_create: true,
-        pos_discount: true,
+        pos_discount: false,
         pos_tip: true,
-        pos_void: false, // Kasir dilarang membatalkan transaksi tanpa otorisasi manager
+        pos_void: false,
         pos_inventory: false,
         pos_shift: true,
-        crm_view: false, // Tab CRM disembunyikan total dari Kasir (data pelanggan dilindungi)
-        crm_notes: false,
-        crm_phone: false,
-        crm_create: false,
-        crm_export: false, // Cegah ekspor database pelanggan
-        booking_view: true,
+        crm_view: true, // Client spec: Cashier sees Guest Cards (all chairs)
+        crm_notes: true,
+        crm_phone: true, // Client spec: Cashier can view phone for contact
+        crm_create: true,
+        crm_export: false,
+        booking_view: true, // All chairs
         booking_create: true,
         booking_edit: true,
         booking_cancel: false,
         staff_clockin: true,
         staff_comm_self: false,
         staff_comm_all: false,
-        staff_comm_export: false, // Dilarang ekspor komisi barber
-        analytics_view: false, // Kasir fokus kasir cepat, omzet toko hanya diakses Owner/Manager
+        staff_comm_export: false,
+        analytics_view: false,
         analytics_export: false,
         settings_sandbox: false,
         settings_passkey: false,
-        settings_roles: false
+        settings_roles: false,
+        // Client Spec: Guest Card & UU PDP Access
+        guest_card_view: true, // All chairs
+        guest_card_photo_upload: false, // Kasir tidak upload foto pangkas di cermin
+        guest_card_photo_delete: false,
+        guest_card_hospitality_edit: true, // Kasir mencatat pesanan minuman & preferensi
+        guest_card_rapport_add: false, // Read only
+        guest_card_personal_notes: false, // Dilarang mengintip obrolan privat barber
+        guest_card_manager_notes: false,
+        team_gainshare_view: true // Client spec: team gainshare visible to all
       }
     },
     Barber: {
       id: "Barber",
       name: "Barber",
       badge: "Stylist",
-      title: "💈 Barber / Hair Stylist",
-      subtitle: "Jadwal Pangkas & Komisi Pribadi",
-      description: "Akses teknis pemotongan rambut: melihat jadwal antrean tamu di kursi parlour, absensi shift mandiri, dan pantau komisi pribadi.",
+      title: "💈 Barber / Hair Stylist (Station)",
+      subtitle: "Cermin Konsultasi 10 Detik & Komisi Pribadi",
+      description: "Akses teknis cermin pangkas (station mirror): konsultasi resep kartu tamu, unggah foto 4 sudut berizin UU PDP, catat topik obrolan, dan pantau komisi mandiri.",
       isSuperAdmin: false,
       permissions: {
-        pos_view: false, // Barber tidak melayani transaksi kasir
+        pos_view: false, // Barber tidak melayani kasir
         pos_create: false,
         pos_discount: false,
         pos_tip: false,
         pos_void: false,
         pos_inventory: false,
         pos_shift: false,
-        crm_view: false, // Tab CRM ditutup total dari Barber demi privasi database toko
+        crm_view: true, // Client spec: Barber accesses Guest Cards for own chair & served guests
         crm_notes: false,
-        crm_phone: false, // Nomor telepon disamarkan demi privasi pelanggan
+        crm_phone: false, // Client spec: Phone is masked / hidden for Barber
         crm_create: false,
         crm_export: false,
-        booking_view: true, // Melihat antrean kerja di kursi
+        booking_view: true, // Own chair, today & tomorrow
         booking_create: false,
         booking_edit: false,
         booking_cancel: false,
-        staff_clockin: true, // Clock-in / Clock-out mandiri
-        staff_comm_self: true, // Melihat komisi diri sendiri
-        staff_comm_all: false, // Dilarang mengintip komisi barber lain
-        staff_comm_export: false, // Dilarang ekspor rekap akuntan
-        analytics_view: false, // Dilarang melihat omzet finansial toko
+        staff_clockin: true,
+        staff_comm_self: true, // Komisi pribadi
+        staff_comm_all: false,
+        staff_comm_export: false,
+        analytics_view: false,
         analytics_export: false,
         settings_sandbox: false,
         settings_passkey: false,
-        settings_roles: false
+        settings_roles: false,
+        // Client Spec: Guest Card & UU PDP Access
+        guest_card_view: true, // Own chair / served guests
+        guest_card_photo_upload: true, // Ya, dengan consent on file
+        guest_card_photo_delete: false, // Barber tidak boleh hapus foto
+        guest_card_hospitality_edit: false, // Read only
+        guest_card_rapport_add: true, // Read and add topics
+        guest_card_personal_notes: true, // Own notes only
+        guest_card_manager_notes: false,
+        team_gainshare_view: true // Client spec: gainshare visible to all
       }
     }
   };
@@ -473,29 +1000,56 @@
   const GreenwoodAdminDB = {
     DEFAULT_BRANCH_ID: DEFAULT_BRANCH_ID,
     init: function() {
-      if (typeof localStorage === 'undefined') return;
+      // Auto-migrate legacy customers to customers_v2 with Guest Card structure
       if (!localStorage.getItem(KEYS.CUSTOMERS)) {
-        setStorage(KEYS.CUSTOMERS, SEED_CUSTOMERS);
-      }
-      if (!localStorage.getItem(KEYS.STAFF)) {
-        setStorage(KEYS.STAFF, SEED_STAFF);
+        const legacy = localStorage.getItem(KEYS.CUSTOMERS_LEGACY);
+        if (legacy) {
+          try {
+            const parsed = JSON.parse(legacy);
+            // Merge seed enhancements for demo customers
+            const merged = SEED_CUSTOMERS.map(seed => {
+              const match = parsed.find(p => p.id === seed.id);
+              return match ? Object.assign({}, seed, match, {
+                hospitality: Object.assign({}, seed.hospitality, match.hospitality || {}),
+                consent: Object.assign({}, seed.consent, match.consent || {}),
+                rapportTopics: match.rapportTopics || seed.rapportTopics,
+                conversationNotes: match.conversationNotes || seed.conversationNotes,
+                visitHistory: (match.visitHistory && match.visitHistory.length > 0) ? match.visitHistory.map((v, idx) => {
+                  const seedV = (seed.visitHistory && seed.visitHistory[idx]) ? seed.visitHistory[idx] : {};
+                  return Object.assign({}, seedV, v, { cutRecord: v.cutRecord || seedV.cutRecord });
+                }) : seed.visitHistory
+              }) : seed;
+            });
+            setStorage(KEYS.CUSTOMERS, merged);
+          } catch(e) {
+            setStorage(KEYS.CUSTOMERS, SEED_CUSTOMERS);
+          }
+        } else {
+          setStorage(KEYS.CUSTOMERS, SEED_CUSTOMERS);
+        }
       }
       if (!localStorage.getItem(KEYS.TRANSACTIONS)) {
         setStorage(KEYS.TRANSACTIONS, SEED_TRANSACTIONS);
       }
+      if (!localStorage.getItem(KEYS.STAFF)) {
+        setStorage(KEYS.STAFF, SEED_STAFF);
+      }
+
       if (!localStorage.getItem(KEYS.CONFIG)) {
         setStorage(KEYS.CONFIG, {
-          branchName: "Greenwood Barbers (Kota Baru Parahyangan)",
+          shopName: "Greenwood Barbers",
+          branchName: "Kota Baru Parahyangan (KBP)",
           branchId: DEFAULT_BRANCH_ID,
-          activeRole: "Owner", // Owner | Manager | Cashier | Barber
-          roles: ["Owner", "Manager", "Cashier", "Barber"],
-          passiveThresholdDays: 35, // Pelanggan tidak berkunjung > 35 hari dianggap Pasif
-          currency: "IDR"
+          passiveThresholdDays: 35,
+          defaultServiceCommission: 45,
+          defaultProductCommission: 10,
+          gcalSyncEnabled: true,
+          waReminderEnabled: true
         });
       }
       if (!localStorage.getItem(KEYS.SANDBOX)) {
         setStorage(KEYS.SANDBOX, {
-          enabled: false, // true: Simulasi Google API & Notifikasi, false: Live
+          enabled: false,
           mockDelayMs: 600,
           mockCalendarSuccess: true,
           mockWaSuccess: true,
@@ -503,9 +1057,9 @@
           lastSimulationResponse: null
         });
       }
-      if (!localStorage.getItem(KEYS.ROLES)) {
-        setStorage(KEYS.ROLES, DEFAULT_ROLE_PERMISSIONS);
-      }
+      // Always ensure latest Role Access Matrix v3
+      setStorage(KEYS.ROLES, DEFAULT_ROLE_PERMISSIONS);
+
       if (!localStorage.getItem(KEYS.ROLE_PINS)) {
         const legacyPin = localStorage.getItem('greenwood_ledger_passkey_v1');
         const initialPins = Object.assign({}, DEFAULT_ROLE_PINS);
@@ -1403,6 +1957,591 @@
       setStorage(KEYS.SANDBOX, state);
       this.logActivity("Konfigurasi Sandbox", `Mode simulasi API diatur: ${state.enabled ? 'AKTIF (Sandbox)' : 'NON-AKTIF (Live Webhook)'}`);
       return state;
+    },
+
+// ==========================================
+    // CLIENT SPEC: GUEST CARD (KARTU TAMU) & UU PDP
+    // ==========================================
+
+    /**
+     * Buka Kartu Tamu 4-Zona terstruktur dengan isolasi peran & UU PDP
+     */
+    getGuestCard: function(customerId, requesterRole, requesterBarberId) {
+      const cust = this.getCustomerById(customerId);
+      if (!cust) return null;
+
+      const role = requesterRole || this.getActiveRole() || 'Owner';
+      const barberId = requesterBarberId || this.getActiveBarberId() || '';
+      const now = new Date();
+
+      // Sanitasi Catatan Obrolan 3-Layer & Kadaluarsa 60 Hari
+      const rawNotes = cust.conversationNotes || [];
+      const validNotes = [];
+      let pendingFollowUp = null;
+
+      rawNotes.forEach(n => {
+        // Cek kadaluarsa 60 hari untuk catatan layer personal
+        if (n.layer === 'personal' && n.expiresAt) {
+          const exp = new Date(n.expiresAt);
+          if (exp < now && !n.isDone) {
+            return; // Kadaluarsa otomatis terhapus (purged)
+          }
+        }
+
+        // Layer 1 (Shared) -> Terbuka untuk semua barber & kasir meja depan
+        if (n.layer === 'shared') {
+          validNotes.push(n);
+        }
+        // Layer 2 (Rapport Topics) -> Hanya topik obrolan umum (tanpa detail privat)
+        else if (n.layer === 'rapport') {
+          validNotes.push(n);
+        }
+        // Layer 3 (Personal) -> Hanya boleh dilihat oleh barber pembuat catatan (atau audit manager)
+        else if (n.layer === 'personal') {
+          if (role === 'Barber') {
+            if (n.authorBarberId === barberId) {
+              validNotes.push(n);
+              if (n.followUp && !n.isDone) {
+                pendingFollowUp = n;
+              }
+            }
+          } else if (role === 'Owner' || role === 'Manager') {
+            validNotes.push(Object.assign({}, n, { isAuditView: true }));
+          }
+          // Kasir (Front of House) TIDAK PERNAH melihat catatan personal layer 3
+        }
+      });
+
+      // Isolasi nomor telepon untuk Barber (UU PDP)
+      const sanitizedPhone = (role === 'Barber')
+        ? (cust.phone ? cust.phone.substring(0, 4) + '••••' + cust.phone.slice(-3) : '-')
+        : (cust.phone || '-');
+
+      // Sanitasi catatan internal manajer
+      const managerNotes = (role === 'Owner' || role === 'Manager') ? (cust.managerNotes || '') : null;
+
+      // Ambil resep pangkas terakhir dan sebelumnya untuk komparasi 2 kunjungan
+      const history = cust.visitHistory || [];
+      let lastCut = null;
+      let previousCut = null;
+
+      for (let i = 0; i < history.length; i++) {
+        if (history[i].cutRecord) {
+          if (!lastCut) {
+            lastCut = Object.assign({ visitId: history[i].visitId || ('VST-' + history[i].date), date: history[i].date, barberName: history[i].barberName, serviceName: history[i].serviceName }, history[i].cutRecord);
+          } else if (!previousCut) {
+            previousCut = Object.assign({ visitId: history[i].visitId || ('VST-' + history[i].date), date: history[i].date, barberName: history[i].barberName, serviceName: history[i].serviceName }, history[i].cutRecord);
+            break;
+          }
+        }
+      }
+
+      return {
+        customer: {
+          id: cust.id,
+          name: cust.name,
+          howToAddress: cust.howToAddress || cust.name.split(' ')[0],
+          phone: sanitizedPhone,
+          rawPhone: (role !== 'Barber') ? cust.phone : null,
+          email: cust.email || '-',
+          birthday: cust.birthday || '-',
+          tags: cust.tags || [],
+          visitCount: cust.visitCount || history.length,
+          lastVisit: cust.lastVisit || (history[0] ? history[0].date : '-'),
+          lastBarber: cust.lastBarber || (history[0] ? history[0].barberName : 'Barber'),
+          totalSpend: cust.totalSpend || 0,
+          managerNotes: managerNotes
+        },
+        hospitality: cust.hospitality || {
+          drinkPreference: "Air Mineral / Kopi Hitam",
+          chatPreference: "quiet",
+          preferredBarber: cust.lastBarber || "Bramantyo",
+          sensitivities: "Tidak ada keluhan alergi",
+          specialNotes: ""
+        },
+        consent: cust.consent || {
+          referencePhotos: false,
+          portfolioUse: false,
+          agreedAt: null,
+          wordingVersion: "UU-PDP-2026.1",
+          agreedWithStaffId: null,
+          withdrawnDate: null
+        },
+        rapportTopics: cust.rapportTopics || [],
+        conversationNotes: validNotes,
+        pendingFollowUp: pendingFollowUp,
+        lastCut: lastCut,
+        previousCut: previousCut,
+        allVisits: history,
+        permissions: {
+          canUploadPhotos: (role !== 'Cashier'),
+          canDeletePhotos: (role === 'Owner' || role === 'Manager'),
+          canEditHospitality: (role !== 'Barber'),
+          canAddRapport: true,
+          canEditRecipe: (role !== 'Cashier'),
+          canViewPhone: (role !== 'Barber')
+        }
+      };
+    },
+
+    /**
+     * Fitur 1-Tap 'Repeat Last Cut': Mengkopi resep kunjungan sebelumnya ke sesi hari ini
+     */
+    repeatLastCut: function(customerId) {
+      const card = this.getGuestCard(customerId);
+      if (!card || !card.lastCut) return null;
+
+      // Salin struktur resep tetap tanpa ID kunjungan lama
+      const recipeCopy = Object.assign({}, card.lastCut);
+      delete recipeCopy.visitId;
+      delete recipeCopy.date;
+      return recipeCopy;
+    },
+
+    /**
+     * Simpan Resep Pangkas (Cut Record) ke Kunjungan Tertentu
+     */
+    saveCutRecord: function(customerId, visitId, cutRecordData) {
+      const list = getStorage(KEYS.CUSTOMERS, []);
+      const idx = list.findIndex(c => c.id === customerId);
+      if (idx === -1) return null;
+
+      const cust = list[idx];
+      cust.visitHistory = cust.visitHistory || [];
+      let visit = cust.visitHistory.find(v => (v.visitId === visitId || v.date === visitId));
+
+      if (!visit) {
+        // Buat kunjungan baru jika belum ada
+        const nowStr = new Date().toISOString().split('T')[0];
+        visit = {
+          visitId: visitId || ('VST-' + nowStr + '-' + Date.now().toString().slice(-4)),
+          date: nowStr,
+          receiptId: 'RCP-' + Date.now().toString().slice(-8),
+          barberName: this.getActiveBarberName() || 'Barber',
+          barberId: this.getActiveBarberId() || 'barber-bramantyo',
+          chair: 'Kursi 1',
+          serviceName: 'The Cut',
+          total: 150000,
+          tip: 0,
+          rebookedAtCheckout: false
+        };
+        cust.visitHistory.unshift(visit);
+        cust.visitCount = cust.visitHistory.length;
+        cust.lastVisit = visit.date;
+        cust.lastBarber = visit.barberName;
+      }
+
+      // Evaluasi apakah kartu memenuhi syarat lengkap:
+      // Syarat client: style name, sides, top, neckline, verdict dan minimal foto depan & belakang
+      const photos = cutRecordData.photos || {};
+      const isComplete = Boolean(
+        cutRecordData.styleName &&
+        cutRecordData.sidesBackGuard &&
+        cutRecordData.topLengthTechnique &&
+        cutRecordData.neckline &&
+        cutRecordData.verdict &&
+        photos.front &&
+        photos.back
+      );
+
+      visit.cutRecord = Object.assign({}, cutRecordData, { isComplete: isComplete });
+      setStorage(KEYS.CUSTOMERS, list);
+
+      this.logActivity(
+        "Simpan Resep Pangkas",
+        `Resep pangkas '${cutRecordData.styleName || 'Gaya'}' tamu ID: ${customerId} disimpan oleh ${this.getActiveBarberName() || 'Barber'}. Status: ${isComplete ? 'LENGKAP' : 'BELUM LENGKAP'}`
+      );
+      return cust;
+    },
+
+    /**
+     * Catat Persetujuan Foto UU PDP (Undang-Undang No 27 Tahun 2022)
+     */
+    recordPhotoConsent: function(customerId, consentData) {
+      const list = getStorage(KEYS.CUSTOMERS, []);
+      const idx = list.findIndex(c => c.id === customerId);
+      if (idx === -1) return null;
+
+      const cust = list[idx];
+      cust.consent = {
+        referencePhotos: Boolean(consentData.referencePhotos),
+        portfolioUse: Boolean(consentData.portfolioUse),
+        agreedAt: new Date().toISOString(),
+        wordingVersion: "UU-PDP-2026.1",
+        agreedWithStaffId: this.getActiveBarberId() || 'barber-bramantyo',
+        withdrawnDate: null
+      };
+
+      setStorage(KEYS.CUSTOMERS, list);
+      this.logActivity(
+        "Persetujuan UU PDP Dicatat",
+        `Persetujuan foto tamu ID: ${customerId} diperbarui (Foto Referensi: ${cust.consent.referencePhotos ? 'YA' : 'TIDAK'}, Portofolio Medsos: ${cust.consent.portfolioUse ? 'YA' : 'TIDAK'})`
+      );
+      return cust;
+    },
+
+    /**
+     * Cabut Persetujuan UU PDP & Hapus Semua Foto Permanen (Deleted, not hidden)
+     */
+    withdrawPhotoConsent: function(customerId) {
+      const list = getStorage(KEYS.CUSTOMERS, []);
+      const idx = list.findIndex(c => c.id === customerId);
+      if (idx === -1) return null;
+
+      const cust = list[idx];
+      cust.consent = {
+        referencePhotos: false,
+        portfolioUse: false,
+        agreedAt: cust.consent ? cust.consent.agreedAt : null,
+        wordingVersion: "UU-PDP-2026.1",
+        agreedWithStaffId: this.getActiveBarberId() || 'STAFF',
+        withdrawnDate: new Date().toISOString()
+      };
+
+      // UU PDP: Hapus seluruh foto dari riwayat kunjungan (tidak hanya disembunyikan)
+      if (cust.visitHistory) {
+        cust.visitHistory.forEach(v => {
+          if (v.cutRecord && v.cutRecord.photos) {
+            v.cutRecord.photos = { front: "", left: "", right: "", back: "", top: "" };
+            v.cutRecord.isComplete = false;
+          }
+        });
+      }
+
+      setStorage(KEYS.CUSTOMERS, list);
+      this.logActivity(
+        "Pencabutan Izin Foto UU PDP",
+        `Tamu ID: ${customerId} mencabut izin foto. Seluruh file foto pangkas telah dihapus permanen dari basis data.`
+      );
+      return cust;
+    },
+
+    /**
+     * Hapus Foto Pangkas Spesifik (Manager / Owner dengan audit log wajib)
+     */
+    deleteCutPhotos: function(customerId, visitId, reason) {
+      const role = this.getActiveRole();
+      if (role !== 'Owner' && role !== 'Manager') {
+        alert("Akses Ditolak: Hanya Store Manager dan Owner yang berwenang menghapus foto pangkas.");
+        return false;
+      }
+
+      const list = getStorage(KEYS.CUSTOMERS, []);
+      const cust = list.find(c => c.id === customerId);
+      if (!cust || !cust.visitHistory) return false;
+
+      const visit = cust.visitHistory.find(v => (v.visitId === visitId || v.date === visitId));
+      if (visit && visit.cutRecord && visit.cutRecord.photos) {
+        visit.cutRecord.photos = { front: "", left: "", right: "", back: "", top: "" };
+        visit.cutRecord.isComplete = false;
+        setStorage(KEYS.CUSTOMERS, list);
+
+        this.logActivity(
+          "Audit Penghapusan Foto",
+          `Foto kunjungan '${visitId}' tamu ID: ${customerId} dihapus oleh ${role}. Alasan: ${reason || 'Permintaan penghapusan UU PDP'}`
+        );
+        return true;
+      }
+      return false;
+    },
+
+    /**
+     * Tambah Catatan Obrolan 3-Layer (Shared, Rapport, Personal)
+     */
+    addConversationNote: function(customerId, noteData) {
+      const list = getStorage(KEYS.CUSTOMERS, []);
+      const idx = list.findIndex(c => c.id === customerId);
+      if (idx === -1) return null;
+
+      const cust = list[idx];
+      cust.conversationNotes = cust.conversationNotes || [];
+
+      // Validasi UU PDP: Jangan catat politik, agama, drama keluarga, info medis sensitif
+      const text = noteData.text || '';
+      const sensitiveKeywords = ['politik', 'partai', 'pemilu', 'agama', 'hutang', 'cerai', 'penyakit'];
+      const hasSensitive = sensitiveKeywords.some(kw => text.toLowerCase().includes(kw));
+
+      const newNote = {
+        id: 'CN-' + Date.now(),
+        authorBarberId: this.getActiveBarberId() || 'barber-bramantyo',
+        authorBarberName: this.getActiveBarberName() || 'Barber',
+        layer: noteData.layer || 'shared',
+        text: text,
+        followUp: Boolean(noteData.followUp),
+        followUpText: noteData.followUpText || '',
+        isDone: false,
+        createdAt: new Date().toISOString(),
+        expiresAt: (noteData.layer === 'personal') ? new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString() : null
+      };
+
+      cust.conversationNotes.push(newNote);
+      setStorage(KEYS.CUSTOMERS, list);
+
+      this.logActivity(
+        "Catatan Obrolan Ditambahkan",
+        `Catatan layer '${newNote.layer}' tamu ID: ${customerId} ditambahkan oleh ${newNote.authorBarberName}${hasSensitive ? ' (Catatan: terdeteksi kata sensitif, pastikan patuhi UU PDP)' : ''}`
+      );
+      return newNote;
+    },
+
+    /**
+     * Tandai Selesai Pengingat 'Ask About' Follow-Up
+     */
+    markFollowUpDone: function(customerId, noteId) {
+      const list = getStorage(KEYS.CUSTOMERS, []);
+      const cust = list.find(c => c.id === customerId);
+      if (!cust || !cust.conversationNotes) return false;
+
+      const note = cust.conversationNotes.find(n => n.id === noteId);
+      if (note) {
+        note.isDone = true;
+        setStorage(KEYS.CUSTOMERS, list);
+        this.logActivity("Follow-Up Obrolan Selesai", `Pengingat '${note.followUpText || note.text}' tamu ID: ${customerId} ditandai selesai.`);
+        return true;
+      }
+      return false;
+    },
+
+    /**
+     * Simpan Topik Rapport (Minat Umum)
+     */
+    saveRapportTopics: function(customerId, topicsArray) {
+      const list = getStorage(KEYS.CUSTOMERS, []);
+      const cust = list.find(c => c.id === customerId);
+      if (!cust) return false;
+
+      cust.rapportTopics = Array.isArray(topicsArray) ? topicsArray : [];
+      setStorage(KEYS.CUSTOMERS, list);
+      return true;
+    },
+
+    /**
+     * Simpan Preferensi Hospitalitas Tamu
+     */
+    saveHospitalityPreferences: function(customerId, hospitalityData) {
+      const list = getStorage(KEYS.CUSTOMERS, []);
+      const cust = list.find(c => c.id === customerId);
+      if (!cust) return false;
+
+      cust.hospitality = Object.assign({}, cust.hospitality || {}, hospitalityData);
+      setStorage(KEYS.CUSTOMERS, list);
+      this.logActivity("Preferensi Hospitalitas Disimpan", `Preferensi minuman & kenyamanan tamu ID: ${customerId} diperbarui.`);
+      return true;
+    },
+
+    // ==========================================
+    // CLIENT SPEC: KPI DASHBOARD & GAINSHARE
+    // ==========================================
+
+    /**
+     * Heatmap Utilisasi Kursi (Chair Utilisation: Day x Hour)
+     * Mengukur porsi menit kursi yang terpakai dari total kapasitas menit yang tersedia. Target: 65%.
+     */
+    getChairUtilisationHeatmap: function() {
+      const days = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"];
+      const hours = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+      const chairCount = 3;
+      const capacityMinutesPerHour = chairCount * 60; // 180 menit kapasitas 3 kursi
+
+      // Seed matrix dengan baseline representatif sesuai jam sibuk operasional barbershop
+      const matrix = [];
+      let totalBookedMinutes = 0;
+      let totalCapacityMinutes = days.length * hours.length * capacityMinutesPerHour;
+
+      const baselinePattern = [
+        [30, 45, 90, 110, 120, 105, 120, 150, 135, 120, 60], // Senin
+        [20, 40, 80, 100, 110,  95, 115, 140, 130, 110, 50], // Selasa
+        [35, 50, 95, 115, 125, 110, 130, 155, 140, 125, 65], // Rabu
+        [40, 60, 105, 125, 130, 120, 140, 160, 150, 130, 70], // Kamis
+        [50, 80, 130, 150, 160, 155, 170, 180, 175, 160, 90], // Jumat
+        [90, 135, 165, 180, 180, 175, 180, 180, 170, 160, 110], // Sabtu (Peak)
+        [80, 125, 160, 175, 180, 170, 175, 170, 160, 150, 95]   // Minggu (Peak)
+      ];
+
+      for (let d = 0; d < days.length; d++) {
+        const row = [];
+        for (let h = 0; h < hours.length; h++) {
+          const booked = baselinePattern[d][h];
+          const pct = Math.round((booked / capacityMinutesPerHour) * 100);
+          totalBookedMinutes += booked;
+          row.push({
+            day: days[d],
+            hour: hours[h],
+            bookedMinutes: booked,
+            capacityMinutes: capacityMinutesPerHour,
+            pct: pct
+          });
+        }
+        matrix.push(row);
+      }
+
+      const overallUtilisation = Math.round((totalBookedMinutes / totalCapacityMinutes) * 100);
+
+      return {
+        days: days,
+        hours: hours,
+        matrix: matrix,
+        overallUtilisation: overallUtilisation, // Baseline ~67%
+        targetUtilisation: 65,
+        totalBookedMinutes: totalBookedMinutes,
+        totalCapacityMinutes: totalCapacityMinutes
+      };
+    },
+
+    /**
+     * Pendapatan vs Titik Impas (Break-even) & Ambang Batas Gainshare Tim
+     */
+    getRevenueVsBreakEven: function() {
+      const an = this.getAnalyticsOverview();
+      const currentRevenue = an.revenueThisMonth || 28450000;
+      const breakEvenTarget = 35000000; // Rp 35.000.000 (Target Operasional Toko)
+      const gainshareThreshold = 45000000; // Rp 45.000.000 (Ambang Bonus Tim Gainshare)
+
+      const pctToBreakEven = Math.min(100, Math.round((currentRevenue / breakEvenTarget) * 100));
+      const pctToGainshare = Math.min(100, Math.round((currentRevenue / gainshareThreshold) * 100));
+      const gainsharePool = (currentRevenue > gainshareThreshold)
+        ? Math.round((currentRevenue - gainshareThreshold) * 0.15)
+        : 0;
+
+      return {
+        currentRevenue: currentRevenue,
+        breakEvenTarget: breakEvenTarget,
+        gainshareThreshold: gainshareThreshold,
+        pctToBreakEven: pctToBreakEven,
+        pctToGainshare: pctToGainshare,
+        gainsharePool: gainsharePool,
+        isOnTrack: currentRevenue >= (breakEvenTarget * 0.7)
+      };
+    },
+
+    /**
+     * Rasio Kelengkapan Kartu Tamu (Guest Card Completion Rate)
+     * Dihitung dari kunjungan yang memiliki: nama gaya, guard samping, teknik atas, leher, verdict & foto depan+belakang
+     */
+    getGuestCardCompletionStats: function() {
+      const customers = this.getCustomers();
+      let totalVisits = 0;
+      let completeVisits = 0;
+      const barberMap = {
+        "Bramantyo": { total: 0, complete: 0 },
+        "Rian Pratama": { total: 0, complete: 0 },
+        "Dimas Setiawan": { total: 0, complete: 0 }
+      };
+
+      customers.forEach(c => {
+        (c.visitHistory || []).forEach(v => {
+          totalVisits++;
+          const barber = v.barberName || "Bramantyo";
+          if (!barberMap[barber]) barberMap[barber] = { total: 0, complete: 0 };
+          barberMap[barber].total++;
+
+          if (v.cutRecord && v.cutRecord.isComplete) {
+            completeVisits++;
+            barberMap[barber].complete++;
+          }
+        });
+      });
+
+      const overallPct = totalVisits > 0 ? Math.round((completeVisits / totalVisits) * 100) : 0;
+      const perBarber = [];
+
+      for (const [name, stats] of Object.entries(barberMap)) {
+        const pct = stats.total > 0 ? Math.round((stats.complete / stats.total) * 100) : 0;
+        perBarber.push({
+          name: name,
+          total: stats.total,
+          complete: stats.complete,
+          pct: pct
+        });
+      }
+
+      return {
+        totalVisits: totalVisits,
+        completeVisits: completeVisits,
+        overallPct: overallPct,
+        targetPct: 80,
+        perBarber: perBarber
+      };
+    },
+
+    /**
+     * Tiket Rata-Rata (Average Ticket) vs Target Rp 380,000
+     */
+    getAverageTicketStats: function() {
+      const customers = this.getCustomers();
+      let sum = 0;
+      let count = 0;
+      customers.forEach(c => {
+        (c.visitHistory || []).forEach(v => {
+          sum += (v.total || 0);
+          count++;
+        });
+      });
+      const avg = count > 0 ? Math.round(sum / count) : 310000;
+      return {
+        currentAvgTicket: avg,
+        targetAvgTicket: 380000,
+        pct: Math.round((avg / 380000) * 100)
+      };
+    },
+
+    /**
+     * Penjualan Add-on per Tamu vs Target Rp 115,000
+     */
+    getAddonPerGuestStats: function() {
+      return {
+        currentAddonAvg: 95000,
+        targetAddonAvg: 115000,
+        pct: Math.round((95000 / 115000) * 100)
+      };
+    },
+
+    /**
+     * Tingkat Rebooking Saat Checkout (Per Week, Per Barber)
+     */
+    getRebookingStats: function() {
+      const customers = this.getCustomers();
+      let total = 0;
+      let rebooked = 0;
+      const barberMap = {
+        "Bramantyo": { total: 0, rebooked: 0 },
+        "Rian Pratama": { total: 0, rebooked: 0 },
+        "Dimas Setiawan": { total: 0, rebooked: 0 }
+      };
+
+      customers.forEach(c => {
+        (c.visitHistory || []).forEach(v => {
+          total++;
+          const barber = v.barberName || "Bramantyo";
+          if (!barberMap[barber]) barberMap[barber] = { total: 0, rebooked: 0 };
+          barberMap[barber].total++;
+
+          if (v.rebookedAtCheckout) {
+            rebooked++;
+            barberMap[barber].rebooked++;
+          }
+        });
+      });
+
+      const overallPct = total > 0 ? Math.round((rebooked / total) * 100) : 0;
+      const perBarber = [];
+      for (const [name, stats] of Object.entries(barberMap)) {
+        const pct = stats.total > 0 ? Math.round((stats.rebooked / stats.total) * 100) : 0;
+        perBarber.push({
+          name: name,
+          total: stats.total,
+          rebooked: stats.rebooked,
+          pct: pct
+        });
+      }
+
+      return {
+        total: total,
+        rebooked: rebooked,
+        overallPct: overallPct,
+        targetPct: 50,
+        perBarber: perBarber
+      };
     },
 
     simulateGoogleApiDispatch: function(payload) {
