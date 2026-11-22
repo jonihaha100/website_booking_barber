@@ -3399,6 +3399,58 @@
           </div>
         </div>
 
+        <!-- NO-SHOW / LOST MINUTES & NEW GUESTS BY SOURCE (CLIENT SPEC PAGE 7) -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px; margin-top: 18px;">
+          <!-- No-Show & Late Cancel -->
+          <div class="metric-card" style="text-align: left;">
+            <div class="metric-label" style="color: #f87171;">No-Show &amp; Pembatalan Terlambat (Lost Chair-Minutes)</div>
+            <div style="display: flex; align-items: baseline; gap: 8px; margin-top: 4px;">
+              <span style="font-size: 22px; font-weight: 700; color: #fff;">90</span>
+              <span style="font-size: 13px; color: var(--text-muted);">menit kursi hilang minggu ini</span>
+            </div>
+            <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 4px;">
+              2 No-Show &bull; 1 Pembatalan &lt; 2 jam sebelum jadwal.
+            </div>
+            <div style="margin-top: 8px; font-size: 11px; color: #4ade80;">
+              📉 Menurun 30% berkat pengingat otomatis WhatsApp.
+            </div>
+          </div>
+
+          <!-- New Guests by Source -->
+          <div class="metric-card" style="text-align: left;">
+            <div class="metric-label" style="color: var(--accent-gold);">Tamu Baru Berdasarkan Sumber Akuisisi (New Guests by Source)</div>
+            <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 6px; font-size: 11.5px;">
+              <div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 2px;">
+                  <span>Instagram / TikTok / Medsos</span>
+                  <strong>45% (18 Tamu)</strong>
+                </div>
+                <div style="width: 100%; height: 6px; background: #040d09; border-radius: 3px; overflow: hidden;">
+                  <div style="width: 45%; height: 100%; background: #e5b95f;"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 2px;">
+                  <span>Rekomendasi Teman / Komunitas KBP</span>
+                  <strong>35% (14 Tamu)</strong>
+                </div>
+                <div style="width: 100%; height: 6px; background: #040d09; border-radius: 3px; overflow: hidden;">
+                  <div style="width: 35%; height: 100%; background: #4ade80;"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 2px;">
+                  <span>Website greenwood.id</span>
+                  <strong>20% (8 Tamu)</strong>
+                </div>
+                <div style="width: 100%; height: 6px; background: #040d09; border-radius: 3px; overflow: hidden;">
+                  <div style="width: 20%; height: 100%; background: #38bdf8;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- ACTIVITY LOG AUDIT TRAIL -->
         <div style="margin-top: 24px;">
           <h4 style="color: #fff; font-size: 16px; margin: 0 0 12px; font-family: 'Lora', serif;">Log Aktivitas &amp; Audit Trail</h4>
@@ -4043,6 +4095,32 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
               <input type="file" accept="image/*" style="display:none;" onchange="handleUploadAnglePhoto('back', event)">
             </label>
           </div>
+
+          <!-- Top / Crown (Optional) -->
+          <div class="photo-angle-card">
+            <span class="photo-angle-badge" style="background:#0a1f18; color:#a3b899; border-color:#22382c;">5. ATAS (OPSIONAL)</span>
+            <div class="photo-angle-thumb-wrap">
+              <img id="thumbAngleTop" src="assets/cuts/cust001_top.svg" alt="Sudut Atas Mahkota">
+            </div>
+            <div style="font-size: 11px; color: var(--text-muted); text-align: center; margin-bottom: 6px;">Tekstur Atas &amp; Mahkota</div>
+            <label class="btn-portal-action" style="font-size: 11px; padding: 4px 8px; cursor: pointer;">
+              <span>📷</span> Ambil / Upload
+              <input type="file" accept="image/*" style="display:none;" onchange="handleUploadAnglePhoto('top', event)">
+            </label>
+          </div>
+
+          <!-- Before (Optional) -->
+          <div class="photo-angle-card">
+            <span class="photo-angle-badge" style="background:#0a1f18; color:#a3b899; border-color:#22382c;">BEFORE (OPSIONAL)</span>
+            <div class="photo-angle-thumb-wrap">
+              <img id="thumbAngleBefore" src="assets/cuts/cust001_before.svg" alt="Foto Sebelum Pangkas">
+            </div>
+            <div style="font-size: 11px; color: var(--text-muted); text-align: center; margin-bottom: 6px;">Kondisi Awal Rambut</div>
+            <label class="btn-portal-action" style="font-size: 11px; padding: 4px 8px; cursor: pointer;">
+              <span>📷</span> Ambil / Upload
+              <input type="file" accept="image/*" style="display:none;" onchange="handleUploadAnglePhoto('before', event)">
+            </label>
+          </div>
         </div>
 
         <!-- SIDE-BY-SIDE VISIT COMPARISON -->
@@ -4095,6 +4173,22 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
             <span>💬</span> <span>Mesin Percakapan 3-Layer (UU PDP Law 27/2022)</span>
           </h4>
           <span style="font-size: 10.5px; color: #4ade80;">🛡️ Privasi Terisolasi per Barber</span>
+        </div>
+
+        <!-- Handover Note (Pesan Sadar Barber Pengganti - Page 4 Spec) -->
+        <div style="background: rgba(3, 12, 8, 0.7); border: 1px solid rgba(197, 155, 72, 0.3); border-radius: 8px; padding: 10px 12px; margin-bottom: 12px;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <label class="recipe-field-label" style="color: var(--accent-gold); display: flex; align-items: center; gap: 6px;">
+              <span>🤝</span> Pesan Handover Barber (Disampaikan Jika Barber Langganan Libur)
+            </label>
+            <button type="button" class="btn-portal-action" style="font-size: 10px; padding: 2px 8px;" onclick="handleSaveHandoverNote()">
+              Simpan Pesan
+            </button>
+          </div>
+          <input type="text" id="inputHandoverNote" class="recipe-input" style="margin-top: 6px;" placeholder="Contoh: Rian yang menangani hari ini; tamu baru saja kembali dari Bali...">
+          <div style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">
+            SOP: Catatan personal tidak pernah dipindah otomatis. Barber langganan dapat secara sadar menuliskan satu baris pesan ini untuk barber pengganti.
+          </div>
         </div>
 
         <!-- Layer 2: Rapport Topics (General Interests) -->
@@ -5900,11 +5994,24 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       }
 
       const cust = GreenwoodAdminDB.getCustomerById(customerId);
-      if (cust && cust.internalNotes && cust.internalNotes.trim().length > 0) {
-        notesEl.textContent = `"${cust.internalNotes}"`;
-        banner.style.display = 'block';
-      } else {
-        notesEl.textContent = "Belum ada catatan preferensi gaya rambut. Klik edit untuk menambahkan.";
+      if (cust) {
+        // Client Spec Page 4: Auto-suggest & default to last / preferred barber
+        const prefBarber = (cust.hospitality && cust.hospitality.preferredBarber) || cust.lastBarber;
+        if (prefBarber) {
+          const barberSelect = document.getElementById('posBarberSelect');
+          if (barberSelect) {
+            for (let i = 0; i < barberSelect.options.length; i++) {
+              if (barberSelect.options[i].text.includes(prefBarber)) {
+                barberSelect.selectedIndex = i;
+                break;
+              }
+            }
+          }
+        }
+
+        const noteText = cust.internalNotes ? `"${cust.internalNotes}"` : "Belum ada catatan formula khusus. Klik edit untuk menambahkan.";
+        const prefNote = prefBarber ? ` &bull; <span style="color:#4ade80;">Barber Langganan: ${prefBarber}</span>` : "";
+        notesEl.innerHTML = noteText + prefNote;
         banner.style.display = 'block';
       }
     }
@@ -6828,7 +6935,13 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       const hospSaveWrap = document.getElementById('hospSaveWrap');
       if (hospSaveWrap) hospSaveWrap.style.display = canEditHosp ? 'flex' : 'none';
 
-      // 5. Zone 4: Photo Gallery 4 Angles
+      // Handover Note
+      const handoverInput = document.getElementById('inputHandoverNote');
+      if (handoverInput) {
+        handoverInput.value = (card.customer.handoverNote && card.customer.handoverNote.text) ? card.customer.handoverNote.text : '';
+      }
+
+      // 5. Zone 4: Photo Gallery 4 Angles + Top & Before (6 slots)
       const photos = (last && last.photos) ? last.photos : {};
       const thumbF = document.getElementById('thumbAngleFront');
       const thumbL = document.getElementById('thumbAngleLeft');
@@ -6839,6 +6952,10 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       if (thumbL) thumbL.src = photos.left || 'assets/cuts/cust001_left.svg';
       if (thumbR) thumbR.src = photos.right || 'assets/cuts/cust001_right.svg';
       if (thumbB) thumbB.src = photos.back || 'assets/cuts/cust001_back.svg';
+      const thumbT = document.getElementById('thumbAngleTop');
+      const thumbBf = document.getElementById('thumbAngleBefore');
+      if (thumbT) thumbT.src = photos.top || 'assets/cuts/cust001_top.svg';
+      if (thumbBf) thumbBf.src = photos.before || 'assets/cuts/cust001_before.svg';
 
       // Dropdown Komparasi Kunjungan
       populateComparisonDropdowns(card.allVisits);
@@ -6950,6 +7067,15 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     /**
      * Simpan Preferensi Hospitalitas (Zona 3)
      */
+    
+    function handleSaveHandoverNote() {
+      if (!activeCustomerDetail || !GreenwoodAdminDB) return;
+      const input = document.getElementById('inputHandoverNote');
+      if (!input) return;
+      GreenwoodAdminDB.saveHandoverNote(activeCustomerDetail.id, input.value.trim());
+      alert("🤝 Pesan handover untuk barber pengganti berhasil disimpan!");
+    }
+
     function handleSaveHospitality() {
       if (!activeCustomerDetail || !GreenwoodAdminDB) return;
       const hospData = {

@@ -152,7 +152,8 @@
               left: "assets/cuts/cust001_left.svg",
               right: "assets/cuts/cust001_right.svg",
               back: "assets/cuts/cust001_back.svg",
-              top: ""
+              top: "assets/cuts/cust001_top.svg",
+              before: "assets/cuts/cust001_before.svg"
             },
             isComplete: true
           }
@@ -329,7 +330,8 @@
               left: "assets/cuts/cust001_left.svg",
               right: "assets/cuts/cust001_right.svg",
               back: "assets/cuts/cust001_back.svg",
-              top: ""
+              top: "assets/cuts/cust001_top.svg",
+              before: "assets/cuts/cust001_before.svg"
             },
             isComplete: true
           }
@@ -554,7 +556,8 @@
               left: "assets/cuts/cust001_left.svg",
               right: "assets/cuts/cust001_right.svg",
               back: "assets/cuts/cust001_back.svg",
-              top: ""
+              top: "assets/cuts/cust001_top.svg",
+              before: "assets/cuts/cust001_before.svg"
             },
             isComplete: true
           }
@@ -653,7 +656,8 @@
               left: "assets/cuts/cust001_left.svg",
               right: "assets/cuts/cust001_right.svg",
               back: "assets/cuts/cust001_back.svg",
-              top: ""
+              top: "assets/cuts/cust001_top.svg",
+              before: "assets/cuts/cust001_before.svg"
             },
             isComplete: true
           }
@@ -2219,6 +2223,88 @@
     /**
      * Hapus Foto Pangkas Spesifik (Manager / Owner dengan audit log wajib)
      */
+    
+    /**
+     * Retensi UU PDP: Hapus foto pangkas setelah 24 bulan tanpa kunjungan
+     */
+    purgeInactivePhotos: function(monthsThreshold = 24) {
+      const list = getStorage(KEYS.CUSTOMERS, []);
+      const now = new Date();
+      let purgedCount = 0;
+
+      list.forEach(cust => {
+        if (cust.lastVisit) {
+          const diffMonths = (now - new Date(cust.lastVisit)) / (1000 * 60 * 60 * 24 * 30.4);
+          if (diffMonths >= monthsThreshold && cust.visitHistory) {
+            cust.visitHistory.forEach(v => {
+              if (v.cutRecord && v.cutRecord.photos) {
+                const hadPhotos = v.cutRecord.photos.front || v.cutRecord.photos.back;
+                if (hadPhotos) {
+                  v.cutRecord.photos = { front: "", left: "", right: "", back: "", top: "", before: "" };
+                  v.cutRecord.isComplete = false;
+                  purgedCount++;
+                }
+              }
+            });
+          }
+        }
+      });
+
+      if (purgedCount > 0) {
+        setStorage(KEYS.CUSTOMERS, list);
+        this.logActivity(
+          "Pembersihan Retensi UU PDP 24 Bulan",
+          `Menghapus foto pangkas dari ${purgedCount} kunjungan pelanggan yang tidak aktif lebih dari ${monthsThreshold} bulan.`
+        );
+      }
+      return purgedCount;
+    },
+
+    /**
+     * Catatan Handover (Pilihan Sadar Barber Langganan saat Digantikan Rekan)
+     */
+    saveHandoverNote: function(customerId, handoverText) {
+      const list = getStorage(KEYS.CUSTOMERS, []);
+      const cust = list.find(c => c.id === customerId);
+      if (!cust) return false;
+
+      cust.handoverNote = {
+        text: handoverText || '',
+        authorBarberId: this.getActiveBarberId() || 'barber-bramantyo',
+        authorBarberName: this.getActiveBarberName() || 'Barber',
+        updatedAt: new Date().toISOString()
+      };
+      setStorage(KEYS.CUSTOMERS, list);
+      this.logActivity(
+        "Catatan Handover Disimpan",
+        `Pesan handover untuk tamu ID: ${customerId} diperbarui oleh ${cust.handoverNote.authorBarberName}`
+      );
+      return true;
+    },
+
+    /**
+     * KPI No-Show dan Pembatalan Terlambat (Lost Chair-Minutes)
+     */
+    getNoShowAndLostMinutesStats: function() {
+      return {
+        weeklyNoShows: 2,
+        weeklyLateCancels: 1,
+        lostMinutesWeekly: 90, // 2 x 45 mnt
+        trend: "Menurun 30% dari minggu lalu"
+      };
+    },
+
+    /**
+     * KPI Tamu Baru Berdasarkan Sumber (New Guests by Source)
+     */
+    getNewGuestsBySourceStats: function() {
+      return [
+        { source: "Instagram / TikTok / Medsos", pct: 45, count: 18 },
+        { source: "Rekomendasi Teman / Komunitas KBP", pct: 35, count: 14 },
+        { source: "Website greenwood.id", pct: 20, count: 8 }
+      ];
+    },
+
     deleteCutPhotos: function(customerId, visitId, reason) {
       const role = this.getActiveRole();
       if (role !== 'Owner' && role !== 'Manager') {

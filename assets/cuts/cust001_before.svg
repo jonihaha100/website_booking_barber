@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#040d09"/>
+      <stop offset="100%" stop-color="#0e1f18"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e5b95f"/>
+      <stop offset="100%" stop-color="#c59b48"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="500" rx="16" fill="url(#bgGrad)"/>
+  <rect x="8" y="8" width="384" height="484" rx="12" fill="none" stroke="#c59b48" stroke-width="1.5" stroke-opacity="0.35" stroke-dasharray="6 4"/>
+  
+  <!-- Silhouette Graphics -->
+  
+  <!-- Overgrown hair head silhouette -->
+  <path d="M130 180 C130 90, 270 90, 270 180 C270 260, 245 320, 200 340 C155 320, 130 260, 130 180 Z" fill="#162a22" stroke="#e5b95f" stroke-width="1.5" stroke-opacity="0.4"/>
+  <!-- Overgrown thick hair messy -->
+  <path d="M120 190 C110 110, 150 70, 200 68 C250 70, 290 110, 280 190 C280 230, 260 270, 260 270 C240 250, 230 230, 200 230 C170 230, 160 250, 140 270 C140 270, 120 230, 120 190 Z" fill="#22382c" stroke="#a3b899" stroke-width="2"/>
+  <text x="200" y="160" fill="#a3b899" font-size="14" font-family="'Lora', serif" text-anchor="middle">Kondisi Awal (Before)</text>
+  <text x="200" y="185" fill="#e5b95f" font-size="11" font-family="monospace" text-anchor="middle">Rambut Panjang Belum Dipangkas</text>
+
+
+  <!-- Overlay Labels -->
+  <rect x="20" y="20" width="150" height="28" rx="6" fill="#030c08" fill-opacity="0.85" stroke="#c59b48" stroke-width="1"/>
+  <text x="95" y="38" fill="#e5b95f" font-family="'Lora', serif" font-size="12" font-weight="bold" text-anchor="middle">BEFORE (AWAL)</text>
+  
+  <rect x="20" y="450" width="360" height="32" rx="6" fill="#030c08" fill-opacity="0.9" stroke="#22382c" stroke-width="1"/>
+  <text x="30" y="471" fill="#a3b899" font-family="'Open Sans', sans-serif" font-size="11">Kondisi Rambut Sebelum Pangkas</text>
+  <text x="370" y="471" fill="#c59b48" font-family="'Open Sans', sans-serif" font-size="11" text-anchor="end">4 Nov 2026</text>
+</svg>
