@@ -6,15 +6,16 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>Hubungi Kami &middot; Greenwood Barbers</title>
-  <meta name="description" content="Ruko PancaTengah, Kota Baru Parahyangan. Message or call us any time we’re open. Wednesday to Monday, 10:00–20:00.">
+  <meta name="google" content="notranslate">
+  <title data-i18n="contactPageTitle">Hubungi Kami &middot; Greenwood Barbers</title>
+  <meta name="description" content="Ruko PancaTengah, Kota Baru Parahyangan. Hubungi kami melalui WhatsApp atau telepon setiap hari operasional. Rabu sampai Senin, 10:00–20:00 WIB.">
   <link rel="icon" type="image/png" href="assets/greenwood_monogram_cropped.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/greenwood.css?v=20261018_4">
   <script src="assets/config.js?v=20261107_prod"></script>
-  <script src="assets/greenwood-i18n.js?v=20261107_v1" defer></script>
+  <script src="assets/greenwood-i18n.js?v=20261122_v5" defer></script>
 
   <style>
     :root {
@@ -470,25 +471,25 @@
       <img src="assets/greenwood_logo_transparent.png?v=20261018_v3" alt="Greenwood Barbers" class="brand-logo-img">
     </a>
 
-    <nav class="main-nav" aria-label="Main navigation">
-      <a href="index.html">Home</a>
-      <a href="about.html">About Us</a>
-      <a href="contact.html" class="active">Contact Us</a>
+    <nav class="main-nav" aria-label="Navigasi Utama">
+      <a href="index.html" data-i18n="navHome">Beranda</a>
+      <a href="about.html" data-i18n="navAbout">Tentang Kami</a>
+      <a href="contact.html" class="active" data-i18n="navContact">Hubungi Kami</a>
     </nav>
 
     <div class="header-cta-group">
-      <a href="booking.html" class="btn-header-book">RESERVE A CHAIR</a>
-      <button class="menu-toggle-btn" onclick="toggleMobileNav()" aria-label="Toggle navigation menu">&#9776;</button>
+      <a href="booking.html" class="btn-header-book" data-i18n="navReserve">RESERVASI KURSI</a>
+      <button class="menu-toggle-btn" onclick="toggleMobileNav()" aria-label="Buka menu navigasi">&#9776;</button>
     </div>
   </header>
 
   <!-- MOBILE NAV OVERLAY -->
   <div class="mobile-nav-overlay" id="mobileNavOverlay">
-    <button class="mobile-nav-close" onclick="closeMobileNav()" aria-label="Close menu">&times;</button>
-    <a href="index.html" onclick="closeMobileNav()">Home</a>
-    <a href="about.html" onclick="closeMobileNav()">About Us</a>
-    <a href="contact.html" class="active" onclick="closeMobileNav()">Contact Us</a>
-    <a href="booking.html" class="btn-primary" style="margin-top: 16px; background: linear-gradient(135deg, var(--accent-gold) 0%, #9a7428 100%); color: #030c08; font-weight: 700; border: 1px solid var(--accent-gold);" onclick="closeMobileNav()">RESERVE A CHAIR</a>
+    <button class="mobile-nav-close" onclick="closeMobileNav()" aria-label="Tutup menu">&times;</button>
+    <a href="index.html" onclick="closeMobileNav()" data-i18n="navHome">Beranda</a>
+    <a href="about.html" onclick="closeMobileNav()" data-i18n="navAbout">Tentang Kami</a>
+    <a href="contact.html" class="active" onclick="closeMobileNav()" data-i18n="navContact">Hubungi Kami</a>
+    <a href="booking.html" class="btn-primary" style="margin-top: 16px; background: linear-gradient(135deg, var(--accent-gold) 0%, #9a7428 100%); color: #030c08; font-weight: 700; border: 1px solid var(--accent-gold);" onclick="closeMobileNav()" data-i18n="navReserve">RESERVASI KURSI</a>
   </div>
 
   <main>
@@ -499,10 +500,10 @@
       </div>
       <div class="contact-hero-vignette"></div>
       <div class="contact-hero-inner">
-        <div class="contact-location-badge">VISIT &middot; CALL &middot; MESSAGE</div>
-        <h1 class="contact-hero-title">Come and see us.</h1>
-        <p class="contact-hero-sub">
-          We’re at Ruko PancaTengah, Kota Baru Parahyangan. Message or call us any time we’re open, and our dedicated staff will answer.
+        <div class="contact-location-badge" data-i18n="contactBadge">KUNJUNGI &middot; TELEPON &middot; PESAN</div>
+        <h1 class="contact-hero-title" data-i18n="contactHeroTitle">Kunjungi Tempat Singgah Kami.</h1>
+        <p class="contact-hero-sub" data-i18n="contactHeroSub">
+          Kami berada di Ruko PancaTengah, Kota Baru Parahyangan. Kirim pesan WhatsApp atau hubungi kami kapan saja selama jam operasional, staf concierge kami siap menyambut Anda.
         </p>
       </div>
     </section>
@@ -516,21 +517,21 @@
         <a href="https://wa.me/6281991153322" target="_blank" rel="noopener" class="quick-action-card">
           <div class="quick-info-title">WhatsApp</div>
           <div class="quick-info-val">+62 819-9115-3322</div>
-          <div class="quick-info-sub">The fastest way to book, change or ask &rarr;</div>
+          <div class="quick-info-sub" data-i18n-html="contactWaSub">Cara tercepat untuk reservasi, ubah jadwal, atau bertanya &rarr;</div>
         </a>
 
         <!-- Telephone -->
         <a href="tel:+6281991153322" class="quick-action-card">
-          <div class="quick-info-title">Phone</div>
+          <div class="quick-info-title" data-i18n="contactPhoneTitle">Telepon</div>
           <div class="quick-info-val">+62 819-9115-3322</div>
-          <div class="quick-info-sub">Prefer to talk? Call the front desk &rarr;</div>
+          <div class="quick-info-sub" data-i18n-html="contactPhoneSub">Ingin berbincang langsung? Hubungi meja resepsionis kami &rarr;</div>
         </a>
 
         <!-- Email -->
         <a href="mailto:salretailventures@gmail.com" class="quick-action-card">
-          <div class="quick-info-title">Email</div>
+          <div class="quick-info-title" data-i18n="contactEmailTitle">Email</div>
           <div class="quick-info-val">salretailventures@gmail.com</div>
-          <div class="quick-info-sub">Group bookings, gifts and everything else &rarr;</div>
+          <div class="quick-info-sub" data-i18n-html="contactEmailSub">Reservasi rombongan, voucher hadiah, dan pertanyaan lainnya &rarr;</div>
         </a>
       </div>
 
@@ -540,32 +541,32 @@
         <!-- Left: Information Panel -->
         <div class="contact-panel">
           <h2 class="panel-heading">
-            <span>Where and when</span>
+            <span data-i18n="contactPanelHeading">Lokasi & Jam Buka</span>
           </h2>
 
           <div class="info-list-group">
             <!-- Address -->
             <div class="info-row">
-              <div class="info-row-label">Address</div>
+              <div class="info-row-label" data-i18n="contactAddressLabel">Alamat</div>
               <div class="info-row-text">
                 <strong>Greenwood Barbers</strong><br>
                 <a href="https://www.google.com/maps/search/?api=1&query=-6.871083,107.466639" target="_blank" rel="noopener" style="color: var(--accent-gold-bright); text-decoration: underline;">Ruko PancaTengah, Jl. Parahyangan No. 87</a><br>
                 Kota Baru Parahyangan, Padalarang 40553<br>
-                <span style="font-size: 13px; color: var(--text-muted); margin-top: 4px; display: inline-block;">Free parking right at the door.</span>
+                <span style="font-size: 13px; color: var(--text-muted); margin-top: 4px; display: inline-block;" data-i18n="contactParkingNote">Bebas biaya parkir tepat di depan pintu.</span>
               </div>
             </div>
 
             <!-- Operating Hours (Tuesday Closed explicitly highlighted) -->
             <div class="info-row">
-              <div class="info-row-label">Opening hours</div>
+              <div class="info-row-label" data-i18n="contactHoursLabel">Jam Operasional</div>
               <div class="info-row-text">
                 <div style="margin-bottom: 6px;">
-                  <strong>Wednesday &ndash; Monday:</strong> 10:00 &ndash; 20:00 WIB
-                  <span class="info-badge-open">Open</span>
+                  <span data-i18n-html="contactDaysText"><strong>Rabu &ndash; Senin:</strong> 10:00 &ndash; 20:00 WIB</span>
+                  <span class="info-badge-open" data-i18n="contactBadgeOpen">Buka</span>
                 </div>
                 <div>
-                  <strong>Tuesday:</strong> Our day to rest, clean and sharpen
-                  <span class="info-badge-closed">CLOSED</span>
+                  <span data-i18n-html="contactTuesdayText"><strong>Selasa:</strong> Hari libur untuk pembersihan & sterilisasi</span>
+                  <span class="info-badge-closed" data-i18n="contactBadgeClosed">TUTUP</span>
                 </div>
               </div>
             </div>
@@ -579,7 +580,7 @@
             <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(197, 155, 72, 0.15); border: 1px solid var(--accent-gold); display: flex; align-items: center; justify-content: center; margin-bottom: 12px; font-size: 22px;">📍</div>
             <div style="font-family: var(--font-serif); font-size: 18px; color: #f0e6d2; margin-bottom: 4px;">Greenwood Barbers</div>
             <div style="font-size: 13px; color: var(--text-muted); max-width: 260px; line-height: 1.4; margin-bottom: 16px;">Ruko PancaTengah, Jl. Parahyangan No. 87, Kota Baru Parahyangan</div>
-            <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: var(--accent-gold); color: #030c08; font-size: 13px; font-weight: 600; border-radius: 4px;">Open in Google Maps &nearr;</span>
+            <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: var(--accent-gold); color: #030c08; font-size: 13px; font-weight: 600; border-radius: 4px;" data-i18n-html="contactOpenMapsBtn">Buka di Google Maps &nearr;</span>
           </div>
 
           <iframe 
@@ -608,11 +609,11 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-copy">
-      <div style="margin-bottom: 4px;">Open Wednesday&ndash;Monday, 10:00&ndash;20:00 WIB &middot; Closed Tuesdays</div>
+      <div style="margin-bottom: 4px;" data-i18n="footerHours">Buka Rabu–Senin, 10:00–20:00 WIB • Tutup Setiap Hari Selasa</div>
       <div style="margin-bottom: 4px;">
         <a href="https://www.google.com/maps/search/?api=1&query=-6.871083,107.466639" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Ruko PancaTengah, Jl. Parahyangan No. 87, Kota Baru Parahyangan, Padalarang</a> &middot; WhatsApp <a href="https://wa.me/6281991153322" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">+62 819-9115-3322</a> &middot; <a href="mailto:salretailventures@gmail.com" style="color: inherit; text-decoration: underline;">salretailventures@gmail.com</a>
       </div>
-      <div>&copy; 2026 Greenwood Barbers. All rights reserved.</div>
+      <div data-i18n="footerCopyright">&copy; 2026 Greenwood Barbers. Hak cipta dilindungi undang-undang.</div>
     </div>
   </footer>
 

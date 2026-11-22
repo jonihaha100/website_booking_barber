@@ -4,15 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <title>Kisah Kami &middot; Greenwood Barbers</title>
-  <meta name="description" content="A gentlemen’s retreat in Kota Baru Parahyangan, built for men who want to switch off, be looked after and feel like themselves again.">
+  <meta name="google" content="notranslate">
+  <title data-i18n="aboutPageTitle">Kisah Kami &middot; Greenwood Barbers</title>
+  <meta name="description" content="Tempat singgah pria di Kota Baru Parahyangan, dirancang khusus untuk Anda yang ingin melepas penat sejenak, dirawat dengan perhatian penuh, dan kembali tampil segar.">
   <link rel="icon" type="image/png" href="assets/greenwood_monogram_cropped.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/greenwood.css?v=20261018_4">
   <script src="assets/config.js?v=20261107_prod"></script>
-  <script src="assets/greenwood-i18n.js?v=20261107_v1" defer></script>
+  <script src="assets/greenwood-i18n.js?v=20261122_v5" defer></script>
 
   <style>
     :root {
@@ -306,25 +307,25 @@
       <img src="assets/greenwood_logo_transparent.png?v=20261018_v3" alt="Greenwood Barbers" class="brand-logo-img">
     </a>
 
-    <nav class="main-nav" aria-label="Main navigation">
-      <a href="index.html">Home</a>
-      <a href="about.html" class="active">About Us</a>
-      <a href="contact.html">Contact Us</a>
+    <nav class="main-nav" aria-label="Navigasi Utama">
+      <a href="index.html" data-i18n="navHome">Beranda</a>
+      <a href="about.html" class="active" data-i18n="navAbout">Tentang Kami</a>
+      <a href="contact.html" data-i18n="navContact">Hubungi Kami</a>
     </nav>
 
     <div class="header-cta-group">
-      <a href="booking.html" class="btn-header-book">RESERVE A CHAIR</a>
-      <button class="menu-toggle-btn" onclick="toggleMobileNav()" aria-label="Toggle navigation menu">&#9776;</button>
+      <a href="booking.html" class="btn-header-book" data-i18n="navReserve">RESERVASI KURSI</a>
+      <button class="menu-toggle-btn" onclick="toggleMobileNav()" aria-label="Buka menu navigasi">&#9776;</button>
     </div>
   </header>
 
   <!-- MOBILE NAV OVERLAY -->
   <div class="mobile-nav-overlay" id="mobileNavOverlay">
-    <button class="mobile-nav-close" onclick="closeMobileNav()" aria-label="Close menu">&times;</button>
-    <a href="index.html" onclick="closeMobileNav()">Home</a>
-    <a href="about.html" class="active" onclick="closeMobileNav()">About Us</a>
-    <a href="contact.html" onclick="closeMobileNav()">Contact Us</a>
-    <a href="booking.html" class="btn-primary" style="margin-top: 16px;" onclick="closeMobileNav()">RESERVE A CHAIR</a>
+    <button class="mobile-nav-close" onclick="closeMobileNav()" aria-label="Tutup menu">&times;</button>
+    <a href="index.html" onclick="closeMobileNav()" data-i18n="navHome">Beranda</a>
+    <a href="about.html" class="active" onclick="closeMobileNav()" data-i18n="navAbout">Tentang Kami</a>
+    <a href="contact.html" onclick="closeMobileNav()" data-i18n="navContact">Hubungi Kami</a>
+    <a href="booking.html" class="btn-primary" style="margin-top: 16px;" onclick="closeMobileNav()" data-i18n="navReserve">RESERVASI KURSI</a>
   </div>
 
   <main>
@@ -335,10 +336,10 @@
         <div class="about-hero-vignette"></div>
       </div>
       <div class="about-hero-inner">
-        <div class="about-location-badge">OUR STORY</div>
-        <h1 class="about-hero-title">We built the barbershop we wanted to sit in.</h1>
-        <p class="about-hero-sub">
-          Quiet, clean and in no hurry. A place to put your phone down for an hour and come out looking like yourself again.
+        <div class="about-location-badge" data-i18n="aboutBadge">KISAH KAMI</div>
+        <h1 class="about-hero-title" data-i18n="aboutHeroTitle">Kami membangun barbershop yang kami sendiri ingin tempati.</h1>
+        <p class="about-hero-sub" data-i18n="aboutHeroSub">
+          Tenang, bersih, dan tanpa terburu-buru. Tempat untuk meletakkan ponsel Anda sejenak dan kembali tampil segar sebagai diri Anda seutuhnya.
         </p>
       </div>
     </section>
@@ -349,15 +350,15 @@
       <!-- NARRATIVE SPLIT -->
       <div class="about-split">
         <div class="about-content">
-          <h2>Why Greenwood</h2>
-          <p>
-            We opened Greenwood because we couldn’t find a barbershop in Bandung where we actually wanted to stay. Plenty of places will cut your hair. None of them made us want to come back before we needed to.
+          <h2 data-i18n="aboutWhyTitle">Mengapa Greenwood</h2>
+          <p data-i18n="aboutWhyP1">
+            Kami mendirikan Greenwood karena kami sulit menemukan barbershop di Bandung yang membuat kami benar-benar betah. Banyak tempat bisa memangkas rambut Anda. Namun tidak ada yang membuat kami ingin kembali sebelum benar-benar terpaksa.
           </p>
-          <div class="about-quote">
-            &ldquo;We don’t measure a good day by how many heads we cut. We measure it by how many men leave lighter than they came in.&rdquo;
+          <div class="about-quote" data-i18n-html="aboutQuote">
+            &ldquo;Kami tidak mengukur hari yang baik dari berapa banyak kepala yang kami pangkas. Kami mengukurnya dari berapa banyak pria yang pulang dengan perasaan lebih ringan daripada saat mereka datang.&rdquo;
           </div>
-          <p>
-            So we built a gentlemen’s retreat in Kota Baru Parahyangan: a cold towel when you sit down, a real conversation, a hot towel and a massage at the end. Men don’t often take time for themselves. Here, you can. You’ll walk out feeling like yourself again.
+          <p data-i18n="aboutWhyP2">
+            Maka kami merancang tempat singgah pria di Kota Baru Parahyangan: handuk dingin saat Anda duduk, percakapan bermakna, serta handuk hangat dan pijat relaksasi di akhir sesi. Pria jarang meluangkan waktu seutuhnya untuk diri sendiri. Di sini, Anda bisa. Anda akan melangkah keluar dengan percaya diri.
           </p>
         </div>
 
@@ -368,32 +369,32 @@
 
       <!-- 3 CORE VALUES -->
       <div style="text-align: center; margin-top: 20px;">
-        <span class="about-hero-eyebrow">What We Hold To</span>
-        <h2 style="font-family: var(--font-serif); font-size: 32px; color: var(--text-main);">Three things we never compromise on</h2>
+        <span class="about-hero-eyebrow" data-i18n="aboutValuesEyebrow">PRINSIP KAMI</span>
+        <h2 style="font-family: var(--font-serif); font-size: 32px; color: var(--text-main);" data-i18n="aboutValuesTitle">Tiga hal yang tak pernah kami kompromikan</h2>
       </div>
 
       <div class="values-grid">
         <div class="value-card">
           <div class="value-num">01</div>
-          <h3 class="value-title">Time that belongs to you</h3>
-          <p class="value-text">
-            Every appointment is reserved for 30 to 95 minutes. Your barber is with you for all of it, and we never hurry the finish to catch the next guest.
+          <h3 class="value-title" data-i18n="aboutVal1Title">Waktu seutuhnya milik Anda</h3>
+          <p class="value-text" data-i18n="aboutVal1Desc">
+            Setiap sesi direservasi khusus selama 45 hingga 95 menit. Barber kami mendampingi Anda sepanjang waktu, dan kami tak pernah memburu-buru pengerjaan demi tamu berikutnya.
           </p>
         </div>
 
         <div class="value-card">
           <div class="value-num">02</div>
-          <h3 class="value-title">Clean you can see and smell</h3>
-          <p class="value-text">
-            Fresh blades, sterilised tools and a spotless room. Hygiene is our job, so relaxing can be yours.
+          <h3 class="value-title" data-i18n="aboutVal2Title">Kebersihan nyata terlihat dan terasa</h3>
+          <p class="value-text" data-i18n="aboutVal2Desc">
+            Silet baru, peralatan disterilkan, dan ruangan higienis. Menjaga kebersihan adalah tugas kami, agar Anda dapat beristirahat dengan tenang.
           </p>
         </div>
 
         <div class="value-card">
           <div class="value-num">03</div>
-          <h3 class="value-title">A room that lets you rest</h3>
-          <p class="value-text">
-            Cool air, soft light, low music and a comfortable chair. An espresso, tea or water while you settle in.
+          <h3 class="value-title" data-i18n="aboutVal3Title">Ruangan yang memberi ketenangan</h3>
+          <p class="value-text" data-i18n="aboutVal3Desc">
+            Udara sejuk, pencahayaan lembut, alunan musik tenang, dan kursi yang nyaman. Nikmati espresso, teh, atau air mineral saat Anda bersiap memulai sesi.
           </p>
         </div>
       </div>
@@ -404,11 +405,11 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-copy">
-      <div style="margin-bottom: 4px;">Open Wednesday&ndash;Monday, 10:00&ndash;20:00 WIB &middot; Closed Tuesdays</div>
+      <div style="margin-bottom: 4px;" data-i18n="footerHours">Buka Rabu&ndash;Senin, 10:00&ndash;20:00 WIB &middot; Tutup Setiap Hari Selasa</div>
       <div style="margin-bottom: 4px;">
         <a href="https://www.google.com/maps/search/?api=1&query=-6.871083,107.466639" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Ruko PancaTengah, Jl. Parahyangan No. 87, Kota Baru Parahyangan, Padalarang</a> &middot; WhatsApp <a href="https://wa.me/6281991153322" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">+62 819-9115-3322</a> &middot; <a href="mailto:salretailventures@gmail.com" style="color: inherit; text-decoration: underline;">salretailventures@gmail.com</a>
       </div>
-      <div>&copy; 2026 Greenwood Barbers. All rights reserved.</div>
+      <div data-i18n="footerCopyright">&copy; 2026 Greenwood Barbers. Hak cipta dilindungi undang-undang.</div>
     </div>
   </footer>
 

@@ -1,19 +1,19 @@
 /**
  * GREENWOOD BARBERS — BILINGUAL ENGINE (ID | EN)
- * Dual-language toggle (Bahasa Indonesia baku & British Mayfair English).
- * Smart Browser Language Detection (auto-detects English or Indonesian).
+ * Complete Dual-language system (Bahasa Indonesia baku EYD V & British Mayfair English).
+ * Consistent across all pages: Home (index.html), About (about.html), Contact (contact.html), Booking (booking.html).
+ * Defaults strictly to Indonesian ('id') unless user toggles English ('en').
  * Prevents Google Translate machine translation collisions.
- * Supports static [data-i18n], [data-i18n-html], [data-i18n-placeholder], and dynamic JS lookups.
  * Developed for Greenwood Barbers Kota Baru Parahyangan.
  */
 
 (function () {
   'use strict';
 
-  // 1. DICTIONARY MAPPINGS (ID <-> EN)
+  // 1. COMPREHENSIVE DICTIONARY MAPPINGS (ID <-> EN)
   var translations = {
     id: {
-      // Document Metadata
+      // Document Metadata (Index)
       pageTitle: "Greenwood Barbers · Tempat Singgah Perawatan Pria Pertama di Bandung",
       metaDesc: "Pangkas rambut presisi, cukur handuk hangat, dan perawatan janggut dengan reservasi di Kota Baru Parahyangan, Padalarang. Tanpa antre. Reservasi kursi Anda secara online.",
 
@@ -29,7 +29,7 @@
       heroSubtitle: "Waktu seutuhnya milik Anda. Barbershop tenang dan eksklusif di perbukitan Bandung Barat.",
       heroCtaBook: "RESERVASI KURSI",
       
-      // Section Headlines & Services
+      // Index Section Headlines & Services
       menuEyebrow: "PILIHAN LAYANAN",
       menuHeadline: "Layanan Kami",
       menuSubtext: "Setiap kunjungan diawali dengan konsultasi mendalam dan handuk dingin, serta diakhiri dengan hasil presisi yang membanggakan.",
@@ -62,11 +62,55 @@
       valueTitle3: "Parkir Gratis Tepat di Depan Pintu",
       valueDesc3: "Bebas biaya parkir dan tanpa perlu berputar-putar. Parkir tepat di depan Ruko PancaTengah, hanya 7 menit dari Stasiun Whoosh.",
       
-      // Footer
+      // Footer (All Pages)
       footerHours: "Buka Rabu–Senin, 10:00–20:00 WIB • Tutup Setiap Hari Selasa",
       footerTagline: "Tempat Singgah Perawatan Pria Pertama di Bandung • Kota Baru Parahyangan",
       footerCopyright: "© 2026 Greenwood Barbers. Hak cipta dilindungi undang-undang.",
       footerContactBtn: "Hubungi WhatsApp Concierge",
+
+      // ======================================================================
+      // ABOUT PAGE TRANSLATIONS (about.html)
+      // ======================================================================
+      aboutPageTitle: "Kisah Kami · Greenwood Barbers Kota Baru Parahyangan",
+      aboutMetaDesc: "Tempat singgah pria di Kota Baru Parahyangan, dirancang khusus untuk Anda yang ingin melepas penat sejenak, dirawat dengan perhatian penuh, dan kembali tampil segar.",
+      aboutBadge: "KISAH KAMI",
+      aboutHeroTitle: "Kami membangun barbershop yang kami sendiri ingin tempati.",
+      aboutHeroSub: "Tenang, bersih, dan tanpa terburu-buru. Tempat untuk meletakkan ponsel Anda sejenak dan kembali tampil segar sebagai diri Anda seutuhnya.",
+      aboutWhyTitle: "Mengapa Greenwood",
+      aboutWhyP1: "Kami mendirikan Greenwood karena kami sulit menemukan barbershop di Bandung yang membuat kami benar-benar betah. Banyak tempat bisa memangkas rambut Anda. Namun tidak ada yang membuat kami ingin kembali sebelum benar-benar terpaksa.",
+      aboutQuote: "&ldquo;Kami tidak mengukur hari yang baik dari berapa banyak kepala yang kami pangkas. Kami mengukurnya dari berapa banyak pria yang pulang dengan perasaan lebih ringan daripada saat mereka datang.&rdquo;",
+      aboutWhyP2: "Maka kami merancang tempat singgah pria di Kota Baru Parahyangan: handuk dingin saat Anda duduk, percakapan bermakna, serta handuk hangat dan pijat relaksasi di akhir sesi. Pria jarang meluangkan waktu seutuhnya untuk diri sendiri. Di sini, Anda bisa. Anda akan melangkah keluar dengan percaya diri.",
+      aboutValuesEyebrow: "PRINSIP KAMI",
+      aboutValuesTitle: "Tiga hal yang tak pernah kami kompromikan",
+      aboutVal1Title: "Waktu seutuhnya milik Anda",
+      aboutVal1Desc: "Setiap sesi direservasi khusus selama 45 hingga 95 menit. Barber kami mendampingi Anda sepanjang waktu, dan kami tak pernah memburu-buru pengerjaan demi tamu berikutnya.",
+      aboutVal2Title: "Kebersihan nyata terlihat dan terasa",
+      aboutVal2Desc: "Silet baru, peralatan disterilkan, dan ruangan higienis. Menjaga kebersihan adalah tugas kami, agar Anda dapat beristirahat dengan tenang.",
+      aboutVal3Title: "Ruangan yang memberi ketenangan",
+      aboutVal3Desc: "Udara sejuk, pencahayaan lembut, alunan musik tenang, dan kursi yang nyaman. Nikmati espresso, teh, atau air mineral saat Anda bersiap memulai sesi.",
+
+      // ======================================================================
+      // CONTACT PAGE TRANSLATIONS (contact.html)
+      // ======================================================================
+      contactPageTitle: "Hubungi Kami · Greenwood Barbers Kota Baru Parahyangan",
+      contactMetaDesc: "Ruko PancaTengah, Kota Baru Parahyangan. Hubungi kami melalui WhatsApp atau telepon setiap hari operasional. Rabu sampai Senin, 10:00–20:00 WIB.",
+      contactBadge: "KUNJUNGI · TELEPON · PESAN",
+      contactHeroTitle: "Kunjungi Tempat Singgah Kami.",
+      contactHeroSub: "Kami berada di Ruko PancaTengah, Kota Baru Parahyangan. Kirim pesan WhatsApp atau hubungi kami kapan saja selama jam operasional, staf concierge kami siap menyambut Anda.",
+      contactWaSub: "Cara tercepat untuk reservasi, ubah jadwal, atau bertanya &rarr;",
+      contactPhoneTitle: "Telepon",
+      contactPhoneSub: "Ingin berbincang langsung? Hubungi meja resepsionis kami &rarr;",
+      contactEmailTitle: "Email",
+      contactEmailSub: "Reservasi rombongan, voucher hadiah, dan pertanyaan lainnya &rarr;",
+      contactPanelHeading: "Lokasi & Jam Buka",
+      contactAddressLabel: "Alamat",
+      contactParkingNote: "Bebas biaya parkir tepat di depan pintu.",
+      contactHoursLabel: "Jam Operasional",
+      contactDaysText: "<strong>Rabu &ndash; Senin:</strong> 10:00 &ndash; 20:00 WIB",
+      contactBadgeOpen: "Buka",
+      contactTuesdayText: "<strong>Selasa:</strong> Hari libur untuk pembersihan & sterilisasi",
+      contactBadgeClosed: "TUTUP",
+      contactOpenMapsBtn: "Buka di Google Maps &nearr;",
 
       // ======================================================================
       // BOOKING PAGE TRANSLATIONS (booking.html)
@@ -171,7 +215,7 @@
       alertSlotFull: "Mohon maaf, jam yang Anda pilih baru saja terisi penuh. Silakan pilih jam atau barber lain."
     },
     en: {
-      // Document Metadata
+      // Document Metadata (Index)
       pageTitle: "Greenwood Barbers · Bandung’s First Gentlemen’s Retreat",
       metaDesc: "Precision haircuts, hot towel shaves, and beard trims by appointment in Kota Baru Parahyangan, Padalarang. No queue. Reserve your chair online.",
 
@@ -187,7 +231,7 @@
       heroSubtitle: "The hour is yours. A quiet barbershop in the hills of West Bandung.",
       heroCtaBook: "RESERVE A CHAIR",
       
-      // Section Headlines & Services
+      // Index Section Headlines & Services
       menuEyebrow: "THE MENU",
       menuHeadline: "Our Services",
       menuSubtext: "Every visit starts with a conversation and a cold towel, and ends with a finish you’ll be glad to walk out in.",
@@ -220,11 +264,55 @@
       valueTitle3: "Free parking at the door",
       valueDesc3: "No circling or parking fees. Pull up directly in front of Ruko PancaTengah, 7 minutes from Whoosh Padalarang.",
       
-      // Footer
+      // Footer (All Pages)
       footerHours: "Open Wednesday–Monday, 10:00–20:00 WIB • Closed Tuesdays",
       footerTagline: "Bandung's First Gentlemen's Retreat • Kota Baru Parahyangan",
       footerCopyright: "© 2026 Greenwood Barbers. All rights reserved.",
       footerContactBtn: "Chat WhatsApp Concierge",
+
+      // ======================================================================
+      // ABOUT PAGE TRANSLATIONS (about.html)
+      // ======================================================================
+      aboutPageTitle: "Our Story · Greenwood Barbers Kota Baru Parahyangan",
+      aboutMetaDesc: "A gentlemen’s retreat in Kota Baru Parahyangan, built for men who want to switch off, be looked after and feel like themselves again.",
+      aboutBadge: "OUR STORY",
+      aboutHeroTitle: "We built the barbershop we wanted to sit in.",
+      aboutHeroSub: "Quiet, clean and in no hurry. A place to put your phone down for an hour and come out looking like yourself again.",
+      aboutWhyTitle: "Why Greenwood",
+      aboutWhyP1: "We opened Greenwood because we couldn’t find a barbershop in Bandung where we actually wanted to stay. Plenty of places will cut your hair. None of them made us want to come back before we needed to.",
+      aboutQuote: "&ldquo;We don’t measure a good day by how many heads we cut. We measure it by how many men leave lighter than they came in.&rdquo;",
+      aboutWhyP2: "So we built a gentlemen’s retreat in Kota Baru Parahyangan: a cold towel when you sit down, a real conversation, a hot towel and a massage at the end. Men don’t often take time for themselves. Here, you can. You’ll walk out feeling like yourself again.",
+      aboutValuesEyebrow: "What We Hold To",
+      aboutValuesTitle: "Three things we never compromise on",
+      aboutVal1Title: "Time that belongs to you",
+      aboutVal1Desc: "Every appointment is reserved for 30 to 95 minutes. Your barber is with you for all of it, and we never hurry the finish to catch the next guest.",
+      aboutVal2Title: "Clean you can see and smell",
+      aboutVal2Desc: "Fresh blades, sterilised tools and a spotless room. Hygiene is our job, so relaxing can be yours.",
+      aboutVal3Title: "A room that lets you rest",
+      aboutVal3Desc: "Cool air, soft light, low music and a comfortable chair. An espresso, tea or water while you settle in.",
+
+      // ======================================================================
+      // CONTACT PAGE TRANSLATIONS (contact.html)
+      // ======================================================================
+      contactPageTitle: "Contact Us · Greenwood Barbers Kota Baru Parahyangan",
+      contactMetaDesc: "Ruko PancaTengah, Kota Baru Parahyangan. Message or call us any time we’re open. Wednesday to Monday, 10:00–20:00 WIB.",
+      contactBadge: "VISIT · CALL · MESSAGE",
+      contactHeroTitle: "Come and see us.",
+      contactHeroSub: "We’re at Ruko PancaTengah, Kota Baru Parahyangan. Message or call us any time we’re open, and our dedicated staff will answer.",
+      contactWaSub: "The fastest way to book, change or ask &rarr;",
+      contactPhoneTitle: "Phone",
+      contactPhoneSub: "Prefer to talk? Call the front desk &rarr;",
+      contactEmailTitle: "Email",
+      contactEmailSub: "Group bookings, gifts and everything else &rarr;",
+      contactPanelHeading: "Where and when",
+      contactAddressLabel: "Address",
+      contactParkingNote: "Free parking right at the door.",
+      contactHoursLabel: "Opening hours",
+      contactDaysText: "<strong>Wednesday &ndash; Monday:</strong> 10:00 &ndash; 20:00 WIB",
+      contactBadgeOpen: "Open",
+      contactTuesdayText: "<strong>Tuesday:</strong> Our day to rest, clean and sharpen",
+      contactBadgeClosed: "CLOSED",
+      contactOpenMapsBtn: "Open in Google Maps &nearr;",
 
       // ======================================================================
       // BOOKING PAGE TRANSLATIONS (booking.html)
@@ -330,22 +418,16 @@
     }
   };
 
-  // 2. SMART LANGUAGE CONTROLLER (Auto-detect browser preference if not manually selected)
+  // 2. LANGUAGE CONTROLLER (Default: ALWAYS Bahasa Indonesia 'id' unless user explicitly selected 'en')
   function detectInitialLanguage() {
-    var stored = localStorage.getItem('greenwood_lang_v3');
-    if (stored === 'id' || stored === 'en') return stored;
-
-    // Check legacy storage
-    var legacy = localStorage.getItem('greenwood_lang_v2') || localStorage.getItem('greenwood_lang');
-    if (legacy === 'id' || legacy === 'en') return legacy;
-
-    // Smart auto-detection based on user's browser language
-    var browserLang = (navigator.languages && navigator.languages[0]) || navigator.language || navigator.userLanguage || '';
-    browserLang = browserLang.toLowerCase();
-    if (browserLang.indexOf('en') === 0) {
-      return 'en';
-    }
-    return 'id'; // Default to Indonesian
+    try {
+      var stored = localStorage.getItem('greenwood_lang_v5') || 
+                   localStorage.getItem('greenwood_lang_v4') || 
+                   localStorage.getItem('greenwood_lang_v3') || 
+                   localStorage.getItem('greenwood_lang');
+      if (stored === 'id' || stored === 'en') return stored;
+    } catch(e) {}
+    return 'id'; // Canonical default: Bahasa Indonesia
   }
 
   var currentLang = detectInitialLanguage();
@@ -354,8 +436,9 @@
     if (!translations[lang]) lang = 'id';
     currentLang = lang;
     try {
+      localStorage.setItem('greenwood_lang_v5', lang);
+      localStorage.setItem('greenwood_lang_v4', lang);
       localStorage.setItem('greenwood_lang_v3', lang);
-      localStorage.setItem('greenwood_lang_v2', lang);
       localStorage.setItem('greenwood_lang', lang);
     } catch (e) {}
     
@@ -364,17 +447,28 @@
 
     var dict = translations[lang];
 
-    // Update Document Title & Meta Description
-    var isBooking = window.location.pathname.indexOf('booking.html') !== -1;
-    if (isBooking && dict.bookingPageTitle) {
+    // Update Document Title
+    var pathname = window.location.pathname;
+    if (pathname.indexOf('booking.html') !== -1 && dict.bookingPageTitle) {
       document.title = dict.bookingPageTitle;
+    } else if (pathname.indexOf('about.html') !== -1 && dict.aboutPageTitle) {
+      document.title = dict.aboutPageTitle;
+    } else if (pathname.indexOf('contact.html') !== -1 && dict.contactPageTitle) {
+      document.title = dict.contactPageTitle;
     } else if (dict.pageTitle && document.title) {
       document.title = dict.pageTitle;
     }
 
+    // Update Meta Description
     var metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc && dict.metaDesc) {
-      metaDesc.setAttribute('content', dict.metaDesc);
+    if (metaDesc) {
+      if (pathname.indexOf('about.html') !== -1 && dict.aboutMetaDesc) {
+        metaDesc.setAttribute('content', dict.aboutMetaDesc);
+      } else if (pathname.indexOf('contact.html') !== -1 && dict.contactMetaDesc) {
+        metaDesc.setAttribute('content', dict.contactMetaDesc);
+      } else if (dict.metaDesc) {
+        metaDesc.setAttribute('content', dict.metaDesc);
+      }
     }
 
     // Update Language Toggle Active State
@@ -387,7 +481,7 @@
       }
     });
 
-    // Update Nav Links
+    // Update Nav Links Across All Pages
     var navLinks = document.querySelectorAll('nav.main-nav a, .mobile-nav-overlay a');
     navLinks.forEach(function (link) {
       var href = link.getAttribute('href') || '';
@@ -441,7 +535,7 @@
       }
     });
 
-    // Update Known Homepage Text if missing data-i18n
+    // Fallback for homepage elements if missing data-i18n
     var heroBadge = document.querySelector('.clean-hero-badge');
     if (heroBadge && !heroBadge.hasAttribute('data-i18n')) heroBadge.textContent = dict.heroBadge;
 
@@ -456,7 +550,6 @@
       heroCtaBook.innerHTML = dict.heroCtaBook + " &rarr;";
     }
 
-    // Update Reserve buttons on package cards
     var cardReserveBtns = document.querySelectorAll('.btn-card-reserve');
     cardReserveBtns.forEach(function (btn) {
       if (!btn.hasAttribute('data-i18n')) {
