@@ -854,6 +854,8 @@
         openedAt: Date.now(),
         openedAtFormatted: UtilitiesFormatDate(now) + " " + UtilitiesFormatTime(now),
         openingCashFloat: Number(params.openingCashFloat) || 0,
+        expenses: [],
+        totalExpenses: 0,
         status: "OPEN",
         notes: params.notes || "Buka Kasir Operasional Harian",
         branch_id: DEFAULT_BRANCH_ID
@@ -862,6 +864,25 @@
       setStorage(KEYS.ACTIVE_SHIFT, shift);
       this.logActivity("Buka Shift Kasir", `${shift.cashierName} membuka kasir dengan modal awal Rp ${Number(shift.openingCashFloat).toLocaleString('id-ID')}`);
       return shift;
+    },
+
+    recordShiftExpense: function(amount, note) {
+      const shift = this.getActiveShift();
+      if (!shift) throw new Error("Tidak ada shift kasir yang sedang aktif.");
+      shift.expenses = shift.expenses || [];
+      const expAmt = Math.max(0, Number(amount) || 0);
+      const expenseItem = {
+        id: "EXP-" + Date.now(),
+        amount: expAmt,
+        note: note || "Pengeluaran kas kecil operasional",
+        timeFormatted: UtilitiesFormatTime(new Date()),
+        timestamp: Date.now()
+      };
+      shift.expenses.push(expenseItem);
+      shift.totalExpenses = (shift.totalExpenses || 0) + expAmt;
+      setStorage(KEYS.ACTIVE_SHIFT, shift);
+      this.logActivity("Kas Keluar Laci", `Pengeluaran Rp ${expAmt.toLocaleString('id-ID')} (${expenseItem.note})`);
+      return expenseItem;
     },
 
     getShiftCurrentSummary: function() {
@@ -898,7 +919,8 @@
         }
       });
 
-      const expectedCashInDrawer = shift.openingCashFloat + cashSales;
+      const totalExpenses = shift.totalExpenses || (shift.expenses || []).reduce((sum, e) => sum + (e.amount || 0), 0);
+      const expectedCashInDrawer = shift.openingCashFloat + cashSales - totalExpenses;
       const totalSales = cashSales + nonCashSales;
 
       return {
@@ -907,6 +929,8 @@
         openingCashFloat: shift.openingCashFloat,
         cashSales: cashSales,
         nonCashSales: nonCashSales,
+        totalExpenses: totalExpenses,
+        expenses: shift.expenses || [],
         totalSales: totalSales,
         expectedCashInDrawer: expectedCashInDrawer,
         txCount: shiftTxs.length,
@@ -941,6 +965,8 @@
         openingCashFloat: summary.openingCashFloat,
         totalCashSales: summary.cashSales,
         totalNonCashSales: summary.nonCashSales,
+        totalExpenses: summary.totalExpenses,
+        expenses: summary.expenses,
         totalSales: summary.totalSales,
         expectedCashInDrawer: expectedCash,
         actualCashInDrawer: actualCash,
