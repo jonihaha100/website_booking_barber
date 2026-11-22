@@ -6,6 +6,7 @@
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta name="google" content="notranslate">
   <title>Reservasi Kursi &middot; Greenwood Barbers</title>
   <meta name="description" content="Reservasi pangkas rambut atau cukur secara online. Pilih layanan, barber pilihan Anda dan waktu sesi.">
   <link rel="icon" type="image/png" href="assets/greenwood_monogram_cropped.png">
@@ -14,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/greenwood.css?v=20261025_v3fixed">
   <script src="assets/config.js?v=20261107_v3"></script>
-  <script src="assets/greenwood-i18n.js?v=20261107_v1" defer></script>
+  <script src="assets/greenwood-i18n.js?v=20261122_v4" defer></script>
 
   <style>
     /* ==========================================================================
@@ -1274,10 +1275,10 @@
 
     <!-- COMPACT BOOKING HEADER -->
     <div class="booking-header">
-      <span class="booking-eyebrow">KOTA BARU PARAHYANGAN</span>
-      <h1 class="booking-title">Reserve a Chair</h1>
-      <p class="booking-sub">
-        Pick your service, your barber and your time. It takes about a minute, and your chair will be waiting.
+      <span class="booking-eyebrow" data-i18n="bookingEyebrow">KOTA BARU PARAHYANGAN</span>
+      <h1 class="booking-title" data-i18n="bookingTitle">Reservasi Kursi</h1>
+      <p class="booking-sub" data-i18n="bookingSubtitle">
+        Pilih layanan, barber pilihan Anda, dan waktu sesi. Hanya butuh satu menit, dan kursi Anda siap menanti.
       </p>
     </div>
 
@@ -1288,19 +1289,19 @@
       </div>
       <button type="button" class="step-item active" id="stepNode1" onclick="navigateToStep(1)">
         <div class="step-circle"><span id="stepIcon1">1</span></div>
-        <span class="step-label">1. Service</span>
+        <span class="step-label" data-i18n="step1Label">1. Layanan</span>
       </button>
       <button type="button" class="step-item" id="stepNode2" onclick="navigateToStep(2)">
         <div class="step-circle"><span id="stepIcon2">2</span></div>
-        <span class="step-label">2. Barber</span>
+        <span class="step-label" data-i18n="step2Label">2. Barber</span>
       </button>
       <button type="button" class="step-item" id="stepNode3" onclick="navigateToStep(3)">
         <div class="step-circle"><span id="stepIcon3">3</span></div>
-        <span class="step-label">3. Date &amp; Time</span>
+        <span class="step-label" data-i18n="step3Label">3. Tanggal &amp; Jam</span>
       </button>
       <button type="button" class="step-item" id="stepNode4" onclick="navigateToStep(4)">
         <div class="step-circle"><span id="stepIcon4">4</span></div>
-        <span class="step-label">4. Your Details</span>
+        <span class="step-label" data-i18n="step4Label">4. Data Tamu</span>
       </button>
     </div>
 
@@ -1310,11 +1311,11 @@
     <div class="flow-panel active" id="panelStep1">
       <div class="panel-card">
         <div class="panel-header-row">
-          <h2 class="panel-title">Choose your service</h2>
-          <span class="panel-badge">Step 1 of 4</span>
+          <h2 class="panel-title" data-i18n="step1Title">Pilih Layanan Anda</h2>
+          <span class="panel-badge" data-i18n="step1Badge">Langkah 1 dari 4</span>
         </div>
-        <p style="font-size: 14.5px; color: var(--text-muted); margin-bottom: 20px;">
-          Pick one. You can add a little more below.
+        <p style="font-size: 14.5px; color: var(--text-muted); margin-bottom: 20px;" data-i18n="step1Sub">
+          Pilih satu paket utama. Anda dapat menambahkan layanan pelengkap di bawah.
         </p>
 
         <!-- Radio Selection for Packages -->
@@ -1326,16 +1327,16 @@
         <div id="smartUpgradeNotice" style="display: none; background: rgba(197, 155, 72, 0.14); border: 1px solid var(--accent-gold); border-radius: 6px; padding: 14px 18px; margin: 14px 0; text-align: left;">
           <div style="font-weight: 700; color: var(--accent-gold-bright); font-size: 14px; margin-bottom: 4px; display: flex; align-items: center; gap: 8px;">
             <span>✨</span>
-            <span>Automatically Upgraded to The Ritual</span>
+            <span data-i18n="step1UpgradeTitle">Otomatis Ditingkatkan ke The Ritual</span>
           </div>
-          <div style="font-size: 13px; color: #e0ded6; line-height: 1.5;">
-            You selected Cut &amp; Shave plus Black Mask &amp; Hair Spa. We’ve automatically bundled this into <strong>The Ritual</strong> package at <strong>Rp 590.000</strong> (saving you Rp 10.000 and 20 mins)!
+          <div style="font-size: 13px; color: #e0ded6; line-height: 1.5;" data-i18n-html="step1UpgradeDesc">
+            Anda memilih Cut &amp; Shave ditambah Black Mask &amp; Hair Spa. Kami otomatis menggabungkannya ke dalam paket <strong>The Ritual</strong> seharga <strong>Rp 590.000</strong> (menghemat Rp 10.000 dan 20 menit)!
           </div>
         </div>
 
         <!-- Add-on List with Conflict Blocking -->
         <div class="addons-heading">
-          <span>Add a little more</span>
+          <span data-i18n="addonsHeading">Layanan Tambahan</span>
         </div>
         <div id="addonListContainer">
           <!-- Dynamically populated from GREENWOOD_CONFIG.addons -->
@@ -1343,8 +1344,8 @@
 
         <!-- Step 1 Navigation Action -->
         <div class="step-actions-row">
-          <button type="button" class="btn-step-next" onclick="navigateToStep(2)">
-            Next: choose your barber &rarr;
+          <button type="button" class="btn-step-next" onclick="navigateToStep(2)" data-i18n-html="step1NextBtn">
+            Lanjut: pilih barber Anda &rarr;
           </button>
         </div>
       </div>
@@ -1356,8 +1357,8 @@
     <div class="flow-panel" id="panelStep2">
       <div class="panel-card">
         <div class="panel-header-row">
-          <h2 class="panel-title">Pick your favourite barber</h2>
-          <span class="panel-badge">Step 2 of 4</span>
+          <h2 class="panel-title" data-i18n="step2Title">Pilih Barber Pilihan Anda</h2>
+          <span class="panel-badge" data-i18n="step2Badge">Langkah 2 dari 4</span>
         </div>
 
         <!-- Banner: First available barber (Default) -->
@@ -1366,15 +1367,15 @@
             <img src="assets/greenwood_monogram_cropped.png" alt="First available barber" class="barber-any-img">
           </div>
           <div class="barber-any-info">
-            <div class="barber-any-title">First available barber</div>
-            <div class="barber-any-desc">We’ll match you with the best barber free at your time.</div>
+            <div class="barber-any-title" data-i18n="step2AnyBarberTitle">Barber Pertama yang Tersedia</div>
+            <div class="barber-any-desc" data-i18n="step2AnyBarberDesc">Kami pilihkan barber terbaik yang siap melayani pada jadwal Anda.</div>
           </div>
           <div class="barber-check-icon">&#10003;</div>
         </div>
 
         <div style="margin-bottom: 12px;">
-          <div style="font-size: 13px; color: var(--text-muted);">
-            Or choose your barber:
+          <div style="font-size: 13px; color: var(--text-muted);" data-i18n="step2OrChoose">
+            Atau tentukan barber Anda:
           </div>
         </div>
 
@@ -1385,11 +1386,11 @@
 
         <!-- Step 2 Navigation Actions -->
         <div class="step-actions-row">
-          <button type="button" class="btn-step-back" onclick="navigateToStep(1)">
-            &larr; Back
+          <button type="button" class="btn-step-back" onclick="navigateToStep(1)" data-i18n-html="step2BackBtn">
+            &larr; Kembali
           </button>
-          <button type="button" class="btn-step-next" onclick="navigateToStep(3)">
-            Next: pick a time &rarr;
+          <button type="button" class="btn-step-next" onclick="navigateToStep(3)" data-i18n-html="step2NextBtn">
+            Lanjut: pilih jam sesi &rarr;
           </button>
         </div>
       </div>
@@ -1401,16 +1402,16 @@
     <div class="flow-panel" id="panelStep3">
       <div class="panel-card">
         <div class="panel-header-row">
-          <h2 class="panel-title">When suits you?</h2>
-          <span class="panel-badge">Step 3 of 4</span>
+          <h2 class="panel-title" data-i18n="step3Title">Kapan Waktu Terbaik Anda?</h2>
+          <span class="panel-badge" data-i18n="step3Badge">Langkah 3 dari 4</span>
         </div>
 
         <div class="cal-section-header">
-          <span>Choose a day</span>
-          <span class="cal-closed-notice">Closed on Tuesdays</span>
+          <span data-i18n="step3ChooseDay">Pilih Hari</span>
+          <span class="cal-closed-notice" data-i18n="step3ClosedTuesdays">Tutup Setiap Hari Selasa</span>
         </div>
-        <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 14px;">
-          Book any day in the next two weeks.
+        <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 14px;" data-i18n="step3Sub">
+          Reservasi dibuka hingga 14 hari ke depan.
         </p>
 
         <div class="calendar-strip-wrap">
@@ -1425,8 +1426,8 @@
         <!-- Single Grid of Available Time Slots -->
         <div class="slots-container" id="slotsSectionWrapper">
           <div class="slots-header-row">
-            <span class="slots-title" id="selectedDateTitle">Available times</span>
-            <span class="slots-legend">Your visit: <strong id="totalDurationBadge">45</strong> minutes</span>
+            <span class="slots-title" id="selectedDateTitle" data-i18n="step3AvailableTimes">Waktu Tersedia</span>
+            <span class="slots-legend"><span data-i18n="step3VisitDurationPrefix">Estimasi sesi: </span><strong id="totalDurationBadge">45</strong> <span data-i18n="step3Minutes">menit</span></span>
           </div>
           <div class="time-grid-single" id="timeSlotsGridContainer">
             <!-- Dynamically populated available slots -->
@@ -1435,11 +1436,11 @@
 
         <!-- Step 3 Navigation Actions -->
         <div class="step-actions-row">
-          <button type="button" class="btn-step-back" onclick="navigateToStep(2)">
-            &larr; Back
+          <button type="button" class="btn-step-back" onclick="navigateToStep(2)" data-i18n-html="step3BackBtn">
+            &larr; Kembali
           </button>
-          <button type="button" class="btn-step-next" onclick="navigateToStep(4)">
-            Next: your details &rarr;
+          <button type="button" class="btn-step-next" onclick="navigateToStep(4)" data-i18n-html="step3NextBtn">
+            Lanjut: isi data diri &rarr;
           </button>
         </div>
       </div>
@@ -1451,28 +1452,28 @@
     <div class="flow-panel" id="panelStep4">
       <div class="panel-card" id="step3FormWrapper">
         <div class="panel-header-row">
-          <h2 class="panel-title">Almost there</h2>
-          <span class="panel-badge">Step 4 of 4</span>
+          <h2 class="panel-title" data-i18n="step4Title">Langkah Terakhir</h2>
+          <span class="panel-badge" data-i18n="step4Badge">Langkah 4 dari 4</span>
         </div>
 
         <!-- STRUCTURED RESERVATION SUMMARY -->
         <div class="reservation-summary-card">
           <div class="summary-card-header">
-            <span class="summary-card-eyebrow">Your reservation</span>
-            <span class="summary-price-highlight" id="oneLineTotalPrice">Rp 240,000</span>
+            <span class="summary-card-eyebrow" data-i18n="summaryEyebrow">Ringkasan Reservasi</span>
+            <span class="summary-price-highlight" id="oneLineTotalPrice">Rp 240.000</span>
           </div>
           <div class="summary-details-list">
             <div class="summary-detail-row">
-              <span class="summary-detail-label">Service:</span>
+              <span class="summary-detail-label" data-i18n="summaryLabelService">Layanan:</span>
               <span class="summary-detail-val" id="summaryValTreatment">The Cut</span>
             </div>
             <div class="summary-detail-row">
-              <span class="summary-detail-label">Barber:</span>
-              <span class="summary-detail-val" id="summaryValBarber">First available barber</span>
+              <span class="summary-detail-label" data-i18n="summaryLabelBarber">Barber:</span>
+              <span class="summary-detail-val" id="summaryValBarber">Barber Pertama yang Tersedia</span>
             </div>
             <div class="summary-detail-row">
-              <span class="summary-detail-label">Date &amp; time:</span>
-              <span class="summary-detail-val" id="summaryValSchedule">Pick a time in step 3</span>
+              <span class="summary-detail-label" data-i18n="summaryLabelDateTime">Tanggal &amp; Jam:</span>
+              <span class="summary-detail-val" id="summaryValSchedule">Pilih jadwal di langkah 3</span>
             </div>
           </div>
           <!-- Hidden compatibility element for any legacy references -->
@@ -1483,32 +1484,32 @@
         <form id="bookingFinalForm" onsubmit="handleBookingSubmission(event)">
           <div class="form-grid-2">
             <div class="form-group">
-              <label class="form-label" for="guestName">Full name *</label>
-              <input type="text" id="guestName" class="form-input" placeholder="How should we greet you?" required>
+              <label class="form-label" for="guestName" data-i18n="formNameLabel">Nama Lengkap *</label>
+              <input type="text" id="guestName" class="form-input" data-i18n-placeholder="formNamePlaceholder" placeholder="Nama panggilan yang Anda sukai" required>
             </div>
             <div class="form-group">
-              <label class="form-label" for="guestPhone">WhatsApp number *</label>
-              <input type="tel" id="guestPhone" class="form-input" placeholder="e.g. 0812-xxxx-xxxx" required>
+              <label class="form-label" for="guestPhone" data-i18n="formPhoneLabel">Nomor WhatsApp *</label>
+              <input type="tel" id="guestPhone" class="form-input" data-i18n-placeholder="formPhonePlaceholder" placeholder="contoh: 0812-xxxx-xxxx" required>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="guestEmail">Email (optional)</label>
-            <input type="email" id="guestEmail" class="form-input" placeholder="For your calendar invite and reminders">
+            <label class="form-label" for="guestEmail" data-i18n="formEmailLabel">Email (opsional)</label>
+            <input type="email" id="guestEmail" class="form-input" data-i18n-placeholder="formEmailPlaceholder" placeholder="Untuk konfirmasi kalender dan pengingat">
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="guestNotes">Anything we should know? (optional)</label>
-            <textarea id="guestNotes" class="form-input" rows="2" placeholder="A style you like, a photo you’ll bring, sensitive skin…"></textarea>
+            <label class="form-label" for="guestNotes" data-i18n="formNotesLabel">Catatan khusus untuk barber? (opsional)</label>
+            <textarea id="guestNotes" class="form-input" rows="2" data-i18n-placeholder="formNotesPlaceholder" placeholder="Referensi gaya rambut, kulit sensitif, atau preferensi lainnya…"></textarea>
           </div>
 
           <!-- Submit Buttons -->
           <div class="step-actions-row">
-            <button type="button" class="btn-step-back" onclick="navigateToStep(3)">
-              &larr; Change time
+            <button type="button" class="btn-step-back" onclick="navigateToStep(3)" data-i18n-html="step4BackBtn">
+              &larr; Ganti Jam
             </button>
-            <button type="submit" class="btn-step-next" id="btnSubmitBooking">
-              Confirm my chair &rarr;
+            <button type="submit" class="btn-step-next" id="btnSubmitBooking" data-i18n-html="btnConfirmBooking">
+              Konfirmasi Kursi Saya &rarr;
             </button>
           </div>
         </form>
@@ -1522,14 +1523,14 @@
           <div style="width: 60px; height: 60px; border-radius: 50%; background: rgba(32, 201, 151, 0.15); border: 2px solid #20c997; color: #20c997; display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto 14px;">
             &#10003;
           </div>
-          <div style="display: inline-block; padding: 4px 14px; border-radius: 20px; background: rgba(197, 155, 72, 0.12); border: 1px solid var(--accent-gold); color: var(--accent-gold-bright); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; margin-bottom: 12px;">
-            Confirmed &bull; Greenwood Barbers
+          <div style="display: inline-block; padding: 4px 14px; border-radius: 20px; background: rgba(197, 155, 72, 0.12); border: 1px solid var(--accent-gold); color: var(--accent-gold-bright); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; margin-bottom: 12px;" data-i18n="passConfirmedBadge">
+            Terkonfirmasi &bull; Greenwood Barbers
           </div>
-          <h2 style="font-family: var(--font-serif); font-size: 32px; color: var(--text-main); margin-bottom: 8px;">
-            Your chair is reserved.
+          <h2 style="font-family: var(--font-serif); font-size: 32px; color: var(--text-main); margin-bottom: 8px;" data-i18n="passMainTitle">
+            Kursi Anda Telah Terkonfirmasi.
           </h2>
-          <p style="font-size: 15px; color: var(--text-muted); max-width: 600px; margin: 0 auto 12px; line-height: 1.7;">
-            Your barber will be ready for you. See you soon.
+          <p style="font-size: 15px; color: var(--text-muted); max-width: 600px; margin: 0 auto 12px; line-height: 1.7;" data-i18n="passMainSubtitle">
+            Barber Anda siap menyambut Anda tepat waktu. Sampai jumpa di Greenwood.
           </p>
         </div>
 
@@ -1537,7 +1538,7 @@
           <div class="pass-top-bar">
             <div>
               <div class="pass-brand-title">GREENWOOD BARBERS</div>
-              <div style="font-size: 11px; letter-spacing: 1.5px; color: var(--accent-gold); text-transform: uppercase;">Your Greenwood pass</div>
+              <div style="font-size: 11px; letter-spacing: 1.5px; color: var(--accent-gold); text-transform: uppercase;" data-i18n="passBrandSubtitle">Tiket Reservasi Greenwood</div>
             </div>
             <!-- Hidden code container for script execution -->
             <span id="passCodeVal" style="display: none;"></span>
@@ -1545,27 +1546,27 @@
 
           <div class="pass-content-grid">
             <div>
-              <div class="pass-item-label">Guest</div>
+              <div class="pass-item-label" data-i18n="passLabelGuest">Tamu</div>
               <div class="pass-item-val" id="passGuestName">-</div>
             </div>
             <div>
-              <div class="pass-item-label">WhatsApp</div>
+              <div class="pass-item-label" data-i18n="passLabelWa">WhatsApp</div>
               <div class="pass-item-val" id="passGuestPhone">-</div>
             </div>
             <div>
-              <div class="pass-item-label">Barber</div>
+              <div class="pass-item-label" data-i18n="passLabelBarber">Barber</div>
               <div class="pass-item-val" id="passBarberName">-</div>
             </div>
             <div>
-              <div class="pass-item-label">Date &amp; time</div>
+              <div class="pass-item-label" data-i18n="passLabelDateTime">Tanggal &amp; Jam</div>
               <div class="pass-item-val" id="passScheduleTime">-</div>
             </div>
             <div>
-              <div class="pass-item-label">Service</div>
+              <div class="pass-item-label" data-i18n="passLabelService">Layanan</div>
               <div class="pass-item-val" id="passServicesList">-</div>
             </div>
             <div>
-              <div class="pass-item-label">Total</div>
+              <div class="pass-item-label" data-i18n="passLabelTotal">Total</div>
               <div class="pass-item-val" style="color: var(--accent-gold-bright); font-size: 18px;" id="passTotalPrice">-</div>
             </div>
           </div>
@@ -1576,24 +1577,24 @@
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.073.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824zM12 2C6.477 2 2 6.477 2 12c0 1.891.524 3.662 1.435 5.178L2 22l4.981-1.399C8.423 21.498 10.155 22 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
               </svg>
-              <span>WhatsApp Us</span>
+              <span data-i18n="passBtnWa">Hubungi Kami di WhatsApp</span>
             </a>
             <a href="https://www.google.com/maps/search/?api=1&query=-6.871083,107.466639" target="_blank" rel="noopener" style="flex: 1; min-width: 200px; background: rgba(197, 155, 72, 0.15); border: 1.5px solid var(--accent-gold); color: var(--accent-gold-bright); text-decoration: none; font-weight: 700; font-size: 15px; padding: 14px 20px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: background 0.2s ease, border-color 0.2s ease;">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                 <circle cx="12" cy="10" r="3"></circle>
               </svg>
-              <span>Open in Maps</span>
+              <span data-i18n="passBtnMaps">Buka di Google Maps</span>
             </a>
           </div>
 
           <!-- POST-SERVICE GUEST RATING & FEEDBACK FORM -->
           <div class="feedback-card" id="guestFeedbackBox" style="margin-top: 24px; background: rgba(9, 28, 19, 0.7); border: 1px solid var(--accent-gold); border-radius: 8px; padding: 20px; text-align: center;">
-            <div style="font-family: 'Lora', Georgia, serif; font-size: 16px; color: #fff; margin-bottom: 6px;">
+            <div style="font-family: 'Lora', Georgia, serif; font-size: 16px; color: #fff; margin-bottom: 6px;" data-i18n="feedbackTitle">
               Beri Ulasan Layanan &bull; Rate Your Experience
             </div>
-            <div style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 12px;">
-              Bantu kami menyempurnakan ritual cukur Anda di Greenwood Barbers.
+            <div style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 12px;" data-i18n="feedbackSubtitle">
+              Bantu kami menyempurnakan ritual perawatan Anda di Greenwood Barbers.
             </div>
             <div style="display: flex; justify-content: center; gap: 10px; font-size: 28px; cursor: pointer; margin-bottom: 12px;" id="starRatingWrap">
               <span class="star-rating-item" onclick="setGuestRating(1)" style="color: #e5b95f;">★</span>
@@ -1602,24 +1603,24 @@
               <span class="star-rating-item" onclick="setGuestRating(4)" style="color: #e5b95f;">★</span>
               <span class="star-rating-item" onclick="setGuestRating(5)" style="color: #e5b95f;">★</span>
             </div>
-            <textarea id="guestFeedbackComment" rows="2" placeholder="Tuliskan ulasan atau preferensi Anda untuk kunjungan berikutnya..." style="width: 100%; max-width: 480px; box-sizing: border-box; background: rgba(3, 12, 8, 0.9); border: 1px solid rgba(197, 155, 72, 0.3); color: #fff; padding: 10px; border-radius: 6px; font-size: 12.5px; outline: none; margin-bottom: 10px;"></textarea>
+            <textarea id="guestFeedbackComment" rows="2" data-i18n-placeholder="feedbackPlaceholder" placeholder="Tuliskan ulasan atau preferensi Anda untuk kunjungan berikutnya..." style="width: 100%; max-width: 480px; box-sizing: border-box; background: rgba(3, 12, 8, 0.9); border: 1px solid rgba(197, 155, 72, 0.3); color: #fff; padding: 10px; border-radius: 6px; font-size: 12.5px; outline: none; margin-bottom: 10px;"></textarea>
             <div>
-              <button type="button" onclick="submitGuestFeedback()" style="background: var(--accent-gold); color: #030c08; font-weight: 700; border: none; padding: 8px 18px; border-radius: 4px; font-size: 12.5px; cursor: pointer;">
+              <button type="button" onclick="submitGuestFeedback()" style="background: var(--accent-gold); color: #030c08; font-weight: 700; border: none; padding: 8px 18px; border-radius: 4px; font-size: 12.5px; cursor: pointer;" data-i18n-html="feedbackSubmitBtn">
                 Kirim Ulasan &rarr;
               </button>
             </div>
-            <div id="feedbackSuccessMsg" style="display: none; color: #4ade80; font-size: 12.5px; margin-top: 10px; font-weight: 600;">
+            <div id="feedbackSuccessMsg" style="display: none; color: #4ade80; font-size: 12.5px; margin-top: 10px; font-weight: 600;" data-i18n="feedbackSuccess">
               ✓ Terima kasih atas ulasan Anda! Catatan ini telah disimpan ke sistem CRM kami.
             </div>
           </div>
 
           <!-- Secondary Actions -->
           <div style="display: flex; gap: 12px; flex-wrap: wrap; width: 100%; margin-top: 24px;">
-            <button type="button" class="btn-step-back" onclick="resetBookingSession()" style="flex: 1; min-width: 160px;">
-              + Book another chair
+            <button type="button" class="btn-step-back" onclick="resetBookingSession()" style="flex: 1; min-width: 160px;" data-i18n="passBookAnother">
+              + Reservasi Kursi Lain
             </button>
-            <a href="index.html" class="btn-step-back" style="flex: 1; min-width: 150px; text-decoration: none; text-align: center;">
-              Back to home &rarr;
+            <a href="index.html" class="btn-step-back" style="flex: 1; min-width: 150px; text-decoration: none; text-align: center;" data-i18n-html="passBackHome">
+              Kembali ke Beranda &rarr;
             </a>
           </div>
 
@@ -1638,23 +1639,23 @@
        ========================================================================== -->
   <div class="info-modal-backdrop" id="pkgInfoModal" onclick="closePkgModal(event)">
     <div class="info-modal-box">
-      <h3 class="info-modal-title" id="modalPkgTitle">What’s included</h3>
-      <div class="info-modal-meta" id="modalPkgMeta">45 Mins &bull; Rp 240,000</div>
+      <h3 class="info-modal-title" id="modalPkgTitle" data-i18n="modalWhatIncluded">Rincian Layanan</h3>
+      <div class="info-modal-meta" id="modalPkgMeta">45 Menit &bull; Rp 240.000</div>
       <ul class="info-steps-list" id="modalPkgStepsList">
         <!-- Injected dynamically -->
       </ul>
-      <button type="button" class="btn-modal-close" onclick="closePkgModalDirect()">Close</button>
+      <button type="button" class="btn-modal-close" onclick="closePkgModalDirect()" data-i18n="modalCloseBtn">Tutup</button>
     </div>
   </div>
 
   <!-- FOOTER -->
   <footer>
     <div class="footer-copy">
-      <div style="margin-bottom: 4px;">Open Wednesday&ndash;Monday, 10:00&ndash;20:00 WIB &middot; Closed Tuesdays</div>
+      <div style="margin-bottom: 4px;" data-i18n="footerHours">Buka Rabu&ndash;Senin, 10:00&ndash;20:00 WIB &middot; Tutup Setiap Hari Selasa</div>
       <div style="margin-bottom: 4px;">
         <a href="https://www.google.com/maps/search/?api=1&query=-6.871083,107.466639" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Ruko PancaTengah, Jl. Parahyangan No. 87, Kota Baru Parahyangan, Padalarang</a> &middot; WhatsApp <a href="https://wa.me/6281991153322" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">+62 819-9115-3322</a> &middot; <a href="mailto:salretailventures@gmail.com" style="color: inherit; text-decoration: underline;">salretailventures@gmail.com</a>
       </div>
-      <div>&copy; 2026 Greenwood Barbers. All rights reserved.</div>
+      <div data-i18n="footerCopyright">&copy; 2026 Greenwood Barbers. Hak cipta dilindungi undang-undang.</div>
     </div>
   </footer>
 
@@ -1676,29 +1677,43 @@
 
     // Helper Format Currency
     function formatRupiah(num) {
-      return "Rp " + Number(num).toLocaleString('en-US');
+      const isEn = (typeof GreenwoodI18n !== 'undefined' && GreenwoodI18n.getLanguage() === 'en');
+      if (isEn) {
+        return "IDR " + Number(num).toLocaleString('en-US');
+      }
+      return "Rp " + Number(num).toLocaleString('id-ID');
+    }
+
+    // Helper Duration Label
+    function getDurationText(mins) {
+      const isEn = (typeof GreenwoodI18n !== 'undefined' && GreenwoodI18n.getLanguage() === 'en');
+      return isEn ? `${mins} Mins` : `${mins} Menit`;
     }
 
     // 1. Initialize Packages & Add-ons (Step 1)
     function initServices() {
-      // Set default package (The Cut)
-      selectedPackage = GREENWOOD_CONFIG.packages[0];
+      // Set default package (The Cut) if not yet set
+      if (!selectedPackage) {
+        selectedPackage = GREENWOOD_CONFIG.packages[0];
+      }
 
       // Render Package Cards
       const pkgContainer = document.getElementById('packageListContainer');
+      if (!pkgContainer) return;
+      const viewDetailsText = typeof GreenwoodI18n !== 'undefined' ? GreenwoodI18n.t('modalWhatIncluded') : 'Lihat Rincian';
       pkgContainer.innerHTML = GREENWOOD_CONFIG.packages.map(pkg => {
-        const isSelected = selectedPackage.id === pkg.id;
+        const isSelected = selectedPackage && selectedPackage.id === pkg.id;
         return `
           <div class="package-radio-card ${isSelected ? 'selected' : ''}" id="pkgCard-${pkg.id}" onclick="selectPackage('${pkg.id}')">
             <div class="pkg-info-left">
               <div class="pkg-title-row">
                 <span class="pkg-name">${pkg.name}</span>
-                <button type="button" class="btn-pkg-info" onclick="openPackageDetails('${pkg.id}', event)" title="View what’s included">i</button>
+                <button type="button" class="btn-pkg-info" onclick="openPackageDetails('${pkg.id}', event)" title="${viewDetailsText}">i</button>
               </div>
             </div>
             <div class="pkg-price-col">
               <div class="pkg-price-val">${formatRupiah(pkg.price)}</div>
-              <div class="pkg-duration-val">${pkg.duration} Mins</div>
+              <div class="pkg-duration-val">${getDurationText(pkg.duration)}</div>
             </div>
             <div class="pkg-radio-indicator"></div>
           </div>
@@ -1741,23 +1756,29 @@
       const addonContainer = document.getElementById('addonListContainer');
       if (!addonContainer || !selectedPackage) return;
 
+      const isEn = (typeof GreenwoodI18n !== 'undefined' && GreenwoodI18n.getLanguage() === 'en');
+      const includedBadgeText = typeof GreenwoodI18n !== 'undefined' ? GreenwoodI18n.t('addonAlreadyIncluded') : (isEn ? '✓ Already in your package' : '✓ Sudah termasuk dalam paket');
+      const includedTitle = isEn 
+        ? `This treatment is already included in ${selectedPackage.name}`
+        : `Layanan ini sudah termasuk dalam paket ${selectedPackage.name}`;
+
       addonContainer.innerHTML = GREENWOOD_CONFIG.addons.map(addon => {
         const isIncludedInPkg = selectedPackage.components.includes(addon.component);
         const isSelected = selectedAddons.some(a => a.id === addon.id);
 
         if (isIncludedInPkg) {
           return `
-            <div class="addon-card disabled" title="This treatment is already included in ${selectedPackage.name}">
+            <div class="addon-card disabled" title="${includedTitle}">
               <div class="addon-info-left">
                 <div class="addon-title-row">
                   <span class="addon-name">${addon.name}</span>
                   <button type="button" class="btn-pkg-info" onclick="openAddonDetails('${addon.id}', event)" title="View details">i</button>
-                  <span class="addon-included-badge">&#10003; Already in your package</span>
+                  <span class="addon-included-badge">${includedBadgeText}</span>
                 </div>
               </div>
               <div class="addon-price-col">
                 <div class="addon-price-val" style="color: var(--text-muted);">&mdash;</div>
-                <div class="addon-dur-val">${addon.duration} Mins</div>
+                <div class="addon-dur-val">${getDurationText(addon.duration)}</div>
               </div>
             </div>
           `;
@@ -1772,7 +1793,7 @@
               </div>
               <div class="addon-price-col">
                 <div class="addon-price-val">+ ${formatRupiah(addon.price)}</div>
-                <div class="addon-dur-val">+ ${addon.duration} Mins</div>
+                <div class="addon-dur-val">+ ${getDurationText(addon.duration)}</div>
               </div>
               <div class="addon-checkbox">${isSelected ? '&#10003;' : ''}</div>
             </div>
@@ -1842,15 +1863,26 @@
       if (durBadge) durBadge.textContent = `${totalDur}`;
 
       // Update Structured Reservation Summary (Step 4 - Client Feedback: Stacked Layout)
+      const isEn = (typeof GreenwoodI18n !== 'undefined' && GreenwoodI18n.getLanguage() === 'en');
       const barber = GREENWOOD_CONFIG.barbers.find(b => b.id === selectedBarberId);
-      const barberName = barber ? barber.name : "First available barber";
+      const defaultBarberTitle = typeof GreenwoodI18n !== 'undefined' 
+        ? GreenwoodI18n.t('step2AnyBarberTitle') 
+        : (isEn ? 'First available barber' : 'Barber Pertama yang Tersedia');
+      const barberName = (barber && barber.id !== 'any') ? barber.name : defaultBarberTitle;
       
       let addonText = selectedAddons.length > 0 
         ? ` + ${selectedAddons.map(a => a.name).join(', ')}` 
         : '';
+
+      const pickNotice = typeof GreenwoodI18n !== 'undefined'
+        ? GreenwoodI18n.t('summaryPickTimeNotice')
+        : (isEn ? 'Pick a time in step 3' : 'Pilih jadwal di langkah 3');
+
       let schedText = selectedDateObj && selectedTimeSlot 
-        ? `${selectedDateObj.dayName}, ${selectedDateObj.monthName} ${selectedDateObj.dayNum} @ ${selectedTimeSlot} WIB`
-        : 'Pick a time in step 3';
+        ? (isEn
+            ? `${selectedDateObj.dayName}, ${selectedDateObj.monthName} ${selectedDateObj.dayNum} @ ${selectedTimeSlot} WIB`
+            : `${selectedDateObj.dayName}, ${selectedDateObj.dayNum} ${selectedDateObj.monthName} @ ${selectedTimeSlot} WIB`)
+        : pickNotice;
 
       const valTreatment = document.getElementById('summaryValTreatment');
       if (valTreatment) {
@@ -1917,12 +1949,21 @@
       updateBookingCalculations();
     }
 
-    // 3. Initialize 14-Day Calendar (Step 2)
+    // 3. Initialize 14-Day Calendar (Step 3)
     function initCalendar() {
-      const shortDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-      const fullDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const isEn = (typeof GreenwoodI18n !== 'undefined' && GreenwoodI18n.getLanguage() === 'en');
+      const shortDays = isEn
+        ? ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+        : ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+      const fullDays = isEn
+        ? ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+        : ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+      const months = isEn
+        ? ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        : ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+
       const today = new Date();
+      const prevDateKey = selectedDateObj ? selectedDateObj.dateKey : null;
 
       calendarDays = [];
       // Generate 14 days starting tomorrow
@@ -1933,7 +1974,7 @@
         const dayOfWeek = d.getDay(); // 2 is Tuesday
         const isTuesday = (dayOfWeek === 2); // Tuesday CLOSED
 
-        calendarDays.push({
+        const dateItem = {
           dateObj: d,
           dateKey: `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`,
           dayOfWeek: dayOfWeek,
@@ -1943,11 +1984,13 @@
           monthName: months[d.getMonth()],
           year: d.getFullYear(),
           isClosed: isTuesday
-        });
-      }
+        };
+        calendarDays.push(dateItem);
 
-      selectedDateObj = null;
-      selectedTimeSlot = null;
+        if (prevDateKey && dateItem.dateKey === prevDateKey) {
+          selectedDateObj = dateItem;
+        }
+      }
 
       renderCalendarWeek();
     }
@@ -1956,6 +1999,10 @@
       const container = document.getElementById('calendarDaysStrip');
       if (!container) return;
 
+      const isEn = (typeof GreenwoodI18n !== 'undefined' && GreenwoodI18n.getLanguage() === 'en');
+      const closedBadgeText = typeof GreenwoodI18n !== 'undefined' ? GreenwoodI18n.t('step3ClosedBadge') : (isEn ? 'Closed' : 'Tutup');
+      const closedTooltip = typeof GreenwoodI18n !== 'undefined' ? GreenwoodI18n.t('step3ClosedTooltip') : (isEn ? 'Parlour Closed Every Tuesday' : 'Barbershop Tutup Setiap Hari Selasa');
+
       const startIndex = calendarWeekOffset * 7;
       const weekDays = calendarDays.slice(startIndex, startIndex + 7);
 
@@ -1963,10 +2010,10 @@
         const isSelected = selectedDateObj && (selectedDateObj.dateKey === d.dateKey);
         if (d.isClosed) {
           return `
-            <div class="date-card-btn closed" title="Parlour Closed Every Tuesday">
+            <div class="date-card-btn closed" title="${closedTooltip}">
               <span class="date-day-name">${d.dayShort}</span>
               <span class="date-num">${d.dayNum}</span>
-              <span class="date-closed-badge">Closed</span>
+              <span class="date-closed-badge">${closedBadgeText}</span>
             </div>
           `;
         } else {
@@ -1988,8 +2035,8 @@
       const caption = document.getElementById('calendarWeekCaption');
       if (caption) {
         caption.textContent = calendarWeekOffset === 0 
-          ? 'Showing Week 1 of 2 (14 Days Available)' 
-          : 'Showing Week 2 of 2 (14 Days Available)';
+          ? (isEn ? 'Showing Week 1 of 2 (14 Days Available)' : 'Menampilkan Minggu 1 dari 2 (Tersedia 14 Hari)') 
+          : (isEn ? 'Showing Week 2 of 2 (14 Days Available)' : 'Menampilkan Minggu 2 dari 2 (Tersedia 14 Hari)');
       }
     }
 
@@ -2008,7 +2055,10 @@
 
       const titleEl = document.getElementById('selectedDateTitle');
       if (titleEl) {
-        titleEl.textContent = `Available Hours: ${dayData.dayName}, ${dayData.monthName} ${dayData.dayNum}, ${dayData.year}`;
+        const isEn = (typeof GreenwoodI18n !== 'undefined' && GreenwoodI18n.getLanguage() === 'en');
+        titleEl.textContent = isEn
+          ? `Available Hours: ${dayData.dayName}, ${dayData.monthName} ${dayData.dayNum}, ${dayData.year}`
+          : `Jam Tersedia: ${dayData.dayName}, ${dayData.dayNum} ${dayData.monthName} ${dayData.year}`;
       }
 
       renderTimeSlots();
@@ -2021,9 +2071,12 @@
       if (!container) return;
 
       if (!selectedDateObj) {
+        const promptMsg = typeof GreenwoodI18n !== 'undefined' 
+          ? GreenwoodI18n.t('step3SelectDateFirst') 
+          : 'Silakan pilih tanggal reservasi di atas untuk melihat jam yang tersedia.';
         container.innerHTML = `
           <div style="grid-column: 1 / -1; text-align: center; padding: 24px; color: var(--text-muted); font-size: 14px;">
-            Please select an appointment date above to view available time slots.
+            ${promptMsg}
           </div>
         `;
         return;
@@ -2033,6 +2086,11 @@
       const dailySlots = (typeof GreenwoodBookingStore !== 'undefined' && GreenwoodBookingStore.getSlotsForDuration)
         ? GreenwoodBookingStore.getSlotsForDuration(totalDur)
         : GREENWOOD_CONFIG.hours.dailySlots;
+
+      const isEn = (typeof GreenwoodI18n !== 'undefined' && GreenwoodI18n.getLanguage() === 'en');
+      const slotBookedTooltip = isEn 
+        ? "This slot is fully reserved or beyond operating hours" 
+        : "Jam ini sudah terisi penuh atau di luar jam operasional";
 
       container.innerHTML = dailySlots.map(timeStr => {
         const isFree = GreenwoodBookingStore.isSlotAvailable(
@@ -2046,7 +2104,7 @@
 
         if (!isFree) {
           return `
-            <button type="button" class="slot-btn booked" disabled title="This slot is fully reserved or beyond operating hours">
+            <button type="button" class="slot-btn booked" disabled title="${slotBookedTooltip}">
               ${timeStr}
             </button>
           `;
@@ -2069,17 +2127,17 @@
     // 5. Navigate Between Steps (4-Step Flow)
     function navigateToStep(stepNum) {
       if (stepNum > 1 && !selectedPackage) {
-        alert("Please select a signature grooming ritual first.");
+        alert(typeof GreenwoodI18n !== 'undefined' ? GreenwoodI18n.t('alertSelectPackage') : "Silakan pilih layanan utama pangkas rambut terlebih dahulu.");
         return;
       }
 
       if (stepNum > 3) {
         if (!selectedDateObj) {
-          alert("Please select your appointment date.");
+          alert(typeof GreenwoodI18n !== 'undefined' ? GreenwoodI18n.t('alertSelectDate') : "Silakan pilih tanggal kedatangan Anda.");
           return;
         }
         if (!selectedTimeSlot) {
-          alert("Please select an available time slot.");
+          alert(typeof GreenwoodI18n !== 'undefined' ? GreenwoodI18n.t('alertSelectTime') : "Silakan pilih jam sesi yang tersedia.");
           return;
         }
       }
@@ -2124,23 +2182,23 @@
       const notes = document.getElementById('guestNotes').value.trim();
 
       if (!name || !phone) {
-        alert("Please provide your full name and active WhatsApp number.");
+        alert(typeof GreenwoodI18n !== 'undefined' ? GreenwoodI18n.t('alertMissingFields') : "Mohon lengkapi nama lengkap dan nomor WhatsApp aktif Anda.");
         return;
       }
 
       const cleanPhoneDigits = phone.replace(/[^0-9]/g, '');
       if (cleanPhoneDigits.length < 9 || cleanPhoneDigits.length > 15) {
-        alert("Invalid WhatsApp number. Please enter an active phone number (e.g. 08123456789).");
+        alert(typeof GreenwoodI18n !== 'undefined' ? GreenwoodI18n.t('alertInvalidPhone') : "Nomor WhatsApp tidak valid. Mohon masukkan nomor aktif (contoh: 08123456789).");
         return;
       }
 
       if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        alert("Invalid email format. Please verify your email address.");
+        alert(typeof GreenwoodI18n !== 'undefined' ? GreenwoodI18n.t('alertInvalidEmail') : "Format email tidak valid. Mohon periksa kembali alamat email Anda.");
         return;
       }
 
       if (!selectedPackage || !selectedDateObj || !selectedTimeSlot) {
-        alert("Incomplete reservation details. Please select your ritual and schedule first.");
+        alert(typeof GreenwoodI18n !== 'undefined' ? GreenwoodI18n.t('alertSelectPackage') : "Silakan pilih layanan utama dan jadwal reservasi Anda.");
         navigateToStep(3);
         return;
       }
@@ -2150,7 +2208,7 @@
 
       // Real-time double-booking prevention check
       if (!GreenwoodBookingStore.isSlotAvailable(selectedDateObj.dateKey, selectedTimeSlot, totalDur, selectedBarberId)) {
-        alert("We apologize, the time slot " + selectedTimeSlot + " WIB on this date has just been fully reserved. Please select another time or barber.");
+        alert(typeof GreenwoodI18n !== 'undefined' ? GreenwoodI18n.t('alertSlotFull') : "Mohon maaf, jam yang Anda pilih baru saja terisi penuh. Silakan pilih jam atau barber lain.");
         navigateToStep(3);
         return;
       }
@@ -2166,6 +2224,9 @@
           }
         }
       }
+
+      const isEn = (typeof GreenwoodI18n !== 'undefined' && GreenwoodI18n.getLanguage() === 'en');
+      const defaultBarberTitle = typeof GreenwoodI18n !== 'undefined' ? GreenwoodI18n.t('step2AnyBarberTitle') : (isEn ? 'First available barber' : 'Barber Pertama yang Tersedia');
 
       const bookingRecord = {
         bookingCode: bookingCode,
@@ -2183,7 +2244,7 @@
         addons: selectedAddons.map(a => ({ id: a.id, name: a.name, price: a.price, duration: a.duration })),
         barberId: selectedBarberId,
         assignedBarberId: assignedBarber ? assignedBarber.id : 'bramantyo',
-        assignedBarberName: assignedBarber ? assignedBarber.name : 'First available barber',
+        assignedBarberName: assignedBarber ? assignedBarber.name : defaultBarberTitle,
         status: 'Pending',
         timestamp: Date.now()
       };
@@ -2195,7 +2256,7 @@
       document.getElementById('passCodeVal').textContent = bookingCode;
       document.getElementById('passGuestName').textContent = name;
       document.getElementById('passGuestPhone').textContent = phone;
-      document.getElementById('passBarberName').textContent = assignedBarber ? assignedBarber.name : "First available barber";
+      document.getElementById('passBarberName').textContent = assignedBarber ? assignedBarber.name : defaultBarberTitle;
       document.getElementById('passScheduleTime').textContent = `${bookingRecord.dayFull} @ ${selectedTimeSlot} WIB`;
 
       let servicesListText = selectedPackage.name;
@@ -2230,26 +2291,44 @@
       const dateFormatted = selectedDateObj ? `${selectedDateObj.monthName} ${selectedDateObj.dayNum}` : '';
       const pkgName = selectedPackage ? selectedPackage.name : 'The Cut';
       const addonsStr = selectedAddons.length > 0 ? selectedAddons.map(a => a.name).join(', ') : '';
-      const barberDisplayName = assignedBarber ? assignedBarber.name : 'First available barber';
+      const barberDisplayName = assignedBarber ? assignedBarber.name : defaultBarberTitle;
       const mapsLink = (typeof GREENWOOD_CONFIG !== 'undefined' && GREENWOOD_CONFIG.brand && GREENWOOD_CONFIG.brand.mapsUrl) 
         ? GREENWOOD_CONFIG.brand.mapsUrl 
         : 'https://www.google.com/maps/search/?api=1&query=-6.871083,107.466639';
-      const totalAmountNumber = Number(totalPrc || 0).toLocaleString('en-US');
+      const totalAmountNumber = Number(totalPrc || 0).toLocaleString(isEn ? 'en-US' : 'id-ID');
 
-      let waLines = [
-        `Hi ${name}, your chair at Greenwood is reserved.`,
-        `*${pkgName}* with ${barberDisplayName}`
-      ];
-      if (addonsStr) {
-        waLines.push(`Add-ons: ${addonsStr}`);
+      let waLines = [];
+      if (isEn) {
+        waLines = [
+          `Hi ${name}, your chair at Greenwood is reserved.`,
+          `*${pkgName}* with ${barberDisplayName}`
+        ];
+        if (addonsStr) {
+          waLines.push(`Add-ons: ${addonsStr}`);
+        }
+        waLines.push(`${dayName}, ${dateFormatted} · ${selectedTimeSlot}–${endSlot}`);
+        waLines.push(`Total: IDR ${totalAmountNumber}`);
+        waLines.push(`📍 Ruko PancaTengah, Kota Baru Parahyangan. Free parking at the door.`);
+        waLines.push(mapsLink);
+        waLines.push(`Need to change the time? Just reply here, ideally 3 hours ahead.`);
+        waLines.push(`Please reply *YES* to confirm. See you ${dayName}.`);
+        waLines.push(`Greenwood Barbers`);
+      } else {
+        waLines = [
+          `Halo ${name}, kursi Anda di Greenwood telah terkonfirmasi.`,
+          `*${pkgName}* bersama ${barberDisplayName}`
+        ];
+        if (addonsStr) {
+          waLines.push(`Layanan Tambahan: ${addonsStr}`);
+        }
+        waLines.push(`${dayName}, ${dateFormatted} · ${selectedTimeSlot}–${endSlot} WIB`);
+        waLines.push(`Total: Rp ${totalAmountNumber}`);
+        waLines.push(`📍 Ruko PancaTengah, Kota Baru Parahyangan. Bebas biaya parkir tepat di depan pintu.`);
+        waLines.push(mapsLink);
+        waLines.push(`Perlu penyesuaian jadwal? Silakan balas pesan ini, idealnya 3 jam sebelum sesi.`);
+        waLines.push(`Balas *YA* untuk konfirmasi kehadiran. Sampai jumpa di Greenwood!`);
+        waLines.push(`Greenwood Barbers`);
       }
-      waLines.push(`${dayName}, ${dateFormatted} · ${selectedTimeSlot}–${endSlot}`);
-      waLines.push(`Total: Rp ${totalAmountNumber}`);
-      waLines.push(`📍 Ruko PancaTengah, Kota Baru Parahyangan. Free parking at the door.`);
-      waLines.push(mapsLink);
-      waLines.push(`Need to change the time? Just reply here, ideally 3 hours ahead.`);
-      waLines.push(`Please reply *YES* to confirm. See you ${dayName}.`);
-      waLines.push(`Greenwood Barbers`);
 
       const waReminderText = waLines.join('\n');
 
@@ -2497,8 +2576,9 @@
       const pkg = GREENWOOD_CONFIG.packages.find(p => p.id === pkgId);
       if (!pkg) return;
 
-      document.getElementById('modalPkgTitle').textContent = "What’s included";
-      document.getElementById('modalPkgMeta').textContent = `${pkg.duration} Mins &bull; ${formatRupiah(pkg.price)}`;
+      const title = typeof GreenwoodI18n !== 'undefined' ? GreenwoodI18n.t('modalWhatIncluded') : "Rincian Layanan";
+      document.getElementById('modalPkgTitle').textContent = title;
+      document.getElementById('modalPkgMeta').textContent = `${getDurationText(pkg.duration)} &bull; ${formatRupiah(pkg.price)}`;
       document.getElementById('modalPkgStepsList').innerHTML = pkg.steps.map(s => `
         <li class="info-step-item">
           <span style="color: var(--accent-gold-bright); font-weight: 700;">&bull;</span>
@@ -2516,7 +2596,7 @@
       if (!addon) return;
 
       document.getElementById('modalPkgTitle').textContent = addon.name;
-      document.getElementById('modalPkgMeta').textContent = `${addon.duration} Mins &bull; ${formatRupiah(addon.price)}`;
+      document.getElementById('modalPkgMeta').textContent = `${getDurationText(addon.duration)} &bull; ${formatRupiah(addon.price)}`;
       document.getElementById('modalPkgStepsList').innerHTML = `
         <li class="info-step-item">
           <span style="color: var(--accent-gold-bright); font-weight: 700;">&bull;</span>
@@ -2535,6 +2615,23 @@
     function closePkgModalDirect() {
       document.getElementById('pkgInfoModal').classList.remove('open');
     }
+
+    // Dynamic Language Changed Listener
+    window.addEventListener('greenwood-language-changed', function(e) {
+      initServices();
+      initCalendar();
+      if (selectedDateObj) {
+        const isEn = e.detail && e.detail.lang === 'en';
+        const titleEl = document.getElementById('selectedDateTitle');
+        if (titleEl) {
+          titleEl.textContent = isEn
+            ? `Available Hours: ${selectedDateObj.dayName}, ${selectedDateObj.monthName} ${selectedDateObj.dayNum}, ${selectedDateObj.year}`
+            : `Jam Tersedia: ${selectedDateObj.dayName}, ${selectedDateObj.dayNum} ${selectedDateObj.monthName} ${selectedDateObj.year}`;
+        }
+      }
+      renderTimeSlots();
+      updateBookingCalculations();
+    });
 
     // INITIALIZATION
     window.addEventListener('DOMContentLoaded', () => {
