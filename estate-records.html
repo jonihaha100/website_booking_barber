@@ -7037,7 +7037,9 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         front: document.getElementById('thumbAngleFront') ? document.getElementById('thumbAngleFront').src : '',
         left: document.getElementById('thumbAngleLeft') ? document.getElementById('thumbAngleLeft').src : '',
         right: document.getElementById('thumbAngleRight') ? document.getElementById('thumbAngleRight').src : '',
-        back: document.getElementById('thumbAngleBack') ? document.getElementById('thumbAngleBack').src : ''
+        back: document.getElementById('thumbAngleBack') ? document.getElementById('thumbAngleBack').src : '',
+        top: document.getElementById('thumbAngleTop') ? document.getElementById('thumbAngleTop').src : '',
+        before: document.getElementById('thumbAngleBefore') ? document.getElementById('thumbAngleBefore').src : ''
       };
 
       const recordData = {
@@ -7182,7 +7184,8 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     }
 
     /**
-     * Upload & Resize Foto 4 Sudut (Client spec: 1600px canvas resize)
+     * Upload, Kompresi & Auto-Save Foto 6 Sudut (Depan, Kiri, Kanan, Belakang, Atas, Before)
+     * Langsung tersimpan otomatis ke database resep tamu tanpa risiko hilang
      */
     function handleUploadAnglePhoto(angle, event) {
       const file = event.target.files && event.target.files[0];
@@ -7192,7 +7195,8 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       reader.onload = function(e) {
         const img = new Image();
         img.onload = function() {
-          const maxDim = 1600;
+          // Kompresi optimal: max 800px & 0.72 quality (~40-50KB) untuk memastikan aman dalam batas storage browser
+          const maxDim = 800;
           let w = img.width;
           let h = img.height;
           if (w > maxDim || h > maxDim) {
@@ -7204,11 +7208,42 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           canvas.height = h;
           const ctx = canvas.getContext('2d');
           ctx.drawImage(img, 0, 0, w, h);
-          const resizedData = canvas.toDataURL('image/jpeg', 0.85);
+          const resizedData = canvas.toDataURL('image/jpeg', 0.72);
 
-          const thumbId = (angle === 'front') ? 'thumbAngleFront' : (angle === 'left') ? 'thumbAngleLeft' : (angle === 'right') ? 'thumbAngleRight' : 'thumbAngleBack';
+          const thumbMap = {
+            'front': 'thumbAngleFront',
+            'left': 'thumbAngleLeft',
+            'right': 'thumbAngleRight',
+            'back': 'thumbAngleBack',
+            'top': 'thumbAngleTop',
+            'before': 'thumbAngleBefore'
+          };
+          const thumbId = thumbMap[angle] || 'thumbAngleFront';
           const thumbEl = document.getElementById(thumbId);
           if (thumbEl) thumbEl.src = resizedData;
+
+          // Update foto profil di header jika sudut depan
+          if (angle === 'front') {
+            const avatarImg = document.getElementById('zone1AvatarImg');
+            if (avatarImg) avatarImg.src = resizedData;
+          }
+
+          // AUTO-SAVE LANGSUNG KE DATABASE
+          if (activeCustomerDetail && GreenwoodAdminDB && GreenwoodAdminDB.savePhotoAngle) {
+            GreenwoodAdminDB.savePhotoAngle(activeCustomerDetail.id, angle, resizedData);
+            
+            // Berikan indikator visual sukses pada kartu foto
+            const cardEl = thumbEl ? thumbEl.closest('.photo-angle-card') : null;
+            if (cardEl) {
+              const prevBorder = cardEl.style.borderColor;
+              cardEl.style.borderColor = '#4ade80';
+              cardEl.style.boxShadow = '0 0 12px rgba(74,222,128,0.4)';
+              setTimeout(() => {
+                cardEl.style.borderColor = prevBorder || 'var(--card-border)';
+                cardEl.style.boxShadow = 'none';
+              }, 2000);
+            }
+          }
         };
         img.src = e.target.result;
       };

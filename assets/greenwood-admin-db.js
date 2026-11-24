@@ -2159,6 +2159,85 @@
     },
 
     /**
+     * Auto-Save Foto Pangkas per Sudut (Front, Left, Right, Back, Top, Before)
+     * Langsung tersimpan ke arsip resep tamu tanpa harus klik tombol simpan manual
+     */
+    savePhotoAngle: function(customerId, angle, photoDataUrl) {
+      const list = getStorage(KEYS.CUSTOMERS, []);
+      const idx = list.findIndex(c => c.id === customerId);
+      if (idx === -1) return false;
+
+      const cust = list[idx];
+      cust.visitHistory = cust.visitHistory || [];
+      let visit = cust.visitHistory[0];
+
+      if (!visit) {
+        const nowStr = new Date().toISOString().split('T')[0];
+        visit = {
+          visitId: 'VST-' + nowStr + '-' + Date.now().toString().slice(-4),
+          date: nowStr,
+          receiptId: 'RCP-' + Date.now().toString().slice(-8),
+          barberName: this.getActiveBarberName() || 'Barber',
+          barberId: this.getActiveBarberId() || 'barber-bramantyo',
+          chair: 'Kursi 1',
+          serviceName: 'The Cut',
+          total: 150000,
+          tip: 0,
+          rebookedAtCheckout: false
+        };
+        cust.visitHistory.unshift(visit);
+        cust.visitCount = cust.visitHistory.length;
+        cust.lastVisit = visit.date;
+        cust.lastBarber = visit.barberName;
+      }
+
+      if (!visit.cutRecord) {
+        visit.cutRecord = {
+          styleName: 'The Cut Signature',
+          sidesBackGuard: '#2 to #0.5',
+          fadeHeightType: 'Mid, skin / drop / taper',
+          topLengthTechnique: '4 cm, point-cut texture',
+          fringePart: 'Forward fringe, no part',
+          neckline: 'Tapered / natural',
+          beard: '',
+          productsUsed: 'Matte clay',
+          styling: 'Blow-dried forward',
+          hairNotes: '',
+          verdict: 'loved',
+          nextTimeNotes: '',
+          photos: {}
+        };
+      }
+
+      visit.cutRecord.photos = visit.cutRecord.photos || {};
+      visit.cutRecord.photos[angle] = photoDataUrl;
+
+      // Update avatar jika foto sudut depan
+      if (angle === 'front') {
+        cust.avatarUrl = photoDataUrl;
+      }
+
+      // Evaluasi apakah kartu memenuhi syarat lengkap
+      const p = visit.cutRecord.photos;
+      visit.cutRecord.isComplete = Boolean(
+        visit.cutRecord.styleName &&
+        visit.cutRecord.sidesBackGuard &&
+        visit.cutRecord.topLengthTechnique &&
+        visit.cutRecord.neckline &&
+        visit.cutRecord.verdict &&
+        p.front &&
+        p.back
+      );
+
+      setStorage(KEYS.CUSTOMERS, list);
+      this.logActivity(
+        "Upload Foto Pangkas",
+        `Foto sudut '${angle}' berhasil disimpan untuk tamu ${cust.name} (${customerId}). Status resep: ${visit.cutRecord.isComplete ? 'LENGKAP' : 'BELUM LENGKAP'}`
+      );
+      return true;
+    },
+
+    /**
      * Catat Persetujuan Foto UU PDP (Undang-Undang No 27 Tahun 2022)
      */
     recordPhotoConsent: function(customerId, consentData) {
