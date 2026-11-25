@@ -14,9 +14,9 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Open+Sans:wght@300;400;600;700&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="assets/greenwood.css?v=20261125_v5">
-  <script src="assets/config.js?v=20261125_v5"></script>
-  <script src="assets/greenwood-admin-db.js?v=20261125_v5"></script>
+  <link rel="stylesheet" href="assets/greenwood.css?v=20261125_v6">
+  <script src="assets/config.js?v=20261125_v6"></script>
+  <script src="assets/greenwood-admin-db.js?v=20261125_v6"></script>
 
   <style>
     :root {
@@ -8994,11 +8994,18 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           if (bMatch) targetCode = bMatch.bookingCode;
         }
         if (targetCode) {
-          completedSession = GreenwoodBookingStore.completeBookingSession(targetCode, txRecord.receiptNumber);
+          const fallbackBook = (currentBookings || []).find(b => b.bookingCode === targetCode);
+          completedSession = GreenwoodBookingStore.completeBookingSession(targetCode, txRecord.receiptNumber, null, fallbackBook);
           if (completedSession) {
             txRecord.bookingCode = completedSession.bookingCode;
+            txRecord.linkedBookingCode = completedSession.bookingCode;
             txRecord.actualDuration = completedSession.actualDuration;
             txRecord.standardDuration = completedSession.totalDuration || 45;
+            const curMatch = (currentBookings || []).find(b => b.bookingCode === completedSession.bookingCode);
+            if (curMatch) {
+              Object.assign(curMatch, completedSession);
+            }
+            pushBookingSessionToCloud(completedSession, 'checkout');
             if (typeof GreenwoodAdminDB !== 'undefined' && GreenwoodAdminDB.logActivity) {
               GreenwoodAdminDB.logActivity(
                 'Auto-Stop Timer POS',
@@ -9024,7 +9031,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       updatePosShiftToolbar();
       renderCrmTable();
       renderStaffCommissionTable();
-      if (typeof loadLedgerData === 'function') loadLedgerData();
+      if (typeof reloadLedgerData === 'function') reloadLedgerData();
       renderAnalyticsDashboard();
     }
 
@@ -9161,21 +9168,78 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     // =========================================================================
     // MULTI-DEVICE CLOUD REAL-TIME PUSH ENGINE
     // =========================================================================
-    function pushPosTransactionToCloud(txRecord) {
-      const webhookUrl = (typeof GREENWOOD_CONFIG !== 'undefined' && GREENWOOD_CONFIG.brand && GREENWOOD_CONFIG.brand.googleCalendarWebhookUrl)
+    function getCloudWebhookUrl() {
+      return (typeof GREENWOOD_CONFIG !== 'undefined' && GREENWOOD_CONFIG.brand && GREENWOOD_CONFIG.brand.googleCalendarWebhookUrl)
         ? GREENWOOD_CONFIG.brand.googleCalendarWebhookUrl
         : 'https://script.google.com/macros/s/AKfycbxTz-1pKwj_Dd0ebm1_CfY7V9801L91Qw6qvwTa3LA6MLV7oULTA76GCRA5K8ic1LSTwQ/exec';
+    }
+
+    function pushBookingSessionToCloud(booking, eventType) {
+      if (!booking || !booking.bookingCode) return;
+      const webhookUrl = getCloudWebhookUrl();
+      const action = (eventType === 'walkin') ? 'save_walkin_booking' : 'update_booking_session';
+      const payload = {
+        action: action,
+        key: 'gw_ledger_sec_2050',
+        eventType: eventType || 'update',
+        bookingCode: booking.bookingCode,
+        guestName: booking.guestName || 'Tamu',
+        guestPhone: booking.guestPhone || '-',
+        guestEmail: booking.guestEmail || '',
+        barberName: booking.assignedBarberName || booking.barberName || 'Bramantyo',
+        dateKey: booking.dateKey || getLocalTodayDateKey(),
+        timeSlot: booking.timeSlot || '10:00',
+        serviceName: booking.packageName || booking.serviceName || 'The Cut',
+        totalPrice: Number(booking.totalPrice || booking.total) || 0,
+        totalDuration: Number(booking.totalDuration) || 45,
+        status: booking.status || 'Confirmed',
+        startedAt: booking.startedAt || '',
+        completedAt: booking.completedAt || '',
+        actualDuration: booking.actualDuration || '',
+        paymentLocked: Boolean(booking.paymentLocked),
+        receiptNumber: booking.receiptNumber || '',
+        guestNotes: booking.guestNotes || (eventType === 'walkin' ? 'Walk-In Kasir' : '')
+      };
+
+      try {
+        fetch(webhookUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        }).then(() => {
+          console.log(`Cloud session sync (${action}) dispatched:`, booking.bookingCode, booking.status);
+        }).catch(err => {
+          console.warn('Cloud session sync failed/queued:', err);
+        });
+      } catch (err) {
+        console.warn('Cloud session sync exception:', err);
+      }
+    }
+
+    function pushPosTransactionToCloud(txRecord) {
+      const webhookUrl = getCloudWebhookUrl();
+
+      // Embed session close tag so even before Apps Script redeploy, all devices auto-close linked GWB-... booking
+      let notesWithSession = txRecord.notes || "Kasir POS";
+      if (txRecord.linkedBookingCode && txRecord.actualDuration) {
+        const stdDur = txRecord.standardDuration || 45;
+        notesWithSession = `${notesWithSession} [SESSION:${txRecord.linkedBookingCode}|ACT:${txRecord.actualDuration}|STD:${stdDur}]`.trim();
+      }
 
       const payload = {
         action: "save_pos_transaction",
         isPosTransaction: true,
         bookingCode: txRecord.receiptNumber,
         receiptNumber: txRecord.receiptNumber,
+        linkedBookingCode: txRecord.linkedBookingCode || "",
+        actualDuration: txRecord.actualDuration || "",
+        standardDuration: txRecord.standardDuration || "",
         guestName: txRecord.customerName,
         guestPhone: txRecord.customerPhone,
         guestEmail: "",
         barberName: txRecord.barberName,
-        dateKey: new Date().toISOString().slice(0, 10),
+        dateKey: getLocalTodayDateKey(),
         timeSlot: txRecord.timeFormatted,
         serviceName: txRecord.items.map(i => `${i.name} (x${i.qty})`).join(', '),
         totalPrice: txRecord.total,
@@ -9184,7 +9248,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         subtotal: txRecord.subtotal,
         discount: txRecord.discount,
         tip: txRecord.tip,
-        notes: txRecord.notes || "Kasir POS",
+        notes: notesWithSession,
         items: txRecord.items
       };
 
@@ -9192,7 +9256,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         fetch(webhookUrl, {
           method: 'POST',
           mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(payload)
         }).then(() => {
           console.log('POS transaction successfully dispatched to Cloud Master Vault:', txRecord.receiptNumber);
@@ -11701,13 +11765,17 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
 
     function startBookingTimer(bookingCode) {
       if (typeof GreenwoodBookingStore === 'undefined') return;
-      const updated = GreenwoodBookingStore.startBookingSession(bookingCode);
+      const fallbackItem = (currentBookings || []).find(b => b.bookingCode === bookingCode);
+      const updated = GreenwoodBookingStore.startBookingSession(bookingCode, fallbackItem);
       if (!updated) return;
       const localItem = (currentBookings || []).find(b => b.bookingCode === bookingCode);
       if (localItem) {
         localItem.status = 'In-Progress';
         localItem.startedAt = updated.startedAt;
+      } else {
+        currentBookings.unshift(updated);
       }
+      pushBookingSessionToCloud(updated, 'checkin');
       if (typeof GreenwoodAdminDB !== 'undefined' && GreenwoodAdminDB.logActivity) {
         GreenwoodAdminDB.logActivity(
           'Mulai Timer Kursi',
@@ -11796,13 +11864,14 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         }
       }
 
-      // Filter bookings for selected date (prefer fresh store read so live start/stop stays 100% synced)
+      // Filter bookings for selected date (merged cloud + local, excluding standalone POS receipt rows)
       const sourceBookings = (typeof GreenwoodBookingStore !== 'undefined' && GreenwoodBookingStore.getBookings)
         ? GreenwoodBookingStore.getBookings()
         : (currentBookings || []);
 
       const dayBookings = sourceBookings.filter(b => {
         if (!b || b.dateKey !== activeMatrixDateKey) return false;
+        if (b.isPosReceipt || String(b.bookingCode || '').startsWith('RCP-')) return false;
         const st = (b.status || '').toLowerCase();
         return st !== 'cancelled' && st !== 'no-show';
       });
@@ -12021,9 +12090,13 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         const priceCell = isBarber ? '' : `<td><strong style="color: var(--accent-gold-bright); font-size: 12.5px;">${formatRupiah(b.totalPrice || b.total || 0)}</strong></td>`;
         const rawBarber = b.assignedBarberName || b.barberName;
         const barberDisplay = (rawBarber && rawBarber !== 'First available') ? rawBarber : 'Barber Pertama Tersedia';
+        const isPosRow = Boolean(b.isPosReceipt) || String(b.bookingCode || '').startsWith('RCP-');
         let statusBadgeHtml = 'Terkonfirmasi';
         let statusBadgeClass = 'badge-vip';
-        if (b.status === 'Completed') {
+        if (isPosRow) {
+          statusBadgeHtml = 'Selesai (POS)';
+          statusBadgeClass = 'badge-reguler';
+        } else if (b.status === 'Completed') {
           statusBadgeHtml = b.actualDuration ? `Selesai (${b.actualDuration}/${b.totalDuration || 45} mnt)` : 'Selesai';
           statusBadgeClass = 'badge-reguler';
         } else if (b.status === 'In-Progress') {
@@ -12064,7 +12137,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           </td>
           <td style="text-align: right;">
             <div class="table-actions">
-              ${b.status !== 'Completed' ? `
+              ${(!isPosRow && b.status !== 'Completed') ? `
               <button type="button" class="btn-table-action" style="background: rgba(197, 155, 72, 0.15); border: 1px solid var(--accent-gold); color: var(--accent-gold-bright);" onclick="openGuestCardFromBooking('${b.bookingCode}')" title="SOP C5: Konsultasi Cermin 10 Detik">
                 <span>Kartu</span>
               </button>
@@ -12323,11 +12396,19 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
               document.getElementById('btnOpenSheet').style.display = 'inline-flex';
             }
             if (Array.isArray(res.bookings) && res.bookings.length > 0) {
-              currentBookings = res.bookings;
+              // Merge Cloud bookings seamlessly into GreenwoodBookingStore so 15-min Matrix & POS stay 100% synced multi-device
+              if (typeof GreenwoodBookingStore !== 'undefined' && GreenwoodBookingStore.mergeCloudBookings) {
+                currentBookings = GreenwoodBookingStore.mergeCloudBookings(res.bookings);
+              } else {
+                currentBookings = res.bookings;
+              }
               filterLedger();
               updateMetrics();
               syncCloudCustomersToCRM(res.bookings);
               syncCloudTransactionsToLocalDB(res.bookings);
+              if (typeof renderDurationEfficiencyView === 'function') {
+                renderDurationEfficiencyView();
+              }
             }
           } else {
             if (dot) dot.className = 'sync-dot dot-offline';
@@ -12427,6 +12508,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         GreenwoodBookingStore.addBooking(newBooking);
       }
       currentBookings.unshift(newBooking);
+      pushBookingSessionToCloud(newBooking, 'walkin');
       filterLedger();
       updateMetrics();
       closeWalkinModal();

@@ -83,6 +83,16 @@ function doPost(e) {
     if (data.action === "save_pos_transaction" || data.isPosTransaction === true) {
       return handlePosTransaction(data);
     }
+
+    // FITUR B.6: Pembaruan Status Sesi Kursi & Stopwatch (Check-In / POS Auto-Stop Lock Opsi 1)
+    if (data.action === "update_booking_session") {
+      return handleBookingSessionUpdate(data);
+    }
+
+    // FITUR B.7: Pencatatan Tamu Walk-In Langsung dari Matriks 15-Menit Kasir
+    if (data.action === "save_walkin_booking") {
+      return handleWalkinBooking(data);
+    }
     
     // Ambil Kalender Utama akun Google ini
     var calendar = CalendarApp.getDefaultCalendar();
@@ -473,8 +483,9 @@ function doGet(e) {
         })).setMimeType(ContentService.MimeType.JSON);
       }
       
-      // Ambil seluruh baris transaksi dari baris 2 hingga baris terakhir
-      var range = sheet.getRange(2, 1, lastRow - 1, 14);
+      // Ambil seluruh baris transaksi (mendukung kolom 1-14 lama maupun kolom 15-20 tracking sesi Opsi 1)
+      var totalCols = Math.max(14, Math.min(20, sheet.getLastColumn()));
+      var range = sheet.getRange(2, 1, lastRow - 1, totalCols);
       var values = range.getValues();
       var bookings = [];
       
@@ -512,7 +523,21 @@ function doGet(e) {
             numPrice = numPrice * 1000;
           }
         }
-        
+
+        var calStatusStr = String(row[11] || "").trim();
+        var isPosRow = bookingCode.indexOf("RCP-") === 0 || calStatusStr.toLowerCase().indexOf("pos walk-in") !== -1;
+
+        // Kolom 15-20 (Opsional / Opsi 1 Real-Time Stopwatch & POS Lock)
+        var colStatus = totalCols >= 15 ? String(row[14] || "").trim() : "";
+        var colStartedAt = totalCols >= 16 && row[15] ? Number(row[15]) || null : null;
+        var colCompletedAt = totalCols >= 17 && row[16] ? Number(row[16]) || null : null;
+        var colStdDur = totalCols >= 18 && row[17] ? Number(row[17]) || 45 : 45;
+        var colActDur = totalCols >= 19 && row[18] ? Number(row[18]) || null : null;
+        var colReceiptLock = totalCols >= 20 ? String(row[19] || "").trim() : "";
+
+        var finalStatus = colStatus || (isPosRow ? "Completed" : "Confirmed");
+        var isLocked = (finalStatus === "Completed" && (colReceiptLock !== "" || isPosRow));
+
         bookings.push({
           createdAt: timestampStr,
           timestamp: row[0] instanceof Date ? row[0].getTime() : Date.now(),
@@ -528,10 +553,17 @@ function doGet(e) {
           serviceName: String(row[8] || "The Cut").trim(),
           totalPrice: numPrice,
           guestNotes: String(row[10] || "").trim(),
-          calendarStatus: String(row[11] || "").trim(),
+          calendarStatus: calStatusStr,
           waStatus: String(row[12] || "").trim(),
           auditFlag: String(row[13] || "HEALTHY").trim(),
-          status: "Confirmed",
+          status: finalStatus,
+          startedAt: colStartedAt,
+          completedAt: colCompletedAt,
+          totalDuration: colStdDur,
+          actualDuration: colActDur,
+          receiptNumber: colReceiptLock || (isPosRow ? bookingCode : ""),
+          paymentLocked: isLocked,
+          isPosReceipt: isPosRow,
           source: "cloud"
         });
       }
@@ -601,31 +633,48 @@ function extractSpreadsheetId(idOrUrl) {
 
 function ensureSheetHeaders(sheet) {
   if (!sheet) return;
+  var fullHeaders = [
+    "Timestamp (WIB)",
+    "Kode Booking",
+    "Nama Tamu",
+    "No WhatsApp",
+    "Email Tamu",
+    "Artisan Barber",
+    "Tanggal Sesi",
+    "Jam Sesi",
+    "Ritual Layanan",
+    "Total Biaya",
+    "Catatan Khusus",
+    "Status Kalender",
+    "Status WhatsApp",
+    "Audit Health Flag",
+    "Status Sesi",
+    "Mulai Check-In (Epoch)",
+    "Selesai POS (Epoch)",
+    "Durasi Standar (mnt)",
+    "Durasi Aktual (mnt)",
+    "Resi POS & Kunci"
+  ];
   if (sheet.getLastRow() === 0) {
-    sheet.appendRow([
-      "Timestamp (WIB)",
-      "Kode Booking",
-      "Nama Tamu",
-      "No WhatsApp",
-      "Email Tamu",
-      "Artisan Barber",
-      "Tanggal Sesi",
-      "Jam Sesi",
-      "Ritual Layanan",
-      "Total Biaya",
-      "Catatan Khusus",
-      "Status Kalender",
-      "Status WhatsApp",
-      "Audit Health Flag"
-    ]);
-
-    sheet.getRange(1, 1, 1, 14)
+    sheet.appendRow(fullHeaders);
+    sheet.getRange(1, 1, 1, fullHeaders.length)
       .setBackground("#091c13")
       .setFontColor("#e5b95f")
       .setFontWeight("bold")
       .setHorizontalAlignment("center");
-      
     sheet.setFrozenRows(1);
+  } else if (sheet.getLastColumn() < fullHeaders.length) {
+    // Auto-append session tracking headers (Cols 15-20) safely onto existing 14-column sheets
+    var startCol = sheet.getLastColumn() + 1;
+    var extraHeaders = fullHeaders.slice(startCol - 1);
+    if (extraHeaders.length > 0) {
+      sheet.getRange(1, startCol, 1, extraHeaders.length)
+        .setValues([extraHeaders])
+        .setBackground("#091c13")
+        .setFontColor("#e5b95f")
+        .setFontWeight("bold")
+        .setHorizontalAlignment("center");
+    }
   }
 }
 
@@ -638,6 +687,8 @@ function recordToShadowSheet(data, calendarStatus, waStatus, auditFlag) {
     }
 
     var formattedTimestamp = Utilities.formatDate(new Date(), "Asia/Jakarta", "yyyy-MM-dd HH:mm:ss");
+    var isPosRow = String(data.bookingCode || "").indexOf("RCP-") === 0;
+    var initStatus = data.status || (isPosRow ? "Completed" : "Confirmed");
 
     sheet.appendRow([
       formattedTimestamp,
@@ -653,16 +704,105 @@ function recordToShadowSheet(data, calendarStatus, waStatus, auditFlag) {
       sanitizeSpreadsheetCell(data.guestNotes || "-"),
       sanitizeSpreadsheetCell(calendarStatus || "-"),
       sanitizeSpreadsheetCell(waStatus || "-"),
-      sanitizeSpreadsheetCell(auditFlag || "HEALTHY")
+      sanitizeSpreadsheetCell(auditFlag || "HEALTHY"),
+      sanitizeSpreadsheetCell(initStatus),
+      data.startedAt || "",
+      data.completedAt || "",
+      Number(data.totalDuration) || 45,
+      data.actualDuration || "",
+      sanitizeSpreadsheetCell(data.receiptNumber || (isPosRow ? data.bookingCode : ""))
     ]);
 
     // Beri warna baris peringatan jika auditFlag bernilai WARNING
     if (auditFlag === "WARNING") {
       var lastRow = sheet.getLastRow();
-      sheet.getRange(lastRow, 1, 1, 14).setBackground("#fff3cd"); // Soft yellow warning tint
+      sheet.getRange(lastRow, 1, 1, 20).setBackground("#fff3cd"); // Soft yellow warning tint
     }
   } catch (err) {
     Logger.log("recordToShadowSheet error: " + err);
+  }
+}
+
+// =========================================================================
+// OPSI 1 MULTI-DEVICE SESSION TRACKER (CHECK-IN, AUTO-STOP POS LOCK, WALK-IN)
+// =========================================================================
+function updateBookingSessionRow(data) {
+  try {
+    var sheet = getOrCreateShadowSheet();
+    if (!sheet || !data || !data.bookingCode) return false;
+    var targetCode = String(data.bookingCode).trim();
+    var lastRow = sheet.getLastRow();
+    if (lastRow <= 1) return false;
+
+    var codes = sheet.getRange(2, 2, lastRow - 1, 1).getValues();
+    for (var i = codes.length - 1; i >= 0; i--) {
+      if (String(codes[i][0] || "").trim() === targetCode) {
+        var rowNum = i + 2;
+        var existingRow = sheet.getRange(rowNum, 15, 1, 6).getValues()[0];
+        var nextStatus = data.status || existingRow[0] || "Confirmed";
+        var nextStarted = data.startedAt ? Number(data.startedAt) : (existingRow[1] || "");
+        var nextCompleted = data.completedAt ? Number(data.completedAt) : (existingRow[2] || "");
+        var nextStdDur = Number(data.totalDuration || data.standardDuration) || Number(existingRow[3]) || 45;
+        var nextActDur = data.actualDuration ? Number(data.actualDuration) : (existingRow[4] || "");
+        var nextReceipt = data.receiptNumber ? sanitizeSpreadsheetCell(data.receiptNumber) : (existingRow[5] || "");
+
+        sheet.getRange(rowNum, 15, 1, 6).setValues([[
+          sanitizeSpreadsheetCell(nextStatus),
+          nextStarted,
+          nextCompleted,
+          nextStdDur,
+          nextActDur,
+          nextReceipt
+        ]]);
+
+        if (nextStatus === "Completed") {
+          sheet.getRange(rowNum, 1, 1, 20).setBackground("#e8f5e9"); // Soft closed green tint
+        } else if (nextStatus === "In-Progress") {
+          sheet.getRange(rowNum, 1, 1, 20).setBackground("#ffebee"); // Soft live red tint
+        }
+        return true;
+      }
+    }
+    return false;
+  } catch (err) {
+    Logger.log("updateBookingSessionRow error: " + err);
+    return false;
+  }
+}
+
+function handleBookingSessionUpdate(data) {
+  try {
+    if (ADMIN_API_KEY && data.key && data.key !== ADMIN_API_KEY) {
+      return ContentService.createTextOutput(JSON.stringify({ status: "error", message: "Unauthorized" }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    var updated = updateBookingSessionRow(data);
+    if (!updated && data.bookingCode) {
+      // If Walk-In or local booking wasn't in Sheet yet, record it with its live status
+      recordToShadowSheet(data, "Walk-In / Portal (" + (data.status || "Confirmed") + ")", "Direct Portal", "HEALTHY");
+      updated = true;
+    }
+    return ContentService.createTextOutput(JSON.stringify({
+      status: updated ? "success" : "not_found",
+      bookingCode: data.bookingCode || "",
+      sessionStatus: data.status || ""
+    })).setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({ status: "error", message: err.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function handleWalkinBooking(data) {
+  try {
+    recordToShadowSheet(data, "Walk-In Kasir (" + (data.status || "Confirmed") + ")", "Direct Walk-In", "HEALTHY");
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "success",
+      bookingCode: data.bookingCode || ""
+    })).setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({ status: "error", message: err.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
   }
 }
 
@@ -888,6 +1028,18 @@ function handlePosTransaction(data) {
 
     // 1. Simpan baris transaksi ke Google Sheets Master Shadow Vault
     recordToShadowSheet(sanitizedData, "POS Walk-in (" + paymentMethod + ")", "Direct POS (No WA required)", "HEALTHY");
+
+    // 1b. Jika transaksi POS terhubung dengan booking online (Opsi 1), langsung kunci status booking asli menjadi Completed!
+    if (data.linkedBookingCode) {
+      updateBookingSessionRow({
+        bookingCode: data.linkedBookingCode,
+        status: "Completed",
+        completedAt: Date.now(),
+        totalDuration: Number(data.standardDuration) || 45,
+        actualDuration: Number(data.actualDuration) || "",
+        receiptNumber: receiptNumber
+      });
+    }
 
     // 2. Kirim Notifikasi Instan Radar ke Telegram Pengelola (Developer/Owner)
     try {

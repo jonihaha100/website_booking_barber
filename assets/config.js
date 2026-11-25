@@ -345,10 +345,217 @@ const GreenwoodBookingStore = {
     return standardDur;
   },
 
-  // Start live stopwatch when guest checks in at Cashier (START)
-  startBookingSession: function(bookingCode) {
+  // Resolve canonical barber ID from barber ID or display name
+  resolveBarberId: function(barberIdOrName) {
+    const raw = String(barberIdOrName || '').toLowerCase().trim();
+    if (!raw || raw === 'any' || raw.includes('first available') || raw.includes('pertama')) return 'any';
+    const match = GREENWOOD_CONFIG.barbers.find(b =>
+      b.id !== 'any' && (
+        raw === b.id ||
+        raw.includes(b.id) ||
+        raw.includes(b.name.toLowerCase().split(' ')[0])
+      )
+    );
+    return match ? match.id : raw;
+  },
+
+  // Estimate standard SOP duration (minutes) from package/service title when not explicitly provided
+  inferStandardDuration: function(serviceName) {
+    const s = String(serviceName || '').toLowerCase();
+    let base = 45;
+    if (s.includes('ritual')) return 95;
+    if (s.includes('cut') && (s.includes('shave') || s.includes('trim'))) base = 75;
+    else if (s.includes('shave') || s.includes('trim') || s.includes('beard')) base = 30;
+    else base = 45;
+
+    if (s.includes('black mask') || s.includes('mask')) base += 20;
+    if (s.includes('hair spa') || s.includes('spa')) base += 20;
+    if (s.includes('massage')) base += 20;
+    return base;
+  },
+
+  // Normalize a booking row received from Google Sheets Cloud Vault
+  normalizeCloudBooking: function(raw) {
+    if (!raw || !raw.bookingCode) return null;
+    const code = String(raw.bookingCode).trim();
+    const calStatus = String(raw.calendarStatus || '');
+    const notesStr = String(raw.guestNotes || raw.notes || '');
+    const isPosReceipt = code.startsWith('RCP-') || calStatus.toLowerCase().includes('pos walk-in') || raw.isPosTransaction === true;
+
+    const bName = String(raw.assignedBarberName || raw.barberName || raw.barber || 'Bramantyo').trim();
+    const resolvedId = this.resolveBarberId(raw.assignedBarberId || raw.barberId || bName);
+    const stdDur = Number(raw.totalDuration) || this.inferStandardDuration(raw.serviceName || raw.packageName);
+
+    // Parse fallback session close tag embedded in POS receipt notes: [SESSION:GWB-...|ACT:18|STD:45]
+    let linkedBookingCode = raw.linkedBookingCode || '';
+    let linkedActualDur = null;
+    let linkedStdDur = null;
+    const sessMatch = notesStr.match(/\[SESSION:([^|\]]+)\|ACT:(\d+)\|STD:(\d+)\]/);
+    if (sessMatch) {
+      linkedBookingCode = sessMatch[1].trim();
+      linkedActualDur = parseInt(sessMatch[2], 10);
+      linkedStdDur = parseInt(sessMatch[3], 10);
+    }
+
+    let status = raw.status || 'Confirmed';
+    if (isPosReceipt) status = 'Completed';
+
+    const actualDur = Number(raw.actualDuration) > 0 ? Number(raw.actualDuration) : null;
+    const startedAt = Number(raw.startedAt) > 0 ? Number(raw.startedAt) : null;
+    const completedAt = Number(raw.completedAt) > 0 ? Number(raw.completedAt) : null;
+    const paymentLocked = Boolean(raw.paymentLocked) || (status === 'Completed' && (Boolean(raw.receiptNumber) || isPosReceipt));
+
+    // Normalize HH:mm time slot
+    let timeSlot = String(raw.timeSlot || raw.time || '10:00').trim();
+    const tMatch = timeSlot.match(/(\d{1,2}):(\d{2})/);
+    if (tMatch) {
+      timeSlot = `${String(parseInt(tMatch[1], 10)).padStart(2, '0')}:${tMatch[2]}`;
+    }
+
+    return {
+      bookingCode: code,
+      guestName: String(raw.guestName || raw.name || 'Tamu').trim(),
+      guestPhone: String(raw.guestPhone || raw.phone || '').trim(),
+      guestEmail: String(raw.guestEmail || raw.email || '').trim(),
+      guestNotes: notesStr,
+      dateKey: String(raw.dateKey || '').trim(),
+      timeSlot: timeSlot,
+      totalDuration: stdDur,
+      actualDuration: actualDur,
+      startedAt: startedAt,
+      completedAt: completedAt,
+      paymentLocked: paymentLocked,
+      receiptNumber: raw.receiptNumber || (isPosReceipt ? code : ''),
+      totalPrice: Number(raw.totalPrice || raw.total) || 0,
+      packageName: String(raw.packageName || raw.serviceName || 'The Cut').trim(),
+      serviceName: String(raw.serviceName || raw.packageName || 'The Cut').trim(),
+      barberId: resolvedId === 'any' ? 'bramantyo' : resolvedId,
+      assignedBarberId: resolvedId === 'any' ? 'bramantyo' : resolvedId,
+      assignedBarberName: bName,
+      barberName: bName,
+      status: status,
+      isPosReceipt: isPosReceipt,
+      linkedBookingCode: linkedBookingCode,
+      linkedActualDuration: linkedActualDur,
+      linkedStandardDuration: linkedStdDur,
+      calendarStatus: calStatus,
+      waStatus: raw.waStatus || '',
+      auditFlag: raw.auditFlag || 'HEALTHY',
+      timestamp: Number(raw.timestamp) || Date.now(),
+      source: 'cloud'
+    };
+  },
+
+  // Merge cloud bookings from Google Sheets with local store without losing active/locked session progress
+  mergeCloudBookings: function(cloudBookings) {
+    if (!Array.isArray(cloudBookings)) return this.getBookings();
+    const localList = this.getBookings();
+    const byCode = new Map();
+
+    // Index existing local bookings first
+    localList.forEach(b => {
+      if (b && b.bookingCode) byCode.set(b.bookingCode, Object.assign({}, b));
+    });
+
+    // Collect POS receipt close-links (works immediately even before Apps Script redeployment!)
+    const posClosureMap = new Map();
+    const normalizedCloud = [];
+    cloudBookings.forEach(raw => {
+      const nb = this.normalizeCloudBooking(raw);
+      if (!nb) return;
+      normalizedCloud.push(nb);
+      if (nb.linkedBookingCode) {
+        posClosureMap.set(nb.linkedBookingCode, {
+          receiptNumber: nb.bookingCode,
+          actualDuration: nb.linkedActualDuration || nb.actualDuration || nb.totalDuration || 45,
+          totalDuration: nb.linkedStandardDuration || nb.totalDuration || 45,
+          completedAt: nb.timestamp || Date.now()
+        });
+      }
+    });
+
+    const statusRank = { 'pending': 1, 'confirmed': 2, 'in-progress': 3, 'completed': 4, 'cancelled': 4, 'no-show': 4 };
+
+    normalizedCloud.forEach(cb => {
+      const existing = byCode.get(cb.bookingCode);
+      if (!existing) {
+        byCode.set(cb.bookingCode, cb);
+      } else {
+        // Keep whichever state is further along in the Opsi 1 lifecycle (Confirmed -> In-Progress -> Completed Lock)
+        const exRank = statusRank[(existing.status || 'confirmed').toLowerCase()] || 2;
+        const cbRank = statusRank[(cb.status || 'confirmed').toLowerCase()] || 2;
+
+        if (cbRank > exRank || (cb.paymentLocked && !existing.paymentLocked)) {
+          byCode.set(cb.bookingCode, Object.assign({}, existing, cb));
+        } else {
+          // Keep local live stopwatch / locked POS completion, while refreshing metadata from cloud
+          byCode.set(cb.bookingCode, Object.assign({}, cb, {
+            status: existing.status,
+            startedAt: existing.startedAt || cb.startedAt,
+            completedAt: existing.completedAt || cb.completedAt,
+            actualDuration: existing.actualDuration || cb.actualDuration,
+            paymentLocked: existing.paymentLocked || cb.paymentLocked,
+            receiptNumber: existing.receiptNumber || cb.receiptNumber,
+            totalDuration: existing.totalDuration || cb.totalDuration
+          }));
+        }
+      }
+    });
+
+    // Reconcile any GWB-... booking closed via a synced RCP-... POS receipt row
+    posClosureMap.forEach((closure, targetBookingCode) => {
+      const target = byCode.get(targetBookingCode);
+      if (target && !target.paymentLocked) {
+        target.status = 'Completed';
+        target.paymentLocked = true;
+        target.actualDuration = closure.actualDuration;
+        if (closure.totalDuration) target.totalDuration = closure.totalDuration;
+        target.completedAt = target.completedAt || closure.completedAt;
+        target.receiptNumber = closure.receiptNumber;
+      }
+    });
+
+    const merged = Array.from(byCode.values()).sort((a, b) => (Number(b.timestamp) || 0) - (Number(a.timestamp) || 0));
+    this.saveBookings(merged);
+    return merged;
+  },
+
+  // Pull live bookings from Google Sheets Cloud Vault (usable by BOTH booking.html & estate-records.html)
+  syncFromCloud: function(customWebhookUrl) {
+    const webhookUrl = customWebhookUrl || (GREENWOOD_CONFIG.brand && GREENWOOD_CONFIG.brand.googleCalendarWebhookUrl);
+    if (!webhookUrl || typeof fetch === 'undefined') {
+      return Promise.resolve({ status: 'offline', bookings: this.getBookings(), cloudCount: 0 });
+    }
+    const url = webhookUrl + (webhookUrl.includes('?') ? '&' : '?') + 'action=get_bookings&key=gw_ledger_sec_2050&t=' + Date.now();
+    return fetch(url)
+      .then(r => r.json())
+      .then(res => {
+        if (res && res.status === 'success' && Array.isArray(res.bookings)) {
+          const merged = this.mergeCloudBookings(res.bookings);
+          return {
+            status: 'success',
+            bookings: merged,
+            cloudBookings: res.bookings,
+            cloudCount: res.count || res.bookings.length,
+            sheetUrl: res.sheetUrl || ''
+          };
+        }
+        return { status: 'offline', bookings: this.getBookings(), cloudCount: 0 };
+      })
+      .catch(err => {
+        console.warn('GreenwoodBookingStore.syncFromCloud fallback to local:', err);
+        return { status: 'offline', bookings: this.getBookings(), cloudCount: 0 };
+      });
+  },
+
+  // Start live stopwatch when guest checks in at Cashier (START) — accepts optional cloud fallback record
+  startBookingSession: function(bookingCode, fallbackBooking) {
     const list = this.getBookings();
-    const item = list.find(b => b.bookingCode === bookingCode);
+    let item = list.find(b => b.bookingCode === bookingCode);
+    if (!item && fallbackBooking) {
+      item = this.normalizeCloudBooking(fallbackBooking) || Object.assign({}, fallbackBooking);
+      list.unshift(item);
+    }
     if (!item) return null;
     item.status = 'In-Progress';
     if (!item.startedAt) item.startedAt = Date.now();
@@ -358,9 +565,13 @@ const GreenwoodBookingStore = {
   },
 
   // Lock & stop stopwatch automatically when Payment POS completes (OPSI 1 AUTO-STOP)
-  completeBookingSession: function(bookingCode, receiptNumber, overrideActualMinutes) {
+  completeBookingSession: function(bookingCode, receiptNumber, overrideActualMinutes, fallbackBooking) {
     const list = this.getBookings();
-    const item = list.find(b => b.bookingCode === bookingCode);
+    let item = list.find(b => b.bookingCode === bookingCode);
+    if (!item && fallbackBooking) {
+      item = this.normalizeCloudBooking(fallbackBooking) || Object.assign({}, fallbackBooking);
+      list.unshift(item);
+    }
     if (!item) return null;
     const now = Date.now();
     let actualMins = Number(overrideActualMinutes);
@@ -459,17 +670,23 @@ const GreenwoodBookingStore = {
     const bookings = this.getBookings();
     const activeBarbers = GREENWOOD_CONFIG.barbers.filter(b => b.id !== 'any').map(b => b.id);
 
-    // Bookings on target date (exclude Cancelled / No-Show)
+    // Bookings on target date (exclude Cancelled, No-Show, and standalone POS receipts to avoid double-blocking)
     const dayBookings = bookings.filter(b => {
-      if (b.dateKey !== dateKey) return false;
+      if (!b || b.dateKey !== dateKey) return false;
+      if (b.isPosReceipt || String(b.bookingCode || '').startsWith('RCP-')) return false;
       const st = (b.status || '').toLowerCase();
       return st !== 'cancelled' && st !== 'no-show';
     });
 
+    const matchesBarber = (b, targetId) => {
+      const bId = this.resolveBarberId(b.assignedBarberId || b.barberId || b.assignedBarberName || b.barberName);
+      return bId === targetId;
+    };
+
     if (barberId && barberId !== 'any') {
       // Specific barber: Check for overlapping bookings using live effective duration
       for (const b of dayBookings) {
-        if (b.barberId === barberId || b.assignedBarberId === barberId) {
+        if (matchesBarber(b, barberId)) {
           const [bStartH, bStartM] = (b.timeSlot || '10:00').split(':').map(Number);
           const bStart = bStartH * 60 + bStartM;
           const bEnd = bStart + this.getEffectiveBookingDuration(b);
@@ -487,7 +704,7 @@ const GreenwoodBookingStore = {
       for (const bId of activeBarbers) {
         let isBarberFree = true;
         for (const b of dayBookings) {
-          if (b.barberId === bId || b.assignedBarberId === bId) {
+          if (matchesBarber(b, bId)) {
             const [bStartH, bStartM] = (b.timeSlot || '10:00').split(':').map(Number);
             const bStart = bStartH * 60 + bStartM;
             const bEnd = bStart + this.getEffectiveBookingDuration(b);

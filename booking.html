@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/greenwood.css?v=20261025_v3fixed">
-  <script src="assets/config.js?v=20261125_v5"></script>
+  <script src="assets/config.js?v=20261125_v6"></script>
   <script src="assets/greenwood-i18n.js?v=20261122_v5" defer></script>
 
   <style>
@@ -2144,6 +2144,11 @@
 
       currentStep = stepNum;
 
+      // Refresh live cloud slots when entering Step 3 (Date & Time selection)
+      if (stepNum === 3 && typeof syncPublicSlotsFromCloud === 'function') {
+        syncPublicSlotsFromCloud();
+      }
+
       document.querySelectorAll('.flow-panel').forEach(p => p.classList.remove('active'));
       const targetPanel = document.getElementById(`panelStep${stepNum}`);
       if (targetPanel) targetPanel.classList.add('active');
@@ -2633,11 +2638,26 @@
       updateBookingCalculations();
     });
 
+    // Live Multi-Device Cloud Slot Sync (pulls real-time booked/early-release/overrun slots without exposing internal barber metrics)
+    let _lastCloudSlotSyncTs = 0;
+    function syncPublicSlotsFromCloud(force) {
+      if (typeof GreenwoodBookingStore === 'undefined' || !GreenwoodBookingStore.syncFromCloud) return;
+      const now = Date.now();
+      if (!force && (now - _lastCloudSlotSyncTs) < 15000) return;
+      _lastCloudSlotSyncTs = now;
+      GreenwoodBookingStore.syncFromCloud().then(res => {
+        if (res && res.status === 'success') {
+          if (selectedDateObj) renderTimeSlots();
+        }
+      });
+    }
+
     // INITIALIZATION
     window.addEventListener('DOMContentLoaded', () => {
       initServices();
       initBarbers();
       initCalendar();
+      syncPublicSlotsFromCloud(true);
 
       // Check URL parameters (e.g. ?pkg=pkg-cut or legacy ?pkg=pkg-classic)
       const urlParams = new URLSearchParams(window.location.search);
