@@ -991,216 +991,748 @@
       font-weight: 700;
     }
 
-    /* LIGHT MODE OVERRIDES (Applied when user selects "Terang") */
-    .portal-main-wrapper.portal-theme-light {
-      background: #f3f5f7;
-      color: #111827;
-      --mn-bg: #f3f5f7;
+    /* =========================================================================
+       LIGHT MODE ("TERANG") — MAYFAIR WARM LINEN & BOTANICAL SLATE
+       WCAG AA+ verified (6.4:1 - 17.5:1), calm warm ivory canvas for long shifts
+       ========================================================================= */
+    body.portal-theme-light {
+      background-color: #f5f4f0 !important;
+      color: #1c1917 !important;
+    }
+
+    body.portal-theme-light .portal-main-wrapper,
+    body.portal-theme-light .portal-modal-backdrop {
+      --bg-dark: #f5f4f0;
+      --card-bg: #ffffff;
+      --card-bg-subtle: #f4f3ee;
+      --card-border: #e2e0d8;
+      --card-border-bright: #c9c5b8;
+      --text-main: #1c1917;
+      --text-muted: #57534e;
+      --accent-gold: #8a6114;
+      --accent-gold-bright: #7c5410;
+      --accent-gold-dim: #fbf6ea;
+      --danger: #b91c1c;
+      --success: #156037;
+      --info: #075985;
+      --warning: #92400e;
+
+      --mn-bg: #f5f4f0;
       --mn-surface: #ffffff;
       --mn-surface-solid: #ffffff;
-      --mn-surface-alt: #f8fafc;
-      --mn-border: #dce3ea;
-      --mn-border-subtle: #eef2f6;
-      --mn-panel-head-bg: #162920;
-      --mn-panel-head-border: #162920;
-      --mn-panel-head-text: #f8fafc;
-      --mn-panel-head-sub: #cbd5e1;
-      --mn-text: #0f172a;
-      --mn-text-secondary: #334155;
-      --mn-text-muted: #64748b;
-      --mn-accent: #143d2b;
-      --mn-accent-bg: #143d2b;
+      --mn-surface-alt: #f7f6f2;
+      --mn-border: #e2e0d8;
+      --mn-border-subtle: #eeede7;
+      --mn-panel-head-bg: #f4f3ee;
+      --mn-panel-head-border: #e2e0d8;
+      --mn-panel-head-text: #133a2a;
+      --mn-panel-head-sub: #57534e;
+      --mn-text: #1c1917;
+      --mn-text-secondary: #44403c;
+      --mn-text-muted: #57534e;
+      --mn-accent: #133a2a;
+      --mn-accent-bg: #133a2a;
       --mn-accent-fg: #ffffff;
-      --mn-row-hover: #f8fafc;
-      --mn-row-selected: #ecfdf5;
-      --mn-track: #eef2f6;
+      --mn-row-hover: #f9f8f5;
+      --mn-row-selected: #edf5f0;
+      --mn-track: #eceae2;
       --mn-input-bg: #ffffff;
       --mn-btn-bg: #ffffff;
-      --mn-btn-hover: #f8fafc;
+      --mn-btn-hover: #f5f4f0;
       --mn-pill-green-bg: #dcfce7;
-      --mn-pill-green-fg: #166534;
+      --mn-pill-green-fg: #14532d;
       --mn-pill-gold-bg: #fef3c7;
-      --mn-pill-gold-fg: #92400e;
-      --mn-pill-blue-bg: #dbeafe;
-      --mn-pill-blue-fg: #1e40af;
+      --mn-pill-gold-fg: #78350f;
+      --mn-pill-blue-bg: #e0f2fe;
+      --mn-pill-blue-fg: #075985;
       --mn-pill-red-bg: #fee2e2;
       --mn-pill-red-fg: #991b1b;
-      --mn-pill-gray-bg: #f1f5f9;
-      --mn-pill-gray-fg: #475569;
-      --mn-val-green: #166534;
-      --mn-val-gold: #92400e;
-      --mn-val-red: #991b1b;
+      --mn-pill-gray-bg: #f1f0ec;
+      --mn-pill-gray-fg: #44403c;
+      --mn-val-green: #156037;
+      --mn-val-gold: #7c5410;
+      --mn-val-red: #b91c1c;
     }
 
-    .portal-main-wrapper.portal-theme-light .portal-topbar {
-      background: #ffffff;
-      border-bottom: 1px solid #e2e8f0;
-      backdrop-filter: none;
+    body.portal-theme-light .portal-main-wrapper {
+      background: #f5f4f0;
+      color: #1c1917;
     }
 
-    .portal-main-wrapper.portal-theme-light .breadcrumb-root {
-      color: #64748b;
+    /* Refined Heritage Forest Sidebar in Light Mode (softer than pitch black, frames gold logo) */
+    body.portal-theme-light .portal-sidebar {
+      background: linear-gradient(180deg, #13281f 0%, #0f2119 100%);
+      border-right: 1px solid #203d30;
+      box-shadow: 2px 0 14px rgba(15, 33, 25, 0.08);
     }
 
-    .portal-main-wrapper.portal-theme-light .breadcrumb-separator {
-      color: #cbd5e1;
+    body.portal-theme-light .portal-sidebar .sidebar-nav-section-title {
+      color: #93a89c;
     }
 
-    .portal-main-wrapper.portal-theme-light .breadcrumb-active {
-      color: #0f172a;
+    body.portal-theme-light .portal-sidebar .portal-tab-btn,
+    body.portal-theme-light .portal-sidebar .sidebar-util-btn {
+      color: #d4dfd8;
     }
 
-    .portal-main-wrapper.portal-theme-light .topbar-branch-indicator {
-      background: #f1f5f9;
-      border-color: #cbd5e1;
-      color: #143d2b;
-    }
-
-    .portal-main-wrapper.portal-theme-light .portal-theme-toggle {
-      background: #f1f5f9;
-      border-color: #cbd5e1;
-    }
-
-    .portal-main-wrapper.portal-theme-light .theme-opt-btn {
-      color: #475569;
-    }
-
-    .portal-main-wrapper.portal-theme-light .theme-opt-btn:hover {
-      color: #0f172a;
-    }
-
-    .portal-main-wrapper.portal-theme-light .theme-opt-btn.active {
-      background: #143d2b;
+    body.portal-theme-light .portal-sidebar .portal-tab-btn:hover,
+    body.portal-theme-light .portal-sidebar .sidebar-util-btn:hover {
+      background: rgba(255, 255, 255, 0.07);
       color: #ffffff;
     }
 
-    .portal-main-wrapper.portal-theme-light .portal-topbar .btn-portal-action {
+    body.portal-theme-light .portal-sidebar .portal-tab-btn.active {
+      background: rgba(229, 193, 112, 0.16);
+      border-color: rgba(229, 193, 112, 0.45);
+      color: #f3d691;
+    }
+
+    /* Topbar (Clean Warm White) */
+    body.portal-theme-light .portal-topbar {
       background: #ffffff;
-      border-color: #cbd5e1;
-      color: #334155;
+      border-bottom: 1px solid #e2e0d8;
+      backdrop-filter: none;
     }
 
-    .portal-main-wrapper.portal-theme-light .portal-topbar .btn-portal-action:hover {
-      background: #f8fafc;
-      border-color: #143d2b;
-      color: #0f172a;
+    body.portal-theme-light .breadcrumb-root {
+      color: #78716c;
     }
 
-    .portal-main-wrapper.portal-theme-light .sidebar-mobile-toggle {
-      background: #f1f5f9;
-      border-color: #cbd5e1;
-      color: #143d2b;
+    body.portal-theme-light .breadcrumb-separator {
+      color: #d6d3cb;
     }
 
-    /* Clean Light Mode Adaptation for POS, CRM, Reservations, Staff tabs */
-    .portal-main-wrapper.portal-theme-light .metric-card,
-    .portal-main-wrapper.portal-theme-light .pos-catalog-panel,
-    .portal-main-wrapper.portal-theme-light .pos-cart-panel,
-    .portal-main-wrapper.portal-theme-light .pos-top-toolbar,
-    .portal-main-wrapper.portal-theme-light .crm-table-wrap,
-    .portal-main-wrapper.portal-theme-light .crm-toolbar,
-    .portal-main-wrapper.portal-theme-light .staff-card,
-    .portal-main-wrapper.portal-theme-light .chart-container,
-    .portal-main-wrapper.portal-theme-light .chair-matrix-card,
-    .portal-main-wrapper.portal-theme-light .role-lock-banner {
+    body.portal-theme-light .breadcrumb-active {
+      color: #1c1917;
+    }
+
+    body.portal-theme-light .topbar-branch-indicator {
+      background: #f5f4f0;
+      border-color: #dfddd4;
+      color: #133a2a;
+    }
+
+    body.portal-theme-light .portal-theme-toggle {
+      background: #f2f1ec;
+      border-color: #dcd9cf;
+    }
+
+    body.portal-theme-light .theme-opt-btn {
+      color: #57534e;
+    }
+
+    body.portal-theme-light .theme-opt-btn:hover {
+      color: #1c1917;
+    }
+
+    body.portal-theme-light .theme-opt-btn.active {
+      background: #133a2a;
+      color: #ffffff;
+    }
+
+    body.portal-theme-light .portal-topbar .btn-portal-action {
+      background: #ffffff;
+      border-color: #d6d3cb;
+      color: #292524;
+    }
+
+    body.portal-theme-light .portal-topbar .btn-portal-action:hover {
+      background: #f5f4f0;
+      border-color: #133a2a;
+      color: #133a2a;
+    }
+
+    body.portal-theme-light .sidebar-mobile-toggle {
+      background: #f5f4f0;
+      border-color: #d6d3cb;
+      color: #133a2a;
+    }
+
+    /* Accessible keyboard focus indicator across Light Mode */
+    body.portal-theme-light button:focus-visible,
+    body.portal-theme-light input:focus-visible,
+    body.portal-theme-light select:focus-visible,
+    body.portal-theme-light textarea:focus-visible,
+    body.portal-theme-light a:focus-visible {
+      outline: 2px solid #133a2a;
+      outline-offset: 2px;
+    }
+
+    /* Cards & Panels across POS, CRM, Reservations, Staff */
+    body.portal-theme-light .metric-card,
+    body.portal-theme-light .pos-catalog-panel,
+    body.portal-theme-light .pos-cart-panel,
+    body.portal-theme-light .crm-table-wrap,
+    body.portal-theme-light .crm-toolbar,
+    body.portal-theme-light .staff-card,
+    body.portal-theme-light .chart-container,
+    body.portal-theme-light .chair-matrix-card,
+    body.portal-theme-light .role-lock-banner {
       background: #ffffff !important;
-      border-color: #dce3ea !important;
-      color: #0f172a !important;
-      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+      border: 1px solid #e2e0d8 !important;
+      color: #1c1917 !important;
+      box-shadow: 0 1px 2px rgba(28, 25, 23, 0.04) !important;
     }
 
-    .portal-main-wrapper.portal-theme-light .metric-val,
-    .portal-main-wrapper.portal-theme-light .pos-cart-title,
-    .portal-main-wrapper.portal-theme-light .staff-name,
-    .portal-main-wrapper.portal-theme-light .pos-item-title,
-    .portal-main-wrapper.portal-theme-light .crm-table strong,
-    .portal-main-wrapper.portal-theme-light h3,
-    .portal-main-wrapper.portal-theme-light h4 {
-      color: #0f172a !important;
+    body.portal-theme-light .pos-cart-panel {
+      border: 1.5px solid #d6d3cb !important;
     }
 
-    .portal-main-wrapper.portal-theme-light .metric-label,
-    .portal-main-wrapper.portal-theme-light .metric-sub,
-    .portal-main-wrapper.portal-theme-light .pos-item-desc,
-    .portal-main-wrapper.portal-theme-light .staff-role,
-    .portal-main-wrapper.portal-theme-light .crm-table td {
-      color: #334155 !important;
+    body.portal-theme-light .metric-val,
+    body.portal-theme-light .pos-cart-title,
+    body.portal-theme-light .staff-name,
+    body.portal-theme-light .staff-card-name,
+    body.portal-theme-light .pos-item-title,
+    body.portal-theme-light .crm-table strong,
+    body.portal-theme-light .portal-main-wrapper h3,
+    body.portal-theme-light .portal-main-wrapper h4 {
+      color: #1c1917 !important;
     }
 
-    .portal-main-wrapper.portal-theme-light .crm-table th {
-      background: #f8fafc !important;
-      color: #475569 !important;
-      border-bottom: 1px solid #cbd5e1 !important;
+    body.portal-theme-light .metric-label,
+    body.portal-theme-light .metric-sub,
+    body.portal-theme-light .pos-item-desc,
+    body.portal-theme-light .staff-role,
+    body.portal-theme-light .form-label {
+      color: #57534e !important;
     }
 
-    .portal-main-wrapper.portal-theme-light .crm-table td {
-      border-bottom: 1px solid #eef2f6 !important;
-      color: #1e293b !important;
+    /* POS Shift Top Toolbar & Cloud Sync Banner */
+    body.portal-theme-light .pos-top-toolbar {
+      background: #fffdf7 !important;
+      border: 1px solid #e9dfb8 !important;
+      color: #1c1917 !important;
+      box-shadow: 0 1px 2px rgba(28, 25, 23, 0.03) !important;
     }
 
-    .portal-main-wrapper.portal-theme-light .crm-table td > div:first-child,
-    .portal-main-wrapper.portal-theme-light .crm-table td strong {
-      color: #0f172a !important;
+    body.portal-theme-light .pos-shift-info {
+      color: #292524 !important;
     }
 
-    .portal-main-wrapper.portal-theme-light .crm-table td [style*="italic"] {
-      color: #7c5812 !important;
+    body.portal-theme-light .pos-shift-info strong {
+      color: #1c1917 !important;
     }
 
-    .portal-main-wrapper.portal-theme-light .crm-table tr:hover td {
-      background: #f8fafc !important;
+    body.portal-theme-light .pos-shift-indicator {
+      box-shadow: none !important;
     }
 
-    .portal-main-wrapper.portal-theme-light .pos-item-card {
-      background: #f8fafc !important;
-      border-color: #e2e8f0 !important;
+    body.portal-theme-light .sync-banner-shell {
+      background: #eff6f2 !important;
+      border: 1px solid #c5dfd0 !important;
+      box-shadow: none !important;
     }
 
-    .portal-main-wrapper.portal-theme-light .pos-item-card:hover {
-      background: #ecfdf5 !important;
-      border-color: #143d2b !important;
+    body.portal-theme-light .sync-status-indicator {
+      color: #14532d !important;
     }
 
-    .portal-main-wrapper.portal-theme-light .pos-item-price {
-      color: #143d2b !important;
+    body.portal-theme-light .sync-timestamp {
+      color: #4b6356 !important;
     }
 
-    .portal-main-wrapper.portal-theme-light .pipeline-chip,
-    .portal-main-wrapper.portal-theme-light .crm-pipeline-chip,
-    .portal-main-wrapper.portal-theme-light .pos-cat-pill,
-    .portal-main-wrapper.portal-theme-light .btn-pos-toolbar,
-    .portal-main-wrapper.portal-theme-light .portal-container .btn-portal-action {
-      background: #ffffff !important;
-      border-color: #cbd5e1 !important;
-      color: #334155 !important;
+    body.portal-theme-light .sync-dot.dot-live {
+      background: #15803d !important;
+      box-shadow: none !important;
     }
 
-    .portal-main-wrapper.portal-theme-light .pipeline-chip .chip-count {
-      background: #e2e8f0 !important;
-      color: #334155 !important;
+    /* POS Catalog Cards, Badges, Buttons */
+    body.portal-theme-light .pos-item-card {
+      background: #fbfbf9 !important;
+      border: 1px solid #e5e3dc !important;
+      box-shadow: none !important;
     }
 
-    .portal-main-wrapper.portal-theme-light .pipeline-chip.active,
-    .portal-main-wrapper.portal-theme-light .crm-pipeline-chip.active,
-    .portal-main-wrapper.portal-theme-light .pos-cat-pill.active {
-      background: #143d2b !important;
-      border-color: #143d2b !important;
+    body.portal-theme-light .pos-item-card:hover {
+      background: #f3f8f5 !important;
+      border-color: #133a2a !important;
+      box-shadow: 0 4px 12px rgba(19, 58, 42, 0.08) !important;
+    }
+
+    body.portal-theme-light .pos-item-card:hover .pos-item-title {
+      color: #133a2a !important;
+    }
+
+    body.portal-theme-light .pos-item-footer {
+      border-top: 1px solid #eceae2 !important;
+    }
+
+    body.portal-theme-light .pos-item-price {
+      color: #133a2a !important;
+    }
+
+    body.portal-theme-light .badge-type-service {
+      background: #f7f1e3 !important;
+      color: #7c5410 !important;
+      border: 1px solid #e5d5b0 !important;
+    }
+
+    body.portal-theme-light .badge-type-product {
+      background: #e7f3ec !important;
+      color: #14532d !important;
+      border: 1px solid #bfe0cd !important;
+    }
+
+    body.portal-theme-light .badge-type-addon {
+      background: #f1f0ec !important;
+      color: #44403c !important;
+      border: 1px solid #dbd8ce !important;
+    }
+
+    body.portal-theme-light .badge-stock-ok {
+      background: #dcfce7 !important;
+      color: #14532d !important;
+      border: 1px solid #bbf7d0 !important;
+    }
+
+    body.portal-theme-light .badge-stock-low {
+      background: #fef3c7 !important;
+      color: #92400e !important;
+      border: 1px solid #fde68a !important;
+    }
+
+    body.portal-theme-light .badge-stock-empty {
+      background: #fee2e2 !important;
+      color: #991b1b !important;
+      border: 1px solid #fecaca !important;
+    }
+
+    body.portal-theme-light .btn-pos-add {
+      background: #f4f3ee !important;
+      color: #133a2a !important;
+      border: 1px solid #cfd6d1 !important;
+      font-weight: 700;
+    }
+
+    body.portal-theme-light .pos-item-card:hover .btn-pos-add {
+      background: #133a2a !important;
+      color: #ffffff !important;
+      border-color: #133a2a !important;
+      box-shadow: none !important;
+    }
+
+    /* POS Cart Items, Notes Banner, Tip Chips, Payment Methods & Cash Calculator */
+    body.portal-theme-light .pos-cart-item {
+      border-bottom: 1px dashed #e5e3dc !important;
+    }
+
+    body.portal-theme-light .pos-cart-item-name,
+    body.portal-theme-light .pos-cart-item-total {
+      color: #1c1917 !important;
+    }
+
+    body.portal-theme-light .pos-cart-item-meta {
+      color: #7c5410 !important;
+    }
+
+    body.portal-theme-light .btn-qty {
+      background: #f4f3ee !important;
+      border: 1px solid #d6d3cb !important;
+      color: #1c1917 !important;
+    }
+
+    body.portal-theme-light .btn-qty:hover {
+      background: #133a2a !important;
+      border-color: #133a2a !important;
       color: #ffffff !important;
     }
 
-    .portal-main-wrapper.portal-theme-light .pipeline-chip.active .chip-count {
+    body.portal-theme-light .internal-notes-banner {
+      background: #fffbeb !important;
+      border: 1px solid #ebd394 !important;
+      box-shadow: none !important;
+    }
+
+    body.portal-theme-light .internal-notes-tag {
+      color: #854d0e !important;
+    }
+
+    body.portal-theme-light .internal-notes-content {
+      color: #1c1917 !important;
+    }
+
+    body.portal-theme-light .internal-notes-header button:first-child {
+      color: #7c5410 !important;
+    }
+
+    body.portal-theme-light .internal-notes-header button:last-child {
+      color: #156037 !important;
+    }
+
+    body.portal-theme-light .pos-summary-row {
+      color: #44403c !important;
+    }
+
+    body.portal-theme-light .pos-summary-row.total-row {
+      color: #1c1917 !important;
+      border-top: 1px solid #e2e0d8 !important;
+    }
+
+    body.portal-theme-light .pos-summary-val-gold {
+      color: #133a2a !important;
+    }
+
+    body.portal-theme-light .tip-chip {
+      background: #f4f3ee !important;
+      border: 1px solid #d6d3cb !important;
+      color: #292524 !important;
+      font-weight: 600;
+    }
+
+    body.portal-theme-light .tip-chip:hover {
+      background: #eaf4ee !important;
+      border-color: #133a2a !important;
+      color: #133a2a !important;
+    }
+
+    body.portal-theme-light .btn-payment-method {
+      background: #ffffff !important;
+      border: 1px solid #d6d3cb !important;
+      color: #292524 !important;
+      box-shadow: none !important;
+    }
+
+    body.portal-theme-light .btn-payment-method:hover {
+      background: #f7f6f2 !important;
+      border-color: #a8a29e !important;
+    }
+
+    body.portal-theme-light .btn-payment-method.active {
+      background: #eaf4ee !important;
+      border: 1.5px solid #133a2a !important;
+      color: #133a2a !important;
+      box-shadow: none !important;
+    }
+
+    body.portal-theme-light #cashCalculatorBox {
+      background: #f5f4f0 !important;
+      border: 1px solid #e2e0d8 !important;
+      color: #1c1917 !important;
+    }
+
+    body.portal-theme-light .pos-rebook-box {
+      background: #faf7ee !important;
+      border: 1px dashed #d6bc7c !important;
+      color: #7c5410 !important;
+    }
+
+    body.portal-theme-light .pos-cart-panel .btn-gate-unlock {
+      background: #133a2a !important;
+      color: #ffffff !important;
+      border: none !important;
+      box-shadow: 0 2px 8px rgba(19, 58, 42, 0.2) !important;
+    }
+
+    body.portal-theme-light .pos-cart-panel .btn-gate-unlock:hover {
+      background: #0e2c20 !important;
+    }
+
+    /* Tables (CRM, Reservations Ledger, Staff Commission) */
+    body.portal-theme-light .crm-table th {
+      background: #f4f3ee !important;
+      color: #44403c !important;
+      border-bottom: 1px solid #dcd9cf !important;
+    }
+
+    body.portal-theme-light .crm-table td {
+      border-bottom: 1px solid #eeede7 !important;
+      color: #292524 !important;
+    }
+
+    body.portal-theme-light .crm-table td > div:first-child,
+    body.portal-theme-light .crm-table td strong {
+      color: #1c1917 !important;
+    }
+
+    body.portal-theme-light .crm-table td code {
+      color: #133a2a !important;
+      background: #f4f3ee;
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    body.portal-theme-light .crm-table td [style*="italic"] {
+      color: #7c5410 !important;
+    }
+
+    body.portal-theme-light .crm-table tr:hover td {
+      background: #f9f8f5 !important;
+    }
+
+    /* Semantic Badges & Status Pills in Light Mode (High-Contrast WCAG AA+) */
+    body.portal-theme-light .badge-vip {
+      background: #fef3c7 !important;
+      color: #78350f !important;
+      border: 1px solid #f0d080 !important;
+    }
+
+    body.portal-theme-light .badge-reguler {
+      background: #e0f2fe !important;
+      color: #075985 !important;
+      border: 1px solid #bae6fd !important;
+    }
+
+    body.portal-theme-light .badge-new {
+      background: #dcfce7 !important;
+      color: #14532d !important;
+      border: 1px solid #bbf7d0 !important;
+    }
+
+    body.portal-theme-light .badge-passive {
+      background: #fee2e2 !important;
+      color: #991b1b !important;
+      border: 1px solid #fecaca !important;
+    }
+
+    body.portal-theme-light .badge-birthday {
+      background: #e0f2fe !important;
+      color: #075985 !important;
+      border: 1px solid #bae6fd !important;
+    }
+
+    body.portal-theme-light .schedule-time-badge {
+      background: #f4f3ee !important;
+      border: 1px solid #d8d5cb !important;
+      color: #292524 !important;
+    }
+
+    body.portal-theme-light .btn-table-action {
+      background: #ffffff !important;
+      border: 1px solid #d6d3cb !important;
+      color: #292524 !important;
+    }
+
+    body.portal-theme-light .btn-table-action:hover {
+      background: #f4f3ee !important;
+      border-color: #133a2a !important;
+      color: #133a2a !important;
+    }
+
+    body.portal-theme-light .btn-table-action.btn-action-success {
+      background: #eaf6ee !important;
+      border-color: #a7d7b8 !important;
+      color: #14532d !important;
+    }
+
+    body.portal-theme-light .btn-table-action.btn-action-success:hover {
+      background: #156037 !important;
+      border-color: #156037 !important;
+      color: #ffffff !important;
+    }
+
+    body.portal-theme-light .btn-table-action.btn-action-pos-pay {
+      background: #fbf3df !important;
+      border-color: #e0c278 !important;
+      color: #78350f !important;
+    }
+
+    body.portal-theme-light .btn-table-action.btn-action-pos-pay:hover {
+      background: #8a6114 !important;
+      border-color: #8a6114 !important;
+      color: #ffffff !important;
+    }
+
+    body.portal-theme-light .btn-wa-crm {
+      background: #edf7f1 !important;
+      border-color: #b7dfc6 !important;
+      color: #14532d !important;
+    }
+
+    body.portal-theme-light .btn-wa-crm:hover {
+      background: #156037 !important;
+      border-color: #156037 !important;
+      color: #ffffff !important;
+    }
+
+    /* Staff Cards in Light Mode */
+    body.portal-theme-light .staff-card-role-pill {
+      background: #fbf6ea !important;
+      color: #7c5410 !important;
+      border: 1px solid #eadbb6;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    body.portal-theme-light .staff-clock-status.clocked-in {
+      color: #156037 !important;
+    }
+
+    body.portal-theme-light .staff-status-dot.status-clocked-in {
+      background: #15803d !important;
+      box-shadow: none !important;
+    }
+
+    /* Pills, Inputs, Action Buttons */
+    body.portal-theme-light .pipeline-chip,
+    body.portal-theme-light .crm-pipeline-chip,
+    body.portal-theme-light .pos-cat-pill,
+    body.portal-theme-light .btn-pos-toolbar,
+    body.portal-theme-light .portal-container .btn-portal-action {
+      background: #ffffff !important;
+      border-color: #d6d3cb !important;
+      color: #292524 !important;
+      box-shadow: none !important;
+    }
+
+    body.portal-theme-light .pipeline-chip:hover,
+    body.portal-theme-light .pos-cat-pill:hover,
+    body.portal-theme-light .btn-pos-toolbar:hover,
+    body.portal-theme-light .portal-container .btn-portal-action:hover {
+      background: #f4f3ee !important;
+      border-color: #133a2a !important;
+      color: #133a2a !important;
+    }
+
+    body.portal-theme-light .pipeline-chip .chip-count {
+      background: #eeede7 !important;
+      color: #44403c !important;
+    }
+
+    body.portal-theme-light .pipeline-chip.active,
+    body.portal-theme-light .crm-pipeline-chip.active,
+    body.portal-theme-light .pos-cat-pill.active {
+      background: #133a2a !important;
+      border-color: #133a2a !important;
+      color: #ffffff !important;
+    }
+
+    body.portal-theme-light .pipeline-chip.active .chip-count {
       background: rgba(255, 255, 255, 0.22) !important;
       color: #ffffff !important;
     }
 
-    .portal-main-wrapper.portal-theme-light .form-control,
-    .portal-main-wrapper.portal-theme-light .crm-search-input,
-    .portal-main-wrapper.portal-theme-light .crm-select,
-    .portal-main-wrapper.portal-theme-light .crm-filter-select,
-    .portal-main-wrapper.portal-theme-light #posSearchCatalog {
+    body.portal-theme-light .form-control,
+    body.portal-theme-light .crm-search-input,
+    body.portal-theme-light .crm-select,
+    body.portal-theme-light .crm-filter-select,
+    body.portal-theme-light #posSearchCatalog {
       background: #ffffff !important;
-      border-color: #cbd5e1 !important;
-      color: #0f172a !important;
+      border-color: #d6d3cb !important;
+      color: #1c1917 !important;
+    }
+
+    body.portal-theme-light .form-control:focus,
+    body.portal-theme-light .crm-search-input:focus,
+    body.portal-theme-light .crm-select:focus,
+    body.portal-theme-light #posSearchCatalog:focus {
+      border-color: #133a2a !important;
+      box-shadow: 0 0 0 3px rgba(19, 58, 42, 0.1) !important;
+    }
+
+    body.portal-theme-light .btn-gold-action {
+      background: #133a2a !important;
+      color: #ffffff !important;
+      box-shadow: none !important;
+    }
+
+    body.portal-theme-light .btn-gold-action:hover {
+      background: #0e2c20 !important;
+      box-shadow: 0 3px 10px rgba(19, 58, 42, 0.2) !important;
+    }
+
+    /* Minutes Analytics Light Panel Header & Toggle Harmony */
+    body.portal-theme-light .mn-panel-header svg {
+      stroke: #133a2a !important;
+    }
+
+    body.portal-theme-light .mn-panel-header span:not(.mn-panel-title),
+    body.portal-theme-light .mn-panel-sub {
+      color: #57534e !important;
+    }
+
+    body.portal-theme-light .mn-panel-header .mn-panel-title,
+    body.portal-theme-light .mn-panel-header .mn-panel-title span {
+      color: #133a2a !important;
+    }
+
+    body.portal-theme-light .mn-chart-mode-group {
+      background: #e9e7df !important;
+      border-color: #d6d3cb !important;
+    }
+
+    body.portal-theme-light .mn-chart-mode-btn {
+      color: #44403c !important;
+    }
+
+    body.portal-theme-light .mn-chart-mode-btn.active {
+      background: #133a2a !important;
+      color: #ffffff !important;
+    }
+
+    /* 15-Minute Barber Matrix Light Header Harmony */
+    body.portal-theme-light .tm15-date-nav {
+      background: #ffffff !important;
+      border-color: #d6d3cb !important;
+    }
+
+    body.portal-theme-light .tm15-date-btn {
+      color: #1c1917 !important;
+    }
+
+    body.portal-theme-light .tm15-date-btn:hover {
+      background: #f4f3ee !important;
+      color: #133a2a !important;
+    }
+
+    body.portal-theme-light .tm15-date-input {
+      background: #ffffff !important;
+      border-color: #d6d3cb !important;
+      color: #1c1917 !important;
+      color-scheme: light !important;
+    }
+
+    /* ALL Modals & Guest Card 4-Zone Light Mode Adaptation */
+    body.portal-theme-light .portal-modal-backdrop {
+      background: rgba(28, 25, 23, 0.48) !important;
+      backdrop-filter: blur(4px);
+    }
+
+    body.portal-theme-light .portal-modal-box,
+    body.portal-theme-light .guest-card-modal-box {
+      background: #ffffff !important;
+      border: 1px solid #dcd9cf !important;
+      color: #1c1917 !important;
+      box-shadow: 0 20px 50px rgba(28, 25, 23, 0.18) !important;
+    }
+
+    body.portal-theme-light .modal-title,
+    body.portal-theme-light .guest-card-zone-title {
+      color: #133a2a !important;
+    }
+
+    body.portal-theme-light .modal-close-btn {
+      color: #57534e !important;
+    }
+
+    body.portal-theme-light .modal-close-btn:hover {
+      color: #1c1917 !important;
+    }
+
+    body.portal-theme-light .modal-actions {
+      border-top: 1px solid #e5e3dc !important;
+    }
+
+    body.portal-theme-light .portal-modal-box .btn-portal-action {
+      background: #f4f3ee !important;
+      border-color: #d6d3cb !important;
+      color: #292524 !important;
+    }
+
+    body.portal-theme-light .portal-modal-box .btn-portal-action:hover {
+      background: #e9e7df !important;
+      border-color: #133a2a !important;
+      color: #133a2a !important;
+    }
+
+    body.portal-theme-light .guest-card-zone {
+      background: #f7f6f2 !important;
+      border-color: #e2e0d8 !important;
+      color: #1c1917 !important;
+    }
+
+    body.portal-theme-light .guest-card-zone-header {
+      border-bottom-color: #e2e0d8 !important;
     }
 
     /* Minutes Report Header (Theme-Aware: Dark Greenwood Default + Light Mode) */
@@ -1917,7 +2449,7 @@
     }
 
     .tm15-title,
-    .portal-main-wrapper.portal-theme-light .tm15-header h4.tm15-title {
+    body.portal-theme-light .tm15-header h4.tm15-title {
       margin: 0;
       font-family: 'Lora', Georgia, serif;
       font-size: 15px;
@@ -1928,8 +2460,12 @@
       gap: 8px;
     }
 
+    body.portal-theme-light .tm15-header svg {
+      stroke: #133a2a !important;
+    }
+
     .tm15-sub,
-    .portal-main-wrapper.portal-theme-light .tm15-header .tm15-sub {
+    body.portal-theme-light .tm15-header .tm15-sub {
       font-size: 11.5px;
       color: var(--mn-panel-head-sub) !important;
       margin-top: 2px;
@@ -2367,15 +2903,13 @@
 
     .pos-category-pills {
       display: flex;
+      flex-wrap: wrap;
       gap: 8px;
       margin-bottom: 18px;
-      overflow-x: auto;
       padding-bottom: 4px;
       min-width: 0;
       max-width: 100%;
       box-sizing: border-box;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
     }
 
     .pos-category-pills::-webkit-scrollbar {
@@ -2974,11 +3508,11 @@
     .crm-table th {
       background: #020704;
       color: var(--accent-gold);
-      padding: 10px 12px;
+      padding: 9px 10px;
       font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.6px;
       border-bottom: 1px solid var(--card-border);
       white-space: nowrap;
       vertical-align: middle;
@@ -2986,7 +3520,7 @@
     }
 
     .crm-table td {
-      padding: 9px 12px;
+      padding: 8px 10px;
       border-bottom: 1px solid rgba(197, 155, 72, 0.1);
       vertical-align: middle;
       line-height: 1.3;
@@ -4775,7 +5309,7 @@
             </div>
 
             <!-- REBOOKING AT CHECKOUT (CLIENT KPI SPEC) -->
-            <label style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--accent-gold-bright); cursor: pointer; margin-top: 14px; background: rgba(197, 155, 72, 0.1); padding: 8px 10px; border-radius: 6px; border: 1px dashed var(--accent-gold);">
+            <label class="pos-rebook-box" style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--accent-gold-bright); cursor: pointer; margin-top: 14px; background: rgba(197, 155, 72, 0.1); padding: 8px 10px; border-radius: 6px; border: 1px dashed var(--accent-gold);">
               <input type="checkbox" id="posRebookedNextVisit" style="accent-color: var(--accent-gold);">
               <span>📅 Tamu Menjadwalkan Kunjungan Berikutnya (Rebooking at Checkout)</span>
             </label>
@@ -5078,17 +5612,17 @@
           <span>Geser tabel ke samping untuk melihat rincian &amp; aksi</span>
         </div>
         <div class="crm-table-wrap">
-          <table class="crm-table" id="ledgerTable" style="min-width: 880px;">
+          <table class="crm-table" id="ledgerTable" style="min-width: 820px;">
             <colgroup id="ledgerColgroup">
-              <col style="width: 112px;">
-              <col style="min-width: 148px;">
-              <col style="width: 116px;">
               <col style="width: 104px;">
-              <col style="width: 88px;">
-              <col style="min-width: 118px;">
-              <col id="colLedgerPrice" style="width: 96px;">
-              <col style="width: 114px;">
-              <col style="width: 138px;">
+              <col style="width: 145px;">
+              <col style="width: 108px;">
+              <col style="width: 96px;">
+              <col style="width: 84px;">
+              <col style="width: 120px;">
+              <col id="colLedgerPrice" style="width: 88px;">
+              <col style="width: 102px;">
+              <col style="width: 190px;">
             </colgroup>
             <thead>
               <tr>
@@ -8004,14 +8538,16 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
 
     function applySavedPortalTheme() {
       const mode = localStorage.getItem('greenwood_portal_theme') || 'dark';
+      const isLight = mode === 'light';
+      document.body.classList.toggle('portal-theme-light', isLight);
       const wrapper = document.querySelector('.portal-main-wrapper');
       const btnDark = document.getElementById('btnThemeDark');
       const btnLight = document.getElementById('btnThemeLight');
       if (wrapper) {
-        wrapper.classList.toggle('portal-theme-light', mode === 'light');
+        wrapper.classList.toggle('portal-theme-light', isLight);
       }
-      if (btnDark) btnDark.classList.toggle('active', mode !== 'light');
-      if (btnLight) btnLight.classList.toggle('active', mode === 'light');
+      if (btnDark) btnDark.classList.toggle('active', !isLight);
+      if (btnLight) btnLight.classList.toggle('active', isLight);
     }
 
     function setPortalTheme(mode) {
@@ -8234,13 +8770,13 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       container.innerHTML = posCart.map(item => `
         <div class="pos-cart-item">
           <div>
-            <div style="font-weight: 600; color: #fff; font-size: 13px;">${escapeHtml(item.name)}</div>
-            <div style="font-size: 11.5px; color: var(--accent-gold);">${formatRupiah(item.price)} &times; ${item.qty}</div>
+            <div class="pos-cart-item-name" style="font-weight: 600; color: #fff; font-size: 13px;">${escapeHtml(item.name)}</div>
+            <div class="pos-cart-item-meta" style="font-size: 11.5px; color: var(--accent-gold);">${formatRupiah(item.price)} &times; ${item.qty}</div>
           </div>
           <div class="pos-item-controls">
-            <span style="font-weight: 700; color: #fff; font-size: 13px; margin-right: 6px;">${formatRupiah(item.price * item.qty)}</span>
+            <span class="pos-cart-item-total" style="font-weight: 700; color: #fff; font-size: 13px; margin-right: 6px;">${formatRupiah(item.price * item.qty)}</span>
             <button type="button" class="btn-qty" onclick="updateCartQty('${item.id}', -1)">&minus;</button>
-            <span style="font-size: 12px; width: 16px; text-align: center;">${item.qty}</span>
+            <span style="font-size: 12px; width: 16px; text-align: center; font-weight: 600;">${item.qty}</span>
             <button type="button" class="btn-qty" onclick="updateCartQty('${item.id}', 1)">&plus;</button>
           </div>
         </div>
@@ -9171,7 +9707,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         } else if (c.passiveFlag) {
           tagHtml = `<span class="badge-tag badge-passive">⚠️ Butuh Diingatkan (${c.daysSinceLastVisit}h)</span>`;
         } else if (c.visitCount <= 1) {
-          tagHtml = `<span class="badge-tag" style="background:rgba(56,189,248,0.12); color:#38bdf8; border-color:rgba(56,189,248,0.3);">🌱 Baru (1x)</span>`;
+          tagHtml = `<span class="badge-tag badge-new" style="background:rgba(56,189,248,0.12); color:#38bdf8; border:1px solid rgba(56,189,248,0.3);">🌱 Baru (1x)</span>`;
         } else {
           tagHtml = `<span class="badge-tag badge-reguler">🔄 Reguler (${c.visitCount}x)</span>`;
         }
@@ -9206,7 +9742,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
             <td>${tagHtml}</td>
             <td style="text-align: right; white-space: nowrap;">
               <button type="button" class="btn-portal-action" onclick="openCustomerDetailModal('${c.id}')" title="Lihat Profil & Formula">Detail</button>
-              <button type="button" class="btn-portal-action" style="color:#25D366; border-color:rgba(37,211,102,0.35); margin-left:4px;" onclick="openQuickWhatsAppModal('${escapeHtml(c.name)}', '${c.phone || ''}', { barberName: '${escapeHtml(c.lastBarber || 'Barber')}', serviceName: '${escapeHtml(c.lastServiceName || 'The Cut')}', date: '${c.lastVisit || ''}' })" title="Kirim Pesan WhatsApp">💬 WA</button>
+              <button type="button" class="btn-portal-action btn-wa-crm" style="color:#25D366; border-color:rgba(37,211,102,0.35); margin-left:4px;" onclick="openQuickWhatsAppModal('${escapeHtml(c.name)}', '${c.phone || ''}', { barberName: '${escapeHtml(c.lastBarber || 'Barber')}', serviceName: '${escapeHtml(c.lastServiceName || 'The Cut')}', date: '${c.lastVisit || ''}' })" title="Kirim Pesan WhatsApp">💬 WA</button>
             </td>
           </tr>
         `;
@@ -10713,16 +11249,16 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
             <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
               <div>
                 <span class="staff-status-dot ${s.isClockedIn ? 'status-clocked-in' : 'status-clocked-out'}"></span>
-                <strong style="color:#fff; font-size:14.5px;">${escapeHtml(s.name)}</strong>
+                <strong class="staff-card-name" style="color:#fff; font-size:14.5px;">${escapeHtml(s.name)}</strong>
                 ${isBarber ? '<span style="display:inline-block; margin-left:6px; font-size:10px; background:rgba(56,189,248,0.15); color:#38bdf8; padding:1px 6px; border-radius:4px; border:1px solid rgba(56,189,248,0.3);">Profil Anda</span>' : ''}
               </div>
-              <span style="font-size:11px; color:var(--accent-gold); font-weight:600;">${s.role}</span>
+              <span class="staff-card-role-pill" style="font-size:11px; color:var(--accent-gold); font-weight:600;">${s.role}</span>
             </div>
             <div style="font-size:12px; color:var(--text-muted); margin-bottom:4px;">Shift: <strong>${s.shift}</strong></div>
             <div style="font-size:11.5px; color:var(--text-muted); margin-bottom:12px;">Komisi: Jasa <strong>${s.serviceCommissionRate}%</strong> &bull; Produk <strong>${s.productCommissionRate}%</strong></div>
           </div>
           <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--card-border); padding-top:10px;">
-            <span style="font-size:11.5px; color:${s.isClockedIn ? '#4ade80' : 'var(--text-muted)'}; font-weight:600;">
+            <span class="staff-clock-status ${s.isClockedIn ? 'clocked-in' : ''}" style="font-size:11.5px; color:${s.isClockedIn ? '#4ade80' : 'var(--text-muted)'}; font-weight:600;">
               ${s.isClockedIn ? `Masuk: ${s.clockInTime}` : (s.lastClockOutTime ? `Keluar: ${s.lastClockOutTime}` : 'Belum Absen')}
             </span>
             <button type="button" class="btn-portal-action" onclick="toggleStaffClock('${s.id}')" style="font-size:11px; padding:4px 10px;">
@@ -11530,7 +12066,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
             <div class="table-actions">
               ${b.status !== 'Completed' ? `
               <button type="button" class="btn-table-action" style="background: rgba(197, 155, 72, 0.15); border: 1px solid var(--accent-gold); color: var(--accent-gold-bright);" onclick="openGuestCardFromBooking('${b.bookingCode}')" title="SOP C5: Konsultasi Cermin 10 Detik">
-                <span>🪞 Kartu Tamu</span>
+                <span>Kartu</span>
               </button>
               ${(!isBarber && b.status !== 'In-Progress') ? `
               <button type="button" class="btn-table-action btn-action-success" onclick="startBookingTimer('${b.bookingCode}')" title="Check-In Tamu &amp; Mulai Stopwatch">
@@ -11538,8 +12074,8 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
               </button>
               ` : ''}
               ${!isBarber ? `
-              <button type="button" class="btn-table-action" style="background: rgba(197, 155, 72, 0.18); border: 1px solid rgba(197, 155, 72, 0.4); color: var(--accent-gold-bright);" onclick="proceedBookingToPos('${b.bookingCode}')" title="Proses Bayar di POS &amp; Stop Stopwatch Otomatis">
-                <span>💳 ${b.status === 'In-Progress' ? 'Bayar &amp; Stop' : 'Bayar POS'}</span>
+              <button type="button" class="btn-table-action btn-action-pos-pay" style="background: rgba(197, 155, 72, 0.18); border: 1px solid rgba(197, 155, 72, 0.4); color: var(--accent-gold-bright);" onclick="proceedBookingToPos('${b.bookingCode}')" title="Proses Bayar di POS &amp; Stop Stopwatch Otomatis">
+                <span>${b.status === 'In-Progress' ? 'Bayar &amp; Stop' : 'Bayar POS'}</span>
               </button>
               ` : ''}
               ` : ''}
