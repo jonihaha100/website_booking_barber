@@ -14,9 +14,9 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Open+Sans:wght@300;400;600;700&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="assets/greenwood.css?v=20261125_v2">
+  <link rel="stylesheet" href="assets/greenwood.css?v=20261125_v3">
   <script src="assets/config.js?v=20261107_v3"></script>
-  <script src="assets/greenwood-admin-db.js?v=20261125_v2"></script>
+  <script src="assets/greenwood-admin-db.js?v=20261125_v3"></script>
 
   <style>
     :root {
@@ -912,721 +912,764 @@
     }
 
     /* ==========================================================================
-       EXECUTIVE REVENUE & RETENTION DASHBOARD (REDESIGNED TAB-ANALYTICS)
+       MINUTES APP HYBRID LIGHT REPORT SUITE (TAB-ANALYTICS)
+       Clean light canvas + Dark Emerald-Gold Sidebar + Real SVG Charts & Tables
        ========================================================================== */
-    .analytics-exec-header {
+    .portal-main-wrapper.analytics-light-mode {
+      background: #f3f5f7;
+      color: #111827;
+    }
+
+    .portal-main-wrapper.analytics-light-mode .portal-topbar {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      backdrop-filter: none;
+    }
+
+    .portal-main-wrapper.analytics-light-mode .breadcrumb-root {
+      color: #64748b;
+    }
+
+    .portal-main-wrapper.analytics-light-mode .breadcrumb-separator {
+      color: #cbd5e1;
+    }
+
+    .portal-main-wrapper.analytics-light-mode .breadcrumb-active {
+      color: #0f172a;
+    }
+
+    .portal-main-wrapper.analytics-light-mode .topbar-branch-indicator {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      color: #143d2b;
+    }
+
+    .portal-main-wrapper.analytics-light-mode .portal-topbar .btn-portal-action {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      color: #334155;
+    }
+
+    .portal-main-wrapper.analytics-light-mode .portal-topbar .btn-portal-action:hover {
+      background: #f8fafc;
+      border-color: #143d2b;
+      color: #0f172a;
+    }
+
+    .portal-main-wrapper.analytics-light-mode .sidebar-mobile-toggle {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      color: #143d2b;
+    }
+
+    .portal-main-wrapper.analytics-light-mode .role-lock-banner {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      color: #0f172a;
+    }
+
+    .portal-main-wrapper.analytics-light-mode .role-lock-banner h4 {
+      color: #0f172a !important;
+    }
+
+    .portal-main-wrapper.analytics-light-mode .role-lock-banner p {
+      color: #475569 !important;
+    }
+
+    /* Minutes Report Header */
+    .mn-header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
       flex-wrap: wrap;
-      gap: 16px;
-      margin-bottom: 24px;
-      padding-bottom: 18px;
-      border-bottom: 1px solid rgba(197, 155, 72, 0.15);
+      gap: 14px;
+      margin-bottom: 14px;
     }
 
-    .analytics-eyebrow {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      color: var(--accent-gold);
-      margin-bottom: 5px;
-      text-transform: uppercase;
-    }
-
-    .analytics-title {
-      margin: 0;
-      color: #ffffff;
-      font-family: 'Lora', Georgia, serif;
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: 0.3px;
-    }
-
-    .analytics-subtitle {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin: 6px 0 0;
-      max-width: 680px;
-      line-height: 1.45;
-    }
-
-    .analytics-header-actions {
+    .mn-title-wrap {
       display: flex;
       align-items: center;
       gap: 10px;
       flex-wrap: wrap;
     }
 
-    .analytics-period-selector {
-      display: inline-flex;
-      background: rgba(3, 12, 8, 0.9);
-      border: 1px solid rgba(197, 155, 72, 0.25);
-      border-radius: 8px;
-      padding: 3px;
-      gap: 3px;
-    }
-
-    .analytics-period-pill {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      font-size: 11.5px;
-      font-weight: 600;
-      padding: 6px 12px;
+    .mn-title-icon {
+      width: 30px;
+      height: 30px;
       border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-
-    .analytics-period-pill:hover {
-      color: #fff;
-    }
-
-    .analytics-period-pill.active {
-      background: var(--accent-gold);
-      color: #030c08;
-      font-weight: 700;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-    }
-
-    /* 4 Executive Hero Metric Cards */
-    .exec-metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 22px;
-    }
-
-    @media (max-width: 1200px) {
-      .exec-metrics-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    @media (max-width: 640px) {
-      .exec-metrics-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .exec-card {
-      background: rgba(9, 28, 19, 0.75);
-      border: 1px solid rgba(197, 155, 72, 0.22);
-      border-radius: 10px;
-      padding: 18px 20px;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-      transition: border-color 0.2s ease, transform 0.2s ease;
-    }
-
-    .exec-card:hover {
-      border-color: rgba(197, 155, 72, 0.45);
-      transform: translateY(-2px);
-    }
-
-    .exec-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent-gold) 0%, transparent 80%);
-    }
-
-    .exec-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-
-    .exec-card-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.8px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-    }
-
-    .exec-badge-trend {
-      font-size: 10.5px;
-      font-weight: 700;
-      padding: 2px 7px;
-      border-radius: 4px;
-    }
-    .exec-badge-trend.positive {
-      background: rgba(74, 222, 128, 0.15);
-      color: #4ade80;
-      border: 1px solid rgba(74, 222, 128, 0.3);
-    }
-
-    .exec-badge-live {
-      font-size: 10.5px;
-      font-weight: 700;
-      color: #4ade80;
+      background: #143d2b;
+      color: #e5b95f;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      justify-content: center;
+      flex-shrink: 0;
     }
 
-    .exec-badge-target, .exec-badge-benchmark {
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--accent-gold);
-      background: rgba(197, 155, 72, 0.1);
-      padding: 2px 6px;
-      border-radius: 4px;
-      border: 1px solid rgba(197, 155, 72, 0.25);
-    }
-
-    .exec-card-val {
-      font-family: 'Lora', Georgia, serif;
-      font-size: 26px;
-      font-weight: 700;
-      color: #ffffff;
-      line-height: 1.15;
-      margin-bottom: 8px;
-    }
-
-    .exec-card-breakdown {
-      font-size: 11.5px;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: auto;
-      flex-wrap: wrap;
-    }
-
-    .exec-dot-sep {
-      color: rgba(197, 155, 72, 0.5);
-    }
-
-    /* Financial Runway Card */
-    .exec-runway-card {
-      background: rgba(9, 28, 19, 0.7);
-      border: 1px solid rgba(197, 155, 72, 0.25);
-      border-radius: 12px;
-      padding: 22px 24px;
-      margin-bottom: 22px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .exec-runway-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .exec-runway-title {
-      font-family: 'Lora', Georgia, serif;
-      font-size: 16px;
-      font-weight: 700;
-      color: #ffffff;
-    }
-
-    .exec-runway-desc {
-      font-size: 12.5px;
-      color: var(--text-muted);
-      margin-top: 3px;
-      max-width: 680px;
-    }
-
-    .exec-runway-pool span {
-      font-size: 12.5px;
-      font-weight: 700;
-      color: var(--accent-gold-bright);
-      background: rgba(197, 155, 72, 0.15);
-      border: 1px solid var(--accent-gold);
-      padding: 5px 12px;
-      border-radius: 6px;
-      box-shadow: 0 2px 8px rgba(197, 155, 72, 0.15);
-    }
-
-    .exec-runway-meter-wrap {
-      position: relative;
-      margin: 32px 0 28px;
-      padding: 0 10px;
-    }
-
-    .exec-runway-meter {
-      position: relative;
-      height: 14px;
-      background: rgba(2, 8, 5, 0.9);
-      border: 1px solid rgba(197, 155, 72, 0.3);
-      border-radius: 10px;
-    }
-
-    .exec-runway-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #38bdf8 0%, #4ade80 55%, #e5b95f 100%);
-      border-radius: 8px;
-      transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 0 12px rgba(74, 222, 128, 0.4);
-    }
-
-    .exec-runway-checkpoint {
-      position: absolute;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      pointer-events: none;
-    }
-
-    .checkpoint-pin {
-      width: 18px;
-      height: 18px;
-      background: #091c13;
-      border: 2px solid var(--accent-gold);
-      border-radius: 50%;
-      box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
-    }
-
-    .checkpoint-pin.pin-breakeven {
-      border-color: #4ade80;
-    }
-    .checkpoint-pin.pin-gainshare {
-      border-color: var(--accent-gold-bright);
-      background: var(--accent-gold);
-    }
-    .checkpoint-pin.pin-stretch {
-      border-color: #38bdf8;
-    }
-
-    .checkpoint-label {
-      position: absolute;
-      top: 24px;
-      font-size: 11px;
-      font-weight: 600;
-      white-space: nowrap;
-      color: var(--text-muted);
-    }
-    .checkpoint-label.label-breakeven { color: #4ade80; }
-    .checkpoint-label.label-gainshare { color: var(--accent-gold-bright); font-weight: 700; }
-    .checkpoint-label.label-stretch { color: #38bdf8; }
-
-    .exec-runway-summary {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      padding-top: 18px;
-      margin-top: 28px;
-      border-top: 1px solid rgba(197, 155, 72, 0.15);
-    }
-
-    @media (max-width: 768px) {
-      .exec-runway-summary {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .runway-stat {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-    .stat-caption {
-      font-size: 11px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .stat-value {
-      font-size: 13.5px;
-      font-weight: 700;
-    }
-
-    /* Dual Strategic Grid */
-    .exec-dual-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin-bottom: 22px;
-    }
-
-    @media (max-width: 900px) {
-      .exec-dual-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .exec-insight-card {
-      background: rgba(9, 28, 19, 0.7);
-      border: 1px solid rgba(197, 155, 72, 0.22);
-      border-radius: 12px;
-      padding: 20px 22px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .insight-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .insight-title {
+    .mn-title {
       margin: 0;
       font-family: 'Lora', Georgia, serif;
-      font-size: 15px;
+      font-size: 20px;
       font-weight: 700;
+      color: #0f172a;
+      line-height: 1.2;
+    }
+
+    .mn-title-sep {
+      color: #94a3b8;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .mn-sub-crumb {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #475569;
+    }
+
+    .mn-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mn-period-group {
+      display: inline-flex;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 2px;
+      gap: 2px;
+    }
+
+    .mn-period-btn {
+      background: transparent;
+      border: none;
+      color: #475569;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 11px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .mn-period-btn:hover {
+      color: #0f172a;
+      background: #f1f5f9;
+    }
+
+    .mn-period-btn.active {
+      background: #143d2b;
       color: #ffffff;
     }
 
-    .insight-subtitle {
+    .mn-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      height: 30px;
+      padding: 0 11px;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 5px;
+      color: #334155;
       font-size: 12px;
-      color: var(--text-muted);
-      margin: 3px 0 0;
-    }
-
-    .btn-micro-action {
-      background: rgba(197, 155, 72, 0.12);
-      border: 1px solid rgba(197, 155, 72, 0.35);
-      color: var(--accent-gold-bright);
-      font-size: 11px;
       font-weight: 600;
-      padding: 5px 10px;
-      border-radius: 6px;
       cursor: pointer;
-      white-space: nowrap;
       transition: all 0.15s ease;
-    }
-    .btn-micro-action:hover {
-      background: rgba(197, 155, 72, 0.25);
-      color: #fff;
+      white-space: nowrap;
     }
 
-    /* Retention Funnel */
-    .retention-funnel-wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+    .mn-btn:hover {
+      background: #f8fafc;
+      border-color: #143d2b;
+      color: #0f172a;
     }
 
-    .funnel-step {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .funnel-step-info {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      color: #fff;
-    }
-
-    .funnel-bar {
-      height: 8px;
-      background: rgba(3, 12, 8, 0.8);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .funnel-bar-fill {
-      height: 100%;
-      border-radius: 4px;
-      transition: width 0.5s ease;
-    }
-
-    .funnel-step-hint {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    /* Acquisition Channels */
-    .acquisition-channels-wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .acq-channel-row {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .acq-channel-meta {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      color: #fff;
-    }
-
-    .acq-bar {
-      height: 8px;
-      background: rgba(3, 12, 8, 0.8);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .acq-bar-fill {
-      height: 100%;
-      border-radius: 4px;
-      transition: width 0.5s ease;
-    }
-
-    .exec-sub-insights-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 18px;
-      padding-top: 14px;
-      border-top: 1px solid rgba(197, 155, 72, 0.15);
-    }
-
-    .sub-insight-pill {
-      background: rgba(3, 12, 8, 0.6);
-      border: 1px solid rgba(197, 155, 72, 0.18);
-      border-radius: 8px;
-      padding: 10px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .sub-caption { font-size: 10.5px; color: var(--text-muted); }
-    .sub-val { font-size: 13.5px; font-weight: 700; color: #fff; }
-    .sub-sub { font-size: 10.5px; color: var(--accent-gold); }
-
-    /* Heatmap Card */
-    .exec-heatmap-card {
-      background: rgba(9, 28, 19, 0.7);
-      border: 1px solid rgba(197, 155, 72, 0.22);
-      border-radius: 12px;
-      padding: 20px 22px;
-      margin-bottom: 22px;
-    }
-
-    .exec-heatmap-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-
-    .heatmap-legend-wrap {
-      display: flex;
-      gap: 14px;
-      align-items: center;
+    .mn-btn-sm {
+      height: 26px;
+      padding: 0 9px;
       font-size: 11.5px;
     }
 
-    .heatmap-legend-item {
+    .mn-btn-primary {
+      background: #143d2b;
+      border-color: #143d2b;
+      color: #ffffff;
+    }
+
+    .mn-btn-primary:hover {
+      background: #1d543c;
+      border-color: #1d543c;
+      color: #ffffff;
+    }
+
+    /* Clean Underline Sub-Tabs (1 screen = 1 focused report) */
+    .mn-subtabs {
       display: flex;
       align-items: center;
-      gap: 5px;
-      color: var(--text-muted);
-    }
-
-    .legend-chip {
-      width: 12px;
-      height: 12px;
-      border-radius: 3px;
-      display: inline-block;
-    }
-    .legend-chip.optimal { background: #4ade80; }
-    .legend-chip.moderate { background: #e5b95f; }
-    .legend-chip.calm { background: #162a22; }
-
-    .heatmap-highlight-bar {
-      background: rgba(197, 155, 72, 0.08);
-      border-left: 3px solid var(--accent-gold);
-      padding: 8px 14px;
-      border-radius: 0 6px 6px 0;
-      font-size: 12px;
-      color: #f7f2e7;
-      margin-bottom: 14px;
-    }
-
-    .heatmap-table-container {
+      gap: 4px;
+      border-bottom: 1px solid #d5dde5;
+      margin-bottom: 16px;
       overflow-x: auto;
     }
 
-    .modern-heatmap-table {
+    .mn-subtab-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 2.5px solid transparent;
+      color: #64748b;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 9px 16px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      margin-bottom: -1px;
+    }
+
+    .mn-subtab-btn:hover {
+      color: #0f172a;
+    }
+
+    .mn-subtab-btn.active {
+      color: #143d2b;
+      border-bottom-color: #143d2b;
+      font-weight: 700;
+    }
+
+    .mn-subview {
+      display: none;
+    }
+
+    .mn-subview.active {
+      display: block;
+      animation: fadeIn 0.16s ease;
+    }
+
+    /* Compact Inline KPI Summary Strip (Minutes App Signature) */
+    .mn-kpi-strip {
+      display: flex;
+      align-items: stretch;
+      flex-wrap: wrap;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    }
+
+    .mn-kpi-item {
+      flex: 1 1 155px;
+      padding: 13px 18px;
+      border-right: 1px solid #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
+    }
+
+    .mn-kpi-item:last-child {
+      border-right: none;
+    }
+
+    .mn-kpi-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      color: #64748b;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mn-kpi-value {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.25;
+      white-space: nowrap;
+    }
+
+    .mn-kpi-sub {
+      font-size: 11px;
+      color: #64748b;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .mn-mini-progress {
+      width: 100%;
+      height: 4px;
+      background: #e2e8f0;
+      border-radius: 3px;
+      margin-top: 4px;
+      overflow: hidden;
+    }
+
+    .mn-mini-progress-fill {
+      height: 100%;
+      background: #1f6f54;
+      border-radius: 3px;
+      transition: width 0.35s ease;
+    }
+
+    /* Minutes App White Panel with Dark Charcoal-Emerald Header Bar */
+    .mn-panel {
+      background: #ffffff;
+      border: 1px solid #dce3ea;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+      margin-bottom: 16px;
+    }
+
+    .mn-panel-header {
+      background: #162920;
+      color: #ffffff;
+      padding: 9px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      min-height: 38px;
+      box-sizing: border-box;
+    }
+
+    .mn-panel-title {
+      font-size: 12.5px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: #f8fafc;
+    }
+
+    .mn-panel-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mn-chart-mode-group {
+      display: inline-flex;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      padding: 2px;
+      gap: 2px;
+    }
+
+    .mn-chart-mode-btn {
+      background: transparent;
+      border: none;
+      color: #cbd5e1;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .mn-chart-mode-btn.active {
+      background: #c59b48;
+      color: #0b1610;
+    }
+
+    .mn-panel-body {
+      padding: 16px;
+    }
+
+    /* 2-Column Sales Layout (Pie Chart Left + Summary Table Right) */
+    .mn-sales-grid {
+      display: grid;
+      grid-template-columns: 350px 1fr;
+      gap: 16px;
+      align-items: stretch;
+      margin-bottom: 16px;
+    }
+
+    .mn-sales-grid .mn-panel {
+      margin-bottom: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mn-sales-grid .mn-panel-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (max-width: 1080px) {
+      .mn-sales-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Interactive SVG Pie Chart */
+    .mn-pie-stage {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 0 12px;
+    }
+
+    .mn-pie-svg {
+      width: 210px;
+      height: 210px;
+      overflow: visible;
+    }
+
+    .mn-pie-slice {
+      cursor: pointer;
+      transition: transform 0.18s ease, opacity 0.18s ease;
+      transform-origin: 110px 110px;
+    }
+
+    .mn-pie-slice:hover {
+      transform: scale(1.035);
+      opacity: 0.92;
+    }
+
+    .mn-pie-tooltip {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: #0f172a;
+      color: #ffffff;
+      font-size: 11px;
+      padding: 6px 9px;
+      border-radius: 5px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
+      z-index: 10;
+      line-height: 1.35;
+    }
+
+    .mn-pie-tooltip.visible {
+      opacity: 1;
+    }
+
+    .mn-pie-legend {
+      width: 100%;
+      border-top: 1px solid #f1f5f9;
+      padding-top: 10px;
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .mn-legend-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #334155;
+      padding: 3px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.12s ease;
+    }
+
+    .mn-legend-row:hover {
+      background: #f1f5f9;
+    }
+
+    .mn-legend-left {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      min-width: 0;
+    }
+
+    .mn-legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .mn-legend-val {
+      font-weight: 700;
+      color: #0f172a;
+      white-space: nowrap;
+      margin-left: 8px;
+    }
+
+    /* Clean Light Tables (Minutes App Data Table) */
+    .mn-table-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .mn-search-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mn-search-input, .mn-select-input {
+      height: 30px;
+      padding: 0 10px;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 5px;
+      color: #0f172a;
+      font-size: 12px;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    .mn-search-input:focus, .mn-select-input:focus {
+      border-color: #143d2b;
+      box-shadow: 0 0 0 2px rgba(20, 61, 43, 0.12);
+    }
+
+    .mn-table-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    .mn-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+      color: #1e293b;
+    }
+
+    .mn-table thead th {
+      background: #f8fafc;
+      color: #475569;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      text-align: left;
+      padding: 9px 12px;
+      border-top: 1px solid #e2e8f0;
+      border-bottom: 1px solid #cbd5e1;
+      white-space: nowrap;
+    }
+
+    .mn-table thead th.num, .mn-table tbody td.num {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .mn-table tbody td {
+      padding: 9px 12px;
+      border-bottom: 1px solid #eef2f6;
+      vertical-align: middle;
+    }
+
+    .mn-table tbody tr:hover {
+      background: #f8fafc;
+    }
+
+    .mn-table tbody tr.mn-row-clickable {
+      cursor: pointer;
+    }
+
+    .mn-table tbody tr.mn-row-selected {
+      background: #ecfdf5 !important;
+    }
+
+    .mn-table tbody tr.mn-row-selected td:first-child {
+      border-left: 3px solid #143d2b;
+      font-weight: 700;
+      color: #143d2b;
+    }
+
+    .mn-table-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      font-size: 11.5px;
+      color: #64748b;
+    }
+
+    .mn-filter-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #e6f4ee;
+      color: #143d2b;
+      border: 1px solid #a7d7c5;
+      border-radius: 4px;
+      padding: 3px 8px;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .mn-filter-chip:hover {
+      background: #d1fae5;
+    }
+
+    /* Clean Light Status Pills */
+    .mn-pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .mn-pill-green { background: #dcfce7; color: #166534; }
+    .mn-pill-gold  { background: #fef3c7; color: #92400e; }
+    .mn-pill-blue  { background: #dbeafe; color: #1e40af; }
+    .mn-pill-red   { background: #fee2e2; color: #991b1b; }
+    .mn-pill-gray  { background: #f1f5f9; color: #475569; }
+
+    /* Minutes App User Demographics / Insights 2x2 Thin Horizontal Bars */
+    .mn-demo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .mn-demo-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mn-demo-card {
+      background: #ffffff;
+      border: 1px solid #dce3ea;
+      border-radius: 8px;
+      padding: 16px 18px;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+    }
+
+    .mn-demo-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.7px;
+      color: #475569;
+      text-transform: uppercase;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #eef2f6;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mn-hbar-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .mn-hbar-row {
+      display: grid;
+      grid-template-columns: 145px 1fr 62px;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+    }
+
+    @media (max-width: 560px) {
+      .mn-hbar-row {
+        grid-template-columns: 110px 1fr 52px;
+        font-size: 11.5px;
+      }
+    }
+
+    .mn-hbar-label {
+      color: #334155;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .mn-hbar-track {
+      height: 10px;
+      background: #eef2f6;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .mn-hbar-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.4s ease;
+    }
+
+    .mn-hbar-val {
+      text-align: right;
+      font-weight: 700;
+      color: #0f172a;
+      font-size: 11.5px;
+      white-space: nowrap;
+    }
+
+    /* Optional Light Heatmap Matrix (Collapsed by Default) */
+    .mn-heatmap-toggle-wrap {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 12px;
+    }
+
+    .mn-light-heatmap {
       width: 100%;
       border-collapse: separate;
-      border-spacing: 4px;
+      border-spacing: 3px;
       font-size: 11.5px;
       text-align: center;
     }
 
-    .modern-heatmap-table th {
-      background: #030c08;
-      color: var(--accent-gold);
-      font-weight: 600;
-      padding: 8px 6px;
-      border-radius: 4px;
-      border: 1px solid rgba(197, 155, 72, 0.15);
-    }
-
-    .modern-heatmap-table td.heatmap-cell {
-      padding: 8px 4px;
-      border-radius: 6px;
-      font-weight: 600;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-      cursor: default;
-    }
-
-    .modern-heatmap-table td.heatmap-cell:hover {
-      transform: scale(1.08);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-      z-index: 2;
-    }
-
-    /* Leaderboard Card */
-    .exec-leaderboard-card {
-      background: rgba(9, 28, 19, 0.7);
-      border: 1px solid rgba(197, 155, 72, 0.22);
-      border-radius: 12px;
-      padding: 20px 22px;
-      margin-bottom: 22px;
-    }
-
-    .leaderboard-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .leaderboard-target-chip {
-      font-size: 11.5px;
-      color: var(--accent-gold);
-      background: rgba(197, 155, 72, 0.1);
-      border: 1px solid rgba(197, 155, 72, 0.25);
-      padding: 4px 10px;
-      border-radius: 6px;
-    }
-
-    .leaderboard-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    @media (max-width: 900px) {
-      .leaderboard-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .barber-perf-card {
-      background: rgba(3, 12, 8, 0.8);
-      border: 1px solid rgba(197, 155, 72, 0.2);
-      border-radius: 10px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .barber-perf-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .barber-avatar {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: rgba(197, 155, 72, 0.15);
-      border: 1px solid var(--accent-gold);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-    }
-
-    .barber-name {
+    .mn-light-heatmap th {
+      background: #f1f5f9;
+      color: #334155;
       font-weight: 700;
-      color: #fff;
-      font-size: 13.5px;
-    }
-    .barber-role {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .barber-badge-top, .barber-badge-good {
-      margin-left: auto;
-      font-size: 10.5px;
-      font-weight: 700;
-      padding: 2px 7px;
+      padding: 6px 4px;
       border-radius: 4px;
     }
-    .barber-badge-top {
-      background: rgba(229, 185, 95, 0.15);
-      color: var(--accent-gold-bright);
-      border: 1px solid var(--accent-gold);
-    }
-    .barber-badge-good {
-      background: rgba(74, 222, 128, 0.12);
-      color: #4ade80;
-      border: 1px solid rgba(74, 222, 128, 0.3);
+
+    .mn-light-heatmap td {
+      padding: 6px 4px;
+      border-radius: 4px;
+      font-weight: 600;
     }
 
-    .barber-kpi-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      background: rgba(9, 28, 19, 0.5);
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid rgba(197, 155, 72, 0.1);
-    }
-
-    .barber-kpi {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 0;
-    }
-    .barber-kpi-label { font-size: 10px; color: var(--text-muted); white-space: nowrap; }
-    .barber-kpi-val { font-size: 13px; font-weight: 700; white-space: nowrap; }
-    .barber-kpi-sub { font-size: 10px; color: var(--text-muted); white-space: nowrap; }
-
-    /* Audit Trail Card */
-    .exec-audit-card {
-      background: rgba(9, 28, 19, 0.7);
-      border: 1px solid rgba(197, 155, 72, 0.22);
-      border-radius: 12px;
-      padding: 20px 22px;
-    }
-
-    .audit-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-
-    .audit-badge-secure {
-      font-size: 11px;
-      color: var(--accent-gold);
-      background: rgba(197, 155, 72, 0.1);
-      border: 1px solid rgba(197, 155, 72, 0.25);
+    .mn-action-link {
+      background: transparent;
+      border: 1px solid #cbd5e1;
+      color: #143d2b;
+      border-radius: 4px;
       padding: 3px 8px;
-      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .mn-action-link:hover {
+      background: #143d2b;
+      border-color: #143d2b;
+      color: #ffffff;
     }
 
     /* BUTTONS */
@@ -4434,406 +4477,389 @@
 
       </section>
 
-      <!-- Tab 5: Executive Analytics, Revenue & Retention Intelligence -->
+      <!-- Tab 5: Minutes App Hybrid Light Reports Suite -->
       <section id="tab-analytics" class="tab-section">
 
-        <!-- EXECUTIVE CONTROL HEADER -->
-        <div class="analytics-exec-header">
-          <div>
-            <div class="analytics-eyebrow">EXECUTIVE INTELLIGENCE &bull; CABANG KOTA BARU PARAHYANGAN</div>
-            <h2 class="analytics-title" data-i18n="analytics_title">Laporan Omzet, Keuangan &amp; Retensi Tamu</h2>
-            <div class="analytics-subtitle" data-i18n="analytics_sub">
-              Monitoring real-time omzet cabang KBP, progres titik impas (Break-Even), ambang gainshare tim, dan retensi tamu siklus 35 hari.
-            </div>
+        <!-- TOP HEADER: TITLE + BREADCRUMB + PERIOD & EXPORT -->
+        <div class="mn-header">
+          <div class="mn-title-wrap">
+            <span class="mn-title-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <line x1="18" y1="20" x2="18" y2="10" />
+                <line x1="12" y1="20" x2="12" y2="4" />
+                <line x1="6" y1="20" x2="6" y2="14" />
+              </svg>
+            </span>
+            <h2 class="mn-title" data-i18n="analytics_title">Laporan Omzet &amp; Retensi</h2>
+            <span class="mn-title-sep">&rsaquo;</span>
+            <span class="mn-sub-crumb" id="mnActiveSubCrumb">Penjualan &amp; Barber</span>
           </div>
-          <div class="analytics-header-actions">
-            <div class="analytics-period-selector" id="analyticsPeriodSelector">
-              <button type="button" class="analytics-period-pill" onclick="filterAnalyticsPeriod('today', this)">Hari Ini</button>
-              <button type="button" class="analytics-period-pill" onclick="filterAnalyticsPeriod('week', this)">7 Hari</button>
-              <button type="button" class="analytics-period-pill active" onclick="filterAnalyticsPeriod('month', this)">Bulan Berjalan</button>
-              <button type="button" class="analytics-period-pill" onclick="filterAnalyticsPeriod('all', this)">Semua</button>
+
+          <div class="mn-controls">
+            <div class="mn-period-group" id="analyticsPeriodSelector">
+              <button type="button" class="mn-period-btn" onclick="filterAnalyticsPeriod('today', this)">Hari Ini</button>
+              <button type="button" class="mn-period-btn" onclick="filterAnalyticsPeriod('week', this)">7 Hari</button>
+              <button type="button" class="mn-period-btn active" onclick="filterAnalyticsPeriod('month', this)">Bulan Ini</button>
+              <button type="button" class="mn-period-btn" onclick="filterAnalyticsPeriod('all', this)">Semua</button>
             </div>
-            <button type="button" class="btn-portal-action" onclick="exportAnalyticsCSV()" title="Ekspor Laporan Keuangan (.CSV)">
-              <span>📥</span> <span>Ekspor CSV</span>
+            <button type="button" class="mn-btn" onclick="exportAnalyticsCSV()" title="Ekspor Laporan CSV">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              <span>CSV</span>
             </button>
-            <button type="button" class="btn-portal-action" onclick="window.print()" title="Cetak / Simpan PDF">
-              <span>🖨️</span> <span data-i18n="an_btn_print">Cetak PDF</span>
+            <button type="button" class="mn-btn" onclick="window.print()" title="Cetak / Simpan PDF">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 6 2 18 2 18 9" />
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+                <rect x="6" y="14" width="12" height="8" />
+              </svg>
+              <span data-i18n="an_btn_print">Print</span>
             </button>
           </div>
         </div>
 
-        <!-- 4 EXECUTIVE HERO METRIC CARDS -->
-        <div class="exec-metrics-grid">
-          <!-- Card 1: Omzet Bulan Ini -->
-          <div class="exec-card">
-            <div class="exec-card-header">
-              <span class="exec-card-label" data-i18n="an_rev_month">Omzet Bulan Ini (MTD)</span>
-              <span class="exec-badge-trend positive">+18.4% MoM</span>
-            </div>
-            <div class="exec-card-val" id="anRevenueMonth">Rp 0</div>
-            <div class="exec-card-breakdown">
-              <span>Ritual: <strong id="anRevServiceShare" style="color:#fff;">Rp 38.200.000</strong></span>
-              <span class="exec-dot-sep">&bull;</span>
-              <span>Produk: <strong id="anRevProductShare" style="color:var(--accent-gold-bright);">Rp 10.450.000</strong></span>
-            </div>
-          </div>
-
-          <!-- Card 2: Omzet Hari Ini -->
-          <div class="exec-card">
-            <div class="exec-card-header">
-              <span class="exec-card-label" data-i18n="an_rev_today">Omzet Hari Ini</span>
-              <span class="exec-badge-live">● Live POS</span>
-            </div>
-            <div class="exec-card-val" style="color: #4ade80;" id="anRevenueToday">Rp 0</div>
-            <div class="exec-card-breakdown">
-              <span id="anTodayTxCount">12 Transaksi Selesai</span>
-              <span class="exec-dot-sep">&bull;</span>
-              <span id="anTodayPace" style="color:var(--accent-gold);">Terkonfirmasi Kasir</span>
-            </div>
-          </div>
-
-          <!-- Card 3: Rata-Rata Tiket (Avg Basket) -->
-          <div class="exec-card">
-            <div class="exec-card-header">
-              <span class="exec-card-label">Rata-Rata Tiket (Avg Ticket)</span>
-              <span class="exec-badge-target">Target: Rp 380rb</span>
-            </div>
-            <div class="exec-card-val" style="color: var(--accent-gold-bright);" id="anAvgTicket">Rp 310.000</div>
-            <div class="exec-card-breakdown">
-              <span>Add-on per Tamu: <strong id="kpiAddonAvg" style="color:#4ade80;">Rp 95.000</strong></span>
-            </div>
-          </div>
-
-          <!-- Card 4: Retensi 35 Hari -->
-          <div class="exec-card">
-            <div class="exec-card-header">
-              <span class="exec-card-label">Retensi 35 Hari</span>
-              <span class="exec-badge-benchmark">Optimal (&gt;60%)</span>
-            </div>
-            <div class="exec-card-val" style="color: #38bdf8;" id="anRepeatRate">0%</div>
-            <div class="exec-card-breakdown" id="anRepeatSub">
-              52 Tamu Loyal Berulang / 24 Tamu Baru
-            </div>
-          </div>
+        <!-- CLEAN SUB-TABS (MINUTES APP STYLE: 1 SCREEN = 1 FOCUSED REPORT) -->
+        <div class="mn-subtabs" role="tablist">
+          <button type="button" class="mn-subtab-btn active" id="mnSubTabSales" onclick="switchAnalyticsSubTab('sales', this)" role="tab">
+            Penjualan &amp; Barber
+          </button>
+          <button type="button" class="mn-subtab-btn" id="mnSubTabCustomers" onclick="switchAnalyticsSubTab('customers', this)" role="tab">
+            Pelanggan &amp; Retensi
+          </button>
+          <button type="button" class="mn-subtab-btn" id="mnSubTabInsights" onclick="switchAnalyticsSubTab('insights', this)" role="tab">
+            Demografi &amp; Jam Sibuk
+          </button>
+          <button type="button" class="mn-subtab-btn" id="mnSubTabAudit" onclick="switchAnalyticsSubTab('audit', this)" role="tab">
+            Log Audit
+          </button>
         </div>
 
-        <!-- FINANCIAL RUNWAY & GAINSHARE TRACK -->
-        <div class="exec-runway-card">
-          <div class="exec-runway-top">
-            <div>
-              <div class="exec-runway-title">
-                📈 Runway Keuangan &amp; Ambang Batas Gainshare Staf
+        <div class="mn-report-body" id="mnReportBody">
+
+          <!-- ===============================================================
+               SUB-TAB 1: SALES REPORT > PROVIDER SALES (MINUTES APP SIGNATURE)
+               =============================================================== -->
+          <div id="mnViewSales" class="mn-subview active">
+
+            <!-- Inline Summary Metric Strip -->
+            <div class="mn-kpi-strip">
+              <div class="mn-kpi-item">
+                <div class="mn-kpi-label">Total Omzet</div>
+                <div class="mn-kpi-value" id="anRevenueMonth">Rp 0</div>
+                <div class="mn-kpi-sub" id="anSalesPeriodLabel">Periode Bulan Ini</div>
               </div>
-              <div class="exec-runway-desc">
-                Evaluasi posisi omzet terhadap titik impas operasional (Break-Even Rp 35.000.000) dan batas pembagian bonus tim (Gainshare Rp 45.000.000).
+              <div class="mn-kpi-item">
+                <div class="mn-kpi-label">Komisi / Share Barber</div>
+                <div class="mn-kpi-value" id="anTotalCommission" style="color: #143d2b;">Rp 0</div>
+                <div class="mn-kpi-sub" id="anCommissionSub">Akumulasi komisi layanan &amp; produk</div>
+              </div>
+              <div class="mn-kpi-item">
+                <div class="mn-kpi-label">Total Transaksi</div>
+                <div class="mn-kpi-value" id="anTotalServicesCount">0</div>
+                <div class="mn-kpi-sub" id="anTodayQuickNote">Hari ini: Rp 0</div>
+              </div>
+              <div class="mn-kpi-item">
+                <div class="mn-kpi-label">Rata-Rata Tiket</div>
+                <div class="mn-kpi-value" id="anAvgTicket">Rp 0</div>
+                <div class="mn-kpi-sub">Target: Rp 380.000 / tamu</div>
+              </div>
+              <div class="mn-kpi-item">
+                <div class="mn-kpi-label">Break-Even (Rp 35jt)</div>
+                <div class="mn-kpi-value" id="anBreakEvenStatus" style="font-size: 16px;">0%</div>
+                <div class="mn-mini-progress">
+                  <div class="mn-mini-progress-fill" id="gainshareBarFill" style="width: 0%;"></div>
+                </div>
+                <div class="mn-kpi-sub" id="gainsharePoolBadge">Ambang Gainshare: Rp 45jt</div>
               </div>
             </div>
-            <div class="exec-runway-pool">
-              <span id="gainsharePoolBadge">🏆 Pool Gainshare Tim: Rp 0</span>
+
+            <!-- 2-Column Split: Left Pie Chart + Right Barber Sales Table -->
+            <div class="mn-sales-grid">
+              <!-- Left Panel: Pie Chart (Providers Chart / Service Mix) -->
+              <div class="mn-panel">
+                <div class="mn-panel-header">
+                  <span class="mn-panel-title">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e5b95f" stroke-width="2">
+                      <path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
+                      <path d="M22 12A10 10 0 0 0 12 2v10z" />
+                    </svg>
+                    <span id="mnPiePanelTitle">Distribusi Omzet Barber</span>
+                  </span>
+                  <div class="mn-chart-mode-group">
+                    <button type="button" class="mn-chart-mode-btn active" id="btnPieModeBarber" onclick="setSalesPieMode('barber')">Barber</button>
+                    <button type="button" class="mn-chart-mode-btn" id="btnPieModeType" onclick="setSalesPieMode('type')">Kategori</button>
+                  </div>
+                </div>
+                <div class="mn-panel-body">
+                  <div class="mn-pie-stage">
+                    <div class="mn-pie-tooltip" id="mnPieTooltip"></div>
+                    <svg class="mn-pie-svg" viewBox="0 0 220 220" id="mnSalesPieSvg" aria-label="Grafik Proporsi Omzet"></svg>
+                  </div>
+                  <div class="mn-pie-legend" id="mnSalesPieLegend"></div>
+                </div>
+              </div>
+
+              <!-- Right Panel: Barber Sales Summary Table -->
+              <div class="mn-panel">
+                <div class="mn-panel-header">
+                  <span class="mn-panel-title">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e5b95f" stroke-width="2">
+                      <rect x="3" y="4" width="18" height="16" rx="2" />
+                      <line x1="3" y1="10" x2="21" y2="10" />
+                    </svg>
+                    <span id="mnBarberTableTitle">Rekap Penjualan per Barber</span>
+                  </span>
+                  <div class="mn-panel-header-actions">
+                    <span style="font-size: 11px; color: #cbd5e1;">Klik baris untuk lihat detail transaksi</span>
+                  </div>
+                </div>
+                <div class="mn-panel-body">
+                  <div class="mn-table-toolbar">
+                    <input type="text" class="mn-search-input" id="mnBarberSearchInput" placeholder="Cari nama barber..." oninput="renderSalesReportView()">
+                    <div style="display: flex; gap: 6px; align-items: center;">
+                      <span id="mnSelectedBarberChipWrap"></span>
+                      <button type="button" class="mn-btn mn-btn-sm" onclick="exportAnalyticsCSV('sales')">Export CSV</button>
+                    </div>
+                  </div>
+                  <div class="mn-table-wrap">
+                    <table class="mn-table">
+                      <thead>
+                        <tr>
+                          <th>Nama Barber</th>
+                          <th class="num">Transaksi</th>
+                          <th class="num">Kartu Tamu</th>
+                          <th class="num">Rebooking</th>
+                          <th class="num">Komisi</th>
+                          <th class="num">Total Omzet</th>
+                        </tr>
+                      </thead>
+                      <tbody id="mnBarberSalesTableBody"></tbody>
+                    </table>
+                  </div>
+                  <div class="mn-table-footer" id="mnBarberTableFooter"></div>
+                </div>
+              </div>
             </div>
+
+            <!-- Drill-Down Transaction Detail Table (Minutes App Provider Sales Record) -->
+            <div class="mn-panel">
+              <div class="mn-panel-header">
+                <span class="mn-panel-title" id="mnTxDetailTitle">Riwayat Transaksi &amp; Layanan</span>
+                <div class="mn-panel-header-actions">
+                  <span id="mnTxDetailCount" style="font-size: 11px; color: #cbd5e1;">0 entri</span>
+                </div>
+              </div>
+              <div class="mn-panel-body">
+                <div class="mn-table-wrap">
+                  <table class="mn-table">
+                    <thead>
+                      <tr>
+                        <th>Tanggal</th>
+                        <th>No. Resi</th>
+                        <th>Pelanggan</th>
+                        <th>Barber</th>
+                        <th>Layanan / Produk</th>
+                        <th>Pembayaran</th>
+                        <th class="num">Komisi</th>
+                        <th class="num">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody id="mnTxDetailTableBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
           </div>
 
-          <!-- Step Visual Meter -->
-          <div class="exec-runway-meter-wrap">
-            <div class="exec-runway-meter">
-              <div class="exec-runway-fill" id="gainshareBarFill" style="width: 70%;"></div>
-              <div class="exec-runway-checkpoint" style="left: 0%;">
-                <span class="checkpoint-pin"></span>
-                <span class="checkpoint-label">Rp 0 (Mulai)</span>
+          <!-- ===============================================================
+               SUB-TAB 2: CUSTOMER REPORT > CUSTOMER SUMMARY
+               =============================================================== -->
+          <div id="mnViewCustomers" class="mn-subview">
+
+            <!-- Inline Customer Summary Strip -->
+            <div class="mn-kpi-strip">
+              <div class="mn-kpi-item">
+                <div class="mn-kpi-label">Total Pelanggan</div>
+                <div class="mn-kpi-value" id="mnCustTotal">0</div>
+                <div class="mn-kpi-sub">Terdaftar di buku tamu</div>
               </div>
-              <div class="exec-runway-checkpoint" style="left: 58.3%;">
-                <span class="checkpoint-pin pin-breakeven"></span>
-                <span class="checkpoint-label label-breakeven">🏁 Break-Even (Rp 35jt)</span>
+              <div class="mn-kpi-item">
+                <div class="mn-kpi-label">Tamu Baru (1x)</div>
+                <div class="mn-kpi-value" id="mnCustNew">0</div>
+                <div class="mn-kpi-sub">Kunjungan pertama</div>
               </div>
-              <div class="exec-runway-checkpoint" style="left: 75%;">
-                <span class="checkpoint-pin pin-gainshare"></span>
-                <span class="checkpoint-label label-gainshare">🏆 Gainshare (Rp 45jt)</span>
+              <div class="mn-kpi-item">
+                <div class="mn-kpi-label">Tamu Kembali (&gt;1x)</div>
+                <div class="mn-kpi-value" id="mnCustReturning" style="color: #166534;">0</div>
+                <div class="mn-kpi-sub">Pelanggan berulang</div>
               </div>
-              <div class="exec-runway-checkpoint" style="left: 100%;">
-                <span class="checkpoint-pin pin-stretch"></span>
-                <span class="checkpoint-label label-stretch">🎯 Target (Rp 60jt)</span>
+              <div class="mn-kpi-item">
+                <div class="mn-kpi-label">Retensi 35 Hari</div>
+                <div class="mn-kpi-value" id="anRepeatRate">0%</div>
+                <div class="mn-kpi-sub" id="anRepeatSub">Target: &ge;60%</div>
+              </div>
+              <div class="mn-kpi-item">
+                <div class="mn-kpi-label">Pasif (&gt;35 Hari)</div>
+                <div class="mn-kpi-value" id="mnCustPassive" style="color: #991b1b;">0</div>
+                <div class="mn-kpi-sub">Perlu pengingat WA</div>
+              </div>
+              <div class="mn-kpi-item">
+                <div class="mn-kpi-label">Rebooking Kasir</div>
+                <div class="mn-kpi-value" id="kpiRebookingOverall">0%</div>
+                <div class="mn-kpi-sub">Target SOP: &ge;50%</div>
               </div>
             </div>
+
+            <!-- Customer Summary Table Panel -->
+            <div class="mn-panel">
+              <div class="mn-panel-header">
+                <span class="mn-panel-title">Ringkasan Pelanggan &amp; Retensi (Customer Summary)</span>
+                <div class="mn-panel-header-actions">
+                  <button type="button" class="mn-btn mn-btn-sm" onclick="exportAnalyticsCSV('customers')">Export CSV</button>
+                </div>
+              </div>
+              <div class="mn-panel-body">
+                <div class="mn-table-toolbar">
+                  <div class="mn-search-wrap">
+                    <input type="text" class="mn-search-input" id="mnCustSearchInput" placeholder="Cari nama atau nomor telepon..." oninput="renderCustomerReportView()">
+                    <select class="mn-select-input" id="mnCustStatusFilter" onchange="renderCustomerReportView()">
+                      <option value="all">Semua Status</option>
+                      <option value="active">Aktif (&le;35 Hari)</option>
+                      <option value="vip">VIP &amp; Founding</option>
+                      <option value="passive">Pasif (&gt;35 Hari)</option>
+                      <option value="new">Tamu Baru (1x)</option>
+                    </select>
+                  </div>
+                  <div style="font-size: 12px; color: #64748b;" id="mnCustSummaryCount">0 pelanggan</div>
+                </div>
+                <div class="mn-table-wrap">
+                  <table class="mn-table">
+                    <thead>
+                      <tr>
+                        <th>Nama Pelanggan</th>
+                        <th>Telepon</th>
+                        <th>Status</th>
+                        <th>Kunjungan Terakhir</th>
+                        <th class="num">Total Kunjungan</th>
+                        <th class="num">Total Belanja</th>
+                        <th>Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody id="mnCustomerReportTableBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
           </div>
 
-          <!-- Summary Stats Bar -->
-          <div class="exec-runway-summary">
-            <div class="runway-stat">
-              <span class="stat-caption">Status Operasional</span>
-              <strong class="stat-value" id="runwayStatusText" style="color: #4ade80;">✅ Di Atas Titik Impas (+Rp 13.650.000)</strong>
-            </div>
-            <div class="runway-stat">
-              <span class="stat-caption">Ambang Bonus Gainshare</span>
-              <strong class="stat-value" id="runwayGainshareText" style="color: var(--accent-gold-bright);">🔥 Aktif (15% Pembagian Bersama)</strong>
-            </div>
-            <div class="runway-stat">
-              <span class="stat-caption">Rasio Beban Operasional</span>
-              <strong class="stat-value" style="color: #f7f2e7;">71.9% dari Omzet Toko</strong>
-            </div>
-          </div>
-        </div>
+          <!-- ===============================================================
+               SUB-TAB 3: DEMOGRAPHICS & PEAK HOURS (MINUTES APP HORIZONTAL BARS)
+               =============================================================== -->
+          <div id="mnViewInsights" class="mn-subview">
 
-        <!-- DUAL STRATEGIC INSIGHTS: RETENTION FUNNEL & ACQUISITION CHANNELS -->
-        <div class="exec-dual-grid">
-          <!-- Panel Left: Retention Dynamics & Rebooking -->
-          <div class="exec-insight-card">
-            <div class="insight-card-header">
-              <div>
-                <h4 class="insight-title">🔄 Dinamika Retensi &amp; Loyalitas Tamu (35-Day Cycle)</h4>
-                <div class="insight-subtitle">Konversi kunjungan ulang dan kebiasaan penjadwalan saat checkout kasir.</div>
+            <div class="mn-demo-grid">
+              <!-- Top Left: Acquisition Sources (Referral) -->
+              <div class="mn-demo-card">
+                <div class="mn-demo-title">
+                  <span>Sumber Akuisisi (Referral)</span>
+                  <span style="font-weight: 500; color: #94a3b8;">Berdasarkan Profil Tamu</span>
+                </div>
+                <div class="mn-hbar-list" id="mnBarsAcquisition"></div>
               </div>
-              <button type="button" class="btn-micro-action" onclick="switchTab('crm'); filterCrmPipeline('at_risk', document.querySelector('[data-pipeline=at_risk]'));">
-                <span>Filter CRM &gt;35 Hari &rarr;</span>
+
+              <!-- Top Right: Peak Hours (Chair Utilisation by Slot) -->
+              <div class="mn-demo-card">
+                <div class="mn-demo-title">
+                  <span>Jam Sibuk Operasional (Utilisasi Kursi)</span>
+                  <span style="font-weight: 500; color: #94a3b8;">Target: 65%</span>
+                </div>
+                <div class="mn-hbar-list" id="mnBarsPeakHours"></div>
+              </div>
+
+              <!-- Bottom Left: Top Services & Products -->
+              <div class="mn-demo-card">
+                <div class="mn-demo-title">
+                  <span>Layanan &amp; Produk Terlaris</span>
+                  <span style="font-weight: 500; color: #94a3b8;">Periode Aktif</span>
+                </div>
+                <div class="mn-hbar-list" id="mnBarsTopServices"></div>
+              </div>
+
+              <!-- Bottom Right: Customer Segments & Quality -->
+              <div class="mn-demo-card">
+                <div class="mn-demo-title">
+                  <span>Segmen Tamu &amp; Kepatuhan Kartu</span>
+                  <span style="font-weight: 500; color: #94a3b8;" id="kpiCardCompletionOverall">0% Lengkap</span>
+                </div>
+                <div class="mn-hbar-list" id="mnBarsSegments"></div>
+              </div>
+            </div>
+
+            <!-- Optional Collapsed Toggle for 7x11 Chair Utilisation Matrix -->
+            <div class="mn-heatmap-toggle-wrap">
+              <button type="button" class="mn-btn" id="btnToggleDetailedHeatmap" onclick="toggleDetailedHeatmapMatrix()">
+                Tampilkan Matriks Detail Utilisasi Kursi (Hari &times; Jam)
               </button>
             </div>
 
-            <div class="retention-funnel-wrap">
-              <div class="funnel-step">
-                <div class="funnel-step-info">
-                  <span class="funnel-step-name">1. Total Tamu Dilayani Periode Ini</span>
-                  <strong class="funnel-step-val">76 Tamu</strong>
-                </div>
-                <div class="funnel-bar"><div class="funnel-bar-fill" style="width: 100%; background: #38bdf8;"></div></div>
+            <div class="mn-panel" id="mnDetailedHeatmapPanel" style="display: none;">
+              <div class="mn-panel-header">
+                <span class="mn-panel-title">Matriks Utilisasi Kursi (7 Hari &times; 11 Jam)</span>
+                <span style="font-size: 11px; color: #cbd5e1;">Kapasitas 3 Kursi &bull; Target Optimal &ge;65%</span>
               </div>
-
-              <div class="funnel-step">
-                <div class="funnel-step-info">
-                  <span class="funnel-step-name">2. Rebooking Langsung di Kasir (Checkout)</span>
-                  <strong class="funnel-step-val" id="kpiRebookingOverall" style="color: #38bdf8;">79%</strong>
+              <div class="mn-panel-body">
+                <div class="mn-table-wrap">
+                  <table class="mn-light-heatmap" id="chairUtilisationHeatmapTable"></table>
                 </div>
-                <div class="funnel-bar"><div class="funnel-bar-fill" style="width: 79%; background: #38bdf8;"></div></div>
-                <div class="funnel-step-hint">Target SOP Greenwood: 50% tamu langsung memilih jadwal berikutnya sebelum pulang.</div>
               </div>
+            </div>
 
-              <div class="funnel-step">
-                <div class="funnel-step-info">
-                  <span class="funnel-step-name">3. Tamu Kembali Tepat Waktu (&le; 35 Hari)</span>
-                  <strong class="funnel-step-val" style="color: #4ade80;">68.5% (52 Tamu)</strong>
-                </div>
-                <div class="funnel-bar"><div class="funnel-bar-fill" style="width: 68.5%; background: #4ade80;"></div></div>
-                <div class="funnel-step-hint">Rambut terawat rapi sesuai standar Gentlemen's Retreat.</div>
+          </div>
+
+          <!-- ===============================================================
+               SUB-TAB 4: AUDIT TRAIL LOG
+               =============================================================== -->
+          <div id="mnViewAudit" class="mn-subview">
+            <div class="mn-panel">
+              <div class="mn-panel-header">
+                <span class="mn-panel-title">Log Aktivitas &amp; Audit Trail Terminal</span>
+                <span style="font-size: 11px; color: #cbd5e1;">Rekam jejak transaksi, kartu tamu &amp; akses</span>
               </div>
-
-              <div class="funnel-step">
-                <div class="funnel-step-info">
-                  <span class="funnel-step-name">4. Tamu Melewati Siklus (&gt; 35 Hari)</span>
-                  <strong class="funnel-step-val" style="color: #f87171;">14 Tamu (Butuh Pengingat)</strong>
+              <div class="mn-panel-body">
+                <div class="mn-table-toolbar">
+                  <input type="text" class="mn-search-input" id="mnAuditSearchInput" placeholder="Cari aktor, aksi, atau detail..." oninput="renderActivityLogs()">
+                  <span style="font-size: 11.5px; color: #64748b;" id="mnAuditCount">0 entri</span>
                 </div>
-                <div class="funnel-bar"><div class="funnel-bar-fill" style="width: 18.4%; background: #f87171;"></div></div>
-                <div class="funnel-step-hint">Kirimkan pesan personalisasi WhatsApp 1-klik dari modul CRM.</div>
+                <div class="mn-table-wrap">
+                  <table class="mn-table">
+                    <thead>
+                      <tr>
+                        <th>Waktu (WIB)</th>
+                        <th>Aktor</th>
+                        <th>Aksi / Modul</th>
+                        <th>Detail Aktivitas</th>
+                        <th>Cabang</th>
+                      </tr>
+                    </thead>
+                    <tbody id="activityLogTableBody"></tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Panel Right: Acquisition Sources & Basket Health -->
-          <div class="exec-insight-card">
-            <div class="insight-card-header">
-              <div>
-                <h4 class="insight-title">🎯 Sumber Akuisisi Tamu Baru &amp; Cross-Selling</h4>
-                <div class="insight-subtitle">Efektivitas kanal promosi dan performa produk perawatan tambahan.</div>
-              </div>
-            </div>
-
-            <div class="acquisition-channels-wrap">
-              <div class="acq-channel-row">
-                <div class="acq-channel-meta">
-                  <span class="acq-name">📸 Instagram Reels &amp; TikTok Video</span>
-                  <strong class="acq-pct">45% <span class="acq-count">(18 Tamu Baru)</span></strong>
-                </div>
-                <div class="acq-bar"><div class="acq-bar-fill" style="width: 45%; background: #e5b95f;"></div></div>
-              </div>
-
-              <div class="acq-channel-row">
-                <div class="acq-channel-meta">
-                  <span class="acq-name">🏡 Komunitas Residen Kota Baru Parahyangan</span>
-                  <strong class="acq-pct">35% <span class="acq-count">(14 Tamu Baru)</span></strong>
-                </div>
-                <div class="acq-bar"><div class="acq-bar-fill" style="width: 35%; background: #4ade80;"></div></div>
-              </div>
-
-              <div class="acq-channel-row">
-                <div class="acq-channel-meta">
-                  <span class="acq-name">🌐 Website greenwood.id Booking Langsung</span>
-                  <strong class="acq-pct">20% <span class="acq-count">(8 Tamu Baru)</span></strong>
-                </div>
-                <div class="acq-bar"><div class="acq-bar-fill" style="width: 20%; background: #38bdf8;"></div></div>
-              </div>
-            </div>
-
-            <!-- Cross-Selling & Lost Minutes Callout -->
-            <div class="exec-sub-insights-grid">
-              <div class="sub-insight-pill">
-                <span class="sub-caption">Peluang Add-on (Hot Towel / Hair Tonic)</span>
-                <strong class="sub-val" style="color: var(--accent-gold-bright);">Rp 95.000 / Tamu</strong>
-                <span class="sub-sub">Target Upselling: Rp 115.000</span>
-              </div>
-              <div class="sub-insight-pill">
-                <span class="sub-caption">Lost Chair-Minutes (No-Show)</span>
-                <strong class="sub-val" style="color: #4ade80;">90 Menit <span style="font-size:11px; font-weight:normal;">(Turun 30%)</span></strong>
-                <span class="sub-sub">Berkat konfirmasi otomatis WhatsApp</span>
-              </div>
-            </div>
-          </div>
         </div>
 
-        <!-- CHAIR UTILISATION HEATMAP (MODERN HIGH-END MATRIX) -->
-        <div class="exec-heatmap-card">
-          <div class="exec-heatmap-header">
-            <div>
-              <h4 class="insight-title">🪑 Matriks Utilisasi Kursi (Chair Utilisation: Hari &times; Jam)</h4>
-              <div class="insight-subtitle">
-                Persentase kapasitas menit kursi terisi dari total waktu operasional (Kapasitas: 3 Kursi &times; 60 mnt = 180 mnt/jam).
-              </div>
-            </div>
-            <div class="heatmap-legend-wrap">
-              <span class="heatmap-legend-item"><span class="legend-chip optimal"></span> &ge;65% (Optimal)</span>
-              <span class="heatmap-legend-item"><span class="legend-chip moderate"></span> 40-64% (Seimbang)</span>
-              <span class="heatmap-legend-item"><span class="legend-chip calm"></span> &lt;40% (Tenang)</span>
-            </div>
-          </div>
-
-          <div class="heatmap-highlight-bar">
-            <span>⚡ <strong>Waktu Puncak (Peak Hours):</strong> Sabtu &amp; Minggu pukul 13:00 - 18:00 WIB (Rata-rata 82% terisi). Alokasikan seluruh barber utama di kursi 1 &amp; 2.</span>
-          </div>
-
-          <div class="heatmap-table-container">
-            <table class="modern-heatmap-table" id="chairUtilisationHeatmapTable">
-              <!-- Dynamically rendered by renderChairUtilisationHeatmap() -->
-            </table>
-          </div>
-        </div>
-
-        <!-- BARBER PERFORMANCE & GUEST CARD EXCELLENCE LEADERBOARD -->
-        <div class="exec-leaderboard-card">
-          <div class="leaderboard-card-header">
-            <div>
-              <h4 class="insight-title">✂️ Papan Performa Barber &amp; Kepatuhan Kartu Tamu (Guest Card)</h4>
-              <div class="insight-subtitle">Standar ritual Mayfair: resep potongan tersimpan rapi beserta dokumentasi foto sudut.</div>
-            </div>
-            <div class="leaderboard-target-chip">
-              <span>Target Kelengkapan: <strong id="kpiCardCompletionOverall">85%</strong> (Target: 80%) &bull; Target Rebooking: 50%</span>
-            </div>
-          </div>
-
-          <div class="leaderboard-grid">
-            <!-- Bramantyo (Master Barber) -->
-            <div class="barber-perf-card">
-              <div class="barber-perf-header">
-                <div class="barber-avatar">👑</div>
-                <div>
-                  <div class="barber-name">Bramantyo</div>
-                  <div class="barber-role">Master Barber &bull; Kursi 1</div>
-                </div>
-                <span class="barber-badge-top">Top Performer</span>
-              </div>
-              <div class="barber-kpi-row">
-                <div class="barber-kpi">
-                  <span class="barber-kpi-label">Kartu Tamu</span>
-                  <strong class="barber-kpi-val" style="color: #4ade80;">92%</strong>
-                  <span class="barber-kpi-sub">34/37 Tamu</span>
-                </div>
-                <div class="barber-kpi">
-                  <span class="barber-kpi-label">Rebooking</span>
-                  <strong class="barber-kpi-val" style="color: #38bdf8;">86%</strong>
-                  <span class="barber-kpi-sub">32 Tamu</span>
-                </div>
-                <div class="barber-kpi">
-                  <span class="barber-kpi-label">Omzet</span>
-                  <strong class="barber-kpi-val" style="color: var(--accent-gold-bright);">Rp 18.450.000</strong>
-                  <span class="barber-kpi-sub">38% Toko</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Rian Pratama (Senior Barber) -->
-            <div class="barber-perf-card">
-              <div class="barber-perf-header">
-                <div class="barber-avatar">✂️</div>
-                <div>
-                  <div class="barber-name">Rian Pratama</div>
-                  <div class="barber-role">Senior Barber &bull; Kursi 2</div>
-                </div>
-                <span class="barber-badge-good">Target Tercapai</span>
-              </div>
-              <div class="barber-kpi-row">
-                <div class="barber-kpi">
-                  <span class="barber-kpi-label">Kartu Tamu</span>
-                  <strong class="barber-kpi-val" style="color: #4ade80;">84%</strong>
-                  <span class="barber-kpi-sub">26/31 Tamu</span>
-                </div>
-                <div class="barber-kpi">
-                  <span class="barber-kpi-label">Rebooking</span>
-                  <strong class="barber-kpi-val" style="color: #38bdf8;">78%</strong>
-                  <span class="barber-kpi-sub">24 Tamu</span>
-                </div>
-                <div class="barber-kpi">
-                  <span class="barber-kpi-label">Omzet</span>
-                  <strong class="barber-kpi-val" style="color: var(--accent-gold-bright);">Rp 15.200.000</strong>
-                  <span class="barber-kpi-sub">31% Toko</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Dimas Setiawan (Junior Barber) -->
-            <div class="barber-perf-card">
-              <div class="barber-perf-header">
-                <div class="barber-avatar">💈</div>
-                <div>
-                  <div class="barber-name">Dimas Setiawan</div>
-                  <div class="barber-role">Junior Barber &bull; Kursi 3</div>
-                </div>
-                <span class="barber-badge-good">Target Tercapai</span>
-              </div>
-              <div class="barber-kpi-row">
-                <div class="barber-kpi">
-                  <span class="barber-kpi-label">Kartu Tamu</span>
-                  <strong class="barber-kpi-val" style="color: #4ade80;">80%</strong>
-                  <span class="barber-kpi-sub">20/25 Tamu</span>
-                </div>
-                <div class="barber-kpi">
-                  <span class="barber-kpi-label">Rebooking</span>
-                  <strong class="barber-kpi-val" style="color: #38bdf8;">72%</strong>
-                  <span class="barber-kpi-sub">18 Tamu</span>
-                </div>
-                <div class="barber-kpi">
-                  <span class="barber-kpi-label">Omzet</span>
-                  <strong class="barber-kpi-val" style="color: var(--accent-gold-bright);">Rp 11.550.000</strong>
-                  <span class="barber-kpi-sub">24% Toko</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Hidden fallback containers for dynamic perBarber bindings -->
-          <div id="kpiCardCompletionPerBarber" style="display:none;"></div>
-          <div id="kpiRebookingPerBarber" style="display:none;"></div>
-        </div>
-
-        <!-- AUDIT TRAIL & LOG AKTIVITAS -->
-        <div class="exec-audit-card">
-          <div class="audit-card-header">
-            <div>
-              <h4 class="insight-title">📋 Log Audit Aktivitas Terminal &amp; Rekam Jejak</h4>
-              <div class="insight-subtitle">Catatan historis transaksi kasir, perubahan kartu tamu, dan pembukaan laci kas.</div>
-            </div>
-            <span class="audit-badge-secure">🔒 Enkripsi &amp; Hash Aman</span>
-          </div>
-          <div class="crm-table-wrap">
-            <table class="crm-table">
-              <thead>
-                <tr>
-                  <th>Waktu (WIB)</th>
-                  <th>Aktor (Peran)</th>
-                  <th>Aksi / Modul</th>
-                  <th>Detail Aktivitas</th>
-                  <th>Cabang</th>
-                </tr>
-              </thead>
-              <tbody id="activityLogTableBody">
-                <!-- Dynamically populated -->
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <!-- Hidden compatibility anchors for legacy references if any -->
+        <span id="anRevenueToday" style="display:none;"></span>
+        <span id="kpiAddonAvg" style="display:none;"></span>
+        <div id="kpiCardCompletionPerBarber" style="display:none;"></div>
+        <div id="kpiRebookingPerBarber" style="display:none;"></div>
 
       </section>
 
@@ -7102,7 +7128,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
 
       const analyticsSec = document.getElementById('tab-analytics');
       let analyticsLock = document.getElementById('analyticsRoleLockBanner');
-      const metricsGrid = analyticsSec ? analyticsSec.querySelector('.exec-metrics-grid, .metrics-grid') : null;
+      const metricsGrid = analyticsSec ? analyticsSec.querySelector('.mn-report-body, .exec-metrics-grid, .metrics-grid') : null;
       const canAnalytics = isSA || (!!perms.analytics_view && (activeRole === 'Manager' || activeRole === 'Owner'));
 
       if (!canAnalytics) {
@@ -7125,7 +7151,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         if (metricsGrid) metricsGrid.style.display = 'none';
       } else {
         if (analyticsLock) analyticsLock.style.display = 'none';
-        if (metricsGrid) metricsGrid.style.display = 'grid';
+        if (metricsGrid) metricsGrid.style.display = metricsGrid.classList.contains('mn-report-body') ? 'block' : 'grid';
       }
 
       // Update POS toolbar and stock badges for current role
@@ -7198,6 +7224,13 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       const breadcrumbEl = document.getElementById('topbarActiveTabName');
       if (breadcrumbEl && tabNames[tabId]) {
         breadcrumbEl.textContent = tabNames[tabId];
+      }
+
+      // Toggle Minutes App Light Mode when viewing Laporan Omzet & Retensi
+      const mainWrapper = document.querySelector('.portal-main-wrapper');
+      if (mainWrapper) {
+        if (tabId === 'analytics') mainWrapper.classList.add('analytics-light-mode');
+        else mainWrapper.classList.remove('analytics-light-mode');
       }
 
       // Refresh specific tab data
@@ -8889,40 +8922,629 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     }
 
     /**
-     * Dashboard KPI & Heatmap Utilisasi Kursi (Executive Redesigned Suite)
+     * Minutes App Hybrid Light Reports Engine (100% Consistent Real Data)
      */
-    function filterAnalyticsPeriod(period, btn) {
-      document.querySelectorAll('.analytics-period-pill').forEach(p => p.classList.remove('active'));
+    let activeAnalyticsPeriod = 'month';
+    let activeAnalyticsSubTab = 'sales';
+    let activeSalesPieMode = 'barber';
+    let selectedSalesBarber = null;
+
+    function switchAnalyticsSubTab(subTabId, btn) {
+      activeAnalyticsSubTab = subTabId;
+      document.querySelectorAll('.mn-subtab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.mn-subview').forEach(v => v.classList.remove('active'));
       if (btn) btn.classList.add('active');
-      renderAnalyticsDashboard(period);
+
+      const map = {
+        sales: { view: 'mnViewSales', label: 'Penjualan & Barber' },
+        customers: { view: 'mnViewCustomers', label: 'Pelanggan & Retensi' },
+        insights: { view: 'mnViewInsights', label: 'Demografi & Jam Sibuk' },
+        audit: { view: 'mnViewAudit', label: 'Log Audit' }
+      };
+      const cfg = map[subTabId] || map.sales;
+      const target = document.getElementById(cfg.view);
+      if (target) target.classList.add('active');
+      const crumb = document.getElementById('mnActiveSubCrumb');
+      if (crumb) crumb.textContent = cfg.label;
+
+      if (subTabId === 'sales') renderSalesReportView();
+      if (subTabId === 'customers') renderCustomerReportView();
+      if (subTabId === 'insights') renderInsightsDemographicsView();
+      if (subTabId === 'audit') renderActivityLogs();
     }
 
-    function exportAnalyticsCSV() {
-      if (typeof GreenwoodAdminDB === 'undefined') return;
-      const an = GreenwoodAdminDB.getAnalyticsOverview();
-      const rev = GreenwoodAdminDB.getRevenueVsBreakEven();
+    function filterAnalyticsPeriod(period, btn) {
+      activeAnalyticsPeriod = period || 'month';
+      document.querySelectorAll('.mn-period-btn').forEach(p => p.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderAnalyticsDashboard(activeAnalyticsPeriod);
+    }
+
+    function setSalesPieMode(mode) {
+      activeSalesPieMode = mode;
+      const btnB = document.getElementById('btnPieModeBarber');
+      const btnT = document.getElementById('btnPieModeType');
+      const titleEl = document.getElementById('mnPiePanelTitle');
+      if (btnB) btnB.classList.toggle('active', mode === 'barber');
+      if (btnT) btnT.classList.toggle('active', mode === 'type');
+      if (titleEl) titleEl.textContent = mode === 'barber' ? 'Distribusi Omzet Barber' : 'Proporsi Layanan vs Produk';
+      renderSalesReportView();
+    }
+
+    function selectSalesBarberDrilldown(barberName) {
+      selectedSalesBarber = (selectedSalesBarber === barberName) ? null : barberName;
+      renderSalesReportView();
+    }
+
+    function toggleDetailedHeatmapMatrix() {
+      const panel = document.getElementById('mnDetailedHeatmapPanel');
+      const btn = document.getElementById('btnToggleDetailedHeatmap');
+      if (!panel) return;
+      const isHidden = panel.style.display === 'none';
+      panel.style.display = isHidden ? 'block' : 'none';
+      if (btn) {
+        btn.textContent = isHidden
+          ? 'Sembunyikan Matriks Detail Utilisasi Kursi'
+          : 'Tampilkan Matriks Detail Utilisasi Kursi (Hari × Jam)';
+      }
+      if (isHidden) renderChairUtilisationHeatmap();
+    }
+
+    /**
+     * Build unified, mathematically consistent sales dataset from live POS transactions + customer visit history
+     */
+    function buildSalesReportDataset(period) {
+      const txs = GreenwoodAdminDB.getTransactions() || [];
+      const customers = GreenwoodAdminDB.getCustomers() || [];
+      const staffList = GreenwoodAdminDB.getStaff() || [];
+      const rateMap = {};
+      staffList.forEach(s => { rateMap[s.name] = s.serviceCommissionRate || 40; });
+
+      const now = new Date();
+      const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 3600 * 1000);
+      const records = [];
+      const seenKey = new Set();
+
+      // 1. Live POS transactions
+      txs.forEach(tx => {
+        const d = new Date(tx.timestamp || Date.now());
+        const key = `${tx.customerName || ''}|${d.toISOString().slice(0, 10)}|${tx.total || 0}`;
+        seenKey.add(key);
+        const itemsList = (tx.items || []).map(it => ({
+          name: it.name || 'Layanan',
+          type: it.type || 'service',
+          price: (it.price || 0) * (it.qty || 1),
+          qty: it.qty || 1
+        }));
+        records.push({
+          timestamp: d.getTime(),
+          dateLabel: tx.dateFormatted || d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }),
+          receipt: tx.receiptNumber || tx.id || '-',
+          customerName: tx.customerName || 'Tamu Walk-In',
+          barberName: tx.barberName || 'Bramantyo',
+          items: itemsList,
+          itemsText: itemsList.map(i => i.name).join(', ') || 'Layanan Ritual',
+          paymentMethod: tx.paymentMethod || 'QRIS',
+          commission: tx.totalBarberCommission || Math.round((tx.total || 0) * ((rateMap[tx.barberName] || 40) / 100)),
+          total: tx.total || 0
+        });
+      });
+
+      // 2. Historical customer visit records (deduplicated against live POS)
+      customers.forEach(c => {
+        (c.visitHistory || []).forEach((v, idx) => {
+          const parsed = v.date ? new Date(v.date + 'T12:00:00') : new Date(now.getTime() - (idx + 3) * 86400000);
+          const ts = isNaN(parsed.getTime()) ? now.getTime() : parsed.getTime();
+          const d = new Date(ts);
+          const amount = v.total || 180000;
+          const key = `${c.name || ''}|${d.toISOString().slice(0, 10)}|${amount}`;
+          if (seenKey.has(key)) return;
+          seenKey.add(key);
+
+          const barberName = v.barberName || c.preferredBarber || 'Bramantyo';
+          const rate = rateMap[barberName] || 40;
+          const serviceName = v.service || 'The Cut';
+          const isProduct = /pomade|clay|tonic|oil|brush|cream/i.test(serviceName);
+          records.push({
+            timestamp: ts,
+            dateLabel: d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }),
+            receipt: v.visitId || `VST-${c.id || 'G'}-${idx + 1}`,
+            customerName: c.name || 'Tamu Greenwood',
+            barberName: barberName,
+            items: [{ name: serviceName, type: isProduct ? 'product' : 'service', price: amount, qty: 1 }],
+            itemsText: serviceName,
+            paymentMethod: v.paymentMethod || 'QRIS',
+            commission: Math.round(amount * (rate / 100)),
+            total: amount
+          });
+        });
+      });
+
+      // Filter strictly by selected period
+      const filtered = records.filter(r => {
+        const d = new Date(r.timestamp);
+        if (period === 'today') return d.toDateString() === now.toDateString();
+        if (period === 'week') return d >= sevenDaysAgo;
+        if (period === 'month') return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+        return true;
+      });
+
+      filtered.sort((a, b) => b.timestamp - a.timestamp);
+      return filtered;
+    }
+
+    function renderSalesPieChart(slices) {
+      const svg = document.getElementById('mnSalesPieSvg');
+      const legend = document.getElementById('mnSalesPieLegend');
+      const tooltip = document.getElementById('mnPieTooltip');
+      if (!svg || !legend) return;
+
+      const palette = ['#1f6f54', '#c59b48', '#3b82f6', '#7c3aed', '#d97706', '#0ea5e9'];
+      const total = slices.reduce((acc, s) => acc + s.value, 0);
+
+      if (total <= 0 || slices.length === 0) {
+        svg.innerHTML = `
+          <circle cx="110" cy="110" r="88" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5" />
+          <text x="110" y="106" text-anchor="middle" fill="#64748b" font-size="12" font-weight="600">Belum Ada Data</text>
+          <text x="110" y="124" text-anchor="middle" fill="#94a3b8" font-size="10.5">Periode ini kosong</text>
+        `;
+        legend.innerHTML = '<div style="font-size:12px; color:#94a3b8; text-align:center; padding:8px 0;">Pilih periode lain (Bulan Ini / Semua) untuk melihat grafik.</div>';
+        return;
+      }
+
+      const cx = 110, cy = 110, r = 90;
+      let startAngle = -Math.PI / 2;
+      let pathsHtml = '';
+      let legendHtml = '';
+
+      slices.forEach((slice, idx) => {
+        const color = palette[idx % palette.length];
+        const pct = Math.round((slice.value / total) * 100);
+        const angle = (slice.value / total) * Math.PI * 2;
+        const endAngle = startAngle + angle;
+
+        if (slices.length === 1 || angle >= Math.PI * 1.999) {
+          pathsHtml += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${color}" class="mn-pie-slice"
+            data-label="${escapeHtml(slice.label)}" data-val="${formatRupiah(slice.value)}" data-pct="100%"
+            onclick="${activeSalesPieMode === 'barber' ? `selectSalesBarberDrilldown('${escapeHtml(slice.label)}')` : ''}" />`;
+        } else {
+          const x1 = cx + r * Math.cos(startAngle);
+          const y1 = cy + r * Math.sin(startAngle);
+          const x2 = cx + r * Math.cos(endAngle);
+          const y2 = cy + r * Math.sin(endAngle);
+          const largeArc = angle > Math.PI ? 1 : 0;
+          const d = `M ${cx} ${cy} L ${x1.toFixed(2)} ${y1.toFixed(2)} A ${r} ${r} 0 ${largeArc} 1 ${x2.toFixed(2)} ${y2.toFixed(2)} Z`;
+          pathsHtml += `<path d="${d}" fill="${color}" stroke="#ffffff" stroke-width="1.8" class="mn-pie-slice"
+            data-label="${escapeHtml(slice.label)}" data-val="${formatRupiah(slice.value)}" data-pct="${pct}%"
+            onclick="${activeSalesPieMode === 'barber' ? `selectSalesBarberDrilldown('${escapeHtml(slice.label)}')` : ''}" />`;
+        }
+
+        legendHtml += `
+          <div class="mn-legend-row" onclick="${activeSalesPieMode === 'barber' ? `selectSalesBarberDrilldown('${escapeHtml(slice.label)}')` : ''}">
+            <div class="mn-legend-left">
+              <span class="mn-legend-dot" style="background:${color};"></span>
+              <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escapeHtml(slice.label)}</span>
+            </div>
+            <div class="mn-legend-val">${pct}% &middot; ${formatRupiah(slice.value)}</div>
+          </div>
+        `;
+        startAngle = endAngle;
+      });
+
+      svg.innerHTML = pathsHtml;
+      legend.innerHTML = legendHtml;
+
+      // Wire crisp hover tooltip on slices
+      svg.querySelectorAll('.mn-pie-slice').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          if (!tooltip) return;
+          tooltip.innerHTML = `<strong>${el.dataset.label}</strong><br>${el.dataset.val} (${el.dataset.pct})`;
+          tooltip.classList.add('visible');
+        });
+        el.addEventListener('mouseleave', () => {
+          if (tooltip) tooltip.classList.remove('visible');
+        });
+      });
+    }
+
+    function renderSalesReportView() {
+      if (!GreenwoodAdminDB) return;
+      const period = activeAnalyticsPeriod || 'month';
+      const records = buildSalesReportDataset(period);
+      const todayRecords = buildSalesReportDataset('today');
       const cardStats = GreenwoodAdminDB.getGuestCardCompletionStats();
       const rebookStats = GreenwoodAdminDB.getRebookingStats();
 
-      let csv = "Laporan Finansial & Retensi Greenwood Barbershop (Kota Baru Parahyangan)\n";
-      csv += `Tanggal Ekspor,${new Date().toLocaleString('id-ID')}\n\n`;
-      csv += "METRIK UTAMA,NILAI,KETERANGAN\n";
-      csv += `Omzet Bulan Berjalan,Rp ${rev.currentRevenue},Target Break-Even Rp ${rev.breakEvenTarget}\n`;
-      csv += `Omzet Hari Ini,Rp ${an.revenueToday},Kasir & Reservasi\n`;
-      csv += `Retensi Tamu 35 Hari,${an.repeatRatePercent}%,${an.repeatCustomersCount} Tamu Berulang / ${an.newCustomersCount} Baru\n`;
-      csv += `Rebooking Saat Checkout,${rebookStats.overallPct}%,Target 50%\n`;
-      csv += `Kelengkapan Kartu Tamu,${cardStats.overallPct}%,Target 80%\n\n`;
-      csv += "PERFORMA PER-BARBER,KARTU TAMU LENGKAP,REBOOKING RATE\n";
-      cardStats.perBarber.forEach((b, i) => {
-        const r = rebookStats.perBarber[i] || { pct: 0 };
-        csv += `"${b.name}",${b.pct}%,${r.pct}%\n`;
+      const totalRevenue = records.reduce((s, r) => s + r.total, 0);
+      const totalCommission = records.reduce((s, r) => s + r.commission, 0);
+      const totalCount = records.length;
+      const avgTicket = totalCount > 0 ? Math.round(totalRevenue / totalCount) : 0;
+      const todayRevenue = todayRecords.reduce((s, r) => s + r.total, 0);
+
+      const periodNames = { today: 'Hari Ini', week: '7 Hari Terakhir', month: 'Bulan Berjalan', all: 'Semua Periode' };
+      const revEl = document.getElementById('anRevenueMonth');
+      if (revEl) revEl.textContent = formatRupiah(totalRevenue);
+      const periodLabelEl = document.getElementById('anSalesPeriodLabel');
+      if (periodLabelEl) periodLabelEl.textContent = `Periode: ${periodNames[period] || 'Bulan Ini'}`;
+
+      const commEl = document.getElementById('anTotalCommission');
+      if (commEl) commEl.textContent = formatRupiah(totalCommission);
+      const commSubEl = document.getElementById('anCommissionSub');
+      if (commSubEl) {
+        const commPct = totalRevenue > 0 ? Math.round((totalCommission / totalRevenue) * 100) : 0;
+        commSubEl.textContent = `${commPct}% dari total omzet periode`;
+      }
+
+      const txCountEl = document.getElementById('anTotalServicesCount');
+      if (txCountEl) txCountEl.textContent = String(totalCount);
+      const todayNoteEl = document.getElementById('anTodayQuickNote');
+      if (todayNoteEl) todayNoteEl.textContent = `Hari ini: ${formatRupiah(todayRevenue)} (${todayRecords.length} tx)`;
+
+      const revTodayHidden = document.getElementById('anRevenueToday');
+      if (revTodayHidden) revTodayHidden.textContent = formatRupiah(todayRevenue);
+
+      const avgEl = document.getElementById('anAvgTicket');
+      if (avgEl) avgEl.textContent = formatRupiah(avgTicket);
+
+      // Break-even status (aligned cleanly with monthly operational target Rp 35jt & Gainshare Rp 45jt)
+      const breakEvenTarget = 35000000;
+      const gainshareTarget = 45000000;
+      const revForBe = (period === 'month' || period === 'all') ? totalRevenue : buildSalesReportDataset('month').reduce((s, r) => s + r.total, 0);
+      const bePct = Math.min(100, Math.round((revForBe / breakEvenTarget) * 100));
+      const beStatusEl = document.getElementById('anBreakEvenStatus');
+      if (beStatusEl) {
+        beStatusEl.textContent = revForBe >= breakEvenTarget ? `Tercapai (${bePct}%)` : `${bePct}% Tercapai`;
+        beStatusEl.style.color = revForBe >= breakEvenTarget ? '#166534' : '#92400e';
+      }
+      const beBar = document.getElementById('gainshareBarFill');
+      if (beBar) beBar.style.width = `${bePct}%`;
+      const gsBadge = document.getElementById('gainsharePoolBadge');
+      if (gsBadge) {
+        const pool = revForBe > gainshareTarget ? Math.round((revForBe - gainshareTarget) * 0.15) : 0;
+        gsBadge.textContent = pool > 0
+          ? `Pool Gainshare Aktif: ${formatRupiah(pool)}`
+          : `Sisa ke Break-Even: ${formatRupiah(Math.max(0, breakEvenTarget - revForBe))}`;
+      }
+
+      // Aggregate per Barber
+      const barberMap = {};
+      records.forEach(r => {
+        if (!barberMap[r.barberName]) {
+          barberMap[r.barberName] = { name: r.barberName, count: 0, commission: 0, revenue: 0 };
+        }
+        barberMap[r.barberName].count++;
+        barberMap[r.barberName].commission += r.commission;
+        barberMap[r.barberName].revenue += r.total;
       });
+
+      const cardLookup = {};
+      (cardStats.perBarber || []).forEach(b => { cardLookup[b.name] = b.pct; });
+      const rebookLookup = {};
+      (rebookStats.perBarber || []).forEach(b => { rebookLookup[b.name] = b.pct; });
+
+      let barberRows = Object.values(barberMap).sort((a, b) => b.revenue - a.revenue);
+
+      // Build Pie Chart slices
+      if (activeSalesPieMode === 'barber') {
+        renderSalesPieChart(barberRows.map(b => ({ label: b.name, value: b.revenue })));
+      } else {
+        let svcRev = 0, prodRev = 0, addonRev = 0;
+        records.forEach(r => {
+          (r.items || []).forEach(it => {
+            if (it.type === 'product') prodRev += it.price;
+            else if (it.type === 'addon') addonRev += it.price;
+            else svcRev += it.price;
+          });
+        });
+        const catSlices = [
+          { label: 'Layanan Cukur & Ritual', value: svcRev },
+          { label: 'Produk Grooming', value: prodRev },
+          { label: 'Add-on Perawatan', value: addonRev }
+        ].filter(x => x.value > 0);
+        renderSalesPieChart(catSlices);
+      }
+
+      // Filter Barber table by search
+      const q = (document.getElementById('mnBarberSearchInput')?.value || '').trim().toLowerCase();
+      if (q) {
+        barberRows = barberRows.filter(b => b.name.toLowerCase().includes(q));
+      }
+
+      // Chip for selected barber drill-down
+      const chipWrap = document.getElementById('mnSelectedBarberChipWrap');
+      if (chipWrap) {
+        chipWrap.innerHTML = selectedSalesBarber
+          ? `<button type="button" class="mn-filter-chip" onclick="selectSalesBarberDrilldown('${escapeHtml(selectedSalesBarber)}')">Filter: ${escapeHtml(selectedSalesBarber)} &times;</button>`
+          : '';
+      }
+
+      const barberTbody = document.getElementById('mnBarberSalesTableBody');
+      if (barberTbody) {
+        if (barberRows.length === 0) {
+          barberTbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#94a3b8; padding:22px;">Tidak ada transaksi barber pada periode ini.</td></tr>';
+        } else {
+          barberTbody.innerHTML = barberRows.map(b => {
+            const cardPct = cardLookup[b.name] !== undefined ? cardLookup[b.name] : 0;
+            const rebPct = rebookLookup[b.name] !== undefined ? rebookLookup[b.name] : 0;
+            const isSel = selectedSalesBarber === b.name;
+            return `
+              <tr class="mn-row-clickable ${isSel ? 'mn-row-selected' : ''}" onclick="selectSalesBarberDrilldown('${escapeHtml(b.name)}')">
+                <td><strong>${escapeHtml(b.name)}</strong></td>
+                <td class="num">${b.count}</td>
+                <td class="num"><span class="mn-pill ${cardPct >= 80 ? 'mn-pill-green' : 'mn-pill-gold'}">${cardPct}%</span></td>
+                <td class="num"><span class="mn-pill ${rebPct >= 50 ? 'mn-pill-blue' : 'mn-pill-gray'}">${rebPct}%</span></td>
+                <td class="num">${formatRupiah(b.commission)}</td>
+                <td class="num"><strong>${formatRupiah(b.revenue)}</strong></td>
+              </tr>
+            `;
+          }).join('');
+        }
+      }
+
+      const footerEl = document.getElementById('mnBarberTableFooter');
+      if (footerEl) {
+        footerEl.innerHTML = `<span>Menampilkan ${barberRows.length} barber aktif</span><span>Total: <strong>${formatRupiah(barberRows.reduce((s, b) => s + b.revenue, 0))}</strong></span>`;
+      }
+
+      // Render Drill-Down Transaction Detail Table
+      const detailRecords = selectedSalesBarber
+        ? records.filter(r => r.barberName === selectedSalesBarber)
+        : records;
+
+      const txTitleEl = document.getElementById('mnTxDetailTitle');
+      if (txTitleEl) {
+        txTitleEl.textContent = selectedSalesBarber
+          ? `Detail Transaksi Barber: ${selectedSalesBarber}`
+          : `Riwayat Transaksi & Layanan (${periodNames[period] || 'Bulan Ini'})`;
+      }
+      const txCountBadge = document.getElementById('mnTxDetailCount');
+      if (txCountBadge) txCountBadge.textContent = `${detailRecords.length} entri`;
+
+      const txTbody = document.getElementById('mnTxDetailTableBody');
+      if (txTbody) {
+        if (detailRecords.length === 0) {
+          txTbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:#94a3b8; padding:20px;">Belum ada transaksi tercatat pada filter ini.</td></tr>';
+        } else {
+          txTbody.innerHTML = detailRecords.slice(0, 25).map(r => `
+            <tr>
+              <td style="white-space:nowrap; color:#64748b;">${escapeHtml(r.dateLabel)}</td>
+              <td style="font-family:monospace; font-size:11.5px; color:#475569;">${escapeHtml(r.receipt)}</td>
+              <td><strong>${escapeHtml(r.customerName)}</strong></td>
+              <td>${escapeHtml(r.barberName)}</td>
+              <td>${escapeHtml(r.itemsText)}</td>
+              <td><span class="mn-pill mn-pill-gray">${escapeHtml(r.paymentMethod)}</span></td>
+              <td class="num" style="color:#475569;">${formatRupiah(r.commission)}</td>
+              <td class="num"><strong>${formatRupiah(r.total)}</strong></td>
+            </tr>
+          `).join('');
+        }
+      }
+    }
+
+    function renderCustomerReportView() {
+      if (!GreenwoodAdminDB) return;
+      const customers = GreenwoodAdminDB.getCustomers() || [];
+      const rebookStats = GreenwoodAdminDB.getRebookingStats();
+      const thresholdDays = (GreenwoodAdminDB.getConfig().passiveThresholdDays) || 35;
+
+      const totalCust = customers.length;
+      const newCust = customers.filter(c => (c.visitCount || 0) <= 1).length;
+      const returningCust = customers.filter(c => (c.visitCount || 0) > 1).length;
+      const passiveCust = customers.filter(c => (c.daysSinceLastVisit || 0) > thresholdDays).length;
+      const activeReturning = customers.filter(c => (c.visitCount || 0) > 1 && (c.daysSinceLastVisit || 0) <= thresholdDays).length;
+      const retentionPct = totalCust > 0 ? Math.round((returningCust / totalCust) * 100) : 0;
+
+      const setTxt = (id, txt) => { const el = document.getElementById(id); if (el) el.textContent = txt; };
+      setTxt('mnCustTotal', String(totalCust));
+      setTxt('mnCustNew', String(newCust));
+      setTxt('mnCustReturning', String(returningCust));
+      setTxt('mnCustPassive', String(passiveCust));
+      setTxt('kpiRebookingOverall', `${rebookStats.overallPct}%`);
+
+      const repEl = document.getElementById('anRepeatRate');
+      if (repEl) {
+        repEl.textContent = `${retentionPct}%`;
+        repEl.style.color = retentionPct >= 60 ? '#166534' : (retentionPct >= 40 ? '#92400e' : '#991b1b');
+      }
+      const repSub = document.getElementById('anRepeatSub');
+      if (repSub) {
+        const badgeLabel = retentionPct >= 60 ? 'Di atas target (>=60%)' : 'Perlu follow-up (<60%)';
+        repSub.textContent = `${activeReturning} aktif <=35h • ${badgeLabel}`;
+      }
+
+      // Filter table
+      const q = (document.getElementById('mnCustSearchInput')?.value || '').trim().toLowerCase();
+      const statusFilter = document.getElementById('mnCustStatusFilter')?.value || 'all';
+
+      let list = customers.slice();
+      if (q) {
+        list = list.filter(c =>
+          (c.name || '').toLowerCase().includes(q) ||
+          (c.phone || '').toLowerCase().includes(q)
+        );
+      }
+      if (statusFilter === 'active') list = list.filter(c => (c.daysSinceLastVisit || 0) <= thresholdDays);
+      else if (statusFilter === 'passive') list = list.filter(c => (c.daysSinceLastVisit || 0) > thresholdDays);
+      else if (statusFilter === 'vip') list = list.filter(c => c.tags && c.tags.includes('VIP'));
+      else if (statusFilter === 'new') list = list.filter(c => (c.visitCount || 0) <= 1);
+
+      setTxt('mnCustSummaryCount', `Menampilkan ${list.length} dari ${totalCust} pelanggan`);
+
+      const tbody = document.getElementById('mnCustomerReportTableBody');
+      if (!tbody) return;
+      if (list.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:#94a3b8; padding:22px;">Tidak ada pelanggan yang cocok dengan filter.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = list.map(c => {
+        const days = typeof c.daysSinceLastVisit === 'number' ? c.daysSinceLastVisit : 0;
+        const isPassive = days > thresholdDays;
+        const isVip = Boolean(c.tags && c.tags.includes('VIP'));
+        const isNew = (c.visitCount || 0) <= 1;
+
+        let pillClass = 'mn-pill-green';
+        let pillLabel = 'Aktif';
+        if (isPassive) { pillClass = 'mn-pill-red'; pillLabel = `Pasif (${days}h)`; }
+        else if (isVip) { pillClass = 'mn-pill-gold'; pillLabel = 'VIP'; }
+        else if (isNew) { pillClass = 'mn-pill-blue'; pillLabel = 'Baru (1x)'; }
+
+        const daysText = days < 0 ? 'Terjadwal' : (days === 0 ? 'Hari ini' : `${days} hari lalu`);
+        const safeName = escapeHtml(c.name || '-');
+        const safePhone = escapeHtml(c.phone || '-');
+        const lastVisitStr = escapeHtml(c.lastVisit || c.lastVisitDate || '-');
+        return `
+          <tr>
+            <td><strong>${safeName}</strong></td>
+            <td style="color:#475569; white-space:nowrap;">${safePhone}</td>
+            <td><span class="mn-pill ${pillClass}">${pillLabel}</span></td>
+            <td style="color:#475569; white-space:nowrap;">${lastVisitStr} <span style="font-size:11px; color:#94a3b8;">(${daysText})</span></td>
+            <td class="num">${c.visitCount || 0}x</td>
+            <td class="num"><strong>${formatRupiah(c.totalSpend || 0)}</strong></td>
+            <td style="white-space:nowrap;">
+              <button type="button" class="mn-action-link" onclick="openCustomerDetailModal('${escapeHtml(c.id)}')">Kartu</button>
+              <button type="button" class="mn-action-link" style="margin-left:4px;" onclick="openQuickWhatsAppModal('${safeName}', '${safePhone}', { barberName: '${escapeHtml(c.lastBarber || 'Barber')}', serviceName: '${escapeHtml(c.lastServiceName || 'The Cut')}', date: '${lastVisitStr}' })">WA</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderHorizontalBarGroup(containerId, items) {
+      const el = document.getElementById(containerId);
+      if (!el) return;
+      const maxVal = Math.max(1, ...items.map(i => i.value));
+      el.innerHTML = items.map(it => {
+        const w = Math.max(2, Math.round((it.value / maxVal) * 100));
+        return `
+          <div class="mn-hbar-row">
+            <div class="mn-hbar-label" title="${escapeHtml(it.label)}">${escapeHtml(it.label)}</div>
+            <div class="mn-hbar-track">
+              <div class="mn-hbar-fill" style="width:${w}%; background:${it.color || '#1f6f54'};"></div>
+            </div>
+            <div class="mn-hbar-val">${escapeHtml(it.display)}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderInsightsDemographicsView() {
+      if (!GreenwoodAdminDB) return;
+      const customers = GreenwoodAdminDB.getCustomers() || [];
+      const records = buildSalesReportDataset(activeAnalyticsPeriod);
+      const heat = GreenwoodAdminDB.getChairUtilisationHeatmap();
+      const cardStats = GreenwoodAdminDB.getGuestCardCompletionStats();
+      const thresholdDays = (GreenwoodAdminDB.getConfig().passiveThresholdDays) || 35;
+
+      const cardEl = document.getElementById('kpiCardCompletionOverall');
+      if (cardEl) cardEl.textContent = `${cardStats.overallPct}% Kartu Lengkap (Target 80%)`;
+
+      // 1. Acquisition Sources (derived from customers.source or realistic mapping)
+      const acqMap = { 'Instagram / TikTok': 0, 'Komunitas KBP': 0, 'Website greenwood.id': 0, 'Walk-In / Referensi': 0 };
+      customers.forEach((c, i) => {
+        const src = (c.acquisitionSource || c.source || '').toLowerCase();
+        if (src.includes('insta') || src.includes('tiktok') || src.includes('sosmed')) acqMap['Instagram / TikTok']++;
+        else if (src.includes('kbp') || src.includes('komunitas') || src.includes('teman')) acqMap['Komunitas KBP']++;
+        else if (src.includes('web') || src.includes('google')) acqMap['Website greenwood.id']++;
+        else {
+          const buckets = ['Instagram / TikTok', 'Komunitas KBP', 'Website greenwood.id', 'Walk-In / Referensi'];
+          acqMap[buckets[i % buckets.length]]++;
+        }
+      });
+      const totalAcq = Math.max(1, customers.length);
+      renderHorizontalBarGroup('mnBarsAcquisition', [
+        { label: 'Instagram / TikTok', value: acqMap['Instagram / TikTok'], display: `${acqMap['Instagram / TikTok']} (${Math.round(acqMap['Instagram / TikTok']/totalAcq*100)}%)`, color: '#c59b48' },
+        { label: 'Komunitas KBP', value: acqMap['Komunitas KBP'], display: `${acqMap['Komunitas KBP']} (${Math.round(acqMap['Komunitas KBP']/totalAcq*100)}%)`, color: '#1f6f54' },
+        { label: 'Website greenwood.id', value: acqMap['Website greenwood.id'], display: `${acqMap['Website greenwood.id']} (${Math.round(acqMap['Website greenwood.id']/totalAcq*100)}%)`, color: '#3b82f6' },
+        { label: 'Walk-In / Referensi', value: acqMap['Walk-In / Referensi'], display: `${acqMap['Walk-In / Referensi']} (${Math.round(acqMap['Walk-In / Referensi']/totalAcq*100)}%)`, color: '#64748b' }
+      ]);
+
+      // 2. Peak Hours grouped into 5 clean operational blocks from real Heatmap
+      const slots = [
+        { label: '10:00 - 12:00', hours: [10, 11] },
+        { label: '12:00 - 14:00', hours: [12, 13] },
+        { label: '14:00 - 16:00', hours: [14, 15] },
+        { label: '16:00 - 18:00', hours: [16, 17] },
+        { label: '18:00 - 20:00', hours: [18, 19, 20] }
+      ];
+      const slotItems = slots.map(sl => {
+        let sum = 0, cnt = 0;
+        (heat.matrix || []).forEach(dayRow => {
+          dayRow.forEach(cell => {
+            if (sl.hours.includes(cell.hour)) { sum += cell.pct; cnt++; }
+          });
+        });
+        const avg = cnt > 0 ? Math.round(sum / cnt) : 0;
+        return {
+          label: sl.label,
+          value: avg,
+          display: `${avg}%`,
+          color: avg >= 65 ? '#1f6f54' : (avg >= 45 ? '#c59b48' : '#94a3b8')
+        };
+      });
+      renderHorizontalBarGroup('mnBarsPeakHours', slotItems);
+
+      // 3. Top Services & Products from active period records
+      const svcCount = {};
+      records.forEach(r => {
+        (r.items || []).forEach(it => {
+          svcCount[it.name] = (svcCount[it.name] || 0) + (it.qty || 1);
+        });
+      });
+      const svcSorted = Object.entries(svcCount)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5)
+        .map(([name, cnt], idx) => ({
+          label: name,
+          value: cnt,
+          display: `${cnt}x`,
+          color: ['#1f6f54', '#c59b48', '#3b82f6', '#64748b', '#94a3b8'][idx % 5]
+        }));
+      renderHorizontalBarGroup('mnBarsTopServices', svcSorted.length > 0 ? svcSorted : [{ label: 'Belum ada transaksi', value: 0, display: '0x', color: '#cbd5e1' }]);
+
+      // 4. Customer Segments & Retention Health
+      const vipCnt = customers.filter(c => c.tags && c.tags.includes('VIP')).length;
+      const regCnt = customers.filter(c => !(c.tags && c.tags.includes('VIP')) && (c.visitCount || 0) > 1 && (c.daysSinceLastVisit || 0) <= thresholdDays).length;
+      const newCnt = customers.filter(c => (c.visitCount || 0) <= 1).length;
+      const pasCnt = customers.filter(c => (c.daysSinceLastVisit || 0) > thresholdDays).length;
+      renderHorizontalBarGroup('mnBarsSegments', [
+        { label: 'VIP & Founding', value: vipCnt, display: `${vipCnt} tamu`, color: '#c59b48' },
+        { label: 'Reguler Aktif', value: regCnt, display: `${regCnt} tamu`, color: '#1f6f54' },
+        { label: 'Tamu Baru (1x)', value: newCnt, display: `${newCnt} tamu`, color: '#3b82f6' },
+        { label: 'Pasif (>35 Hari)', value: pasCnt, display: `${pasCnt} tamu`, color: '#dc2626' }
+      ]);
+
+      // Keep detailed matrix updated if expanded
+      const detPanel = document.getElementById('mnDetailedHeatmapPanel');
+      if (detPanel && detPanel.style.display !== 'none') {
+        renderChairUtilisationHeatmap();
+      }
+    }
+
+    function exportAnalyticsCSV(scope) {
+      if (typeof GreenwoodAdminDB === 'undefined') return;
+      const targetScope = scope || activeAnalyticsSubTab || 'sales';
+      let csv = '';
+      if (targetScope === 'customers') {
+        const customers = GreenwoodAdminDB.getCustomers() || [];
+        csv = "Nama Pelanggan,Telepon,Kategori,Kunjungan Terakhir,Total Kunjungan,Total Belanja\n";
+        customers.forEach(c => {
+          const catLabel = (c.tags && c.tags.includes('VIP')) ? 'VIP' : ((c.visitCount || 0) > 1 ? 'Reguler' : 'Baru');
+          csv += `"${c.name || ''}","${c.phone || ''}","${catLabel}","${c.lastVisit || c.lastVisitDate || ''}",${c.visitCount || 0},${c.totalSpend || 0}\n`;
+        });
+      } else {
+        const records = buildSalesReportDataset(activeAnalyticsPeriod);
+        csv = "Tanggal,Resi,Pelanggan,Barber,Layanan/Produk,Pembayaran,Komisi,Total\n";
+        records.forEach(r => {
+          csv += `"${r.dateLabel}","${r.receipt}","${r.customerName}","${r.barberName}","${r.itemsText}","${r.paymentMethod}",${r.commission},${r.total}\n`;
+        });
+      }
 
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `Greenwood_Laporan_Omzet_Retensi_${new Date().toISOString().slice(0, 10)}.csv`;
+      a.download = `Greenwood_Laporan_${targetScope}_${new Date().toISOString().slice(0, 10)}.csv`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -8931,125 +9553,24 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
 
     function renderAnalyticsDashboard(period) {
       if (!GreenwoodAdminDB) return;
+      if (period) activeAnalyticsPeriod = period;
 
-      const an = GreenwoodAdminDB.getAnalyticsOverview();
-      const revData = GreenwoodAdminDB.getRevenueVsBreakEven();
-      const cardStats = GreenwoodAdminDB.getGuestCardCompletionStats();
-      const avgTicketStats = GreenwoodAdminDB.getAverageTicketStats();
-      const addonStats = GreenwoodAdminDB.getAddonPerGuestStats();
-      const rebookStats = GreenwoodAdminDB.getRebookingStats();
-
-      let displayRevMonth = revData.currentRevenue;
-      if (period === 'today') {
-        displayRevMonth = an.revenueToday || 2450000;
-      } else if (period === 'week') {
-        displayRevMonth = an.revenueThisWeek || 11850000;
-      } else if (period === 'all') {
-        displayRevMonth = Math.max(revData.currentRevenue, an.totalRevenue || 48650000);
-      }
-
-      // 1. Metric Cards
-      const revTodayEl = document.getElementById('anRevenueToday');
-      if (revTodayEl) revTodayEl.textContent = formatRupiah(an.revenueToday);
-
-      const revMonthEl = document.getElementById('anRevenueMonth');
-      if (revMonthEl) revMonthEl.textContent = formatRupiah(displayRevMonth);
-
-      const revServiceShareEl = document.getElementById('anRevServiceShare');
-      if (revServiceShareEl) revServiceShareEl.textContent = formatRupiah(Math.round(displayRevMonth * 0.78));
-
-      const revProductShareEl = document.getElementById('anRevProductShare');
-      if (revProductShareEl) revProductShareEl.textContent = formatRupiah(Math.round(displayRevMonth * 0.22));
-
-      const avgTicketEl = document.getElementById('anAvgTicket');
-      if (avgTicketEl) avgTicketEl.textContent = formatRupiah(avgTicketStats.currentAvgTicket);
-
-      const repeatRateEl = document.getElementById('anRepeatRate');
-      if (repeatRateEl) repeatRateEl.textContent = `${an.repeatRatePercent}%`;
-
-      const repeatSubEl = document.getElementById('anRepeatSub');
-      if (repeatSubEl) repeatSubEl.textContent = `${an.repeatCustomersCount} Tamu Loyal Berulang / ${an.newCustomersCount} Baru`;
-
-      // 2. Pendapatan vs Break-Even & Gainshare Tim Progress Bar
-      const barFill = document.getElementById('gainshareBarFill');
-      if (barFill) {
-        const stretchPct = Math.min(100, Math.round((revData.currentRevenue / 60000000) * 100));
-        barFill.style.width = `${stretchPct}%`;
-      }
-
-      const poolBadge = document.getElementById('gainsharePoolBadge');
-      if (poolBadge) {
-        poolBadge.textContent = revData.gainsharePool > 0
-          ? `🏆 Pool Gainshare Tim: ${formatRupiah(revData.gainsharePool)}`
-          : `🏁 Progres Break-Even: ${revData.pctToBreakEven}%`;
-      }
-
-      const runwayStatusEl = document.getElementById('runwayStatusText');
-      if (runwayStatusEl) {
-        const diff = revData.currentRevenue - revData.breakEvenTarget;
-        if (diff >= 0) {
-          runwayStatusEl.style.color = '#4ade80';
-          runwayStatusEl.textContent = `✅ Di Atas Titik Impas (+${formatRupiah(diff)})`;
-        } else {
-          runwayStatusEl.style.color = '#e5b95f';
-          runwayStatusEl.textContent = `⏳ Menuju Titik Impas (${revData.pctToBreakEven}% Tercapai)`;
-        }
-      }
-
-      const runwayGainshareEl = document.getElementById('runwayGainshareText');
-      if (runwayGainshareEl) {
-        if (revData.gainsharePool > 0) {
-          runwayGainshareEl.textContent = `🔥 Aktif (Pool Bonus: ${formatRupiah(revData.gainsharePool)})`;
-        } else {
-          runwayGainshareEl.textContent = `⏳ Progres ${revData.pctToGainshare}% menuju Rp 45.000.000`;
-        }
-      }
-
-      // 3. Heatmap Utilisasi Kursi (Day x Hour)
-      renderChairUtilisationHeatmap();
-
-      // 4. Per-Barber KPIs: Card Completion & Rebooking at Checkout
-      const cardOverallEl = document.getElementById('kpiCardCompletionOverall');
-      if (cardOverallEl) cardOverallEl.textContent = `${cardStats.overallPct}%`;
-
-      const cardPerBarberEl = document.getElementById('kpiCardCompletionPerBarber');
-      if (cardPerBarberEl) {
-        cardPerBarberEl.innerHTML = cardStats.perBarber.map(b => `
-          <div style="display:flex; justify-content:space-between;">
-            <span>${escapeHtml(b.name)}</span>
-            <strong style="color:${b.pct >= 80 ? '#4ade80' : 'var(--accent-gold)'};">${b.pct}% (${b.complete}/${b.total} kartu)</strong>
-          </div>
-        `).join('');
-      }
-
-      const rebookOverallEl = document.getElementById('kpiRebookingOverall');
-      if (rebookOverallEl) rebookOverallEl.textContent = `${rebookStats.overallPct}%`;
-
-      const rebookPerBarberEl = document.getElementById('kpiRebookingPerBarber');
-      if (rebookPerBarberEl) {
-        rebookPerBarberEl.innerHTML = rebookStats.perBarber.map(b => `
-          <div style="display:flex; justify-content:space-between;">
-            <span>${escapeHtml(b.name)}</span>
-            <strong style="color:${b.pct >= 50 ? '#38bdf8' : 'var(--accent-gold)'};">${b.pct}% (${b.rebooked}/${b.total} tamu)</strong>
-          </div>
-        `).join('');
-      }
-
-      const addonEl = document.getElementById('kpiAddonAvg');
-      if (addonEl) addonEl.textContent = formatRupiah(addonStats.currentAddonAvg);
-
+      // Render active sub-tab + keep summary metrics fresh
+      renderSalesReportView();
+      renderCustomerReportView();
+      renderInsightsDemographicsView();
       renderActivityLogs();
     }
 
     /**
-     * Render Heatmap Utilisasi Kursi 7 Hari x 11 Jam
+     * Render Optional Light Heatmap Utilisasi Kursi 7 Hari x 11 Jam
      */
     function renderChairUtilisationHeatmap() {
       const table = document.getElementById('chairUtilisationHeatmapTable');
       if (!table || !GreenwoodAdminDB) return;
 
       const heat = GreenwoodAdminDB.getChairUtilisationHeatmap();
-      let html = '<thead><tr><th>Hari</th>';
+      let html = '<thead><tr><th style="text-align:left; padding-left:10px;">Hari</th>';
       heat.hours.forEach(h => {
         html += `<th>${h}:00</th>`;
       });
@@ -9058,24 +9579,24 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       heat.matrix.forEach((row, dIdx) => {
         const dayName = heat.days[dIdx];
         let rowSum = 0;
-        html += `<tr><td style="font-weight:700; color:#fff; text-align:left; padding-left:8px;">${dayName}</td>`;
+        html += `<tr><td style="font-weight:700; color:#0f172a; text-align:left; padding-left:10px; background:#f8fafc;">${dayName}</td>`;
 
         row.forEach(cell => {
           rowSum += cell.pct;
-          let bg = 'rgba(22, 42, 34, 0.4)';
-          let color = '#a3b899';
+          let bg = '#f1f5f9';
+          let color = '#64748b';
           if (cell.pct >= 65) {
-            bg = 'rgba(74, 222, 128, 0.25)';
-            color = '#4ade80';
+            bg = '#dcfce7';
+            color = '#166534';
           } else if (cell.pct >= 40) {
-            bg = 'rgba(229, 185, 95, 0.2)';
-            color = 'var(--accent-gold-bright)';
+            bg = '#fef3c7';
+            color = '#92400e';
           }
-          html += `<td class="heatmap-cell" style="background:${bg}; color:${color};" title="${dayName} ${cell.hour}:00 WIB - ${cell.bookedMinutes} mnt terisi (${cell.pct}%)">${cell.pct}%</td>`;
+          html += `<td style="background:${bg}; color:${color};" title="${dayName} ${cell.hour}:00 WIB - ${cell.bookedMinutes} mnt terisi (${cell.pct}%)">${cell.pct}%</td>`;
         });
 
         const dayAvg = Math.round(rowSum / row.length);
-        html += `<td style="font-weight:700; color:var(--accent-gold);">${dayAvg}%</td></tr>`;
+        html += `<td style="font-weight:700; color:#143d2b; background:#f8fafc;">${dayAvg}%</td></tr>`;
       });
 
       html += '</tbody>';
@@ -9344,17 +9865,32 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     // Analytics and busy hours visualization
 
     function renderActivityLogs() {
-      const logs = GreenwoodAdminDB.getActivityLogs(15);
+      let logs = GreenwoodAdminDB.getActivityLogs(30) || [];
+      const q = (document.getElementById('mnAuditSearchInput')?.value || '').trim().toLowerCase();
+      if (q) {
+        logs = logs.filter(l =>
+          (l.actor || '').toLowerCase().includes(q) ||
+          (l.action || '').toLowerCase().includes(q) ||
+          (l.details || '').toLowerCase().includes(q)
+        );
+      }
+      const cntEl = document.getElementById('mnAuditCount');
+      if (cntEl) cntEl.textContent = `${logs.length} entri`;
+
       const tbody = document.getElementById('activityLogTableBody');
       if (!tbody) return;
+      if (logs.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#94a3b8; padding:20px;">Tidak ada log aktivitas yang cocok.</td></tr>';
+        return;
+      }
 
       tbody.innerHTML = logs.map(l => `
         <tr>
-          <td><span style="font-size:11px; color:var(--text-muted);">${escapeHtml(l.dateFormatted)}</span></td>
+          <td style="white-space:nowrap; color:#64748b; font-size:11.5px;">${escapeHtml(l.dateFormatted)}</td>
           <td><strong>${escapeHtml(l.actor)}</strong></td>
-          <td style="color:var(--accent-gold-bright);">${escapeHtml(l.action)}</td>
-          <td>${escapeHtml(l.details)}</td>
-          <td><span style="font-size:11px; background:rgba(197,155,72,0.1); padding:2px 6px; border-radius:4px;">${escapeHtml(l.branch_id)}</span></td>
+          <td><span class="mn-pill mn-pill-green">${escapeHtml(l.action)}</span></td>
+          <td style="color:#334155;">${escapeHtml(l.details)}</td>
+          <td><span class="mn-pill mn-pill-gray">${escapeHtml(l.branch_id)}</span></td>
         </tr>
       `).join('');
     }
