@@ -14,9 +14,9 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Open+Sans:wght@300;400;600;700&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="assets/greenwood.css?v=20261125_v4">
-  <script src="assets/config.js?v=20261107_v3"></script>
-  <script src="assets/greenwood-admin-db.js?v=20261125_v4"></script>
+  <link rel="stylesheet" href="assets/greenwood.css?v=20261125_v5">
+  <script src="assets/config.js?v=20261125_v5"></script>
+  <script src="assets/greenwood-admin-db.js?v=20261125_v5"></script>
 
   <style>
     :root {
@@ -1892,6 +1892,426 @@
       background: var(--mn-accent-bg);
       border-color: var(--mn-accent-bg);
       color: var(--mn-accent-fg);
+    }
+
+    /* ==========================================================================
+       15-MINUTE BARBER TIME-TRACKING MATRIX & POS AUTO-STOP (OPSI 1)
+       ========================================================================== */
+    .tm15-shell {
+      background: var(--mn-surface);
+      border: 1px solid var(--mn-border);
+      border-radius: 10px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .tm15-header {
+      background: var(--mn-panel-head-bg);
+      border-bottom: 1px solid var(--mn-panel-head-border);
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .tm15-title,
+    .portal-main-wrapper.portal-theme-light .tm15-header h4.tm15-title {
+      margin: 0;
+      font-family: 'Lora', Georgia, serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--mn-panel-head-text) !important;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tm15-sub,
+    .portal-main-wrapper.portal-theme-light .tm15-header .tm15-sub {
+      font-size: 11.5px;
+      color: var(--mn-panel-head-sub) !important;
+      margin-top: 2px;
+    }
+
+    .tm15-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tm15-date-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(197, 155, 72, 0.25);
+      border-radius: 6px;
+      padding: 2px 4px;
+    }
+
+    .tm15-date-btn {
+      background: transparent;
+      border: none;
+      color: #f8fafc;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .tm15-date-btn:hover {
+      background: rgba(197, 155, 72, 0.22);
+    }
+
+    .tm15-date-input {
+      background: rgba(3, 12, 8, 0.8);
+      border: 1px solid rgba(197, 155, 72, 0.3);
+      color: #f8fafc;
+      font-size: 11.5px;
+      padding: 3px 7px;
+      border-radius: 4px;
+      outline: none;
+      color-scheme: dark;
+    }
+
+    .tm15-barber-bar {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--mn-border-subtle);
+      background: var(--mn-surface-alt);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tm15-barber-pills {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tm15-barber-pill {
+      background: var(--mn-btn-bg);
+      border: 1px solid var(--mn-border);
+      color: var(--mn-text-secondary);
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.14s ease;
+    }
+
+    .tm15-barber-pill:hover {
+      border-color: var(--mn-accent);
+      color: var(--mn-text);
+    }
+
+    .tm15-barber-pill.active {
+      background: var(--mn-accent-bg);
+      border-color: var(--mn-accent-bg);
+      color: var(--mn-accent-fg);
+      font-weight: 700;
+    }
+
+    .tm15-legend {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 11px;
+      color: var(--mn-text-muted);
+    }
+
+    .tm15-legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .tm15-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    .tm15-grid-scroll {
+      max-height: 520px;
+      overflow: auto;
+      position: relative;
+    }
+
+    .tm15-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      table-layout: fixed;
+      min-width: 720px;
+    }
+
+    .tm15-table thead th {
+      position: sticky;
+      top: 0;
+      z-index: 12;
+      background: var(--mn-surface-alt);
+      color: var(--mn-text);
+      border-bottom: 2px solid var(--mn-border);
+      border-right: 1px solid var(--mn-border-subtle);
+      padding: 9px 10px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .tm15-table thead th.tm15-time-col {
+      width: 76px;
+      text-align: center;
+      position: sticky;
+      left: 0;
+      z-index: 15;
+      color: var(--mn-accent);
+    }
+
+    .tm15-table tbody td.tm15-time-cell {
+      position: sticky;
+      left: 0;
+      z-index: 8;
+      background: var(--mn-surface-solid);
+      border-right: 1px solid var(--mn-border);
+      border-bottom: 1px solid var(--mn-border-subtle);
+      text-align: center;
+      font-family: 'SF Mono', 'Roboto Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--mn-text-muted);
+      padding: 4px 6px;
+      height: 30px;
+      box-sizing: border-box;
+    }
+
+    .tm15-table tbody tr.tm15-hour-start td.tm15-time-cell {
+      color: var(--mn-accent);
+      font-weight: 700;
+      border-top: 1px solid var(--mn-border);
+    }
+
+    .tm15-table tbody tr.tm15-hour-start td.tm15-slot-td {
+      border-top: 1px solid var(--mn-border);
+    }
+
+    .tm15-slot-td {
+      border-right: 1px solid var(--mn-border-subtle);
+      border-bottom: 1px solid var(--mn-border-subtle);
+      padding: 2px 4px;
+      vertical-align: top;
+      height: 30px;
+      box-sizing: border-box;
+    }
+
+    /* Ready / Empty 15-min slot (HIJAU READY) */
+    .tm15-cell-ready {
+      height: 100%;
+      min-height: 24px;
+      border-radius: 4px;
+      background: rgba(34, 197, 94, 0.08);
+      border: 1px dashed rgba(74, 222, 128, 0.25);
+      color: #4ade80;
+      font-size: 10px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0.72;
+      transition: all 0.14s ease;
+    }
+
+    .tm15-cell-ready:hover {
+      opacity: 1;
+      background: rgba(34, 197, 94, 0.18);
+      border-color: #4ade80;
+    }
+
+    .portal-main-wrapper.portal-theme-light .tm15-cell-ready {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+      color: #166534;
+    }
+
+    .portal-main-wrapper.portal-theme-light .tm15-cell-ready:hover {
+      background: #dcfce7;
+      border-color: #22c55e;
+    }
+
+    /* Spanning Session Card inside 15-min Grid */
+    .tm15-card {
+      height: 100%;
+      border-radius: 6px;
+      padding: 6px 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 4px;
+      box-sizing: border-box;
+      font-size: 11px;
+      line-height: 1.25;
+      overflow: hidden;
+    }
+
+    /* Booked / Waiting Check-In (EMAS) */
+    .tm15-card-booked {
+      background: rgba(197, 155, 72, 0.16);
+      border: 1px solid rgba(229, 185, 95, 0.55);
+      border-left: 3px solid #e5b95f;
+      color: #f8f3e6;
+    }
+
+    .portal-main-wrapper.portal-theme-light .tm15-card-booked {
+      background: #fefce8;
+      border-color: #facc15;
+      border-left-color: #ca8a04;
+      color: #713f12;
+    }
+
+    /* In-Progress + Live Stopwatch (MERAH) */
+    .tm15-card-inprogress {
+      background: rgba(239, 68, 68, 0.18);
+      border: 1px solid rgba(248, 113, 113, 0.65);
+      border-left: 3px solid #ef4444;
+      color: #ffffff;
+      box-shadow: 0 0 12px rgba(239, 68, 68, 0.15);
+    }
+
+    .portal-main-wrapper.portal-theme-light .tm15-card-inprogress {
+      background: #fef2f2;
+      border-color: #f87171;
+      border-left-color: #dc2626;
+      color: #7f1d1d;
+    }
+
+    /* Completed / Payment Locked (ABU-ABU) */
+    .tm15-card-completed {
+      background: rgba(100, 116, 139, 0.22);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      border-left: 3px solid #94a3b8;
+      color: #e2e8f0;
+    }
+
+    .portal-main-wrapper.portal-theme-light .tm15-card-completed {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      border-left-color: #64748b;
+      color: #334155;
+    }
+
+    .tm15-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .tm15-card-guest {
+      font-weight: 700;
+      font-size: 11.5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .tm15-card-meta {
+      font-size: 10.5px;
+      opacity: 0.85;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .tm15-timer-pill {
+      font-family: 'SF Mono', 'Roboto Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 3px;
+      background: #dc2626;
+      color: #ffffff;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .tm15-dur-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+    .tm15-dur-fast { background: var(--mn-pill-green-bg); color: var(--mn-pill-green-fg); }
+    .tm15-dur-over { background: var(--mn-pill-red-bg); color: var(--mn-pill-red-fg); }
+    .tm15-dur-ok   { background: var(--mn-pill-gray-bg); color: var(--mn-pill-gray-fg); }
+
+    .tm15-card-actions {
+      display: flex;
+      gap: 4px;
+      margin-top: 2px;
+      flex-wrap: wrap;
+    }
+
+    .tm15-mini-btn {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 7px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: opacity 0.15s;
+    }
+    .tm15-mini-btn:hover { opacity: 0.88; }
+    .tm15-btn-start { background: #16a34a; color: #ffffff; }
+    .tm15-btn-pos   { background: #c59b48; color: #030c08; }
+    .tm15-btn-card  { background: rgba(255,255,255,0.14); color: inherit; border: 1px solid rgba(148,163,184,0.35); }
+
+    /* POS Connected Active Booking Banner */
+    .pos-active-session-banner {
+      display: none;
+      background: rgba(239, 68, 68, 0.14);
+      border: 1px solid rgba(248, 113, 113, 0.55);
+      border-left: 3px solid #ef4444;
+      border-radius: 7px;
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      font-size: 11.5px;
+      color: var(--mn-text);
+    }
+
+    .portal-main-wrapper.portal-theme-light .pos-active-session-banner {
+      background: #fef2f2;
+      border-color: #fca5a5;
+      color: #7f1d1d;
+    }
+
+    .mn-table-wrap {
+      overflow-x: auto;
+    }
+
+    .mn-table.mn-table-compact th,
+    .mn-table.mn-table-compact td {
+      padding: 8px 8px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .mn-table.mn-table-compact td:first-child {
+      white-space: normal;
+      min-width: 105px;
     }
 
     /* BUTTONS */
@@ -4224,6 +4644,20 @@
                 style="background: none; border: none; color: var(--danger); font-size: 11.5px; cursor: pointer; text-decoration: underline;">Kosongkan</button>
             </div>
 
+            <!-- LINKED ACTIVE BOOKING STOPWATCH BANNER (OPSI 1 AUTO-STOP ON PAYMENT) -->
+            <div class="pos-active-session-banner" id="posActiveSessionBanner">
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:4px;">
+                <strong style="font-size:12px;">Sesi Kursi Aktif Terhubung</strong>
+                <div style="display:flex; align-items:center; gap:6px;">
+                  <span class="tm15-timer-pill live-stopwatch-clock" id="posLinkedStopwatchClock" data-started-at="">00:00</span>
+                  <button type="button" onclick="unlinkPosBookingSession()" style="background:none; border:none; color:inherit; font-size:11px; cursor:pointer; text-decoration:underline;">Lepas</button>
+                </div>
+              </div>
+              <div id="posLinkedSessionInfo" style="font-size:11px; opacity:0.9;">
+                Stopwatch otomatis berhenti &amp; terkunci saat pembayaran selesai.
+              </div>
+            </div>
+
             <!-- CUSTOMER SELECTOR & SEARCH -->
             <div class="form-row">
               <label class="form-label">Pelanggan *</label>
@@ -4538,25 +4972,50 @@
           </div>
         </div>
 
-        <!-- MINUTES APP REAL-TIME CHAIR TIMELINE MATRIX -->
-        <div class="chair-matrix-shell" id="chairMatrixShell">
-          <div class="chair-matrix-header">
+        <!-- 15-MINUTE REAL-TIME BARBER TIME-TRACKING MATRIX (OPSI 1: CHECK-IN START -> POS PAYMENT AUTO-STOP) -->
+        <div class="tm15-shell" id="chairMatrixShell">
+          <div class="tm15-header">
             <div>
-              <h4 class="chair-matrix-title">
-                <span>💈</span> <span>Matriks Alokasi Kursi Real-Time Hari Ini</span>
+              <h4 class="tm15-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e5b95f" stroke-width="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+                <span>Monitor Jadwal &amp; Durasi Barber (Interval 15 Menit)</span>
               </h4>
-              <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 3px;">
-                Visualisasi jadwal keterisian 5 kursi per jam (SOP C5 Cermin &amp; Pangkas Bebas Antre).
+              <div class="tm15-sub">
+                Start saat Kasir Check-In &bull; Stop otomatis &amp; terkunci saat Pembayaran POS selesai (Slot selesai cepat otomatis Hijau, molor otomatis memanjang).
               </div>
             </div>
-            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-              <span class="badge-tag" style="background: rgba(197,155,72,0.18); color: var(--accent-gold); border-color: var(--accent-gold);">● Terisi / Terjadwal</span>
-              <span class="badge-tag" style="background: rgba(74,222,128,0.12); color: #4ade80; border-color: rgba(74,222,128,0.4);">● Selesai</span>
-              <span class="badge-tag" style="background: #040e09; color: #526b5e; border-color: #142820;">○ Kosong (+ Catat)</span>
+            <div class="tm15-controls">
+              <div class="tm15-date-nav">
+                <button type="button" class="tm15-date-btn" onclick="shiftMatrixDate(-1)" title="Hari Sebelumnya">&lsaquo;</button>
+                <button type="button" class="tm15-date-btn" onclick="setMatrixDateToday()">Hari Ini</button>
+                <button type="button" class="tm15-date-btn" onclick="shiftMatrixDate(1)" title="Hari Berikutnya">&rsaquo;</button>
+                <input type="date" class="tm15-date-input" id="matrixDatePicker" onchange="onMatrixDateChange(this.value)">
+              </div>
             </div>
           </div>
-          <div class="chair-matrix-wrap" id="chairMatrixContent">
-            <!-- Dynamically populated by renderChairMatrix() -->
+
+          <div class="tm15-barber-bar">
+            <div class="tm15-barber-pills" id="matrixBarberFilterPills">
+              <button type="button" class="tm15-barber-pill active" data-barber="all" onclick="setMatrixBarberFocus('all', this)">Semua Barber</button>
+              <button type="button" class="tm15-barber-pill" data-barber="bramantyo" onclick="setMatrixBarberFocus('bramantyo', this)">Bramantyo</button>
+              <button type="button" class="tm15-barber-pill" data-barber="rian" onclick="setMatrixBarberFocus('rian', this)">Rian Pratama</button>
+              <button type="button" class="tm15-barber-pill" data-barber="dimas" onclick="setMatrixBarberFocus('dimas', this)">Dimas Setiawan</button>
+              <button type="button" class="tm15-barber-pill" data-barber="farhan" onclick="setMatrixBarberFocus('farhan', this)">Farhan Akbar</button>
+              <button type="button" class="tm15-barber-pill" data-barber="aldi" onclick="setMatrixBarberFocus('aldi', this)">Aldi Maulana</button>
+            </div>
+            <div class="tm15-legend">
+              <span class="tm15-legend-item"><span class="tm15-dot" style="background:#22c55e;"></span> Ready</span>
+              <span class="tm15-legend-item"><span class="tm15-dot" style="background:#e5b95f;"></span> Booked</span>
+              <span class="tm15-legend-item"><span class="tm15-dot" style="background:#ef4444;"></span> In-Progress (Timer)</span>
+              <span class="tm15-legend-item"><span class="tm15-dot" style="background:#94a3b8;"></span> Selesai POS (Terkunci)</span>
+            </div>
+          </div>
+
+          <div class="tm15-grid-scroll" id="chairMatrixContent">
+            <!-- Dynamically populated 15-minute vertical matrix by renderChairMatrix() -->
           </div>
         </div>
 
@@ -4619,17 +5078,17 @@
           <span>Geser tabel ke samping untuk melihat rincian &amp; aksi</span>
         </div>
         <div class="crm-table-wrap">
-          <table class="crm-table" id="ledgerTable" style="min-width: 980px;">
+          <table class="crm-table" id="ledgerTable" style="min-width: 880px;">
             <colgroup id="ledgerColgroup">
-              <col style="width: 120px;">
-              <col style="min-width: 170px;">
-              <col style="width: 130px;">
-              <col style="width: 120px;">
-              <col style="width: 95px;">
-              <col style="min-width: 150px;">
-              <col id="colLedgerPrice" style="width: 110px;">
-              <col style="width: 100px;">
-              <col style="width: 115px;">
+              <col style="width: 112px;">
+              <col style="min-width: 148px;">
+              <col style="width: 116px;">
+              <col style="width: 104px;">
+              <col style="width: 88px;">
+              <col style="min-width: 118px;">
+              <col id="colLedgerPrice" style="width: 96px;">
+              <col style="width: 114px;">
+              <col style="width: 138px;">
             </colgroup>
             <thead>
               <tr>
@@ -4775,6 +5234,9 @@
           </button>
           <button type="button" class="mn-subtab-btn" id="mnSubTabInsights" onclick="switchAnalyticsSubTab('insights', this)" role="tab">
             Demografi &amp; Jam Sibuk
+          </button>
+          <button type="button" class="mn-subtab-btn" id="mnSubTabDuration" onclick="switchAnalyticsSubTab('duration', this)" role="tab">
+            Durasi &amp; Efisiensi
           </button>
           <button type="button" class="mn-subtab-btn" id="mnSubTabAudit" onclick="switchAnalyticsSubTab('audit', this)" role="tab">
             Log Audit
@@ -5063,6 +5525,87 @@
               </div>
             </div>
 
+          </div>
+
+          <!-- ===============================================================
+               SUB-TAB 4: DURATION EFFICIENCY (ACTUAL VS STANDARD SOP)
+               =============================================================== -->
+          <div id="mnViewDuration" class="mn-subview">
+            <div class="mn-kpi-strip">
+              <div class="mn-kpi-item">
+                <div class="mn-kpi-label">Sesi Terkunci POS</div>
+                <div class="mn-kpi-value" id="mnDurTotalLocked">0</div>
+                <div class="mn-kpi-sub">Total timer tercatat otomatis</div>
+              </div>
+              <div class="mn-kpi-item">
+                <div class="mn-kpi-label">Rata-Rata Aktual</div>
+                <div class="mn-kpi-value" id="mnDurAvgActual" style="color: var(--mn-accent);">0 mnt</div>
+                <div class="mn-kpi-sub">Durasi riil Check-In s/d Bayar</div>
+              </div>
+              <div class="mn-kpi-item">
+                <div class="mn-kpi-label">Rata-Rata Standar SOP</div>
+                <div class="mn-kpi-value" id="mnDurAvgStd">0 mnt</div>
+                <div class="mn-kpi-sub">Acuan waktu menu layanan</div>
+              </div>
+              <div class="mn-kpi-item">
+                <div class="mn-kpi-label">Lebih Cepat (&le;-5 mnt)</div>
+                <div class="mn-kpi-value" id="mnDurFasterCount" style="color: var(--mn-val-green);">0</div>
+                <div class="mn-kpi-sub">Slot terbuka lebih awal</div>
+              </div>
+              <div class="mn-kpi-item">
+                <div class="mn-kpi-label">Molor / Overrun (&ge;+5 mnt)</div>
+                <div class="mn-kpi-value" id="mnDurOverrunCount" style="color: var(--mn-val-red);">0</div>
+                <div class="mn-kpi-sub">Perlu evaluasi SOP / kursi</div>
+              </div>
+            </div>
+
+            <div class="mn-demo-grid">
+              <div class="mn-panel" style="margin-bottom:0;">
+                <div class="mn-panel-header">
+                  <span class="mn-panel-title">Evaluasi Durasi per Layanan (Standar vs Aktual)</span>
+                </div>
+                <div class="mn-panel-body">
+                  <div class="mn-table-wrap">
+                    <table class="mn-table mn-table-compact">
+                      <thead>
+                        <tr>
+                          <th>Layanan</th>
+                          <th class="num">Sesi</th>
+                          <th class="num">Standar</th>
+                          <th class="num">Aktual</th>
+                          <th class="num">Selisih</th>
+                          <th>Evaluasi</th>
+                        </tr>
+                      </thead>
+                      <tbody id="mnDurServiceTableBody"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mn-panel" style="margin-bottom:0;">
+                <div class="mn-panel-header">
+                  <span class="mn-panel-title">Evaluasi Kecepatan &amp; Ketepatan per Barber</span>
+                </div>
+                <div class="mn-panel-body">
+                  <div class="mn-table-wrap">
+                    <table class="mn-table mn-table-compact">
+                      <thead>
+                        <tr>
+                          <th>Nama Barber</th>
+                          <th class="num">Sesi</th>
+                          <th class="num">Standar</th>
+                          <th class="num">Aktual</th>
+                          <th class="num">Cepat/Molor</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody id="mnDurBarberTableBody"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- ===============================================================
@@ -6080,18 +6623,48 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
             </select>
           </div>
           <div>
-            <label class="form-label">Jam Sesi *</label>
+            <label class="form-label">Jam Sesi (Per 15 Menit) *</label>
             <select id="walkinTime" class="form-control" required>
               <option value="10:00">10:00 WIB</option>
+              <option value="10:15">10:15 WIB</option>
+              <option value="10:30">10:30 WIB</option>
+              <option value="10:45">10:45 WIB</option>
               <option value="11:00">11:00 WIB</option>
+              <option value="11:15">11:15 WIB</option>
+              <option value="11:30">11:30 WIB</option>
+              <option value="11:45">11:45 WIB</option>
               <option value="12:00">12:00 WIB</option>
+              <option value="12:15">12:15 WIB</option>
+              <option value="12:30">12:30 WIB</option>
+              <option value="12:45">12:45 WIB</option>
               <option value="13:00">13:00 WIB</option>
+              <option value="13:15">13:15 WIB</option>
+              <option value="13:30">13:30 WIB</option>
+              <option value="13:45">13:45 WIB</option>
               <option value="14:00">14:00 WIB</option>
+              <option value="14:15">14:15 WIB</option>
+              <option value="14:30">14:30 WIB</option>
+              <option value="14:45">14:45 WIB</option>
               <option value="15:00">15:00 WIB</option>
+              <option value="15:15">15:15 WIB</option>
+              <option value="15:30">15:30 WIB</option>
+              <option value="15:45">15:45 WIB</option>
               <option value="16:00">16:00 WIB</option>
+              <option value="16:15">16:15 WIB</option>
+              <option value="16:30">16:30 WIB</option>
+              <option value="16:45">16:45 WIB</option>
               <option value="17:00">17:00 WIB</option>
+              <option value="17:15">17:15 WIB</option>
+              <option value="17:30">17:30 WIB</option>
+              <option value="17:45">17:45 WIB</option>
               <option value="18:00">18:00 WIB</option>
+              <option value="18:15">18:15 WIB</option>
+              <option value="18:30">18:30 WIB</option>
+              <option value="18:45">18:45 WIB</option>
               <option value="19:00">19:00 WIB</option>
+              <option value="19:15">19:15 WIB</option>
+              <option value="19:30">19:30 WIB</option>
+              <option value="19:45">19:45 WIB</option>
             </select>
           </div>
         </div>
@@ -7869,6 +8442,38 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         notes: (currentSelectedCustomerId ? (document.getElementById('posInternalNotesText').textContent || "") : "Kasir POS Walk-in")
       });
 
+      // OPSI 1 AUTO-STOP LOCK: Automatically stop & lock active booking stopwatch on POS payment
+      let completedSession = null;
+      if (typeof GreenwoodBookingStore !== 'undefined') {
+        let targetCode = activePosBookingCode;
+        if (!targetCode) {
+          // Fallback match: if there's an active In-Progress session today for this barber + guest
+          const todayKey = getLocalTodayDateKey();
+          const bMatch = (GreenwoodBookingStore.getBookings() || []).find(b =>
+            b.dateKey === todayKey &&
+            b.status === 'In-Progress' &&
+            ((b.assignedBarberName || b.barberName || '').toLowerCase().includes(barberName.toLowerCase().split(' ')[0])) &&
+            (custName === 'Walk-In Guest' || (b.guestName || '').toLowerCase() === custName.toLowerCase())
+          );
+          if (bMatch) targetCode = bMatch.bookingCode;
+        }
+        if (targetCode) {
+          completedSession = GreenwoodBookingStore.completeBookingSession(targetCode, txRecord.receiptNumber);
+          if (completedSession) {
+            txRecord.bookingCode = completedSession.bookingCode;
+            txRecord.actualDuration = completedSession.actualDuration;
+            txRecord.standardDuration = completedSession.totalDuration || 45;
+            if (typeof GreenwoodAdminDB !== 'undefined' && GreenwoodAdminDB.logActivity) {
+              GreenwoodAdminDB.logActivity(
+                'Auto-Stop Timer POS',
+                `Sesi ${completedSession.bookingCode} (${completedSession.assignedBarberName || barberName}) terkunci via ${txRecord.receiptNumber}: Aktual ${completedSession.actualDuration} mnt (Standar ${txRecord.standardDuration} mnt).`
+              );
+            }
+          }
+          unlinkPosBookingSession();
+        }
+      }
+
       // Multi-Device Cloud Real-Time Push ke Google Sheets Master Vault
       pushPosTransactionToCloud(txRecord);
 
@@ -7883,6 +8488,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       updatePosShiftToolbar();
       renderCrmTable();
       renderStaffCommissionTable();
+      if (typeof loadLedgerData === 'function') loadLedgerData();
       renderAnalyticsDashboard();
     }
 
@@ -7911,6 +8517,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           <span>Tanggal:</span>
           <span>${tx.dateFormatted} ${tx.timeFormatted}</span>
         </div>
+        ${tx.actualDuration ? `<div class="thermal-receipt-row"><span>Durasi Kursi:</span><strong>${tx.actualDuration} mnt (Est. ${tx.standardDuration || 45} mnt)</strong></div>` : ''}
         <div class="thermal-receipt-row">
           <span>Pelanggan:</span>
           <strong>${escapeHtml(tx.customerName)}</strong>
@@ -8341,14 +8948,18 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         return;
       }
 
-      const booking = currentBookings.find(b => b.bookingCode === bookingCode);
+      const allStoreBookings = (typeof GreenwoodBookingStore !== 'undefined' && GreenwoodBookingStore.getBookings)
+        ? GreenwoodBookingStore.getBookings()
+        : currentBookings;
+      const booking = allStoreBookings.find(b => b.bookingCode === bookingCode) || currentBookings.find(b => b.bookingCode === bookingCode);
       if (!booking) {
         alert("Data reservasi tidak ditemukan.");
         return;
       }
 
-      // Switch to POS Tab
+      // Switch to POS Tab & scroll cleanly to top so active stopwatch banner is visible
       switchTab('pos');
+      try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch (e) { window.scrollTo(0, 0); }
 
       // Match Customer in Dropdown
       if (booking.guestPhone) {
@@ -8397,6 +9008,9 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         document.getElementById('posInternalNotesBanner').style.display = 'block';
         document.getElementById('posInternalNotesText').textContent = `"${booking.guestNotes}"`;
       }
+
+      // Link active booking session to POS for Opsi 1 Auto-Stop Lock
+      linkPosBookingSession(booking);
     }
 
     // =========================================================================
@@ -9208,6 +9822,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         sales: { view: 'mnViewSales', label: 'Penjualan & Barber' },
         customers: { view: 'mnViewCustomers', label: 'Pelanggan & Retensi' },
         insights: { view: 'mnViewInsights', label: 'Demografi & Jam Sibuk' },
+        duration: { view: 'mnViewDuration', label: 'Durasi & Efisiensi' },
         audit: { view: 'mnViewAudit', label: 'Log Audit' }
       };
       const cfg = map[subTabId] || map.sales;
@@ -9219,6 +9834,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       if (subTabId === 'sales') renderSalesReportView();
       if (subTabId === 'customers') renderCustomerReportView();
       if (subTabId === 'insights') renderInsightsDemographicsView();
+      if (subTabId === 'duration') renderDurationEfficiencyView();
       if (subTabId === 'audit') renderActivityLogs();
     }
 
@@ -9792,11 +10408,77 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       }
     }
 
+    function renderDurationEfficiencyView() {
+      if (typeof GreenwoodBookingStore === 'undefined' || !GreenwoodBookingStore.getDurationEfficiencyStats) return;
+      const stats = GreenwoodBookingStore.getDurationEfficiencyStats();
+
+      const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+      setTxt('mnDurTotalLocked', String(stats.totalLockedSessions));
+      setTxt('mnDurAvgActual', `${stats.avgActual} mnt`);
+      setTxt('mnDurAvgStd', `${stats.avgStandard} mnt`);
+      setTxt('mnDurFasterCount', String(stats.fasterCount));
+      setTxt('mnDurOverrunCount', String(stats.overrunCount));
+
+      const svcTbody = document.getElementById('mnDurServiceTableBody');
+      if (svcTbody) {
+        if (!stats.byService.length) {
+          svcTbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:var(--mn-text-muted); padding:20px;">Belum ada sesi terkunci POS.</td></tr>';
+        } else {
+          svcTbody.innerHTML = stats.byService.map(s => {
+            const sign = s.delta > 0 ? '+' : '';
+            const pillClass = s.delta <= -5 ? 'mn-pill-green' : (s.delta >= 5 ? 'mn-pill-red' : 'mn-pill-gray');
+            const evalLabel = s.delta <= -5 ? 'Efisien (Cepat)' : (s.delta >= 5 ? 'Perlu Evaluasi' : 'Sesuai SOP');
+            return `
+              <tr>
+                <td><strong>${escapeHtml(s.name)}</strong></td>
+                <td class="num">${s.count}</td>
+                <td class="num">${s.avgStd} mnt</td>
+                <td class="num"><strong>${s.avgAct} mnt</strong></td>
+                <td class="num" style="color:${s.delta <= -5 ? 'var(--mn-val-green)' : (s.delta >= 5 ? 'var(--mn-val-red)' : 'var(--mn-text-muted)')};">${sign}${s.delta} mnt</td>
+                <td><span class="mn-pill ${pillClass}">${evalLabel}</span></td>
+              </tr>
+            `;
+          }).join('');
+        }
+      }
+
+      const brbTbody = document.getElementById('mnDurBarberTableBody');
+      if (brbTbody) {
+        if (!stats.byBarber.length) {
+          brbTbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:var(--mn-text-muted); padding:20px;">Belum ada sesi barber terkunci POS.</td></tr>';
+        } else {
+          brbTbody.innerHTML = stats.byBarber.map(b => {
+            const pillClass = b.delta <= -5 ? 'mn-pill-green' : (b.delta >= 5 ? 'mn-pill-red' : 'mn-pill-blue');
+            const statusLabel = b.delta <= -5 ? 'Efisien' : (b.delta >= 5 ? 'Sering Molor' : 'Tepat Waktu');
+            return `
+              <tr>
+                <td><strong>${escapeHtml(b.name)}</strong></td>
+                <td class="num">${b.count}</td>
+                <td class="num">${b.avgStd} mnt</td>
+                <td class="num"><strong>${b.avgAct} mnt</strong></td>
+                <td class="num"><span style="color:var(--mn-val-green);font-weight:700;">${b.faster}</span> / <span style="color:var(--mn-val-red);font-weight:700;">${b.overrun}</span></td>
+                <td><span class="mn-pill ${pillClass}">${statusLabel}</span></td>
+              </tr>
+            `;
+          }).join('');
+        }
+      }
+    }
+
     function exportAnalyticsCSV(scope) {
       if (typeof GreenwoodAdminDB === 'undefined') return;
       const targetScope = scope || activeAnalyticsSubTab || 'sales';
       let csv = '';
-      if (targetScope === 'customers') {
+      if (targetScope === 'duration' && typeof GreenwoodBookingStore !== 'undefined' && GreenwoodBookingStore.getDurationEfficiencyStats) {
+        const stats = GreenwoodBookingStore.getDurationEfficiencyStats();
+        csv = "Kategori,Nama,Total Sesi,Standar SOP (mnt),Rata-Rata Aktual (mnt),Selisih (mnt),Lebih Cepat,Molor\n";
+        stats.byService.forEach(s => {
+          csv += `"Layanan","${s.name}",${s.count},${s.avgStd},${s.avgAct},${s.delta},,\n`;
+        });
+        stats.byBarber.forEach(b => {
+          csv += `"Barber","${b.name}",${b.count},${b.avgStd},${b.avgAct},${b.delta},${b.faster},${b.overrun}\n`;
+        });
+      } else if (targetScope === 'customers') {
         const customers = GreenwoodAdminDB.getCustomers() || [];
         csv = "Nama Pelanggan,Telepon,Kategori,Kunjungan Terakhir,Total Kunjungan,Total Belanja\n";
         customers.forEach(c => {
@@ -9830,6 +10512,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       renderSalesReportView();
       renderCustomerReportView();
       renderInsightsDemographicsView();
+      renderDurationEfficiencyView();
       renderActivityLogs();
     }
 
@@ -10420,85 +11103,316 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     }
 
     /* ==========================================================================
-       MINUTES APP REAL-TIME CHAIR TIMELINE MATRIX LOGIC
+       15-MINUTE BARBER TIME-TRACKING MATRIX & LIVE STOPWATCH (OPSI 1)
        ========================================================================== */
+    let activePosBookingCode = null;
+    let activeMatrixDateKey = null;
+    let activeMatrixBarberFocus = 'all';
+    let liveStopwatchIntervalId = null;
+
+    function getLocalTodayDateKey() {
+      const d = new Date();
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    }
+
+    function formatStopwatchElapsed(startedAtMs) {
+      if (!startedAtMs) return '00:00';
+      const secTotal = Math.max(0, Math.floor((Date.now() - Number(startedAtMs)) / 1000));
+      const h = Math.floor(secTotal / 3600);
+      const m = Math.floor((secTotal % 3600) / 60);
+      const s = secTotal % 60;
+      const pad = n => String(n).padStart(2, '0');
+      return h > 0 ? `${pad(h)}:${pad(m)}:${pad(s)}` : `${pad(m)}:${pad(s)}`;
+    }
+
+    function ensureLiveStopwatchTicker() {
+      if (liveStopwatchIntervalId) return;
+      liveStopwatchIntervalId = setInterval(() => {
+        document.querySelectorAll('.live-stopwatch-clock[data-started-at]').forEach(el => {
+          const ts = Number(el.getAttribute('data-started-at'));
+          if (ts > 0) el.textContent = formatStopwatchElapsed(ts);
+        });
+      }, 1000);
+    }
+
+    function setMatrixDateToday() {
+      activeMatrixDateKey = getLocalTodayDateKey();
+      const inp = document.getElementById('matrixDatePicker');
+      if (inp) inp.value = activeMatrixDateKey;
+      renderChairMatrix();
+    }
+
+    function onMatrixDateChange(val) {
+      activeMatrixDateKey = val || getLocalTodayDateKey();
+      renderChairMatrix();
+    }
+
+    function shiftMatrixDate(deltaDays) {
+      const base = activeMatrixDateKey ? new Date(activeMatrixDateKey + 'T12:00:00') : new Date();
+      base.setDate(base.getDate() + deltaDays);
+      activeMatrixDateKey = `${base.getFullYear()}-${String(base.getMonth() + 1).padStart(2, '0')}-${String(base.getDate()).padStart(2, '0')}`;
+      const inp = document.getElementById('matrixDatePicker');
+      if (inp) inp.value = activeMatrixDateKey;
+      renderChairMatrix();
+    }
+
+    function setMatrixBarberFocus(barberId, btn) {
+      activeMatrixBarberFocus = barberId || 'all';
+      document.querySelectorAll('#matrixBarberFilterPills .tm15-barber-pill').forEach(p => p.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderChairMatrix();
+    }
+
+    function startBookingTimer(bookingCode) {
+      if (typeof GreenwoodBookingStore === 'undefined') return;
+      const updated = GreenwoodBookingStore.startBookingSession(bookingCode);
+      if (!updated) return;
+      const localItem = (currentBookings || []).find(b => b.bookingCode === bookingCode);
+      if (localItem) {
+        localItem.status = 'In-Progress';
+        localItem.startedAt = updated.startedAt;
+      }
+      if (typeof GreenwoodAdminDB !== 'undefined' && GreenwoodAdminDB.logActivity) {
+        GreenwoodAdminDB.logActivity(
+          'Mulai Timer Kursi',
+          `Check-In ${updated.guestName || 'Tamu'} (${updated.bookingCode}) bersama ${updated.assignedBarberName || updated.barberId}. Stopwatch dimulai.`
+        );
+      }
+      ensureLiveStopwatchTicker();
+      filterLedger();
+      updateMetrics();
+    }
+
+    function linkPosBookingSession(booking) {
+      if (!booking) return;
+      // Auto-start stopwatch if Kasir jumped straight to Pay while status was still Confirmed
+      if (booking.status !== 'In-Progress' && booking.status !== 'Completed' && typeof GreenwoodBookingStore !== 'undefined') {
+        const started = GreenwoodBookingStore.startBookingSession(booking.bookingCode);
+        if (started) {
+          booking.status = started.status;
+          booking.startedAt = started.startedAt;
+        }
+      }
+      activePosBookingCode = booking.bookingCode;
+      const banner = document.getElementById('posActiveSessionBanner');
+      const clockEl = document.getElementById('posLinkedStopwatchClock');
+      const infoEl = document.getElementById('posLinkedSessionInfo');
+      if (banner) banner.style.display = 'block';
+      if (clockEl) {
+        const ts = booking.startedAt || Date.now();
+        clockEl.setAttribute('data-started-at', String(ts));
+        clockEl.textContent = formatStopwatchElapsed(ts);
+      }
+      if (infoEl) {
+        infoEl.innerHTML = `<strong>${escapeHtml(booking.bookingCode)}</strong> &bull; ${escapeHtml(booking.guestName || 'Tamu')} (${escapeHtml(booking.assignedBarberName || booking.barberName || 'Barber')}) &mdash; <em>Otomatis STOP &amp; Terkunci saat Pembayaran Selesai.</em>`;
+      }
+      ensureLiveStopwatchTicker();
+    }
+
+    function unlinkPosBookingSession() {
+      activePosBookingCode = null;
+      const banner = document.getElementById('posActiveSessionBanner');
+      if (banner) banner.style.display = 'none';
+    }
+
     function renderChairMatrix() {
       const container = document.getElementById('chairMatrixContent');
       if (!container) return;
+      ensureLiveStopwatchTicker();
 
-      const chairs = [
-        { id: 'Kursi 1', name: 'Kursi #1', barber: 'Bramantyo' },
-        { id: 'Kursi 2', name: 'Kursi #2', barber: 'Rian Pratama' },
-        { id: 'Kursi 3', name: 'Kursi #3', barber: 'Dimas Setiawan' },
-        { id: 'Kursi 4', name: 'Kursi #4', barber: 'Farhan Akbar' },
-        { id: 'Kursi 5', name: 'Kursi #5', barber: 'Aldi Maulana' }
+      if (!activeMatrixDateKey) {
+        activeMatrixDateKey = getLocalTodayDateKey();
+      }
+      const dateInp = document.getElementById('matrixDatePicker');
+      if (dateInp && dateInp.value !== activeMatrixDateKey) {
+        dateInp.value = activeMatrixDateKey;
+      }
+
+      const activeRole = (typeof GreenwoodAdminDB !== 'undefined') ? GreenwoodAdminDB.getActiveRole() : 'Owner';
+      const isBarberRole = activeRole === 'Barber';
+      const activeBarberId = (typeof GreenwoodAdminDB !== 'undefined' && GreenwoodAdminDB.getActiveBarberId) ? GreenwoodAdminDB.getActiveBarberId() : '';
+
+      const allBarbers = [
+        { id: 'bramantyo', chair: 'Kursi #1', name: 'Bramantyo' },
+        { id: 'rian', chair: 'Kursi #2', name: 'Rian Pratama' },
+        { id: 'dimas', chair: 'Kursi #3', name: 'Dimas Setiawan' },
+        { id: 'farhan', chair: 'Kursi #4', name: 'Farhan Akbar' },
+        { id: 'aldi', chair: 'Kursi #5', name: 'Aldi Maulana' }
       ];
 
-      const hours = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
-      const todayStr = new Date().toISOString().split('T')[0];
+      let visibleBarbers = allBarbers;
+      if (isBarberRole && activeBarberId) {
+        visibleBarbers = allBarbers.filter(b => activeBarberId.toLowerCase().includes(b.id));
+        if (!visibleBarbers.length) visibleBarbers = [allBarbers[0]];
+      } else if (activeMatrixBarberFocus !== 'all') {
+        visibleBarbers = allBarbers.filter(b => b.id === activeMatrixBarberFocus);
+      }
+
+      // Build 40 15-minute slots from 10:00 to 19:45
+      const slots = [];
+      for (let h = 10; h < 20; h++) {
+        for (let m = 0; m < 60; m += 15) {
+          slots.push({
+            label: `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`,
+            mins: h * 60 + m,
+            isHourStart: m === 0
+          });
+        }
+      }
+
+      // Filter bookings for selected date (prefer fresh store read so live start/stop stays 100% synced)
+      const sourceBookings = (typeof GreenwoodBookingStore !== 'undefined' && GreenwoodBookingStore.getBookings)
+        ? GreenwoodBookingStore.getBookings()
+        : (currentBookings || []);
+
+      const dayBookings = sourceBookings.filter(b => {
+        if (!b || b.dateKey !== activeMatrixDateKey) return false;
+        const st = (b.status || '').toLowerCase();
+        return st !== 'cancelled' && st !== 'no-show';
+      });
+
+      // Map each barber's slot occupancy
+      const occupancy = {}; // occupancy[barberId][slotIndex] = { type: 'start', booking, span } | { type: 'covered' }
+      visibleBarbers.forEach(brb => { occupancy[brb.id] = {}; });
+
+      dayBookings.forEach(b => {
+        const bIdRaw = (b.assignedBarberId || b.barberId || '').toLowerCase();
+        const bNameRaw = (b.assignedBarberName || b.barberName || '').toLowerCase();
+        const targetBarber = visibleBarbers.find(brb =>
+          bIdRaw === brb.id || bIdRaw.includes(brb.id) || bNameRaw.includes(brb.name.toLowerCase().split(' ')[0])
+        );
+        if (!targetBarber) return;
+
+        const timeStr = b.timeSlot || b.time || '10:00';
+        const parts = timeStr.split(':').map(Number);
+        const startMins = (parts[0] || 10) * 60 + (parts[1] || 0);
+        const startIdx = Math.max(0, Math.min(slots.length - 1, Math.floor((startMins - 600) / 15)));
+
+        const effDur = (typeof GreenwoodBookingStore !== 'undefined' && GreenwoodBookingStore.getEffectiveBookingDuration)
+          ? GreenwoodBookingStore.getEffectiveBookingDuration(b)
+          : (b.actualDuration || b.totalDuration || 45);
+        const span = Math.max(1, Math.min(slots.length - startIdx, Math.ceil(effDur / 15)));
+
+        if (!occupancy[targetBarber.id][startIdx]) {
+          occupancy[targetBarber.id][startIdx] = { type: 'start', booking: b, span: span, effDur: effDur };
+          for (let k = 1; k < span; k++) {
+            occupancy[targetBarber.id][startIdx + k] = { type: 'covered' };
+          }
+        }
+      });
 
       let html = `
-        <table class="chair-matrix-table">
+        <table class="tm15-table">
           <thead>
             <tr>
-              <th class="chair-col-label">Kursi &amp; Artisan Barber</th>
-              ${hours.map(h => `<th>${h}</th>`).join('')}
+              <th class="tm15-time-col">Jam</th>
+              ${visibleBarbers.map(brb => `
+                <th>
+                  <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span>${escapeHtml(brb.name)}</span>
+                    <span style="font-size:10.5px; color:var(--mn-accent); font-weight:600;">${brb.chair}</span>
+                  </div>
+                </th>
+              `).join('')}
             </tr>
           </thead>
           <tbody>
       `;
 
-      chairs.forEach(chair => {
-        html += `
-          <tr>
-            <td class="chair-col-label">
-              <div style="font-size: 12px; color: var(--accent-gold);">${chair.name}</div>
-              <div style="font-size: 10.5px; color: var(--text-muted);">${chair.barber}</div>
-            </td>
-        `;
+      slots.forEach((slot, sIdx) => {
+        html += `<tr class="${slot.isHourStart ? 'tm15-hour-start' : ''}">`;
+        html += `<td class="tm15-time-cell">${slot.label}</td>`;
 
-        hours.forEach(hour => {
-          const slotHourInt = parseInt(hour.split(':')[0], 10);
-          const matched = (currentBookings || []).find(b => {
-            const bBarber = (b.assignedBarberName || b.barberName || '').toLowerCase();
-            const bChair = (b.chair || '').toLowerCase();
-            const chairMatch = bChair.includes(chair.id.toLowerCase()) || bBarber.includes(chair.barber.toLowerCase().split(' ')[0]);
-            
-            let bHour = b.timeSlot || b.time || b.sessionTime || '';
-            let bHourInt = parseInt(bHour.split(':')[0], 10);
-            return chairMatch && (bHourInt === slotHourInt);
-          });
+        visibleBarbers.forEach(brb => {
+          const cell = occupancy[brb.id][sIdx];
+          if (cell && cell.type === 'covered') {
+            return; // covered by rowspan above
+          }
 
-          if (matched) {
-            const isCompleted = matched.status === 'Completed';
-            const guestName = escapeHtml(matched.guestName || 'Tamu');
-            const svcName = escapeHtml(matched.serviceName || matched.packageName || 'The Cut');
-            html += `
-              <td>
-                <div class="matrix-slot-booked ${isCompleted ? 'matrix-slot-completed' : ''}" 
-                     onclick="openBookingFromMatrix('${matched.bookingCode || ''}', '${matched.guestPhone || ''}')"
-                     title="Klik untuk membuka Kartu Tamu / Tindakan">
-                  <div style="font-size:9.5px; opacity:0.85;">${isCompleted ? '✓ Selesai' : '💈 Terjadwal'}</div>
-                  <div style="font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:85px;">${guestName}</div>
-                  <div style="font-size:9.5px; opacity:0.75; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:85px;">${svcName}</div>
-                </div>
-              </td>
-            `;
+          if (cell && cell.type === 'start') {
+            const b = cell.booking;
+            const st = (b.status || 'Confirmed').toLowerCase();
+            const stdDur = Number(b.totalDuration) || 45;
+            const guestName = escapeHtml(b.guestName || 'Tamu');
+            const svcName = escapeHtml(b.packageName || b.serviceName || 'The Cut');
+            const code = escapeHtml(b.bookingCode || '');
+
+            if (st === 'completed') {
+              const act = Number(b.actualDuration) || stdDur;
+              const diff = act - stdDur;
+              const diffText = diff < 0 ? `${diff} mnt` : (diff > 0 ? `+${diff} mnt` : 'Tepat');
+              const diffCls = diff <= -5 ? 'tm15-dur-fast' : (diff >= 5 ? 'tm15-dur-over' : 'tm15-dur-ok');
+              html += `
+                <td class="tm15-slot-td" rowspan="${cell.span}">
+                  <div class="tm15-card tm15-card-completed">
+                    <div>
+                      <div class="tm15-card-top">
+                        <span class="tm15-card-guest">${guestName}</span>
+                        <span class="tm15-dur-badge ${diffCls}">${act} mnt (${diffText})</span>
+                      </div>
+                      <div class="tm15-card-meta">${svcName} &bull; Est. ${stdDur} mnt ${b.receiptNumber ? '• ' + escapeHtml(b.receiptNumber) : ''}</div>
+                    </div>
+                    <div class="tm15-card-actions">
+                      <button type="button" class="tm15-mini-btn tm15-btn-card" onclick="openBookingFromMatrix('${code}', '${escapeHtml(b.guestPhone || '')}')">Kartu Tamu</button>
+                    </div>
+                  </div>
+                </td>
+              `;
+            } else if (st === 'in-progress') {
+              const ts = Number(b.startedAt) || Date.now();
+              const liveMins = Math.floor((Date.now() - ts) / 60000);
+              const isOverrun = liveMins > stdDur;
+              html += `
+                <td class="tm15-slot-td" rowspan="${cell.span}">
+                  <div class="tm15-card tm15-card-inprogress">
+                    <div>
+                      <div class="tm15-card-top">
+                        <span class="tm15-card-guest">${guestName}</span>
+                        <span class="tm15-timer-pill live-stopwatch-clock" data-started-at="${ts}">${formatStopwatchElapsed(ts)}</span>
+                      </div>
+                      <div class="tm15-card-meta">${svcName} &bull; Est. ${stdDur} mnt ${isOverrun ? '• OVERRUN!' : ''}</div>
+                    </div>
+                    <div class="tm15-card-actions">
+                      ${!isBarberRole ? `<button type="button" class="tm15-mini-btn tm15-btn-pos" onclick="proceedBookingToPos('${code}')">Bayar di POS (Stop)</button>` : ''}
+                      <button type="button" class="tm15-mini-btn tm15-btn-card" onclick="openBookingFromMatrix('${code}', '${escapeHtml(b.guestPhone || '')}')">Kartu</button>
+                    </div>
+                  </div>
+                </td>
+              `;
+            } else {
+              html += `
+                <td class="tm15-slot-td" rowspan="${cell.span}">
+                  <div class="tm15-card tm15-card-booked">
+                    <div>
+                      <div class="tm15-card-top">
+                        <span class="tm15-card-guest">${guestName}</span>
+                        <span style="font-size:10px; font-weight:700; opacity:0.85;">${stdDur} mnt</span>
+                      </div>
+                      <div class="tm15-card-meta">${svcName} &bull; ${slot.label} WIB</div>
+                    </div>
+                    <div class="tm15-card-actions">
+                      ${!isBarberRole ? `<button type="button" class="tm15-mini-btn tm15-btn-start" onclick="startBookingTimer('${code}')">Mulai (Check-In)</button>` : ''}
+                      <button type="button" class="tm15-mini-btn tm15-btn-card" onclick="openBookingFromMatrix('${code}', '${escapeHtml(b.guestPhone || '')}')">Kartu</button>
+                    </div>
+                  </div>
+                </td>
+              `;
+            }
           } else {
             html += `
-              <td>
-                <div class="matrix-slot-empty" onclick="quickBookFromMatrix('${chair.name}', '${chair.barber}', '${hour}')" title="Klik untuk catat tamu langsung">
-                  + Kosong
+              <td class="tm15-slot-td">
+                <div class="tm15-cell-ready" onclick="quickBookFromMatrix('${brb.chair}', '${brb.id}', '${slot.label}')" title="Slot Kosong (Ready) — Klik untuk Walk-In ${brb.name} jam ${slot.label}">
+                  + Ready
                 </div>
               </td>
             `;
           }
         });
 
-        html += `</tr>`;
+        html += '</tr>';
       });
 
-      html += `</tbody></table>`;
+      html += '</tbody></table>';
       container.innerHTML = html;
     }
 
@@ -10515,21 +11429,21 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       }
     }
 
-    function quickBookFromMatrix(chairName, barberName, hour) {
+    function quickBookFromMatrix(chairName, barberIdOrName, timeSlot) {
       openWalkinModal();
       setTimeout(() => {
-        const selBarber = document.getElementById('walkinBarberSelect');
+        const selBarber = document.getElementById('walkinBarber');
         if (selBarber) {
           for (let i = 0; i < selBarber.options.length; i++) {
-            if (selBarber.options[i].text.toLowerCase().includes(barberName.toLowerCase().split(' ')[0])) {
+            if (selBarber.options[i].value === barberIdOrName || selBarber.options[i].text.toLowerCase().includes(String(barberIdOrName).toLowerCase().split(' ')[0])) {
               selBarber.selectedIndex = i;
               break;
             }
           }
         }
-        const selTime = document.getElementById('walkinTimeSelect');
-        if (selTime) selTime.value = hour;
-      }, 100);
+        const selTime = document.getElementById('walkinTime');
+        if (selTime && timeSlot) selTime.value = timeSlot;
+      }, 60);
     }
 
     function formatScheduleDate(dateKey) {
@@ -10571,9 +11485,18 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         const priceCell = isBarber ? '' : `<td><strong style="color: var(--accent-gold-bright); font-size: 12.5px;">${formatRupiah(b.totalPrice || b.total || 0)}</strong></td>`;
         const rawBarber = b.assignedBarberName || b.barberName;
         const barberDisplay = (rawBarber && rawBarber !== 'First available') ? rawBarber : 'Barber Pertama Tersedia';
-        let statusBadgeText = 'Terkonfirmasi';
-        if (b.status === 'Completed') statusBadgeText = 'Selesai';
-        else if (b.status === 'Cancelled') statusBadgeText = 'Dibatalkan';
+        let statusBadgeHtml = 'Terkonfirmasi';
+        let statusBadgeClass = 'badge-vip';
+        if (b.status === 'Completed') {
+          statusBadgeHtml = b.actualDuration ? `Selesai (${b.actualDuration}/${b.totalDuration || 45} mnt)` : 'Selesai';
+          statusBadgeClass = 'badge-reguler';
+        } else if (b.status === 'In-Progress') {
+          statusBadgeHtml = `Berjalan (<span class="live-stopwatch-clock" data-started-at="${b.startedAt || ''}">${formatStopwatchElapsed(b.startedAt)}</span>)`;
+          statusBadgeClass = 'badge-passive';
+        } else if (b.status === 'Cancelled') {
+          statusBadgeHtml = 'Dibatalkan';
+          statusBadgeClass = 'badge-passive';
+        }
 
         return `
         <tr>
@@ -10599,8 +11522,8 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           </td>
           ${priceCell}
           <td>
-            <span class="badge-tag ${b.status === 'Completed' ? 'badge-reguler' : (b.status === 'Cancelled' ? 'badge-passive' : 'badge-vip')}">
-              ${statusBadgeText}
+            <span class="badge-tag ${statusBadgeClass}">
+              ${statusBadgeHtml}
             </span>
           </td>
           <td style="text-align: right;">
@@ -10609,13 +11532,14 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
               <button type="button" class="btn-table-action" style="background: rgba(197, 155, 72, 0.15); border: 1px solid var(--accent-gold); color: var(--accent-gold-bright);" onclick="openGuestCardFromBooking('${b.bookingCode}')" title="SOP C5: Konsultasi Cermin 10 Detik">
                 <span>🪞 Kartu Tamu</span>
               </button>
-              <button type="button" class="btn-table-action btn-action-success" onclick="completeBooking('${b.bookingCode}')" title="Tandai Selesai">
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Selesai</span>
+              ${(!isBarber && b.status !== 'In-Progress') ? `
+              <button type="button" class="btn-table-action btn-action-success" onclick="startBookingTimer('${b.bookingCode}')" title="Check-In Tamu &amp; Mulai Stopwatch">
+                <span>▶ Mulai</span>
               </button>
+              ` : ''}
               ${!isBarber ? `
-              <button type="button" class="btn-table-action" style="background: rgba(197, 155, 72, 0.18); border: 1px solid rgba(197, 155, 72, 0.4); color: var(--accent-gold-bright);" onclick="proceedBookingToPos('${b.bookingCode}')" title="Muat &amp; Proses Bayar di Kasir POS">
-                <span>💳 Bayar</span>
+              <button type="button" class="btn-table-action" style="background: rgba(197, 155, 72, 0.18); border: 1px solid rgba(197, 155, 72, 0.4); color: var(--accent-gold-bright);" onclick="proceedBookingToPos('${b.bookingCode}')" title="Proses Bayar di POS &amp; Stop Stopwatch Otomatis">
+                <span>💳 ${b.status === 'In-Progress' ? 'Bayar &amp; Stop' : 'Bayar POS'}</span>
               </button>
               ` : ''}
               ` : ''}
@@ -10938,20 +11862,27 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       const pad = (n) => String(n).padStart(2, '0');
       const todayKey = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
 
+      const targetDateKey = activeMatrixDateKey || todayKey;
+      const startNow = Boolean(document.getElementById('walkinStartNow')?.checked);
+      const durByPkg = { 'The Cut': 45, 'The Shave / Trim': 30, 'The Cut & Shave / Trim': 75, 'The Ritual': 95 };
+      const stdDuration = durByPkg[pkgName] || 45;
+
       const newBooking = {
-        bookingCode: (typeof GreenwoodBookingStore !== 'undefined' ? GreenwoodBookingStore.generateBookingCode(todayKey) : "GW-WALKIN-" + Date.now().toString().slice(-4)),
+        bookingCode: (typeof GreenwoodBookingStore !== 'undefined' ? GreenwoodBookingStore.generateBookingCode(targetDateKey) : "GW-WALKIN-" + Date.now().toString().slice(-4)),
         guestName: name,
         guestPhone: phone,
         guestEmail: '',
-        dateKey: todayKey,
+        dateKey: targetDateKey,
         timeSlot: timeSlot,
-        totalDuration: 45,
+        totalDuration: stdDuration,
         totalPrice: price,
         barberId: barberId,
         assignedBarberId: barberId,
         assignedBarberName: barberName,
         packageName: pkgName,
-        status: 'Confirmed',
+        status: startNow ? 'In-Progress' : 'Confirmed',
+        startedAt: startNow ? Date.now() : null,
+        paymentLocked: false,
         timestamp: Date.now(),
         source: 'local'
       };

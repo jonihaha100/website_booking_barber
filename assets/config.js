@@ -326,7 +326,125 @@ const GreenwoodBookingStore = {
     return slots;
   },
 
-  // Verify availability for date, time slot, duration, and barber
+  // Compute effective slot duration in minutes (supports Early-Release & Overrun Auto-Extend)
+  getEffectiveBookingDuration: function(b) {
+    if (!b) return 45;
+    const st = (b.status || '').toLowerCase();
+    if (st === 'cancelled' || st === 'no-show') return 0;
+    const standardDur = Number(b.totalDuration) || 45;
+
+    if (st === 'completed' && typeof b.actualDuration === 'number' && b.actualDuration > 0) {
+      return b.actualDuration;
+    }
+
+    if (st === 'in-progress' && b.startedAt) {
+      const liveElapsed = Math.max(1, Math.ceil((Date.now() - Number(b.startedAt)) / 60000));
+      return Math.max(standardDur, liveElapsed);
+    }
+
+    return standardDur;
+  },
+
+  // Start live stopwatch when guest checks in at Cashier (START)
+  startBookingSession: function(bookingCode) {
+    const list = this.getBookings();
+    const item = list.find(b => b.bookingCode === bookingCode);
+    if (!item) return null;
+    item.status = 'In-Progress';
+    if (!item.startedAt) item.startedAt = Date.now();
+    item.paymentLocked = false;
+    this.saveBookings(list);
+    return item;
+  },
+
+  // Lock & stop stopwatch automatically when Payment POS completes (OPSI 1 AUTO-STOP)
+  completeBookingSession: function(bookingCode, receiptNumber, overrideActualMinutes) {
+    const list = this.getBookings();
+    const item = list.find(b => b.bookingCode === bookingCode);
+    if (!item) return null;
+    const now = Date.now();
+    let actualMins = Number(overrideActualMinutes);
+    if (!actualMins || isNaN(actualMins)) {
+      if (item.startedAt) {
+        actualMins = Math.max(1, Math.round((now - Number(item.startedAt)) / 60000));
+      } else {
+        actualMins = Number(item.totalDuration) || 45;
+      }
+    }
+    item.status = 'Completed';
+    item.completedAt = now;
+    item.actualDuration = actualMins;
+    item.paymentLocked = true;
+    if (receiptNumber) item.receiptNumber = receiptNumber;
+    this.saveBookings(list);
+    return item;
+  },
+
+  // Aggregate Actual vs Standard duration efficiency for Owner & Manager evaluation
+  getDurationEfficiencyStats: function() {
+    const list = this.getBookings();
+    const completed = list.filter(b => (b.status || '').toLowerCase() === 'completed' && typeof b.actualDuration === 'number' && b.actualDuration > 0);
+    const byService = {};
+    const byBarber = {};
+    let sumActual = 0, sumStandard = 0, fasterCount = 0, onTimeCount = 0, overrunCount = 0;
+
+    completed.forEach(b => {
+      const std = Number(b.totalDuration) || 45;
+      const act = Number(b.actualDuration);
+      const diff = act - std;
+      sumActual += act;
+      sumStandard += std;
+      if (diff <= -5) fasterCount++;
+      else if (diff >= 5) overrunCount++;
+      else onTimeCount++;
+
+      const svcName = b.packageName || b.serviceName || 'The Cut';
+      if (!byService[svcName]) byService[svcName] = { name: svcName, count: 0, sumStd: 0, sumAct: 0, faster: 0, overrun: 0 };
+      byService[svcName].count++;
+      byService[svcName].sumStd += std;
+      byService[svcName].sumAct += act;
+      if (diff <= -5) byService[svcName].faster++;
+      if (diff >= 5) byService[svcName].overrun++;
+
+      const barberName = b.assignedBarberName || b.barberName || (GREENWOOD_CONFIG.barbers.find(x => x.id === (b.assignedBarberId || b.barberId))?.name) || 'Bramantyo';
+      if (!byBarber[barberName]) byBarber[barberName] = { name: barberName, count: 0, sumStd: 0, sumAct: 0, faster: 0, overrun: 0 };
+      byBarber[barberName].count++;
+      byBarber[barberName].sumStd += std;
+      byBarber[barberName].sumAct += act;
+      if (diff <= -5) byBarber[barberName].faster++;
+      if (diff >= 5) byBarber[barberName].overrun++;
+    });
+
+    const total = completed.length;
+    return {
+      totalLockedSessions: total,
+      avgActual: total > 0 ? Math.round(sumActual / total) : 0,
+      avgStandard: total > 0 ? Math.round(sumStandard / total) : 0,
+      fasterCount: fasterCount,
+      onTimeCount: onTimeCount,
+      overrunCount: overrunCount,
+      byService: Object.values(byService).map(s => ({
+        name: s.name,
+        count: s.count,
+        avgStd: Math.round(s.sumStd / s.count),
+        avgAct: Math.round(s.sumAct / s.count),
+        delta: Math.round((s.sumAct - s.sumStd) / s.count),
+        faster: s.faster,
+        overrun: s.overrun
+      })),
+      byBarber: Object.values(byBarber).map(b => ({
+        name: b.name,
+        count: b.count,
+        avgStd: Math.round(b.sumStd / b.count),
+        avgAct: Math.round(b.sumAct / b.count),
+        delta: Math.round((b.sumAct - b.sumStd) / b.count),
+        faster: b.faster,
+        overrun: b.overrun
+      }))
+    };
+  },
+
+  // Verify availability for date, time slot, duration, and barber (Live 15-min Early-Release & Overrun Sync)
   isSlotAvailable: function(dateKey, timeSlotStr, totalDurationMinutes, barberId) {
     // 1. Check closing time (20:00). If start + duration exceeds 20:00, slot is unavailable
     const [startH, startM] = timeSlotStr.split(':').map(Number);
@@ -341,16 +459,20 @@ const GreenwoodBookingStore = {
     const bookings = this.getBookings();
     const activeBarbers = GREENWOOD_CONFIG.barbers.filter(b => b.id !== 'any').map(b => b.id);
 
-    // Bookings on target date
-    const dayBookings = bookings.filter(b => b.dateKey === dateKey);
+    // Bookings on target date (exclude Cancelled / No-Show)
+    const dayBookings = bookings.filter(b => {
+      if (b.dateKey !== dateKey) return false;
+      const st = (b.status || '').toLowerCase();
+      return st !== 'cancelled' && st !== 'no-show';
+    });
 
     if (barberId && barberId !== 'any') {
-      // Specific barber: Check for overlapping bookings
+      // Specific barber: Check for overlapping bookings using live effective duration
       for (const b of dayBookings) {
         if (b.barberId === barberId || b.assignedBarberId === barberId) {
-          const [bStartH, bStartM] = b.timeSlot.split(':').map(Number);
+          const [bStartH, bStartM] = (b.timeSlot || '10:00').split(':').map(Number);
           const bStart = bStartH * 60 + bStartM;
-          const bEnd = bStart + (b.totalDuration || 45);
+          const bEnd = bStart + this.getEffectiveBookingDuration(b);
 
           // Conflict if time intervals overlap
           if (startMinutesFromMidnight < bEnd && endMinutesFromMidnight > bStart) {
@@ -366,9 +488,9 @@ const GreenwoodBookingStore = {
         let isBarberFree = true;
         for (const b of dayBookings) {
           if (b.barberId === bId || b.assignedBarberId === bId) {
-            const [bStartH, bStartM] = b.timeSlot.split(':').map(Number);
+            const [bStartH, bStartM] = (b.timeSlot || '10:00').split(':').map(Number);
             const bStart = bStartH * 60 + bStartM;
-            const bEnd = bStart + (b.totalDuration || 45);
+            const bEnd = bStart + this.getEffectiveBookingDuration(b);
             if (startMinutesFromMidnight < bEnd && endMinutesFromMidnight > bStart) {
               isBarberFree = false;
               break;
@@ -383,10 +505,11 @@ const GreenwoodBookingStore = {
     }
   },
 
-  // Seed sample appointments
+  // Seed sample appointments (includes realistic Today 15-min stopwatch states: Faster, Overrun, Live In-Progress, Booked)
   getSeedBookings: function() {
     const today = new Date();
     const formatDateKey = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    const dateKeyToday = formatDateKey(today);
 
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
@@ -394,14 +517,89 @@ const GreenwoodBookingStore = {
 
     return [
       {
+        bookingCode: "GWB-LIVE-1001",
+        guestName: "Bpk. Alexander Wijaya",
+        guestPhone: "081234567890",
+        dateKey: dateKeyToday,
+        timeSlot: "10:00",
+        totalDuration: 45,
+        actualDuration: 30,
+        status: "Completed",
+        paymentLocked: true,
+        receiptNumber: "RCP-20261125-01",
+        startedAt: Date.now() - 1000 * 60 * 180,
+        completedAt: Date.now() - 1000 * 60 * 150,
+        barberId: "bramantyo",
+        assignedBarberId: "bramantyo",
+        assignedBarberName: "Bramantyo",
+        packageName: "The Cut",
+        totalPrice: 240000,
+        timestamp: Date.now() - 1000 * 60 * 210
+      },
+      {
+        bookingCode: "GWB-LIVE-1002",
+        guestName: "dr. Kevin Pratama",
+        guestPhone: "081987654321",
+        dateKey: dateKeyToday,
+        timeSlot: "10:15",
+        totalDuration: 45,
+        actualDuration: 60,
+        status: "Completed",
+        paymentLocked: true,
+        receiptNumber: "RCP-20261125-02",
+        startedAt: Date.now() - 1000 * 60 * 165,
+        completedAt: Date.now() - 1000 * 60 * 105,
+        barberId: "rian",
+        assignedBarberId: "rian",
+        assignedBarberName: "Rian Pratama",
+        packageName: "The Cut",
+        totalPrice: 240000,
+        timestamp: Date.now() - 1000 * 60 * 195
+      },
+      {
+        bookingCode: "GWB-LIVE-1003",
+        guestName: "Farid Nurhadi",
+        guestPhone: "087811223344",
+        dateKey: dateKeyToday,
+        timeSlot: "11:00",
+        totalDuration: 45,
+        status: "In-Progress",
+        paymentLocked: false,
+        startedAt: Date.now() - 1000 * 60 * 18,
+        barberId: "dimas",
+        assignedBarberId: "dimas",
+        assignedBarberName: "Dimas Setiawan",
+        packageName: "The Cut",
+        totalPrice: 240000,
+        timestamp: Date.now() - 1000 * 60 * 60
+      },
+      {
+        bookingCode: "GWB-LIVE-1004",
+        guestName: "Tomy Sugiarto",
+        guestPhone: "085699887766",
+        dateKey: dateKeyToday,
+        timeSlot: "13:00",
+        totalDuration: 30,
+        status: "Confirmed",
+        paymentLocked: false,
+        barberId: "farhan",
+        assignedBarberId: "farhan",
+        assignedBarberName: "Farhan Akbar",
+        packageName: "The Shave / Trim",
+        totalPrice: 180000,
+        timestamp: Date.now() - 1000 * 60 * 30
+      },
+      {
         bookingCode: "GWB-261028-1284",
         guestName: "Hartono Kusumo",
         guestPhone: "081289123456",
         dateKey: dateKeyTomorrow,
         timeSlot: "11:30",
         totalDuration: 45,
+        status: "Confirmed",
         barberId: "bramantyo",
         assignedBarberId: "bramantyo",
+        assignedBarberName: "Bramantyo",
         packageName: "The Cut",
         totalPrice: 240000,
         timestamp: Date.now() - 3600000
@@ -413,8 +611,10 @@ const GreenwoodBookingStore = {
         dateKey: dateKeyTomorrow,
         timeSlot: "15:00",
         totalDuration: 75,
+        status: "Confirmed",
         barberId: "dimas",
         assignedBarberId: "dimas",
+        assignedBarberName: "Dimas Setiawan",
         packageName: "The Cut & Shave / Trim",
         totalPrice: 420000,
         timestamp: Date.now() - 7200000
