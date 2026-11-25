@@ -2524,6 +2524,144 @@
       z-index: 2;
     }
 
+    /* ==========================================================================
+       LARKSUITE-STYLE PIPELINE CHIPS & WORKSPACE FILTERS
+       ========================================================================== */
+    .crm-pipeline-chips {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .pipeline-chip {
+      background: #040d09;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .pipeline-chip:hover {
+      border-color: var(--accent-gold);
+      color: #fff;
+    }
+    .pipeline-chip.active {
+      background: rgba(197, 155, 72, 0.16);
+      border-color: var(--accent-gold);
+      color: var(--accent-gold-bright);
+      font-weight: 600;
+    }
+    .pipeline-chip .chip-count {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-size: 10.5px;
+      color: inherit;
+    }
+
+    /* ==========================================================================
+       MINUTES APP-STYLE CHAIR TIMELINE MATRIX (JADWAL KURSI REAL-TIME)
+       ========================================================================== */
+    .chair-matrix-shell {
+      background: #040d09;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 20px;
+    }
+    .chair-matrix-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .chair-matrix-title {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      color: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+    }
+    .chair-matrix-wrap {
+      overflow-x: auto;
+      border: 1px solid rgba(197, 155, 72, 0.15);
+      border-radius: 6px;
+      background: #020704;
+    }
+    .chair-matrix-table {
+      width: 100%;
+      min-width: 900px;
+      border-collapse: collapse;
+      font-size: 11.5px;
+    }
+    .chair-matrix-table th, .chair-matrix-table td {
+      border: 1px solid #0f241a;
+      padding: 8px 6px;
+      text-align: center;
+    }
+    .chair-matrix-table th {
+      background: #07150f;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 11px;
+    }
+    .chair-col-label {
+      text-align: left !important;
+      padding-left: 12px !important;
+      font-weight: 600;
+      color: #fff;
+      background: #040e09 !important;
+      min-width: 160px;
+    }
+    .matrix-slot-booked {
+      background: rgba(197, 155, 72, 0.15);
+      border: 1px solid var(--accent-gold);
+      border-radius: 4px;
+      padding: 4px 6px;
+      color: #f5eedf;
+      font-weight: 600;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: block;
+      line-height: 1.25;
+      text-align: left;
+    }
+    .matrix-slot-booked:hover {
+      background: rgba(197, 155, 72, 0.3);
+      transform: translateY(-1px);
+    }
+    .matrix-slot-completed {
+      background: rgba(74, 222, 128, 0.12);
+      border: 1px solid rgba(74, 222, 128, 0.4);
+      color: #4ade80;
+    }
+    .matrix-slot-empty {
+      color: #3e5246;
+      font-size: 10.5px;
+      border-radius: 4px;
+      padding: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: block;
+    }
+    .matrix-slot-empty:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+    }
+
 </style>
 </head>
 
@@ -2976,6 +3114,28 @@
           </div>
         </div>
 
+        <!-- LARKSUITE PIPELINE FILTER CHIPS -->
+        <div class="crm-pipeline-chips">
+          <button type="button" class="pipeline-chip active" id="chipAll" onclick="setPipelineFilter('all')">
+            Semua Tamu <span class="chip-count" id="chipCountAll">0</span>
+          </button>
+          <button type="button" class="pipeline-chip" id="chipVip" onclick="setPipelineFilter('vip')">
+            ⭐ VIP &amp; Founding <span class="chip-count" id="chipCountVip">0</span>
+          </button>
+          <button type="button" class="pipeline-chip" id="chipRegular" onclick="setPipelineFilter('regular')">
+            🔄 Reguler Setia <span class="chip-count" id="chipCountRegular">0</span>
+          </button>
+          <button type="button" class="pipeline-chip" id="chipNew" onclick="setPipelineFilter('new')">
+            🌱 Tamu Baru (1x) <span class="chip-count" id="chipCountNew">0</span>
+          </button>
+          <button type="button" class="pipeline-chip" id="chipPassive" onclick="setPipelineFilter('passive')" style="border-color: rgba(239,68,68,0.35);">
+            ⚠️ Butuh Diingatkan (&gt;35h) <span class="chip-count" id="chipCountPassive" style="background: rgba(239,68,68,0.25); color: #f87171;">0</span>
+          </button>
+          <button type="button" class="pipeline-chip" id="chipBirthday" onclick="setPipelineFilter('birthday')">
+            🎂 Ultah Bulan Ini <span class="chip-count" id="chipCountBday">0</span>
+          </button>
+        </div>
+
         <!-- CRM TOOLBAR & FILTERS -->
         <div class="crm-toolbar">
           <div class="crm-filter-group">
@@ -3107,6 +3267,28 @@
               </svg>
               <span>Sinkronkan Cloud</span>
             </button>
+          </div>
+        </div>
+
+        <!-- MINUTES APP REAL-TIME CHAIR TIMELINE MATRIX -->
+        <div class="chair-matrix-shell" id="chairMatrixShell">
+          <div class="chair-matrix-header">
+            <div>
+              <h4 class="chair-matrix-title">
+                <span>💈</span> <span>Matriks Alokasi Kursi Real-Time Hari Ini</span>
+              </h4>
+              <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 3px;">
+                Visualisasi jadwal keterisian 5 kursi per jam (SOP C5 Cermin &amp; Pangkas Bebas Antre).
+              </div>
+            </div>
+            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+              <span class="badge-tag" style="background: rgba(197,155,72,0.18); color: var(--accent-gold); border-color: var(--accent-gold);">● Terisi / Terjadwal</span>
+              <span class="badge-tag" style="background: rgba(74,222,128,0.12); color: #4ade80; border-color: rgba(74,222,128,0.4);">● Selesai</span>
+              <span class="badge-tag" style="background: #040e09; color: #526b5e; border-color: #142820;">○ Kosong (+ Catat)</span>
+            </div>
+          </div>
+          <div class="chair-matrix-wrap" id="chairMatrixContent">
+            <!-- Dynamically populated by renderChairMatrix() -->
           </div>
         </div>
 
@@ -3778,6 +3960,70 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         </div>
       </div>
 
+    </div>
+  </div>
+
+  <!-- MODAL: SMART WHATSAPP GATEWAY (MINUTES APP WORKFLOW) -->
+  <div class="portal-modal-backdrop" id="modalQuickWhatsApp" style="display: none;">
+    <div class="portal-modal-box" style="max-width: 520px; width: 92%; padding: 22px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--card-border); padding-bottom: 12px; margin-bottom: 14px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 20px;">💬</span>
+          <h3 style="margin: 0; font-family: 'Lora', serif; font-size: 17px; color: var(--accent-gold);">
+            Smart WhatsApp Gateway
+          </h3>
+        </div>
+        <button type="button" class="modal-close-btn" onclick="closeQuickWhatsAppModal()">&times;</button>
+      </div>
+
+      <div style="margin-bottom: 12px;">
+        <label style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); display: block; margin-bottom: 4px;">
+          Penerima (Tamu)
+        </label>
+        <div style="display: flex; justify-content: space-between; align-items: center; background: #040e09; border: 1px solid var(--card-border); border-radius: 6px; padding: 8px 12px;">
+          <div>
+            <strong id="waModalGuestName" style="color: #fff; font-size: 13.5px;">-</strong>
+            <div id="waModalGuestPhone" style="font-size: 12px; color: var(--accent-gold); margin-top: 2px;">-</div>
+          </div>
+          <span class="badge-tag" style="background: rgba(37,211,102,0.15); color: #25D366; border-color: rgba(37,211,102,0.3);">
+            WhatsApp Siap
+          </span>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 14px;">
+        <label style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); display: block; margin-bottom: 6px;">
+          Pilih Template Pesan
+        </label>
+        <div style="display: grid; grid-template-columns: 1fr; gap: 6px;">
+          <label style="display: flex; align-items: center; gap: 8px; background: #040e09; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--card-border); cursor: pointer;">
+            <input type="radio" name="waTemplateType" value="confirm" checked onchange="updateWhatsAppMessagePreview()">
+            <span style="font-size: 12px; color: #fff;">1. Konfirmasi Reservasi Kursi</span>
+          </label>
+          <label style="display: flex; align-items: center; gap: 8px; background: #040e09; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--card-border); cursor: pointer;">
+            <input type="radio" name="waTemplateType" value="reminder" onchange="updateWhatsAppMessagePreview()">
+            <span style="font-size: 12px; color: #fff;">2. Pengingat Sesi H-2 Jam (No-Show Prevention)</span>
+          </label>
+          <label style="display: flex; align-items: center; gap: 8px; background: #040e09; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--card-border); cursor: pointer;">
+            <input type="radio" name="waTemplateType" value="followup" onchange="updateWhatsAppMessagePreview()">
+            <span style="font-size: 12px; color: #fff;">3. Follow-Up &amp; Kartu Formula Pasca Kunjungan</span>
+          </label>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 16px;">
+        <label style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); display: block; margin-bottom: 4px;">
+          Pratinjau Pesan
+        </label>
+        <textarea id="waMessagePreview" class="recipe-input" rows="5" style="width: 100%; box-sizing: border-box; font-family: monospace; font-size: 12px; line-height: 1.45; resize: vertical;"></textarea>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 8px;">
+        <button type="button" class="btn-portal-action" onclick="closeQuickWhatsAppModal()">Batal</button>
+        <button type="button" class="btn-gold-action" style="background: #25D366; color: #020704; border-color: #25D366; font-weight: 700;" onclick="executeSendWhatsApp()">
+          <span>💬</span> Buka WhatsApp &nearr;
+        </button>
+      </div>
     </div>
   </div>
 
@@ -4696,7 +4942,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       const modalIds = [
         "modalRolesPermissions", "modalReceipt", "modalCustomerDetail",
         "modalNewCustomer", "modalSettings", "modalWalkin", "modalPin", "modalCloudHelp",
-        "modalShift", "modalInventory"
+        "modalShift", "modalInventory", "modalQuickWhatsApp"
       ];
       modalIds.forEach(function (id) {
         const el = document.getElementById(id);
@@ -6718,6 +6964,19 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       }
     }
 
+    // =========================================================================
+    // LARKSUITE PIPELINE CONTROLLER
+    // =========================================================================
+    let currentPipelineFilter = 'all';
+
+    function setPipelineFilter(filter) {
+      currentPipelineFilter = filter;
+      document.querySelectorAll('.pipeline-chip').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById('chip' + filter.charAt(0).toUpperCase() + filter.slice(1));
+      if (activeBtn) activeBtn.classList.add('active');
+      renderCrmTable();
+    }
+
     // Customer CRM controller
     function renderCrmTable() {
       const keyword = document.getElementById('crmSearchKeyword') ? document.getElementById('crmSearchKeyword').value : "";
@@ -6729,9 +6988,41 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         category: category,
         sortBy: sortBy
       });
-      const badgeCount = document.getElementById('badgeCrmCount');
-      if (badgeCount) badgeCount.textContent = customers.length;
+
       const allCustomers = GreenwoodAdminDB.getCustomers();
+      const currentMonth = (new Date().getMonth() + 1).toString().padStart(2, '0');
+      
+      const countVip = allCustomers.filter(c => c.tags && c.tags.includes('VIP')).length;
+      const countPassive = allCustomers.filter(c => c.passiveFlag).length;
+      const countNew = allCustomers.filter(c => (c.visitCount <= 1) && !c.passiveFlag && (!c.tags || !c.tags.includes('VIP'))).length;
+      const countRegular = allCustomers.filter(c => (c.visitCount >= 2) && !c.passiveFlag && (!c.tags || !c.tags.includes('VIP'))).length;
+      const countBday = allCustomers.filter(c => c.birthday && c.birthday.includes('-' + currentMonth + '-')).length;
+
+      // Update chip counts
+      if (document.getElementById('chipCountAll')) document.getElementById('chipCountAll').textContent = allCustomers.length;
+      if (document.getElementById('chipCountVip')) document.getElementById('chipCountVip').textContent = countVip;
+      if (document.getElementById('chipCountRegular')) document.getElementById('chipCountRegular').textContent = countRegular;
+      if (document.getElementById('chipCountNew')) document.getElementById('chipCountNew').textContent = countNew;
+      if (document.getElementById('chipCountPassive')) document.getElementById('chipCountPassive').textContent = countPassive;
+      if (document.getElementById('chipCountBday')) document.getElementById('chipCountBday').textContent = countBday;
+
+      // Apply current pipeline chip filter
+      let filtered = customers;
+      if (currentPipelineFilter === 'vip') {
+        filtered = customers.filter(c => c.tags && c.tags.includes('VIP'));
+      } else if (currentPipelineFilter === 'regular') {
+        filtered = customers.filter(c => (c.visitCount >= 2) && !c.passiveFlag && (!c.tags || !c.tags.includes('VIP')));
+      } else if (currentPipelineFilter === 'new') {
+        filtered = customers.filter(c => (c.visitCount <= 1) && !c.passiveFlag && (!c.tags || !c.tags.includes('VIP')));
+      } else if (currentPipelineFilter === 'passive') {
+        filtered = customers.filter(c => c.passiveFlag);
+      } else if (currentPipelineFilter === 'birthday') {
+        filtered = customers.filter(c => c.birthday && c.birthday.includes('-' + currentMonth + '-'));
+      }
+
+      const badgeCount = document.getElementById('badgeCrmCount');
+      if (badgeCount) badgeCount.textContent = filtered.length;
+
       const activeCount = allCustomers.filter(c => !c.passiveFlag).length;
       const passiveCount = allCustomers.filter(c => c.passiveFlag).length;
       const totalRev = allCustomers.reduce((sum, c) => sum + (c.totalSpend || 0), 0);
@@ -6745,16 +7036,22 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       document.getElementById('crmMetricRevenue').textContent = canSeeRevenue ? formatRupiah(totalRev) : 'Rp ••••••';
 
       const tbody = document.getElementById('crmTableBody');
-      if (customers.length === 0) {
+      if (filtered.length === 0) {
         tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:30px; color:var(--text-muted);">Tidak ada data pelanggan yang sesuai filter.</td></tr>`;
         return;
       }
 
-      tbody.innerHTML = customers.map(c => {
+      tbody.innerHTML = filtered.map(c => {
         let tagHtml = "";
-        if (c.tags && c.tags.includes('VIP')) tagHtml += `<span class="badge-tag badge-vip">⭐ VIP</span>`;
-        if (c.passiveFlag) tagHtml += `<span class="badge-tag badge-passive">⚠️ Pasif (${c.daysSinceLastVisit}h)</span>`;
-        else tagHtml += `<span class="badge-tag badge-reguler">✓ Aktif</span>`;
+        if (c.tags && c.tags.includes('VIP')) {
+          tagHtml = `<span class="badge-tag badge-vip">⭐ VIP</span>`;
+        } else if (c.passiveFlag) {
+          tagHtml = `<span class="badge-tag badge-passive">⚠️ Butuh Diingatkan (${c.daysSinceLastVisit}h)</span>`;
+        } else if (c.visitCount <= 1) {
+          tagHtml = `<span class="badge-tag" style="background:rgba(56,189,248,0.12); color:#38bdf8; border-color:rgba(56,189,248,0.3);">🌱 Baru (1x)</span>`;
+        } else {
+          tagHtml = `<span class="badge-tag badge-reguler">🔄 Reguler (${c.visitCount}x)</span>`;
+        }
 
         const notesShort = c.internalNotes ? (c.internalNotes.length > 55 ? c.internalNotes.slice(0, 55) + "..." : c.internalNotes) : "-";
 
@@ -6786,6 +7083,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
             <td>${tagHtml}</td>
             <td style="text-align: right; white-space: nowrap;">
               <button type="button" class="btn-portal-action" onclick="openCustomerDetailModal('${c.id}')" title="Lihat Profil & Formula">Detail</button>
+              <button type="button" class="btn-portal-action" style="color:#25D366; border-color:rgba(37,211,102,0.35); margin-left:4px;" onclick="openQuickWhatsAppModal('${escapeHtml(c.name)}', '${c.phone || ''}', { barberName: '${escapeHtml(c.lastBarber || 'Barber')}', serviceName: '${escapeHtml(c.lastServiceName || 'The Cut')}', date: '${c.lastVisit || ''}' })" title="Kirim Pesan WhatsApp">💬 WA</button>
             </td>
           </tr>
         `;
@@ -8026,6 +8324,120 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       });
 
       renderLedgerTable(filtered);
+      renderChairMatrix();
+    }
+
+    /* ==========================================================================
+       MINUTES APP REAL-TIME CHAIR TIMELINE MATRIX LOGIC
+       ========================================================================== */
+    function renderChairMatrix() {
+      const container = document.getElementById('chairMatrixContent');
+      if (!container) return;
+
+      const chairs = [
+        { id: 'Kursi 1', name: 'Kursi #1', barber: 'Bramantyo' },
+        { id: 'Kursi 2', name: 'Kursi #2', barber: 'Rian Pratama' },
+        { id: 'Kursi 3', name: 'Kursi #3', barber: 'Dimas Setiawan' },
+        { id: 'Kursi 4', name: 'Kursi #4', barber: 'Farhan Akbar' },
+        { id: 'Kursi 5', name: 'Kursi #5', barber: 'Aldi Maulana' }
+      ];
+
+      const hours = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
+      const todayStr = new Date().toISOString().split('T')[0];
+
+      let html = `
+        <table class="chair-matrix-table">
+          <thead>
+            <tr>
+              <th class="chair-col-label">Kursi &amp; Artisan Barber</th>
+              ${hours.map(h => `<th>${h}</th>`).join('')}
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      chairs.forEach(chair => {
+        html += `
+          <tr>
+            <td class="chair-col-label">
+              <div style="font-size: 12px; color: var(--accent-gold);">${chair.name}</div>
+              <div style="font-size: 10.5px; color: var(--text-muted);">${chair.barber}</div>
+            </td>
+        `;
+
+        hours.forEach(hour => {
+          const slotHourInt = parseInt(hour.split(':')[0], 10);
+          const matched = (currentBookings || []).find(b => {
+            const bBarber = (b.assignedBarberName || b.barberName || '').toLowerCase();
+            const bChair = (b.chair || '').toLowerCase();
+            const chairMatch = bChair.includes(chair.id.toLowerCase()) || bBarber.includes(chair.barber.toLowerCase().split(' ')[0]);
+            
+            let bHour = b.timeSlot || b.time || b.sessionTime || '';
+            let bHourInt = parseInt(bHour.split(':')[0], 10);
+            return chairMatch && (bHourInt === slotHourInt);
+          });
+
+          if (matched) {
+            const isCompleted = matched.status === 'Completed';
+            const guestName = escapeHtml(matched.guestName || 'Tamu');
+            const svcName = escapeHtml(matched.serviceName || matched.packageName || 'The Cut');
+            html += `
+              <td>
+                <div class="matrix-slot-booked ${isCompleted ? 'matrix-slot-completed' : ''}" 
+                     onclick="openBookingFromMatrix('${matched.bookingCode || ''}', '${matched.guestPhone || ''}')"
+                     title="Klik untuk membuka Kartu Tamu / Tindakan">
+                  <div style="font-size:9.5px; opacity:0.85;">${isCompleted ? '✓ Selesai' : '💈 Terjadwal'}</div>
+                  <div style="font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:85px;">${guestName}</div>
+                  <div style="font-size:9.5px; opacity:0.75; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:85px;">${svcName}</div>
+                </div>
+              </td>
+            `;
+          } else {
+            html += `
+              <td>
+                <div class="matrix-slot-empty" onclick="quickBookFromMatrix('${chair.name}', '${chair.barber}', '${hour}')" title="Klik untuk catat tamu langsung">
+                  + Kosong
+                </div>
+              </td>
+            `;
+          }
+        });
+
+        html += `</tr>`;
+      });
+
+      html += `</tbody></table>`;
+      container.innerHTML = html;
+    }
+
+    function openBookingFromMatrix(bookingCode, guestPhone) {
+      if (guestPhone && typeof GreenwoodAdminDB !== 'undefined') {
+        const cust = GreenwoodAdminDB.findCustomerByPhoneOrName(guestPhone);
+        if (cust) {
+          openCustomerDetailModal(cust.id);
+          return;
+        }
+      }
+      if (bookingCode) {
+        openGuestCardFromBooking(bookingCode);
+      }
+    }
+
+    function quickBookFromMatrix(chairName, barberName, hour) {
+      openWalkinModal();
+      setTimeout(() => {
+        const selBarber = document.getElementById('walkinBarberSelect');
+        if (selBarber) {
+          for (let i = 0; i < selBarber.options.length; i++) {
+            if (selBarber.options[i].text.toLowerCase().includes(barberName.toLowerCase().split(' ')[0])) {
+              selBarber.selectedIndex = i;
+              break;
+            }
+          }
+        }
+        const selTime = document.getElementById('walkinTimeSelect');
+        if (selTime) selTime.value = hour;
+      }, 100);
     }
 
     function formatScheduleDate(dateKey) {
@@ -8115,6 +8527,9 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
               </button>
               ` : ''}
               ` : ''}
+              <button type="button" class="btn-table-action" style="background: rgba(37,211,102,0.12); border: 1px solid rgba(37,211,102,0.35); color: #25D366;" onclick="openQuickWhatsAppModal('${escapeHtml(b.guestName || 'Tamu')}', '${b.guestPhone || ''}', { serviceName: '${escapeHtml(b.serviceName || b.packageName || 'The Cut')}', barberName: '${escapeHtml(barberDisplay)}', date: '${formatScheduleDate(b.dateKey)}', time: '${escapeHtml(b.timeSlot || '')} WIB' })" title="Kirim Pesan WhatsApp">
+                <span>💬 WA</span>
+              </button>
               ${(typeof GreenwoodAdminDB !== 'undefined' && (GreenwoodAdminDB.getActiveRole() === 'Owner' || GreenwoodAdminDB.hasPermission('booking_cancel'))) ? `
               <button type="button" class="btn-table-action btn-action-danger" onclick="deleteBookingRow('${b.bookingCode}')" title="Batalkan / Hapus Reservasi">
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -8128,6 +8543,81 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         </tr>
         `;
       }).join('');
+    }
+
+    /* ==========================================================================
+       SMART WHATSAPP GATEWAY MODAL CONTROLLER
+       ========================================================================== */
+    let currentWaGuest = { name: '', phone: '', context: {} };
+
+    function openQuickWhatsAppModal(name, phone, context) {
+      currentWaGuest = {
+        name: name || 'Tamu Terhormat',
+        phone: phone || '',
+        context: context || {}
+      };
+
+      const nameEl = document.getElementById('waModalGuestName');
+      const phoneEl = document.getElementById('waModalGuestPhone');
+      if (nameEl) nameEl.textContent = currentWaGuest.name;
+      if (phoneEl) phoneEl.textContent = currentWaGuest.phone ? currentWaGuest.phone : 'Nomor WhatsApp belum terdaftar';
+
+      updateWhatsAppMessagePreview();
+
+      const modal = document.getElementById('modalQuickWhatsApp');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeQuickWhatsAppModal() {
+      const modal = document.getElementById('modalQuickWhatsApp');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function updateWhatsAppMessagePreview() {
+      const radios = document.getElementsByName('waTemplateType');
+      let type = 'confirm';
+      for (const r of radios) {
+        if (r.checked) { type = r.value; break; }
+      }
+
+      const name = currentWaGuest.name;
+      const ctx = currentWaGuest.context || {};
+      const barber = ctx.barberName || 'Artisan Barber';
+      const svc = ctx.serviceName || 'The Cut';
+      const dateStr = ctx.date || 'Hari Ini';
+      const timeStr = ctx.time || '14:00 WIB';
+
+      let msg = '';
+      if (type === 'confirm') {
+        msg = `Halo ${name},\n\nTerima kasih telah melakukan reservasi di Greenwood Barbers Kota Baru Parahyangan.\n\nBerikut rincian sesi Anda:\n• Layanan: ${svc}\n• Barber: ${barber}\n• Tanggal: ${dateStr}\n• Waktu: ${timeStr}\n• Lokasi: Ruko PancaTengah No. 87, Kota Baru Parahyangan (Tersedia parkir gratis tepat di depan pintu).\n\nSampai jumpa di kursi Anda. Jika ada perubahan jadwal, mohon kabari kami melalui chat ini.`;
+      } else if (type === 'reminder') {
+        msg = `Halo ${name},\n\nKami mengingatkan bahwa sesi perawatan rambut Anda di Greenwood Barbers akan dimulai 2 jam lagi pukul ${timeStr} bersama ${barber}.\n\nKursi, handuk dingin, dan barista bar kami telah siap menyambut Anda. Sampai bertemu sebentar lagi!`;
+      } else if (type === 'followup') {
+        msg = `Halo ${name},\n\nTerima kasih telah singgah dan mempercayakan perawatan rambut Anda di Greenwood Barbers hari ini.\n\nSeluruh formula potongan rambut dan preferensi Anda telah kami catat di Kartu Tamu digital agar dapat diulang dengan presisi yang sama di kunjungan berikutnya.\n\nSemoga hari Anda menyenangkan!`;
+      }
+
+      const txt = document.getElementById('waMessagePreview');
+      if (txt) txt.value = msg;
+    }
+
+    function executeSendWhatsApp() {
+      let rawPhone = currentWaGuest.phone || '';
+      if (!rawPhone) {
+        alert("Nomor telepon tamu tidak tersedia.");
+        return;
+      }
+      // Clean phone to Indonesian international 62 format
+      let clean = rawPhone.replace(/\D/g, '');
+      if (clean.startsWith('0')) {
+        clean = '62' + clean.slice(1);
+      } else if (!clean.startsWith('62')) {
+        clean = '62' + clean;
+      }
+
+      const text = document.getElementById('waMessagePreview') ? document.getElementById('waMessagePreview').value : '';
+      const url = `https://wa.me/${clean}?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+      closeQuickWhatsAppModal();
     }
 
     function updateMetrics() {
