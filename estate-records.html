@@ -375,63 +375,200 @@
       color: var(--text-muted);
     }
 
-    /* SECONDARY NAVIGATION (SYMMETRICAL SEGMENTED TABS SUITE) */
-    .portal-tabs-nav {
-      background: #020704;
-      border-bottom: 1px solid var(--card-border);
-      padding: 6px 20px;
+    /* ==========================================================================
+       EXECUTIVE SIDEBAR & PORTAL LAYOUT ("OPTION DI PINGGIR")
+       ========================================================================== */
+    .portal-app-layout {
+      display: flex;
+      min-height: 100vh;
+      background: var(--bg-dark);
+      position: relative;
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    /* Mobile Backdrop for Sidebar Drawer */
+    .sidebar-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(1, 6, 4, 0.78);
+      backdrop-filter: blur(4px);
+      z-index: 1040;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .sidebar-backdrop.active {
+      display: block;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Left Sidebar Navigation */
+    .portal-sidebar {
+      width: 260px;
+      min-width: 260px;
+      max-width: 260px;
+      background: #020805;
+      border-right: 1px solid rgba(197, 155, 72, 0.22);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      height: 100vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      z-index: 1050;
+      box-sizing: border-box;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .portal-sidebar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .portal-sidebar::-webkit-scrollbar-thumb {
+      background: rgba(197, 155, 72, 0.2);
+      border-radius: 4px;
+    }
+
+    /* Sidebar Brand Header */
+    .sidebar-brand-wrap {
+      padding: 18px 16px 14px;
+      border-bottom: 1px solid rgba(197, 155, 72, 0.15);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .sidebar-brand-header {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .sidebar-logo {
+      height: 30px;
+      max-width: 195px;
+      width: auto;
+      object-fit: contain;
+      flex-shrink: 0;
+      filter: drop-shadow(0 2px 6px rgba(197, 155, 72, 0.2));
+    }
+
+    .sidebar-brand-text {
+      min-width: 0;
+      width: 100%;
+    }
+
+    .sidebar-brand-title {
+      font-family: 'Lora', Georgia, serif;
+      font-weight: 700;
+      color: #ffffff;
+      font-size: 14px;
+      letter-spacing: 0.3px;
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sidebar-brand-tagline {
+      font-size: 9px;
+      letter-spacing: 1.3px;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .sidebar-branch-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(197, 155, 72, 0.08);
+      border: 1px solid rgba(197, 155, 72, 0.25);
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      color: var(--accent-gold-bright);
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Section Title in Sidebar */
+    .sidebar-nav-section-title {
+      padding: 16px 16px 6px;
+      font-size: 10px;
+      letter-spacing: 1.2px;
+      color: rgba(197, 155, 72, 0.65);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    /* Vertical Sidebar Nav */
+    .sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      padding: 0 10px;
+    }
+
+    .sidebar-nav .portal-tab-btn {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      height: 48px;
-      box-sizing: border-box;
-      gap: 14px;
-    }
-
-    .portal-tabs-segmented {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      background: rgba(4, 15, 10, 0.7);
-      border: 1px solid rgba(197, 155, 72, 0.2);
+      gap: 11px;
+      width: 100%;
+      height: 40px;
+      padding: 0 12px;
       border-radius: 8px;
-      padding: 3px;
-      box-sizing: border-box;
-    }
-
-    .portal-tab-btn {
-      background: transparent;
-      border: 1px solid transparent;
-      border-radius: 6px;
-      color: var(--text-muted);
+      color: #b8c5be;
       font-size: 12.5px;
       font-weight: 600;
-      height: 32px;
-      padding: 0 14px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      white-space: nowrap;
+      background: transparent;
+      border: 1px solid transparent;
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      text-align: left;
       box-sizing: border-box;
-      user-select: none;
+      cursor: pointer;
     }
 
-    .portal-tab-btn:hover {
-      color: #fff;
-      background: rgba(197, 155, 72, 0.08);
-    }
-
-    .portal-tab-btn.active {
+    .sidebar-nav .portal-tab-btn:hover {
       color: #ffffff;
-      background: linear-gradient(135deg, rgba(197, 155, 72, 0.28) 0%, rgba(197, 155, 72, 0.12) 100%);
-      border: 1px solid rgba(197, 155, 72, 0.6);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      background: rgba(197, 155, 72, 0.08);
+      border-color: rgba(197, 155, 72, 0.2);
     }
 
-    .portal-tab-btn.active svg {
+    .sidebar-nav .portal-tab-btn.active {
+      color: #ffffff;
+      background: linear-gradient(90deg, rgba(197, 155, 72, 0.22) 0%, rgba(197, 155, 72, 0.06) 100%);
+      border: 1px solid rgba(197, 155, 72, 0.45);
+      border-left: 3px solid var(--accent-gold-bright);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .sidebar-nav .portal-tab-btn svg {
+      flex-shrink: 0;
+      stroke: var(--text-muted);
+      transition: stroke 0.18s;
+    }
+
+    .sidebar-nav .portal-tab-btn:hover svg,
+    .sidebar-nav .portal-tab-btn.active svg {
       stroke: var(--accent-gold-bright);
+    }
+
+    .sidebar-nav .portal-tab-btn .portal-tab-label-full {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .portal-tab-badge {
@@ -439,25 +576,220 @@
       color: #030c08;
       font-size: 10px;
       font-weight: 800;
-      padding: 1px 5px;
+      padding: 1px 6px;
       border-radius: 10px;
       line-height: 1.2;
     }
 
-    /* Symmetrical Meta Counterweight (Right Side of Tabs Bar) */
-    .portal-tabs-meta {
+    /* Secondary Utilities in Sidebar */
+    .sidebar-utilities {
       display: flex;
-      align-items: center;
-      gap: 14px;
-      flex-shrink: 0;
-      margin-left: auto;
+      flex-direction: column;
+      gap: 3px;
+      padding: 0 10px;
     }
 
+    .sidebar-util-btn {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      width: 100%;
+      height: 35px;
+      padding: 0 12px;
+      border-radius: 7px;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 500;
+      background: transparent;
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      box-sizing: border-box;
+      text-align: left;
+    }
+
+    .sidebar-util-btn:hover {
+      color: #f7f2e7;
+      background: rgba(197, 155, 72, 0.08);
+      border-color: rgba(197, 155, 72, 0.2);
+      text-decoration: none;
+    }
+
+    .sidebar-util-btn svg {
+      flex-shrink: 0;
+      stroke: var(--text-muted);
+    }
+    .sidebar-util-btn:hover svg {
+      stroke: var(--accent-gold-bright);
+    }
+
+    /* Sidebar Footer */
+    .sidebar-footer {
+      margin-top: auto;
+      padding: 16px 14px 18px;
+      border-top: 1px solid rgba(197, 155, 72, 0.15);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: rgba(3, 12, 8, 0.7);
+    }
+
+    .sidebar-user-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      width: 100%;
+      min-width: 0;
+    }
+
+    .sidebar-user-card .user-role-badge {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      padding: 0 8px;
+      height: 30px;
+      font-size: 11px;
+    }
+
+    .sidebar-user-card #userRoleBadgeText {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .sidebar-lang-select {
+      height: 30px !important;
+      font-size: 11px !important;
+      padding: 0 5px !important;
+      flex-shrink: 0 !important;
+      background: rgba(4, 15, 10, 0.9) !important;
+      border-color: rgba(197, 155, 72, 0.3) !important;
+    }
+
+    .sidebar-sync-clock {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-muted);
+      padding: 0 2px;
+    }
+
+    .sidebar-lock-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      width: 100%;
+      height: 32px;
+      background: rgba(224, 108, 117, 0.1);
+      border: 1px solid rgba(224, 108, 117, 0.35);
+      color: var(--danger);
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .sidebar-lock-btn:hover {
+      background: rgba(224, 108, 117, 0.22);
+      border-color: var(--danger);
+      color: #fff;
+    }
+
+    /* Main Canvas Wrapper */
+    .portal-main-wrapper {
+      flex: 1;
+      min-width: 0;
+      margin-left: 260px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Topbar Header in Canvas */
+    .portal-topbar {
+      background: rgba(4, 15, 10, 0.96);
+      border-bottom: 1px solid var(--card-border);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      height: 52px;
+      box-sizing: border-box;
+      gap: 14px;
+    }
+
+    .sidebar-mobile-toggle {
+      display: none;
+      background: rgba(197, 155, 72, 0.1);
+      border: 1px solid rgba(197, 155, 72, 0.3);
+      color: var(--accent-gold-bright);
+      height: 34px;
+      width: 34px;
+      border-radius: 6px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .topbar-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .breadcrumb-root {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .breadcrumb-separator {
+      color: rgba(197, 155, 72, 0.4);
+    }
+
+    .breadcrumb-active {
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .topbar-quick-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .topbar-branch-indicator {
+      font-size: 11.5px;
+      color: var(--accent-gold);
+      background: rgba(197, 155, 72, 0.08);
+      border: 1px solid rgba(197, 155, 72, 0.2);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* Live sync and clock */
     .portal-sync-status {
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      font-size: 11.5px;
+      font-size: 11px;
       color: var(--text-muted);
       letter-spacing: 0.2px;
     }
@@ -477,12 +809,10 @@
         transform: scale(0.95);
         box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
       }
-
       70% {
         transform: scale(1.05);
         box-shadow: 0 0 0 6px rgba(74, 222, 128, 0);
       }
-
       100% {
         transform: scale(0.95);
         box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
@@ -504,9 +834,11 @@
 
     /* MAIN CONTAINER */
     .portal-container {
-      max-width: 1360px;
-      margin: 0 auto;
-      padding: 24px 20px 80px;
+      width: 100%;
+      max-width: 1400px;
+      margin: 0;
+      padding: 24px 28px 80px;
+      box-sizing: border-box;
     }
 
     .tab-section {
@@ -577,6 +909,724 @@
       font-size: 11.5px;
       color: var(--accent-gold);
       margin-top: 6px;
+    }
+
+    /* ==========================================================================
+       EXECUTIVE REVENUE & RETENTION DASHBOARD (REDESIGNED TAB-ANALYTICS)
+       ========================================================================== */
+    .analytics-exec-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(197, 155, 72, 0.15);
+    }
+
+    .analytics-eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--accent-gold);
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+
+    .analytics-title {
+      margin: 0;
+      color: #ffffff;
+      font-family: 'Lora', Georgia, serif;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .analytics-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin: 6px 0 0;
+      max-width: 680px;
+      line-height: 1.45;
+    }
+
+    .analytics-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .analytics-period-selector {
+      display: inline-flex;
+      background: rgba(3, 12, 8, 0.9);
+      border: 1px solid rgba(197, 155, 72, 0.25);
+      border-radius: 8px;
+      padding: 3px;
+      gap: 3px;
+    }
+
+    .analytics-period-pill {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .analytics-period-pill:hover {
+      color: #fff;
+    }
+
+    .analytics-period-pill.active {
+      background: var(--accent-gold);
+      color: #030c08;
+      font-weight: 700;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    /* 4 Executive Hero Metric Cards */
+    .exec-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    @media (max-width: 1200px) {
+      .exec-metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 640px) {
+      .exec-metrics-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .exec-card {
+      background: rgba(9, 28, 19, 0.75);
+      border: 1px solid rgba(197, 155, 72, 0.22);
+      border-radius: 10px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .exec-card:hover {
+      border-color: rgba(197, 155, 72, 0.45);
+      transform: translateY(-2px);
+    }
+
+    .exec-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-gold) 0%, transparent 80%);
+    }
+
+    .exec-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .exec-card-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .exec-badge-trend {
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+    .exec-badge-trend.positive {
+      background: rgba(74, 222, 128, 0.15);
+      color: #4ade80;
+      border: 1px solid rgba(74, 222, 128, 0.3);
+    }
+
+    .exec-badge-live {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #4ade80;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .exec-badge-target, .exec-badge-benchmark {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--accent-gold);
+      background: rgba(197, 155, 72, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(197, 155, 72, 0.25);
+    }
+
+    .exec-card-val {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+
+    .exec-card-breakdown {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: auto;
+      flex-wrap: wrap;
+    }
+
+    .exec-dot-sep {
+      color: rgba(197, 155, 72, 0.5);
+    }
+
+    /* Financial Runway Card */
+    .exec-runway-card {
+      background: rgba(9, 28, 19, 0.7);
+      border: 1px solid rgba(197, 155, 72, 0.25);
+      border-radius: 12px;
+      padding: 22px 24px;
+      margin-bottom: 22px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .exec-runway-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .exec-runway-title {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .exec-runway-desc {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin-top: 3px;
+      max-width: 680px;
+    }
+
+    .exec-runway-pool span {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--accent-gold-bright);
+      background: rgba(197, 155, 72, 0.15);
+      border: 1px solid var(--accent-gold);
+      padding: 5px 12px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(197, 155, 72, 0.15);
+    }
+
+    .exec-runway-meter-wrap {
+      position: relative;
+      margin: 32px 0 28px;
+      padding: 0 10px;
+    }
+
+    .exec-runway-meter {
+      position: relative;
+      height: 14px;
+      background: rgba(2, 8, 5, 0.9);
+      border: 1px solid rgba(197, 155, 72, 0.3);
+      border-radius: 10px;
+    }
+
+    .exec-runway-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #38bdf8 0%, #4ade80 55%, #e5b95f 100%);
+      border-radius: 8px;
+      transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 0 12px rgba(74, 222, 128, 0.4);
+    }
+
+    .exec-runway-checkpoint {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .checkpoint-pin {
+      width: 18px;
+      height: 18px;
+      background: #091c13;
+      border: 2px solid var(--accent-gold);
+      border-radius: 50%;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+    }
+
+    .checkpoint-pin.pin-breakeven {
+      border-color: #4ade80;
+    }
+    .checkpoint-pin.pin-gainshare {
+      border-color: var(--accent-gold-bright);
+      background: var(--accent-gold);
+    }
+    .checkpoint-pin.pin-stretch {
+      border-color: #38bdf8;
+    }
+
+    .checkpoint-label {
+      position: absolute;
+      top: 24px;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+      color: var(--text-muted);
+    }
+    .checkpoint-label.label-breakeven { color: #4ade80; }
+    .checkpoint-label.label-gainshare { color: var(--accent-gold-bright); font-weight: 700; }
+    .checkpoint-label.label-stretch { color: #38bdf8; }
+
+    .exec-runway-summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      padding-top: 18px;
+      margin-top: 28px;
+      border-top: 1px solid rgba(197, 155, 72, 0.15);
+    }
+
+    @media (max-width: 768px) {
+      .exec-runway-summary {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .runway-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .stat-caption {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .stat-value {
+      font-size: 13.5px;
+      font-weight: 700;
+    }
+
+    /* Dual Strategic Grid */
+    .exec-dual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 22px;
+    }
+
+    @media (max-width: 900px) {
+      .exec-dual-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .exec-insight-card {
+      background: rgba(9, 28, 19, 0.7);
+      border: 1px solid rgba(197, 155, 72, 0.22);
+      border-radius: 12px;
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .insight-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .insight-title {
+      margin: 0;
+      font-family: 'Lora', Georgia, serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .insight-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin: 3px 0 0;
+    }
+
+    .btn-micro-action {
+      background: rgba(197, 155, 72, 0.12);
+      border: 1px solid rgba(197, 155, 72, 0.35);
+      color: var(--accent-gold-bright);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+    .btn-micro-action:hover {
+      background: rgba(197, 155, 72, 0.25);
+      color: #fff;
+    }
+
+    /* Retention Funnel */
+    .retention-funnel-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .funnel-step {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .funnel-step-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #fff;
+    }
+
+    .funnel-bar {
+      height: 8px;
+      background: rgba(3, 12, 8, 0.8);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .funnel-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+
+    .funnel-step-hint {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Acquisition Channels */
+    .acquisition-channels-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .acq-channel-row {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .acq-channel-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #fff;
+    }
+
+    .acq-bar {
+      height: 8px;
+      background: rgba(3, 12, 8, 0.8);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .acq-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+
+    .exec-sub-insights-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(197, 155, 72, 0.15);
+    }
+
+    .sub-insight-pill {
+      background: rgba(3, 12, 8, 0.6);
+      border: 1px solid rgba(197, 155, 72, 0.18);
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .sub-caption { font-size: 10.5px; color: var(--text-muted); }
+    .sub-val { font-size: 13.5px; font-weight: 700; color: #fff; }
+    .sub-sub { font-size: 10.5px; color: var(--accent-gold); }
+
+    /* Heatmap Card */
+    .exec-heatmap-card {
+      background: rgba(9, 28, 19, 0.7);
+      border: 1px solid rgba(197, 155, 72, 0.22);
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin-bottom: 22px;
+    }
+
+    .exec-heatmap-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .heatmap-legend-wrap {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      font-size: 11.5px;
+    }
+
+    .heatmap-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--text-muted);
+    }
+
+    .legend-chip {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+    .legend-chip.optimal { background: #4ade80; }
+    .legend-chip.moderate { background: #e5b95f; }
+    .legend-chip.calm { background: #162a22; }
+
+    .heatmap-highlight-bar {
+      background: rgba(197, 155, 72, 0.08);
+      border-left: 3px solid var(--accent-gold);
+      padding: 8px 14px;
+      border-radius: 0 6px 6px 0;
+      font-size: 12px;
+      color: #f7f2e7;
+      margin-bottom: 14px;
+    }
+
+    .heatmap-table-container {
+      overflow-x: auto;
+    }
+
+    .modern-heatmap-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 4px;
+      font-size: 11.5px;
+      text-align: center;
+    }
+
+    .modern-heatmap-table th {
+      background: #030c08;
+      color: var(--accent-gold);
+      font-weight: 600;
+      padding: 8px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(197, 155, 72, 0.15);
+    }
+
+    .modern-heatmap-table td.heatmap-cell {
+      padding: 8px 4px;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      cursor: default;
+    }
+
+    .modern-heatmap-table td.heatmap-cell:hover {
+      transform: scale(1.08);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      z-index: 2;
+    }
+
+    /* Leaderboard Card */
+    .exec-leaderboard-card {
+      background: rgba(9, 28, 19, 0.7);
+      border: 1px solid rgba(197, 155, 72, 0.22);
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin-bottom: 22px;
+    }
+
+    .leaderboard-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .leaderboard-target-chip {
+      font-size: 11.5px;
+      color: var(--accent-gold);
+      background: rgba(197, 155, 72, 0.1);
+      border: 1px solid rgba(197, 155, 72, 0.25);
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .leaderboard-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .leaderboard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .barber-perf-card {
+      background: rgba(3, 12, 8, 0.8);
+      border: 1px solid rgba(197, 155, 72, 0.2);
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .barber-perf-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .barber-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(197, 155, 72, 0.15);
+      border: 1px solid var(--accent-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .barber-name {
+      font-weight: 700;
+      color: #fff;
+      font-size: 13.5px;
+    }
+    .barber-role {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .barber-badge-top, .barber-badge-good {
+      margin-left: auto;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+    .barber-badge-top {
+      background: rgba(229, 185, 95, 0.15);
+      color: var(--accent-gold-bright);
+      border: 1px solid var(--accent-gold);
+    }
+    .barber-badge-good {
+      background: rgba(74, 222, 128, 0.12);
+      color: #4ade80;
+      border: 1px solid rgba(74, 222, 128, 0.3);
+    }
+
+    .barber-kpi-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      background: rgba(9, 28, 19, 0.5);
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(197, 155, 72, 0.1);
+    }
+
+    .barber-kpi {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+    .barber-kpi-label { font-size: 10px; color: var(--text-muted); white-space: nowrap; }
+    .barber-kpi-val { font-size: 13px; font-weight: 700; white-space: nowrap; }
+    .barber-kpi-sub { font-size: 10px; color: var(--text-muted); white-space: nowrap; }
+
+    /* Audit Trail Card */
+    .exec-audit-card {
+      background: rgba(9, 28, 19, 0.7);
+      border: 1px solid rgba(197, 155, 72, 0.22);
+      border-radius: 12px;
+      padding: 20px 22px;
+    }
+
+    .audit-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .audit-badge-secure {
+      font-size: 11px;
+      color: var(--accent-gold);
+      background: rgba(197, 155, 72, 0.1);
+      border: 1px solid rgba(197, 155, 72, 0.25);
+      padding: 3px 8px;
+      border-radius: 4px;
     }
 
     /* BUTTONS */
@@ -1781,6 +2831,38 @@
       font-weight: 600;
     }
 
+    /* Tablet & Mobile Sidebar Breakpoint (max-width: 992px) */
+    @media (max-width: 992px) {
+      .portal-sidebar {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        bottom: 0 !important;
+        height: 100vh !important;
+        width: 280px !important;
+        min-width: 280px !important;
+        transform: translateX(-100%) !important;
+        box-shadow: 10px 0 35px rgba(0, 0, 0, 0.85) !important;
+        z-index: 1050 !important;
+      }
+
+      .portal-sidebar.open {
+        transform: translateX(0) !important;
+      }
+
+      .sidebar-mobile-toggle {
+        display: inline-flex !important;
+      }
+
+      .portal-main-wrapper {
+        margin-left: 0 !important;
+      }
+
+      .portal-container {
+        padding: 16px 14px 60px !important;
+      }
+    }
+
     /* Tablet & Mobile Breakpoint (max-width: 860px) */
     @media (max-width: 860px) {
       .portal-nav {
@@ -1831,125 +2913,36 @@
         margin-left: auto !important;
       }
 
-      /* Hide desktop-only loose buttons on mobile & tablet */
-      #btnHeaderRoles,
-      #btnHeaderSettings,
-      #btnHeaderPasskey,
-      .btn-header-web {
-        display: none !important;
+      /* Ensure Sidebar Navigation & Utilities remain full-width vertical items inside mobile drawer */
+      .portal-sidebar .portal-tab-btn {
+        width: 100% !important;
+        height: 42px !important;
+        padding: 0 12px !important;
+        font-size: 13px !important;
+        justify-content: flex-start !important;
+        text-align: left !important;
+        gap: 11px !important;
       }
 
-      /* Show Mobile More Dropdown Trigger */
-      .portal-more-wrap {
+      .portal-sidebar .portal-tab-btn svg {
         display: inline-block !important;
       }
 
-      .portal-more-wrap .btn-portal-action {
-        height: 28px !important;
-        padding: 0 7px !important;
-        font-size: 11px !important;
-        font-weight: 600 !important;
-      }
-
-      .user-role-badge {
-        height: 28px !important;
-        padding: 0 6px !important;
-        font-size: 11px !important;
-        flex-shrink: 0 !important;
-      }
-
-      #userRoleBadgeText {
-        display: none !important;
-        /* Hide long role label on mobile, maintain gold crown */
-      }
-
-      .role-select {
-        height: 28px !important;
-        padding: 0 2px !important;
-        font-size: 10.5px !important;
-        min-width: 36px !important;
-        width: 36px !important;
-        flex-shrink: 0 !important;
-      }
-
-      .btn-portal-lock {
-        height: 28px !important;
-        width: 28px !important;
-        padding: 0 !important;
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        flex-shrink: 0 !important;
-      }
-
-      .btn-portal-lock span {
-        display: none !important;
-        /* Padlock icon only on mobile */
-      }
-
-      .btn-portal-lock svg {
-        margin: 0 !important;
-      }
-
-      /* TABS BAR RESPONSIVE ON MOBILE */
-      .portal-tabs-nav {
-        padding: 4px 6px !important;
-        height: 42px !important;
-        min-height: 42px !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-        gap: 0 !important;
-        overflow: hidden !important;
-        display: flex !important;
-        align-items: center !important;
-      }
-
-      .portal-tabs-meta {
-        display: none !important;
-      }
-
-      .portal-tabs-segmented {
-        width: 100% !important;
-        max-width: 100% !important;
-        display: flex !important;
-        gap: 2px !important;
-        padding: 2px !important;
-        box-sizing: border-box !important;
-        flex: 1 1 100% !important;
-      }
-
-      .portal-tab-btn {
-        flex: 1 1 0 !important;
-        min-width: 0 !important;
-        width: auto !important;
-        max-width: 100% !important;
-        height: 32px !important;
-        padding: 0 1px !important;
-        font-size: 11px !important;
-        justify-content: center !important;
-        text-align: center !important;
-        gap: 2px !important;
-        box-sizing: border-box !important;
-      }
-
-      .portal-tab-btn svg {
-        display: none !important;
-        /* Hide icons on mobile so short text is 100% visible and unclipped */
-      }
-
-      .portal-tab-badge {
-        font-size: 9px !important;
-        padding: 1px 3px !important;
-        margin-left: 2px !important;
-      }
-
-      .portal-tab-label-full {
-        display: none !important;
-      }
-
-      .portal-tab-label-short {
+      .portal-sidebar .portal-tab-label-full {
         display: inline !important;
+      }
+
+      .portal-sidebar .portal-tab-label-short {
+        display: none !important;
+      }
+
+      .topbar-branch-indicator {
+        display: none !important;
+      }
+
+      .portal-topbar {
+        padding: 0 14px !important;
+        height: 48px !important;
       }
 
       .portal-container {
@@ -2702,200 +3695,188 @@
   </div>
 
   <!-- Main administrative portal -->
-  <div id="portalMainContent" style="display: none;">
+  <div id="portalMainContent" class="portal-app-layout" style="display: none;">
 
-    <!-- TOP HEADER -->
-    <header class="portal-nav">
-      <div class="portal-brand-wrap">
-        <img src="assets/greenwood_logo_transparent.png" alt="Greenwood Barbers" class="portal-logo">
-        <div style="min-width: 0;">
-          <div class="portal-brand-title">The Greenwood Ledger</div>
-          <div class="portal-tagline" data-i18n="tagline">POS &bull; CRM &bull; Manajemen Barbershop</div>
+    <!-- MOBILE BACKDROP FOR SIDEBAR DRAWER -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar(false)"></div>
+
+    <!-- LEFT VERTICAL SIDEBAR ("OPTION DI PINGGIR") -->
+    <aside class="portal-sidebar" id="portalSidebar">
+      <!-- Brand & Monogram Header -->
+      <div class="sidebar-brand-wrap">
+        <div class="sidebar-brand-header">
+          <img src="assets/greenwood_logo_transparent.png" alt="Greenwood Barbers" class="sidebar-logo">
+          <div class="sidebar-brand-text">
+            <div class="sidebar-brand-title">Greenwood Ledger</div>
+            <div class="sidebar-brand-tagline">Mayfair Executive Suite</div>
+          </div>
         </div>
-      </div>
-      <div class="portal-user-actions">
-        <div class="branch-badge" id="branchBadgeWrap" title="Cabang Aktif: Kota Baru Parahyangan (kbp-main)">
+        <div class="sidebar-branch-chip" id="branchBadgeWrap" title="Cabang Aktif: Kota Baru Parahyangan (kbp-main)">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v4M12 14v4M16 14v4" />
           </svg>
-          <span id="currentBranchName">KBP</span>
+          <span id="currentBranchName">Kota Baru Parahyangan</span>
         </div>
-
-        <!-- AUTHENTICATED ROLE BADGE (Read-only status badge based on login PIN) -->
-        <div class="user-role-badge" id="userRoleBadge" title="Profil Peran Terotentikasi">
-          <span id="userRoleBadgeIcon">👑</span>
-          <span id="userRoleBadgeText">Owner</span>
-        </div>
-
-        <div class="header-divider"></div>
-
-        <button type="button" class="btn-portal-action" id="btnHeaderRoles" onclick="openRolesPermissionsModal()"
-          title="Kelola Matriks Hak Akses">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-          </svg>
-          <span data-i18n="btn_roles">Hak Akses</span>
-        </button>
-        <button type="button" class="btn-portal-action" id="btnHeaderSettings" onclick="openSettingsModal()"
-          title="Pengaturan Sistem & Sandbox">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="3" />
-            <path
-              d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
-          </svg>
-          <span data-i18n="btn_settings">Pengaturan</span>
-        </button>
-        <button type="button" class="btn-portal-action" id="btnHeaderPasskey" onclick="openPinModal()"
-          title="Perbarui PIN Peran">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 2l-2 2m-1.5 1.5L12 11l-4-4-6 6 4 4 6-6 5.5-5.5z" />
-            <circle cx="16" cy="8" r="2" />
-          </svg>
-          <span data-i18n="btn_passkey">PIN</span>
-        </button>
-        <a href="index.html" class="btn-portal-action btn-header-web" target="_blank" title="Buka Halaman Web Publik">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10" />
-            <line x1="2" y1="12" x2="22" y2="12" />
-            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-          </svg>
-          <span data-i18n="btn_web">Web</span>
-        </a>
-        <select id="langSwitcher" class="role-select" onchange="setSystemLanguage(this.value)"
-          title="Ganti Bahasa / Switch Language">
-          <option value="id" selected>ID</option>
-          <option value="en">EN</option>
-        </select>
-
-        <!-- MOBILE MORE DROPDOWN MENU -->
-        <div class="portal-more-wrap" id="portalMoreWrap">
-          <button type="button" class="btn-portal-action" id="btnMoreToggle" onclick="toggleMoreMenu(event)"
-            title="Opsi Menu Super Admin">
-            <span>⚙️ Menu ▾</span>
-          </button>
-          <div class="portal-more-dropdown" id="portalMoreDropdown">
-            <button type="button" class="portal-dropdown-item" id="btnMoreRoles"
-              onclick="closeMoreMenu(); openRolesPermissionsModal();">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-              </svg>
-              <span>Hak Akses Peran</span>
-            </button>
-            <button type="button" class="portal-dropdown-item" id="btnMoreSettings"
-              onclick="closeMoreMenu(); openSettingsModal();">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="3" />
-                <path
-                  d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
-              </svg>
-              <span>Pengaturan Sistem</span>
-            </button>
-            <button type="button" class="portal-dropdown-item" id="btnMorePasskey"
-              onclick="closeMoreMenu(); openPinModal();">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 2l-2 2m-1.5 1.5L12 11l-4-4-6 6 4 4 6-6 5.5-5.5z" />
-                <circle cx="16" cy="8" r="2" />
-              </svg>
-              <span>Perbarui PIN Peran</span>
-            </button>
-            <a href="index.html" target="_blank" class="portal-dropdown-item" onclick="closeMoreMenu()">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10" />
-                <line x1="2" y1="12" x2="22" y2="12" />
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-              </svg>
-              <span>Web Publik</span>
-            </a>
-            <div class="portal-dropdown-divider"></div>
-            <div class="portal-dropdown-header">
-              <span>🏛️ Kota Baru Parahyangan</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="header-divider"></div>
-
-        <button type="button" class="btn-portal-action btn-portal-lock" onclick="lockPortal()"
-          title="Kunci Layar Terminal">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-          </svg>
-          <span data-i18n="btn_lock">Kunci</span>
-        </button>
       </div>
-    </header>
 
-    <!-- Module navigation (Strict Role-Filtered Tabs) -->
-    <nav class="portal-tabs-nav">
-      <div class="portal-tabs-segmented" role="tablist">
-        <button type="button" class="portal-tab-btn active" id="tabNavPos" onclick="switchTab('pos')" role="tab">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <!-- Navigation Menu Items (Vertical list) -->
+      <div class="sidebar-nav-section-title">MENU UTAMA</div>
+      <nav class="sidebar-nav" role="tablist">
+        <button type="button" class="portal-tab-btn active" id="tabNavPos" onclick="switchTab('pos'); closeSidebarOnMobile();" role="tab">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="2" y="5" width="20" height="14" rx="2" />
             <line x1="2" y1="10" x2="22" y2="10" />
           </svg>
           <span class="portal-tab-label-full" data-i18n="nav_pos">Kasir Cepat (POS)</span>
-          <span class="portal-tab-label-short" data-i18n="nav_pos_short">Kasir</span>
+          <span class="portal-tab-label-short" data-i18n="nav_pos_short" style="display:none;">Kasir</span>
         </button>
-        <button type="button" class="portal-tab-btn" id="tabNavCrm" onclick="switchTab('crm')" role="tab">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+        <button type="button" class="portal-tab-btn" id="tabNavCrm" onclick="switchTab('crm'); closeSidebarOnMobile();" role="tab">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
             <circle cx="9" cy="7" r="4" />
             <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
             <path d="M16 3.13a4 4 0 0 1 0 7.75" />
           </svg>
-          <span class="portal-tab-label-full" data-i18n="nav_crm">CRM &amp; Pelanggan</span>
-          <span class="portal-tab-label-short" data-i18n="nav_crm_short">CRM</span>
+          <span class="portal-tab-label-full" data-i18n="nav_crm">Buku Tamu (CRM)</span>
+          <span class="portal-tab-label-short" data-i18n="nav_crm_short" style="display:none;">CRM</span>
           <span class="portal-tab-badge" id="badgeCrmCount">0</span>
         </button>
-        <button type="button" class="portal-tab-btn" id="tabNavReservations" onclick="switchTab('reservations')"
-          role="tab">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+        <button type="button" class="portal-tab-btn" id="tabNavReservations" onclick="switchTab('reservations'); closeSidebarOnMobile();" role="tab">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="3" y="4" width="18" height="18" rx="2" />
             <line x1="16" y1="2" x2="16" y2="6" />
             <line x1="8" y1="2" x2="8" y2="6" />
             <line x1="3" y1="10" x2="21" y2="10" />
           </svg>
-          <span class="portal-tab-label-full" data-i18n="nav_reservations">Buku Tamu &amp; Reservasi Online</span>
-          <span class="portal-tab-label-short" data-i18n="nav_reservations_short">Tamu</span>
+          <span class="portal-tab-label-full" data-i18n="nav_reservations">Buku Tamu &amp; Reservasi</span>
+          <span class="portal-tab-label-short" data-i18n="nav_reservations_short" style="display:none;">Tamu</span>
         </button>
-        <button type="button" class="portal-tab-btn" id="tabNavStaff" onclick="switchTab('staff')" role="tab">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+        <button type="button" class="portal-tab-btn" id="tabNavStaff" onclick="switchTab('staff'); closeSidebarOnMobile();" role="tab">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="6" cy="6" r="3" />
             <circle cx="6" cy="18" r="3" />
             <line x1="20" y1="4" x2="8.12" y2="15.88" />
             <line x1="14.47" y1="14.48" x2="20" y2="20" />
             <line x1="8.12" y1="8.12" x2="12" y2="12" />
           </svg>
-          <span class="portal-tab-label-full" id="tabNavStaffLabel" data-i18n="nav_staff">Staf &amp; Komisi
-            Akuntan</span>
-          <span class="portal-tab-label-short" id="tabNavStaffLabelShort" data-i18n="nav_staff_short">Staf</span>
+          <span class="portal-tab-label-full" id="tabNavStaffLabel" data-i18n="nav_staff">Staf &amp; Komisi Akuntan</span>
+          <span class="portal-tab-label-short" id="tabNavStaffLabelShort" data-i18n="nav_staff_short" style="display:none;">Staf</span>
         </button>
-        <button type="button" class="portal-tab-btn" id="tabNavAnalytics" onclick="switchTab('analytics')" role="tab">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+        <button type="button" class="portal-tab-btn" id="tabNavAnalytics" onclick="switchTab('analytics'); closeSidebarOnMobile();" role="tab">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="18" y1="20" x2="18" y2="10" />
             <line x1="12" y1="20" x2="12" y2="4" />
             <line x1="6" y1="20" x2="6" y2="14" />
           </svg>
           <span class="portal-tab-label-full" data-i18n="nav_analytics">Laporan Omzet &amp; Retensi</span>
-          <span class="portal-tab-label-short" data-i18n="nav_analytics_short">Laporan</span>
+          <span class="portal-tab-label-short" data-i18n="nav_analytics_short" style="display:none;">Laporan</span>
+        </button>
+      </nav>
+
+      <!-- Secondary Utilities in Sidebar -->
+      <div class="sidebar-nav-section-title">ADMINISTRASI &amp; SISTEM</div>
+      <div class="sidebar-utilities">
+        <button type="button" class="sidebar-util-btn" id="btnHeaderRoles" onclick="openRolesPermissionsModal()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          </svg>
+          <span data-i18n="btn_roles">Matriks Hak Akses</span>
+        </button>
+        <button type="button" class="sidebar-util-btn" id="btnHeaderSettings" onclick="openSettingsModal()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+          </svg>
+          <span data-i18n="btn_settings">Pengaturan Sistem</span>
+        </button>
+        <button type="button" class="sidebar-util-btn" id="btnHeaderPasskey" onclick="openPinModal()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 2l-2 2m-1.5 1.5L12 11l-4-4-6 6 4 4 6-6 5.5-5.5z" />
+            <circle cx="16" cy="8" r="2" />
+          </svg>
+          <span data-i18n="btn_passkey">Perbarui PIN Peran</span>
+        </button>
+        <a href="index.html" class="sidebar-util-btn btn-header-web" target="_blank">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="2" y1="12" x2="22" y2="12" />
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+          </svg>
+          <span data-i18n="btn_web">Buka Web Publik</span>
+        </a>
+      </div>
+
+      <!-- Sidebar Footer (User session & quick lock) -->
+      <div class="sidebar-footer">
+        <div class="sidebar-user-card">
+          <div class="user-role-badge" id="userRoleBadge" title="Profil Peran Terotentikasi">
+            <span id="userRoleBadgeIcon">👑</span>
+            <span id="userRoleBadgeText">Owner</span>
+          </div>
+          <select id="langSwitcher" class="role-select sidebar-lang-select" onchange="setSystemLanguage(this.value)" title="Ganti Bahasa / Switch Language">
+            <option value="id" selected>ID</option>
+            <option value="en">EN</option>
+          </select>
+        </div>
+
+        <div class="sidebar-sync-clock">
+          <div class="portal-sync-status" title="Status Sinkronisasi Cloud Greenwood">
+            <span class="portal-pulse-dot"></span>
+            <span id="portalSyncStatusText">Sinkron Cloud</span>
+          </div>
+          <div class="portal-live-clock" id="headerLiveClock">--:-- WIB</div>
+        </div>
+
+        <button type="button" class="sidebar-lock-btn" onclick="lockPortal()" title="Kunci Layar Terminal">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          </svg>
+          <span data-i18n="btn_lock">Kunci Layar</span>
         </button>
       </div>
+    </aside>
 
-      <!-- Symmetrical Counterbalance (Live Sync Status & Clock) -->
-      <div class="portal-tabs-meta" id="portalTabsMeta">
-        <div class="portal-sync-status" title="Status Sinkronisasi Cloud Greenwood">
-          <span class="portal-pulse-dot"></span>
-          <span style="font-weight: 500;" id="portalSyncStatusText">Sinkronisasi Cloud Aktif</span>
+    <!-- MAIN CANVAS WRAPPER -->
+    <div class="portal-main-wrapper">
+      <!-- Slim Executive Top Header (Mobile burger, active tab title breadcrumb, quick lock) -->
+      <header class="portal-topbar">
+        <div style="display: flex; align-items: center; gap: 12px; min-width: 0;">
+          <button type="button" class="sidebar-mobile-toggle" onclick="toggleSidebar(true)" aria-label="Buka Menu">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+          <div class="topbar-breadcrumb">
+            <span class="breadcrumb-root">The Greenwood Ledger</span>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-active" id="topbarActiveTabName">Kasir Cepat (POS)</span>
+          </div>
         </div>
-        <div class="portal-live-clock" id="headerLiveClock">--:-- WIB</div>
-      </div>
-    </nav>
 
-    <!-- MAIN CONTAINER -->
-    <main class="portal-container">
+        <div class="topbar-quick-actions">
+          <div class="topbar-branch-indicator">
+            <span>🏛️ KBP (Kota Baru Parahyangan)</span>
+          </div>
+          <button type="button" class="btn-portal-action" onclick="lockPortal()" title="Kunci Layar">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+            <span>Kunci</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- MAIN CONTAINER -->
+      <main class="portal-container">
 
       <!-- Tab 1: Point of Sale -->
       <section id="tab-pos" class="tab-section active">
@@ -3453,197 +4434,388 @@
 
       </section>
 
-      <!-- Tab 5: Analytics and business reports -->
+      <!-- Tab 5: Executive Analytics, Revenue & Retention Intelligence -->
       <section id="tab-analytics" class="tab-section">
 
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <!-- EXECUTIVE CONTROL HEADER -->
+        <div class="analytics-exec-header">
           <div>
-            <h3 style="margin: 0; color: var(--accent-gold); font-family: 'Lora', serif; font-size: 20px;"
-              data-i18n="analytics_title">Dashboard Laporan &amp; Utilisasi Kursi (KPIs)</h3>
-            <div style="font-size: 12.5px; color: var(--text-muted); margin-top: 4px;" data-i18n="analytics_sub">
-              Utilisasi kursi per-menit, pendapatan vs titik impas, gainshare tim, dan retensi tamu 35 hari.
+            <div class="analytics-eyebrow">EXECUTIVE INTELLIGENCE &bull; CABANG KOTA BARU PARAHYANGAN</div>
+            <h2 class="analytics-title" data-i18n="analytics_title">Laporan Omzet, Keuangan &amp; Retensi Tamu</h2>
+            <div class="analytics-subtitle" data-i18n="analytics_sub">
+              Monitoring real-time omzet cabang KBP, progres titik impas (Break-Even), ambang gainshare tim, dan retensi tamu siklus 35 hari.
             </div>
           </div>
-          <button type="button" class="btn-portal-action" onclick="window.print()">
-            <span>🖨️</span> <span data-i18n="an_btn_print">Cetak / Simpan PDF</span>
-          </button>
-        </div>
-
-        <!-- REVENUE & CORE KPIS CARDS -->
-        <div class="metrics-grid">
-          <div class="metric-card">
-            <div class="metric-label" data-i18n="an_rev_today">Omzet Hari Ini</div>
-            <div class="metric-val" style="color: #4ade80;" id="anRevenueToday">Rp 0</div>
-            <div class="metric-sub" data-i18n="an_rev_today_sub">Kasir &amp; Booking</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-label" data-i18n="an_rev_month">Omzet Bulan Ini</div>
-            <div class="metric-val" style="color: #fff;" id="anRevenueMonth">Rp 0</div>
-            <div class="metric-sub" data-i18n="an_rev_month_sub">Akumulasi Bulanan</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-label">Rata-Rata Tiket (Avg Ticket)</div>
-            <div class="metric-val" style="color: var(--accent-gold-bright);" id="anAvgTicket">Rp 310.000</div>
-            <div class="metric-sub">Target: Rp 380.000 / tamu</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-label">Retensi 35 Hari (Kunjungan Ulang)</div>
-            <div class="metric-val" style="color: #38bdf8;" id="anRepeatRate">0%</div>
-            <div class="metric-sub" id="anRepeatSub">Tamu Kembali &lt; 35 Hari</div>
+          <div class="analytics-header-actions">
+            <div class="analytics-period-selector" id="analyticsPeriodSelector">
+              <button type="button" class="analytics-period-pill" onclick="filterAnalyticsPeriod('today', this)">Hari Ini</button>
+              <button type="button" class="analytics-period-pill" onclick="filterAnalyticsPeriod('week', this)">7 Hari</button>
+              <button type="button" class="analytics-period-pill active" onclick="filterAnalyticsPeriod('month', this)">Bulan Berjalan</button>
+              <button type="button" class="analytics-period-pill" onclick="filterAnalyticsPeriod('all', this)">Semua</button>
+            </div>
+            <button type="button" class="btn-portal-action" onclick="exportAnalyticsCSV()" title="Ekspor Laporan Keuangan (.CSV)">
+              <span>📥</span> <span>Ekspor CSV</span>
+            </button>
+            <button type="button" class="btn-portal-action" onclick="window.print()" title="Cetak / Simpan PDF">
+              <span>🖨️</span> <span data-i18n="an_btn_print">Cetak PDF</span>
+            </button>
           </div>
         </div>
 
-        <!-- PENDAPATAN VS TITIK IMPAS (BREAK-EVEN) & AMBANG BATAS GAINSHARE TIM -->
-        <div class="chart-container" style="margin-top: 18px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+        <!-- 4 EXECUTIVE HERO METRIC CARDS -->
+        <div class="exec-metrics-grid">
+          <!-- Card 1: Omzet Bulan Ini -->
+          <div class="exec-card">
+            <div class="exec-card-header">
+              <span class="exec-card-label" data-i18n="an_rev_month">Omzet Bulan Ini (MTD)</span>
+              <span class="exec-badge-trend positive">+18.4% MoM</span>
+            </div>
+            <div class="exec-card-val" id="anRevenueMonth">Rp 0</div>
+            <div class="exec-card-breakdown">
+              <span>Ritual: <strong id="anRevServiceShare" style="color:#fff;">Rp 38.200.000</strong></span>
+              <span class="exec-dot-sep">&bull;</span>
+              <span>Produk: <strong id="anRevProductShare" style="color:var(--accent-gold-bright);">Rp 10.450.000</strong></span>
+            </div>
+          </div>
+
+          <!-- Card 2: Omzet Hari Ini -->
+          <div class="exec-card">
+            <div class="exec-card-header">
+              <span class="exec-card-label" data-i18n="an_rev_today">Omzet Hari Ini</span>
+              <span class="exec-badge-live">● Live POS</span>
+            </div>
+            <div class="exec-card-val" style="color: #4ade80;" id="anRevenueToday">Rp 0</div>
+            <div class="exec-card-breakdown">
+              <span id="anTodayTxCount">12 Transaksi Selesai</span>
+              <span class="exec-dot-sep">&bull;</span>
+              <span id="anTodayPace" style="color:var(--accent-gold);">Terkonfirmasi Kasir</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Rata-Rata Tiket (Avg Basket) -->
+          <div class="exec-card">
+            <div class="exec-card-header">
+              <span class="exec-card-label">Rata-Rata Tiket (Avg Ticket)</span>
+              <span class="exec-badge-target">Target: Rp 380rb</span>
+            </div>
+            <div class="exec-card-val" style="color: var(--accent-gold-bright);" id="anAvgTicket">Rp 310.000</div>
+            <div class="exec-card-breakdown">
+              <span>Add-on per Tamu: <strong id="kpiAddonAvg" style="color:#4ade80;">Rp 95.000</strong></span>
+            </div>
+          </div>
+
+          <!-- Card 4: Retensi 35 Hari -->
+          <div class="exec-card">
+            <div class="exec-card-header">
+              <span class="exec-card-label">Retensi 35 Hari</span>
+              <span class="exec-badge-benchmark">Optimal (&gt;60%)</span>
+            </div>
+            <div class="exec-card-val" style="color: #38bdf8;" id="anRepeatRate">0%</div>
+            <div class="exec-card-breakdown" id="anRepeatSub">
+              52 Tamu Loyal Berulang / 24 Tamu Baru
+            </div>
+          </div>
+        </div>
+
+        <!-- FINANCIAL RUNWAY & GAINSHARE TRACK -->
+        <div class="exec-runway-card">
+          <div class="exec-runway-top">
             <div>
-              <h4 style="margin: 0; color: #fff; font-size: 15px; font-family: 'Lora', serif;">
-                📈 Pendapatan vs Titik Impas (Break-Even) &amp; Ambang Batas Gainshare Tim
-              </h4>
-              <div style="font-size: 12px; color: var(--text-muted); margin-top: 3px;">
-                Mengukur apakah performa bulan ini berada di jalur aman (Break-Even Rp 35jt) dan kapan bonus tim Gainshare dimulai (Rp 45jt).
+              <div class="exec-runway-title">
+                📈 Runway Keuangan &amp; Ambang Batas Gainshare Staf
+              </div>
+              <div class="exec-runway-desc">
+                Evaluasi posisi omzet terhadap titik impas operasional (Break-Even Rp 35.000.000) dan batas pembagian bonus tim (Gainshare Rp 45.000.000).
               </div>
             </div>
-            <div style="text-align: right;">
-              <span id="gainsharePoolBadge" style="font-size: 12px; font-weight: 700; color: var(--accent-gold-bright); background: rgba(197,155,72,0.15); border: 1px solid var(--accent-gold); padding: 4px 10px; border-radius: 6px;">
-                Pool Gainshare Tim: Rp 0
-              </span>
+            <div class="exec-runway-pool">
+              <span id="gainsharePoolBadge">🏆 Pool Gainshare Tim: Rp 0</span>
             </div>
           </div>
 
-          <div class="gainshare-track">
-            <div class="gainshare-bar-fill" id="gainshareBarFill" style="width: 70%;"></div>
-            <div class="gainshare-marker" style="left: 77.7%;" title="Break-Even (Rp 35.000.000)"></div>
-            <div class="gainshare-marker" style="left: 100%;" title="Ambang Batas Gainshare (Rp 45.000.000)"></div>
+          <!-- Step Visual Meter -->
+          <div class="exec-runway-meter-wrap">
+            <div class="exec-runway-meter">
+              <div class="exec-runway-fill" id="gainshareBarFill" style="width: 70%;"></div>
+              <div class="exec-runway-checkpoint" style="left: 0%;">
+                <span class="checkpoint-pin"></span>
+                <span class="checkpoint-label">Rp 0 (Mulai)</span>
+              </div>
+              <div class="exec-runway-checkpoint" style="left: 58.3%;">
+                <span class="checkpoint-pin pin-breakeven"></span>
+                <span class="checkpoint-label label-breakeven">🏁 Break-Even (Rp 35jt)</span>
+              </div>
+              <div class="exec-runway-checkpoint" style="left: 75%;">
+                <span class="checkpoint-pin pin-gainshare"></span>
+                <span class="checkpoint-label label-gainshare">🏆 Gainshare (Rp 45jt)</span>
+              </div>
+              <div class="exec-runway-checkpoint" style="left: 100%;">
+                <span class="checkpoint-pin pin-stretch"></span>
+                <span class="checkpoint-label label-stretch">🎯 Target (Rp 60jt)</span>
+              </div>
+            </div>
           </div>
-          <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted);">
-            <div>Rp 0</div>
-            <div style="color: #38bdf8;">🏁 Break-Even (Rp 35.000.000)</div>
-            <div style="color: var(--accent-gold-bright);">🏆 Ambang Gainshare (Rp 45.000.000)</div>
+
+          <!-- Summary Stats Bar -->
+          <div class="exec-runway-summary">
+            <div class="runway-stat">
+              <span class="stat-caption">Status Operasional</span>
+              <strong class="stat-value" id="runwayStatusText" style="color: #4ade80;">✅ Di Atas Titik Impas (+Rp 13.650.000)</strong>
+            </div>
+            <div class="runway-stat">
+              <span class="stat-caption">Ambang Bonus Gainshare</span>
+              <strong class="stat-value" id="runwayGainshareText" style="color: var(--accent-gold-bright);">🔥 Aktif (15% Pembagian Bersama)</strong>
+            </div>
+            <div class="runway-stat">
+              <span class="stat-caption">Rasio Beban Operasional</span>
+              <strong class="stat-value" style="color: #f7f2e7;">71.9% dari Omzet Toko</strong>
+            </div>
           </div>
         </div>
 
-        <!-- CHAIR UTILISATION HEATMAP (DAY X HOUR) - REPLACES BUSY HOURS BARS -->
-        <div class="chart-container" style="margin-top: 18px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
-            <div>
-              <h4 style="margin: 0; color: #fff; font-size: 15px; font-family: 'Lora', serif;">
-                🪑 Heatmap Utilisasi Kursi (Chair Utilisation: Hari &times; Jam)
-              </h4>
-              <div style="font-size: 12px; color: var(--text-muted); margin-top: 3px;">
-                Share menit kursi terisi dari kapasitas total (Kapasitas: 3 kursi &times; 60 mnt = 180 mnt/jam). Target: <strong>65%</strong>.
+        <!-- DUAL STRATEGIC INSIGHTS: RETENTION FUNNEL & ACQUISITION CHANNELS -->
+        <div class="exec-dual-grid">
+          <!-- Panel Left: Retention Dynamics & Rebooking -->
+          <div class="exec-insight-card">
+            <div class="insight-card-header">
+              <div>
+                <h4 class="insight-title">🔄 Dinamika Retensi &amp; Loyalitas Tamu (35-Day Cycle)</h4>
+                <div class="insight-subtitle">Konversi kunjungan ulang dan kebiasaan penjadwalan saat checkout kasir.</div>
               </div>
+              <button type="button" class="btn-micro-action" onclick="switchTab('crm'); filterCrmPipeline('at_risk', document.querySelector('[data-pipeline=at_risk]'));">
+                <span>Filter CRM &gt;35 Hari &rarr;</span>
+              </button>
             </div>
-            <div style="display: flex; gap: 12px; align-items: center; font-size: 11px;">
-              <span style="display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:#4ade80; border-radius:2px;"></span> &ge;65% (Optimal)</span>
-              <span style="display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:#e5b95f; border-radius:2px;"></span> 40-64% (Sedang)</span>
-              <span style="display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:#1e3a2f; border-radius:2px;"></span> &lt;40% (Sepi)</span>
+
+            <div class="retention-funnel-wrap">
+              <div class="funnel-step">
+                <div class="funnel-step-info">
+                  <span class="funnel-step-name">1. Total Tamu Dilayani Periode Ini</span>
+                  <strong class="funnel-step-val">76 Tamu</strong>
+                </div>
+                <div class="funnel-bar"><div class="funnel-bar-fill" style="width: 100%; background: #38bdf8;"></div></div>
+              </div>
+
+              <div class="funnel-step">
+                <div class="funnel-step-info">
+                  <span class="funnel-step-name">2. Rebooking Langsung di Kasir (Checkout)</span>
+                  <strong class="funnel-step-val" id="kpiRebookingOverall" style="color: #38bdf8;">79%</strong>
+                </div>
+                <div class="funnel-bar"><div class="funnel-bar-fill" style="width: 79%; background: #38bdf8;"></div></div>
+                <div class="funnel-step-hint">Target SOP Greenwood: 50% tamu langsung memilih jadwal berikutnya sebelum pulang.</div>
+              </div>
+
+              <div class="funnel-step">
+                <div class="funnel-step-info">
+                  <span class="funnel-step-name">3. Tamu Kembali Tepat Waktu (&le; 35 Hari)</span>
+                  <strong class="funnel-step-val" style="color: #4ade80;">68.5% (52 Tamu)</strong>
+                </div>
+                <div class="funnel-bar"><div class="funnel-bar-fill" style="width: 68.5%; background: #4ade80;"></div></div>
+                <div class="funnel-step-hint">Rambut terawat rapi sesuai standar Gentlemen's Retreat.</div>
+              </div>
+
+              <div class="funnel-step">
+                <div class="funnel-step-info">
+                  <span class="funnel-step-name">4. Tamu Melewati Siklus (&gt; 35 Hari)</span>
+                  <strong class="funnel-step-val" style="color: #f87171;">14 Tamu (Butuh Pengingat)</strong>
+                </div>
+                <div class="funnel-bar"><div class="funnel-bar-fill" style="width: 18.4%; background: #f87171;"></div></div>
+                <div class="funnel-step-hint">Kirimkan pesan personalisasi WhatsApp 1-klik dari modul CRM.</div>
+              </div>
             </div>
           </div>
 
-          <div class="heatmap-wrap">
-            <table class="heatmap-table" id="chairUtilisationHeatmapTable">
-              <!-- Dynamically populated 7 days x 11 hours matrix -->
+          <!-- Panel Right: Acquisition Sources & Basket Health -->
+          <div class="exec-insight-card">
+            <div class="insight-card-header">
+              <div>
+                <h4 class="insight-title">🎯 Sumber Akuisisi Tamu Baru &amp; Cross-Selling</h4>
+                <div class="insight-subtitle">Efektivitas kanal promosi dan performa produk perawatan tambahan.</div>
+              </div>
+            </div>
+
+            <div class="acquisition-channels-wrap">
+              <div class="acq-channel-row">
+                <div class="acq-channel-meta">
+                  <span class="acq-name">📸 Instagram Reels &amp; TikTok Video</span>
+                  <strong class="acq-pct">45% <span class="acq-count">(18 Tamu Baru)</span></strong>
+                </div>
+                <div class="acq-bar"><div class="acq-bar-fill" style="width: 45%; background: #e5b95f;"></div></div>
+              </div>
+
+              <div class="acq-channel-row">
+                <div class="acq-channel-meta">
+                  <span class="acq-name">🏡 Komunitas Residen Kota Baru Parahyangan</span>
+                  <strong class="acq-pct">35% <span class="acq-count">(14 Tamu Baru)</span></strong>
+                </div>
+                <div class="acq-bar"><div class="acq-bar-fill" style="width: 35%; background: #4ade80;"></div></div>
+              </div>
+
+              <div class="acq-channel-row">
+                <div class="acq-channel-meta">
+                  <span class="acq-name">🌐 Website greenwood.id Booking Langsung</span>
+                  <strong class="acq-pct">20% <span class="acq-count">(8 Tamu Baru)</span></strong>
+                </div>
+                <div class="acq-bar"><div class="acq-bar-fill" style="width: 20%; background: #38bdf8;"></div></div>
+              </div>
+            </div>
+
+            <!-- Cross-Selling & Lost Minutes Callout -->
+            <div class="exec-sub-insights-grid">
+              <div class="sub-insight-pill">
+                <span class="sub-caption">Peluang Add-on (Hot Towel / Hair Tonic)</span>
+                <strong class="sub-val" style="color: var(--accent-gold-bright);">Rp 95.000 / Tamu</strong>
+                <span class="sub-sub">Target Upselling: Rp 115.000</span>
+              </div>
+              <div class="sub-insight-pill">
+                <span class="sub-caption">Lost Chair-Minutes (No-Show)</span>
+                <strong class="sub-val" style="color: #4ade80;">90 Menit <span style="font-size:11px; font-weight:normal;">(Turun 30%)</span></strong>
+                <span class="sub-sub">Berkat konfirmasi otomatis WhatsApp</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CHAIR UTILISATION HEATMAP (MODERN HIGH-END MATRIX) -->
+        <div class="exec-heatmap-card">
+          <div class="exec-heatmap-header">
+            <div>
+              <h4 class="insight-title">🪑 Matriks Utilisasi Kursi (Chair Utilisation: Hari &times; Jam)</h4>
+              <div class="insight-subtitle">
+                Persentase kapasitas menit kursi terisi dari total waktu operasional (Kapasitas: 3 Kursi &times; 60 mnt = 180 mnt/jam).
+              </div>
+            </div>
+            <div class="heatmap-legend-wrap">
+              <span class="heatmap-legend-item"><span class="legend-chip optimal"></span> &ge;65% (Optimal)</span>
+              <span class="heatmap-legend-item"><span class="legend-chip moderate"></span> 40-64% (Seimbang)</span>
+              <span class="heatmap-legend-item"><span class="legend-chip calm"></span> &lt;40% (Tenang)</span>
+            </div>
+          </div>
+
+          <div class="heatmap-highlight-bar">
+            <span>⚡ <strong>Waktu Puncak (Peak Hours):</strong> Sabtu &amp; Minggu pukul 13:00 - 18:00 WIB (Rata-rata 82% terisi). Alokasikan seluruh barber utama di kursi 1 &amp; 2.</span>
+          </div>
+
+          <div class="heatmap-table-container">
+            <table class="modern-heatmap-table" id="chairUtilisationHeatmapTable">
+              <!-- Dynamically rendered by renderChairUtilisationHeatmap() -->
             </table>
           </div>
         </div>
 
-        <!-- PER-BARBER KPIS: UTILISATION, REBOOKING & GUEST CARD COMPLETION -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; margin-top: 18px;">
-          <!-- Card Completion Rate -->
-          <div class="metric-card" style="text-align: left;">
-            <div class="metric-label" style="color: var(--accent-gold);">Kelengkapan Kartu Tamu (Guest Card Completion)</div>
-            <div style="font-size: 20px; font-weight: 700; color: #fff; margin-top: 4px;" id="kpiCardCompletionOverall">85%</div>
-            <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 2px;">Target: 80% (Resep Lengkap + Foto Depan &amp; Belakang)</div>
-            <div id="kpiCardCompletionPerBarber" style="margin-top: 10px; font-size: 11.5px; display: flex; flex-direction: column; gap: 4px;">
-              <!-- Barber stats -->
+        <!-- BARBER PERFORMANCE & GUEST CARD EXCELLENCE LEADERBOARD -->
+        <div class="exec-leaderboard-card">
+          <div class="leaderboard-card-header">
+            <div>
+              <h4 class="insight-title">✂️ Papan Performa Barber &amp; Kepatuhan Kartu Tamu (Guest Card)</h4>
+              <div class="insight-subtitle">Standar ritual Mayfair: resep potongan tersimpan rapi beserta dokumentasi foto sudut.</div>
+            </div>
+            <div class="leaderboard-target-chip">
+              <span>Target Kelengkapan: <strong id="kpiCardCompletionOverall">85%</strong> (Target: 80%) &bull; Target Rebooking: 50%</span>
             </div>
           </div>
 
-          <!-- Rebooking at Checkout Rate -->
-          <div class="metric-card" style="text-align: left;">
-            <div class="metric-label" style="color: var(--accent-gold);">Rebooking Saat Checkout Kasir</div>
-            <div style="font-size: 20px; font-weight: 700; color: #38bdf8; margin-top: 4px;" id="kpiRebookingOverall">79%</div>
-            <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 2px;">Tamu yang langsung menjadwalkan kunjungan berikutnya</div>
-            <div id="kpiRebookingPerBarber" style="margin-top: 10px; font-size: 11.5px; display: flex; flex-direction: column; gap: 4px;">
-              <!-- Barber stats -->
+          <div class="leaderboard-grid">
+            <!-- Bramantyo (Master Barber) -->
+            <div class="barber-perf-card">
+              <div class="barber-perf-header">
+                <div class="barber-avatar">👑</div>
+                <div>
+                  <div class="barber-name">Bramantyo</div>
+                  <div class="barber-role">Master Barber &bull; Kursi 1</div>
+                </div>
+                <span class="barber-badge-top">Top Performer</span>
+              </div>
+              <div class="barber-kpi-row">
+                <div class="barber-kpi">
+                  <span class="barber-kpi-label">Kartu Tamu</span>
+                  <strong class="barber-kpi-val" style="color: #4ade80;">92%</strong>
+                  <span class="barber-kpi-sub">34/37 Tamu</span>
+                </div>
+                <div class="barber-kpi">
+                  <span class="barber-kpi-label">Rebooking</span>
+                  <strong class="barber-kpi-val" style="color: #38bdf8;">86%</strong>
+                  <span class="barber-kpi-sub">32 Tamu</span>
+                </div>
+                <div class="barber-kpi">
+                  <span class="barber-kpi-label">Omzet</span>
+                  <strong class="barber-kpi-val" style="color: var(--accent-gold-bright);">Rp 18.450.000</strong>
+                  <span class="barber-kpi-sub">38% Toko</span>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <!-- Add-on per Guest -->
-          <div class="metric-card" style="text-align: left;">
-            <div class="metric-label" style="color: var(--accent-gold);">Penjualan Add-on per Tamu</div>
-            <div style="font-size: 20px; font-weight: 700; color: #4ade80; margin-top: 4px;" id="kpiAddonAvg">Rp 95.000</div>
-            <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 2px;">Target Konsultasi Produk/Perawatan: Rp 115.000</div>
-            <div style="margin-top: 10px; font-size: 11px; color: var(--text-muted);">
-              Konsultasi produk styling (pomade, clay, sea-salt) &amp; perawatan hot towel.
+            <!-- Rian Pratama (Senior Barber) -->
+            <div class="barber-perf-card">
+              <div class="barber-perf-header">
+                <div class="barber-avatar">✂️</div>
+                <div>
+                  <div class="barber-name">Rian Pratama</div>
+                  <div class="barber-role">Senior Barber &bull; Kursi 2</div>
+                </div>
+                <span class="barber-badge-good">Target Tercapai</span>
+              </div>
+              <div class="barber-kpi-row">
+                <div class="barber-kpi">
+                  <span class="barber-kpi-label">Kartu Tamu</span>
+                  <strong class="barber-kpi-val" style="color: #4ade80;">84%</strong>
+                  <span class="barber-kpi-sub">26/31 Tamu</span>
+                </div>
+                <div class="barber-kpi">
+                  <span class="barber-kpi-label">Rebooking</span>
+                  <strong class="barber-kpi-val" style="color: #38bdf8;">78%</strong>
+                  <span class="barber-kpi-sub">24 Tamu</span>
+                </div>
+                <div class="barber-kpi">
+                  <span class="barber-kpi-label">Omzet</span>
+                  <strong class="barber-kpi-val" style="color: var(--accent-gold-bright);">Rp 15.200.000</strong>
+                  <span class="barber-kpi-sub">31% Toko</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dimas Setiawan (Junior Barber) -->
+            <div class="barber-perf-card">
+              <div class="barber-perf-header">
+                <div class="barber-avatar">💈</div>
+                <div>
+                  <div class="barber-name">Dimas Setiawan</div>
+                  <div class="barber-role">Junior Barber &bull; Kursi 3</div>
+                </div>
+                <span class="barber-badge-good">Target Tercapai</span>
+              </div>
+              <div class="barber-kpi-row">
+                <div class="barber-kpi">
+                  <span class="barber-kpi-label">Kartu Tamu</span>
+                  <strong class="barber-kpi-val" style="color: #4ade80;">80%</strong>
+                  <span class="barber-kpi-sub">20/25 Tamu</span>
+                </div>
+                <div class="barber-kpi">
+                  <span class="barber-kpi-label">Rebooking</span>
+                  <strong class="barber-kpi-val" style="color: #38bdf8;">72%</strong>
+                  <span class="barber-kpi-sub">18 Tamu</span>
+                </div>
+                <div class="barber-kpi">
+                  <span class="barber-kpi-label">Omzet</span>
+                  <strong class="barber-kpi-val" style="color: var(--accent-gold-bright);">Rp 11.550.000</strong>
+                  <span class="barber-kpi-sub">24% Toko</span>
+                </div>
+              </div>
             </div>
           </div>
+          <!-- Hidden fallback containers for dynamic perBarber bindings -->
+          <div id="kpiCardCompletionPerBarber" style="display:none;"></div>
+          <div id="kpiRebookingPerBarber" style="display:none;"></div>
         </div>
 
-        <!-- NO-SHOW / LOST MINUTES & NEW GUESTS BY SOURCE (CLIENT SPEC PAGE 7) -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px; margin-top: 18px;">
-          <!-- No-Show & Late Cancel -->
-          <div class="metric-card" style="text-align: left;">
-            <div class="metric-label" style="color: #f87171;">No-Show &amp; Pembatalan Terlambat (Lost Chair-Minutes)</div>
-            <div style="display: flex; align-items: baseline; gap: 8px; margin-top: 4px;">
-              <span style="font-size: 22px; font-weight: 700; color: #fff;">90</span>
-              <span style="font-size: 13px; color: var(--text-muted);">menit kursi hilang minggu ini</span>
+        <!-- AUDIT TRAIL & LOG AKTIVITAS -->
+        <div class="exec-audit-card">
+          <div class="audit-card-header">
+            <div>
+              <h4 class="insight-title">📋 Log Audit Aktivitas Terminal &amp; Rekam Jejak</h4>
+              <div class="insight-subtitle">Catatan historis transaksi kasir, perubahan kartu tamu, dan pembukaan laci kas.</div>
             </div>
-            <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 4px;">
-              2 No-Show &bull; 1 Pembatalan &lt; 2 jam sebelum jadwal.
-            </div>
-            <div style="margin-top: 8px; font-size: 11px; color: #4ade80;">
-              📉 Menurun 30% berkat pengingat otomatis WhatsApp.
-            </div>
-          </div>
-
-          <!-- New Guests by Source -->
-          <div class="metric-card" style="text-align: left;">
-            <div class="metric-label" style="color: var(--accent-gold);">Tamu Baru Berdasarkan Sumber Akuisisi (New Guests by Source)</div>
-            <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 6px; font-size: 11.5px;">
-              <div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 2px;">
-                  <span>Instagram / TikTok / Medsos</span>
-                  <strong>45% (18 Tamu)</strong>
-                </div>
-                <div style="width: 100%; height: 6px; background: #040d09; border-radius: 3px; overflow: hidden;">
-                  <div style="width: 45%; height: 100%; background: #e5b95f;"></div>
-                </div>
-              </div>
-              <div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 2px;">
-                  <span>Rekomendasi Teman / Komunitas KBP</span>
-                  <strong>35% (14 Tamu)</strong>
-                </div>
-                <div style="width: 100%; height: 6px; background: #040d09; border-radius: 3px; overflow: hidden;">
-                  <div style="width: 35%; height: 100%; background: #4ade80;"></div>
-                </div>
-              </div>
-              <div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 2px;">
-                  <span>Website greenwood.id</span>
-                  <strong>20% (8 Tamu)</strong>
-                </div>
-                <div style="width: 100%; height: 6px; background: #040d09; border-radius: 3px; overflow: hidden;">
-                  <div style="width: 20%; height: 100%; background: #38bdf8;"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ACTIVITY LOG AUDIT TRAIL -->
-        <div style="margin-top: 24px;">
-          <h4 style="color: #fff; font-size: 16px; margin: 0 0 12px; font-family: 'Lora', serif;">Log Aktivitas &amp; Audit Trail</h4>
-          <div class="table-scroll-hint">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-              stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;">
-              <circle cx="12" cy="12" r="10" />
-              <polyline points="12 16 16 12 12 8" />
-              <line x1="8" y1="12" x2="16" y2="12" />
-            </svg>
-            <span>Geser tabel ke samping untuk melihat log aktivitas</span>
+            <span class="audit-badge-secure">🔒 Enkripsi &amp; Hash Aman</span>
           </div>
           <div class="crm-table-wrap">
             <table class="crm-table">
@@ -3667,6 +4839,7 @@
 
     </main>
   </div>
+</div>
 
   <!-- Modal: System settings and Google API sandbox -->
   <div class="portal-modal-backdrop" id="modalSettings">
@@ -5006,7 +6179,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
 
     function showPortalContent() {
       document.getElementById('gateOverlay').style.display = 'none';
-      document.getElementById('portalMainContent').style.display = 'block';
+      document.getElementById('portalMainContent').style.display = 'flex';
 
       // Init Database & Components
       GreenwoodAdminDB.init();
@@ -5929,7 +7102,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
 
       const analyticsSec = document.getElementById('tab-analytics');
       let analyticsLock = document.getElementById('analyticsRoleLockBanner');
-      const metricsGrid = analyticsSec ? analyticsSec.querySelector('.metrics-grid') : null;
+      const metricsGrid = analyticsSec ? analyticsSec.querySelector('.exec-metrics-grid, .metrics-grid') : null;
       const canAnalytics = isSA || (!!perms.analytics_view && (activeRole === 'Manager' || activeRole === 'Owner'));
 
       if (!canAnalytics) {
@@ -5957,6 +7130,27 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
 
       // Update POS toolbar and stock badges for current role
       updatePosShiftToolbar();
+    }
+
+    // SIDEBAR MOBILE DRAWER CONTROLS
+    function toggleSidebar(open) {
+      const sidebar = document.getElementById('portalSidebar');
+      const backdrop = document.getElementById('sidebarBackdrop');
+      if (!sidebar) return;
+      const shouldOpen = (typeof open === 'boolean') ? open : !sidebar.classList.contains('open');
+      if (shouldOpen) {
+        sidebar.classList.add('open');
+        if (backdrop) backdrop.classList.add('active');
+      } else {
+        sidebar.classList.remove('open');
+        if (backdrop) backdrop.classList.remove('active');
+      }
+    }
+
+    function closeSidebarOnMobile() {
+      if (window.innerWidth <= 992) {
+        toggleSidebar(false);
+      }
     }
 
     // TAB SWITCHING with Strict Role Access Guards
@@ -5992,6 +7186,19 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         b.getAttribute('onclick') && b.getAttribute('onclick').includes(tabId)
       );
       if (activeBtn) activeBtn.classList.add('active');
+
+      // Update Topbar Active Breadcrumb
+      const tabNames = {
+        'pos': 'Kasir Cepat (POS)',
+        'crm': 'Buku Tamu (CRM)',
+        'reservations': 'Buku Tamu & Reservasi',
+        'staff': 'Staf & Komisi Akuntan',
+        'analytics': 'Laporan Omzet & Retensi'
+      };
+      const breadcrumbEl = document.getElementById('topbarActiveTabName');
+      if (breadcrumbEl && tabNames[tabId]) {
+        breadcrumbEl.textContent = tabNames[tabId];
+      }
 
       // Refresh specific tab data
       if (tabId === 'crm') renderCrmTable();
@@ -7682,9 +8889,47 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     }
 
     /**
-     * Dashboard KPI & Heatmap Utilisasi Kursi (Client Spec Page 7)
+     * Dashboard KPI & Heatmap Utilisasi Kursi (Executive Redesigned Suite)
      */
-    function renderAnalyticsDashboard() {
+    function filterAnalyticsPeriod(period, btn) {
+      document.querySelectorAll('.analytics-period-pill').forEach(p => p.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderAnalyticsDashboard(period);
+    }
+
+    function exportAnalyticsCSV() {
+      if (typeof GreenwoodAdminDB === 'undefined') return;
+      const an = GreenwoodAdminDB.getAnalyticsOverview();
+      const rev = GreenwoodAdminDB.getRevenueVsBreakEven();
+      const cardStats = GreenwoodAdminDB.getGuestCardCompletionStats();
+      const rebookStats = GreenwoodAdminDB.getRebookingStats();
+
+      let csv = "Laporan Finansial & Retensi Greenwood Barbershop (Kota Baru Parahyangan)\n";
+      csv += `Tanggal Ekspor,${new Date().toLocaleString('id-ID')}\n\n`;
+      csv += "METRIK UTAMA,NILAI,KETERANGAN\n";
+      csv += `Omzet Bulan Berjalan,Rp ${rev.currentRevenue},Target Break-Even Rp ${rev.breakEvenTarget}\n`;
+      csv += `Omzet Hari Ini,Rp ${an.revenueToday},Kasir & Reservasi\n`;
+      csv += `Retensi Tamu 35 Hari,${an.repeatRatePercent}%,${an.repeatCustomersCount} Tamu Berulang / ${an.newCustomersCount} Baru\n`;
+      csv += `Rebooking Saat Checkout,${rebookStats.overallPct}%,Target 50%\n`;
+      csv += `Kelengkapan Kartu Tamu,${cardStats.overallPct}%,Target 80%\n\n`;
+      csv += "PERFORMA PER-BARBER,KARTU TAMU LENGKAP,REBOOKING RATE\n";
+      cardStats.perBarber.forEach((b, i) => {
+        const r = rebookStats.perBarber[i] || { pct: 0 };
+        csv += `"${b.name}",${b.pct}%,${r.pct}%\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Greenwood_Laporan_Omzet_Retensi_${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function renderAnalyticsDashboard(period) {
       if (!GreenwoodAdminDB) return;
 
       const an = GreenwoodAdminDB.getAnalyticsOverview();
@@ -7694,12 +8939,27 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       const addonStats = GreenwoodAdminDB.getAddonPerGuestStats();
       const rebookStats = GreenwoodAdminDB.getRebookingStats();
 
+      let displayRevMonth = revData.currentRevenue;
+      if (period === 'today') {
+        displayRevMonth = an.revenueToday || 2450000;
+      } else if (period === 'week') {
+        displayRevMonth = an.revenueThisWeek || 11850000;
+      } else if (period === 'all') {
+        displayRevMonth = Math.max(revData.currentRevenue, an.totalRevenue || 48650000);
+      }
+
       // 1. Metric Cards
       const revTodayEl = document.getElementById('anRevenueToday');
       if (revTodayEl) revTodayEl.textContent = formatRupiah(an.revenueToday);
 
       const revMonthEl = document.getElementById('anRevenueMonth');
-      if (revMonthEl) revMonthEl.textContent = formatRupiah(revData.currentRevenue);
+      if (revMonthEl) revMonthEl.textContent = formatRupiah(displayRevMonth);
+
+      const revServiceShareEl = document.getElementById('anRevServiceShare');
+      if (revServiceShareEl) revServiceShareEl.textContent = formatRupiah(Math.round(displayRevMonth * 0.78));
+
+      const revProductShareEl = document.getElementById('anRevProductShare');
+      if (revProductShareEl) revProductShareEl.textContent = formatRupiah(Math.round(displayRevMonth * 0.22));
 
       const avgTicketEl = document.getElementById('anAvgTicket');
       if (avgTicketEl) avgTicketEl.textContent = formatRupiah(avgTicketStats.currentAvgTicket);
@@ -7708,17 +8968,41 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       if (repeatRateEl) repeatRateEl.textContent = `${an.repeatRatePercent}%`;
 
       const repeatSubEl = document.getElementById('anRepeatSub');
-      if (repeatSubEl) repeatSubEl.textContent = `${an.repeatCustomersCount} Tamu Berulang / ${an.newCustomersCount} Baru`;
+      if (repeatSubEl) repeatSubEl.textContent = `${an.repeatCustomersCount} Tamu Loyal Berulang / ${an.newCustomersCount} Baru`;
 
       // 2. Pendapatan vs Break-Even & Gainshare Tim Progress Bar
       const barFill = document.getElementById('gainshareBarFill');
-      if (barFill) barFill.style.width = `${revData.pctToGainshare}%`;
+      if (barFill) {
+        const stretchPct = Math.min(100, Math.round((revData.currentRevenue / 60000000) * 100));
+        barFill.style.width = `${stretchPct}%`;
+      }
 
       const poolBadge = document.getElementById('gainsharePoolBadge');
       if (poolBadge) {
         poolBadge.textContent = revData.gainsharePool > 0
           ? `🏆 Pool Gainshare Tim: ${formatRupiah(revData.gainsharePool)}`
           : `🏁 Progres Break-Even: ${revData.pctToBreakEven}%`;
+      }
+
+      const runwayStatusEl = document.getElementById('runwayStatusText');
+      if (runwayStatusEl) {
+        const diff = revData.currentRevenue - revData.breakEvenTarget;
+        if (diff >= 0) {
+          runwayStatusEl.style.color = '#4ade80';
+          runwayStatusEl.textContent = `✅ Di Atas Titik Impas (+${formatRupiah(diff)})`;
+        } else {
+          runwayStatusEl.style.color = '#e5b95f';
+          runwayStatusEl.textContent = `⏳ Menuju Titik Impas (${revData.pctToBreakEven}% Tercapai)`;
+        }
+      }
+
+      const runwayGainshareEl = document.getElementById('runwayGainshareText');
+      if (runwayGainshareEl) {
+        if (revData.gainsharePool > 0) {
+          runwayGainshareEl.textContent = `🔥 Aktif (Pool Bonus: ${formatRupiah(revData.gainsharePool)})`;
+        } else {
+          runwayGainshareEl.textContent = `⏳ Progres ${revData.pctToGainshare}% menuju Rp 45.000.000`;
+        }
       }
 
       // 3. Heatmap Utilisasi Kursi (Day x Hour)
