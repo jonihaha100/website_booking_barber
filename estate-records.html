@@ -14,9 +14,9 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Open+Sans:wght@300;400;600;700&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="assets/greenwood.css?v=20261125_v3">
+  <link rel="stylesheet" href="assets/greenwood.css?v=20261125_v4">
   <script src="assets/config.js?v=20261107_v3"></script>
-  <script src="assets/greenwood-admin-db.js?v=20261125_v3"></script>
+  <script src="assets/greenwood-admin-db.js?v=20261125_v4"></script>
 
   <style>
     :root {
@@ -912,71 +912,298 @@
     }
 
     /* ==========================================================================
-       MINUTES APP HYBRID LIGHT REPORT SUITE (TAB-ANALYTICS)
-       Clean light canvas + Dark Emerald-Gold Sidebar + Real SVG Charts & Tables
+       DUAL-THEME ENGINE: DARK GREENWOOD (DEFAULT) & LIGHT MINUTES HYBRID
        ========================================================================== */
-    .portal-main-wrapper.analytics-light-mode {
-      background: #f3f5f7;
-      color: #111827;
+    :root {
+      --mn-bg: #030c08;
+      --mn-surface: rgba(9, 28, 19, 0.82);
+      --mn-surface-solid: #091c13;
+      --mn-surface-alt: rgba(4, 15, 10, 0.85);
+      --mn-border: rgba(197, 155, 72, 0.22);
+      --mn-border-subtle: rgba(197, 155, 72, 0.14);
+      --mn-panel-head-bg: #05130c;
+      --mn-panel-head-border: rgba(197, 155, 72, 0.22);
+      --mn-panel-head-text: #f5efe2;
+      --mn-panel-head-sub: #9cb0a4;
+      --mn-text: #f5f0e6;
+      --mn-text-secondary: #cdd7d1;
+      --mn-text-muted: #84998d;
+      --mn-accent: #e5b95f;
+      --mn-accent-bg: #c59b48;
+      --mn-accent-fg: #030c08;
+      --mn-row-hover: rgba(197, 155, 72, 0.08);
+      --mn-row-selected: rgba(197, 155, 72, 0.16);
+      --mn-track: rgba(3, 12, 8, 0.9);
+      --mn-input-bg: rgba(3, 12, 8, 0.88);
+      --mn-btn-bg: rgba(197, 155, 72, 0.08);
+      --mn-btn-hover: rgba(197, 155, 72, 0.18);
+      --mn-pill-green-bg: rgba(74, 222, 128, 0.16);
+      --mn-pill-green-fg: #4ade80;
+      --mn-pill-gold-bg: rgba(229, 185, 95, 0.18);
+      --mn-pill-gold-fg: #e5b95f;
+      --mn-pill-blue-bg: rgba(56, 189, 248, 0.16);
+      --mn-pill-blue-fg: #38bdf8;
+      --mn-pill-red-bg: rgba(248, 113, 113, 0.16);
+      --mn-pill-red-fg: #f87171;
+      --mn-pill-gray-bg: rgba(148, 163, 184, 0.15);
+      --mn-pill-gray-fg: #cbd5e1;
+      --mn-val-green: #4ade80;
+      --mn-val-gold: #e5b95f;
+      --mn-val-red: #f87171;
     }
 
-    .portal-main-wrapper.analytics-light-mode .portal-topbar {
+    /* Topbar Theme Switcher (Gelap | Terang) */
+    .portal-theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(3, 12, 8, 0.85);
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      padding: 2px;
+      gap: 2px;
+      flex-shrink: 0;
+    }
+
+    .theme-opt-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      height: 26px;
+      padding: 0 9px;
+      background: transparent;
+      border: none;
+      border-radius: 4px;
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .theme-opt-btn:hover {
+      color: #ffffff;
+    }
+
+    .theme-opt-btn.active {
+      background: var(--accent-gold);
+      color: #030c08;
+      font-weight: 700;
+    }
+
+    /* LIGHT MODE OVERRIDES (Applied when user selects "Terang") */
+    .portal-main-wrapper.portal-theme-light {
+      background: #f3f5f7;
+      color: #111827;
+      --mn-bg: #f3f5f7;
+      --mn-surface: #ffffff;
+      --mn-surface-solid: #ffffff;
+      --mn-surface-alt: #f8fafc;
+      --mn-border: #dce3ea;
+      --mn-border-subtle: #eef2f6;
+      --mn-panel-head-bg: #162920;
+      --mn-panel-head-border: #162920;
+      --mn-panel-head-text: #f8fafc;
+      --mn-panel-head-sub: #cbd5e1;
+      --mn-text: #0f172a;
+      --mn-text-secondary: #334155;
+      --mn-text-muted: #64748b;
+      --mn-accent: #143d2b;
+      --mn-accent-bg: #143d2b;
+      --mn-accent-fg: #ffffff;
+      --mn-row-hover: #f8fafc;
+      --mn-row-selected: #ecfdf5;
+      --mn-track: #eef2f6;
+      --mn-input-bg: #ffffff;
+      --mn-btn-bg: #ffffff;
+      --mn-btn-hover: #f8fafc;
+      --mn-pill-green-bg: #dcfce7;
+      --mn-pill-green-fg: #166534;
+      --mn-pill-gold-bg: #fef3c7;
+      --mn-pill-gold-fg: #92400e;
+      --mn-pill-blue-bg: #dbeafe;
+      --mn-pill-blue-fg: #1e40af;
+      --mn-pill-red-bg: #fee2e2;
+      --mn-pill-red-fg: #991b1b;
+      --mn-pill-gray-bg: #f1f5f9;
+      --mn-pill-gray-fg: #475569;
+      --mn-val-green: #166534;
+      --mn-val-gold: #92400e;
+      --mn-val-red: #991b1b;
+    }
+
+    .portal-main-wrapper.portal-theme-light .portal-topbar {
       background: #ffffff;
       border-bottom: 1px solid #e2e8f0;
       backdrop-filter: none;
     }
 
-    .portal-main-wrapper.analytics-light-mode .breadcrumb-root {
+    .portal-main-wrapper.portal-theme-light .breadcrumb-root {
       color: #64748b;
     }
 
-    .portal-main-wrapper.analytics-light-mode .breadcrumb-separator {
+    .portal-main-wrapper.portal-theme-light .breadcrumb-separator {
       color: #cbd5e1;
     }
 
-    .portal-main-wrapper.analytics-light-mode .breadcrumb-active {
+    .portal-main-wrapper.portal-theme-light .breadcrumb-active {
       color: #0f172a;
     }
 
-    .portal-main-wrapper.analytics-light-mode .topbar-branch-indicator {
+    .portal-main-wrapper.portal-theme-light .topbar-branch-indicator {
       background: #f1f5f9;
       border-color: #cbd5e1;
       color: #143d2b;
     }
 
-    .portal-main-wrapper.analytics-light-mode .portal-topbar .btn-portal-action {
+    .portal-main-wrapper.portal-theme-light .portal-theme-toggle {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    .portal-main-wrapper.portal-theme-light .theme-opt-btn {
+      color: #475569;
+    }
+
+    .portal-main-wrapper.portal-theme-light .theme-opt-btn:hover {
+      color: #0f172a;
+    }
+
+    .portal-main-wrapper.portal-theme-light .theme-opt-btn.active {
+      background: #143d2b;
+      color: #ffffff;
+    }
+
+    .portal-main-wrapper.portal-theme-light .portal-topbar .btn-portal-action {
       background: #ffffff;
       border-color: #cbd5e1;
       color: #334155;
     }
 
-    .portal-main-wrapper.analytics-light-mode .portal-topbar .btn-portal-action:hover {
+    .portal-main-wrapper.portal-theme-light .portal-topbar .btn-portal-action:hover {
       background: #f8fafc;
       border-color: #143d2b;
       color: #0f172a;
     }
 
-    .portal-main-wrapper.analytics-light-mode .sidebar-mobile-toggle {
+    .portal-main-wrapper.portal-theme-light .sidebar-mobile-toggle {
       background: #f1f5f9;
       border-color: #cbd5e1;
       color: #143d2b;
     }
 
-    .portal-main-wrapper.analytics-light-mode .role-lock-banner {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      color: #0f172a;
+    /* Clean Light Mode Adaptation for POS, CRM, Reservations, Staff tabs */
+    .portal-main-wrapper.portal-theme-light .metric-card,
+    .portal-main-wrapper.portal-theme-light .pos-catalog-panel,
+    .portal-main-wrapper.portal-theme-light .pos-cart-panel,
+    .portal-main-wrapper.portal-theme-light .pos-top-toolbar,
+    .portal-main-wrapper.portal-theme-light .crm-table-wrap,
+    .portal-main-wrapper.portal-theme-light .crm-toolbar,
+    .portal-main-wrapper.portal-theme-light .staff-card,
+    .portal-main-wrapper.portal-theme-light .chart-container,
+    .portal-main-wrapper.portal-theme-light .chair-matrix-card,
+    .portal-main-wrapper.portal-theme-light .role-lock-banner {
+      background: #ffffff !important;
+      border-color: #dce3ea !important;
+      color: #0f172a !important;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
     }
 
-    .portal-main-wrapper.analytics-light-mode .role-lock-banner h4 {
+    .portal-main-wrapper.portal-theme-light .metric-val,
+    .portal-main-wrapper.portal-theme-light .pos-cart-title,
+    .portal-main-wrapper.portal-theme-light .staff-name,
+    .portal-main-wrapper.portal-theme-light .pos-item-title,
+    .portal-main-wrapper.portal-theme-light .crm-table strong,
+    .portal-main-wrapper.portal-theme-light h3,
+    .portal-main-wrapper.portal-theme-light h4 {
       color: #0f172a !important;
     }
 
-    .portal-main-wrapper.analytics-light-mode .role-lock-banner p {
-      color: #475569 !important;
+    .portal-main-wrapper.portal-theme-light .metric-label,
+    .portal-main-wrapper.portal-theme-light .metric-sub,
+    .portal-main-wrapper.portal-theme-light .pos-item-desc,
+    .portal-main-wrapper.portal-theme-light .staff-role,
+    .portal-main-wrapper.portal-theme-light .crm-table td {
+      color: #334155 !important;
     }
 
-    /* Minutes Report Header */
+    .portal-main-wrapper.portal-theme-light .crm-table th {
+      background: #f8fafc !important;
+      color: #475569 !important;
+      border-bottom: 1px solid #cbd5e1 !important;
+    }
+
+    .portal-main-wrapper.portal-theme-light .crm-table td {
+      border-bottom: 1px solid #eef2f6 !important;
+      color: #1e293b !important;
+    }
+
+    .portal-main-wrapper.portal-theme-light .crm-table td > div:first-child,
+    .portal-main-wrapper.portal-theme-light .crm-table td strong {
+      color: #0f172a !important;
+    }
+
+    .portal-main-wrapper.portal-theme-light .crm-table td [style*="italic"] {
+      color: #7c5812 !important;
+    }
+
+    .portal-main-wrapper.portal-theme-light .crm-table tr:hover td {
+      background: #f8fafc !important;
+    }
+
+    .portal-main-wrapper.portal-theme-light .pos-item-card {
+      background: #f8fafc !important;
+      border-color: #e2e8f0 !important;
+    }
+
+    .portal-main-wrapper.portal-theme-light .pos-item-card:hover {
+      background: #ecfdf5 !important;
+      border-color: #143d2b !important;
+    }
+
+    .portal-main-wrapper.portal-theme-light .pos-item-price {
+      color: #143d2b !important;
+    }
+
+    .portal-main-wrapper.portal-theme-light .pipeline-chip,
+    .portal-main-wrapper.portal-theme-light .crm-pipeline-chip,
+    .portal-main-wrapper.portal-theme-light .pos-cat-pill,
+    .portal-main-wrapper.portal-theme-light .btn-pos-toolbar,
+    .portal-main-wrapper.portal-theme-light .portal-container .btn-portal-action {
+      background: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      color: #334155 !important;
+    }
+
+    .portal-main-wrapper.portal-theme-light .pipeline-chip .chip-count {
+      background: #e2e8f0 !important;
+      color: #334155 !important;
+    }
+
+    .portal-main-wrapper.portal-theme-light .pipeline-chip.active,
+    .portal-main-wrapper.portal-theme-light .crm-pipeline-chip.active,
+    .portal-main-wrapper.portal-theme-light .pos-cat-pill.active {
+      background: #143d2b !important;
+      border-color: #143d2b !important;
+      color: #ffffff !important;
+    }
+
+    .portal-main-wrapper.portal-theme-light .pipeline-chip.active .chip-count {
+      background: rgba(255, 255, 255, 0.22) !important;
+      color: #ffffff !important;
+    }
+
+    .portal-main-wrapper.portal-theme-light .form-control,
+    .portal-main-wrapper.portal-theme-light .crm-search-input,
+    .portal-main-wrapper.portal-theme-light .crm-select,
+    .portal-main-wrapper.portal-theme-light .crm-filter-select,
+    .portal-main-wrapper.portal-theme-light #posSearchCatalog {
+      background: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+    }
+
+    /* Minutes Report Header (Theme-Aware: Dark Greenwood Default + Light Mode) */
     .mn-header {
       display: flex;
       justify-content: space-between;
@@ -997,7 +1224,8 @@
       width: 30px;
       height: 30px;
       border-radius: 6px;
-      background: #143d2b;
+      background: rgba(197, 155, 72, 0.16);
+      border: 1px solid rgba(197, 155, 72, 0.35);
       color: #e5b95f;
       display: inline-flex;
       align-items: center;
@@ -1005,17 +1233,23 @@
       flex-shrink: 0;
     }
 
+    .portal-main-wrapper.portal-theme-light .mn-title-icon {
+      background: #143d2b;
+      border-color: #143d2b;
+      color: #e5b95f;
+    }
+
     .mn-title {
       margin: 0;
       font-family: 'Lora', Georgia, serif;
       font-size: 20px;
       font-weight: 700;
-      color: #0f172a;
+      color: var(--mn-text);
       line-height: 1.2;
     }
 
     .mn-title-sep {
-      color: #94a3b8;
+      color: var(--mn-text-muted);
       font-size: 14px;
       font-weight: 400;
     }
@@ -1023,7 +1257,7 @@
     .mn-sub-crumb {
       font-size: 13.5px;
       font-weight: 600;
-      color: #475569;
+      color: var(--mn-accent);
     }
 
     .mn-controls {
@@ -1035,8 +1269,8 @@
 
     .mn-period-group {
       display: inline-flex;
-      background: #ffffff;
-      border: 1px solid #cbd5e1;
+      background: var(--mn-surface-alt);
+      border: 1px solid var(--mn-border);
       border-radius: 6px;
       padding: 2px;
       gap: 2px;
@@ -1045,7 +1279,7 @@
     .mn-period-btn {
       background: transparent;
       border: none;
-      color: #475569;
+      color: var(--mn-text-muted);
       font-size: 12px;
       font-weight: 600;
       padding: 5px 11px;
@@ -1055,13 +1289,14 @@
     }
 
     .mn-period-btn:hover {
-      color: #0f172a;
-      background: #f1f5f9;
+      color: var(--mn-text);
+      background: var(--mn-row-hover);
     }
 
     .mn-period-btn.active {
-      background: #143d2b;
-      color: #ffffff;
+      background: var(--mn-accent-bg);
+      color: var(--mn-accent-fg);
+      font-weight: 700;
     }
 
     .mn-btn {
@@ -1070,10 +1305,10 @@
       gap: 5px;
       height: 30px;
       padding: 0 11px;
-      background: #ffffff;
-      border: 1px solid #cbd5e1;
+      background: var(--mn-btn-bg);
+      border: 1px solid var(--mn-border);
       border-radius: 5px;
-      color: #334155;
+      color: var(--mn-text-secondary);
       font-size: 12px;
       font-weight: 600;
       cursor: pointer;
@@ -1082,9 +1317,9 @@
     }
 
     .mn-btn:hover {
-      background: #f8fafc;
-      border-color: #143d2b;
-      color: #0f172a;
+      background: var(--mn-btn-hover);
+      border-color: var(--mn-accent);
+      color: var(--mn-text);
     }
 
     .mn-btn-sm {
@@ -1093,24 +1328,12 @@
       font-size: 11.5px;
     }
 
-    .mn-btn-primary {
-      background: #143d2b;
-      border-color: #143d2b;
-      color: #ffffff;
-    }
-
-    .mn-btn-primary:hover {
-      background: #1d543c;
-      border-color: #1d543c;
-      color: #ffffff;
-    }
-
     /* Clean Underline Sub-Tabs (1 screen = 1 focused report) */
     .mn-subtabs {
       display: flex;
       align-items: center;
       gap: 4px;
-      border-bottom: 1px solid #d5dde5;
+      border-bottom: 1px solid var(--mn-border);
       margin-bottom: 16px;
       overflow-x: auto;
     }
@@ -1119,7 +1342,7 @@
       background: transparent;
       border: none;
       border-bottom: 2.5px solid transparent;
-      color: #64748b;
+      color: var(--mn-text-muted);
       font-size: 13px;
       font-weight: 600;
       padding: 9px 16px;
@@ -1130,12 +1353,12 @@
     }
 
     .mn-subtab-btn:hover {
-      color: #0f172a;
+      color: var(--mn-text);
     }
 
     .mn-subtab-btn.active {
-      color: #143d2b;
-      border-bottom-color: #143d2b;
+      color: var(--mn-accent);
+      border-bottom-color: var(--mn-accent);
       font-weight: 700;
     }
 
@@ -1153,18 +1376,17 @@
       display: flex;
       align-items: stretch;
       flex-wrap: wrap;
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
+      background: var(--mn-surface);
+      border: 1px solid var(--mn-border);
       border-radius: 8px;
       margin-bottom: 16px;
       overflow: hidden;
-      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
     }
 
     .mn-kpi-item {
       flex: 1 1 155px;
       padding: 13px 18px;
-      border-right: 1px solid #e2e8f0;
+      border-right: 1px solid var(--mn-border-subtle);
       display: flex;
       flex-direction: column;
       gap: 3px;
@@ -1179,7 +1401,7 @@
       font-size: 10.5px;
       font-weight: 700;
       letter-spacing: 0.6px;
-      color: #64748b;
+      color: var(--mn-text-muted);
       text-transform: uppercase;
       display: flex;
       align-items: center;
@@ -1190,14 +1412,14 @@
       font-family: 'Open Sans', sans-serif;
       font-size: 19px;
       font-weight: 700;
-      color: #0f172a;
+      color: var(--mn-text);
       line-height: 1.25;
       white-space: nowrap;
     }
 
     .mn-kpi-sub {
       font-size: 11px;
-      color: #64748b;
+      color: var(--mn-text-muted);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -1206,7 +1428,7 @@
     .mn-mini-progress {
       width: 100%;
       height: 4px;
-      background: #e2e8f0;
+      background: var(--mn-track);
       border-radius: 3px;
       margin-top: 4px;
       overflow: hidden;
@@ -1214,24 +1436,24 @@
 
     .mn-mini-progress-fill {
       height: 100%;
-      background: #1f6f54;
+      background: var(--mn-accent);
       border-radius: 3px;
       transition: width 0.35s ease;
     }
 
-    /* Minutes App White Panel with Dark Charcoal-Emerald Header Bar */
+    /* Theme-Aware Panel */
     .mn-panel {
-      background: #ffffff;
-      border: 1px solid #dce3ea;
+      background: var(--mn-surface);
+      border: 1px solid var(--mn-border);
       border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
       margin-bottom: 16px;
     }
 
     .mn-panel-header {
-      background: #162920;
-      color: #ffffff;
+      background: var(--mn-panel-head-bg);
+      border-bottom: 1px solid var(--mn-panel-head-border);
+      color: var(--mn-panel-head-text);
       padding: 9px 14px;
       display: flex;
       justify-content: space-between;
@@ -1249,7 +1471,7 @@
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      color: #f8fafc;
+      color: var(--mn-panel-head-text);
     }
 
     .mn-panel-header-actions {
@@ -1260,7 +1482,8 @@
 
     .mn-chart-mode-group {
       display: inline-flex;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(197, 155, 72, 0.22);
       border-radius: 4px;
       padding: 2px;
       gap: 2px;
@@ -1269,7 +1492,7 @@
     .mn-chart-mode-btn {
       background: transparent;
       border: none;
-      color: #cbd5e1;
+      color: var(--mn-panel-head-sub);
       font-size: 11px;
       font-weight: 600;
       padding: 3px 8px;
@@ -1279,7 +1502,7 @@
 
     .mn-chart-mode-btn.active {
       background: #c59b48;
-      color: #0b1610;
+      color: #030c08;
     }
 
     .mn-panel-body {
@@ -1344,7 +1567,8 @@
       position: absolute;
       top: 6px;
       right: 6px;
-      background: #0f172a;
+      background: #020805;
+      border: 1px solid rgba(197, 155, 72, 0.45);
       color: #ffffff;
       font-size: 11px;
       padding: 6px 9px;
@@ -1352,7 +1576,7 @@
       pointer-events: none;
       opacity: 0;
       transition: opacity 0.15s ease;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
       z-index: 10;
       line-height: 1.35;
     }
@@ -1363,7 +1587,7 @@
 
     .mn-pie-legend {
       width: 100%;
-      border-top: 1px solid #f1f5f9;
+      border-top: 1px solid var(--mn-border-subtle);
       padding-top: 10px;
       margin-top: auto;
       display: flex;
@@ -1376,15 +1600,15 @@
       align-items: center;
       justify-content: space-between;
       font-size: 12px;
-      color: #334155;
-      padding: 3px 6px;
+      color: var(--mn-text-secondary);
+      padding: 4px 6px;
       border-radius: 4px;
       cursor: pointer;
       transition: background 0.12s ease;
     }
 
     .mn-legend-row:hover {
-      background: #f1f5f9;
+      background: var(--mn-row-hover);
     }
 
     .mn-legend-left {
@@ -1403,12 +1627,12 @@
 
     .mn-legend-val {
       font-weight: 700;
-      color: #0f172a;
+      color: var(--mn-text);
       white-space: nowrap;
       margin-left: 8px;
     }
 
-    /* Clean Light Tables (Minutes App Data Table) */
+    /* Clean Data Tables */
     .mn-table-toolbar {
       display: flex;
       justify-content: space-between;
@@ -1428,18 +1652,17 @@
     .mn-search-input, .mn-select-input {
       height: 30px;
       padding: 0 10px;
-      background: #ffffff;
-      border: 1px solid #cbd5e1;
+      background: var(--mn-input-bg);
+      border: 1px solid var(--mn-border);
       border-radius: 5px;
-      color: #0f172a;
+      color: var(--mn-text);
       font-size: 12px;
       outline: none;
       box-sizing: border-box;
     }
 
     .mn-search-input:focus, .mn-select-input:focus {
-      border-color: #143d2b;
-      box-shadow: 0 0 0 2px rgba(20, 61, 43, 0.12);
+      border-color: var(--mn-accent);
     }
 
     .mn-table-wrap {
@@ -1451,20 +1674,20 @@
       width: 100%;
       border-collapse: collapse;
       font-size: 12.5px;
-      color: #1e293b;
+      color: var(--mn-text-secondary);
     }
 
     .mn-table thead th {
-      background: #f8fafc;
-      color: #475569;
+      background: var(--mn-surface-alt);
+      color: var(--mn-text-muted);
       font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.4px;
       text-align: left;
       padding: 9px 12px;
-      border-top: 1px solid #e2e8f0;
-      border-bottom: 1px solid #cbd5e1;
+      border-top: 1px solid var(--mn-border-subtle);
+      border-bottom: 1px solid var(--mn-border);
       white-space: nowrap;
     }
 
@@ -1475,12 +1698,16 @@
 
     .mn-table tbody td {
       padding: 9px 12px;
-      border-bottom: 1px solid #eef2f6;
+      border-bottom: 1px solid var(--mn-border-subtle);
       vertical-align: middle;
     }
 
+    .mn-table tbody td strong {
+      color: var(--mn-text);
+    }
+
     .mn-table tbody tr:hover {
-      background: #f8fafc;
+      background: var(--mn-row-hover);
     }
 
     .mn-table tbody tr.mn-row-clickable {
@@ -1488,13 +1715,13 @@
     }
 
     .mn-table tbody tr.mn-row-selected {
-      background: #ecfdf5 !important;
+      background: var(--mn-row-selected) !important;
     }
 
     .mn-table tbody tr.mn-row-selected td:first-child {
-      border-left: 3px solid #143d2b;
+      border-left: 3px solid var(--mn-accent);
       font-weight: 700;
-      color: #143d2b;
+      color: var(--mn-accent);
     }
 
     .mn-table-footer {
@@ -1503,16 +1730,16 @@
       align-items: center;
       padding-top: 10px;
       font-size: 11.5px;
-      color: #64748b;
+      color: var(--mn-text-muted);
     }
 
     .mn-filter-chip {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: #e6f4ee;
-      color: #143d2b;
-      border: 1px solid #a7d7c5;
+      background: var(--mn-pill-gold-bg);
+      color: var(--mn-pill-gold-fg);
+      border: 1px solid var(--mn-border);
       border-radius: 4px;
       padding: 3px 8px;
       font-size: 11.5px;
@@ -1520,11 +1747,7 @@
       cursor: pointer;
     }
 
-    .mn-filter-chip:hover {
-      background: #d1fae5;
-    }
-
-    /* Clean Light Status Pills */
+    /* Theme-Aware Status Pills */
     .mn-pill {
       display: inline-block;
       padding: 2px 8px;
@@ -1534,11 +1757,11 @@
       white-space: nowrap;
     }
 
-    .mn-pill-green { background: #dcfce7; color: #166534; }
-    .mn-pill-gold  { background: #fef3c7; color: #92400e; }
-    .mn-pill-blue  { background: #dbeafe; color: #1e40af; }
-    .mn-pill-red   { background: #fee2e2; color: #991b1b; }
-    .mn-pill-gray  { background: #f1f5f9; color: #475569; }
+    .mn-pill-green { background: var(--mn-pill-green-bg); color: var(--mn-pill-green-fg); }
+    .mn-pill-gold  { background: var(--mn-pill-gold-bg);  color: var(--mn-pill-gold-fg);  }
+    .mn-pill-blue  { background: var(--mn-pill-blue-bg);  color: var(--mn-pill-blue-fg);  }
+    .mn-pill-red   { background: var(--mn-pill-red-bg);   color: var(--mn-pill-red-fg);   }
+    .mn-pill-gray  { background: var(--mn-pill-gray-bg);  color: var(--mn-pill-gray-fg);  }
 
     /* Minutes App User Demographics / Insights 2x2 Thin Horizontal Bars */
     .mn-demo-grid {
@@ -1555,22 +1778,21 @@
     }
 
     .mn-demo-card {
-      background: #ffffff;
-      border: 1px solid #dce3ea;
+      background: var(--mn-surface);
+      border: 1px solid var(--mn-border);
       border-radius: 8px;
       padding: 16px 18px;
-      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
     }
 
     .mn-demo-title {
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.7px;
-      color: #475569;
+      color: var(--mn-accent);
       text-transform: uppercase;
       padding-bottom: 8px;
       margin-bottom: 12px;
-      border-bottom: 1px solid #eef2f6;
+      border-bottom: 1px solid var(--mn-border-subtle);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -1584,7 +1806,7 @@
 
     .mn-hbar-row {
       display: grid;
-      grid-template-columns: 145px 1fr 62px;
+      grid-template-columns: 145px 1fr 64px;
       align-items: center;
       gap: 10px;
       font-size: 12px;
@@ -1592,13 +1814,13 @@
 
     @media (max-width: 560px) {
       .mn-hbar-row {
-        grid-template-columns: 110px 1fr 52px;
+        grid-template-columns: 110px 1fr 54px;
         font-size: 11.5px;
       }
     }
 
     .mn-hbar-label {
-      color: #334155;
+      color: var(--mn-text-secondary);
       font-weight: 500;
       white-space: nowrap;
       overflow: hidden;
@@ -1607,7 +1829,7 @@
 
     .mn-hbar-track {
       height: 10px;
-      background: #eef2f6;
+      background: var(--mn-track);
       border-radius: 2px;
       overflow: hidden;
     }
@@ -1621,12 +1843,12 @@
     .mn-hbar-val {
       text-align: right;
       font-weight: 700;
-      color: #0f172a;
+      color: var(--mn-text);
       font-size: 11.5px;
       white-space: nowrap;
     }
 
-    /* Optional Light Heatmap Matrix (Collapsed by Default) */
+    /* Optional Heatmap Matrix (Collapsed by Default, Theme-Aware) */
     .mn-heatmap-toggle-wrap {
       display: flex;
       justify-content: flex-end;
@@ -1642,8 +1864,8 @@
     }
 
     .mn-light-heatmap th {
-      background: #f1f5f9;
-      color: #334155;
+      background: var(--mn-surface-alt);
+      color: var(--mn-accent);
       font-weight: 700;
       padding: 6px 4px;
       border-radius: 4px;
@@ -1657,8 +1879,8 @@
 
     .mn-action-link {
       background: transparent;
-      border: 1px solid #cbd5e1;
-      color: #143d2b;
+      border: 1px solid var(--mn-border);
+      color: var(--mn-accent);
       border-radius: 4px;
       padding: 3px 8px;
       font-size: 11px;
@@ -1667,9 +1889,9 @@
     }
 
     .mn-action-link:hover {
-      background: #143d2b;
-      border-color: #143d2b;
-      color: #ffffff;
+      background: var(--mn-accent-bg);
+      border-color: var(--mn-accent-bg);
+      color: var(--mn-accent-fg);
     }
 
     /* BUTTONS */
@@ -3905,6 +4127,28 @@
         </div>
 
         <div class="topbar-quick-actions">
+          <div class="portal-theme-toggle" role="group" aria-label="Pilih Tema Tampilan">
+            <button type="button" class="theme-opt-btn active" id="btnThemeDark" onclick="setPortalTheme('dark')" title="Tema Gelap (Greenwood Emerald)">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+              </svg>
+              <span>Gelap</span>
+            </button>
+            <button type="button" class="theme-opt-btn" id="btnThemeLight" onclick="setPortalTheme('light')" title="Tema Terang (Minutes Clean)">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <circle cx="12" cy="12" r="5" />
+                <line x1="12" y1="1" x2="12" y2="3" />
+                <line x1="12" y1="21" x2="12" y2="23" />
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                <line x1="1" y1="12" x2="3" y2="12" />
+                <line x1="21" y1="12" x2="23" y2="12" />
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+              </svg>
+              <span>Terang</span>
+            </button>
+          </div>
           <div class="topbar-branch-indicator">
             <span>🏛️ KBP (Kota Baru Parahyangan)</span>
           </div>
@@ -4553,7 +4797,7 @@
               </div>
               <div class="mn-kpi-item">
                 <div class="mn-kpi-label">Komisi / Share Barber</div>
-                <div class="mn-kpi-value" id="anTotalCommission" style="color: #143d2b;">Rp 0</div>
+                <div class="mn-kpi-value" id="anTotalCommission" style="color: var(--mn-accent);">Rp 0</div>
                 <div class="mn-kpi-sub" id="anCommissionSub">Akumulasi komisi layanan &amp; produk</div>
               </div>
               <div class="mn-kpi-item">
@@ -4694,7 +4938,7 @@
               </div>
               <div class="mn-kpi-item">
                 <div class="mn-kpi-label">Tamu Kembali (&gt;1x)</div>
-                <div class="mn-kpi-value" id="mnCustReturning" style="color: #166534;">0</div>
+                <div class="mn-kpi-value" id="mnCustReturning" style="color: var(--mn-val-green);">0</div>
                 <div class="mn-kpi-sub">Pelanggan berulang</div>
               </div>
               <div class="mn-kpi-item">
@@ -4704,7 +4948,7 @@
               </div>
               <div class="mn-kpi-item">
                 <div class="mn-kpi-label">Pasif (&gt;35 Hari)</div>
-                <div class="mn-kpi-value" id="mnCustPassive" style="color: #991b1b;">0</div>
+                <div class="mn-kpi-value" id="mnCustPassive" style="color: var(--mn-val-red);">0</div>
                 <div class="mn-kpi-sub">Perlu pengingat WA</div>
               </div>
               <div class="mn-kpi-item">
@@ -6206,6 +6450,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
     function showPortalContent() {
       document.getElementById('gateOverlay').style.display = 'none';
       document.getElementById('portalMainContent').style.display = 'flex';
+      applySavedPortalTheme();
 
       // Init Database & Components
       GreenwoodAdminDB.init();
@@ -7179,6 +7424,34 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       }
     }
 
+    // DUAL-THEME CONTROLLER (Gelap = Default Greenwood Emerald-Gold | Terang = Minutes Clean Light)
+    function isPortalLightTheme() {
+      return localStorage.getItem('greenwood_portal_theme') === 'light';
+    }
+
+    function applySavedPortalTheme() {
+      const mode = localStorage.getItem('greenwood_portal_theme') || 'dark';
+      const wrapper = document.querySelector('.portal-main-wrapper');
+      const btnDark = document.getElementById('btnThemeDark');
+      const btnLight = document.getElementById('btnThemeLight');
+      if (wrapper) {
+        wrapper.classList.toggle('portal-theme-light', mode === 'light');
+      }
+      if (btnDark) btnDark.classList.toggle('active', mode !== 'light');
+      if (btnLight) btnLight.classList.toggle('active', mode === 'light');
+    }
+
+    function setPortalTheme(mode) {
+      const cleanMode = (mode === 'light') ? 'light' : 'dark';
+      localStorage.setItem('greenwood_portal_theme', cleanMode);
+      applySavedPortalTheme();
+      // Re-render analytics SVG charts & heatmap colors if analytics tab is active
+      const analyticsSec = document.getElementById('tab-analytics');
+      if (analyticsSec && analyticsSec.classList.contains('active') && typeof renderAnalyticsDashboard === 'function') {
+        renderAnalyticsDashboard(activeAnalyticsPeriod);
+      }
+    }
+
     // TAB SWITCHING with Strict Role Access Guards
     function switchTab(tabId) {
       const activeRole = (typeof GreenwoodAdminDB !== 'undefined') ? GreenwoodAdminDB.getActiveRole() : 'Owner';
@@ -7226,12 +7499,8 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         breadcrumbEl.textContent = tabNames[tabId];
       }
 
-      // Toggle Minutes App Light Mode when viewing Laporan Omzet & Retensi
-      const mainWrapper = document.querySelector('.portal-main-wrapper');
-      if (mainWrapper) {
-        if (tabId === 'analytics') mainWrapper.classList.add('analytics-light-mode');
-        else mainWrapper.classList.remove('analytics-light-mode');
-      }
+      // Ensure saved user theme preference (Gelap default | Terang optional) is applied
+      applySavedPortalTheme();
 
       // Refresh specific tab data
       if (tabId === 'crm') renderCrmTable();
@@ -9079,16 +9348,18 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       const tooltip = document.getElementById('mnPieTooltip');
       if (!svg || !legend) return;
 
-      const palette = ['#1f6f54', '#c59b48', '#3b82f6', '#7c3aed', '#d97706', '#0ea5e9'];
+      const isLight = isPortalLightTheme();
+      const pieStroke = isLight ? '#ffffff' : '#091c13';
+      const palette = isLight ? ['#1f6f54', '#c59b48', '#3b82f6', '#7c3aed', '#d97706', '#0ea5e9'] : ['#2eb872', '#e5b95f', '#38bdf8', '#a78bfa', '#f59e0b', '#22d3ee'];
       const total = slices.reduce((acc, s) => acc + s.value, 0);
 
       if (total <= 0 || slices.length === 0) {
         svg.innerHTML = `
-          <circle cx="110" cy="110" r="88" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5" />
+          <circle cx="110" cy="110" r="88" fill="${isLight ? '#f1f5f9' : '#04110b'}" stroke="${isLight ? '#cbd5e1' : 'rgba(197,155,72,0.3)'}" stroke-width="1.5" />
           <text x="110" y="106" text-anchor="middle" fill="#64748b" font-size="12" font-weight="600">Belum Ada Data</text>
           <text x="110" y="124" text-anchor="middle" fill="#94a3b8" font-size="10.5">Periode ini kosong</text>
         `;
-        legend.innerHTML = '<div style="font-size:12px; color:#94a3b8; text-align:center; padding:8px 0;">Pilih periode lain (Bulan Ini / Semua) untuk melihat grafik.</div>';
+        legend.innerHTML = '<div style="font-size:12px; color:var(--mn-text-muted); text-align:center; padding:8px 0;">Pilih periode lain (Bulan Ini / Semua) untuk melihat grafik.</div>';
         return;
       }
 
@@ -9114,7 +9385,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
           const y2 = cy + r * Math.sin(endAngle);
           const largeArc = angle > Math.PI ? 1 : 0;
           const d = `M ${cx} ${cy} L ${x1.toFixed(2)} ${y1.toFixed(2)} A ${r} ${r} 0 ${largeArc} 1 ${x2.toFixed(2)} ${y2.toFixed(2)} Z`;
-          pathsHtml += `<path d="${d}" fill="${color}" stroke="#ffffff" stroke-width="1.8" class="mn-pie-slice"
+          pathsHtml += `<path d="${d}" fill="${color}" stroke="${pieStroke}" stroke-width="1.8" class="mn-pie-slice"
             data-label="${escapeHtml(slice.label)}" data-val="${formatRupiah(slice.value)}" data-pct="${pct}%"
             onclick="${activeSalesPieMode === 'barber' ? `selectSalesBarberDrilldown('${escapeHtml(slice.label)}')` : ''}" />`;
         }
@@ -9194,7 +9465,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       const beStatusEl = document.getElementById('anBreakEvenStatus');
       if (beStatusEl) {
         beStatusEl.textContent = revForBe >= breakEvenTarget ? `Tercapai (${bePct}%)` : `${bePct}% Tercapai`;
-        beStatusEl.style.color = revForBe >= breakEvenTarget ? '#166534' : '#92400e';
+        beStatusEl.style.color = revForBe >= breakEvenTarget ? 'var(--mn-val-green)' : 'var(--mn-val-gold)';
       }
       const beBar = document.getElementById('gainshareBarFill');
       if (beBar) beBar.style.width = `${bePct}%`;
@@ -9261,7 +9532,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       const barberTbody = document.getElementById('mnBarberSalesTableBody');
       if (barberTbody) {
         if (barberRows.length === 0) {
-          barberTbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#94a3b8; padding:22px;">Tidak ada transaksi barber pada periode ini.</td></tr>';
+          barberTbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:var(--mn-text-muted); padding:22px;">Tidak ada transaksi barber pada periode ini.</td></tr>';
         } else {
           barberTbody.innerHTML = barberRows.map(b => {
             const cardPct = cardLookup[b.name] !== undefined ? cardLookup[b.name] : 0;
@@ -9303,17 +9574,17 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       const txTbody = document.getElementById('mnTxDetailTableBody');
       if (txTbody) {
         if (detailRecords.length === 0) {
-          txTbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:#94a3b8; padding:20px;">Belum ada transaksi tercatat pada filter ini.</td></tr>';
+          txTbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:var(--mn-text-muted); padding:20px;">Belum ada transaksi tercatat pada filter ini.</td></tr>';
         } else {
           txTbody.innerHTML = detailRecords.slice(0, 25).map(r => `
             <tr>
-              <td style="white-space:nowrap; color:#64748b;">${escapeHtml(r.dateLabel)}</td>
-              <td style="font-family:monospace; font-size:11.5px; color:#475569;">${escapeHtml(r.receipt)}</td>
+              <td style="white-space:nowrap; color:var(--mn-text-muted);">${escapeHtml(r.dateLabel)}</td>
+              <td style="font-family:monospace; font-size:11.5px; color:var(--mn-text-secondary);">${escapeHtml(r.receipt)}</td>
               <td><strong>${escapeHtml(r.customerName)}</strong></td>
               <td>${escapeHtml(r.barberName)}</td>
               <td>${escapeHtml(r.itemsText)}</td>
               <td><span class="mn-pill mn-pill-gray">${escapeHtml(r.paymentMethod)}</span></td>
-              <td class="num" style="color:#475569;">${formatRupiah(r.commission)}</td>
+              <td class="num" style="color:var(--mn-text-secondary);">${formatRupiah(r.commission)}</td>
               <td class="num"><strong>${formatRupiah(r.total)}</strong></td>
             </tr>
           `).join('');
@@ -9344,7 +9615,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       const repEl = document.getElementById('anRepeatRate');
       if (repEl) {
         repEl.textContent = `${retentionPct}%`;
-        repEl.style.color = retentionPct >= 60 ? '#166534' : (retentionPct >= 40 ? '#92400e' : '#991b1b');
+        repEl.style.color = retentionPct >= 60 ? 'var(--mn-val-green)' : (retentionPct >= 40 ? 'var(--mn-val-gold)' : 'var(--mn-val-red)');
       }
       const repSub = document.getElementById('anRepeatSub');
       if (repSub) {
@@ -9373,7 +9644,7 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       const tbody = document.getElementById('mnCustomerReportTableBody');
       if (!tbody) return;
       if (list.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:#94a3b8; padding:22px;">Tidak ada pelanggan yang cocok dengan filter.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:var(--mn-text-muted); padding:22px;">Tidak ada pelanggan yang cocok dengan filter.</td></tr>';
         return;
       }
 
@@ -9396,9 +9667,9 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
         return `
           <tr>
             <td><strong>${safeName}</strong></td>
-            <td style="color:#475569; white-space:nowrap;">${safePhone}</td>
+            <td style="color:var(--mn-text-secondary); white-space:nowrap;">${safePhone}</td>
             <td><span class="mn-pill ${pillClass}">${pillLabel}</span></td>
-            <td style="color:#475569; white-space:nowrap;">${lastVisitStr} <span style="font-size:11px; color:#94a3b8;">(${daysText})</span></td>
+            <td style="color:var(--mn-text-secondary); white-space:nowrap;">${lastVisitStr} <span style="font-size:11px; color:var(--mn-text-muted);">(${daysText})</span></td>
             <td class="num">${c.visitCount || 0}x</td>
             <td class="num"><strong>${formatRupiah(c.totalSpend || 0)}</strong></td>
             <td style="white-space:nowrap;">
@@ -9576,27 +9847,28 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       });
       html += '<th>Rata2</th></tr></thead><tbody>';
 
+      const isLight = isPortalLightTheme();
       heat.matrix.forEach((row, dIdx) => {
         const dayName = heat.days[dIdx];
         let rowSum = 0;
-        html += `<tr><td style="font-weight:700; color:#0f172a; text-align:left; padding-left:10px; background:#f8fafc;">${dayName}</td>`;
+        html += `<tr><td style="font-weight:700; color:var(--mn-text); text-align:left; padding-left:10px; background:var(--mn-surface-alt);">${dayName}</td>`;
 
         row.forEach(cell => {
           rowSum += cell.pct;
-          let bg = '#f1f5f9';
-          let color = '#64748b';
+          let bg = isLight ? '#f1f5f9' : 'rgba(22, 42, 34, 0.45)';
+          let color = isLight ? '#64748b' : '#84998d';
           if (cell.pct >= 65) {
-            bg = '#dcfce7';
-            color = '#166534';
+            bg = isLight ? '#dcfce7' : 'rgba(74, 222, 128, 0.22)';
+            color = isLight ? '#166534' : '#4ade80';
           } else if (cell.pct >= 40) {
-            bg = '#fef3c7';
-            color = '#92400e';
+            bg = isLight ? '#fef3c7' : 'rgba(229, 185, 95, 0.20)';
+            color = isLight ? '#92400e' : '#e5b95f';
           }
           html += `<td style="background:${bg}; color:${color};" title="${dayName} ${cell.hour}:00 WIB - ${cell.bookedMinutes} mnt terisi (${cell.pct}%)">${cell.pct}%</td>`;
         });
 
         const dayAvg = Math.round(rowSum / row.length);
-        html += `<td style="font-weight:700; color:#143d2b; background:#f8fafc;">${dayAvg}%</td></tr>`;
+        html += `<td style="font-weight:700; color:var(--mn-accent); background:var(--mn-surface-alt);">${dayAvg}%</td></tr>`;
       });
 
       html += '</tbody>';
@@ -9880,16 +10152,16 @@ Tekan tombol "Jalankan Simulasi" untuk menguji pengiriman data ke simulator webh
       const tbody = document.getElementById('activityLogTableBody');
       if (!tbody) return;
       if (logs.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#94a3b8; padding:20px;">Tidak ada log aktivitas yang cocok.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:var(--mn-text-muted); padding:20px;">Tidak ada log aktivitas yang cocok.</td></tr>';
         return;
       }
 
       tbody.innerHTML = logs.map(l => `
         <tr>
-          <td style="white-space:nowrap; color:#64748b; font-size:11.5px;">${escapeHtml(l.dateFormatted)}</td>
+          <td style="white-space:nowrap; color:var(--mn-text-muted); font-size:11.5px;">${escapeHtml(l.dateFormatted)}</td>
           <td><strong>${escapeHtml(l.actor)}</strong></td>
           <td><span class="mn-pill mn-pill-green">${escapeHtml(l.action)}</span></td>
-          <td style="color:#334155;">${escapeHtml(l.details)}</td>
+          <td style="color:var(--mn-text-secondary);">${escapeHtml(l.details)}</td>
           <td><span class="mn-pill mn-pill-gray">${escapeHtml(l.branch_id)}</span></td>
         </tr>
       `).join('');
